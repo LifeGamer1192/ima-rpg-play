@@ -1,0 +1,236 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_toll_gate",
+ "kind": "random",
+ "where": "road",
+ "again": 720,
+ "most": 3,
+ "hook": "関の役人が、律にない税を取るのです",
+ "title": "関吏の値",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "行商の老人"
+  },
+  "clerk": {
+   "npc": "関吏",
+   "sex": "m"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "town": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "voyage",
+   "text": [
+    "峠の関の前で、塩の籠を背負った老人が地べたに座り込んでいた。関吏の{clerk}が、籠の半分を税として置いていけと言うのだという。",
+    "「律では十に一つのはず。半分も取られては、家で待つ孫に何を食わせればよいのか」{clerk}は門の陰で、こちらを面白そうに眺めている。"
+   ],
+   "choices": [
+    {
+     "label": "「その税は律にない」と{clerk}に言い返す",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_fair",
+      "lose": "pressed"
+     }
+    },
+    {
+     "label": "老人の分の税を払ってやる（50）",
+     "if": {
+      "money": 50
+     },
+     "effects": [
+      {
+       "money": -50
+      }
+     ],
+     "next": "end_paid"
+    },
+    {
+     "label": "夜を待ち、老人と関の脇の獣道を抜ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "report",
+      "lose": "pressed"
+     }
+    },
+    {
+     "label": "見なかったことにして先へ行く",
+     "next": "end_ignored"
+    }
+   ]
+  },
+  "pressed": {
+   "speaker": "clerk",
+   "art": "war",
+   "text": [
+    "{clerk}が笛を吹くと、槍を持った門番が二人駆けてきた。「関を騒がす者は、荷も身も預かる決まりだ」"
+   ],
+   "choices": [
+    {
+     "label": "門番を斬り払って老人を逃がす",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "talk": true,
+      "win": "end_fought",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "詫びて引き下がる",
+     "next": "end_ignored"
+    }
+   ]
+  },
+  "report": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{town}の役所に、関吏のことを訴える",
+   "speaker": "client",
+   "text": [
+    "獣道を抜けると、老人は涙を流して礼を言った。だが、あの関では明日も誰かが籠を取られる。",
+    "{town}の役所に{clerk}のことを訴えれば、あるいは。ただし、役人同士はかばい合うものだ。"
+   ],
+   "choices": [
+    {
+     "label": "{clerk}の取り立てを書き付けにして訴える",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "end_reported",
+      "lose": "end_slipped"
+     }
+    },
+    {
+     "label": "老人を送り届けて、黙って去る",
+     "next": "end_slipped"
+    }
+   ]
+  },
+  "end_fair": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は舌打ちして、籠から十に一つだけ塩を取った。「旅の者、口が過ぎると長生きできんぞ」老人は何度も頭を下げた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "十に一つ"
+  },
+  "end_paid": {
+   "text": [
+    "銭を払うと、{clerk}は籠に手をつけずに門を開けた。老人は塩をひとつかみ、紙に包んで差し出した。「せめてこれを」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "end": "塩ひとつかみ"
+  },
+  "end_fought": {
+   "text": [
+    "門番が逃げ散り、{clerk}は門の奥に閉じこもった。老人は籠を背負って峠を下りていった。この関には、しばらく近づかない方がよさそうだ。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "wanted": "land",
+     "n": 10
+    },
+    {
+     "note": "峠の関で、関吏の不当な取り立てから行商の老人を逃がした。"
+    }
+   ],
+   "end": "破られた関"
+  },
+  "end_reported": {
+   "text": [
+    "書き付けを読んだ県の役人は、顔をしかめて言った。「関吏が律を曲げては、国の恥だ」数日後、{clerk}は職を解かれたという。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "峠の関吏の不当な取り立てを役所に訴えた。"
+    }
+   ],
+   "end": "書き付けの重さ"
+  },
+  "end_slipped": {
+   "text": [
+    "老人を村の入り口まで送って別れた。関はきっと、明日も同じように開いている。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "獣道の夜"
+  },
+  "end_ignored": {
+   "text": [
+    "背中で、老人が籠の塩を分けている音がした。振り返らずに峠を越えた。"
+   ],
+   "end": "峠の向こう"
+  },
+  "end_lost": {
+   "text": [
+    "槍の柄で打ち据えられ、気がつくと関の外の溝に転がされていた。老人の姿はない。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "wanted": "land",
+     "n": 5
+    }
+   ],
+   "end": "溝の中"
+  }
+ }
+}

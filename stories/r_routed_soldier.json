@@ -4,6 +4,7 @@
  "id": "r_routed_soldier",
  "kind": "random",
  "where": "road",
+ "again": 540,
  "hook": "頼む、見逃してくれ。国へ帰りたいだけなのだ",
  "title": "敗残兵の行方",
  "era": "shunju",

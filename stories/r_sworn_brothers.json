@@ -4,6 +4,8 @@
  "id": "r_sworn_brothers",
  "kind": "random",
  "where": "road",
+ "again": 900,
+ "most": 2,
  "hook": "義兄が亭長に捕らえられた。一緒に来てくれぬか",
  "title": "遊侠の義兄弟",
  "era": "shunju",

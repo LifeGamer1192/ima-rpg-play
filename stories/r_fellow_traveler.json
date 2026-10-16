@@ -1,0 +1,224 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_fellow_traveler",
+ "kind": "random",
+ "where": "road",
+ "again": 720,
+ "most": 3,
+ "hook": "一人旅は物騒でしてな。次の町までご一緒しませぬか",
+ "title": "道連れ",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "旅の商人"
+  },
+  "owner": {
+   "npc": "絹商人",
+   "sex": "m"
+  },
+  "chief": {
+   "npc": "亭長",
+   "sex": "m"
+  },
+  "town": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "voyage",
+   "text": [
+    "街道で、人の好さそうな商人に声をかけられた。{town}まで同道してくれれば、宿代はこちらで持つという。",
+    "口はよく回るが、荷は小さい。商いの品らしいものは見当たらない。"
+   ],
+   "choices": [
+    {
+     "label": "同道する",
+     "next": "night"
+    },
+    {
+     "label": "「一人の方が気楽だ」と断る",
+     "next": "end_alone"
+    }
+   ]
+  },
+  "night": {
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "宿の夜。商人の荷から、玉の印がころがり出た。刻まれた名は、{owner}。商人はあわてて拾い、「預かり物でしてな」と笑った。"
+   ],
+   "choices": [
+    {
+     "label": "「誰からの預かり物だ」と問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "confess",
+      "lose": "end_robbed"
+     }
+    },
+    {
+     "label": "寝たふりをして見張る",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "caught",
+      "lose": "end_robbed"
+     }
+    },
+    {
+     "label": "気にせず眠る",
+     "next": "end_robbed"
+    }
+   ]
+  },
+  "confess": {
+   "speaker": "client",
+   "text": [
+    "商人はうなだれた。{owner}の店の手代だったが、給金を何年も払ってもらえず、印を盗んで逃げてきたのだという。",
+    "「あの印があれば、主の名で銭が借りられる。……そうするつもりでした」"
+   ],
+   "choices": [
+    {
+     "label": "{town}で{owner}に印を返させ、給金のことも掛け合う",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "end_returned",
+      "lose": "end_returned_poor"
+     }
+    },
+    {
+     "label": "印を河に捨てさせ、見逃す",
+     "next": "end_let_go"
+    }
+   ]
+  },
+  "caught": {
+   "speaker": "client",
+   "text": [
+    "夜半、商人の手がそっとこちらの銭袋に伸びた。腕をつかむと、商人は短刀を抜いた。"
+   ],
+   "choices": [
+    {
+     "label": "取り押さえる",
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 0,
+      "talk": true,
+      "win": "end_caught",
+      "lose": "end_robbed"
+     }
+    }
+   ]
+  },
+  "end_returned": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{town}の{owner}の店へ行く",
+   "speaker": "owner",
+   "text": [
+    "{owner}は印を受け取ると顔をしかめたが、こちらの話を聞くうちに黙り込んだ。やがて手代に、溜まった給金の半分を払うと約束した。",
+    "「旅の方、礼を言う。印が悪い手に渡れば、店が潰れていた」"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "note": "盗まれた印を持ち主に返させ、手代の給金を掛け合った。"
+    }
+   ],
+   "end": "戻った印"
+  },
+  "end_returned_poor": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{town}の{owner}の店へ行く",
+   "speaker": "owner",
+   "text": [
+    "{owner}は印をひったくり、手代を店の奥へ引きずっていった。給金の話は、聞く耳も持たれなかった。"
+   ],
+   "effects": [
+    {
+     "money": 20
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "取り上げられた印"
+  },
+  "end_let_go": {
+   "text": [
+    "商人は印を河に投げ込み、何度も頭を下げて夜道に消えた。あの男が、どこかでやり直せればよいのだが。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    }
+   ],
+   "end": "河に沈んだ印"
+  },
+  "end_caught": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{town}の亭長に商人を引き渡す",
+   "speaker": "chief",
+   "text": [
+    "縛り上げた商人を{town}の亭長{chief}に引き渡した。荷からは、ほかにも盗まれた品がいくつも出てきた。"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "縄つきの道連れ"
+  },
+  "end_robbed": {
+   "text": [
+    "朝、目を覚ますと商人の姿はなかった。銭袋が軽い。"
+   ],
+   "effects": [
+    {
+     "money": -40
+    }
+   ],
+   "end": "軽くなった銭袋"
+  },
+  "end_alone": {
+   "text": [
+    "商人は肩をすくめて、別の旅人に声をかけに行った。"
+   ],
+   "end": "一人旅"
+  }
+ }
+}

@@ -241,6 +241,27 @@
    "title": "盗賊団の人質"
   },
   {
+   "id": "r_toll_gate",
+   "file": "r_toll_gate.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "関吏の値"
+  },
+  {
+   "id": "r_river_bride",
+   "file": "r_river_bride.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "河伯の嫁"
+  },
+  {
+   "id": "r_fellow_traveler",
+   "file": "r_fellow_traveler.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "道連れ"
+  },
+  {
    "id": "shunju_rank2_shi",
    "file": "shunju_rank2_shi.json",
    "kind": "rank",
