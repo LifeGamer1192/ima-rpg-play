@@ -1,0 +1,296 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_nanban_guns",
+ "kind": "random",
+ "where": "inn",
+ "hook": "南蛮人から鉄砲を買い付ける。目利きと用心棒が要る",
+ "title": "南蛮の鉄砲",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "堺の商人"
+  },
+  "tsuji": {
+   "npc": "通詞",
+   "sex": "m"
+  },
+  "ronin": {
+   "npc": "牢人頭",
+   "sex": "m"
+  },
+  "port": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "旅籠の奥座敷で、{client}が銭箱を叩いた。{port}の湊に南蛮船が入り、鉄砲二十挺を売るという。",
+    "「通詞の{tsuji}が話をまとめた。だが南蛮の筒には当たり外れがある。筒を見る目と、帰り道で銭と荷を守る腕が欲しい。礼は弾む」"
+   ],
+   "choices": [
+    {
+     "label": "引き受けて{port}へ向かう",
+     "next": "port"
+    },
+    {
+     "label": "「その二十挺、誰に売るつもりだ」と問う",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "buyer",
+      "lose": "port"
+     }
+    }
+   ]
+  },
+  "buyer": {
+   "speaker": "client",
+   "text": [
+    "{client}は声を落とした。「……山の向こうの門徒衆だ。銭払いがいい。国の殿さまには内密に願いたい」",
+    "一揆に鉄砲が渡れば、この国の足軽が撃たれることになる。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_gun_buyer"
+    }
+   ],
+   "next": "port"
+  },
+  "port": {
+   "at": {
+    "place": "port"
+   },
+   "goal": "{client}とともに{port}の湊へ行く",
+   "speaker": "tsuji",
+   "art": "voyage",
+   "text": [
+    "湊の倉に、赤い髭の南蛮人が立っていた。通詞の{tsuji}が間に入り、木箱の蓋を開けて見せる。油を引いた筒が、ずらりと並んでいた。",
+    "「どれも本国で鍛えた上物。一挺七十文で、ここまで負けさせました」{tsuji}は妙に早口だった。"
+   ],
+   "choices": [
+    {
+     "label": "筒を一挺ずつ覗き、火皿を改める",
+     "check": {
+      "skill": "bow",
+      "dc": 30,
+      "win": "flawed",
+      "lose": "deal"
+     }
+    },
+    {
+     "label": "言い値で買わせる",
+     "next": "deal"
+    }
+   ]
+  },
+  "flawed": {
+   "speaker": "tsuji",
+   "text": [
+    "二十挺のうち八挺の筒に、髪の毛ほどの割れがあった。撃てば筒が裂け、撃ち手の顔が吹き飛ぶ。しかも南蛮人の帳面には、上物二十挺と書いてある。",
+    "{tsuji}が上物の半分を抜き、どこかの鍛冶の粗悪な筒とすり替えて、差額を懐に入れていたのだ。{tsuji}の顔から血の気が引いた。"
+   ],
+   "choices": [
+    {
+     "label": "南蛮人の前で、すり替えを暴く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_fair",
+      "lose": "ambush"
+     }
+    },
+    {
+     "label": "{tsuji}を脇へ呼び、口止め料を出させる",
+     "next": "end_cut"
+    }
+   ]
+  },
+  "deal": {
+   "speaker": "client",
+   "text": [
+    "取引はあっさり済んだ。{client}は上機嫌で荷駄を出した。だが湊を出て半里、松林の中で道を塞ぐ者たちがいた。牢人頭の{ronin}だ。「鉄砲の荷と聞いた。置いていってもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "荷を守って斬り結ぶ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "delivered",
+      "lose": "end_robbed"
+     }
+    }
+   ]
+  },
+  "ambush": {
+   "speaker": "ronin",
+   "art": "war",
+   "text": [
+    "南蛮人は言葉が分からず、首を傾げるばかりだった。その隙に{tsuji}が指笛を吹いた。倉の陰から、{ronin}率いる牢人たちが刀を抜いて飛び出してきた。"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "delivered",
+      "lose": "end_robbed"
+     }
+    }
+   ]
+  },
+  "delivered": {
+   "speaker": "client",
+   "text": [
+    "牢人たちを追い散らし、鉄砲の荷駄は無事に{client}の倉に入った。{client}は銭箱を開けながら言った。「これで門徒衆との商いがまとまる」"
+   ],
+   "choices": [
+    {
+     "label": "約束どおり報酬を受け取る",
+     "next": "end_paid"
+    },
+    {
+     "label": "夜のうちに荷を川へ沈める",
+     "if": {
+      "flag": "sg_gun_buyer"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "end_sunk",
+      "lose": "end_paid"
+     }
+    }
+   ]
+  },
+  "end_fair": {
+   "speaker": "client",
+   "text": [
+    "割れた筒を並べて見せると、南蛮人は顔を真っ赤にして{tsuji}を怒鳴りつけた。{tsuji}は湊の役人に引き渡され、南蛮人は詫びに上物の一挺をこちらへ差し出した。",
+    "「あんたの目がなければ、うちの名が地に落ちていた」{client}は約束より多い銭を払った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_gun_buyer"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 4
+    },
+    {
+     "item": "teppo",
+     "n": 1
+    },
+    {
+     "xp": "bow",
+     "n": 3
+    },
+    {
+     "note": "南蛮の鉄砲取引で通詞のすり替えを暴いた。"
+    }
+   ],
+   "end": "割れた筒"
+  },
+  "end_cut": {
+   "speaker": "tsuji",
+   "text": [
+    "{tsuji}は震える手で銭袋を差し出した。「どうか、ご内密に」{client}は何も知らずに二十挺を買って帰った。",
+    "どこかの戦場で、割れた筒が火を噴く日が来るだろう。そのとき撃ち手が誰であっても、こちらの知ったことではない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_gun_buyer"
+    },
+    {
+     "money": 400
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "end": "口止めの銭"
+  },
+  "end_paid": {
+   "speaker": "client",
+   "text": [
+    "{client}は約束の銭に、気前よく一割を上乗せした。鉄砲は数日のうちに、どこかへ運ばれていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_gun_buyer"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "end": "売られた鉄砲"
+  },
+  "end_sunk": {
+   "text": [
+    "月のない夜、荷駄を引き出して川の淵へ押し込んだ。二十挺の筒は、泡を一つ立てて沈んでいった。",
+    "翌朝、{client}は蒼白な顔で倉の前に座り込んでいた。門徒衆に鉄砲は渡らなかった。それを知る者は、自分だけだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_gun_buyer"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "一揆に渡るはずの鉄砲を川に沈めた。"
+    }
+   ],
+   "end": "淵の鉄砲"
+  },
+  "end_robbed": {
+   "text": [
+    "多勢に押され、荷駄ごと鉄砲を奪われた。{client}は銭も荷も失い、こちらに一文も払わずに堺へ帰っていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_gun_buyer"
+    },
+    {
+     "hp": -20
+    }
+   ],
+   "end": "奪われた荷"
+  }
+ }
+}

@@ -1,0 +1,735 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_laoai",
+ "kind": "history",
+ "era": "shunju",
+ "title": "雍の冠礼",
+ "event": "lao_ai",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s1report",
+  "s1join",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s3in",
+  "s3out",
+  "s3coup_ng",
+  "s4"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "yong"
+  },
+  "xianyang": {
+   "scnPlace": "xianyang"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:qin"
+  },
+  "laoai": {
+   "scnPerson": "嫪毐"
+  },
+  "changping": {
+   "scnPerson": "昌平君"
+  },
+  "lv": {
+   "scnPerson": "呂不韋"
+  },
+  "retainer": {
+   "npc": "嫪毐の家僮",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎へ行く",
+   "speaker": "laoai",
+   "art": "tale",
+   "text": [
+    "{city}は{qin}の古い都で、歴代の君の宗廟がある。今年、二十二になった{king}がここで冠を加え、剣を帯びて、ようやく自ら政を執ることになる。町は祭りの支度で浮き立っていた。",
+    "だが客舎で幅を利かせているのは、長信侯{laoai}の家僮たちだった。太后の寵愛を受け、家僮数千、食客千人を抱える男だ。その{laoai}本人が、酒に酔って卓を叩いていた。",
+    "「わしを誰だと思う。わしは王の仮父であるぞ！　小僧の冠礼など、わしの一声でどうにでもなる」客舎が凍りついた。"
+   ],
+   "choices": [
+    {
+     "label": "聞いたことを、しかるべき筋に知らせる",
+     "next": "s1report"
+    },
+    {
+     "label": "{laoai}の家僮に取り入って、内情を探る",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s1join",
+      "lose": "s1report"
+     }
+    }
+   ]
+  },
+  "s1report": {
+   "speaker": "changping",
+   "text": [
+    "翌朝、宿の裏口で、身なりのいい男が{player}を待っていた。楚の公子の出で、{king}に仕える{changping}だという。「昨夜の暴言を聞いた者を探していた。おぬしも聞いたな」",
+    "「{laoai}は太后の宮で二人の子を隠し育てている。王が亡くなれば、その子を立てるつもりだ。だが確かな証がない。手を貸せ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_laoai_king"
+    },
+    {
+     "note": "{changping}に頼まれ、{laoai}の謀を探ることになった。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s1join": {
+   "speaker": "retainer",
+   "text": [
+    "{laoai}の家僮{retainer}と酒を酌み交わすうち、すっかり気に入られた。「おぬし、腕も口も立つな。長信侯さまの門に入れ。王の世はもう長くない。次は侯さまの世だ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_laoai_side"
+    },
+    {
+     "note": "{laoai}の家僮たちに取り入った。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城を探る",
+   "wait": {
+    "days": 5
+   },
+   "art": "court",
+   "text": [
+    "冠礼の日が近づいた。{king}は蘄年宮に入り、{city}の宮城の奥には太后の宮がある。夜更け、太后の宮の文書庫に灯がともった。中で何人かが、印を押す音を立てている。",
+    "王の御璽と太后の璽。その二つがあれば、県の兵も、宮の衛士も、戎や翟の兵まで動かせる。"
+   ],
+   "choices": [
+    {
+     "label": "文書庫に忍び込み、偽の詔を一通抜き取る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "見張りの兵に酒を振る舞い、話を聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "text": [
+    "手の中に、まだ墨の乾かぬ詔があった。「蘄年宮を攻めよ」と書かれ、王と太后の印が並んでいる。王の印は、よく見れば線がわずかに太い。偽物だ。"
+   ],
+   "effects": [
+    {
+     "flag": "h_laoai_proof"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "{laoai}が印を偽って兵を起こそうとしている証を握った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "見つかった。闇の中から{retainer}たちが飛び出してくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3",
+      "lose": "s3"
+     }
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "speaker": "retainer",
+   "text": [
+    "城外の野に、{laoai}の家僮と、偽の詔で集められた兵が集まりはじめていた。{retainer}が{player}を見つけて駆け寄ってくる。「どこにいた。いよいよだ。侯さまは{xianyang}を押さえ、王の帰る道を断つ」"
+   ],
+   "choices": [
+    {
+     "label": "{changping}のもとへ走り、急を告げる",
+     "if": {
+      "flag": "h_laoai_king"
+     },
+     "next": "s3ok"
+    },
+    {
+     "label": "偽の詔を{changping}に届ける",
+     "if": {
+      "flag": "h_laoai_proof"
+     },
+     "turn": true,
+     "effects": [
+      {
+       "flag": "h_laoai_early"
+      }
+     ],
+     "next": "s3ok"
+    },
+    {
+     "label": "{laoai}の兵に加わる",
+     "if": {
+      "flag": "h_laoai_side"
+     },
+     "next": "s3in"
+    },
+    {
+     "label": "土壇場で{laoai}を見限り、陣を抜け出す",
+     "if": {
+      "flag": "h_laoai_side"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "s3out",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "changping",
+   "text": [
+    "{changping}は{player}の報せを聞くと、すぐに馬を出した。「王命により、{laoai}を討つ。おぬしも来い」",
+    "{king}は少しも動じず、冠礼を済ませると、ただ一言命じたという。「長信侯を討て。生け捕りにした者には銭百万、殺した者には五十万を与える」"
+   ],
+   "effects": [
+    {
+     "flag": "h_laoai_loyal"
+    },
+    {
+     "unflag": "h_laoai_side"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3in": {
+   "speaker": "retainer",
+   "text": [
+    "{retainer}は{player}の背を叩いた。「よし。侯さまが王の仮父になれば、おぬしは大夫だ」野営の焚き火の向こうに、{xianyang}の方角の空が暗く見えた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_laoai_rebel"
+    }
+   ],
+   "choices": [
+    {
+     "label": "焚き火のそばで時を待つ",
+     "next": "s4"
+    },
+    {
+     "label": "決死の兵を率い、冠礼の最中の雍の宮へ斬り込む",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "confirm": "宮を守るのは王の近衛だ。斬り込めば、もう後戻りはできない。",
+      "win": "s3coup_ok",
+      "lose": "s3coup_ng"
+     }
+    }
+   ]
+  },
+  "s3coup_ok": {
+   "art": "war",
+   "text": [
+    "冠礼の太鼓が鳴りやんだ瞬間、{player}は近衛の列を斬り破って宮の階を駆け上がった。冠を戴いたばかりの{king}が、剣を抜く間もなく振り返る。",
+    "それから先のことを、{player}はよく覚えていない。気がつくと宮の床は血に濡れ、外で{laoai}の兵が勝ち鬨を上げていた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_laoai_coup"
+    },
+    {
+     "wanted": "qin",
+     "n": 80
+    },
+    {
+     "hp": -30
+    },
+    {
+     "note": "{laoai}の兵を率いて雍の宮に斬り込んだ。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3coup_ng": {
+   "art": "war",
+   "text": [
+    "近衛の戈が{player}の肩を貫いた。斬り込んだ兵は階の下で次々に倒れ、{player}は死体の山に紛れて這い出すのがやっとだった。"
+   ],
+   "effects": [
+    {
+     "hp": -40
+    },
+    {
+     "wanted": "qin",
+     "n": 40
+    }
+   ],
+   "next": "s4"
+  },
+  "s3out": {
+   "text": [
+    "夜の見張りが交代する隙に、{player}は陣を抜け出した。振り返ると、篝火の列がいかにも頼りなく揺れていた。あの者たちは、自分が何に加わったのかも知らぬまま死ぬのだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_laoai_side"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "speaker": "retainer",
+   "text": [
+    "抜け出そうとしたところを{retainer}に見つかった。「どこへ行く」言い訳はしたが、目は疑っている。{player}は陣に留まるしかなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_laoai_rebel"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city"
+   },
+   "text": [
+    "空気が張りつめている。冠礼の太鼓が鳴れば、すべてが動き出す。{player}は刀の柄を握り、その時を待った。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で冠礼の日を待つ",
+   "wait": {
+    "settled": "lao_ai"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "laoai_none"
+     },
+     "next": "none"
+    },
+    {
+     "if": {
+      "branch": "laoai_coup"
+     },
+     "next": "coup"
+    },
+    {
+     "if": {
+      "branch": "laoai_foiled"
+     },
+     "next": "foiled"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "coup": {
+   "art": "war",
+   "text": [
+    "{king}の死は、その日のうちに{xianyang}へ伝わった。{laoai}は太后の宮に隠していた幼い子を王に立てようとしたが、{changping}と{lv}は兵を集めて{xianyang}の門を閉ざした。",
+    "{qin}は二つに割れた。東の六国の使いが、恐る恐る、だが目を輝かせて{city}の様子を探りに来ている。天下を呑むはずだった若い王は、冠を戴いたその日に死んだ。",
+    "{player}の名は、どちらの陣からも呼ばれている。片方は恩人として、片方は大逆の賊として。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "unflag": "h_laoai_rebel"
+    },
+    {
+     "unflag": "h_laoai_side"
+    },
+    {
+     "unflag": "h_laoai_coup"
+    },
+    {
+     "note": "冠礼の日、{king}は死んだ。{qin}は割れた。"
+    }
+   ],
+   "end": "冠を戴いた日"
+  },
+  "foiled": {
+   "speaker": "changping",
+   "art": "court",
+   "text": [
+    "偽の詔の写しは、{changping}の手から王のもとへ、冠礼の十日前に届いた。{laoai}の兵が集まりきる前に、王の兵がその陣を囲んだ。",
+    "刃を交えることもなく、{laoai}は捕らえられた。「血を見ずに済んだのは、そなたのおかげだ」{changping}はそう言って、{player}を王の前に連れて行った。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "qin",
+     "n": 20
+    },
+    {
+     "money": 500
+    },
+    {
+     "unflag": "h_laoai_loyal"
+    },
+    {
+     "unflag": "h_laoai_king"
+    },
+    {
+     "unflag": "h_laoai_proof"
+    },
+    {
+     "unflag": "h_laoai_early"
+    },
+    {
+     "note": "{laoai}の乱を、起こる前に封じた。"
+    }
+   ],
+   "end": "起こらなかった乱"
+  },
+  "none": {
+   "at": {
+    "place": "city"
+   },
+   "text": [
+    "冠礼は何事もなく済んだ。太后の宮に、怪しい寵臣が出入りしているという噂も聞かない。あの男をここへ引き入れるはずだった商人が、宮廷にいないからだろうか。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_laoai_rebel"
+    },
+    {
+     "unflag": "h_laoai_side"
+    },
+    {
+     "unflag": "h_laoai_king"
+    },
+    {
+     "unflag": "h_laoai_proof"
+    },
+    {
+     "unflag": "h_laoai_loyal"
+    }
+   ],
+   "end": "静かな冠礼"
+  },
+  "after": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で冠礼の日を待つ",
+   "wait": {
+    "fired": "lao_ai"
+   },
+   "art": "war",
+   "text": [
+    "{laoai}の兵は{xianyang}で王の軍とぶつかり、数百の首を残して崩れた。逃げた{laoai}は捕らえられ、車に四肢を繋がれて引き裂かれた。一族はことごとく誅され、太后の宮に隠されていた二人の子も殺された。",
+    "{laoai}に従った家僮や食客は、罪の軽い者でも爵を奪われ、四千余家が蜀へ流された。{laoai}を太后に引き合わせたのが{lv}だったことも、やがて明るみに出るだろう。"
+   ],
+   "choices": [
+    {
+     "label": "{changping}の陣へ出向く",
+     "if": {
+      "flag": "h_laoai_loyal"
+     },
+     "next": "end_loyal"
+    },
+    {
+     "label": "身を隠して{city}を逃れる",
+     "if": {
+      "flag": "h_laoai_rebel"
+     },
+     "next": "end_flee"
+    },
+    {
+     "label": "素知らぬ顔で{city}を去る",
+     "if": {
+      "notFlag": "h_laoai_rebel"
+     },
+     "next": "end_quiet"
+    }
+   ]
+  },
+  "end_loyal": {
+   "speaker": "changping",
+   "text": [
+    "{changping}は戦った者の名を一人ずつ書き上げていた。「王は、{laoai}と戦った者には、宦者に至るまで爵一級を賜るとのことだ。おぬしの名もある」",
+    "「若い王だが、恐ろしいほど冷えた目をしておられる。仕えるなら覚悟しておけ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "money": 400
+    },
+    {
+     "rep": "qin",
+     "n": 15
+    },
+    {
+     "unflag": "h_laoai_loyal"
+    },
+    {
+     "unflag": "h_laoai_king"
+    },
+    {
+     "unflag": "h_laoai_proof"
+    },
+    {
+     "note": "{laoai}の乱で王方として働き、褒美を受けた。"
+    }
+   ],
+   "end": "冠礼の功"
+  },
+  "end_flee": {
+   "text": [
+    "{player}は荷を捨て、夜の山道を東へ走った。背後では、{laoai}の食客たちの名が次々と読み上げられ、蜀へ送られる列ができている。",
+    "{qin}の役人は、まだ{player}の名を探しているだろう。"
+   ],
+   "effects": [
+    {
+     "wanted": "qin",
+     "n": 25
+    },
+    {
+     "rep": "qin",
+     "n": -15
+    },
+    {
+     "fame": -2
+    },
+    {
+     "unflag": "h_laoai_rebel"
+    },
+    {
+     "unflag": "h_laoai_side"
+    },
+    {
+     "unflag": "h_laoai_king"
+    },
+    {
+     "unflag": "h_laoai_proof"
+    },
+    {
+     "note": "{laoai}の乱に加わり、{qin}に追われる身となった。"
+    }
+   ],
+   "end": "仮父の残党"
+  },
+  "end_quiet": {
+   "text": [
+    "{player}は人波に紛れて{city}を出た。刑場の方角から、群衆のどよめきが聞こえた。車裂きが行われたのだろう。",
+    "二十二の王は、母の寵臣を八つ裂きにして政を始めた。この国は、これから何をするのだろうか。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "unflag": "h_laoai_loyal"
+    },
+    {
+     "unflag": "h_laoai_side"
+    },
+    {
+     "unflag": "h_laoai_king"
+    },
+    {
+     "unflag": "h_laoai_proof"
+    },
+    {
+     "note": "{laoai}の乱を見届けて{city}を去った。"
+    }
+   ],
+   "end": "冷えた目の王"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "laoai_none"
+     },
+     "next": "none"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "知らせが届いた。{qin}の太后の寵臣{laoai}が、王が{city}で冠礼を行う隙に兵を挙げたが、敗れて車裂きにされたという。",
+    "若い王が自ら政を執る日は、血の匂いとともに始まった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_laoai_rebel"
+    },
+    {
+     "unflag": "h_laoai_side"
+    },
+    {
+     "unflag": "h_laoai_king"
+    },
+    {
+     "unflag": "h_laoai_proof"
+    },
+    {
+     "unflag": "h_laoai_loyal"
+    },
+    {
+     "note": "{laoai}の乱は、{player}の知らぬうちに終わった。"
+    }
+   ],
+   "end": "車裂きの噂"
+  }
+ },
+ "branches": [
+  {
+   "id": "laoai_none",
+   "event": "lao_ai",
+   "order": 3,
+   "why": "呂不韋が相国にならず、嫪毐は宮中にいなかった",
+   "when": {
+    "changed": [
+     "lv_buwei_xiang"
+    ]
+   },
+   "then": "cancel",
+   "note": "[[p:呂不韋]]が相国とならなかった{n_qin}では、[[p:嫪毐]]が太后の宮に入ることもなかった。王の冠礼は何事もなく済んだ。"
+  },
+  {
+   "id": "laoai_coup",
+   "event": "lao_ai",
+   "order": 2,
+   "leave": true,
+   "why": "主人公が嫪毐の側で冠礼の場に斬り込んだ",
+   "when": {
+    "flag": "h_laoai_coup"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:嫪毐]]の兵は雍の宮を襲い、冠礼の最中の{r_qin}を討った。[[p:昌平君]]らは咸陽を閉ざして抗い、{n_qin}は二つに割れた。",
+    "do": [
+     [
+      "rulerDies",
+      "qin",
+      "assassination"
+     ],
+     [
+      "add",
+      "qin",
+      "stability",
+      -0.3
+     ],
+     [
+      "army",
+      "qin",
+      0.85
+     ]
+    ],
+    "imp": 3,
+    "at": "yong"
+   }
+  },
+  {
+   "id": "laoai_foiled",
+   "event": "lao_ai",
+   "order": 1,
+   "why": "主人公が偽の詔を挙兵の前に届けた",
+   "when": {
+    "flag": "h_laoai_early"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:嫪毐]]が偽の詔で兵を集めていることは、挙兵の前に王の耳に届いた。陣は囲まれ、嫪毐は刃を交えることなく捕らえられて車裂きにされた。",
+    "do": [
+     [
+      "add",
+      "qin",
+      "stability",
+      0.05
+     ],
+     [
+      "dies",
+      "嫪毐",
+      "executed"
+     ]
+    ],
+    "imp": 2,
+    "at": "yong"
+   }
+  }
+ ]
+}

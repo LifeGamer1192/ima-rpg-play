@@ -1,0 +1,141 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "hunt_deserters",
+ "kind": "random",
+ "where": "office",
+ "weight": 1,
+ "trigger": {
+  "war": true
+ },
+ "hook": "戦から逃げた兵が村を荒らしている。鎮めてくれ",
+ "title": "脱走兵の鎮定",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  },
+  "sergeant": {
+   "npc": "脱走兵の什長",
+   "sex": "m"
+  },
+  "village": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "「戦に敗れた兵が十人ばかり、{village}の村に居座って食い物を奪っている。武具を着けた連中だ。用心しろ」"
+   ],
+   "choices": [
+    {
+     "label": "「行こう」",
+     "next": "village"
+    }
+   ]
+  },
+  "village": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の村で脱走兵を鎮める",
+   "speaker": "sergeant",
+   "art": "ruins",
+   "text": [
+    "村の祠に、傷だらけの兵たちがたむろしていた。{sergeant}が槍を構える。「帰る国もない。ここで死ぬか、ここで食うかだ」"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "won",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "国へ帰る道を示し、罪を軽くすると説く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "surrender",
+      "lose": "village_ng"
+     }
+    }
+   ]
+  },
+  "village_ng": {
+   "speaker": "sergeant",
+   "text": [
+    "「口約束で首が助かるものか」"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "surrender": {
+   "text": [
+    "兵たちは槍を置いた。{clerk}は彼らを屯田に送ると約束した。村人たちはようやく家に戻った。"
+   ],
+   "effects": [
+    {
+     "money": 140
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "end": "兵を降らせた"
+  },
+  "won": {
+   "text": [
+    "最後の一人が倒れ、村に静けさが戻った。"
+   ],
+   "effects": [
+    {
+     "money": 180
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 6
+    }
+   ],
+   "end": "脱走兵を討った"
+  },
+  "lost": {
+   "text": [
+    "戦慣れした兵たちだった。"
+   ],
+   "end": "討ち損じ"
+  }
+ }
+}

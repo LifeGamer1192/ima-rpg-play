@@ -1,0 +1,643 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_dongzhou",
+ "kind": "history",
+ "era": "shunju",
+ "title": "東周君の合従",
+ "event": "dongzhou",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2flee",
+  "s2flee_ng",
+  "s3",
+  "s3league",
+  "s3league_ng",
+  "s3wait",
+  "s4",
+  "s4ok",
+  "s4ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "gong"
+  },
+  "daliang": {
+   "scnPlace": "daliang"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "wei": {
+   "scnRealm": "wei"
+  },
+  "weiking": {
+   "person": "ruler:wei"
+  },
+  "lv": {
+   "scnPerson": "呂不韋"
+  },
+  "steward": {
+   "npc": "東周の家宰",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で噂を聞く",
+   "speaker": "steward",
+   "art": "tale",
+   "text": [
+    "洛邑の周の王統が絶えて七年。周の名を負う国は、もう{city}の小さな城と、そのまわりの幾つかの邑しか残っていない。人はそれを東周と呼び、その主を東周君と呼んだ。",
+    "客舎の奥で、身なりのよい初老の男が{player}に声をかけた。東周君の{steward}だという。「わが君は、諸侯と結んで{qin}に当たろうとしておられる。滅ぼされるのを待つより、噛みついて死ぬほうがよいと」",
+    "「だが使いに立つ者がいない。顔の知れた臣が城を出れば、{qin}の間者がすぐに嗅ぎつける。……おぬしは旅の者だな」"
+   ],
+   "choices": [
+    {
+     "label": "{steward}に従い、東周君に会う",
+     "effects": [
+      {
+       "note": "東周君が、諸侯と結んで秦に当たる使いを探している。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮で東周君に会う",
+   "speaker": "東周君",
+   "art": "court",
+   "text": [
+    "宮の広間は薄暗く、玉座の背に張られた錦は色が褪せていた。東周君はまだ若く、目だけが燃えるように光っている。",
+    "「文王・武王の後を継ぐ者が、{qin}の顔色を窺って生きながらえるのは恥だ。{wei}の王に密書を届けてくれ。魏が起てば韓も起つ。韓が起てば楚も黙ってはおるまい」",
+    "若い君は密書を差し出した。その手が、かすかに震えていた。"
+   ],
+   "choices": [
+    {
+     "label": "密書を預かり、{daliang}へ向かう",
+     "effects": [
+      {
+       "flag": "h_dz_letter"
+      },
+      {
+       "note": "東周君の密書を預かり、{daliang}の{weiking}のもとへ向かう。"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "「いざという時は南の楚へお逃れなされ」と、落ちる道を密かに整える",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s2flee",
+      "lose": "s2flee_ng"
+     }
+    }
+   ]
+  },
+  "s2flee": {
+   "speaker": "steward",
+   "text": [
+    "{player}は{steward}と二人で、城の南の水門から伊水の渡しまでの道を歩いて確かめた。渡し守には銭を握らせ、楚の境の村には馬を預けた。",
+    "「君は逃げるのを恥とお思いになるだろう」{steward}は言った。「だが、生きておられれば周の名は残る。死ねば、年代記に一行残るだけだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dz_flee"
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "rep": "qin",
+     "n": -5
+    },
+    {
+     "note": "東周君が楚へ落ちる道を整えた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2flee_ng": {
+   "speaker": "steward",
+   "text": [
+    "伊水の渡しで、見慣れぬ男たちが舟を見張っていた。{qin}の間者だ。道は使えない。{steward}は唇を噛んだ。「やはり、魏に頼るほかないか」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dz_letter"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "daliang",
+    "building": "palace"
+   },
+   "goal": "{daliang}の宮で{weiking}に密書を届ける",
+   "speaker": "weiking",
+   "art": "court",
+   "text": [
+    "{weiking}は密書を読み、それを脇に置いた。「東周君の志は見上げたものだ。だが{qin}の相の{lv}は、もう兵を整えていると聞く。魏が動けば、秦の矛先は魏に向く」",
+    "居並ぶ大夫たちも目を伏せている。公子信陵君が趙に去ってから、魏の朝廷で{qin}に逆らおうと言う者はいない。"
+   ],
+   "choices": [
+    {
+     "label": "「東周を見捨てれば、次に呑まれるのは魏です」と説き、兵を約させる",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s3league",
+      "lose": "s3league_ng"
+     }
+    },
+    {
+     "label": "大夫に返書を頼み、客舎で待つ",
+     "next": "s3wait"
+    }
+   ]
+  },
+  "s3league": {
+   "speaker": "weiking",
+   "art": "court",
+   "text": [
+    "{player}は地図の上に指を置いた。{city}から{daliang}まで、秦の兵なら十日。東周という小さな堤が切れれば、水はまっすぐ魏に来る。",
+    "{weiking}は長く唸り、やがて筆を取った。「韓にも使いを出そう。魏と韓が{city}の東に兵を並べれば、{lv}もうかつには手を出せまい」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dz_league"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wei",
+     "n": 10
+    },
+    {
+     "rep": "qin",
+     "n": -10
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{weiking}を説き、東周を救う兵を約させた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3league_ng": {
+   "speaker": "weiking",
+   "text": [
+    "「次に呑まれるのが魏なら、なおのこと秦を怒らせてはならぬ」{weiking}はそう言って目を閉じた。話はそれで終わった。"
+   ],
+   "next": "s3wait"
+  },
+  "s3wait": {
+   "at": {
+    "place": "daliang",
+    "building": "inn"
+   },
+   "goal": "{daliang}の客舎で魏の返書を待つ",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "魏の大夫",
+   "art": "tale",
+   "text": [
+    "十日待って届いた返書には、美しい字で「東周君の志を多とす」とだけ書かれていた。兵のことは一字もない。",
+    "使いの大夫は気まずそうに言った。「王は秦を恐れておられる。……おぬしも、早く{city}を離れたほうがよい」"
+   ],
+   "choices": [
+    {
+     "label": "返書を携えて{city}へ戻る",
+     "next": "s4"
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}へ戻る",
+   "speaker": "steward",
+   "art": "war",
+   "text": [
+    "{city}に戻ると、西の丘に{qin}の旗が見えた。率いるのは相国の{lv}自身だという。商人上がりの相国は、戦より先に帳面をつけるのだと兵たちは笑っていた。",
+    "{steward}は返書を読んで、黙って懐にしまった。「民は何も知らぬ。城が囲まれる前に、せめて東の邑へ逃がしてやりたいが……」"
+   ],
+   "choices": [
+    {
+     "label": "町を回り、民に東の道を教えて逃がす",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "城壁に上り、{qin}の兵の動きを見張る",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s4ok": {
+   "text": [
+    "戸を一つずつ叩いて回った。年寄りは渋ったが、子のある家は荷をまとめて東の道へ出ていった。夜明けまでに、城の半ばが空になった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dz_people"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{city}の民を東へ逃がした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4ng": {
+   "text": [
+    "「周の城が落ちるものか」と、誰も聞かなかった。戸口で塩を撒かれた家もあった。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で東周の行く末を見届ける",
+   "wait": {
+    "settled": "dongzhou"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dz_league"
+     },
+     "next": "league"
+    },
+    {
+     "if": {
+      "branch": "dz_later"
+     },
+     "next": "later"
+    },
+    {
+     "if": {
+      "branch": "dz_flee"
+     },
+     "next": "fled"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "league": {
+   "speaker": "東周君",
+   "art": "war",
+   "text": [
+    "魏と韓の兵が{city}の東に陣を張ると、{lv}は丘の上の陣を畳み、西へ引き揚げていった。一戦も交えずに。",
+    "東周君は城壁の上で、去ってゆく{qin}の旗を見送った。「勝ったのではない。秦が、今はまだその時ではないと見ただけだ」それでも若い君の声は弾んでいた。「だが、周の名は今日も残った。そなたのおかげだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dz_league"
+    },
+    {
+     "unflag": "h_dz_flee"
+    },
+    {
+     "unflag": "h_dz_letter"
+    },
+    {
+     "unflag": "h_dz_people"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "money": 200
+    },
+    {
+     "world": {
+      "ja": "{qin}は東周を攻める兵を、魏・韓の兵を前にして退いた。諸侯は秦が引いたことを噂し合った。",
+      "do": [
+       [
+        "add",
+        "qin",
+        "prestige",
+        -5
+       ]
+      ],
+      "imp": 1
+     }
+    },
+    {
+     "note": "魏と韓の兵が東周を救い、秦は兵を退いた。"
+    }
+   ],
+   "end": "残った周の名"
+  },
+  "later": {
+   "speaker": "steward",
+   "art": "tale",
+   "text": [
+    "洛邑の周の王がなお立っているうちは、{qin}もその分家に手を出すのを憚った。東周はそれから二年、細い糸のように生きながらえた。",
+    "だが糸はいつか切れる。二年ののち、{qin}の兵はやはり{city}に入った。{steward}は言った。「二年。短いと思うか。わしには長かった。民が一度でも多く麦を刈れた」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dz_league"
+    },
+    {
+     "unflag": "h_dz_flee"
+    },
+    {
+     "unflag": "h_dz_letter"
+    },
+    {
+     "unflag": "h_dz_people"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "東周は二年遅れて滅んだ。"
+    }
+   ],
+   "end": "二年の糸"
+  },
+  "fled": {
+   "speaker": "steward",
+   "art": "tale",
+   "text": [
+    "{qin}の兵が城に入ったとき、玉座は空だった。東周君は前の晩、南の水門から伊水を渡り、楚の境へ落ちていた。{lv}は空の宮を見回して苦笑し、城の名を帳面に書き入れて去ったという。",
+    "後に楚から便りが来た。東周君は楚の小さな邑に客として迎えられ、周の祖を祀る小さな祠を建てたという。{steward}は便りを胸に当てて言った。「名は残った」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dz_league"
+    },
+    {
+     "unflag": "h_dz_flee"
+    },
+    {
+     "unflag": "h_dz_letter"
+    },
+    {
+     "unflag": "h_dz_people"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "qin",
+     "n": -5
+    },
+    {
+     "note": "東周は滅んだが、東周君は楚へ逃れた。"
+    }
+   ],
+   "end": "南へ落ちた君"
+  },
+  "after": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で東周の終わりを見届ける",
+   "wait": {
+    "settled": "dongzhou"
+   },
+   "speaker": "lv",
+   "art": "court",
+   "text": [
+    "{qin}の兵は戦わずに{city}に入った。東周君は捕らえられ、{lv}の前に引き出された。相国は穏やかに言った。「殺しはせぬ。陽人の聚に移し、周の祀りは続けさせる。秦は祖を祀る者を絶たぬ」",
+    "その言葉どおり、東周君は小さな邑へ送られ、祀りだけは残された。だが国は、もうどこにもない。周の名を負う最後の国は、この日に絶えた。"
+   ],
+   "choices": [
+    {
+     "label": "逃がした民の後を追い、東の邑へ向かう",
+     "if": {
+      "flag": "h_dz_people"
+     },
+     "next": "end_people"
+    },
+    {
+     "label": "{lv}に「周の祀りを残したことは、秦の徳として語り継ぐ」と言う",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_lv",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "黙って{city}を去る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_people": {
+   "text": [
+    "東の邑には、{city}から逃れた家々が身を寄せ合っていた。城が落ちても、ここの者は誰も死ななかった。",
+    "老婆が{player}の手を取り、干した棗を握らせた。「周の王さまのことは分からぬ。だが、あんたの顔は覚えておくよ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dz_league"
+    },
+    {
+     "unflag": "h_dz_flee"
+    },
+    {
+     "unflag": "h_dz_letter"
+    },
+    {
+     "unflag": "h_dz_people"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "note": "東周は秦に滅ぼされた。民を東へ逃がしていた。"
+    }
+   ],
+   "end": "東の邑の棗"
+  },
+  "end_lv": {
+   "speaker": "lv",
+   "text": [
+    "{lv}は目を細めた。「商いと同じだ。滅ぼした国の祖を絶てば、恨みという借りが残る。借りは安いうちに返しておくものよ」",
+    "相国は{player}の名を書記に書き留めさせた。「口の利ける者は、いつでも咸陽に来い。売る物があればな」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dz_league"
+    },
+    {
+     "unflag": "h_dz_flee"
+    },
+    {
+     "unflag": "h_dz_letter"
+    },
+    {
+     "unflag": "h_dz_people"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "qin",
+     "n": 8
+    },
+    {
+     "note": "東周は秦に滅ぼされた。{lv}に名を覚えられた。"
+    }
+   ],
+   "end": "商人の相国"
+  },
+  "end_plain": {
+   "text": [
+    "{city}の城門には、もう{qin}の旗が掲げられていた。{player}は振り返らずに歩いた。周という名は、こうして静かに地図から消えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dz_league"
+    },
+    {
+     "unflag": "h_dz_flee"
+    },
+    {
+     "unflag": "h_dz_letter"
+    },
+    {
+     "unflag": "h_dz_people"
+    },
+    {
+     "note": "東周は秦に滅ぼされた。"
+    }
+   ],
+   "end": "周の名の絶えた日"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dz_later"
+     },
+     "next": "later"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の途中で噂を聞いた。{qin}の相国{lv}が東周君を滅ぼしたという。周の名を負う最後の小さな国も、これで絶えた。",
+    "「周の天子さまは、もうどこにもおられぬのか」と老人が聞いた。宿の主は答えなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dz_league"
+    },
+    {
+     "unflag": "h_dz_flee"
+    },
+    {
+     "unflag": "h_dz_letter"
+    },
+    {
+     "unflag": "h_dz_people"
+    },
+    {
+     "note": "東周が秦に滅ぼされたと聞いた。"
+    }
+   ],
+   "end": "遠い周の報せ"
+  }
+ },
+ "branches": [
+  {
+   "id": "dz_later",
+   "why": "洛邑の周がまだ残っていた",
+   "event": "dongzhou",
+   "order": 3,
+   "when": {
+    "changed": [
+     "qin_zhou"
+    ]
+   },
+   "then": "delay",
+   "months": 24,
+   "note": "洛邑の周の王統がなお続くうちは、{n_qin}も東周君を攻めるのを憚った。"
+  },
+  {
+   "id": "dz_league",
+   "why": "主人公が魏王を説いて兵を約させた",
+   "event": "dongzhou",
+   "order": 2,
+   "when": {
+    "flag": "h_dz_league"
+   },
+   "then": "cancel",
+   "note": "東周君の合従の使いに魏・韓が応じて兵を並べ、{n_qin}は東周を攻めるのを見合わせた。"
+  },
+  {
+   "id": "dz_flee",
+   "why": "主人公が東周君の落ちる道を整えた",
+   "event": "dongzhou",
+   "order": 1,
+   "when": {
+    "flag": "h_dz_flee"
+   },
+   "then": "replace",
+   "keep": true,
+   "alt": {
+    "ja": "{n_qin}は東周君を滅ぼした。だが東周君は秦の兵が着く前に南へ落ち、楚に身を寄せて周の祖を祀り続けた。",
+    "do": [
+     [
+      "cede",
+      "*",
+      "qin",
+      [
+       "gong",
+       "jing_zheng"
+      ]
+     ]
+    ],
+    "imp": 1,
+    "at": "gong"
+   }
+  }
+ ]
+}

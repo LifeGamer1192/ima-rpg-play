@@ -1,0 +1,217 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_bandit_hostage",
+ "kind": "random",
+ "where": "folk",
+ "hook": "息子が山の盗賊に攫われました。身代金を払えと",
+ "title": "盗賊団の人質",
+ "era": "shunju",
+ "trigger": {
+  "gang": true
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "攫われた子の母"
+  },
+  "son": {
+   "npc": "少年",
+   "sex": "m"
+  },
+  "boss": {
+   "npc": "盗賊の頭目",
+   "sex": "m"
+  },
+  "lair": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "{client}は、泥のついた木札を握りしめていた。息子の{son}が薪を拾いに出たきり戻らず、翌朝、戸口にこの札が投げ込まれていたという。",
+    "「三百銭を持って、{lair}の山の祠に来い、と。うちにそんな銭はありません。官府は、{bandit}には手が出せぬと言うばかりで」"
+   ],
+   "choices": [
+    {
+     "label": "「祠へ行こう」",
+     "next": "shrine"
+    }
+   ]
+  },
+  "shrine": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "{lair}の山の祠へ行く",
+   "speaker": "boss",
+   "art": "war",
+   "text": [
+    "山の祠で、{boss}が手下を連れて待っていた。縄で縛られた{son}が、怯えた目でこちらを見ている。",
+    "{boss}は古い札甲を着ていた。どこかの軍から逃げてきた兵らしい。「銭は持ってきたか。持ってこなかったなら、話は短いぞ」"
+   ],
+   "choices": [
+    {
+     "label": "身代金を払う（300銭）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "end_paid"
+    },
+    {
+     "label": "頭目と話をつける",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_talked",
+      "lose": "shrine_ng"
+     }
+    },
+    {
+     "label": "夜を待ち、{son}を盗み出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "end_rescued",
+      "lose": "shrine_ng"
+     }
+    },
+    {
+     "label": "頭目に斬りかかる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "end_wounded"
+     }
+    }
+   ]
+  },
+  "shrine_ng": {
+   "speaker": "boss",
+   "text": [
+    "「なめた真似を」{boss}が剣を抜き、手下たちが周りを囲んだ。{son}が泣き叫ぶ。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜けて{son}を奪う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "end_wounded"
+     }
+    },
+    {
+     "label": "有り金を差し出して詫びる（300銭）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "end_paid"
+    }
+   ]
+  },
+  "end_paid": {
+   "speaker": "client",
+   "text": [
+    "{boss}は銭を数え、{son}の縄を切った。母のもとへ帰った{son}を、{client}は抱きしめて離さなかった。",
+    "「この銭は、一生かかっても返します」{client}はまず手元の銭を差し出した。{bandit}は、これに味をしめてまた誰かを攫うだろう。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "身代金"
+  },
+  "end_talked": {
+   "speaker": "boss",
+   "text": [
+    "「お前も兵だったのだろう。食えなくなって山に入った。だが子どもを売り物にする兵が、どこの軍にいた」",
+    "{boss}は長いあいだ黙っていたが、やがて{son}の縄を自ら切った。「……行け。二度とこの山には来るな」手下たちは不満げだったが、頭目の目を見て口をつぐんだ。"
+   ],
+   "effects": [
+    {
+     "money": 80
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "{bandit}の頭目を説いて人質を返させた。"
+    }
+   ],
+   "end": "頭目との約束"
+  },
+  "end_rescued": {
+   "speaker": "client",
+   "text": [
+    "{son}を背負って山を駆け下りた。{client}は息子を抱き、何度も地に額をつけた。",
+    "官府は{bandit}の一角を崩したと喜び、わずかながら賞を出した。山の上では、手下を失った{boss}が仇を誓っているかもしれない。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "救い出した子"
+  },
+  "end_wounded": {
+   "text": [
+    "斬られて崖下に転げ落ちた。どうにか町へ戻ると、{client}が泣きながら待っていた。村の者が銭を出し合い、{son}は身代金で戻ってきたという。",
+    "「あなたが戦ってくれたから、あいつらも値を下げたのです」{client}はそう言ったが、慰めにはならなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "傷だらけの帰り道"
+  }
+ }
+}

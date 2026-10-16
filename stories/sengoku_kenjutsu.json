@@ -1,0 +1,744 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_kenjutsu",
+ "kind": "school",
+ "title": "活人の剣",
+ "era": "sengoku",
+ "school": "kenjutsu",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "師範",
+   "sex": "m"
+  },
+  "senior": {
+   "npc": "兄弟子",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "他流の剣客",
+   "sex": "m"
+  },
+  "road": {
+   "place": "far:here"
+  },
+  "lord": {
+   "realm": "second"
+  },
+  "lordcap": {
+   "place": "capital:lord"
+  },
+  "daimyo": {
+   "person": "ruler:lord"
+  },
+  "bank": {
+   "place": "near:here"
+  }
+ },
+ "start": "k1",
+ "scenes": {
+  "k1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の剣術道場で師範に会う",
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "板張りの道場には、汗と油の匂いが染みついていた。門弟は十人ほど。上座に、白髪まじりの小柄な男が座っている。師範の{master}である。",
+    "{master}は壁の木刀を一本取り、{player}の足もとへ放った。「口上は要らぬ。打ってこい。どこからでもよい」"
+   ],
+   "choices": [
+    {
+     "label": "踏み込んで、真っ向から打ち込む",
+     "check": {
+      "skill": "blade",
+      "dc": 8,
+      "win": "k1good",
+      "lose": "k1plain"
+     }
+    },
+    {
+     "label": "木刀を構えたまま、師範の目を見て動かない",
+     "next": "k1still"
+    }
+   ]
+  },
+  "k1good": {
+   "speaker": "master",
+   "text": [
+    "木刀は空を切り、次の瞬間、{player}の喉もとに{master}の切っ先が止まっていた。それでも{master}は頷いた。「迷いのない太刀だ。迷いがないのは、いい。考えがないのは、よくない」",
+    "道場の隅で見ていた大柄な男が笑った。兄弟子の{senior}だという。「先生に一太刀でも触れた者はおらん。気にするな」"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "k2"
+  },
+  "k1plain": {
+   "speaker": "master",
+   "text": [
+    "踏み込んだ足が板に滑り、{player}は無様に膝をついた。{master}は木刀を下ろした。「足が浮いておる。剣は腕で振るものではない。足で振るのだ」",
+    "道場の隅で見ていた大柄な男が笑った。兄弟子の{senior}だという。「明日から、毎朝千本の素振りだな」"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 1
+    }
+   ],
+   "next": "k2"
+  },
+  "k1still": {
+   "speaker": "master",
+   "text": [
+    "しばらく睨み合ううち、{player}の額から汗が落ちた。{master}はふっと構えを解いた。「打たなかったのではなく、打てなかったのだな。それが分かる者は、伸びる」",
+    "道場の隅で見ていた大柄な男が笑った。兄弟子の{senior}だという。「先生を相手に固まらなかっただけ、大したものだ」"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 1
+    },
+    {
+     "xp": "bow",
+     "n": 1
+    }
+   ],
+   "next": "k2"
+  },
+  "k2": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "10日ほど稽古を積み、{here}の道場に戻る",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "rival",
+   "art": "war",
+   "text": [
+    "{master}が所用で留守の日、道場の戸が蹴り開けられた。旅塵にまみれた若い牢人が、看板を指さして言う。「{rival}と申す。ここの流儀を見せてもらいに来た。負けたら、その看板を貰っていく」",
+    "{senior}が受けて立ったが、三合と持たずに小手を打たれ、木刀を落とした。{rival}は肩で笑い、道場を見渡した。「ほかには、おらんのか」"
+   ],
+   "choices": [
+    {
+     "label": "木刀を取り、{rival}の前に立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "k2win",
+      "lose": "k2lose"
+     }
+    },
+    {
+     "label": "{senior}との立ち合いで見た太刀筋の癖を突く",
+     "check": {
+      "skill": "blade",
+      "dc": 14,
+      "win": "k2win",
+      "lose": "k2lose"
+     }
+    }
+   ]
+  },
+  "k2win": {
+   "speaker": "rival",
+   "text": [
+    "{player}の木刀が{rival}の胴を払った。{rival}はしばらく脇腹を押さえて立っていたが、やがて深く頭を下げた。「田舎の道場と侮った。この借りは、いずれ返す」",
+    "去っていく背に、{senior}が呟いた。「ああいう男は、きっとまた来るぞ」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "next": "k2back"
+  },
+  "k2lose": {
+   "speaker": "rival",
+   "text": [
+    "面を打たれ、{player}は床に倒れた。{rival}は看板を外して小脇に抱えた。「三人目がいないなら、これは預かっておく。取り返したくなったら、いつでも来い」",
+    "{senior}は唇を噛んで、看板のあった壁の白い跡を見上げていた。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "flag": "ken_sign_lost"
+    }
+   ],
+   "next": "k2back"
+  },
+  "k2back": {
+   "speaker": "master",
+   "text": [
+    "戻った{master}は、話をすべて聞き終えると、看板の跡に目をやって小さく笑った。「看板など、ただの板切れよ。板切れのために道場があるのではない」",
+    "「だが、逃げずに立ったのはお前だけだったそうだな。今日からお前に目録を許す」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "note": "{master}から目録を許された。"
+    }
+   ],
+   "next": "k3"
+  },
+  "k3": {
+   "at": {
+    "place": "road"
+   },
+   "goal": "武芸を22まで鍛え、廻国修行に出て{road}へ向かう",
+   "wait": {
+    "skill": {
+     "blade": 22
+    },
+    "days": 20
+   },
+   "speaker": "村の長",
+   "art": "war",
+   "text": [
+    "{master}に勧められ、{player}は諸国を巡る修行の旅に出た。{road}の在所に着くと、村の長が泥だらけの顔で縋りついてきた。",
+    "「山向こうの{bandit}が、刈り入れの米を半分寄越せと言うてきたのです。断れば村を焼くと。お侍さま、どうか」差し出された礼は、欠けた椀に盛った稗だけだった。"
+   ],
+   "choices": [
+    {
+     "label": "村の若者に竹槍の構えを教え、ともに迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "k3win",
+      "lose": "k3lose"
+     }
+    },
+    {
+     "label": "{bandit}の頭に一騎打ちを申し込む",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "k3win",
+      "lose": "k3lose"
+     }
+    },
+    {
+     "label": "頭の陣へ一人で出向き、引き揚げるよう説く",
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "k3talk",
+      "lose": "k3lose"
+     }
+    }
+   ]
+  },
+  "k3win": {
+   "text": [
+    "夜明け、{bandit}どもは散り散りに逃げた。だが村の男たちは、縛り上げた手負いの一人を囲み、鍬を振り上げていた。去年、娘を攫われた家の者だという。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "鍬の前に立ちはだかり、命だけは助けさせる",
+     "effects": [
+      {
+       "flag": "ken_mercy"
+      },
+      {
+       "xp": "speech",
+       "n": 2
+      }
+     ],
+     "next": "k3mercy"
+    },
+    {
+     "label": "村の掟に任せ、黙って背を向ける",
+     "next": "k3leave"
+    }
+   ]
+  },
+  "k3mercy": {
+   "speaker": "村の長",
+   "text": [
+    "男たちは不満げに鍬を下ろした。縄を解かれた{bandit}は、震える手で{player}を拝み、山へ逃げていった。",
+    "「お侍さまは甘い」村の長は苦い顔をした。それでも別れ際、握り飯を三つ包んでくれた。"
+   ],
+   "next": "k4"
+  },
+  "k3leave": {
+   "text": [
+    "背後で短い叫びが上がり、すぐに静かになった。村の子らが、{player}の刀を眩しそうに見上げている。",
+    "剣は人を守った。そして、人を殺させもした。その重さを、{player}はうまく呑み込めないまま村を発った。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 1
+    }
+   ],
+   "next": "k4"
+  },
+  "k3talk": {
+   "speaker": "{bandit}の頭",
+   "text": [
+    "陣に入ると、頭は焚き火越しに{player}を値踏みした。「一人で来るとは、馬鹿か、よほどの腕か」{player}が刀の柄にも触れずに座ると、頭はやがて笑い出した。",
+    "「斬り合えば、こっちも半分は死ぬな。米ひと俵で手を打とう」翌朝、{bandit}どもは山の向こうへ去った。村には一人の死人も出なかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "flag": "ken_mercy"
+    }
+   ],
+   "next": "k4"
+  },
+  "k3lose": {
+   "text": [
+    "多勢に押され、{player}は腕を斬られて退いた。{bandit}どもは米を奪って去ったが、村人の命までは取らなかった。{player}が時を稼ぐあいだに、皆が山へ逃げたからだ。",
+    "村の長は傷を洗ってくれた。「負けても、逃げずにいてくださった」その言葉が、斬られた傷より痛かった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "fame": 1
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "next": "k4"
+  },
+  "k4": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "修行の旅を終え、{here}の道場に戻る",
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "道場に戻ると、{master}は黙って{player}の掌を見た。豆が潰れて固くなった掌だった。「顔つきが変わったな」",
+    "「{lord}の{daimyo}さまが、剣術指南役を求めて御前試合を開かれる。諸国の使い手が集まるそうだ。名の中に{rival}というのがあった」{master}は目を細めた。「行ってこい。勝ち負けより、見てくることだ」"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "k5"
+  },
+  "k5": {
+   "at": {
+    "place": "lordcap",
+    "building": "palace"
+   },
+   "goal": "武芸を30まで鍛え、名声10に達したら{lordcap}の城で御前試合に臨む",
+   "wait": {
+    "skill": {
+     "blade": 30
+    },
+    "fame": 10
+   },
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "城の白洲には幔幕が張られ、{daimyo}が床几に掛けていた。勝ち残った最後の相手は、果たして{rival}だった。",
+    "{rival}は木刀を一振りして言った。「あの日の借りを返しに来た」審判役の侍が声を張る。「木刀なれど、打ち所によっては命はない。双方、覚悟はよいか」"
+   ],
+   "choices": [
+    {
+     "label": "正眼に構え、正面から打ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "k5win",
+      "lose": "k5lose"
+     }
+    },
+    {
+     "label": "打たせて、その後の先を取る",
+     "check": {
+      "skill": "blade",
+      "dc": 30,
+      "win": "k5win",
+      "lose": "k5lose"
+     }
+    }
+   ]
+  },
+  "k5win": {
+   "speaker": "daimyo",
+   "text": [
+    "{player}の木刀が、{rival}の手首を打った。乾いた音とともに木刀が白洲に転がる。{rival}は呆然と自分の手を見つめ、やがて一言もなく退いた。",
+    "{daimyo}は扇を鳴らした。「見事。そなたを当家の剣術指南役に迎えたい。禄も十分に取らせよう」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "rep": "lord",
+     "n": 10
+    },
+    {
+     "flag": "ken_beat"
+    }
+   ],
+   "choices": [
+    {
+     "label": "謹んで仕官を受ける",
+     "effects": [
+      {
+       "enlist": "lord"
+      },
+      {
+       "rank": 2
+      },
+      {
+       "flag": "ken_shinan"
+      },
+      {
+       "note": "{lord}の剣術指南役となった。"
+      }
+     ],
+     "next": "k6"
+    },
+    {
+     "label": "「まだ修行の身にございます」と辞退する",
+     "effects": [
+      {
+       "fame": 2
+      }
+     ],
+     "next": "k6"
+    }
+   ]
+  },
+  "k5lose": {
+   "speaker": "rival",
+   "text": [
+    "一瞬の遅れだった。{rival}の木刀が{player}の肩を打ち、白洲に膝をついた。{daimyo}は{rival}を指南役に召し抱えると告げた。",
+    "{rival}は去り際に振り返った。「これで貸し借りなしだ」その目には、勝った者の喜びよりも、まだ足りないという飢えの色があった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "next": "k6"
+  },
+  "k6": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "20日ほどのちに{here}の道場へ戻る",
+   "wait": {
+    "days": 20
+   },
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "{master}が病に倒れた。床に起き上がった{master}は、驚くほど細くなった腕で{player}を手招きした。「道場の裏へ来い。見せておくものがある」",
+    "月明かりの庭で、{master}は木刀を手に、ゆっくりと一つの型を打った。斬るための型ではなかった。相手の太刀を殺し、相手を生かしたまま止める型だった。「当流の奥義だ。打ってみよ」"
+   ],
+   "choices": [
+    {
+     "label": "見た通りに型を打つ",
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "k6ok",
+      "lose": "k6ng"
+     }
+    },
+    {
+     "label": "「なぜ斬らぬのです」と問う",
+     "next": "k6ask"
+    }
+   ]
+  },
+  "k6ok": {
+   "speaker": "master",
+   "text": [
+    "{player}の木刀は、{master}の木刀の上で吸いつくように止まった。{master}は長いあいだ黙っていた。「よし。それでよい。免許を許す」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "note": "{master}から免許を許された。"
+    }
+   ],
+   "next": "k7"
+  },
+  "k6ng": {
+   "speaker": "master",
+   "text": [
+    "型は形になったが、{player}の木刀には殺気が残っていた。{master}は首を振り、それでも笑った。「形は覚えた。心はこれからだ。免許を許す。あとは自分で磨け」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{master}から免許を許された。"
+    }
+   ],
+   "next": "k7"
+  },
+  "k6ask": {
+   "speaker": "master",
+   "text": [
+    "「斬るのは易い。誰にでもできる」{master}は咳き込みながら言った。「殺さずに勝つには、相手より二枚も三枚も上でなければならぬ。だから奥義なのだ」",
+    "{player}は黙って型を打った。下手な型だったが、{master}は満足げに頷いた。「免許を許す。この型の意味は、いつか斬らねばならぬ時に分かる」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "{master}から免許を許された。"
+    }
+   ],
+   "next": "k7"
+  },
+  "k7": {
+   "at": {
+    "place": "bank"
+   },
+   "goal": "武芸を38まで鍛え、名声20に達したら、果し状の指す{bank}の河原へ行く",
+   "wait": {
+    "skill": {
+     "blade": 38
+    },
+    "fame": 20,
+    "days": 30
+   },
+   "speaker": "rival",
+   "art": "war",
+   "text": [
+    "{rival}から果し状が届いた。「{bank}の河原にて待つ。真剣にて」それだけが書かれていた。",
+    "朝靄の河原に、{rival}は一人で立っていた。頬はこけ、目ばかりが光っている。「指南役も、名も、どうでもよくなった。お前を斬らねば、俺の剣はどこにも行けぬ」{rival}は鯉口を切った。"
+   ],
+   "choices": [
+    {
+     "label": "刀を抜き、受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "k7win",
+      "lose": "k7lose"
+     }
+    },
+    {
+     "label": "刀を抜かず、師の型の心を説く",
+     "if": {
+      "flag": "ken_mercy"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "endWord",
+      "lose": "k7draw"
+     }
+    }
+   ]
+  },
+  "k7draw": {
+   "speaker": "rival",
+   "text": [
+    "「言葉で俺を止められると思うな！」{rival}の刀が鞘走った。もはや抜くほかなかった。"
+   ],
+   "choices": [
+    {
+     "label": "刀を抜く",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "k7win",
+      "lose": "k7lose"
+     }
+    }
+   ]
+  },
+  "k7win": {
+   "text": [
+    "一合、二合。三合目、{player}の刀が{rival}の刀を巻き落とした。{rival}は砂利の上に膝をつき、首を差し出した。「斬れ。それが剣の道だろう」",
+    "河原を渡る風の中で、{master}の型が思い出された。"
+   ],
+   "choices": [
+    {
+     "label": "刀を鞘に納める",
+     "next": "endKatsujin"
+    },
+    {
+     "label": "望みどおり、介錯する",
+     "next": "endKiller"
+    }
+   ]
+  },
+  "k7lose": {
+   "speaker": "rival",
+   "text": [
+    "{player}の刀は弾かれ、{rival}の切っ先が喉の皮一枚で止まった。長い沈黙ののち、{rival}は刀を引いた。",
+    "「……斬れなかった。お前の師の型を、俺も一度見たことがある」{rival}はそう言い残して、靄の中へ去った。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "endSpared"
+  },
+  "endKatsujin": {
+   "speaker": "rival",
+   "text": [
+    "{rival}は信じられないという顔で{player}を見上げ、やがて肩を震わせて泣いた。「負けた。剣にも、剣でないものにも」",
+    "{master}が世を去った春、{player}は道場を継いで皆伝を名乗った。門弟の中には、いつの間にか{rival}の姿もあった。道場の掛軸には、ただ「活人剣」と書かれている。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rank": 3
+    },
+    {
+     "note": "道場を継ぎ、皆伝を名乗った。"
+    }
+   ],
+   "end": "活人剣"
+  },
+  "endWord": {
+   "speaker": "rival",
+   "text": [
+    "{player}は刀に手もかけず、師の型と、村で命を助けた{bandit}のことを語った。{rival}の切っ先が、少しずつ下がっていった。",
+    "「斬らずに勝つ、か」{rival}は刀を砂利に突き立て、その場に座り込んだ。{master}が世を去った春、{player}は道場を継いで皆伝を名乗った。その噂は、刀を抜かずに果し合いに勝った剣客として、諸国に広まった。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rank": 3
+    },
+    {
+     "note": "刀を抜かずに果し合いを収め、皆伝を名乗った。"
+    }
+   ],
+   "end": "抜かずの太刀"
+  },
+  "endKiller": {
+   "text": [
+    "刀を振り下ろすと、河原の石が赤く濡れた。{player}は{rival}の亡骸に手を合わせ、髷を切って懐に納めた。",
+    "{player}の名は、果し合いに勝った剣客として広まった。挑む者は後を絶たず、{player}はそのすべてを斬った。病床の{master}は、その噂を聞いて目を閉じたという。道場には今も門弟が絶えないが、誰も{player}を「先生」とは呼ばず、ただ「剣の鬼」と呼ぶ。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rank": 3
+    }
+   ],
+   "end": "剣の鬼"
+  },
+  "endSpared": {
+   "text": [
+    "生かされた命を抱えて、{player}は道場へ帰った。{master}は話を聞くと、なぜか嬉しそうに笑った。「あの男も、斬れぬ剣を覚えたか。ならば、お前の負けではない」",
+    "{player}はその後も道場で木刀を振り続けた。皆伝はまだ遠い。だが、斬らずに止める型の意味だけは、喉もとに残った傷とともに、もう忘れようがなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    }
+   ],
+   "end": "喉もとの傷"
+  }
+ }
+}

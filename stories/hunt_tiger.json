@@ -1,0 +1,154 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "hunt_tiger",
+ "kind": "random",
+ "where": "folk",
+ "weight": 1,
+ "hook": "山に人食い虎が出て、樵が三人やられました",
+ "title": "虎退治",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "樵の妻"
+  },
+  "hunter": {
+   "npc": "老いた猟師",
+   "sex": "m"
+  },
+  "hills": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "{client}は夫の鉈を抱いていた。「{hills}の山に虎が出ます。夫は薪を取りに行って、それきり……」"
+   ],
+   "choices": [
+    {
+     "label": "「虎を仕留めよう」",
+     "next": "hills"
+    }
+   ]
+  },
+  "hills": {
+   "at": {
+    "place": "hills"
+   },
+   "goal": "{hills}の山で人食い虎を探す",
+   "speaker": "hunter",
+   "art": "road",
+   "text": [
+    "山の入口で、{hunter}が罠の縄を編んでいた。「あの虎は賢い。正面から行けば食われる。水場で待つか、罠を張るかだ」"
+   ],
+   "choices": [
+    {
+     "label": "水場で待ち伏せて射る",
+     "check": {
+      "skill": "bow",
+      "dc": 40,
+      "win": "shot",
+      "lose": "charge"
+     }
+    },
+    {
+     "label": "{hunter}と罠を張る（二晩かかる）",
+     "effects": [
+      {
+       "pass": 2880
+      },
+      {
+       "xp": "stealth",
+       "n": 3
+      }
+     ],
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "trapped",
+      "lose": "charge"
+     }
+    },
+    {
+     "label": "正面から挑む",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 0,
+      "win": "killed",
+      "lose": "mauled"
+     }
+    }
+   ]
+  },
+  "charge": {
+   "text": [
+    "草むらが割れ、黄色い影が飛びかかってきた！"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 0,
+      "win": "killed",
+      "lose": "mauled"
+     }
+    }
+   ]
+  },
+  "shot": {
+   "text": [
+    "夜明けの水場で、矢は虎の喉を貫いた。"
+   ],
+   "next": "killed"
+  },
+  "trapped": {
+   "text": [
+    "二晩目、罠にかかった虎の咆哮が谷に響いた。{hunter}がとどめを刺した。"
+   ],
+   "next": "killed"
+  },
+  "killed": {
+   "speaker": "client",
+   "text": [
+    "虎の皮を担いで村へ戻ると、人々が戸口から出てきた。{client}は泣きながら礼を言った。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "bow",
+     "n": 3
+    }
+   ],
+   "end": "虎を退治した"
+  },
+  "mauled": {
+   "text": [
+    "虎の爪は深かった。{hunter}に担がれて山を下りた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "end": "虎に敗れた"
+  }
+ }
+}

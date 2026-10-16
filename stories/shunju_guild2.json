@@ -1,0 +1,571 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_guild2",
+ "kind": "rank",
+ "guildTo": 2,
+ "title": "縄張り争い",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "頭目",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "よその一味の頭",
+   "sex": "m"
+  },
+  "seller": {
+   "npc": "市の物売り",
+   "sex": "f"
+  },
+  "captain": {
+   "npc": "衛兵の長",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で頭目に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は卓に短刀を突き立てた。「隣の州から流れてきた{rival}の一味が、市の店からみかじめを取りはじめた。うちが守ってきた店からだ。盗品を捌く故買屋まで引き抜かれた」",
+    "「片をつけてこい。やり方は任せる。ただし、一味の顔だけは潰すな。うまくやれば、お前に頭目の名をやる」"
+   ],
+   "choices": [
+    {
+     "label": "市へ出て、{rival}の一味の様子を探る",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で{rival}の一味のことを探る",
+   "speaker": "seller",
+   "art": "trade",
+   "text": [
+    "干し魚を並べる{seller}は、{player}の顔を見るなり声を落とした。「あんたらの方かい。こっちは今月、みかじめを二度払ってるんだよ。どっちが本当の旦那なのか、はっきりさせとくれ」"
+   ],
+   "choices": [
+    {
+     "label": "{rival}の一味の溜まり場と商いを聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "s2info",
+      "lose": "s2little"
+     }
+    },
+    {
+     "label": "銭を握らせて口を開かせる（30）",
+     "if": {
+      "money": 30
+     },
+     "effects": [
+      {
+       "money": -30
+      }
+     ],
+     "next": "s2info"
+    },
+    {
+     "label": "一味の者の後を、人に紛れてつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "s2info",
+      "lose": "s2little"
+     }
+    }
+   ]
+  },
+  "s2info": {
+   "art": "trade",
+   "text": [
+    "{rival}の一味は東の外れの空き家を根城にしている。人数は七、八人。しかも裏で、官の倉から横流しされた塩を捌いているらしい。役人に知れれば、首がいくつ飛ぶかわからぬ品だ。"
+   ],
+   "effects": [
+    {
+     "flag": "g2_salt"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2little": {
+   "art": "trade",
+   "text": [
+    "分かったのは、{rival}の一味が夜になると東の外れの空き家に集まるということだけだった。こちらが嗅ぎまわっていることも、向こうに伝わったかもしれない。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "art": "hideout",
+   "text": [
+    "{player}は市の雑踏を見渡した。話をつけるか、血を流すか、それとも役人の手を借りるか。どの道を選んでも、一味の者たちは見ている。"
+   ],
+   "choices": [
+    {
+     "label": "空き家へ出向き、{rival}と話をつける",
+     "next": "s4talk"
+    },
+    {
+     "label": "夜を待ち、空き家で待ち伏せる",
+     "next": "s4ambush"
+    },
+    {
+     "label": "官府へ行き、{rival}の一味を衛兵に売る",
+     "next": "s4guard"
+    }
+   ]
+  },
+  "s4talk": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}の東の外れの空き家で{rival}に会う",
+   "speaker": "rival",
+   "art": "hideout",
+   "text": [
+    "{rival}は酒甕に腰かけ、手下に囲まれていた。「よく一人で来たな。だが市は早い者勝ちだ。お前らが寝ている間に、こっちが先に手を伸ばしただけのこと」"
+   ],
+   "choices": [
+    {
+     "label": "「官の塩のことを、役人が知ったらどうなる」",
+     "if": {
+      "flag": "g2_salt"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "win_talk",
+      "lose": "s4talk_ng"
+     }
+    },
+    {
+     "label": "市を割って、互いに手を引く筋を説く",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "win_talk",
+      "lose": "s4talk_ng"
+     }
+    },
+    {
+     "label": "「頭同士、腕で決めよう」と剣を抜く",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "win_duel",
+      "lose": "fail_beaten"
+     }
+    }
+   ]
+  },
+  "s4talk_ng": {
+   "speaker": "rival",
+   "art": "war",
+   "text": [
+    "{rival}は唾を吐いた。「口の減らぬ奴だ。帰さなくていいぞ」手下たちが一斉に立ち上がった。"
+   ],
+   "choices": [
+    {
+     "label": "囲みを破る",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "win_fight",
+      "lose": "fail_beaten"
+     }
+    },
+    {
+     "label": "窓から逃れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "fail_retreat",
+      "lose": "fail_beaten"
+     }
+    }
+   ]
+  },
+  "s4ambush": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "夜、{here}の東の外れの空き家に潜む",
+   "art": "hideout",
+   "text": [
+    "空き家の裏の藪に身を沈め、{rival}の一味が戻ってくるのを待つ。足音が近づいてくる。先頭の数人は酒に酔っているようだ。"
+   ],
+   "choices": [
+    {
+     "label": "闇に潜み、一味が分かれるのを待つ",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s5good",
+      "lose": "s5bad"
+     }
+    },
+    {
+     "label": "待たずに、先頭の酔っ払いどもへ斬り込む",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 5
+      }
+     ],
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "win_fight",
+      "lose": "fail_beaten"
+     }
+    }
+   ]
+  },
+  "s5good": {
+   "art": "war",
+   "text": [
+    "一味の半分は酒を買いに出ていった。残ったのは{rival}と取り巻きの二人だけだ。"
+   ],
+   "choices": [
+    {
+     "label": "襲いかかる",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 5
+      }
+     ],
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "win_fight",
+      "lose": "fail_beaten"
+     }
+    }
+   ]
+  },
+  "s5bad": {
+   "art": "war",
+   "text": [
+    "枯れ枝が鳴った。「誰だ！」松明がこちらへ向き、{rival}の一味が藪を取り囲む。"
+   ],
+   "choices": [
+    {
+     "label": "数を恐れず斬り抜ける",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 8
+      }
+     ],
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "win_fight",
+      "lose": "fail_beaten"
+     }
+    },
+    {
+     "label": "今夜は引く",
+     "next": "fail_retreat"
+    }
+   ]
+  },
+  "s4guard": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の官府で衛兵の長に会う",
+   "speaker": "captain",
+   "art": "court",
+   "text": [
+    "{captain}は{player}の身なりを上から下まで眺めた。「盗賊の巣を知っているだと？　なぜお前がそれを知っている」"
+   ],
+   "choices": [
+    {
+     "label": "官の塩の横流しを告げる",
+     "if": {
+      "flag": "g2_salt"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "win_guard",
+      "lose": "s4guard_ng"
+     }
+    },
+    {
+     "label": "名を伏せ、投げ文で巣の在処を知らせる",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "win_guard",
+      "lose": "s4guard_ng"
+     }
+    },
+    {
+     "label": "「市の者が困っている」とだけ言って押し通す",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "win_guard",
+      "lose": "s4guard_ng"
+     }
+    }
+   ]
+  },
+  "s4guard_ng": {
+   "speaker": "captain",
+   "art": "court",
+   "text": [
+    "{captain}の目つきが変わった。「どうも臭うな。お前の顔、覚えておくぞ」衛兵が二人、{player}の後ろに回った。"
+   ],
+   "choices": [
+    {
+     "label": "頭を下げて引き下がる",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "next": "fail_suspect"
+    },
+    {
+     "label": "衛兵を突き飛ばして逃げる",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 20
+      }
+     ],
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "fail_suspect",
+      "lose": "fail_beaten"
+     }
+    }
+   ]
+  },
+  "win_talk": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{rival}の一味は三日のうちに市から消えた。故買屋も戻ってきた。{boss}は笑った。「血も流さず、役人も呼ばずに追い出したか。口で勝てる頭目は、刀で勝てる頭目より長生きする」"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "unflag": "g2_salt"
+    },
+    {
+     "note": "{rival}の一味を口先で市から追い出し、一味の頭目となった。"
+    }
+   ],
+   "end": "舌で取り返す"
+  },
+  "win_duel": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{rival}は膝をつき、刀を捨てた。頭が負けた一味は、その夜のうちに隣の州へ引き上げていった。{boss}は満足げに頷いた。「頭同士の勝負で決めたか。それなら向こうも恨みは言えん。今日からお前が頭目だ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "unflag": "g2_salt"
+    },
+    {
+     "note": "{rival}との一騎打ちに勝ち、一味の頭目となった。"
+    }
+   ],
+   "end": "頭同士の勝負"
+  },
+  "win_fight": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "空き家に残った{rival}の一味の銭箱は、そっくりこちらのものになった。市の者たちは、どちらに逆らってはならぬかを思い知った。",
+    "{boss}は銭箱を開け、半分を{player}の前に押しやった。「荒っぽいが、分かりやすい。役人どもが騒ぐ前に、しばらく大人しくしておけ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 1
+    },
+    {
+     "wanted": "here",
+     "n": 5
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "unflag": "g2_salt"
+    },
+    {
+     "note": "{rival}の一味を打ち破り、一味の頭目となった。"
+    }
+   ],
+   "end": "血で引いた線"
+  },
+  "win_guard": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "翌朝、衛兵が空き家を囲み、{rival}の一味は残らず縄を打たれた。市はまた静かになった。",
+    "{boss}は長いこと黙っていたが、やがて言った。「役人を使うとはな。利口だ。だが仲間の前でそのやり方を口にするな。売る奴は、いつか売られると思われる」"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 60
+    },
+    {
+     "wanted": "here",
+     "n": -8
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "flag": "g2_informer"
+    },
+    {
+     "unflag": "g2_salt"
+    },
+    {
+     "note": "{rival}の一味を衛兵に売り、一味の頭目となった。"
+    }
+   ],
+   "end": "役人の手を借りる"
+  },
+  "fail_beaten": {
+   "art": "war",
+   "text": [
+    "多勢に無勢だった。命からがら宿へ逃げ帰ると、{boss}は傷の手当てもさせずに言った。「頭目の器ではなかったか。しばらく手下として働け」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "unflag": "g2_salt"
+    },
+    {
+     "note": "縄張り争いに敗れた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "縄張りを守れず"
+  },
+  "fail_retreat": {
+   "art": "hideout",
+   "text": [
+    "{player}は退いた。{rival}の一味は市に居座り、みかじめは二重に取られ続けている。{boss}は「次の機会までに腕を磨いておけ」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "g2_salt"
+    },
+    {
+     "note": "縄張り争いで手を引いた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "退く"
+  },
+  "fail_suspect": {
+   "art": "court",
+   "text": [
+    "官府から逃れたものの、{captain}は{player}の顔を覚えた。衛兵の目が市に増え、一味の仕事はやりにくくなった。{boss}は苦い顔で言った。「藪をつついて蛇を出したな」"
+   ],
+   "effects": [
+    {
+     "unflag": "g2_salt"
+    },
+    {
+     "note": "衛兵に怪しまれ、縄張り争いをしくじった。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "藪蛇"
+  }
+ }
+}

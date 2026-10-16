@@ -1,0 +1,1050 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_handan",
+ "kind": "history",
+ "era": "shunju",
+ "title": "邯鄲の囲み",
+ "event": "handan_saved",
+ "lead": 10,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s2guard",
+  "s3",
+  "s3baiqi",
+  "s3bq_ok",
+  "s3bq_ng",
+  "s3go",
+  "s3betray",
+  "s4",
+  "s4ok",
+  "s4ng",
+  "s4wait",
+  "s5",
+  "s5talk",
+  "s6",
+  "s6ok",
+  "s6ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "handan"
+  },
+  "daliang": {
+   "scnPlace": "daliang"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "wei": {
+   "scnRealm": "wei"
+  },
+  "pingyuan": {
+   "scnPerson": "平原君"
+  },
+  "maosui": {
+   "scnPerson": "毛遂"
+  },
+  "xinling": {
+   "scnPerson": "信陵君"
+  },
+  "houying": {
+   "scnPerson": "侯嬴"
+  },
+  "zhuhai": {
+   "scnPerson": "朱亥"
+  },
+  "jinbi": {
+   "scnPerson": "晋鄙"
+  },
+  "baiqi": {
+   "scnPerson": "白起"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}へ行く",
+   "art": "war",
+   "text": [
+    "{city}の城門は昼でも半ば閉ざされていた。西の丘には{qin}の軍旗が林のように並び、夜ごとに篝火の数が増えていく。長平で四十万が穴に埋められてから、まだ三年と経っていない。",
+    "城内の辻に、{pingyuan}の門下が高札を掲げていた。「楚へ救いを求める使いを出す。文武を備えた食客を二十人選ぶ。腕に覚えのある者は宮城へ来たれ」"
+   ],
+   "choices": [
+    {
+     "label": "宮城へ向かう",
+     "effects": [
+      {
+       "note": "{city}は{qin}の大軍に囲まれつつある。{pingyuan}が楚への使いの供を集めている。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で{pingyuan}に会う",
+   "speaker": "pingyuan",
+   "art": "court",
+   "text": [
+    "{pingyuan}の前に十九人が並んでいた。あと一人が決まらない。そのとき末席から、見慣れぬ男が進み出た。「{maosui}と申します。わたしをお連れください」",
+    "{pingyuan}は眉をひそめた。「賢い士が世にあるのは、錐が囊の中にあるようなもので、先がすぐ外へ突き出るものだ。君はわが門に三年いて、名を聞いたことがない」",
+    "{maosui}は笑った。「だから今日、囊に入れてくださいと申し上げるのです。早く入れていただいていれば、先どころか柄まで突き出ておりましたよ」座の者が忍び笑いをし、{pingyuan}の目が{player}に向いた。「そなたはどう見る」"
+   ],
+   "choices": [
+    {
+     "label": "「この男の度胸は、楚の朝廷でこそ役に立ちます」と推す",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "「わたしは使いの道中の守りに付きましょう」と腕を売る",
+     "check": {
+      "skill": "blade",
+      "dc": 24,
+      "win": "s2guard",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "pingyuan",
+   "text": [
+    "{pingyuan}はしばらく黙り、それから膝を打った。「よかろう。二十人目は{maosui}だ。推した{player}にも、留守の働きを頼もう」",
+    "十九人は顔を見合わせて笑っていたが、{maosui}は{player}にだけ小さく頭を下げた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_handan_maosui"
+    },
+    {
+     "rep": "zhao",
+     "n": 5
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{maosui}を{pingyuan}に推した。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "speaker": "pingyuan",
+   "text": [
+    "言葉は座の笑いにかき消された。それでも{maosui}は引き下がらず、結局は二十人目として連れて行かれることになった。",
+    "「ともかく、そなたは城に残れ。手が足りぬのだ」{pingyuan}はそう言い残して、慌ただしく南へ発った。"
+   ],
+   "next": "s3"
+  },
+  "s2guard": {
+   "speaker": "pingyuan",
+   "text": [
+    "庭で木剣を三度合わせただけで、{pingyuan}の護衛頭が頷いた。「道中の守りは足りている。だが、その腕は城に置いておきたい。別の使いを頼むかもしれぬ」"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{pingyuan}の護衛頭に腕を認められた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で知らせを待つ",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "{pingyuan}の家宰",
+   "art": "tale",
+   "text": [
+    "十日ののち、南から早馬が戻った。楚の王は朝から昼まで渋りつづけたが、{maosui}が剣の柄に手をかけて階を駆け上がり、「十歩の内、王の命は{maosui}の手にあります」と迫って、ついに血を啜って盟を結ばせたという。",
+    "「楚は兵を出す。だが遠い」家宰は声を落とした。「近いのは魏だ。魏王は十万を出したが、将の{jinbi}は{qin}を恐れて鄴に留まったまま動かぬ。{pingyuan}さまの奥方は、魏の公子{xinling}さまの姉君だ。公子に会い、この窮状を伝えてくれぬか」"
+   ],
+   "choices": [
+    {
+     "label": "{daliang}へ行き、{xinling}に会う",
+     "effects": [
+      {
+       "note": "{daliang}の{xinling}に{city}の窮状を伝えに行く。"
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "囲みを抜けて{qin}の陣へ忍び、病と称して出ぬという{baiqi}に会う",
+     "turn": true,
+     "next": "s3baiqi"
+    },
+    {
+     "label": "{qin}の陣に通じ、夜に城門を開く手引きをする",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "s3betray",
+      "lose": "s3betray_ng"
+     }
+    }
+   ]
+  },
+  "s3baiqi": {
+   "speaker": "baiqi",
+   "art": "camp",
+   "text": [
+    "{qin}の本陣から離れた小さな幕舎に、{baiqi}は一人で座っていた。病と聞いていたが、目は冴えている。「趙の者か、魏の者か。どちらでもよい。わしは出ぬ。いま攻めても勝てぬことは、王より先にわしが知っている」",
+    "「王は三度、出よと命じられた。三度断った。次は剣が届くだろう」老将は、それをもう決まったことのように言った。"
+   ],
+   "choices": [
+    {
+     "label": "「一度だけ王に詫びの書を。命を惜しむのは恥ではありません」と説く",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s3bq_ok",
+      "lose": "s3bq_ng"
+     }
+    },
+    {
+     "label": "黙って幕舎を出る",
+     "next": "s3go"
+    }
+   ]
+  },
+  "s3bq_ok": {
+   "speaker": "baiqi",
+   "text": [
+    "{baiqi}は長いあいだ黙っていた。「長平で四十万を埋めた男が、命を惜しむか」やがて筆を取り、短い書を一通したためた。「届くかどうかは知らぬ。届いても、王が読むかどうかは知らぬ」",
+    "{player}は書を懐に、囲みの外へ抜け出した。"
+   ],
+   "effects": [
+    {
+     "flag": "h_handan_baiqi"
+    },
+    {
+     "spare": "baiqi",
+     "years": 8
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{baiqi}に王への詫びの書を書かせた。"
+    }
+   ],
+   "next": "s3go"
+  },
+  "s3bq_ng": {
+   "speaker": "baiqi",
+   "text": [
+    "「若いの。戦で人を殺すのと、己の死を受け入れるのは、同じ腕でやるものだ」{baiqi}はそれきり口を閉ざした。"
+   ],
+   "next": "s3go"
+  },
+  "s3go": {
+   "art": "tale",
+   "text": [
+    "城へ戻ると、{pingyuan}の家宰が待ちかねていた。「魏だ。{xinling}さまに会ってくれ。それしか道がない」"
+   ],
+   "choices": [
+    {
+     "label": "{daliang}へ行き、{xinling}に会う",
+     "effects": [
+      {
+       "note": "{daliang}の{xinling}に{city}の窮状を伝えに行く。"
+      }
+     ],
+     "next": "s4"
+    }
+   ]
+  },
+  "s3betray": {
+   "art": "war",
+   "text": [
+    "月のない夜、{player}は西門の閂を守る兵に酒を回し、一人ずつ眠らせた。門の外では{qin}の兵が息を殺して待っている。",
+    "閂が外れる音は、思ったよりずっと小さかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_handan_betray"
+    },
+    {
+     "spare": "baiqi",
+     "years": 6
+    },
+    {
+     "money": 600
+    },
+    {
+     "wanted": "zhao",
+     "n": 45
+    },
+    {
+     "rep": "zhao",
+     "n": -40
+    },
+    {
+     "rep": "qin",
+     "n": 20
+    },
+    {
+     "note": "{qin}に通じ、{city}の城門を開く手引きをした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3betray_ng": {
+   "art": "war",
+   "text": [
+    "閂に手をかけたところで、松明が向けられた。{player}は斬りかかる門兵を突き飛ばして逃げた。手配の触れが辻ごとに貼られ、もう{city}で表は歩けない。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "wanted": "zhao",
+     "n": 30
+    },
+    {
+     "rep": "zhao",
+     "n": -20
+    },
+    {
+     "note": "{city}の城門を開こうとして見咎められた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4": {
+   "at": {
+    "place": "daliang",
+    "building": "inn"
+   },
+   "goal": "{daliang}の客舎で{xinling}の門下を探す",
+   "speaker": "houying",
+   "art": "tale",
+   "text": [
+    "{xinling}の屋敷を訪ねると、門下から夷門の門番に会えと言われた。七十を過ぎた門番{houying}は、{player}の話を黙って聞き終えると、客舎の奥へ招き入れた。",
+    "「公子は自分の食客だけで{qin}の陣へ突っ込み、死ぬおつもりだった。わしが止めた。兵符だ。兵符があれば{jinbi}の十万を動かせる。片割れは王の寝所にある。公子に恩のある如姫さまが、今夜それを持ち出してくださる」",
+    "「宮の外まで、誰かが運ばねばならぬ。顔の知れた公子の門下では怪しまれる。おぬしは見ない顔だ」"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れて兵符を受け取りに行く",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "「わたしの役ではない」と外で待つ",
+     "next": "s4wait"
+    },
+    {
+     "label": "魏王の近臣に、公子が兵符を盗む企てを告げる",
+     "turn": true,
+     "next": "s4report"
+    }
+   ]
+  },
+  "s4report": {
+   "speaker": "魏王の近臣",
+   "art": "court",
+   "text": [
+    "宦官は{player}の話を聞くと、顔色を変えて奥へ走った。夜半、王の寝所の前に兵が並び、如姫は捕らえられた。明け方には{xinling}の屋敷が囲まれていた。",
+    "近臣は{player}の前に金を積んだ。「王はおぬしの忠を忘れぬ。{zhao}のことは{zhao}に任せればよい」"
+   ],
+   "effects": [
+    {
+     "flag": "h_handan_reported"
+    },
+    {
+     "money": 400
+    },
+    {
+     "rep": "wei",
+     "n": 15
+    },
+    {
+     "rep": "zhao",
+     "n": -25
+    },
+    {
+     "note": "{xinling}が兵符を盗む企てを魏王に告げた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4ok": {
+   "text": [
+    "宮の裏塀の下で、女官の手から布にくるまれた虎の形の割符を受け取った。巡邏の松明が二度すぐそばを過ぎたが、{player}は息を殺してやり過ごした。",
+    "夜明け前、{xinling}は割符を握りしめて、「この恩は忘れぬ」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_handan_tally"
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "wanted": "wei",
+     "n": 8
+    },
+    {
+     "note": "{xinling}のために兵符を宮から運び出した。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4ng": {
+   "text": [
+    "塀を越えたところで衛士に見咎められた。{player}は割符を懐深くに押し込んで逃げ、追手を撒くのに夜を半分使った。割符は無事だったが、顔は見られたかもしれない。"
+   ],
+   "effects": [
+    {
+     "flag": "h_handan_tally"
+    },
+    {
+     "wanted": "wei",
+     "n": 15
+    },
+    {
+     "hp": -10
+    },
+    {
+     "note": "兵符は運び出したが、魏の衛士に追われた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4wait": {
+   "text": [
+    "夜が明けるころ、{houying}が戻ってきた。兵符は別の者が運んだという。「無理は言わぬ。だが、公子の出陣は見届けてやってくれ」"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "daliang"
+   },
+   "speaker": "houying",
+   "art": "war",
+   "text": [
+    "{xinling}の車が城門を出る。御者台の脇に、市の肉屋だったという大男{zhuhai}が乗っていた。袖の下に四十斤の鉄槌を隠している。",
+    "{houying}は門の脇に立ち、低い声で言った。「わしは老いて供はできぬ。公子が{jinbi}の陣に着く日を数えて、北を向いて首を刎ね、お見送りいたす」"
+   ],
+   "choices": [
+    {
+     "label": "{xinling}に従い、鄴の陣へ行く",
+     "next": "s6"
+    },
+    {
+     "label": "{houying}を思いとどまらせようとする",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s5talk",
+      "lose": "s5talk"
+     }
+    }
+   ]
+  },
+  "s5talk": {
+   "speaker": "houying",
+   "text": [
+    "老人は首を振った。「士は己を知る者のために死ぬ。公子はわしのような門番に、自ら手綱を取ってくださった。それで足りる」{player}はそれ以上言えず、車の後を追った。"
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "speaker": "jinbi",
+   "art": "war",
+   "text": [
+    "鄴の陣で、{jinbi}は二つの割符を合わせ、なお疑わしげに{xinling}を見上げた。「十万の兵を預かる身だ。単車で来て代われとは、どういうことか」",
+    "その瞬間、{zhuhai}の袖から鉄槌が振り下ろされ、{jinbi}は声もなく倒れた。帳の外で兵たちが剣を抜く音がする。"
+   ],
+   "choices": [
+    {
+     "label": "帳の入口に立ち、斬りかかる者を防ぐ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s6ok",
+      "lose": "s6ng"
+     }
+    },
+    {
+     "label": "「兵符はここにある。王命である」と兵の前に立つ",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s6ok",
+      "lose": "s6ng"
+     }
+    }
+   ]
+  },
+  "s6ok": {
+   "speaker": "xinling",
+   "text": [
+    "騒ぎは収まった。{xinling}は全軍に告げた。「父子ともに軍にある者は、父が帰れ。兄弟ともにある者は、兄が帰れ。一人子は帰って親を養え」残った八万が、北の{city}へ向けて動き出した。",
+    "{xinling}は{player}の肩に手を置いた。「{city}で会おう」"
+   ],
+   "effects": [
+    {
+     "flag": "h_handan_camp"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "鄴の陣で{xinling}の兵権奪取を助けた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6ng": {
+   "text": [
+    "乱戦で腕を斬られた。{zhuhai}が{player}を引きずって帳の奥へ下がらせ、ほどなく騒ぎは鎮まった。八万の兵が北へ動き出すのを、{player}は痛む腕を押さえて見送った。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "note": "鄴の陣で傷を負った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で成り行きを見届ける",
+   "wait": {
+    "settled": "handan_saved"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "handan_falls"
+     },
+     "next": "fall"
+    },
+    {
+     "if": {
+      "branch": "handan_reported"
+     },
+     "next": "reported"
+    },
+    {
+     "if": {
+      "branch": "handan_baiqi"
+     },
+     "next": "after_baiqi"
+    },
+    {
+     "if": {
+      "branch": "handan_nopy"
+     },
+     "next": "after_nopy"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "fall": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "text": [
+    "夜明け、西門から{qin}の兵がなだれ込んだ。三年の囲みに痩せた{zhao}の兵は、ほとんど刃を合わせることもなく崩れた。{pingyuan}は数十騎に守られて北門から落ちていったという。",
+    "{qin}の陣から来た使いが、{player}に銭袋を渡した。「武安君（{baiqi}）は剣を賜らずにすんだ。勝った将を王は殺さぬ。おぬしの手引きのおかげだ」",
+    "焼け残った辻で、子を抱いた女が{player}を見ていた。何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "fame": -4
+    },
+    {
+     "unflag": "h_handan_betray"
+    },
+    {
+     "note": "{city}は{qin}の手に落ちた。手引きをしたのは{player}だった。"
+    }
+   ],
+   "end": "開かれた城門"
+  },
+  "reported": {
+   "at": {
+    "place": "city"
+   },
+   "art": "tale",
+   "text": [
+    "魏の援軍は来なかった。{xinling}は王の兵符を盗もうとした罪で捕らえられ、獄で死んだと聞いた。{houying}は約束の日を待たず、夷門の下で自ら首を刎ねたという。",
+    "楚の兵だけで{city}が囲みを解かれたのは、それから半年のちのことだった。城の内では、もう人が人を食っていたと噂された。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "unflag": "h_handan_reported"
+    },
+    {
+     "note": "{xinling}は捕らえられ、{city}の囲みは半年遅れて解けた。"
+    }
+   ],
+   "end": "告げた者"
+  },
+  "after_baiqi": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "text": [
+    "楚の援軍が南から、{xinling}の魏軍が東から迫り、{qin}の軍はついに{city}の囲みを解いて西へ退いた。",
+    "後に聞いた。{baiqi}の詫びの書は王に届き、王は剣を下げ渡す使いを途中で呼び戻したという。老将は封地へ退き、二度と戦場には出なかった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "note": "{city}の囲みが解けた。{baiqi}は死を賜らずにすんだ。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{xinling}を訪ねる",
+     "if": {
+      "flag": "h_handan_tally"
+     },
+     "next": "end_xinling"
+    },
+    {
+     "label": "{pingyuan}の宮城へ戻る",
+     "next": "end_pingyuan"
+    },
+    {
+     "label": "{maosui}と酒を酌み交わす",
+     "if": {
+      "flag": "h_handan_maosui"
+     },
+     "next": "end_maosui"
+    }
+   ]
+  },
+  "after_nopy": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "text": [
+    "{pingyuan}を失った{city}には、楚へ使いを出す者がいなかった。それでも{xinling}の魏軍が東から迫り、{qin}の軍は囲みを解いて西へ退いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_handan_tally"
+    },
+    {
+     "unflag": "h_handan_camp"
+    },
+    {
+     "unflag": "h_handan_maosui"
+    },
+    {
+     "note": "{city}の囲みは、魏の兵だけで解けた。"
+    }
+   ],
+   "end": "主なき城"
+  },
+  "after": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で囲みが解けるのを待つ",
+   "wait": {
+    "fired": "handan_saved"
+   },
+   "art": "war",
+   "text": [
+    "楚の援軍が南から、{xinling}の魏軍が東から迫り、{qin}の軍はついに{city}の囲みを解いて西へ退いた。城壁の上で、痩せこけた兵たちが声にならない声を上げている。",
+    "後に聞いた。{qin}の王は{baiqi}に将となるよう命じたが、{baiqi}は「いま攻めても勝てぬ」と病を称して拒み、ついに剣を賜って自ら命を絶ったという。「長平で降った趙兵数十万を欺いて穴に埋めた。それだけで死ぬに足る」と言い残して。"
+   ],
+   "choices": [
+    {
+     "label": "{xinling}を訪ねる",
+     "if": {
+      "flag": "h_handan_tally"
+     },
+     "next": "end_xinling"
+    },
+    {
+     "label": "{pingyuan}の宮城へ戻る",
+     "next": "end_pingyuan"
+    },
+    {
+     "label": "{maosui}と酒を酌み交わす",
+     "if": {
+      "flag": "h_handan_maosui"
+     },
+     "next": "end_maosui"
+    }
+   ]
+  },
+  "end_xinling": {
+   "speaker": "xinling",
+   "text": [
+    "{xinling}は魏へは戻らなかった。王の兵符を盗み、将を殺した身だ。「兄王の怒りが解けるまで、わたしは{zhao}の客で終わるだろう。だが悔いはない」",
+    "{xinling}は佩剣を外して{player}に渡した。「{houying}どのは、約束の日に北を向いて死んだ。あの人の分まで、そなたが覚えておいてくれ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "rep": "wei",
+     "n": -10
+    },
+    {
+     "item": "bronze_sword"
+    },
+    {
+     "unflag": "h_handan_tally"
+    },
+    {
+     "unflag": "h_handan_camp"
+    },
+    {
+     "unflag": "h_handan_maosui"
+    },
+    {
+     "note": "{city}の囲みが解けた。{xinling}から剣を贈られた。"
+    }
+   ],
+   "end": "割符の恩"
+  },
+  "end_pingyuan": {
+   "speaker": "pingyuan",
+   "text": [
+    "{pingyuan}は宮城の広間で、帰った食客たちに金を配っていた。「{maosui}の三寸の舌は、百万の兵より強かった。わしはもう二度と天下の士を見誤らぬ」",
+    "{player}の前にも金が積まれた。「留守の働き、よくやってくれた」"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "unflag": "h_handan_tally"
+    },
+    {
+     "unflag": "h_handan_camp"
+    },
+    {
+     "unflag": "h_handan_maosui"
+    },
+    {
+     "note": "{city}の囲みが解けた。{pingyuan}から褒美を受けた。"
+    }
+   ],
+   "end": "囲みの解けた日"
+  },
+  "end_maosui": {
+   "speaker": "maosui",
+   "text": [
+    "{maosui}は上客に取り立てられていた。杯を傾けながら、彼は笑った。「あの日、囊に入れてくれと言えたのは、誰か一人でも笑わずに聞く者がいると思ったからだ。それがおぬしだった」",
+    "「錐は先が出なければ、ただの鉄くずだ。おぬしも、出るべき時に出ろよ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "unflag": "h_handan_tally"
+    },
+    {
+     "unflag": "h_handan_camp"
+    },
+    {
+     "unflag": "h_handan_maosui"
+    },
+    {
+     "note": "{city}の囲みが解けた。{maosui}と友になった。"
+    }
+   ],
+   "end": "囊中の錐"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "handan_baiqi"
+     },
+     "next": "late_baiqi"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_baiqi": {
+   "art": "tale",
+   "text": [
+    "知らせが届いた。{qin}の軍は{city}の囲みを解いて退いたという。楚の援軍と、魏の公子{xinling}が王の兵符を盗んで率いた軍が、ついに{qin}を追い払ったのだ。",
+    "{baiqi}が王に送った詫びの書は届いたらしい。老将は死を賜らずに封地へ退いた。{player}が運び出したあの短い書のことを、知る者は少ない。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_handan_tally"
+    },
+    {
+     "unflag": "h_handan_camp"
+    },
+    {
+     "unflag": "h_handan_maosui"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{city}の囲みが解けた。{baiqi}は生き延びた。"
+    }
+   ],
+   "end": "届いた書"
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "知らせが届いた。{qin}の軍は{city}の囲みを解いて退いたという。楚の援軍と、魏の公子{xinling}が王の兵符を盗んで率いた軍が、ついに{qin}を追い払ったのだ。",
+    "{qin}の名将{baiqi}は出陣を拒んで死を賜ったと、人々は声をひそめて語り合った。{player}はその場に居合わせることはできなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_handan_tally"
+    },
+    {
+     "unflag": "h_handan_camp"
+    },
+    {
+     "unflag": "h_handan_maosui"
+    },
+    {
+     "note": "{city}の囲みは、{player}の知らぬうちに解けていた。"
+    }
+   ],
+   "end": "遠い囲み"
+  }
+ },
+ "branches": [
+  {
+   "id": "handan_falls",
+   "event": "handan_saved",
+   "order": 3,
+   "why": "主人公が秦に通じて城門を開いた",
+   "when": {
+    "flag": "h_handan_betray"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}の軍は内からの手引きで邯鄲の城門を破った。{n_zhao}の都は落ち、[[p:平原君]]は北へ逃れた。勝った[[p:白起]]は死を賜らずにすんだ。",
+    "do": [
+     [
+      "cede",
+      "zhao",
+      "qin",
+      [
+       "handan"
+      ]
+     ],
+     [
+      "add",
+      "zhao",
+      "stability",
+      -0.2
+     ],
+     [
+      "army",
+      "zhao",
+      0.7
+     ],
+     [
+      "add",
+      "qin",
+      "prestige",
+      10
+     ]
+    ],
+    "imp": 3,
+    "at": "handan"
+   }
+  },
+  {
+   "id": "handan_reported",
+   "event": "handan_saved",
+   "order": 2,
+   "why": "主人公が兵符の企てを魏王に告げた",
+   "when": {
+    "flag": "h_handan_reported"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "魏王は公子[[p:信陵君]]が兵符を盗む企てを知って捕らえ、魏の援軍は来なかった。{n_zhao}は楚の援軍だけで半年を持ちこたえ、ようやく{n_qin}の軍を退けた。[[p:白起]]は出陣を拒んで死を賜った。",
+    "do": [
+     [
+      "army",
+      "zhao",
+      0.8
+     ],
+     [
+      "add",
+      "zhao",
+      "stability",
+      -0.1
+     ],
+     [
+      "add",
+      "qin",
+      "prestige",
+      -5
+     ]
+    ],
+    "imp": 3,
+    "at": "handan"
+   },
+   "people": [
+    {
+     "kill": "信陵君",
+     "cause": "executed"
+    }
+   ]
+  },
+  {
+   "id": "handan_baiqi",
+   "event": "handan_saved",
+   "order": 1,
+   "why": "主人公が白起に詫びの書を書かせた",
+   "when": {
+    "flag": "h_handan_baiqi"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "秦軍が邯鄲を囲んだ。[[p:平原君]]は[[p:毛遂]]を伴って楚の援軍を得、魏の[[p:信陵君]]は王の兵符を盗み出して出兵し、ついに秦軍を退けた。[[p:白起]]は王に詫びの書を送り、死を賜らずに封地へ退いた。",
+    "do": [
+     [
+      "add",
+      "qin",
+      "prestige",
+      -10
+     ],
+     [
+      "army",
+      "qin",
+      0.8
+     ],
+     [
+      "add",
+      "zhao",
+      "stability",
+      0.1
+     ]
+    ],
+    "imp": 3,
+    "at": "handan"
+   }
+  },
+  {
+   "id": "handan_nopy",
+   "event": "handan_saved",
+   "why": "平原君がすでに亡くなっていた",
+   "when": {
+    "dead": [
+     "平原君"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:平原君]]を失った{n_zhao}は楚の援軍を得られなかったが、魏の[[p:信陵君]]が王の兵符を盗み出して出兵し、{n_qin}の軍を退けた。",
+    "do": [
+     [
+      "add",
+      "qin",
+      "prestige",
+      -5
+     ],
+     [
+      "army",
+      "qin",
+      0.9
+     ]
+    ],
+    "imp": 3,
+    "at": "handan"
+   }
+  }
+ ]
+}

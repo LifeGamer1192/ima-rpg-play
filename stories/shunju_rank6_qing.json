@@ -1,0 +1,513 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_rank6_qing",
+ "kind": "rank",
+ "rankTo": 6,
+ "title": "虎符を帯びて",
+ "era": "shunju",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "front": {
+   "place": "border:patron"
+  },
+  "lieut": {
+   "npc": "副将",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "政敵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城で昇進を願い出る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は虎の形をした割符の片割れを{player}に渡した。「{front}に敵が迫っておる。兵五千を預ける。卿の位は、戦場で取ってこい」",
+    "兵糧の差配は{rival}に任された。{rival}は恭しく頭を下げた。「将軍のご武運を。糧は、間に合えば届きましょう」"
+   ],
+   "effects": [
+    {
+     "note": "虎符を授かり、{front}へ出陣することになった。兵糧の差配は{rival}。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "front",
+    "building": "barracks"
+   },
+   "goal": "国境の{front}の陣営に入る",
+   "speaker": "lieut",
+   "art": "war",
+   "text": [
+    "陣営を預かってきた老将{lieut}は、虎符を見ても膝をつかなかった。「宮廷の口達者が将とは。兵は言葉では動きませんぞ」",
+    "兵たちは遠巻きに、新しい将の値踏みをしている。"
+   ],
+   "choices": [
+    {
+     "label": "{lieut}に頭を下げ、教えを乞う",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "s2ok",
+      "lose": "s2split"
+     }
+    },
+    {
+     "label": "軍令に従わぬなら、と剣を抜いて{lieut}に挑む",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2split"
+     }
+    },
+    {
+     "label": "秦の軍功爵を示し、「首一つで爵一級」と兵に告げる",
+     "if": {
+      "realm": [
+       "秦"
+      ]
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "s2ok",
+      "lose": "s2split"
+     }
+    },
+    {
+     "label": "胡服に着替え、馬上から的を射抜いてみせる",
+     "if": {
+      "realm": [
+       "趙"
+      ]
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 44,
+      "win": "s2ok",
+      "lose": "s2split"
+     }
+    },
+    {
+     "label": "韓の強弩を並べ、射法を兵に教える",
+     "if": {
+      "realm": [
+       "韓",
+       "魏"
+      ]
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 46,
+      "win": "s2ok",
+      "lose": "s2split"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "lieut",
+   "text": [
+    "{lieut}はしばらく{player}を睨み、それから片膝をついた。「……命に従いましょう、将軍」兵たちの目の色が変わった。"
+   ],
+   "effects": [
+    {
+     "flag": "rank6_lieut"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2split": {
+   "speaker": "lieut",
+   "text": [
+    "{lieut}は鼻で笑って自分の幕舎に戻った。陣は二つに割れたまま、敵を迎えることになる。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "art": "war",
+   "text": [
+    "十日経っても、都からの兵糧は半分しか届かなかった。輸送の役人は「{rival}さまの指図で、道を変えた」と言う。兵の粥が日に日に薄くなる。"
+   ],
+   "choices": [
+    {
+     "label": "私財を投じて近くの商人から買い付ける（800{money}）",
+     "if": {
+      "money": 800
+     },
+     "effects": [
+      {
+       "money": -800
+      },
+      {
+       "fame": 2
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "商人と掛け合い、戦の後払いで糧を出させる",
+     "check": {
+      "skill": "trade",
+      "dc": 50,
+      "win": "s4",
+      "lose": "s3hungry"
+     }
+    },
+    {
+     "label": "近くの村々から糧を徴発する",
+     "effects": [
+      {
+       "flag": "rank6_plunder"
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "輸送の役人を締め上げ、{rival}の横流しの証を取る",
+     "check": {
+      "skill": "stealth",
+      "dc": 50,
+      "win": "s3proof",
+      "lose": "s3hungry"
+     }
+    }
+   ]
+  },
+  "s3proof": {
+   "text": [
+    "役人は震えながら、別の倉に運ばれた兵糧の数を書き付けた。{rival}の家の倉だ。糧も一部取り戻した。"
+   ],
+   "effects": [
+    {
+     "flag": "rank6_proof"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hungry": {
+   "text": [
+    "糧は集まらなかった。腹を空かせた兵の中から、夜のうちに逃げる者が出始めた。"
+   ],
+   "effects": [
+    {
+     "flag": "rank6_hungry"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "front"
+   },
+   "speaker": "lieut",
+   "art": "war",
+   "text": [
+    "夜明け、{front}の野に敵の旗が並んだ。太鼓が鳴る。",
+    "「将軍、ご命令を」"
+   ],
+   "choices": [
+    {
+     "label": "{lieut}に別働隊を任せ、挟み撃ちにする",
+     "if": {
+      "flag": "rank6_lieut"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4lost"
+     }
+    },
+    {
+     "label": "騎兵を率いて敵の側面へ回り込む",
+     "if": {
+      "realm": [
+       "趙"
+      ]
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 50,
+      "win": "s5",
+      "lose": "s4lost"
+     }
+    },
+    {
+     "label": "自ら先頭に立って突撃する",
+     "if": {
+      "notFlag": "rank6_hungry"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4lost"
+     }
+    },
+    {
+     "label": "飢えた兵を叱咤し、自ら先頭に立って突撃する",
+     "if": {
+      "flag": "rank6_hungry"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 5,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4lost"
+     }
+    },
+    {
+     "label": "陣を固め、弓兵で迎え撃つ",
+     "check": {
+      "skill": "bow",
+      "dc": 52,
+      "win": "s5",
+      "lose": "s4lost"
+     }
+    }
+   ]
+  },
+  "s4lost": {
+   "art": "war",
+   "text": [
+    "陣が崩れた。{player}は殿に立ち、どうにか兵の半ばを連れて国境の内へ退いた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "fail_lost"
+  },
+  "s5": {
+   "art": "war",
+   "text": [
+    "日暮れ、敵は旗を捨てて退いた。勝鬨が野に響く。{player}の名は、兵たちの口から口へと伝わっていった。"
+   ],
+   "effects": [
+    {
+     "flag": "led_troops"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "blade",
+     "n": 10
+    }
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城へ凱旋し、虎符を返す",
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "凱旋の宴の前、{rival}が{ruler}の耳に何かをささやいていた。「兵の心を掴んだ将が、虎符をすぐに返すとは限りませぬ。それに、村々から糧を奪ったとの訴えも」",
+    "{ruler}が{player}を見た。目は笑っていない。"
+   ],
+   "choices": [
+    {
+     "label": "何より先に虎符を返上し、膝をつく",
+     "if": {
+      "notFlag": "rank6_plunder"
+     },
+     "next": "win_loyal"
+    },
+    {
+     "label": "{rival}の兵糧横流しの書き付けを差し出す",
+     "if": {
+      "flag": "rank6_proof"
+     },
+     "next": "win_purge"
+    },
+    {
+     "label": "虎符を返し、徴発は軍のためだったと弁じる",
+     "if": {
+      "flag": "rank6_plunder"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 52,
+      "win": "win_loyal",
+      "lose": "fail_plunder"
+     }
+    },
+    {
+     "label": "「糧を絶ったのは{rival}どのでは」と問い返す",
+     "check": {
+      "skill": "speech",
+      "dc": 54,
+      "win": "win_purge",
+      "lose": "fail_plunder"
+     }
+    }
+   ]
+  },
+  "win_loyal": {
+   "speaker": "ruler",
+   "text": [
+    "虎符の片割れが{ruler}の掌で一つに合わさった。「疑ったのは恥ずかしいことだ」{ruler}は{player}を卿に任じた。{rival}は宴の間じゅう、杯に口をつけなかった。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 15
+    },
+    {
+     "fame": 6
+    },
+    {
+     "unflag": "rank6_lieut"
+    },
+    {
+     "unflag": "rank6_proof"
+    },
+    {
+     "unflag": "rank6_hungry"
+    },
+    {
+     "unflag": "rank6_plunder"
+    },
+    {
+     "note": "{front}で敵を退け、卿となった。"
+    }
+   ],
+   "end": "凱旋して卿に"
+  },
+  "win_purge": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}は書き付けを読み、静かに{rival}を見た。「兵の糧を盗む者は、敵より罪が重い」{rival}は位を削られ、都を追われた。",
+    "{player}は卿に任じられた。宮中には、{player}を恐れる者と頼る者が、同じ数だけ生まれた。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 18
+    },
+    {
+     "fame": 8
+    },
+    {
+     "flag": "rank6_rival_fallen"
+    },
+    {
+     "unflag": "rank6_lieut"
+    },
+    {
+     "unflag": "rank6_proof"
+    },
+    {
+     "unflag": "rank6_hungry"
+    },
+    {
+     "unflag": "rank6_plunder"
+    },
+    {
+     "note": "{front}で勝ち、{rival}の横流しを暴いて卿となった。"
+    }
+   ],
+   "end": "内なる敵を討つ"
+  },
+  "fail_plunder": {
+   "speaker": "ruler",
+   "text": [
+    "言葉は届かなかった。「功は認める。だが民から奪い、同僚を疑う者に卿は任せられぬ」{ruler}は虎符を受け取り、褒美だけを与えて下がらせた。覚えを取り戻せば、また機会は来よう。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "money": 300
+    },
+    {
+     "unflag": "rank6_lieut"
+    },
+    {
+     "unflag": "rank6_proof"
+    },
+    {
+     "unflag": "rank6_hungry"
+    },
+    {
+     "unflag": "rank6_plunder"
+    },
+    {
+     "note": "戦には勝ったが卿にはなれなかった。また試しを願い出られる。"
+    }
+   ],
+   "end": "功あって位なし"
+  },
+  "fail_lost": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}へ戻り、敗戦を報じる",
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "「口達者の将の末路よ」{rival}の声が宮中に響いた。{ruler}は虎符を取り上げ、{lieut}に陣を任せた。務めを重ねて覚えを取り戻すまで、二度目の機会はない。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "rank6_lieut"
+    },
+    {
+     "unflag": "rank6_proof"
+    },
+    {
+     "unflag": "rank6_hungry"
+    },
+    {
+     "unflag": "rank6_plunder"
+    },
+    {
+     "note": "{front}で敗れ、虎符を取り上げられた。覚えを取り戻せば、また試しを願い出られる。"
+    }
+   ],
+   "end": "敗軍の将"
+  }
+ }
+}

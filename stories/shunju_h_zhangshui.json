@@ -1,0 +1,526 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_zhangshui",
+ "kind": "history",
+ "era": "shunju",
+ "title": "漳水の陣",
+ "event": "ye_236",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2scout",
+  "s2ng",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s3hold_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "handan"
+  },
+  "ye": {
+   "place": "near:city"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:zhao"
+  },
+  "wangjian": {
+   "scnPerson": "王翦"
+  },
+  "huanyi": {
+   "scnPerson": "桓齮"
+  },
+  "lianpo": {
+   "scnPerson": "廉頗"
+  },
+  "captain": {
+   "npc": "鄴の守将",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で南の噂を聞く",
+   "art": "tale",
+   "text": [
+    "{city}の宮は、昼でも門を閉ざしていた。{king}は病が重く、もう朝議にも出ないという。太子の母は歌い女の出で、宮中の誰もが次の王の顔色ばかり窺っている。",
+    "その隙を、{qin}は見逃さなかった。{wangjian}、{huanyi}、楊端和の三将が、漳水の向こうに兵を集めている。狙いは南の守りの要、鄴だ。",
+    "辻の高札は、鄴の守りに加わる者を募っていた。墨はまだ乾いていなかった。"
+   ],
+   "choices": [
+    {
+     "label": "鄴へ向かう",
+     "effects": [
+      {
+       "note": "{qin}の三将が漳水の南に兵を集め、鄴を狙っている。鄴の守りに加わることにした。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "ye",
+    "building": "barracks"
+   },
+   "goal": "{ye}の軍営で鄴の守将に会う",
+   "speaker": "captain",
+   "art": "camp",
+   "text": [
+    "鄴の城は、漳水の北岸に低くうずくまっていた。西門豹が河伯に嫁を捧げる巫を水に投げ込み、渠を十二本掘らせたという古い町だ。いまは渠の堤の上に、{zhao}の兵の陣が並んでいる。",
+    "{captain}は地図の上の漳水を指でなぞった。「秦は三手に分かれて来る。どこから渡ってくるかさえ分かれば、渡り口で叩ける。分からなければ、九つの城を一つずつ失うだけだ」"
+   ],
+   "choices": [
+    {
+     "label": "守りの兵に加わる",
+     "next": "s3"
+    },
+    {
+     "label": "夜の漳水を渡り、秦の陣を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s2scout",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2scout": {
+   "text": [
+    "葦の中を泳いで南岸に渡った。秦の陣は三つ。そのうち{huanyi}の旗の陣だけが、川上の浅瀬の近くに筏を集めていた。先鋒はそこから来る。",
+    "戻って告げると、{captain}は唸った。「浅瀬か。あそこなら、川の中で叩ける」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ye_scout"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "{huanyi}の先鋒が川上の浅瀬から渡ってくると探った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "南岸の見張りに見つかり、矢の雨の中を泳いで逃げ帰った。冷たい水を飲み、三日熱にうなされた。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "ye"
+   },
+   "goal": "{ye}で{qin}の渡河を待つ",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "月のない夜、漳水の南岸で篝火が一斉に消えた。秦が渡ってくる。{captain}は城壁の上で剣を抜いた。「どこから来るかは分からぬ。だが来ることは分かった」"
+   ],
+   "choices": [
+    {
+     "label": "城壁の守りにつく",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "兵を率いて浅瀬に伏せ、{huanyi}の先鋒を川の中で迎え撃つ",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "confirm": "川の中で秦の先鋒とぶつかる。退けば背後は漳水だ。",
+      "win": "s3hold",
+      "lose": "s3hold_ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "art": "war",
+   "text": [
+    "城壁に取りついた秦の兵を、夜明けまで突き落としつづけた。鄴の城は持ちこたえた。だが、夜明けの光の中で見ると、川上と川下の城から煙が上がっていた。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3ng": {
+   "art": "war",
+   "text": [
+    "梯子から飛び移ってきた秦の兵と組み合い、城壁の内へ転げ落ちた。脚を折ったらしい。夜明けまで、遠い喊声を聞いていることしかできなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3hold": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "筏が浅瀬の真ん中まで来たとき、葦の中から一斉に矢を放った。筏は傾き、鎧の重い秦の兵が次々に川へ落ちる。{player}は腰まで水に浸かって斬り込み、先鋒の旗を折った。",
+    "先鋒が崩れたのを見て、残る二手の秦兵も渡るのをやめた。夜明け、{captain}は濡れた鎧のまま笑った。「漳水が、今度ばかりは趙の味方をした」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ye_hold"
+    },
+    {
+     "fame": 10
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "rep": "qin",
+     "n": -15
+    },
+    {
+     "note": "漳水の浅瀬で{huanyi}の先鋒を破った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3hold_ng": {
+   "art": "war",
+   "text": [
+    "伏兵は先に見つかった。秦の弩が葦の原を薙ぎ、伏せた兵の半ばが倒れた。{player}は川に押し流され、ずっと下流でようやく岸に這い上がった。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "ye"
+   },
+   "goal": "{ye}で鄴の行く末を見届ける",
+   "wait": {
+    "settled": "ye_236"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ye_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "ye_lianpo"
+     },
+     "next": "withlianpo"
+    },
+    {
+     "next": "s4"
+    }
+   ]
+  },
+  "held": {
+   "at": {
+    "place": "ye"
+   },
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "先鋒を失った{qin}の軍は、漳水の南に陣を張ったまま冬を迎え、やがて西へ引き揚げた。鄴も、その周りの城も、一つも落ちなかった。",
+    "同じ冬、{city}で{king}が没した。新しい王の即位の報せと、漳水の勝ちの報せが、同じ日に宮に届いたという。{captain}は言った。「よい門出だ。王がそれに見合う王であればな」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 10
+    },
+    {
+     "unflag": "h_ye_hold"
+    },
+    {
+     "unflag": "h_ye_scout"
+    },
+    {
+     "note": "鄴は落ちず、{qin}の軍は漳水から退いた。"
+    }
+   ],
+   "end": "漳水の浅瀬"
+  },
+  "withlianpo": {
+   "at": {
+    "place": "ye"
+   },
+   "speaker": "lianpo",
+   "art": "war",
+   "text": [
+    "呼び戻された老将{lianpo}が、鄴の陣にいた。七十を過ぎた将は、秦が渡ってくると見るや城を捨てさせ、兵を後ろの城へ寄せて固く守らせた。",
+    "秦は鄴を取ったが、九つの城を取ることはできなかった。「城は取られても取り返せる。兵は死ねば戻らぬ」老将は{player}の肩を叩いた。「まだ一斗の飯が食えるうちは、わしが趙の壁だ」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_ye_hold"
+    },
+    {
+     "unflag": "h_ye_scout"
+    },
+    {
+     "note": "{lianpo}が守り、鄴を失っても九つの城は失わなかった。"
+    }
+   ],
+   "end": "老将の壁"
+  },
+  "s4": {
+   "at": {
+    "place": "ye"
+   },
+   "goal": "{ye}で鄴の行く末を見届ける",
+   "wait": {
+    "settled": "ye_236"
+   },
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "{qin}の三将は三手から漳水を渡り、鄴を囲んだ。{wangjian}は閼与と轑陽を、{huanyi}は鄴と安陽を、楊端和は川沿いの城を一つずつ。ひと月のうちに九つの城が落ちた。",
+    "同じころ、{city}で{king}が没し、太子の遷が立ったという。歌い女の子の王を、兵たちは「遷の王」と陰で呼んだ。{captain}は焼け落ちた城門の前で、{player}に言った。「どこへ行く。{city}か。あそこも、いずれ鄴と同じになる」"
+   ],
+   "choices": [
+    {
+     "label": "傷ついた兵を連れて{city}へ退く",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "end_wounded",
+      "lose": "end_retreat"
+     }
+    },
+    {
+     "label": "{captain}とともに最後まで城門に残る",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "end_gate",
+      "lose": "end_retreat"
+     }
+    },
+    {
+     "label": "{city}へ退く",
+     "next": "end_retreat"
+    }
+   ]
+  },
+  "end_wounded": {
+   "text": [
+    "荷車に傷ついた兵を積み、夜の道を北へ向かった。{city}の門が見えたとき、荷車の上の兵の半ばは眠っていた。眠ったまま、二度と目を覚まさない者もいた。",
+    "{city}の宮では、新しい王の即位の祝いの楽が鳴っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "rep": "zhao",
+     "n": 8
+    },
+    {
+     "unflag": "h_ye_scout"
+    },
+    {
+     "note": "{qin}は鄴など九つの城を取った。傷ついた兵を{city}へ連れ帰った。"
+    }
+   ],
+   "end": "祝いの楽"
+  },
+  "end_gate": {
+   "speaker": "captain",
+   "text": [
+    "最後の一隊が城を出るまで、{captain}と二人で城門を守った。追ってきた秦の騎兵を三騎斬り落とし、それから門を閉じて北へ走った。",
+    "{captain}は息を切らせながら言った。「城は取られた。だが、最後に門を閉じたのは趙の手だ。それだけは、秦に渡さなかった」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "unflag": "h_ye_scout"
+    },
+    {
+     "note": "{qin}は鄴など九つの城を取った。最後まで城門を守った。"
+    }
+   ],
+   "end": "閉じた城門"
+  },
+  "end_retreat": {
+   "text": [
+    "{player}は北へ退く兵の列に混じった。振り返ると、鄴の城壁の上に{qin}の黒い旗が揚がっていた。",
+    "のちに聞いた。この年、{qin}は鄴など九つの城を取り、{zhao}では王が没して太子の遷が立ったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ye_scout"
+    },
+    {
+     "note": "{qin}は鄴など九つの城を取った。"
+    }
+   ],
+   "end": "九つの城"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ye_lianpo"
+     },
+     "next": "late_lianpo"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_lianpo": {
+   "art": "tale",
+   "text": [
+    "噂が届いた。{qin}の三将が{zhao}の鄴を攻めたが、呼び戻された老将{lianpo}が兵を固く守らせ、秦は鄴を取ったものの、九つの城を取ることはできなかったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ye_scout"
+    },
+    {
+     "note": "{lianpo}が守り、{zhao}は鄴のほかの城を守ったと聞いた。"
+    }
+   ],
+   "end": "遠い壁"
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "噂が届いた。{qin}の{wangjian}、{huanyi}、楊端和が{zhao}の鄴を攻め、九つの城を取ったという。同じ年、趙では王が没し、歌い女の子の遷が立った。",
+    "「趙の壁が、南から崩れはじめた」と、宿の客は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ye_scout"
+    },
+    {
+     "note": "{qin}が鄴など九つの城を取ったと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "ye_hold",
+   "event": "ye_236",
+   "order": 2,
+   "why": "主人公が漳水の浅瀬で秦の先鋒を破った",
+   "when": {
+    "flag": "h_ye_hold"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}の[[p:王翦]]・[[p:桓齮]]・[[p:楊端和]]が{n_zhao}の鄴を攻めたが、桓齮の先鋒は漳水の浅瀬で破られ、秦軍は城を取れずに退いた。この年、趙の[[p:悼襄王]]が没し、子の遷 ([[p:幽繆王]]) が立った。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "prestige",
+      5
+     ],
+     [
+      "army",
+      "qin",
+      0.9
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   }
+  },
+  {
+   "id": "ye_lianpo",
+   "event": "ye_236",
+   "order": 1,
+   "why": "廉頗が趙に戻っていた",
+   "when": {
+    "anyTaken": [
+     "lianpo_back",
+     "lianpo_guokai"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}の[[p:王翦]]・[[p:桓齮]]・[[p:楊端和]]が{n_zhao}の鄴を攻めた。呼び戻された[[p:廉頗]]が兵を固く守らせ、秦は鄴を取ったものの、ほかの城は落ちなかった。この年、趙の[[p:悼襄王]]が没し、子の遷 ([[p:幽繆王]]) が立った。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "prestige",
+      -4
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   }
+  }
+ ]
+}

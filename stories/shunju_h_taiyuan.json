@@ -1,0 +1,610 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_taiyuan",
+ "kind": "history",
+ "era": "shunju",
+ "title": "晋陽の守り",
+ "event": "qin_taiyuan",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2wall",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s4",
+  "s4win",
+  "s4lose",
+  "s5",
+  "s5ok",
+  "s5ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "jinyang"
+  },
+  "handan": {
+   "scnPlace": "handan"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "king": {
+   "person": "ruler:zhao"
+  },
+  "mengao": {
+   "scnPerson": "蒙驁"
+  },
+  "captain": {
+   "npc": "晋陽の守将",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "晋陽の古老",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で噂を聞く",
+   "speaker": "elder",
+   "art": "tale",
+   "text": [
+    "{city}の客舎の炉端で、{elder}が汾水の昔を語っていた。二百年前、智伯が韓・魏の兵を率いてこの城を囲み、汾水を堰き止めて水攻めにした。城の中では竈に蛙が湧き、人は子を取り替えて食ったという。それでも趙襄子は降らず、ついに韓・魏を寝返らせて智伯を滅ぼした。",
+    "「趙という国は、この城から始まったのだ」{elder}は火箸で灰をかき回した。「その城に、また西から兵が来る。{qin}の{mengao}が韓の三川を取り、次は太原だと言われておる」"
+   ],
+   "choices": [
+    {
+     "label": "軍営へ行き、守将に会う",
+     "effects": [
+      {
+       "note": "{qin}の{mengao}が太原に向かっているという。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の軍営で守将に会う",
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "{captain}は矢の束を数えていた。数えるたびに顔が曇る。「兵は三千、矢は一人に二十。{mengao}は五万を連れてくる。長平のあと、邯鄲は北に兵を回す余裕がない。廉頗将軍は燕との戦で手一杯だ」",
+    "「邯鄲へ使いをやりたいが、出せる者がいない。腕の立つ者は一人でも城壁に欲しい。……おぬしはどちらを引き受ける」"
+   ],
+   "choices": [
+    {
+     "label": "{handan}へ援けを求める使いに立つ",
+     "effects": [
+      {
+       "note": "{captain}に頼まれ、{handan}へ援けを求めに行く。"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "城に残り、壁の修繕を手伝う",
+     "next": "s2wall"
+    }
+   ]
+  },
+  "s2wall": {
+   "speaker": "captain",
+   "text": [
+    "十日のあいだ、崩れかけた西の壁に土を突き固めた。手の皮が剥けたころ、{captain}が水を差し出した。「壁は人と同じだ。弱いところから崩れる。おぬしが塞いだのは、一番弱いところだった」"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "s4"
+  },
+  "s3": {
+   "at": {
+    "place": "handan",
+    "building": "palace"
+   },
+   "goal": "{handan}の宮で援兵を乞う",
+   "speaker": "趙の大夫",
+   "art": "court",
+   "text": [
+    "{king}は病がちで、朝議にはほとんど出てこない。代わりに{player}の話を聞いた大夫は、扇で口元を隠したまま言った。「晋陽は趙氏の故地、もとより捨てはせぬ。だが兵がない。長平で四十万を失った国に、どこから兵が湧くと思う」"
+   ],
+   "choices": [
+    {
+     "label": "晋陽が落ちれば邯鄲の背が空くと説き、せめて弩と矢を出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "返事を待たずに{city}へ戻る",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "趙の大夫",
+   "text": [
+    "大夫は渋い顔で蔵の鍵を出させた。「兵はやれぬ。矢を五万本、弩を三百。それで足りなければ、晋陽はそれまでの城だったということだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ty_aid"
+    },
+    {
+     "rep": "zhao",
+     "n": 5
+    },
+    {
+     "note": "{handan}から矢と弩を晋陽へ送らせた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "speaker": "趙の大夫",
+   "text": [
+    "「おぬしの言うことはもっともだ。もっともなことは、みな分かっておる」大夫はそれきり扇を閉じた。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}に戻り、{qin}の兵を待つ",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "汾水の西岸に{qin}の先手が着いた。兵たちは昼夜なく土を運び、城壁と同じ高さの土山と、車のついた衝車を組み上げてゆく。{mengao}の本隊が着けば、すぐにも攻めかかるだろう。",
+    "{captain}が{player}を城壁に呼んだ。「あの土山と衝車が揃えば、城はひと月もたぬ。揃う前に焼けば、話は別だが……打って出れば、生きて帰れる者は少ない」"
+   ],
+   "choices": [
+    {
+     "label": "夜、決死の兵を率いて城門を出、{qin}の攻め具を焼き払う",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "confirm": "敵陣の真ん中へ斬り込むことになる。打って出るか。",
+      "cancel": "s4",
+      "win": "s4win",
+      "lose": "s4lose"
+     }
+    },
+    {
+     "label": "城壁の上で矢を運ぶ",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4win": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "月のない夜、城門がわずかに開き、油壺を背負った決死の兵が汾水の浅瀬を渡った。{player}は先頭で見張りを斬り伏せ、衝車の車輪に油を浴びせた。",
+    "火は土山の木組みに燃え移り、夜空を焦がした。{qin}の陣は大騒ぎになり、帰り道の浅瀬には追手の矢が雨のように降った。それでも、城門をくぐった兵の数は、出た時とほとんど変わらなかった。",
+    "{captain}は燃え落ちる攻め具を城壁から見下ろし、{player}の手を握った。「智伯の水にも降らなかった城だ。{mengao}の火にも降らぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ty_hold"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "rep": "qin",
+     "n": -10
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "夜襲をかけ、晋陽を攻める{qin}の攻め具を焼き払った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4lose": {
+   "text": [
+    "浅瀬の中ほどで松明に照らされ、矢を浴びた。引き返せたのは半分。{player}も肩に矢を受け、這うようにして城門に戻った。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "土山はついに城壁に届いた。夜ごと、{qin}の兵が梯子をかけてくる。{elder}が杖をついて城壁の下まで来た。",
+    "「城はもう持たぬ。それは皆わかっておる。だが女と子らまで、ここで死なせることはない。東の山に、智伯の水のとき隠れた洞がある。案内できるのは、もうわしくらいのものだ」"
+   ],
+   "choices": [
+    {
+     "label": "{elder}と共に、夜のうちに女子供を東の山へ逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s5ok",
+      "lose": "s5ng"
+     }
+    },
+    {
+     "label": "城壁に残り、最後まで守る",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s5ok": {
+   "speaker": "elder",
+   "text": [
+    "三晩かけて、千人あまりを東の山の洞へ送った。最後の晩、{elder}は洞の入口で立ち止まった。「わしはここでよい。おぬしは行け。見届ける者が要る」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ty_people"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "note": "晋陽の女子供を東の山へ逃がした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5ng": {
+   "text": [
+    "城門の脇で{qin}の物見に見つかり、列は散り散りになった。どれだけが山へ着けたのか、{player}には分からなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で成り行きを見届ける",
+   "wait": {
+    "settled": "qin_taiyuan"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ty_nomengao"
+     },
+     "next": "nomengao"
+    },
+    {
+     "if": {
+      "branch": "ty_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "ty_handan"
+     },
+     "next": "bothfall"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "held": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "攻め具を失った{qin}の兵は、なおひと月城を囲んだが、秋の長雨が来ると陣を畳んで西へ退いた。{mengao}は兵を損じ、太原の平定は成らなかった。",
+    "城の楼の上に、趙の旗が揚がり続けている。{captain}は言った。「二百年前は水、今年は火。この城は、どうやら簡単には落ちぬようにできているらしい」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ty_hold"
+    },
+    {
+     "unflag": "h_ty_aid"
+    },
+    {
+     "unflag": "h_ty_people"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "money": 200
+    },
+    {
+     "world": {
+      "ja": "晋陽を攻めた{qin}の軍は攻め具を焼かれて兵を損じ、太原から退いた。",
+      "do": [
+       [
+        "army",
+        "qin",
+        0.9
+       ]
+      ],
+      "imp": 1
+     }
+    },
+    {
+     "note": "晋陽は落ちなかった。"
+    }
+   ],
+   "end": "晋陽の旗"
+  },
+  "nomengao": {
+   "speaker": "captain",
+   "art": "tale",
+   "text": [
+    "西の陣は、ある朝、半ばが引き払われていた。将の{mengao}がいなくなり、{qin}は太原を攻める軍をすぐには起こせなかったのだという。",
+    "一年の猶予だった。一年ののち、{qin}はやはり別の将を立てて来た。だがその一年で、城の者は麦を二度刈り、壁を厚くした。{captain}は言った。「一年あれば、人は逃げることも、備えることもできる」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ty_hold"
+    },
+    {
+     "unflag": "h_ty_aid"
+    },
+    {
+     "unflag": "h_ty_people"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "晋陽が攻められるのは一年遅れた。"
+    }
+   ],
+   "end": "一年の猶予"
+  },
+  "bothfall": {
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "南の{handan}は、もう{qin}の手にあった。救いを求める先がないまま、{city}は{mengao}の前に門を開いた。趙は都も、起こりの地も失った。",
+    "{elder}は城門の脇に座り込み、汾水を見ていた。「始まりの地も、終わりの地も、同じ秦の旗か。……わしは長く生きすぎた」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ty_hold"
+    },
+    {
+     "unflag": "h_ty_aid"
+    },
+    {
+     "unflag": "h_ty_people"
+    },
+    {
+     "note": "邯鄲に続いて晋陽も秦に落ちた。"
+    }
+   ],
+   "end": "北も南も"
+  },
+  "after": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の終わりを見届ける",
+   "wait": {
+    "settled": "qin_taiyuan"
+   },
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "土山から{qin}の兵がなだれ込み、{city}は落ちた。{mengao}は太原の諸城を平らげ、ここを{qin}の郡とした。趙氏の起こった地は、二百年ののちに{qin}のものとなった。",
+    "{captain}は縄を打たれて引かれていった。すれ違いざま、{player}にだけ聞こえる声で言った。「生きて邯鄲へ行け。晋陽がどう落ちたか、王に伝えてくれ」"
+   ],
+   "choices": [
+    {
+     "label": "東の山の洞へ、逃がした人々のもとへ向かう",
+     "if": {
+      "flag": "h_ty_people"
+     },
+     "next": "end_people"
+    },
+    {
+     "label": "{captain}の言葉を胸に、城を落ちる",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_people": {
+   "text": [
+    "東の山の洞には、{city}から逃れた女と子らが身を寄せ合っていた。洞の入口に、{elder}の杖だけが立てかけてあった。",
+    "母親たちは{player}を見ると、黙って頭を下げた。子らはその陰から、珍しそうに{player}の顔を見上げていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ty_hold"
+    },
+    {
+     "unflag": "h_ty_aid"
+    },
+    {
+     "unflag": "h_ty_people"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "note": "晋陽は秦に落ちた。女子供を東の山へ逃がしていた。"
+    }
+   ],
+   "end": "東の山の人々"
+  },
+  "end_plain": {
+   "text": [
+    "汾水を渡って振り返ると、{city}の楼には{qin}の黒い旗が揚がっていた。智伯の水にも降らなかった城が、こうして落ちた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ty_hold"
+    },
+    {
+     "unflag": "h_ty_aid"
+    },
+    {
+     "unflag": "h_ty_people"
+    },
+    {
+     "note": "晋陽は秦に落ちた。"
+    }
+   ],
+   "end": "趙氏の故地"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ty_nomengao"
+     },
+     "next": "nomengao"
+    },
+    {
+     "if": {
+      "branch": "ty_handan"
+     },
+     "next": "bothfall"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の途中で噂を聞いた。{qin}の{mengao}が太原を平らげ、{city}を取ったという。趙氏が起こった地である。",
+    "「長平、それから晋陽。趙は少しずつ削られてゆく」と、隣の卓の商人がつぶやいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ty_hold"
+    },
+    {
+     "unflag": "h_ty_aid"
+    },
+    {
+     "unflag": "h_ty_people"
+    },
+    {
+     "note": "晋陽が秦に落ちたと聞いた。"
+    }
+   ],
+   "end": "遠い晋陽"
+  }
+ },
+ "branches": [
+  {
+   "id": "ty_nomengao",
+   "why": "蒙驁がすでに世を去っていた",
+   "event": "qin_taiyuan",
+   "order": 3,
+   "when": {
+    "dead": [
+     "蒙驁"
+    ]
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "[[p:蒙驁]]を失った{n_qin}は、太原を攻める軍をすぐには起こせなかった。"
+  },
+  {
+   "id": "ty_hold",
+   "why": "主人公が夜襲で秦の攻め具を焼いた",
+   "event": "qin_taiyuan",
+   "order": 2,
+   "when": {
+    "flag": "h_ty_hold"
+   },
+   "then": "cancel",
+   "note": "{n_qin}の[[p:蒙驁]]は太原を攻めたが、晋陽の守兵に攻め具を焼かれて城を落とせず、兵を損じて退いた。"
+  },
+  {
+   "id": "ty_handan",
+   "why": "邯鄲がすでに秦の手にあった",
+   "event": "qin_taiyuan",
+   "order": 1,
+   "when": {
+    "taken": [
+     "handan_falls"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "邯鄲をすでに失った{n_zhao}に北を救う力はなく、{n_qin}の[[p:蒙驁]]は太原を平らげて晋陽を取った。趙の国はいよいよ傾いた。",
+    "do": [
+     [
+      "cede",
+      "zhao",
+      "qin",
+      [
+       "jinyang"
+      ]
+     ],
+     [
+      "add",
+      "zhao",
+      "stability",
+      -0.1
+     ]
+    ],
+    "imp": 2,
+    "at": "jinyang"
+   }
+  }
+ ]
+}

@@ -1,0 +1,1073 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_limu",
+ "kind": "history",
+ "title": "讒言の金",
+ "era": "shunju",
+ "event": "li_mu_dies",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s3",
+  "s4",
+  "s4revolt",
+  "s4rv_ng",
+  "s5",
+  "s5saved_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "handan"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:zhao"
+  },
+  "limu": {
+   "scnPerson": "李牧"
+  },
+  "guokai": {
+   "scnPerson": "郭開"
+  },
+  "sima": {
+   "scnPerson": "司馬尚"
+  },
+  "camp": {
+   "place": "near:city"
+  },
+  "spy": {
+   "npc": "秦の商人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で趙の将に会う",
+   "speaker": "sima",
+   "art": "tale",
+   "text": [
+    "邯鄲の客舎の奥。肩に古傷のある武人が、{player}の向かいに腰を下ろした。趙の将、{sima}と名乗った。",
+    "「近ごろ、秦の商人がやたらと金をばらまいている。行き先は{guokai}の屋敷だ。{guokai}は王の寵臣、口ひとつで将の首をすげ替えられる男よ」",
+    "「{limu}将軍は北で匈奴を退け、肥下でも番吾でも秦を破った。秦が趙を呑むには、将軍が邪魔なのだ。金の行き先の証が欲しい。手を貸してくれぬか」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "effects": [
+      {
+       "note": "{sima}に頼まれ、{guokai}に流れる秦の金を探ることになった。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「手間賃はいただく」と念を押して引き受ける",
+     "effects": [
+      {
+       "money": 50
+      },
+      {
+       "note": "{sima}に頼まれ、{guokai}に流れる秦の金を探ることになった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の市で秦の商人を探る",
+   "speaker": "spy",
+   "art": "trade",
+   "text": [
+    "市の西の端に、塩と絹を山と積んだ店がある。主の{spy}は秦の訛りを隠そうともしない。売れている様子はないのに、店はいつも開いている。",
+    "日暮れ、奥から重そうな箱が三つ運び出され、荷車に積まれた。車輪が石畳に深く沈む。"
+   ],
+   "choices": [
+    {
+     "label": "荷車の後をつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s2tail",
+      "lose": "s2caught"
+     }
+    },
+    {
+     "label": "店の小者に銭を握らせて聞き出す（100）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "s2tail"
+    },
+    {
+     "label": "「わしにも一口乗らせろ」と{spy}に持ちかける",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2deal",
+      "lose": "s2caught"
+     }
+    }
+   ]
+  },
+  "s2caught": {
+   "speaker": "spy",
+   "text": [
+    "路地の角で、屈強な男が二人、行く手をふさいだ。後ろには{spy}が立っている。「趙の犬か。ちょうどいい、河に沈めてやれ」"
+   ],
+   "choices": [
+    {
+     "label": "剣を抜く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2tail",
+      "lose": "s2beaten"
+     }
+    }
+   ]
+  },
+  "s2beaten": {
+   "text": [
+    "気がつくと溝の中だった。荷車はとうに見えない。だが、あの重さの箱を受け取れる家は、邯鄲に幾つもない。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s2tail": {
+   "text": [
+    "荷車は大通りを避けて遠回りし、夜更けに{guokai}の屋敷の裏門へ消えた。門番は荷を改めもしなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_limu_seen"
+    },
+    {
+     "note": "秦の金が{guokai}の屋敷に入るのを見た。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2deal": {
+   "speaker": "spy",
+   "text": [
+    "{spy}は目を細めて笑った。「話の分かる男だ。仕事は易しい。邯鄲の酒場で一言ずつ流してくれればよい。『李牧は秦と通じ、兵を率いて趙王に背くつもりだ』とな。一言ごとに銭を払う」",
+    "卓の上に、秦の半両銭がずしりと置かれた。"
+   ],
+   "choices": [
+    {
+     "label": "銭を受け取る",
+     "effects": [
+      {
+       "money": 150
+      },
+      {
+       "flag": "h_limu_sold"
+      },
+      {
+       "rep": "qin",
+       "n": 5
+      },
+      {
+       "note": "秦の商人{spy}から、{limu}の讒言を流す銭を受け取った。"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "乗ったふりをして、受け取りの竹簡を盗み見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s2proof",
+      "lose": "s2caught"
+     }
+    }
+   ]
+  },
+  "s2proof": {
+   "text": [
+    "{spy}が奥へ引っ込んだ隙に、帳場の竹簡をめくった。「郭」の一字と、金の重さ。秦の役所の印まで押してある。{player}はそれを袖に滑り込ませた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_limu_proof"
+    },
+    {
+     "note": "秦の金が{guokai}に渡った受け取りの竹簡を手に入れた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の町屋に身を潜め、夜の{guokai}屋敷を探る",
+   "speaker": "guokai",
+   "art": "court",
+   "text": [
+    "{guokai}の屋敷は王宮にも劣らぬ構えだった。夜でも灯が絶えず、出入りの者は皆、顔を布で隠している。",
+    "塀の外まで、主の甲高い笑い声が聞こえた。「将軍は王命に従うまい。従わねば、それこそ謀反の証よ」"
+   ],
+   "choices": [
+    {
+     "label": "塀を越え、書庫に忍び込む",
+     "check": {
+      "skill": "stealth",
+      "dc": 27,
+      "win": "s3proof",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "屋敷の下男を説き、味方につける",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s3proof",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "秦の使いの顔で、表門から入る",
+     "if": {
+      "flag": "h_limu_sold"
+     },
+     "next": "s3sold"
+    }
+   ]
+  },
+  "s3fight": {
+   "text": [
+    "犬が吠え、松明が揺れた。家士が二人、槍を構えて庭へ飛び出してくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3proof",
+      "lose": "s3empty"
+     }
+    }
+   ]
+  },
+  "s3empty": {
+   "text": [
+    "塀を越えて逃げるのがやっとだった。手には何も残っていない。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s4"
+  },
+  "s3proof": {
+   "text": [
+    "書庫の奥の箱に、秦からの書簡が束になっていた。「李牧、司馬尚を除かば、金を倍す」。{player}は一通を抜き取り、闇に紛れた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_limu_proof"
+    },
+    {
+     "note": "{guokai}のもとにあった秦の書簡を手に入れた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3sold": {
+   "speaker": "guokai",
+   "text": [
+    "{guokai}は上機嫌で{player}を迎えた。「噂はよく回っておる。王はもう半ば信じておられる。あと一押しだ」",
+    "「北の{camp}の陣へ行き、将軍の様子を見てまいれ。兵を集めておる、とでも言えればなおよい」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "effects": [
+      {
+       "money": 100
+      },
+      {
+       "flag": "h_limu_sold2"
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "頷くふりをして、机の上の書簡を盗む",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s3proof",
+      "lose": "s3fight"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の軍営で{limu}将軍に会う",
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "{limu}の陣は静まり返っていた。兵は飯を炊き、矢を削り、誰も無駄口を叩かない。将軍は日に焼けた顔で{player}を見た。",
+    "「邯鄲の噂は聞いている。だが、わしが兵を離れて邯鄲へ戻れば、この軍は誰が率いる。秦の王翦はすぐそこまで来ているのだ」"
+   ],
+   "choices": [
+    {
+     "label": "証の書簡を見せ、王へ上書するよう勧める",
+     "if": {
+      "flag": "h_limu_proof"
+     },
+     "next": "s4proof"
+    },
+    {
+     "label": "「讒言が届く前に、兵を連れて身を引かれよ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s4adv",
+      "lose": "s4refuse"
+     }
+    },
+    {
+     "label": "陣の様子を覚え、{guokai}に告げに戻る",
+     "if": {
+      "flag": "h_limu_sold2"
+     },
+     "next": "s4betray"
+    },
+    {
+     "label": "「王命が来ても兵を渡されるな。討つべきは邯鄲の奸臣です」と説く",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s4revolt",
+      "lose": "s4rv_ng"
+     }
+    }
+   ]
+  },
+  "s4revolt": {
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "{limu}は長いあいだ地図を見下ろしていた。「わしは三十年、王の兵を預かってきた。王に剣を向けたことはない」",
+    "「だが、王の耳を塞いでいるのは王ではない」将軍は顔を上げた。「よかろう。邯鄲へ行く。王を退け、{guokai}を斬る。秦と戦うのは、それからだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_limu_revolt"
+    },
+    {
+     "wanted": "zhao",
+     "n": 20
+    },
+    {
+     "note": "{limu}に、邯鄲の奸臣を討つよう説いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4rv_ng": {
+   "speaker": "limu",
+   "text": [
+    "「その言葉は聞かなかったことにする」{limu}は背を向けた。「わしが王に剣を向ければ、秦は笑って趙を呑むだろう」"
+   ],
+   "next": "s5"
+  },
+  "s4proof": {
+   "speaker": "limu",
+   "text": [
+    "{limu}は書簡を読み、長く黙った。「王はこれを見ても、{guokai}の言を取られるだろう。王の耳はもう、あの男の口と一つになっている」",
+    "「それでも、持って行ってくれ。わしのためではない。趙のためだ。もしもの時は、{sima}と兵たちを頼む」"
+   ],
+   "effects": [
+    {
+     "flag": "h_limu_trust"
+    },
+    {
+     "note": "{limu}に兵と{sima}を託された。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4adv": {
+   "speaker": "limu",
+   "text": [
+    "「身を引けば、趙は誰が守る」{limu}は笑った。「王命が来ても、わしは兵を離れぬ。それが罪だというなら、罪を負おう」",
+    "帰りしな、将軍は小声で言った。「もしもの時は、{sima}と兵たちを頼む」"
+   ],
+   "effects": [
+    {
+     "flag": "h_limu_trust"
+    },
+    {
+     "note": "{limu}に兵と{sima}を託された。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4refuse": {
+   "speaker": "limu",
+   "text": [
+    "「口のうまい客人だ。だが、わしは将だ。逃げ道を探すのは将の仕事ではない」{limu}はそれ以上、何も言わなかった。"
+   ],
+   "next": "s5"
+  },
+  "s4betray": {
+   "text": [
+    "兵の数、糧の量、将軍の寝所の位置。{player}は見たものを一つ残らず頭に刻み、陣を後にした。背中に兵たちの目を感じた。"
+   ],
+   "effects": [
+    {
+     "rep": "qin",
+     "n": 5
+    },
+    {
+     "rep": "zhao",
+     "n": -10
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で{king}に訴える",
+   "speaker": "guokai",
+   "art": "court",
+   "text": [
+    "宮城の廊下で、{guokai}が待ち構えていた。「遅かったな。王はもうお決めになった。趙蔥と顔聚が北へ発つ。将軍の代わりにな」",
+    "玉座の{king}は、寵臣の顔ばかり見ていた。"
+   ],
+   "choices": [
+    {
+     "label": "御前で秦の書簡を突きつける",
+     "if": {
+      "flag": "h_limu_proof"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 27,
+      "win": "s5win",
+      "lose": "s5lose"
+     }
+    },
+    {
+     "label": "大夫たちを説いて回り、せめて将軍の命乞いを上書させる",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "s5plead",
+      "lose": "s5lose"
+     }
+    },
+    {
+     "label": "{guokai}の隣に立ち、北の陣の様子を王に語る",
+     "if": {
+      "flag": "h_limu_sold2"
+     },
+     "next": "s5sold"
+    },
+    {
+     "label": "{guokai}の蔵から押さえた秦の金と書簡を、御前に積み上げる",
+     "turn": true,
+     "if": {
+      "flag": "h_limu_proof"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s5saved",
+      "lose": "s5saved_ng"
+     }
+    }
+   ]
+  },
+  "s5saved": {
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "金の延べ板が玉座の前の床に積まれ、秦の印の押された書簡がその上に置かれた。{guokai}が何か言いかけたが、言葉にならなかった。",
+    "{king}は長いあいだ黙っていた。やがて衛士を呼び、ただ一言、寵臣の名を口にした。北へ発つはずだった趙蔥と顔聚には、宮に留まるよう命が下った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_limu_saved"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "rep": "qin",
+     "n": -15
+    },
+    {
+     "note": "{guokai}の買収を王の前で暴いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5saved_ng": {
+   "speaker": "guokai",
+   "text": [
+    "積み上げた金を見て、{guokai}は笑った。「秦の金が、なぜこの者の手にある。秦と通じているのは誰だ」衛士の手が{player}の肩にかかった。"
+   ],
+   "effects": [
+    {
+     "wanted": "zhao",
+     "n": 15
+    },
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s6"
+  },
+  "s5win": {
+   "speaker": "guokai",
+   "text": [
+    "{king}の顔色が変わった。だが{guokai}はすかさず膝をついた。「秦が将軍を救うために作った偽書でございます。秦がかばうほどの将、それこそ通じている証」",
+    "王は書簡を床に落とした。命は覆らなかった。ただ、居並ぶ大夫の幾人かが、{player}の名を覚えた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "zhao",
+     "n": 5
+    },
+    {
+     "flag": "h_limu_spoke"
+    },
+    {
+     "wanted": "zhao",
+     "n": 10
+    }
+   ],
+   "next": "s6"
+  },
+  "s5plead": {
+   "text": [
+    "七人の大夫が連署して、将軍の命だけは助けるよう上書した。{king}は竹簡を開きもせず、{guokai}に渡した。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "flag": "h_limu_spoke"
+    }
+   ],
+   "next": "s6"
+  },
+  "s5lose": {
+   "text": [
+    "衛士に両腕を取られ、宮門の外へ放り出された。門の上から{guokai}の笑い声が降ってきた。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "s6"
+  },
+  "s5sold": {
+   "speaker": "guokai",
+   "text": [
+    "{player}の語る「北の陣の不穏」に、王は深く頷いた。退出すると、{guokai}が重い袋を押しつけてきた。「秦からだ。お前は役に立つ」"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "rep": "zhao",
+     "n": -10
+    }
+   ],
+   "next": "s6"
+  },
+  "aftergo": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "{camp}の陣へ行き、事の成り行きを見届ける",
+   "wait": {
+    "settled": "li_mu_dies"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "limu_saved"
+     },
+     "next": "saved"
+    },
+    {
+     "if": {
+      "branch": "limu_revolt"
+     },
+     "next": "revolt"
+    },
+    {
+     "if": {
+      "branch": "limu_noguokai"
+     },
+     "next": "noguokai"
+    },
+    {
+     "if": {
+      "branch": "limu_dead"
+     },
+     "next": "nolimu"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "saved": {
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "{guokai}は市で斬られたという。{limu}は陣に留まり、秦の王翦の軍と睨み合ったまま、冬を越そうとしている。",
+    "「礼は言わぬ」将軍は{player}に酒を注いだ。「わしが生きていても、趙が生き延びるとは限らぬ。だが、自分で長城を崩すことだけはなくなった」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "unflag": "h_limu_saved"
+    },
+    {
+     "unflag": "h_limu_proof"
+    },
+    {
+     "unflag": "h_limu_trust"
+    },
+    {
+     "unflag": "h_limu_spoke"
+    },
+    {
+     "unflag": "h_limu_seen"
+    },
+    {
+     "note": "{limu}は生き、{guokai}は斬られた。"
+    }
+   ],
+   "end": "崩れなかった長城"
+  },
+  "revolt": {
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "{limu}の軍は三日で{city}に入った。門を開いたのは、王の近衛だった。{guokai}は宮の井戸に隠れていたところを引きずり出され、その日のうちに斬られた。{king}は北の離宮へ移された。",
+    "「王を退けた将は、いずれ王になるか、王に殺されるかだ」{limu}は玉座には座らず、その脇に立った。「わしはどちらでもない。秦を防ぐ間だけ、ここに立つ」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "unflag": "h_limu_revolt"
+    },
+    {
+     "unflag": "h_limu_proof"
+    },
+    {
+     "unflag": "h_limu_trust"
+    },
+    {
+     "note": "{limu}は{city}に入り、{king}を退けた。"
+    }
+   ],
+   "end": "王を退けた将"
+  },
+  "noguokai": {
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "讒言する者は、もういなかった。秦の金は宛先を失い、{limu}は北の陣で王翦と睨み合いを続けている。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_limu_proof"
+    },
+    {
+     "unflag": "h_limu_trust"
+    }
+   ],
+   "end": "届かなかった金"
+  },
+  "nolimu": {
+   "art": "tale",
+   "text": [
+    "讒言されるはずだった将軍は、もういない。北の陣には、新しい将の旗が揚がっていた。"
+   ],
+   "end": "主なき陣"
+  },
+  "s6": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "{camp}の陣へ行き、事の成り行きを見届ける",
+   "wait": {
+    "fired": "li_mu_dies"
+   },
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "王命は届いた。{limu}は兵を渡さなかった。すると趙の使いは将軍をひそかに捕らえ、その場で斬った。{sima}も将の任を解かれた。",
+    "陣には主を失った兵が溢れていた。秦の王翦の軍が、もう境を越えようとしている。{sima}が{player}の腕をつかんだ。「どうする。ここにいては皆、犬死にだ」"
+   ],
+   "choices": [
+    {
+     "label": "将軍の言葉どおり、{sima}と兵たちを逃がす",
+     "if": {
+      "flag": "h_limu_trust"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_saved",
+      "lose": "end_scatter"
+     }
+    },
+    {
+     "label": "晒された将軍の首を取り返し、葬る",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_buried",
+      "lose": "end_scatter"
+     }
+    },
+    {
+     "label": "秦の陣へ走り、趙の軍の乱れを告げる",
+     "if": {
+      "flag": "h_limu_sold"
+     },
+     "next": "end_sold"
+    },
+    {
+     "label": "何も言わずに立ち去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_saved": {
+   "speaker": "sima",
+   "text": [
+    "追手を斬り払い、{sima}と数百の兵を夜の間道へ逃がした。翌年、邯鄲は王翦の前に落ち、趙王は捕らえられた。",
+    "別れ際、{sima}は言った。「趙は自分で長城を崩した。だが、崩れた石の下から拾い上げてくれた者がいたことは忘れぬ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "wanted": "zhao",
+     "n": -10
+    },
+    {
+     "note": "{limu}が讒言で斬られた。{sima}と兵たちを逃がした。"
+    }
+   ],
+   "end": "名将の兵を落とす"
+  },
+  "end_buried": {
+   "text": [
+    "夜、晒し台から将軍の首を下ろし、邯鄲の郊外の丘に葬った。墓標は立てなかった。立てれば暴かれる。",
+    "翌年、邯鄲は落ちた。趙の人々は「李牧が死んで、趙が死んだ」と言った。丘の場所を知っているのは、{player}一人である。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "note": "{limu}が讒言で斬られた。その首をひそかに葬った。"
+    }
+   ],
+   "end": "名将を葬る"
+  },
+  "end_scatter": {
+   "text": [
+    "乱れた陣の中で、{player}も傷を負った。{sima}がどこへ逃れたのかは分からない。翌年、邯鄲は王翦の前に落ちた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "fame": 1
+    },
+    {
+     "note": "{limu}が讒言で斬られ、趙の軍は散った。"
+    }
+   ],
+   "end": "散りゆく陣"
+  },
+  "end_sold": {
+   "text": [
+    "秦の将は{player}の報せを聞いて、銭の袋を投げてよこした。「趙の王は、自分の手で一番強い刃を折った。おかげで楽な戦になる」",
+    "翌年、邯鄲は落ちた。{player}の懐は重かったが、邯鄲の酒場で{player}と杯を交わそうとする者は、もういなかった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "rep": "qin",
+     "n": 15
+    },
+    {
+     "rep": "zhao",
+     "n": -30
+    },
+    {
+     "fame": -3
+    },
+    {
+     "note": "秦の金で{limu}の讒言に手を貸した。"
+    }
+   ],
+   "end": "讒言の金"
+  },
+  "end_left": {
+   "text": [
+    "{player}は陣を背にした。振り返らなかった。翌年、邯鄲は王翦の前に落ち、趙という国は消えた。"
+   ],
+   "effects": [
+    {
+     "note": "{limu}が讒言で斬られるのを見届けた。"
+    }
+   ],
+   "end": "名将の死を見送る"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "limu_noguokai"
+     },
+     "next": "noguokai"
+    },
+    {
+     "if": {
+      "branch": "limu_dead"
+     },
+     "next": "nolimu"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。趙の{limu}将軍が、謀反の疑いで斬られたという。讒言したのは王の寵臣{guokai}、その懐を肥やしたのは秦の金だとも。",
+    "「趙は自分で長城を崩した」と、宿の老人は言った。"
+   ],
+   "effects": [
+    {
+     "note": "{limu}が讒言で斬られたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "limu_dead",
+   "event": "li_mu_dies",
+   "order": 4,
+   "why": "李牧がすでに殺されていた",
+   "when": {
+    "slain": [
+     "李牧"
+    ]
+   },
+   "then": "cancel",
+   "note": "讒言されるはずだった[[p:李牧]]は、もういない。"
+  },
+  {
+   "id": "limu_revolt",
+   "event": "li_mu_dies",
+   "order": 3,
+   "why": "主人公が李牧に奸臣を討てと説いた",
+   "when": {
+    "flag": "h_limu_revolt"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:李牧]]は王命に従わず、兵を率いて邯鄲に入り、[[p:郭開]]を斬って{r_zhao}を退けた。{n_qin}の攻めはなお続く。",
+    "do": [
+     [
+      "rulerDies",
+      "zhao",
+      "deposed"
+     ],
+     [
+      "add",
+      "zhao",
+      "stability",
+      -0.15
+     ],
+     [
+      "war",
+      "qin",
+      "zhao"
+     ]
+    ],
+    "imp": 3,
+    "at": "handan"
+   },
+   "people": [
+    {
+     "spare": "李牧",
+     "years": 10
+    },
+    {
+     "kill": "郭開",
+     "cause": "executed"
+    }
+   ]
+  },
+  {
+   "id": "limu_saved",
+   "event": "li_mu_dies",
+   "order": 2,
+   "why": "主人公が郭開の買収を王の前で暴いた",
+   "when": {
+    "flag": "h_limu_saved"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:郭開]]が{n_qin}の金で[[p:李牧]]を讒していたことが王の前で露わになり、郭開は斬られた。李牧は北の陣に留まり、秦の攻めを防ぎ続けた。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "stability",
+      0.05
+     ],
+     [
+      "war",
+      "qin",
+      "zhao"
+     ]
+    ],
+    "imp": 3,
+    "at": "handan"
+   },
+   "people": [
+    {
+     "spare": "李牧",
+     "years": 10
+    },
+    {
+     "kill": "郭開",
+     "cause": "executed"
+    }
+   ]
+  },
+  {
+   "id": "limu_noguokai",
+   "event": "li_mu_dies",
+   "order": 1,
+   "why": "讒言する郭開がすでにいなかった",
+   "when": {
+    "dead": [
+     "郭開"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}は[[p:李牧]]を除こうと金を用意したが、それを受け取って讒言する寵臣はもういなかった。李牧は北の陣で秦を防ぎ続けた。",
+    "do": [
+     [
+      "war",
+      "qin",
+      "zhao"
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   },
+   "people": [
+    {
+     "spare": "李牧",
+     "years": 10
+    }
+   ]
+  }
+ ]
+}

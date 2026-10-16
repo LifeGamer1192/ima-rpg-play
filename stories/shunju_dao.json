@@ -1,0 +1,624 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_dao",
+ "kind": "school",
+ "title": "泥中に尾を曳く",
+ "era": "shunju",
+ "school": "dao",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "庵主",
+   "sex": "f"
+  },
+  "hills": {
+   "place": "near:here"
+  },
+  "village": {
+   "place": "near:hills"
+  },
+  "hermit": {
+   "npc": "隠者",
+   "sex": "m"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "powercap": {
+   "place": "capital:power"
+  },
+  "powerruler": {
+   "person": "ruler:power"
+  },
+  "physician": {
+   "npc": "太医",
+   "sex": "m"
+  }
+ },
+ "start": "d1",
+ "scenes": {
+  "d1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の道家の庵へ行く",
+   "speaker": "master",
+   "art": "faith",
+   "text": [
+    "庵には門もなく、竹垣の向こうで鶏が土をつついていた。{master}は湯を沸かしながら、{player}を振り返りもしなかった。",
+    "「ある料理人は、十九年同じ包丁で牛を捌いて、刃こぼれひとつさせなんだ。骨と肉の隙間を、刃がひとりでに通るからだ。人の体も同じ。気の通う隙間を知れば、薬も針もいらぬことが多い」",
+    "「座って、己の息を数えてごらん」"
+   ],
+   "choices": [
+    {
+     "label": "目を閉じ、息の巡りを追う",
+     "check": {
+      "skill": "medicine",
+      "dc": 12,
+      "win": "d1ok",
+      "lose": "d1ng"
+     }
+    },
+    {
+     "label": "「それより薬の作り方を教えてください」",
+     "next": "d1ng"
+    }
+   ]
+  },
+  "d1ok": {
+   "speaker": "master",
+   "text": [
+    "百を数えるころ、指先が温かくなった。{master}は初めてこちらを見た。「よろしい。急がぬことだ。急ぐ者ほど遠回りをする」"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "next": "d2"
+  },
+  "d1ng": {
+   "speaker": "master",
+   "text": [
+    "数は二十で乱れた。{master}は笑って湯を注いだ。「薬はあとで嫌というほど教える。だが、己の息も知らぬ者の薬は、人を殺すよ」"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "d2"
+  },
+  "d2": {
+   "at": {
+    "place": "hills"
+   },
+   "goal": "{master}の言いつけで、{hills}の山へ薬草を採りに行く",
+   "wait": {
+    "days": 7
+   },
+   "art": "voyage",
+   "text": [
+    "{hills}の奥、沢筋の岩陰に、{master}が言っていた紫の根が群れていた。夢中で掘っていると、藪の向こうで低い唸りがした。",
+    "虎だ。風下にいたのが幸いして、まだこちらに気づいていない。"
+   ],
+   "choices": [
+    {
+     "label": "息を殺し、風に紛れて退く",
+     "check": {
+      "skill": "stealth",
+      "dc": 15,
+      "win": "d2ok",
+      "lose": "d2fight"
+     }
+    },
+    {
+     "label": "杖を構えて立ち向かう",
+     "next": "d2fight"
+    }
+   ]
+  },
+  "d2fight": {
+   "text": [
+    "枯れ枝が鳴った。黄色い影が藪を割って跳ぶ。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 0,
+      "win": "d2ok",
+      "lose": "d2hurt"
+     }
+    }
+   ]
+  },
+  "d2hurt": {
+   "text": [
+    "肩を爪に裂かれ、{player}は沢に転げ落ちた。虎は追ってこなかった。薬草の籠だけは、どうにか離さずにいた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "d3"
+  },
+  "d2ok": {
+   "text": [
+    "籠いっぱいの根を背負って、{player}は山を下りた。沢の水が、来たときより澄んで見えた。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "d3"
+  },
+  "d3": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の庵に薬草を持ち帰る",
+   "speaker": "master",
+   "text": [
+    "{master}は根を一本ずつ陽に透かし、黙って干し台に並べた。それから、古びた薬匙を{player}の手に置いた。",
+    "「今日からお前は弟子だ。虎に会って生きて帰った。山に好かれた証拠だよ」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "item": "herbs",
+     "n": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "note": "道家の弟子となった。"
+    }
+   ],
+   "next": "d4"
+  },
+  "d4": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "医術を22まで磨き、疫病の出た{village}へ行く",
+   "wait": {
+    "skill": {
+     "medicine": 22
+    }
+   },
+   "art": "disaster",
+   "text": [
+    "{village}の門口には、白い布が幾つも吊るされていた。熱に浮かされた子らが土間に並び、巫が鈴を振って家々に灰を撒いている。",
+    "井戸をのぞくと、水が濁って臭った。上の里で、死んだ牛を沢に捨てたのだという。"
+   ],
+   "choices": [
+    {
+     "label": "井戸を封じ、煎じ薬を配る",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "d4ok",
+      "lose": "d4hard"
+     }
+    },
+    {
+     "label": "夜のうちに上の里へ忍び、死骸の始末をつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "d4ok",
+      "lose": "d4hard"
+     }
+    }
+   ]
+  },
+  "d4hard": {
+   "text": [
+    "手が足りなかった。七日のあいだに、幾つもの小さな墓が増えた。それでも十日目から、熱の下がる子が出はじめた。",
+    "{player}は眠らずに薬を煎じ続けた。自分の体が軋むのを、他人事のように感じながら。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    }
+   ],
+   "next": "d5"
+  },
+  "d4ok": {
+   "text": [
+    "三日で新たに倒れる者がいなくなり、十日で子らは土間から起き上がった。巫は鈴を置き、黙って{player}の薬湯を運ぶのを手伝った。"
+   ],
+   "effects": [
+    {
+     "flag": "dao_healer"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    },
+    {
+     "note": "{village}の疫病を鎮めた。"
+    }
+   ],
+   "next": "d5"
+  },
+  "d5": {
+   "speaker": "村の老婆",
+   "text": [
+    "発つ朝、老婆が干し柿を包んで持たせてくれた。「あんたのお師匠さんにもよろしくな。昔、この村を救ってくれたのも、山の庵のお方だったそうだ」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "next": "d6"
+  },
+  "d6": {
+   "at": {
+    "place": "hills",
+    "building": "inn"
+   },
+   "goal": "30日ほど病人を診て回り、{hills}の客舎で旅の疲れを休める",
+   "wait": {
+    "days": 30
+   },
+   "speaker": "hermit",
+   "art": "tale",
+   "text": [
+    "客舎の軒先で、ぼろをまとった男が瓢箪を叩いて歌っていた。「鳳よ、鳳よ、なんぞ徳の衰えたる。往く者は諫むべからず、来る者はなお追うべし」",
+    "男は{player}の薬籠に目をとめた。「ほう、人を治すか。では問おう。山に、節くれだって曲がりくねった大木がある。材にもならず、大工は振り向きもせぬ。この木は役立たずかね」"
+   ],
+   "choices": [
+    {
+     "label": "「役に立たぬから、斧を免れて大きくなったのです」",
+     "effects": [
+      {
+       "flag": "dao_useless"
+      },
+      {
+       "xp": "medicine",
+       "n": 3
+      }
+     ],
+     "next": "d6ok"
+    },
+    {
+     "label": "「薬にできるかもしれません。役立てる道を探します」",
+     "next": "d6ng"
+    }
+   ]
+  },
+  "d6ok": {
+   "speaker": "hermit",
+   "text": [
+    "{hermit}は瓢箪を放り上げて笑った。「無用の用を知る者に会うのは久しぶりだ。その木の下で昼寝をする楽しみを、大工は知らん」"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "next": "d7"
+  },
+  "d6ng": {
+   "speaker": "hermit",
+   "text": [
+    "「真面目なことだ」{hermit}は肩をすくめた。「そうやって何でも役立てようとする者から、先に斧で伐られる。覚えておくといい」"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "d7"
+  },
+  "d7": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の庵に戻り、{master}に旅の次第を話す",
+   "speaker": "master",
+   "art": "faith",
+   "text": [
+    "{hermit}の話をすると、{master}は声を立てて笑った。「あの男、まだ生きておったか。若いころ、わたしに求婚して断られた男だよ」",
+    "「村の話も聞いた。お前はもう、人の死を見て逃げぬ。今日より高弟としよう。……近ごろ、山の下が騒がしい。お前の名が、都にまで届いているようだ」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "道家の高弟となった。"
+    }
+   ],
+   "next": "d8"
+  },
+  "d8": {
+   "at": {
+    "place": "powercap",
+    "building": "palace"
+   },
+   "goal": "名声を15まで上げ、{powercap}の宮城の招きに応じる",
+   "wait": {
+    "fame": 15
+   },
+   "speaker": "physician",
+   "art": "court",
+   "text": [
+    "{power}の宮城は、香と薬の匂いでむせ返っていた。{powerruler}は寝台に横たわり、黄ばんだ顔で浅い息をしている。",
+    "宮廷の{physician}が冷ややかに言った。「山出しの薬売りに何が分かる。陛下には金丹を差し上げておる。不老の薬だ」"
+   ],
+   "choices": [
+    {
+     "label": "脈を取り、金丹をやめさせる",
+     "check": {
+      "skill": "medicine",
+      "dc": 36,
+      "win": "d8ok",
+      "lose": "d8ng"
+     }
+    },
+    {
+     "label": "黙って薬の滓を持ち出し、調べる",
+     "check": {
+      "skill": "stealth",
+      "dc": 32,
+      "win": "d8ok",
+      "lose": "d8ng"
+     }
+    }
+   ]
+  },
+  "d8ng": {
+   "text": [
+    "{physician}に遮られ、{player}は寝所から追い出された。それでも夜ごと庭先で薬を煎じ、侍女に託した。半月ののち、{powerruler}はどうにか起き上がれるようになった。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "next": "d9"
+  },
+  "d8ok": {
+   "text": [
+    "金丹の中身は丹砂と鉛だった。{player}が薬を改めて十日、{powerruler}の顔に血の色が戻った。{physician}は青ざめ、宮廷じゅうが{player}の名をささやいた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "power",
+     "n": 15
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    }
+   ],
+   "next": "d9"
+  },
+  "d9": {
+   "speaker": "powerruler",
+   "art": "court",
+   "text": [
+    "{powerruler}は使いを寄越し、千金と相の位を差し出した。「そなたのような者が側におれば、国も長らえよう」",
+    "{player}は、{hermit}の話を思い出していた。廟に祀られる神亀は、三千年前に死んで骨だけが錦に包まれている。生きて泥の中で尾を曳く亀と、どちらがよいか。"
+   ],
+   "choices": [
+    {
+     "label": "「泥の中で尾を曳いておりましょう」と辞する",
+     "effects": [
+      {
+       "flag": "dao_free"
+      }
+     ],
+     "next": "d9road"
+    },
+    {
+     "label": "宮廷の医として仕える",
+     "effects": [
+      {
+       "flag": "dao_court"
+      },
+      {
+       "enlist": "power"
+      },
+      {
+       "money": 500
+      }
+     ],
+     "next": "d9road"
+    }
+   ]
+  },
+  "d9road": {
+   "at": {
+    "place": "powercap",
+    "building": "inn"
+   },
+   "goal": "{powercap}の客舎へ戻る",
+   "art": "war",
+   "text": [
+    "その夜、客舎の廊下に足音が忍んできた。己の地位を奪われると恐れた{physician}が、刺客を雇ったのだ。"
+   ],
+   "choices": [
+    {
+     "label": "灯を消して闇に紛れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "d9safe",
+      "lose": "d9fight"
+     }
+    },
+    {
+     "label": "戸口で迎え撃つ",
+     "next": "d9fight"
+    }
+   ]
+  },
+  "d9fight": {
+   "choices": [
+    {
+     "label": "刃を払う",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "d9safe",
+      "lose": "d9hurt"
+     }
+    }
+   ],
+   "text": [
+    "刃が闇を裂いた。"
+   ]
+  },
+  "d9hurt": {
+   "text": [
+    "{player}は深手を負いながら窓を破って逃れた。自らの傷を縫う指は、驚くほど落ち着いていた。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    }
+   ],
+   "next": "d10"
+  },
+  "d9safe": {
+   "text": [
+    "刺客たちは空の寝床を突いて去った。翌朝、{physician}の企みは露見し、{physician}は都を追われた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    }
+   ],
+   "next": "d10"
+  },
+  "d10": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "医術を42まで磨き、{here}の庵へ帰る",
+   "wait": {
+    "skill": {
+     "medicine": 42
+    },
+    "days": 30
+   },
+   "speaker": "master",
+   "art": "faith",
+   "text": [
+    "庵の竹垣は、前より少し傾いていた。{master}は縁側に座り、もう湯を沸かす力もないようだった。",
+    "「季節が巡るように、人も形を変える。わたしが土に還っても、泣くことはない。盆でも叩いて歌っておくれ」{master}は古い薬匙を返すように、{player}の手を握った。「今日からお前が師だ。この庵を好きにお使い」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "note": "{master}を看取り、道家の師となった。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{powercap}の宮廷へ戻る",
+     "if": {
+      "flag": "dao_court"
+     },
+     "next": "endCourt"
+    },
+    {
+     "label": "庵に留まり、山と共に生きる",
+     "next": "endHermit"
+    },
+    {
+     "label": "薬籠を背負い、病む者を訪ねて歩く",
+     "next": "endWander"
+    }
+   ]
+  },
+  "endCourt": {
+   "speaker": "powerruler",
+   "text": [
+    "{player}は{power}の宮廷に戻り、医を司った。{powerruler}は長く生き、{player}の言葉にだけは耳を傾けた。「無理に事を起こさず、民を休ませよ」と。",
+    "錦をまとう身になっても、{player}は朝ごとに己の息を数えた。泥の中の亀を忘れぬために。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "power",
+     "n": 15
+    }
+   ],
+   "end": "廟堂の医"
+  },
+  "endHermit": {
+   "text": [
+    "{player}は庵に残った。春は根を掘り、夏は葉を干し、秋は実を拾い、冬は書を読む。山の下から病人が来れば診、来なければ昼寝をした。",
+    "ときおり、瓢箪を叩く歌声が竹垣の外を通り過ぎていく。{player}は振り向かず、ただ笑った。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 5
+    }
+   ],
+   "end": "無何有の郷"
+  },
+  "endWander": {
+   "text": [
+    "{player}は薬籠ひとつで旅に出た。{village}で、名も知らぬ町で、戦の跡で、熱に浮かされる人の枕元に座った。",
+    "名を問われても答えなかった。人々はいつしか、山から下りてくる無名の医者の話をするようになった。{player}にとって、それで十分だった。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "end": "名なき医"
+  }
+ }
+}

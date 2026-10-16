@@ -1,0 +1,375 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_rank2_shi",
+ "kind": "rank",
+ "rankTo": 2,
+ "title": "一芸の試し",
+ "era": "shunju",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "rival": {
+   "npc": "同輩の食客",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城で昇進を願い出る",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は願い出の竹簡を指先で弾いた。「食客を士に取り立てるには、{ruler}さまの御前で一芸を見せてもらう。三日後の宴だ。客は三千おる。おぬしだけが特別ではない」",
+    "廊下に出ると、同じ門の食客{rival}が薄く笑っていた。「宴の席は一つきりだそうだ。せいぜい恥をかかぬようにな」"
+   ],
+   "choices": [
+    {
+     "label": "三日のあいだ技を磨く",
+     "effects": [
+      {
+       "note": "三日後、{ruler}の宴で一芸を見せることになった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "三日待ち、{cap}の宮城の宴に出る",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "宴の控えの間で、{rival}がやけに親しげに酒を勧めてきた。預けておいた弓の弦も、剣の柄巻きも、いつのまにか誰かが触った跡がある。",
+    "「緊張しているのか。一杯やれば手の震えも止まるぞ」"
+   ],
+   "choices": [
+    {
+     "label": "道具と酒をそれとなく改める",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s2found",
+      "lose": "s2miss"
+     }
+    },
+    {
+     "label": "酒を断り、何も言わずに控える",
+     "next": "s3"
+    },
+    {
+     "label": "勧められるまま一杯あおる",
+     "effects": [
+      {
+       "hp": -10
+      }
+     ],
+     "next": "s2drunk"
+    }
+   ]
+  },
+  "s2found": {
+   "text": [
+    "弦には細い刃の跡、酒には痺れ薬の匂い。{player}は弦を張り替え、杯を床にこぼした。{rival}の顔色が一瞬だけ変わったのを見逃さなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "rank2_rival_caught"
+    },
+    {
+     "note": "{rival}が道具に細工したのを見つけた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2miss": {
+   "text": [
+    "怪しいところは見つからなかった。気のせいか、と思いながらも、胸のざわつきは消えない。"
+   ],
+   "next": "s3"
+  },
+  "s2drunk": {
+   "text": [
+    "喉を過ぎた酒が、妙に舌を痺れさせた。指先が冷たい。{rival}は肩を叩いて去っていった。"
+   ],
+   "effects": [
+    {
+     "note": "{rival}に勧められた酒で体が痺れている。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "楽の音が止み、{ruler}が盃を置いた。居並ぶ重臣の目が一斉に{player}へ向く。",
+    "「{player}とやら。何ができる。見せてみよ」"
+   ],
+   "choices": [
+    {
+     "label": "秦の法に従い、斬首の数を競う剣を見せる",
+     "if": {
+      "realm": [
+       "秦"
+      ]
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 23,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "斉の学士に劣らぬ弁で天下を論じる",
+     "if": {
+      "realm": [
+       "斉"
+      ]
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 23,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "楚の古い礼を諳んじ、祖霊を祀る辞を詠む",
+     "if": {
+      "realm": [
+       "楚"
+      ]
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 23,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "馬を駆け、胡人のように騎射を見せる",
+     "if": {
+      "realm": [
+       "趙"
+      ]
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 23,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "国の倉と税の数をたちどころに算じてみせる",
+     "if": {
+      "realm": [
+       "魏",
+       "韓"
+      ]
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 23,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "剣舞を見せる",
+     "check": {
+      "skill": "blade",
+      "dc": 25,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "百歩先の柳の葉を射る",
+     "check": {
+      "skill": "bow",
+      "dc": 25,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "古の聖王の治を説く",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "列国の形勢を弁じる",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "重臣の顔色から持病を言い当てる",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ng": {
+   "speaker": "rival",
+   "text": [
+    "手元が狂った。座に忍び笑いが広がる。すかさず{rival}が進み出た。「御覧のとおり、この者は口ばかり。門下の恥にございます」",
+    "{ruler}は興を失ったように盃を取り上げた。"
+   ],
+   "choices": [
+    {
+     "label": "「いまのは小手調べ。もう一度お許しを」",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "s4",
+      "lose": "fail"
+     }
+    },
+    {
+     "label": "「細工をした者がおります」と{rival}を指さす",
+     "if": {
+      "flag": "rank2_rival_caught"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "s4",
+      "lose": "fail"
+     }
+    },
+    {
+     "label": "黙って頭を下げ、退く",
+     "next": "fail"
+    }
+   ]
+  },
+  "s4": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "座がどよめいた。{ruler}が膝を打つ。「見事だ。わが国にこのような者が眠っていたとは」",
+    "{minister}が目で合図をよこす。末席の{rival}は、唇を噛んで俯いていた。"
+   ],
+   "choices": [
+    {
+     "label": "{rival}の細工をこの場で訴える",
+     "if": {
+      "flag": "rank2_rival_caught"
+     },
+     "next": "win_expose"
+    },
+    {
+     "label": "何も言わず、{rival}に貸しを作っておく",
+     "next": "win_quiet"
+    }
+   ]
+  },
+  "win_expose": {
+   "speaker": "minister",
+   "text": [
+    "{rival}は門から追われた。{minister}は小声で言った。「敵を作るのも士の務めのうちだ。だが、敵は数えておけ」"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "rank2_rival_caught"
+    },
+    {
+     "note": "{ruler}の前で一芸を示し、士となった。{rival}は門を追われた。"
+    }
+   ],
+   "end": "士の列に並ぶ"
+  },
+  "win_quiet": {
+   "speaker": "rival",
+   "text": [
+    "宴の後、{rival}が物陰から現れた。「……なぜ黙っていた」「いずれ返してもらう」{player}がそう言うと、{rival}は何も答えずに頭を下げた。"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 8
+    },
+    {
+     "fame": 2
+    },
+    {
+     "flag": "rank2_rival_owes"
+    },
+    {
+     "unflag": "rank2_rival_caught"
+    },
+    {
+     "note": "士となった。{rival}に貸しがある。"
+    }
+   ],
+   "end": "貸しを作って士となる"
+  },
+  "fail": {
+   "speaker": "minister",
+   "text": [
+    "宴は{player}抜きで続いた。後で{minister}が言った。「今日は運がなかった。務めを重ねて覚えをよくすれば、また機会はある」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "rank2_rival_caught"
+    },
+    {
+     "note": "一芸の試しにしくじった。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "一芸ならず"
+  }
+ }
+}

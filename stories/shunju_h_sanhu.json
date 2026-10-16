@@ -1,0 +1,648 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_sanhu",
+ "kind": "history",
+ "title": "三戸の楚",
+ "era": "shunju",
+ "event": "qin_chu",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s2hurt",
+  "s3",
+  "s3hold",
+  "s3hold_ng",
+  "s3go",
+  "s4",
+  "s4ok",
+  "s4ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "shouchun"
+  },
+  "field": {
+   "place": "near:city"
+  },
+  "chu": {
+   "scnRealm": "chu"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:chu"
+  },
+  "xiangyan": {
+   "scnPerson": "項燕"
+  },
+  "wangjian": {
+   "scnPerson": "王翦"
+  },
+  "elder": {
+   "npc": "楚の老父",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で老父の話を聞く",
+   "speaker": "elder",
+   "art": "tale",
+   "text": [
+    "{city}の客舎の軒下で、白髪の老父が若者たちに囲まれていた。去年、秦の若い将李信の二十万を、{xiangyan}将軍が七日七晩追って破った。その話を、もう百回はしているらしい。",
+    "「だが今度は六十万だ。率いるのは老将{wangjian}。あれは李信とは違う」老父は杖で地を突いた。「それでも言っておく。楚は三戸と雖も、秦を亡ぼすは必ず楚ならん。三軒の家しか残らずとも、秦を滅ぼすのは楚だ」"
+   ],
+   "choices": [
+    {
+     "label": "{xiangyan}の陣へ向かう",
+     "effects": [
+      {
+       "note": "{wangjian}の六十万が楚に迫っている。{xiangyan}の陣へ向かうことにした。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「その三戸に、わたしも数えてもらおう」と言って発つ",
+     "effects": [
+      {
+       "note": "{wangjian}の六十万が楚に迫っている。{xiangyan}の陣へ向かうことにした。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の陣で{xiangyan}に会う",
+   "speaker": "xiangyan",
+   "art": "war",
+   "text": [
+    "{xiangyan}の陣から、{wangjian}の陣が見えた。六十万は壁を高くして籠もり、ひと月、ふた月、一度も打って出ない。秦の兵は毎日湯を浴び、よく食い、陣の中で石投げや跳び比べをして遊んでいるという。",
+    "{xiangyan}は苛立ちを隠さなかった。「李信の小僧なら、とうに三度は叩いている。あの老人は、楚の兵が待ちくたびれて家に帰りたくなるのを、待っておるのだ」"
+   ],
+   "choices": [
+    {
+     "label": "秦の陣に忍び寄り、兵の様子を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "楚の兵たちの間を回り、帰りたがっている者の数を数える",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "text": [
+    "秦の兵は石を投げ、跳び比べの距離を競っていた。遊びに見えて、その実、石は日ごとに遠くへ飛び、跳ぶ足は日ごとに強くなっている。休ませながら、鍛えているのだ。",
+    "一方の楚の陣では、糧の袋が日ごとに軽くなっていた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_qc_seen"
+    },
+    {
+     "note": "{wangjian}の六十万が、休みながら鍛えているのを見た。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "秦の陣の柵に近づいたところで、跳び比べをしていた兵たちに見つかった。遊びの輪が、そのまま槍の輪に変わった。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2hurt"
+     }
+    }
+   ]
+  },
+  "s2hurt": {
+   "text": [
+    "石を頭に受け、気がつくと楚の陣の中だった。秦の兵の投げる石は、恐ろしく遠くまで届く。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の陣で、軍の動きを待つ",
+   "wait": {
+    "days": 6
+   },
+   "speaker": "xiangyan",
+   "art": "war",
+   "text": [
+    "糧が尽きかけ、{xiangyan}はついに兵を東へ返すと決めた。その日のうちに、{wangjian}の六十万が壁を出た。待ちに待った獣が、背を向けた獲物に飛びかかるように。",
+    "{xiangyan}は殿の兵を見回した。「追ってくる秦の先陣は、鍛えに鍛えた兵だ。まともに当たれば、殿は一刻ともたぬ」"
+   ],
+   "choices": [
+    {
+     "label": "{xiangyan}に従い、東へ退く",
+     "next": "s3go"
+    },
+    {
+     "label": "退くと見せて蘄の南の林に兵を伏せ、追ってくる秦の先陣を討つ",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3hold",
+      "lose": "s3hold_ng"
+     }
+    }
+   ]
+  },
+  "s3go": {
+   "text": [
+    "楚の軍は泥の道を東へ急いだ。後ろから、秦の軍鼓が日ごとに近づいてくる。{player}は殿の兵と共に、何度も振り返った。"
+   ],
+   "next": "s4"
+  },
+  "s3hold": {
+   "speaker": "xiangyan",
+   "art": "war",
+   "text": [
+    "蘄の南の林は、退く道の両側に深く茂っていた。{player}は{xiangyan}に願い出て五千の兵を林に伏せ、残りの兵には旗を多く立てさせて、慌てて逃げるふりをさせた。",
+    "勝ちに逸った秦の先陣が林の間の道に入ったとき、両側から楚の弩が一斉に鳴った。先陣は崩れ、後に続く本隊は足を止めた。{xiangyan}は血に濡れた剣を掲げて笑った。「老人め、これで少しは考える気になったろう」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qc_hold"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "chu",
+     "n": 15
+    },
+    {
+     "wanted": "qin",
+     "n": 15
+    },
+    {
+     "note": "蘄の南で兵を伏せ、追ってきた秦の先陣を討った。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hold_ng": {
+   "text": [
+    "伏兵の支度が整う前に、秦の先陣が林に着いた。楚の兵は散り散りになり、{player}も傷を負って東へ逃れた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城へ戻る",
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{city}の宮城は、慌ただしかった。{king}は宝物を車に積ませ、大夫たちは自分の家の財を運び出すのに忙しい。楚の都は、去年の勝ちを忘れたように怯えていた。",
+    "城下では、{elder}が若者たちに弓を配っていた。「三戸だ。三戸あればよい」"
+   ],
+   "choices": [
+    {
+     "label": "{elder}と共に、城下の民を南の沼沢へ逃がす支度をする",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "城壁の上で、東から来る報せを待つ",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s4ok": {
+   "speaker": "elder",
+   "text": [
+    "南の沼沢には、秦の兵の乗る車は入れない。{elder}は舟を集め、若者に櫂を持たせた。「楚の民は、水の上なら負けはせぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qc_marsh"
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4ng": {
+   "text": [
+    "民は家を捨てたがらなかった。「秦が来たら、そのときに逃げる」と、誰もが言った。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、楚の行く末を見届ける",
+   "wait": {
+    "settled": "qin_chu"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qc_gone"
+     },
+     "next": "gone"
+    },
+    {
+     "if": {
+      "branch": "qc_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "if": {
+      "branch": "qc_nowang"
+     },
+     "next": "nowang"
+    },
+    {
+     "if": {
+      "branch": "qc_hold"
+     },
+     "next": "held"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "gone": {
+   "art": "tale",
+   "text": [
+    "楚は、とうに{wangjian}の六十万の前に滅んでいた。{elder}の言う三戸は、どこにいるのだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_qc_seen"
+    },
+    {
+     "unflag": "h_qc_hold"
+    },
+    {
+     "unflag": "h_qc_marsh"
+    }
+   ],
+   "end": "既に滅んだ国"
+  },
+  "noking": {
+   "speaker": "xiangyan",
+   "art": "war",
+   "text": [
+    "秦の王が死んだという報せが、秦の陣を揺らした。{wangjian}は追撃を止め、六十万を西へ返した。老将は、主の葬いを差し置いて戦をする男ではなかった。",
+    "{xiangyan}は{city}の城門で、{player}の肩を叩いた。「秦を滅ぼすのは楚、と老父は言う。だが、秦の王を倒したのは楚ではなかった。……まあいい。楚は、生きている」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_qc_seen"
+    },
+    {
+     "unflag": "h_qc_hold"
+    },
+    {
+     "unflag": "h_qc_marsh"
+    },
+    {
+     "note": "秦の王が死に、{wangjian}は楚から兵を返した。"
+    }
+   ],
+   "end": "返された六十万"
+  },
+  "nowang": {
+   "speaker": "xiangyan",
+   "art": "war",
+   "text": [
+    "六十万を率いるはずの老将は、もういなかった。代わりの将たちは互いの顔色をうかがい、秦の大軍は国境で足踏みを続けた。",
+    "{xiangyan}は地図を畳んだ。「あの老人がいない六十万なら、二十万と変わらぬ。楚には、もう二年ある」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_qc_seen"
+    },
+    {
+     "unflag": "h_qc_hold"
+    },
+    {
+     "unflag": "h_qc_marsh"
+    },
+    {
+     "note": "{wangjian}を欠いた秦の軍は、楚に攻め入れなかった。"
+    }
+   ],
+   "end": "老将なき大軍"
+  },
+  "held": {
+   "speaker": "xiangyan",
+   "art": "war",
+   "text": [
+    "蘄の南で先陣を失った{wangjian}は、追撃を止めて陣を築き直した。老将は負けを取り返そうとは急がない。ひとつの冬と、もうひとつの夏を、ただ待つことにした。",
+    "{xiangyan}は{player}に酒を注いだ。「一年半。あの老人から一年半をもぎ取った者は、天下におらぬぞ。楚の三戸の一つは、おぬしの家だ」"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "rep": "chu",
+     "n": 10
+    },
+    {
+     "unflag": "h_qc_seen"
+    },
+    {
+     "unflag": "h_qc_hold"
+    },
+    {
+     "unflag": "h_qc_marsh"
+    },
+    {
+     "note": "蘄の南の勝ちで、楚の滅びは一年半遅れた。"
+    }
+   ],
+   "end": "一年半の楚"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、楚の行く末を見届ける",
+   "wait": {
+    "settled": "qin_chu"
+   },
+   "speaker": "elder",
+   "art": "war",
+   "text": [
+    "蘄の南で、{xiangyan}の軍は{wangjian}の六十万に追いつかれて破れた。秦の兵は{city}に入り、{king}は捕らえられた。八百年の楚が、ここに終わった。",
+    "{elder}は崩れた城門の前に座り込んで、それでも言った。「楚は三戸と雖も、秦を亡ぼすは必ず楚ならん」秦の兵が笑った。老父は笑い返さなかった。"
+   ],
+   "choices": [
+    {
+     "label": "舟を集めた若者たちと、南の沼沢へ逃れる",
+     "if": {
+      "flag": "h_qc_marsh"
+     },
+     "next": "end_marsh"
+    },
+    {
+     "label": "敗れた{xiangyan}の軍の行方を追う",
+     "next": "end_xiang"
+    },
+    {
+     "label": "老父の言葉を胸に、{city}を去る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_marsh": {
+   "speaker": "elder",
+   "text": [
+    "舟は葦の間を抜け、秦の車の届かぬ水の上へ出た。若者たちは櫂を漕ぎながら、老父に教わった歌を歌っていた。",
+    "この中の誰かの子か孫が、いつか秦に背くのかもしれない。{player}はそう思いながら、櫂を握った。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "chu",
+     "n": 10
+    },
+    {
+     "unflag": "h_qc_seen"
+    },
+    {
+     "unflag": "h_qc_hold"
+    },
+    {
+     "unflag": "h_qc_marsh"
+    },
+    {
+     "note": "楚は滅んだ。城下の若者たちと南の沼沢へ逃れた。"
+    }
+   ],
+   "end": "葦の間の三戸"
+  },
+  "end_xiang": {
+   "text": [
+    "{xiangyan}は、楚の公子を立てて淮水の南でなお戦ったが、やがて{wangjian}に破られて自ら命を絶ったという。",
+    "将軍の孫が、のちに何をすることになるのか。それを知る者は、まだ誰もいない。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_qc_seen"
+    },
+    {
+     "unflag": "h_qc_hold"
+    },
+    {
+     "unflag": "h_qc_marsh"
+    },
+    {
+     "note": "楚は滅び、{xiangyan}も倒れた。"
+    }
+   ],
+   "end": "将軍の孫"
+  },
+  "end_plain": {
+   "text": [
+    "{player}は{city}を後にした。秦の兵が城壁の上に新しい旗を立てていた。楚の地の人々は、その旗を見上げては、黙って目を伏せた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_qc_seen"
+    },
+    {
+     "unflag": "h_qc_hold"
+    },
+    {
+     "unflag": "h_qc_marsh"
+    },
+    {
+     "note": "楚が滅ぶのを見届けた。"
+    }
+   ],
+   "end": "三戸と雖も"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qc_gone"
+     },
+     "next": "gone"
+    },
+    {
+     "if": {
+      "branch": "qc_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "if": {
+      "branch": "qc_nowang"
+     },
+     "next": "nowang"
+    },
+    {
+     "if": {
+      "branch": "qc_hold"
+     },
+     "next": "held"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。秦の老将{wangjian}が六十万で楚を討ち、楚王を捕らえたという。{xiangyan}も敗れた。",
+    "噂の主は声をひそめて言った。「楚は三戸と雖も、秦を亡ぼすは必ず楚ならん、だそうだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_qc_seen"
+    },
+    {
+     "unflag": "h_qc_hold"
+    },
+    {
+     "unflag": "h_qc_marsh"
+    },
+    {
+     "note": "楚が滅んだと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "qc_gone",
+   "event": "qin_chu",
+   "order": 4,
+   "why": "王翦の六十万で楚はすでに滅んでいた",
+   "when": {
+    "taken": [
+     "lx_wangjian"
+    ]
+   },
+   "then": "cancel",
+   "note": "{n_chu}は既に[[p:王翦]]の六十万の前に滅んでいた。"
+  },
+  {
+   "id": "qc_noking",
+   "event": "qin_chu",
+   "order": 3,
+   "why": "秦王政がすでに殺されていた",
+   "when": {
+    "slain": [
+     "秦王政"
+    ]
+   },
+   "then": "cancel",
+   "note": "王を失った{n_qin}の[[p:王翦]]は六十万を西へ返し、{n_chu}は滅びなかった。"
+  },
+  {
+   "id": "qc_nowang",
+   "event": "qin_chu",
+   "order": 2,
+   "why": "王翦がすでに死んでいた",
+   "when": {
+    "dead": [
+     "王翦"
+    ]
+   },
+   "then": "delay",
+   "months": 24,
+   "note": "六十万を率いるはずの[[p:王翦]]はもういなかった。{n_qin}の軍は国境で足踏みし、{n_chu}の滅びは二年遅れた。"
+  },
+  {
+   "id": "qc_hold",
+   "event": "qin_chu",
+   "order": 1,
+   "why": "主人公が蘄の南で秦の先陣を討った",
+   "when": {
+    "flag": "h_qc_hold"
+   },
+   "then": "delay",
+   "months": 18,
+   "note": "蘄の南で[[p:項燕]]の伏兵が{n_qin}の先陣を討ち、[[p:王翦]]は追撃を止めた。{n_chu}の滅びは一年半遅れた。",
+   "people": [
+    {
+     "spare": "項燕",
+     "years": 2
+    }
+   ]
+  }
+ ]
+}

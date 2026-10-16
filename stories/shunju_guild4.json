@@ -1,0 +1,684 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_guild4",
+ "kind": "rank",
+ "guildTo": 4,
+ "title": "大仕事",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "fence": {
+   "npc": "片目の顔役",
+   "sex": "m"
+  },
+  "smith": {
+   "npc": "錠前の職人",
+   "sex": "f"
+  },
+  "clerk": {
+   "npc": "倉役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で顔役に会う",
+   "speaker": "fence",
+   "art": "backroom",
+   "text": [
+    "片目の{fence}は、いつになく声を潜めた。「{here:realm}の租税の銀が、郡じゅうから{here}の官府の倉に集められる。都へ送り出すまでの三日だけ、あの倉は天下で一番重くなる」",
+    "「これを抜いた者を、裏の世界では盗賊王と呼ぶ。大頭目、腕と運を試す気はあるか」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "effects": [
+      {
+       "note": "{here}の官倉に集まる{here:realm}の租税の銀を狙うことになった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で錠と人の手立てを揃える",
+   "speaker": "smith",
+   "art": "trade",
+   "text": [
+    "官倉の錠は青銅の大錠で、鍵は倉役人の腰にしかない。市の奥で、錠前の職人{smith}が火箸を置いた。「あの錠の型なら、わたしの師匠が打ったものだ。合鍵を作れぬこともないが……」"
+   ],
+   "choices": [
+    {
+     "label": "銭を積んで合鍵を頼む（150）",
+     "if": {
+      "money": 150
+     },
+     "effects": [
+      {
+       "money": -150
+      },
+      {
+       "flag": "g4_key"
+      }
+     ],
+     "next": "s2done"
+    },
+    {
+     "label": "{smith}の工房から錠の型を盗み出す",
+     "check": {
+      "skill": "theft",
+      "dc": 38,
+      "win": "s2key",
+      "lose": "s2key_ng"
+     }
+    },
+    {
+     "label": "義賊の名で、市の人足たちに手を借りる",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "effects": [
+      {
+       "flag": "g4_porter"
+      }
+     ],
+     "next": "s2porter"
+    },
+    {
+     "label": "{smith}の子の居所を口にして、合鍵を打たせる",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "effects": [
+      {
+       "fame": -2
+      },
+      {
+       "flag": "g4_key"
+      }
+     ],
+     "next": "s2done"
+    },
+    {
+     "label": "手立てなしで、己の腕だけを頼む",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2key": {
+   "art": "hideout",
+   "text": [
+    "夜更け、工房の棚から錠の蝋型を抜き取った。夜明けまでに、自分の手で粗い合鍵を削り出した。"
+   ],
+   "effects": [
+    {
+     "flag": "g4_key"
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2key_ng": {
+   "art": "hideout",
+   "text": [
+    "棚を探る手が壺を落とした。{smith}の叫び声に、{player}は何も持たずに逃げ出した。市には盗人が出たという噂が流れた。"
+   ],
+   "effects": [
+    {
+     "wanted": "here",
+     "n": 6
+    }
+   ],
+   "next": "s3"
+  },
+  "s2porter": {
+   "art": "trade",
+   "text": [
+    "人足頭は、かつて一味が穀を返した村の出だった。「租税の銀を運び込む日、倉の荷運びにおれたちが雇われる。あんたらの顔も、人足の頭巾の下に隠せるさ」"
+   ],
+   "next": "s3"
+  },
+  "s2done": {
+   "art": "trade",
+   "text": [
+    "{smith}は黙って炉に向かった。二日ののち、ずしりと重い青銅の合鍵が{player}の手に渡された。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の官府で倉役人{clerk}に近づく",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "倉役人の{clerk}は、帳簿を前に溜息ばかりついていた。銀を数えるのも、夜の見回りの順を決めるのも、この男の役目だという。"
+   ],
+   "choices": [
+    {
+     "label": "賂を渡して見回りの順を聞き出す（200）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      },
+      {
+       "flag": "g4_inside"
+      }
+     ],
+     "next": "s3ok"
+    },
+    {
+     "label": "博打の借りを肩代わりすると持ちかける",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "帳簿の誤魔化しを見抜き、黙っている代わりに手を貸せと迫る",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "{clerk}の家族の家を知っていると囁く",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "effects": [
+      {
+       "fame": -2
+      }
+     ],
+     "next": "s3ok"
+    },
+    {
+     "label": "役人には近づかず、見回りを自分で数える",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は青い顔で頷いた。「三日目の夜、子の刻。裏門の見張りは一人になる。わたしは何も知らぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "g4_inside"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は顔を強張らせ、衛兵を呼ぶ素振りを見せた。{player}は笑って誤魔化し、官府を出た。見回りは、きっと厳しくなる。"
+   ],
+   "effects": [
+    {
+     "wanted": "here",
+     "n": 8
+    },
+    {
+     "flag": "g4_alert"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "三日目の夜を待ち、{here}の宿の裏部屋に一味を集める",
+   "wait": {
+    "days": 2
+   },
+   "speaker": "fence",
+   "art": "backroom",
+   "text": [
+    "裏部屋には一味の腕利きが揃っていた。{fence}が灯を吹き消した。「銀は今夜しかない。明日には都へ発つ。運び出す車も、逃げる道も手配した。あとは、あんたが倉の戸を開けるだけだ」"
+   ],
+   "choices": [
+    {
+     "label": "官府へ向かう",
+     "next": "s5"
+    }
+   ]
+  },
+  "s5": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "夜、{here}の官府の倉に忍び込む",
+   "art": "hideout",
+   "text": [
+    "子の刻。官府の塀の内では、倉を守る兵の松明がゆっくりと巡っている。"
+   ],
+   "choices": [
+    {
+     "label": "{clerk}の言った裏門から入る",
+     "if": {
+      "flag": "g4_inside"
+     },
+     "next": "s6"
+    },
+    {
+     "label": "人足の頭巾をかぶり、荷運びに紛れて入る",
+     "if": {
+      "flag": "g4_porter"
+     },
+     "next": "s6"
+    },
+    {
+     "label": "見回りの隙を突いて塀を越える",
+     "if": {
+      "notFlag": "g4_alert"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "s6",
+      "lose": "s5alarm"
+     }
+    },
+    {
+     "label": "増えた見回りの隙を突いて塀を越える",
+     "if": {
+      "flag": "g4_alert"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 46,
+      "win": "s6",
+      "lose": "s5alarm"
+     }
+    },
+    {
+     "label": "見張りを斬って押し通る",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 15
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s6",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s6": {
+   "art": "hideout",
+   "text": [
+    "倉の前に立つと、青銅の大錠が月を映して鈍く光っていた。この戸の向こうに、{here:realm}一国の一年分の租税が眠っている。"
+   ],
+   "choices": [
+    {
+     "label": "合鍵を差し込む",
+     "if": {
+      "flag": "g4_key"
+     },
+     "next": "s7"
+    },
+    {
+     "label": "己の指で錠を解く",
+     "check": {
+      "skill": "theft",
+      "dc": 42,
+      "win": "s7",
+      "lose": "s5alarm"
+     }
+    }
+   ]
+  },
+  "s5alarm": {
+   "art": "war",
+   "text": [
+    "銅鑼が鳴り響いた。「倉破りだ！」四方から兵が集まってくる。"
+   ],
+   "choices": [
+    {
+     "label": "兵を斬り伏せ、倉へ押し入る",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 15
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s7hot",
+      "lose": "fail_caught"
+     }
+    },
+    {
+     "label": "闇に紛れて退く",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "fail_abort",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s7": {
+   "art": "hideout",
+   "text": [
+    "戸が開いた。銀の延べ板が、穀袋のように積み上げられている。一味の者たちが声にならない声を漏らした。夜明けまでに運び出せるのは、この半分がせいぜいだろう。"
+   ],
+   "choices": [
+    {
+     "label": "銀の半ばを、租税に泣いた郡の民に撒く",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "effects": [
+      {
+       "money": 500
+      },
+      {
+       "fame": 15
+      },
+      {
+       "wanted": "here",
+       "n": 30
+      }
+     ],
+     "next": "win_r"
+    },
+    {
+     "label": "倉に火を放ち、追手の目を塞いで残らず運ぶ",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "effects": [
+      {
+       "money": 1000
+      },
+      {
+       "fame": -5
+      },
+      {
+       "wanted": "here",
+       "n": 45
+      }
+     ],
+     "next": "win_w"
+    },
+    {
+     "label": "運べるだけ運び、静かに去る",
+     "effects": [
+      {
+       "money": 750
+      },
+      {
+       "fame": 5
+      },
+      {
+       "wanted": "here",
+       "n": 30
+      }
+     ],
+     "next": "win_plain"
+    }
+   ]
+  },
+  "s7hot": {
+   "art": "war",
+   "text": [
+    "血の匂いの中で倉の戸を破った。だが兵の増援がもう街路に迫っている。抱えられるだけの銀を背負い、一味は塀を越えた。"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "wanted": "here",
+     "n": 15
+    }
+   ],
+   "choices": [
+    {
+     "label": "追手を振り切って逃げる",
+     "next": "win_hot"
+    }
+   ]
+  },
+  "win_r": {
+   "speaker": "fence",
+   "art": "hideout",
+   "text": [
+    "夜明け、郡の村々の井戸端に銀の延べ板が置かれていた。役人がいくら探しても、民は誰ひとり盗賊の行方を口にしなかった。",
+    "{fence}は片目を細めた。「官の銀を抜き、民に匿われる。そんな盗賊王は、何百年に一人だ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "xp": "theft",
+     "n": 8
+    },
+    {
+     "unflag": "g4_key"
+    },
+    {
+     "unflag": "g4_porter"
+    },
+    {
+     "unflag": "g4_inside"
+    },
+    {
+     "unflag": "g4_alert"
+    },
+    {
+     "note": "{here:realm}の官倉の銀を抜いて民に撒き、義賊の盗賊王と呼ばれるようになった。"
+    }
+   ],
+   "end": "民に匿われる王"
+  },
+  "win_w": {
+   "speaker": "fence",
+   "art": "disaster",
+   "text": [
+    "官府の倉は一夜で焼け落ち、炎は隣の町屋まで舐めた。焼け跡からは、逃げ遅れた見張りの骨が出たという。",
+    "{fence}は銀の山を前に、乾いた声で笑った。「天下の官倉を灰にした男だ。もう誰も、あんたの名を口にするときに声を潜めずにはいられん。盗賊王に」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "xp": "theft",
+     "n": 8
+    },
+    {
+     "unflag": "g4_key"
+    },
+    {
+     "unflag": "g4_porter"
+    },
+    {
+     "unflag": "g4_inside"
+    },
+    {
+     "unflag": "g4_alert"
+    },
+    {
+     "note": "{here:realm}の官倉を焼き払って銀を奪い、外道の盗賊王として恐れられるようになった。"
+    }
+   ],
+   "end": "灰の上の王"
+  },
+  "win_plain": {
+   "speaker": "fence",
+   "art": "hideout",
+   "text": [
+    "朝になって倉の戸が開いているのに気づいたとき、役人たちは誰が、いつ、どうやって入ったのか、何ひとつ分からなかった。",
+    "{fence}は銀を一枚かじって笑った。「血も火も使わず、官倉を抜いた。腕だけで王になった者を、わしは初めて見た」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "xp": "theft",
+     "n": 8
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "unflag": "g4_key"
+    },
+    {
+     "unflag": "g4_porter"
+    },
+    {
+     "unflag": "g4_inside"
+    },
+    {
+     "unflag": "g4_alert"
+    },
+    {
+     "note": "{here:realm}の官倉の銀を音もなく抜き、盗賊王と呼ばれるようになった。"
+    }
+   ],
+   "end": "影の王"
+  },
+  "win_hot": {
+   "speaker": "fence",
+   "art": "war",
+   "text": [
+    "追手を撒いて隠れ家にたどり着いたときには、夜が白んでいた。運び出せた銀は倉の一割にも満たない。それでも、官倉を破って生きて帰った者はほかにいない。",
+    "{fence}は傷だらけの{player}の肩を叩いた。「荒い仕事だったが、仕事は仕事だ。盗賊王の名は、あんたのものだ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "unflag": "g4_key"
+    },
+    {
+     "unflag": "g4_porter"
+    },
+    {
+     "unflag": "g4_inside"
+    },
+    {
+     "unflag": "g4_alert"
+    },
+    {
+     "note": "兵を斬り伏せて{here:realm}の官倉を破り、盗賊王と呼ばれるようになった。"
+    }
+   ],
+   "end": "血路の王"
+  },
+  "fail_abort": {
+   "speaker": "fence",
+   "art": "hideout",
+   "text": [
+    "一味は手ぶらで隠れ家に戻った。翌朝、銀の車は都へ発っていった。{fence}は肩をすくめた。「倉は来年もまた重くなる。それまでに名を上げ直しておけ」"
+   ],
+   "effects": [
+    {
+     "unflag": "g4_key"
+    },
+    {
+     "unflag": "g4_porter"
+    },
+    {
+     "unflag": "g4_inside"
+    },
+    {
+     "unflag": "g4_alert"
+    },
+    {
+     "note": "官倉破りを諦めて退いた。働きを重ねれば、また大仕事に挑める。"
+    }
+   ],
+   "end": "手ぶらの夜明け"
+  },
+  "fail_caught": {
+   "art": "war",
+   "text": [
+    "兵の槍に囲まれ、{player}は倉の前に組み伏せられた。一味の者たちが騒ぎを起こした隙に縄を抜けて逃れたものの、顔も名も、{here:realm}の役人の帳簿に刻まれた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "wanted": "here",
+     "n": 20
+    },
+    {
+     "unflag": "g4_key"
+    },
+    {
+     "unflag": "g4_porter"
+    },
+    {
+     "unflag": "g4_inside"
+    },
+    {
+     "unflag": "g4_alert"
+    },
+    {
+     "note": "官倉破りにしくじり、{here:realm}のお尋ね者となった。働きを重ねれば、また大仕事に挑める。"
+    }
+   ],
+   "end": "倉の前に倒れる"
+  }
+ }
+}

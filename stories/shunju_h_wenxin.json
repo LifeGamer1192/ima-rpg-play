@@ -1,0 +1,458 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_wenxin",
+ "kind": "history",
+ "era": "shunju",
+ "title": "文信侯",
+ "event": "lv_buwei_falls",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2proof",
+  "s2proof_ng",
+  "s3",
+  "s3clear_ng",
+  "s4"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "xianyang"
+  },
+  "henan": {
+   "scnPlace": "luoyi"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:qin"
+  },
+  "lv": {
+   "scnPerson": "呂不韋"
+  },
+  "zhaoji": {
+   "scnPerson": "趙姫"
+  },
+  "steward": {
+   "npc": "呂不韋の舎人",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "廷尉の獄吏",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で相国の噂を聞く",
+   "speaker": "steward",
+   "art": "tale",
+   "text": [
+    "{city}の市には、まだ車裂きの刑の噂が残っていた。太后{zhaoji}の寵臣嫪毐の一族は滅ぼされ、太后は雍の宮に移された。廷尉の獄は、嫪毐の一味の調べで溢れているという。",
+    "客舎で声をかけてきたのは、相国{lv}の舎人{steward}だった。「調べの中で、嫪毐を宮に入れたのは相国だという話が出た。そうなれば相国の首も危うい。相国は笑っておられるが、わたしは笑えぬ」"
+   ],
+   "choices": [
+    {
+     "label": "相国の屋敷を訪ねる",
+     "effects": [
+      {
+       "note": "嫪毐の一件が相国{lv}に及ぼうとしている。{steward}に頼まれ、屋敷を訪ねることにした。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の相国{lv}の屋敷を訪ねる",
+   "speaker": "lv",
+   "art": "lecture",
+   "text": [
+    "屋敷の門には、竹簡を連ねた大きな書が掛けられていた。食客三千に編ませた書だ。一字でも加え、また削れる者には千金を与える、と札が添えてある。いまだに一字も動いていない。",
+    "{lv}は老いた商人の目で{player}を量った。「若いころ、わしは邯鄲で一人の公子を見つけた。奇貨居くべし、とな。その公子の子が、いまの王だ。わしは王を買った男だ。王に売られる日が来ても、驚きはせぬ」",
+    "「嫪毐を太后に薦めたのは、わしだ。太后の求めから身を引くためにな。それがこうなるとは、商いの見込み違いよ」"
+   ],
+   "choices": [
+    {
+     "label": "黙って話を聞く",
+     "next": "s3"
+    },
+    {
+     "label": "廷尉の獄に忍び込み、嫪毐の一味の調書を確かめる",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s2proof",
+      "lose": "s2proof_ng"
+     }
+    }
+   ]
+  },
+  "s2proof": {
+   "speaker": "clerk",
+   "art": "jail",
+   "text": [
+    "獄の奥の文書庫で、{clerk}が酒に酔って眠っていた。調書の束をめくると、相国の名が出てくるのは、どれも拷問の三日目、四日目の口書ばかりだった。初めの口書には、一つもない。",
+    "さらに、嫪毐が相国の屋敷へ出入りを禁じられた日付を記した門籍があった。乱の二年も前のことだ。{player}はそれを写し取り、夜明け前に獄を出た。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lvf_proof"
+    },
+    {
+     "note": "廷尉の獄で、相国の名が拷問の末の口書にしか出ないことを確かめた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2proof_ng": {
+   "text": [
+    "文書庫の戸を開けたところで、見回りの獄吏と鉢合わせした。{player}は灯を蹴倒して逃げた。何も持ち出せなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "wanted": "qin",
+     "n": 10
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で相国の処分の朝議を見る",
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "朝議の座で、宗室の大夫たちが次々に相国の罪を数え上げた。嫪毐を宮に入れたこと。太后を惑わせたこと。王の冠礼を遅らせたこと。{lv}は黙って座っている。",
+    "玉座の{king}は、かつて仲父と呼んだ男を、表情のない目で見下ろしていた。「相国は先王に功がある。死は免じる。だが……」"
+   ],
+   "choices": [
+    {
+     "label": "朝議の末席で見守る",
+     "next": "s4"
+    },
+    {
+     "label": "調書の偽りを示し、相国は乱に与していないと説く",
+     "turn": true,
+     "if": {
+      "flag": "h_lvf_proof"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s3clear_ok",
+      "lose": "s3clear_ng"
+     }
+    }
+   ]
+  },
+  "s3clear_ok": {
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{player}は末席から進み出て、写し取った口書と門籍を並べた。相国の名は、拷問の果ての口書にしか出てこない。嫪毐は乱の二年前に相国の門を閉ざされている。",
+    "座がざわめいた。{king}は長いあいだ竹簡を見つめ、それから{lv}を見た。「仲父。嫪毐を宮に入れた罪は消えぬ。だが、乱に与した罪は、どうやら無いらしい」若い王は立ち上がった。「相国はその職に留まれ。ただし、二度とわしに物を売るな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_lvf_clear"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "note": "朝議で、相国{lv}が嫪毐の乱に与していないことを示した。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3clear_ng": {
+   "speaker": "king",
+   "text": [
+    "「獄の調書を、どこから持ち出した」{king}の声は冷たかった。「相国の食客は、獄にまで手を回すのか」{player}は衛士に引き出され、竹簡は火にくべられた。"
+   ],
+   "effects": [
+    {
+     "wanted": "qin",
+     "n": 15
+    },
+    {
+     "hp": -5
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の相国の屋敷で沙汰を待つ",
+   "speaker": "lv",
+   "art": "inn",
+   "text": [
+    "屋敷に戻った{lv}は、門に掛けた書を見上げていた。「一字も動かせなかった書だ。わしが去っても、これは残る」",
+    "「商人は、売り時を知らねばならぬ。わしは売り時を逃した」老人は笑った。「だが、買った品が育ちすぎて、売り主を食うとは。これほどの奇貨は、天下に二つとあるまいよ」"
+   ],
+   "choices": [
+    {
+     "label": "相国のそばに控え、沙汰を待つ",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で相国の行く末を見届ける",
+   "wait": {
+    "settled": "lv_buwei_falls"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lvf_unmade"
+     },
+     "next": "unmade"
+    },
+    {
+     "if": {
+      "branch": "lvf_noriot"
+     },
+     "next": "noriot"
+    },
+    {
+     "if": {
+      "branch": "lvf_clear"
+     },
+     "next": "cleared"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "cleared": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "lv",
+   "art": "feast",
+   "text": [
+    "相国の屋敷の門は閉ざされなかった。{lv}はなお相国として朝に出ている。だが、王が仲父と呼ぶことは、もうなかった。",
+    "老人は{player}に杯を差し出した。「命を一つ拾った。商人は拾い物を粗末にせぬ。だが、あの若い王の目は忘れぬぞ。あれは、物を買う目ではない。物を奪う目だ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 300
+    },
+    {
+     "unflag": "h_lvf_clear"
+    },
+    {
+     "unflag": "h_lvf_proof"
+    },
+    {
+     "note": "相国{lv}は職に留まった。"
+    }
+   ],
+   "end": "拾った命"
+  },
+  "unmade": {
+   "art": "tale",
+   "text": [
+    "この国の相国は、もとより{lv}ではなかった。商人あがりの老人は、とうに表の舞台から降りている。嫪毐の一件の調べが、その屋敷の門を叩くことはなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lvf_proof"
+    }
+   ],
+   "end": "叩かれぬ門"
+  },
+  "noriot": {
+   "art": "tale",
+   "text": [
+    "雍の宮で乱は起こらなかった。罪を問う相手がいなければ、相国の名が調書に出ることもない。{lv}は今日も朝に出て、門の書の前で客と笑っている。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lvf_proof"
+    }
+   ],
+   "end": "起こらなかった調べ"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で相国の行く末を見届ける",
+   "wait": {
+    "settled": "lv_buwei_falls"
+   },
+   "speaker": "steward",
+   "art": "road",
+   "text": [
+    "王の命は下った。{lv}は相国を免じられ、封地の河南へ退くこと。屋敷の門から書が下ろされ、車に積まれた。",
+    "{steward}が涙をこらえて言った。「三千の食客のうち、見送りに来たのは百人足らずだ。人の心とは、こういうものか」{lv}は車の上で笑っていた。「百人も来れば、商いとしては上出来だ」"
+   ],
+   "choices": [
+    {
+     "label": "{henan}まで相国の車に従う",
+     "next": "end_henan"
+    },
+    {
+     "label": "{city}に残り、去る車を見送る",
+     "next": "end_stay"
+    }
+   ]
+  },
+  "end_henan": {
+   "at": {
+    "place": "henan"
+   },
+   "speaker": "lv",
+   "art": "road",
+   "text": [
+    "{henan}の屋敷に着くと、{lv}は門に再びあの書を掛けさせた。数日のうちに、諸国から客の車が集まりはじめた。斉から、趙から、楚から。誰もが、秦を追われた老人の知恵を買いに来たのだ。",
+    "{steward}は嬉しそうだったが、{player}は胸騒ぎを覚えた。この門の賑わいが、{city}の王の耳に届かぬはずがない。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_lvf_proof"
+    },
+    {
+     "note": "相国{lv}は職を免じられ、{henan}へ退いた。その車に従った。"
+    }
+   ],
+   "end": "河南への車"
+  },
+  "end_stay": {
+   "text": [
+    "相国の車は東の門から出ていった。{player}は門の脇でそれを見送った。",
+    "のちに聞いた。{lv}が去った後、{city}の朝議で王の隣に立つのは、上蔡生まれの客卿だという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lvf_proof"
+    },
+    {
+     "note": "相国{lv}は職を免じられ、{henan}へ退いた。"
+    }
+   ],
+   "end": "去る仲父"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lvf_unmade"
+     },
+     "next": "unmade"
+    },
+    {
+     "if": {
+      "branch": "lvf_noriot"
+     },
+     "next": "noriot"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "噂が届いた。{qin}の相国{lv}が、嫪毐の乱に連なるとして職を免じられ、封地の河南へ退いたという。",
+    "「王を買った商人が、王に売られた」と、宿の客たちは笑った。笑わなかったのは、商人だけだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lvf_proof"
+    },
+    {
+     "note": "相国{lv}が職を免じられたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "lvf_unmade",
+   "event": "lv_buwei_falls",
+   "order": 3,
+   "why": "呂不韋が相国になっていなかった",
+   "when": {
+    "changed": [
+     "lv_buwei_xiang"
+    ]
+   },
+   "then": "cancel",
+   "note": "[[p:呂不韋]]はもとより{n_qin}の相国ではなかったので、[[p:嫪毐]]の一件で職を免じられることもなかった。"
+  },
+  {
+   "id": "lvf_noriot",
+   "event": "lv_buwei_falls",
+   "order": 2,
+   "why": "嫪毐の乱が記録どおりに起きなかった",
+   "when": {
+    "changed": [
+     "lao_ai"
+    ]
+   },
+   "then": "cancel",
+   "note": "[[p:嫪毐]]の乱が記録のようには起こらなかったので、{n_qin}の[[p:呂不韋]]がその罪を問われることもなかった。"
+  },
+  {
+   "id": "lvf_clear",
+   "event": "lv_buwei_falls",
+   "order": 1,
+   "why": "主人公が呂不韋の潔白を朝議で示した",
+   "when": {
+    "flag": "h_lvf_clear"
+   },
+   "then": "cancel",
+   "note": "[[p:呂不韋]]が[[p:嫪毐]]の乱に与していないことが朝議で明らかになり、呂不韋は{n_qin}の相国に留まった。",
+   "people": [
+    {
+     "spare": "呂不韋",
+     "years": 12
+    }
+   ]
+  }
+ ]
+}

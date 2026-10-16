@@ -1,0 +1,226 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_famous_horse",
+ "kind": "random",
+ "where": "folk",
+ "hook": "わしが育てた馬を、豪族の若殿が奪っていこうとするのです",
+ "title": "名馬を巡る争い",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "馬飼いの老人"
+  },
+  "young": {
+   "npc": "豪族の若殿",
+   "sex": "m"
+  },
+  "land": {
+   "realm": "patron"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "町外れの厩で、{client}が一頭の栗毛の首を抱いていた。一日に千里を駆けるとまでは言わぬが、この辺りでこれほどの馬は見たことがない。",
+    "「豪族の{young}さまが、この馬は自分の家の牝馬が産んだものだと言い張るのです。戦車を引かせて、{land}の軍に献じるのだとか。明日、家来を連れて引き取りに来ると」"
+   ],
+   "choices": [
+    {
+     "label": "馬の生まれを証す記録を探す",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "record",
+      "lose": "meet"
+     }
+    },
+    {
+     "label": "{young}を待ち受けて話をつける",
+     "next": "meet"
+    }
+   ]
+  },
+  "record": {
+   "text": [
+    "市の官の古い竹簡に、三年前、{client}が自分の牝馬の仔を届け出た記録が残っていた。毛色も、額の白い星も合っている。"
+   ],
+   "effects": [
+    {
+     "flag": "horse_record"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "meet"
+  },
+  "meet": {
+   "speaker": "young",
+   "art": "court",
+   "text": [
+    "翌朝、{young}が家来を三人連れて厩に現れた。「老いぼれには過ぎた馬だ。この馬は戦場でこそ生きる。{land}のために使ってやると言っているのだ」",
+    "言い分は横暴だが、まるきり嘘でもない。この老人の厩では、馬はいずれ畑を耕して終わるだろう。"
+   ],
+   "choices": [
+    {
+     "label": "記録を突きつける",
+     "if": {
+      "flag": "horse_record"
+     },
+     "next": "end_kept"
+    },
+    {
+     "label": "「ならば競べ馬で決めよう」",
+     "check": {
+      "skill": "bow",
+      "dc": 35,
+      "win": "end_race",
+      "lose": "meet_ng"
+     }
+    },
+    {
+     "label": "老人に、正当な値で売ってはどうかと持ちかける",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "end_sold",
+      "lose": "meet_ng"
+     }
+    },
+    {
+     "label": "家来を叩き出す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "end_kept",
+      "lose": "end_taken"
+     }
+    }
+   ]
+  },
+  "meet_ng": {
+   "speaker": "young",
+   "text": [
+    "「話は終わりだ」{young}が顎をしゃくると、家来が手綱を取ろうとした。{client}がしがみつく。"
+   ],
+   "choices": [
+    {
+     "label": "家来を止める",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "end_kept",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "黙って見送る",
+     "next": "end_taken"
+    }
+   ]
+  },
+  "end_kept": {
+   "speaker": "client",
+   "text": [
+    "{young}は顔を赤くして引き上げていった。{client}は栗毛の鼻面を撫でながら、ぽつりと言った。",
+    "「また来るでしょうな。わしが死んだら、この馬はあなたが連れていってくだされ。せめて、良い主に」"
+   ],
+   "effects": [
+    {
+     "unflag": "horse_record"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{client}の馬を{young}から守った。"
+    }
+   ],
+   "end": "老人の厩"
+  },
+  "end_race": {
+   "speaker": "young",
+   "text": [
+    "{young}の家来と、馬上から的を射る競べをした。三本とも的の中心を射抜くと、{young}は弓を投げ出して笑った。",
+    "「負けだ。馬は爺に返す。……だが、お前のような者こそ{land}の軍にいるべきだな」"
+   ],
+   "effects": [
+    {
+     "unflag": "horse_record"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "bow",
+     "n": 4
+    }
+   ],
+   "end": "競べ馬"
+  },
+  "end_sold": {
+   "speaker": "client",
+   "text": [
+    "間に立って話を重ね、{young}に八百銭を払わせることで手を打った。{client}は銭を受け取り、栗毛が引かれていくのを長いこと見ていた。",
+    "「戦場で死ぬのか、手柄を立てるのか。せめて名のある将を乗せてほしいものです」老人は礼として銭の一部を分けてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "horse_record"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "end": "軍馬になった栗毛"
+  },
+  "end_taken": {
+   "text": [
+    "栗毛は家来に引かれていった。{client}は地べたに座り込み、空になった厩を見つめていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "horse_record"
+    },
+    {
+     "hp": -10
+    }
+   ],
+   "end": "空の厩"
+  }
+ }
+}

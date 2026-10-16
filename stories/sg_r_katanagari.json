@@ -1,0 +1,286 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_katanagari",
+ "kind": "random",
+ "where": "folk",
+ "hook": "村の刀も槍も、明日までに差し出せと言われました",
+ "title": "刀狩りの書付",
+ "era": "sengoku",
+ "trigger": {
+  "gang": true
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "村の百姓"
+  },
+  "fake": {
+   "npc": "代官の使い",
+   "sex": "m"
+  },
+  "daikan": {
+   "npc": "代官",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "{client}が、くしゃくしゃの紙を差し出した。昨日、代官の使いを名乗る{fake}という男が来て、村の刀、槍、弓、鉄砲をすべて明日までに差し出せと言い置いていったという。",
+    "「殿さまの刀狩りだそうです。百姓は鍬だけ持っておればよいと。けれど、近ごろは{bandit}が山に出ます。刀がなければ、村は丸裸です」"
+   ],
+   "choices": [
+    {
+     "label": "書付をよく読む",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "forged",
+      "lose": "collect"
+     }
+    },
+    {
+     "label": "奉行所で真偽を確かめる",
+     "next": "office"
+    },
+    {
+     "label": "「殿の命なら仕方ない。差し出せ」",
+     "next": "collect"
+    }
+   ]
+  },
+  "forged": {
+   "text": [
+    "書付の文は、それらしく整っている。だが花押の筆の運びがぎこちなく、なぞって写したものだと分かった。日付も、殿がこの国にいなかった日だ。",
+    "刀狩りの触れは偽物だ。誰が、何のために。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_kg_forged"
+    }
+   ],
+   "next": "collect"
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の奉行所で刀狩りの触れを確かめる",
+   "speaker": "daikan",
+   "art": "court",
+   "text": [
+    "代官の{daikan}は書付を見るなり、顔色を変えた。「刀狩りなど、出した覚えはない。わしの花押を真似た者がいる」",
+    "「明日、その使いが来るのだな。捕らえて連れてくれば、褒美を出そう。こちらは手が足りぬ。足軽を割く余裕もないのだ」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_kg_forged"
+    }
+   ],
+   "next": "collect"
+  },
+  "collect": {
+   "speaker": "fake",
+   "art": "tale",
+   "text": [
+    "翌朝、{fake}が六人の男と荷車を連れて村に来た。男たちは役人の羽織を着ているが、目つきが悪く、草鞋は泥だらけだ。",
+    "「さあ、刀も槍も残らず車に積め。隠した者は代官さまに申し上げるぞ」村人たちは、すがるようにこちらを見た。"
+   ],
+   "choices": [
+    {
+     "label": "「その書付は偽物だ」と皆の前で暴く",
+     "if": {
+      "flag": "sg_kg_forged"
+     },
+     "next": "unmask"
+    },
+    {
+     "label": "「武具は渡さぬ」と追い返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "end_repelled",
+      "lose": "raid"
+     }
+    },
+    {
+     "label": "大人しく差し出させる",
+     "next": "raid"
+    }
+   ]
+  },
+  "unmask": {
+   "speaker": "fake",
+   "art": "war",
+   "text": [
+    "書付の花押と日付を指して読み上げると、村人たちがざわめいた。{fake}の顔が歪んだ。「……ばれたなら仕方ねえ。野郎ども、村ごといただけ」羽織の下から、刀が抜かれた。"
+   ],
+   "choices": [
+    {
+     "label": "村人の前に立つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "end_caught_gang",
+      "lose": "raid"
+     }
+    }
+   ]
+  },
+  "raid": {
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "その夜、半鐘が鳴った。山から下りてきた{bandit}は、村から運び出された刀や槍を手にしていた。先頭にいるのは、あの{fake}だ。",
+    "「刀狩りは、わしらを丸裸にするための嘘だったのか」{client}が鍬を握りしめて叫んだ。"
+   ],
+   "choices": [
+    {
+     "label": "鍬と竹槍で村人を率いて戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "end_repelled_late",
+      "lose": "end_ruined"
+     }
+    },
+    {
+     "label": "女子供を連れて山へ逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "end_fled",
+      "lose": "end_ruined"
+     }
+    }
+   ]
+  },
+  "end_caught_gang": {
+   "speaker": "daikan",
+   "text": [
+    "縛り上げた{fake}たちを奉行所に引き渡すと、{daikan}は手を打って喜んだ。山の{bandit}の頭目どもだったのだ。",
+    "「わしの花押を騙った罪も、これで片がつく」村は武具を一つも失わずに済み、{client}たちは祝いの酒を持ってきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kg_forged"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "item": "wine",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "刀狩りを騙る{bandit}を捕らえた。"
+    }
+   ],
+   "end": "偽の刀狩り"
+  },
+  "end_repelled": {
+   "speaker": "client",
+   "text": [
+    "{fake}たちは荷車を捨てて逃げていった。「代官さまに逆らって、ただで済むと思うな」と叫びながら。",
+    "後で奉行所に問い合わせると、刀狩りの触れなど出ていなかった。村は武具を守り、その夜は誰もが刀を抱いて眠った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kg_forged"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "守られた槍"
+  },
+  "end_repelled_late": {
+   "speaker": "client",
+   "text": [
+    "鍬と竹槍の村人たちは、思いのほか強かった。{bandit}は奪った刀を半分捨てて逃げ去った。夜が明けると、{client}は泥まみれの顔で笑った。「刀がなくても、村は村だ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kg_forged"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "鍬の夜"
+  },
+  "end_fled": {
+   "text": [
+    "女子供を連れて、獣道から山の寺へ逃げ込んだ。村の蔵は荒らされたが、死んだ者はいなかった。{client}は焼け残った家の前で、深く頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kg_forged"
+    },
+    {
+     "money": 40
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "end": "山の寺"
+  },
+  "end_ruined": {
+   "text": [
+    "刀を持った{bandit}に押し切られ、手傷を負って倒れた。村は焼かれ、{client}の行方は分からない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kg_forged"
+    },
+    {
+     "hp": -25
+    }
+   ],
+   "end": "丸裸の村"
+  }
+ }
+}

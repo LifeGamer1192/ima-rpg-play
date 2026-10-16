@@ -1,0 +1,306 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_meibutsu",
+ "kind": "random",
+ "where": "folk",
+ "hook": "名物の茶入が盗まれた。あれは国一つと引き換えにもならぬ品です",
+ "title": "名物「初雪」",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "茶人"
+  },
+  "gosho": {
+   "npc": "豪商",
+   "sex": "m"
+  },
+  "tedai": {
+   "npc": "手代",
+   "sex": "m"
+  },
+  "land": {
+   "realm": "home"
+  },
+  "elder": {
+   "person": "minister:land"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}は青ざめた顔で言った。先祖伝来の名物の茶入「初雪」を、豪商の{gosho}に頼まれて貸した。{land}の{elder}さまを招く茶会に使いたいと言うので。",
+    "「それが昨夜、蔵から盗まれたと。だが{gosho}どのの蔵は町で一番堅い。わしは、あの男自身を疑っておる。茶会は三日後です」"
+   ],
+   "choices": [
+    {
+     "label": "夜、{gosho}の屋敷に忍び込む",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "found",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "町の道具屋を回って聞き込む",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "shop",
+      "lose": "chakai"
+     }
+    },
+    {
+     "label": "茶会の席で確かめる",
+     "next": "chakai"
+    }
+   ]
+  },
+  "shop": {
+   "speaker": "道具屋の主",
+   "text": [
+    "古道具屋の主が声をひそめた。「ひと月ほど前、{gosho}さまの手代の{tedai}が、ある茶入の写しを作れと。釉の流れまでそっくりに、とな。腕のいい陶工を紹介しましたよ」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_cha_copy"
+    }
+   ],
+   "next": "chakai"
+  },
+  "caught": {
+   "speaker": "tedai",
+   "art": "war",
+   "text": [
+    "土蔵の錠に手をかけたところで、提灯が揺れた。手代の{tedai}が、用心棒たちを連れて立っていた。「盗人とはお前のことか。番所へ突き出す前に、少し痛い目を見てもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "斬り払って蔵へ踏み込む",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "found",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "found": {
+   "art": "tale",
+   "text": [
+    "土蔵の奥の桐箱に、茶入が二つ並んでいた。一つは艶が浅く、底の土が新しい。写しだ。もう一つは、雪のような白い釉が肩から流れる本物の「初雪」だった。",
+    "{gosho}は写しを「取り戻した」と言って{client}に返し、本物を{elder}さまに献上して取り入るつもりなのだ。"
+   ],
+   "choices": [
+    {
+     "label": "本物と写しをすり替えて持ち帰る",
+     "next": "end_swapped"
+    },
+    {
+     "label": "何も触らず、茶会の席で暴く",
+     "effects": [
+      {
+       "flag": "sg_cha_proof"
+      }
+     ],
+     "next": "chakai"
+    }
+   ]
+  },
+  "chakai": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}の{gosho}の屋敷の茶会に出る",
+   "speaker": "gosho",
+   "art": "court",
+   "text": [
+    "三日後、{client}の供として茶会に連なった。床には墨蹟、炉には釜。正客の座に{elder}が座っている。",
+    "{gosho}が恭しく茶入を差し出した。「堺で求めました新しい名物にございます。本日は{elder}さまに、この茶入ごとお納めいただきたく」白い釉が、肩から流れていた。"
+   ],
+   "choices": [
+    {
+     "label": "「その茶入、{client}どのの初雪では」と問う",
+     "if": {
+      "flag": "sg_cha_proof"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "end_exposed",
+      "lose": "end_disgraced"
+     }
+    },
+    {
+     "label": "「手代の{tedai}どのが写しを作らせたそうですな」",
+     "if": {
+      "flag": "sg_cha_copy"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_exposed",
+      "lose": "end_disgraced"
+     }
+    },
+    {
+     "label": "茶入を拝見し、釉の景色から見極める",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_exposed",
+      "lose": "end_disgraced"
+     }
+    },
+    {
+     "label": "黙って茶を飲み、後で{gosho}と話をつける",
+     "next": "end_hush"
+    }
+   ]
+  },
+  "end_exposed": {
+   "speaker": "elder",
+   "text": [
+    "座敷が静まりかえった。{elder}は茶入を手に取り、底を返して長いあいだ見つめた。「……人の名物を盗んで献ずるとは、わしも安く見られたものよ」",
+    "{gosho}は平伏したまま顔を上げられなかった。「初雪」は{client}の手に戻り、{elder}は帰り際、こちらの名を尋ねていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cha_copy"
+    },
+    {
+     "unflag": "sg_cha_proof"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "名物「初雪」のすり替えを茶会の席で暴いた。"
+    }
+   ],
+   "end": "茶席の白洲"
+  },
+  "end_swapped": {
+   "speaker": "client",
+   "text": [
+    "本物を懐に、写しを桐箱に残して蔵を出た。三日後の茶会で、{gosho}は得意げに写しを献じ、{elder}に「釉が若い」と一言で見抜かれて大恥をかいたという。",
+    "{client}は「初雪」を抱きしめて泣いた。「茶の湯の神が、あなたを遣わしてくれた」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cha_copy"
+    },
+    {
+     "unflag": "sg_cha_proof"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "名物「初雪」を取り戻した。"
+    }
+   ],
+   "end": "雪の行方"
+  },
+  "end_disgraced": {
+   "speaker": "gosho",
+   "text": [
+    "「客の供の分際で、何を申す」{gosho}が冷ややかに言うと、{elder}も眉をひそめた。座敷から追い出され、{client}は名物と面目の両方を失った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cha_copy"
+    },
+    {
+     "unflag": "sg_cha_proof"
+    },
+    {
+     "fame": -2
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "end": "追われた茶席"
+  },
+  "end_hush": {
+   "speaker": "gosho",
+   "text": [
+    "茶会のあと、{gosho}は廊下でこちらの袖に重い包みを滑り込ませた。「見る目のあるお方だ。これは心ばかり。それと、蔵の隅に転がっておった茶碗を一つ」",
+    "「初雪」は{elder}のものになった。{client}には、よくできた写しが返された。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cha_copy"
+    },
+    {
+     "unflag": "sg_cha_proof"
+    },
+    {
+     "money": 300
+    },
+    {
+     "item": "lacquer",
+     "n": 1
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "写しの茶入"
+  },
+  "end_beaten": {
+   "text": [
+    "多勢に打ち据えられ、塀の外へ放り出された。三日後の茶会のことは、噂で聞いただけだ。「初雪」は{elder}のものになったらしい。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cha_copy"
+    },
+    {
+     "unflag": "sg_cha_proof"
+    },
+    {
+     "hp": -20
+    }
+   ],
+   "end": "塀の外"
+  }
+ }
+}

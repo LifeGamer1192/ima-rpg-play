@@ -1,0 +1,365 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_rank4_zhongdafu",
+ "kind": "rank",
+ "rankTo": 4,
+ "title": "田土の訟え",
+ "era": "shunju",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "rich": {
+   "npc": "豪族",
+   "sex": "m"
+  },
+  "widow": {
+   "npc": "寡婦",
+   "sex": "f"
+  },
+  "rival": {
+   "npc": "政敵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城で昇進を願い出る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は一束の訴状を{player}の前に投げた。「豪族の{rich}が、寡婦{widow}の田を取り上げた。寡婦は夫の代から耕してきたと言い、{rich}は買い取ったと言う。そなたが裁け。裁きぶりで、中大夫に足るかを見る」",
+    "御前を下がると、{minister}がそっと耳打ちした。「{rich}は{rival}どのの妻の兄だ。気をつけよ」"
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "office"
+   },
+   "goal": "{cap}の官府で訴えを聴く",
+   "speaker": "rich",
+   "art": "court",
+   "text": [
+    "{rich}は絹をまとい、印のある契券を広げた。「三年前、この女の亡夫から正しく買い受けた。証人もおる」",
+    "{widow}は粗末な衣のまま、ただ首を振った。「夫は字も書けませんでした。印など持っていたはずがありません」"
+   ],
+   "choices": [
+    {
+     "label": "契券の文字と印を詳しく改める",
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "s3",
+      "lose": "s3x"
+     }
+    },
+    {
+     "label": "証人を一人ずつ別々に問いただす",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s3",
+      "lose": "s3x"
+     }
+    },
+    {
+     "label": "律の条文に照らし、売買の手続きを一つずつ質す",
+     "if": {
+      "realm": [
+       "秦",
+       "魏",
+       "韓"
+      ]
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "s3",
+      "lose": "s3x"
+     }
+    },
+    {
+     "label": "両家の家格と祖先の功を問い、礼をもって和解を勧める",
+     "if": {
+      "realm": [
+       "楚"
+      ]
+     },
+     "next": "s4deal"
+    }
+   ]
+  },
+  "s3": {
+   "art": "tale",
+   "text": [
+    "契券の竹は新しく、亡夫が死んだ年にはまだ使われていない書き方の字があった。証人の一人は、{rich}の家の下僕だった。偽りは明らかだ。"
+   ],
+   "effects": [
+    {
+     "flag": "rank4_proof"
+    }
+   ],
+   "next": "s3night"
+  },
+  "s3x": {
+   "art": "tale",
+   "text": [
+    "契券にも証人にも、決め手になる綻びは見つからなかった。だが{widow}の手の豆と、{rich}の目の泳ぎ方は、どちらが本当かを語っているように思えた。"
+   ],
+   "next": "s3night"
+  },
+  "s3night": {
+   "at": {
+    "place": "cap",
+    "building": "house"
+   },
+   "goal": "{cap}の屋敷へ戻る",
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "その夜、{rival}が自ら屋敷を訪ねてきた。手土産の箱は重い。「訟えなど、たかが田一枚のこと。{rich}の顔を立ててくれれば、次の人事でそなたを推そう。立てねば……そなたの邑の帳簿も、誰かが調べることになろうな」"
+   ],
+   "choices": [
+    {
+     "label": "箱を突き返す",
+     "effects": [
+      {
+       "fame": 1
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "箱を受け取り、黙って帰す",
+     "effects": [
+      {
+       "money": 600
+      },
+      {
+       "flag": "rank4_took"
+      }
+     ],
+     "next": "s4"
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城で裁きを申し上げる",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}の御前に、{rich}も{widow}も、そして{rival}も控えていた。「{player}。裁きを申せ」"
+   ],
+   "choices": [
+    {
+     "label": "{rival}から届いた箱を御前に差し出し、買収を暴く",
+     "if": {
+      "flag": "rank4_took",
+      "money": 600
+     },
+     "effects": [
+      {
+       "money": -600
+      }
+     ],
+     "next": "win_expose"
+    },
+    {
+     "label": "偽の契券と下僕の証言を示し、田を{widow}に返させる",
+     "if": {
+      "flag": "rank4_proof"
+     },
+     "next": "win_just"
+    },
+    {
+     "label": "証拠は薄いが、理をもって{widow}の側に立つ",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "win_just",
+      "lose": "fail_pressed"
+     }
+    },
+    {
+     "label": "田は{rich}に残し、{widow}には{rich}から銭を払わせる",
+     "next": "win_politic"
+    },
+    {
+     "label": "{rich}の言い分をそのまま通す",
+     "next": "fail_unjust"
+    }
+   ]
+  },
+  "s4deal": {
+   "speaker": "rich",
+   "art": "court",
+   "text": [
+    "楚では、古い家の面目を潰せば裁いた者が恨まれる。{player}は{rich}の家祖の功を称えたうえで、「功ある家が寡婦の田を取ったと言われては、祖霊が泣く」と説いた。",
+    "{rich}はしばらく黙り、やがて田の半分を{widow}に返すと言った。"
+   ],
+   "next": "win_politic"
+  },
+  "win_just": {
+   "speaker": "ruler",
+   "text": [
+    "{rich}は笞を受け、田は{widow}に戻った。{widow}は地に額をつけて泣いた。{ruler}は頷いた。「法は貴賤を問わぬ。中大夫に任じる」",
+    "{rival}は終始無言だった。だが翌日から、宮中に「{player}は寡婦に情を通じている」という噂が流れ始めた。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 6
+    },
+    {
+     "flag": "rank4_just"
+    },
+    {
+     "unflag": "rank4_proof"
+    },
+    {
+     "unflag": "rank4_took"
+    },
+    {
+     "note": "田土の訟えを正しく裁き、中大夫となった。{rival}の恨みを買った。"
+    }
+   ],
+   "end": "法は貴賤を問わず"
+  },
+  "win_expose": {
+   "speaker": "ruler",
+   "text": [
+    "箱の蓋が開くと、座がざわめいた。{rival}の家の印がある。{ruler}の顔から笑みが消えた。「裁く者を買おうとしたか」",
+    "{rival}は謹慎を命じられ、田は{widow}に戻った。だが{rival}の派の者たちは、{player}を「主君の前で同僚を売った男」と呼ぶようになった。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 15
+    },
+    {
+     "fame": 5
+    },
+    {
+     "flag": "rank4_just"
+    },
+    {
+     "flag": "rank4_rival_disgraced"
+    },
+    {
+     "unflag": "rank4_proof"
+    },
+    {
+     "unflag": "rank4_took"
+    },
+    {
+     "note": "{rival}の買収を暴き、中大夫となった。{rival}の派を敵に回した。"
+    }
+   ],
+   "end": "賂を暴く"
+  },
+  "win_politic": {
+   "speaker": "minister",
+   "text": [
+    "{widow}は銭と引き換えに田を失い、{rich}は面目を保った。{ruler}は「よく収めた」とだけ言い、{player}を中大夫とした。",
+    "退出の折、{minister}が呟いた。「丸く収めるのも政だ。だが、民の口に戸は立てられぬぞ」"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 8
+    },
+    {
+     "fame": 1
+    },
+    {
+     "flag": "rank4_compromise"
+    },
+    {
+     "unflag": "rank4_proof"
+    },
+    {
+     "unflag": "rank4_took"
+    },
+    {
+     "note": "訟えを折り合いで収め、中大夫となった。"
+    }
+   ],
+   "end": "丸く収める"
+  },
+  "fail_pressed": {
+   "speaker": "rival",
+   "text": [
+    "「証もなく豪族を罰するとは、私情であろう」{rival}の一言で、座の空気が変わった。裁きは差し戻され、{player}は役を外された。覚えを取り戻せば、また試される日も来よう。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "rank4_proof"
+    },
+    {
+     "unflag": "rank4_took"
+    },
+    {
+     "note": "訟えの裁きを{rival}に覆された。覚えを取り戻せば、また試しを願い出られる。"
+    }
+   ],
+   "end": "裁き差し戻し"
+  },
+  "fail_unjust": {
+   "speaker": "ruler",
+   "text": [
+    "{widow}の嘆きは市に広まり、やがて{ruler}の耳にも届いた。「豪族に阿る者を中大夫にはできぬ」昇進の話は消えた。務めを重ねて、また願い出るしかない。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "fame": -3
+    },
+    {
+     "unflag": "rank4_proof"
+    },
+    {
+     "unflag": "rank4_took"
+    },
+    {
+     "note": "豪族に阿った裁きで覚えを損ねた。また試しを願い出られる。"
+    }
+   ],
+   "end": "強きに阿る"
+  }
+ }
+}

@@ -1,0 +1,699 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_xinling",
+ "kind": "history",
+ "era": "shunju",
+ "title": "五国の兵",
+ "event": "xinling_247",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2stay",
+  "s2stay_ng",
+  "s2go",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s4",
+  "s4ok",
+  "s4ng",
+  "s5",
+  "s5hangu",
+  "s5hangu_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "handan"
+  },
+  "daliang": {
+   "scnPlace": "daliang"
+  },
+  "front": {
+   "scnPlace": "yiyang"
+  },
+  "wei": {
+   "scnRealm": "wei"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:wei"
+  },
+  "xinling": {
+   "scnPerson": "信陵君"
+  },
+  "mengao": {
+   "scnPerson": "蒙驁"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で噂を聞く",
+   "speaker": "毛公",
+   "art": "tale",
+   "text": [
+    "{city}の博徒の溜まり場に、毛公という男がいた。賭けはするが負けても笑っている。隣の味噌屋の薛公と並んで、市井に隠れた賢者だと噂されていた。十年前、{xinling}がこの二人に会うために身を窶して通い、平原君に笑われたという話は、{city}の誰もが知っている。",
+    "「魏が危ない」毛公は骰子を振りながら言った。「{qin}の{mengao}が魏を攻め、城がいくつも落ちた。魏王は公子に帰ってくれと使いを何度もよこしておる。だが公子は門番に、『魏の使いのために取り次ぐ者は死罪』と言いつけたそうだ」",
+    "「わしと薛公とで、明日、公子に会いに行く。おぬしも来るか」"
+   ],
+   "choices": [
+    {
+     "label": "毛公について{xinling}の屋敷へ行く",
+     "effects": [
+      {
+       "note": "{qin}が魏を攻めている。{xinling}は魏の使いを門前払いしているという。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の{xinling}の屋敷を訪ねる",
+   "speaker": "xinling",
+   "art": "court",
+   "text": [
+    "{xinling}は庭で客と碁を打っていた。十年前、兵符を盗み晋鄙を殺して{city}を救った公子は、髪に白いものが混じりはじめていた。",
+    "「魏の話なら聞かぬ」公子は石を置きながら言った。「兄王はわたしを恐れている。帰れば、勝っても負けても疑われるだけだ」",
+    "毛公と薛公が、目で{player}を促した。二人はもう言うべきことを決めている。だが{player}が先に口を開けば、話の向きは変えられる。"
+   ],
+   "choices": [
+    {
+     "label": "「公子は趙で重んじられています。帰れば兄王の疑いが待つだけ」と説き、趙に留まらせる",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s2stay",
+      "lose": "s2stay_ng"
+     }
+    },
+    {
+     "label": "毛公と薛公に話を任せる",
+     "next": "s2go"
+    }
+   ]
+  },
+  "s2stay": {
+   "speaker": "xinling",
+   "art": "court",
+   "text": [
+    "{player}は兄王の猜疑を、魏の朝廷に巣くう{qin}の金を、そして勝って帰った将がどう扱われてきたかを語った。毛公が口を挟もうとしたが、公子は手で制した。",
+    "「……そなたの言うとおりだ」{xinling}は碁石を盤に戻した。「わたしが帰れば、魏は一度は勝つだろう。だが二度目はない。兄王の手で、わたしは殺される」毛公と薛公は顔を見合わせ、黙って席を立った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_xl_stay"
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "rep": "wei",
+     "n": -15
+    },
+    {
+     "note": "{xinling}を説き、趙に留まらせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2stay_ng": {
+   "speaker": "xinling",
+   "text": [
+    "{xinling}は{player}の言葉を最後まで聞き、それから首を振った。「そなたの言うことは正しい。だが正しいことだけでは、人は動かぬものだ」公子は毛公に目を向けた。"
+   ],
+   "next": "s2go"
+  },
+  "s2go": {
+   "speaker": "毛公",
+   "art": "court",
+   "text": [
+    "毛公と薛公が進み出た。「公子が諸侯に重んじられるのは、魏があればこそ。いま{qin}が大梁を破り、先王の宗廟を平らげたら、公子は何の面目あって天下に立たれる」",
+    "言い終わらぬうちに、{xinling}の顔色が変わった。公子は碁盤を押しやって立ち上がり、車の支度を命じた。「魏へ帰る」"
+   ],
+   "effects": [
+    {
+     "note": "毛公と薛公の言葉で、{xinling}は魏へ帰ると決めた。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "公子の車に従い、{daliang}へ向かう",
+     "next": "s3"
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "daliang",
+    "building": "palace"
+   },
+   "goal": "{daliang}の宮で、公子の帰りを見届ける",
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{king}は宮の階を降りて{xinling}を迎え、兄弟は抱き合って泣いた。王は公子を上将軍に任じ、魏の兵のすべてを預けた。",
+    "公子の帰国が伝わると、諸侯は次々に兵を送ってきた。趙、韓、楚、燕。魏を加えて五国。だが言葉も旗も違う兵を一つにまとめるのは、勝つより難しい。"
+   ],
+   "choices": [
+    {
+     "label": "諸国の陣を回り、糧と道の割り振りを取りまとめる",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "魏の軍に加わり、西へ向かう",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "xinling",
+   "text": [
+    "五国の糧秣の帳簿を一つにまとめ、行軍の道筋を割り振った。楚の将と韓の将の喧嘩も、どうにか収めた。{xinling}は帳簿をめくって笑った。「わたしの食客三千人より、そなた一人のほうが役に立つ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_xl_muster"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "rep": "wei",
+     "n": 5
+    },
+    {
+     "note": "五国の兵の糧と道を取りまとめた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "text": [
+    "帳簿は合わず、楚の陣と韓の陣は道を譲り合わなかった。それでも兵は、のろのろと西へ動き出した。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "front",
+    "building": "barracks"
+   },
+   "goal": "{front}の五国の陣に着く",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "xinling",
+   "art": "war",
+   "text": [
+    "大河の南、河外の野に、五国の旗が並んだ。向かいには{qin}の{mengao}の陣。秦の兵は五国の兵を見て笑っていた。寄せ集めの軍が、戦の最中に崩れなかった例はない。",
+    "{xinling}は全軍の前で言った。「わたしは十年、魏を離れていた。その十年を、今日一日で返す」"
+   ],
+   "choices": [
+    {
+     "label": "先陣に加わり、{mengao}の陣に斬り込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "陣の後ろで兵糧を運ぶ",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4ok": {
+   "text": [
+    "五国の兵は崩れなかった。{player}は先陣の中で、秦の兵の列が乱れ、やがて背を向けるのを見た。{mengao}の旗が西へ退いてゆく。"
+   ],
+   "effects": [
+    {
+     "flag": "h_xl_van"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "wei",
+     "n": 5
+    },
+    {
+     "note": "河外で、{mengao}の陣に斬り込んだ。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4ng": {
+   "text": [
+    "乱戦の中で馬から落ち、味方の兵に踏まれて気を失った。目を覚ましたとき、戦はもう終わっていた。五国の勝ちだった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "front"
+   },
+   "speaker": "xinling",
+   "art": "war",
+   "text": [
+    "五国の兵は退く{qin}の兵を追い、ついに函谷関の前に至った。両側は切り立った崖、道は車一台がやっと通れるほど。関の門は固く閉ざされ、楼の上に秦の弩がずらりと並んでいる。",
+    "{xinling}は関を見上げ、兵を止めた。「ここまでだ。この関は、百万の兵でも抜けぬ。秦に、魏を侮れば痛い目を見ると教えた。それで十分だ」"
+   ],
+   "choices": [
+    {
+     "label": "退く秦兵に紛れて関に取りつき、内から門を開く",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "confirm": "関の中は秦の兵で満ちている。紛れ込めば、生きて出られる保証はない。行くか。",
+      "cancel": "s5",
+      "win": "s5hangu",
+      "lose": "s5hangu_ng"
+     }
+    },
+    {
+     "label": "関の前で兵を止める公子に従う",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s5hangu": {
+   "speaker": "xinling",
+   "art": "war",
+   "text": [
+    "夕暮れ、関へ逃げ込む{qin}の敗兵の列に、{player}は秦の兜をかぶって紛れ込んだ。門が閉まる寸前、閂の番兵を斬り、楼の綱を断った。",
+    "軋む音を立てて、函谷関の門が内から開いた。外で待っていた五国の兵が、鬨の声を上げてなだれ込む。{xinling}は門をくぐりながら、信じられぬという顔で{player}を見た。「秦の門が、開いた」"
+   ],
+   "effects": [
+    {
+     "flag": "h_xl_hangu"
+    },
+    {
+     "fame": 10
+    },
+    {
+     "rep": "wei",
+     "n": 15
+    },
+    {
+     "rep": "qin",
+     "n": -20
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "函谷関の門を内から開き、五国の兵を関中へ入れた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5hangu_ng": {
+   "text": [
+    "門の内で正体が露見し、{player}は秦兵に囲まれた。崖を這い下りて逃げるのがやっとだった。函谷関の門は、閉ざされたままだった。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "daliang"
+   },
+   "goal": "{daliang}へ戻り、事の成り行きを見届ける",
+   "wait": {
+    "settled": "xinling_247"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "xl_nolord"
+     },
+     "next": "nolord"
+    },
+    {
+     "if": {
+      "branch": "xl_stay"
+     },
+     "next": "stayed"
+    },
+    {
+     "if": {
+      "branch": "xinling_hangu"
+     },
+     "next": "hangu"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "hangu": {
+   "speaker": "xinling",
+   "art": "war",
+   "text": [
+    "函谷関が抜かれたという知らせは、天下を駆けめぐった。{qin}は関中に兵を退き、五国の兵は関の西で勝鬨を上げた。秦の東の門が破られたのは、百年来なかったことである。",
+    "{daliang}に凱旋した{xinling}は、{player}を上座に据えた。「魏の十年を、そなたは一夜で取り返した。だが覚えておけ。秦は、この恥を必ず返しに来る。そのときもう一度、門を開けてくれ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xl_stay"
+    },
+    {
+     "unflag": "h_xl_hangu"
+    },
+    {
+     "unflag": "h_xl_muster"
+    },
+    {
+     "unflag": "h_xl_van"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "money": 300
+    },
+    {
+     "note": "五国の兵は函谷関を抜いた。"
+    }
+   ],
+   "end": "破られた関"
+  },
+  "stayed": {
+   "speaker": "xinling",
+   "art": "tale",
+   "text": [
+    "魏に五国の兵は起こらなかった。{qin}の攻めはやまず、魏の城がまた幾つか落ちたと聞いた。{xinling}は{city}の屋敷で、それを黙って聞いていた。",
+    "「わたしは命を拾った。そのかわり、魏の城をいくつか失った」公子は杯を傾けた。「そなたを恨みはせぬ。選んだのは、わたしだ」毛公と薛公は、それきり屋敷に来なくなった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xl_stay"
+    },
+    {
+     "unflag": "h_xl_hangu"
+    },
+    {
+     "unflag": "h_xl_muster"
+    },
+    {
+     "unflag": "h_xl_van"
+    },
+    {
+     "note": "{xinling}は趙に留まり、五国の兵は起こらなかった。"
+    }
+   ],
+   "end": "趙に留まった公子"
+  },
+  "nolord": {
+   "art": "tale",
+   "text": [
+    "五国の兵を率いるはずの公子は、もういなかった。魏王は諸侯に使いを出したが、誰も応じなかった。{qin}の兵は魏の城を一つ、また一つと落としてゆく。",
+    "{daliang}の酒場で、老兵が言った。「公子がおられれば、と皆言う。言っても詮ないことだがな」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xl_stay"
+    },
+    {
+     "unflag": "h_xl_hangu"
+    },
+    {
+     "unflag": "h_xl_muster"
+    },
+    {
+     "unflag": "h_xl_van"
+    },
+    {
+     "note": "率いる者がなく、五国の兵は起こらなかった。"
+    }
+   ],
+   "end": "率いる者なく"
+  },
+  "after": {
+   "at": {
+    "place": "daliang"
+   },
+   "goal": "{daliang}で凱旋を見届ける",
+   "wait": {
+    "settled": "xinling_247"
+   },
+   "speaker": "xinling",
+   "art": "court",
+   "text": [
+    "五国の兵は河外で{qin}を破り、函谷関まで追った。秦の兵は関に籠もって出てこなかった。{xinling}の名は天下に轟き、諸侯の客が兵法を請いに{daliang}へ集まった。",
+    "だが凱旋の宴の陰で、{qin}の間者が魏の朝廷に金をばらまきはじめていた。「公子は魏王に代わろうとしている」――その噂が、兄王の耳に届くまで、そう長くはかからないだろう。"
+   ],
+   "choices": [
+    {
+     "label": "{xinling}に、秦の金が朝廷に流れていると告げる",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_warn",
+      "lose": "end_feast"
+     }
+    },
+    {
+     "label": "凱旋の宴に加わる",
+     "next": "end_feast"
+    },
+    {
+     "label": "宴を抜け、静かに{daliang}を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_warn": {
+   "speaker": "xinling",
+   "text": [
+    "{xinling}は黙って聞き、それから寂しく笑った。「知っている。秦は戦で勝てぬ相手を、金で倒す。わたしにできるのは、兄王に疑われぬよう、酒と女に溺れたふりをすることくらいだ」",
+    "公子は佩玉を一つ外して{player}に渡した。「ふりのはずが、ふりでなくなる日が来るかもしれぬ。そのときは、今日のわたしを覚えておいてくれ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xl_stay"
+    },
+    {
+     "unflag": "h_xl_hangu"
+    },
+    {
+     "unflag": "h_xl_muster"
+    },
+    {
+     "unflag": "h_xl_van"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wei",
+     "n": 10
+    },
+    {
+     "note": "五国の兵が河外で秦を破った。{xinling}に秦の讒言を告げた。"
+    }
+   ],
+   "end": "公子の佩玉"
+  },
+  "end_feast": {
+   "text": [
+    "宴は三日三晩続いた。五国の将たちは杯を交わし、もう二度と{qin}に負けぬと誓い合った。",
+    "{player}も酔って笑った。誓いの言葉が、どれほど早く忘れられるものかを知るのは、まだ先のことだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xl_stay"
+    },
+    {
+     "unflag": "h_xl_hangu"
+    },
+    {
+     "unflag": "h_xl_muster"
+    },
+    {
+     "unflag": "h_xl_van"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "money": 100
+    },
+    {
+     "note": "五国の兵が河外で秦を破った。"
+    }
+   ],
+   "end": "河外の勝ち"
+  },
+  "end_left": {
+   "text": [
+    "宴の灯を背に、{player}は{daliang}の城門を出た。勝ち戦の夜ほど、人は先のことを考えない。城門の上の月だけが、妙に冷たかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xl_stay"
+    },
+    {
+     "unflag": "h_xl_hangu"
+    },
+    {
+     "unflag": "h_xl_muster"
+    },
+    {
+     "unflag": "h_xl_van"
+    },
+    {
+     "note": "五国の兵が河外で秦を破った。"
+    }
+   ],
+   "end": "勝ち戦の月"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "xl_nolord"
+     },
+     "next": "nolord"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の途中で噂を聞いた。魏の公子{xinling}が十年ぶりに帰国し、五国の兵を率いて河外で{qin}を破り、函谷関まで追ったという。",
+    "「秦が負けたのか」と、宿の誰もが聞き返した。それほど珍しい報せだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xl_stay"
+    },
+    {
+     "unflag": "h_xl_hangu"
+    },
+    {
+     "unflag": "h_xl_muster"
+    },
+    {
+     "unflag": "h_xl_van"
+    },
+    {
+     "note": "{xinling}が五国の兵で秦を破ったと聞いた。"
+    }
+   ],
+   "end": "遠い河外の報せ"
+  }
+ },
+ "branches": [
+  {
+   "id": "xl_nolord",
+   "why": "信陵君がすでに世を去っていた",
+   "event": "xinling_247",
+   "order": 3,
+   "when": {
+    "dead": [
+     "信陵君"
+    ]
+   },
+   "then": "cancel",
+   "note": "魏には五国の兵を率いる者がなく、{n_qin}の攻めはやまなかった。"
+  },
+  {
+   "id": "xl_stay",
+   "why": "主人公が信陵君を趙に留めた",
+   "event": "xinling_247",
+   "order": 2,
+   "when": {
+    "flag": "h_xl_stay"
+   },
+   "then": "cancel",
+   "note": "[[p:信陵君]]は趙に留まって魏に帰らず、五国の兵は起こらなかった。"
+  },
+  {
+   "id": "xinling_hangu",
+   "why": "主人公が函谷関の門を内から開いた",
+   "event": "xinling_247",
+   "order": 1,
+   "when": {
+    "flag": "h_xl_hangu"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "魏の[[p:信陵君]]は五国の兵を率いて河外で{n_qin}を破り、勢いに乗って函谷関を抜いた。秦は関中に兵を退き、六国はしばし息をついた。",
+    "do": [
+     [
+      "war",
+      "wei",
+      "qin",
+      {
+       "ja": "河外の役",
+       "en": "the Hewai campaign"
+      }
+     ],
+     [
+      "army",
+      "qin",
+      0.7
+     ],
+     [
+      "add",
+      "qin",
+      "prestige",
+      -15
+     ],
+     [
+      "add",
+      "wei",
+      "prestige",
+      15
+     ]
+    ],
+    "imp": 3,
+    "at": "yiyang"
+   }
+  }
+ ]
+}

@@ -1,0 +1,299 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_shinobi_spy",
+ "kind": "random",
+ "where": "office",
+ "hook": "城下に忍びが入り込んでいる。密かに探れる者を求む",
+ "title": "城下の忍び",
+ "era": "sengoku",
+ "trigger": {
+  "patron": true
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "目付"
+  },
+  "land": {
+   "realm": "patron"
+  },
+  "lord": {
+   "person": "ruler:land"
+  },
+  "foe": {
+   "realm": "enemy:land"
+  },
+  "spy": {
+   "npc": "歩き巫女",
+   "sex": "f"
+  },
+  "page": {
+   "npc": "近習",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "奉行所の奥の間で、目付の{client}が人払いをした。{lord}さまが評定で決めた陣触れの日取りが、三度続けて{foe}に漏れているという。",
+    "「ひと月前から、{spy}と名乗る歩き巫女が城下で口寄せをしておる。諸国を渡り歩く巫女は、忍びの隠れ蓑によく使われる。だが証がない。表立って動けば、相手は消える」"
+   ],
+   "choices": [
+    {
+     "label": "巫女の後をつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "tail",
+      "lose": "spotted"
+     }
+    },
+    {
+     "label": "城の中の漏れ口を先に探る",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "leak",
+      "lose": "tail"
+     }
+    }
+   ]
+  },
+  "leak": {
+   "speaker": "page",
+   "text": [
+    "評定の座に出られる者の名を一人ずつ当たると、近習の{page}が、近頃やたらと神社に詣でていることが分かった。病の母のために、巫女に口寄せを頼んでいるのだという。",
+    "{page}は問い詰めると泣き崩れた。「母の病を祈ってもらう代わりに、城の噂を少し話しただけです。まさか忍びとは」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_shinobi_page"
+    }
+   ],
+   "next": "tail"
+  },
+  "tail": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "夜の{here}の社で巫女を見張る",
+   "speaker": "spy",
+   "art": "tale",
+   "text": [
+    "夜更けの社の裏で、{spy}が石灯籠の陰に紙片を差し入れていた。誰かが後で取りに来るのだろう。",
+    "月明かりの中で、巫女はふとこちらを振り返り、笑った。「目付どのの犬にしては、足音が静かね」"
+   ],
+   "choices": [
+    {
+     "label": "踏み込んで捕らえる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "captured",
+      "lose": "end_escaped"
+     }
+    },
+    {
+     "label": "後で灯籠の紙片を偽の陣触れとすり替える",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_misled",
+      "lose": "spotted"
+     }
+    },
+    {
+     "label": "「話を聞こう」と刀から手を離す",
+     "next": "offer"
+    }
+   ]
+  },
+  "spotted": {
+   "speaker": "spy",
+   "art": "war",
+   "text": [
+    "巫女の袖から灰が舞い、目が焼けるように痛んだ。闇の中から、黒装束の男たちが現れて刀を抜く。巫女は一人ではなかったのだ。"
+   ],
+   "choices": [
+    {
+     "label": "目をこすりながら斬り結ぶ",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "captured",
+      "lose": "end_escaped"
+     }
+    }
+   ]
+  },
+  "offer": {
+   "speaker": "spy",
+   "text": [
+    "{spy}は袖から銀の粒を三つ出して、石段に並べた。「わたしを見逃して、ときどき城の話を聞かせてくれればいい。代わりに{foe}の陣の噂も、あなたに流してあげる」",
+    "「どちらの殿さまも、知らぬが仏。二つの主に仕える者は、この乱世では珍しくもないわ」"
+   ],
+   "choices": [
+    {
+     "label": "銀を受け取る",
+     "next": "end_double"
+    },
+    {
+     "label": "銀を蹴散らし、刀を抜く",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "captured",
+      "lose": "end_escaped"
+     }
+    }
+   ]
+  },
+  "captured": {
+   "speaker": "client",
+   "text": [
+    "縄をかけた{spy}を奉行所に引き立てると、{client}は満足げに頷いた。巫女は何を問われても、薄く笑うばかりで口を割らない。",
+    "「首を刎ねるのは容易い。だが、生かしておく使い道もある」"
+   ],
+   "choices": [
+    {
+     "label": "目付に引き渡して任せる",
+     "next": "end_captured"
+    },
+    {
+     "label": "近習{page}を使い、巫女の手で偽の報せを流させる",
+     "if": {
+      "flag": "sg_shinobi_page"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_misled",
+      "lose": "end_captured"
+     }
+    }
+   ]
+  },
+  "end_captured": {
+   "speaker": "client",
+   "text": [
+    "{spy}は牢に入れられ、陣触れが漏れることはなくなった。{client}は褒美の銭を包みながら言った。「殿にも、そなたの名を申し上げておく」",
+    "数日後、牢は空になっていた。誰が手引きしたのかは分からない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_shinobi_page"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": 15
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "城下に入り込んだ忍びを捕らえた。"
+    }
+   ],
+   "end": "空の牢"
+  },
+  "end_misled": {
+   "speaker": "client",
+   "text": [
+    "偽の陣触れは、確かに{foe}へ届いた。{foe}の軍勢は誰もいない峠に兵を伏せて三日待ち、そのあいだに{land}の兵は別の道から城を一つ落とした。",
+    "{client}は珍しく声を上げて笑った。「忍びを逆に使うとは。殿もことのほかお喜びだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_shinobi_page"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 25
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "note": "{foe}の忍びに偽の報せをつかませた。"
+    }
+   ],
+   "end": "偽りの陣触れ"
+  },
+  "end_double": {
+   "speaker": "spy",
+   "text": [
+    "銀を懐に入れると、{spy}は満足げに笑って闇に消えた。それからときどき、宿の枕元に{foe}の陣の噂を書いた紙片が置かれるようになった。",
+    "目付には「取り逃がした」と告げた。{client}は黙ってこちらを見つめていた。二つの主に仕える者が、いつまで首をつないでいられるかは分からない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_shinobi_page"
+    },
+    {
+     "money": 400
+    },
+    {
+     "favor": -10
+    },
+    {
+     "wanted": "land",
+     "n": 10
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "{foe}の忍びから銀を受け取った。"
+    }
+   ],
+   "end": "二つの主"
+  },
+  "end_escaped": {
+   "text": [
+    "気がつくと、社の境内に一人倒れていた。灯籠の紙片も、巫女の姿も消えていた。翌月、またしても陣触れの日取りが{foe}に漏れた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_shinobi_page"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "favor": -5
+    }
+   ],
+   "end": "消えた巫女"
+  }
+ }
+}

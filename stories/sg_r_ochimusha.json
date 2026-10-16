@@ -1,0 +1,330 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_ochimusha",
+ "kind": "random",
+ "where": "office",
+ "hook": "敵方の落ち武者を討った者に、首一つにつき三百文を与える",
+ "title": "落ち武者狩り",
+ "era": "sengoku",
+ "trigger": {
+  "war": true
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "奉行所の役人"
+  },
+  "land": {
+   "realm": "patron"
+  },
+  "foe": {
+   "realm": "enemy:land"
+  },
+  "musha": {
+   "npc": "若武者",
+   "sex": "m"
+  },
+  "roto": {
+   "npc": "老いた郎党",
+   "sex": "m"
+  },
+  "headman": {
+   "npc": "落人狩りの百姓頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "war",
+   "text": [
+    "奉行所の門に高札が立っていた。先の合戦で崩れた{foe}の侍たちが、この辺りの山に逃げ込んでいるという。",
+    "{client}が言った。「名のある侍の首なら、褒美はさらに上乗せする。百姓どもも鎌を持って山狩りを始めておる。急がねば手柄を取られるぞ」"
+   ],
+   "choices": [
+    {
+     "label": "すぐに山へ入る",
+     "next": "hunt"
+    },
+    {
+     "label": "麓の村で聞き込む",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "lead",
+      "lose": "hunt"
+     }
+    }
+   ]
+  },
+  "lead": {
+   "speaker": "headman",
+   "text": [
+    "村の百姓頭{headman}が、にやりと笑った。「炭焼き小屋に二人隠れておる。若いのは良い具足を着ておった。首はくれてやるから、具足と刀はわしらに寄越せ。明日の朝、皆で囲むつもりだ」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_ochi_lead"
+    }
+   ],
+   "next": "hunt"
+  },
+  "hunt": {
+   "speaker": "roto",
+   "art": "tale",
+   "text": [
+    "谷の奥の炭焼き小屋に、二人の男がいた。泥にまみれた若い侍と、白髪の郎党だ。郎党の{roto}が若者の前に膝をついて、こちらに手を合わせた。",
+    "「若殿の首の代わりに、この老いぼれの首を持っていってくだされ」若い{musha}はその肩を押しのけ、刃こぼれした刀を抜いた。「名を名乗れ。落ちたとはいえ、{foe}の侍だ」"
+   ],
+   "choices": [
+    {
+     "label": "名を名乗り、一騎打ちに応じる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "duel_won",
+      "lose": "end_wounded"
+     }
+    },
+    {
+     "label": "「降れ。生きて国へ帰る道もある」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "surrender",
+      "lose": "duel"
+     }
+    },
+    {
+     "label": "刀を収め、裏の獣道を教えてやる",
+     "next": "escape"
+    }
+   ]
+  },
+  "duel": {
+   "speaker": "musha",
+   "text": [
+    "「降るは恥。生き恥を晒して国へ帰れるものか」{musha}は叫ぶなり斬りかかってきた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "duel_won",
+      "lose": "end_wounded"
+     }
+    }
+   ]
+  },
+  "duel_won": {
+   "speaker": "roto",
+   "text": [
+    "{musha}は膝をつき、刀を取り落とした。もう立てまい。{roto}が這い寄って、主の体を抱き起こした。「若殿……」"
+   ],
+   "choices": [
+    {
+     "label": "首を取る",
+     "next": "end_head"
+    },
+    {
+     "label": "首は取らず、郎党に主を連れ帰らせる",
+     "next": "end_mercy"
+    }
+   ]
+  },
+  "surrender": {
+   "speaker": "musha",
+   "text": [
+    "長い沈黙ののち、{musha}は刀を地に置いた。「……爺を死なせたくはない」二人を縄にかけず、並んで山を下りた。"
+   ],
+   "next": "end_captive"
+  },
+  "escape": {
+   "speaker": "headman",
+   "text": [
+    "二人を獣道へ導いていると、下の沢から鬨の声が上がった。{headman}の率いる百姓たちが、鎌や竹槍を手に山を登ってくる。「具足を逃がすな！」"
+   ],
+   "choices": [
+    {
+     "label": "藪に伏せてやり過ごす",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "end_escaped",
+      "lose": "mob"
+     }
+    },
+    {
+     "label": "百姓たちの前に立ちはだかる",
+     "next": "mob"
+    }
+   ]
+  },
+  "mob": {
+   "speaker": "headman",
+   "art": "war",
+   "text": [
+    "「なんじゃ、お前も具足が目当てか。手を引かねば一緒に狩るぞ」{headman}の目は、もう侍の首しか見ていなかった。"
+   ],
+   "choices": [
+    {
+     "label": "二人を背にかばう",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "end_escaped",
+      "lose": "end_wounded"
+     }
+    }
+   ]
+  },
+  "end_head": {
+   "speaker": "client",
+   "text": [
+    "首桶を奉行所に持ち込むと、{client}は首実検の末に唸った。「{foe}の侍大将の嫡男ではないか。これは大手柄だ」",
+    "約束の三百文に、上乗せの褒美がついた。{roto}がその後どうなったかは、誰も知らない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_ochi_lead"
+    },
+    {
+     "money": 400
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 15
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "note": "{foe}の落ち武者{musha}を討ち取った。"
+    }
+   ],
+   "end": "首実検"
+  },
+  "end_mercy": {
+   "speaker": "roto",
+   "text": [
+    "{roto}は主を背負い、何度も振り返りながら峠の向こうへ消えていった。「この御恩、{foe}に戻れば必ず」",
+    "奉行所には「取り逃がした」とだけ告げた。{client}は舌打ちしたが、山で武士らしく戦い、情けをかけた者がいたという噂は、なぜか町に広まった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_ochi_lead"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "情けの太刀"
+  },
+  "end_captive": {
+   "speaker": "client",
+   "text": [
+    "生け捕りの侍を見て、{client}は手を打った。「首より値打ちがある。{foe}から身代金を取るも、人質と替えるも殿のお考え次第だ」",
+    "{musha}は奉行所の奥に預けられた。去り際に、小さく頭を下げたように見えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_ochi_lead"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 20
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{foe}の若武者{musha}を生け捕りにした。"
+    }
+   ],
+   "end": "生け捕り"
+  },
+  "end_escaped": {
+   "speaker": "musha",
+   "text": [
+    "峠を越えたところで、{musha}は鎧の胴から金の小粒を一つ外し、こちらの手に握らせた。「敵に救われたこと、生涯忘れぬ」",
+    "山を下りると、百姓たちが「侍を逃がした者がいる」と奉行所に訴え出ていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_ochi_lead"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": -15
+    },
+    {
+     "wanted": "here",
+     "n": 15
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "{foe}の落ち武者を逃がした。"
+    }
+   ],
+   "end": "峠の向こう"
+  },
+  "end_wounded": {
+   "text": [
+    "深手を負って沢に転げ落ちた。這い上がったときには、小屋はもぬけの殻だった。山のどこかで鬨の声が上がり、やがて静かになった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_ochi_lead"
+    },
+    {
+     "hp": -25
+    }
+   ],
+   "end": "沢の底"
+  }
+ }
+}

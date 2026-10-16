@@ -1,0 +1,763 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_main",
+ "kind": "main",
+ "title": "乱世の食客",
+ "era": "shunju",
+ "cast": {
+  "home": {
+   "place": "home"
+  },
+  "mentor": {
+   "npc": "老師",
+   "sex": "m"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "lord": {
+   "person": "minister:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "rival": {
+   "realm": "enemy:power"
+  },
+  "rivalcap": {
+   "place": "capital:rival"
+  },
+  "third": {
+   "realm": "second"
+  },
+  "thirdcap": {
+   "place": "capital:third"
+  },
+  "front": {
+   "place": "border:power"
+  },
+  "schemer": {
+   "npc": "讒臣",
+   "sex": "m"
+  }
+ },
+ "start": "c1",
+ "scenes": {
+  "c1": {
+   "at": {
+    "place": "home",
+    "building": "inn"
+   },
+   "goal": "{home}の客舎で人に会う",
+   "speaker": "mentor",
+   "art": "tale",
+   "text": [
+    "客舎の隅で、白髪の老人が手招きした。昔、村の子らに字を教えていた{mentor}だ。",
+    "「{player}よ。この村で畑を耕して終わる器ではあるまい。天下はいま、{power}が最も強い。{power}の{lord}は、才ある者なら身分を問わず門に迎えると聞く」",
+    "老人は懐から竹簡を取り出した。「わしが若い頃に仕えた縁がある。この推挙状を{lord}に届けよ」"
+   ],
+   "choices": [
+    {
+     "label": "推挙状を受け取る",
+     "effects": [
+      {
+       "item": "letter"
+      },
+      {
+       "note": "{mentor}から{lord}への推挙状を託された。"
+      }
+     ],
+     "next": "c2"
+    },
+    {
+     "label": "「まだ早い」と断る",
+     "next": "c1b"
+    }
+   ]
+  },
+  "c1b": {
+   "speaker": "mentor",
+   "text": [
+    "「ふむ。ならば腕を磨き、名を上げてからでもよい。これは預けておく。気が向いたら{capital}へ行け」"
+   ],
+   "effects": [
+    {
+     "item": "letter"
+    }
+   ],
+   "next": "c2"
+  },
+  "c2": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の宮城で{lord}に推挙状を渡す",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "取り次ぎを三度断られ、四度目にようやく通された。{lord}は推挙状に目を落とし、それから{player}をじろりと見た。",
+    "「{mentor}の名は懐かしい。だが、わしの門には三千の客がいる。お前は何ができる」"
+   ],
+   "choices": [
+    {
+     "label": "「天下の形勢を論じましょう」",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     }
+    },
+    {
+     "label": "「書を読み、法を知っております」",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     }
+    },
+    {
+     "label": "「剣なら誰にも負けません」",
+     "check": {
+      "skill": "blade",
+      "dc": 25,
+      "win": "c2ok",
+      "lose": "c2ng"
+     }
+    }
+   ]
+  },
+  "c2ok": {
+   "speaker": "lord",
+   "text": [
+    "{lord}は初めて笑った。「面白い。今日からお前はわしの客だ。{power}のために働け」"
+   ],
+   "effects": [
+    {
+     "item": "letter",
+     "n": -1
+    },
+    {
+     "enlist": "power"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{lord}の食客となった。"
+    }
+   ],
+   "next": "c3"
+  },
+  "c2ng": {
+   "speaker": "lord",
+   "text": [
+    "「口だけは達者だな」{lord}は推挙状を返した。「名もない者を養う余裕はない。世に名を知られてから、また来い」"
+   ],
+   "next": "c2retry"
+  },
+  "c2retry": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "名声を10まで上げて、{capital}の宮城の{lord}を再び訪ねる",
+   "wait": {
+    "fame": 10
+   },
+   "speaker": "lord",
+   "text": [
+    "「噂は聞いておる」{lord}は今度は自ら出てきた。「前の非礼は詫びよう。わしの客となれ」"
+   ],
+   "effects": [
+    {
+     "item": "letter",
+     "n": -1
+    },
+    {
+     "enlist": "power"
+    },
+    {
+     "note": "{lord}の食客となった。"
+    }
+   ],
+   "next": "c3"
+  },
+  "c3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{power}の務めを3つ果たし、{lord}に報告する（官府の布告や主君の任務）",
+   "wait": {
+    "jobs": 3,
+    "patron": "power"
+   },
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "「三つの務め、見事に果たしたと聞いた」{lord}は満足げに頷いた。",
+    "「客の中には、鶏の鳴きまねしかできぬ者もおる。だが、そういう者が役に立つ日も来る。人は使いようだ。お前を士として遇しよう」"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 20
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "c4"
+  },
+  "c4": {
+   "at": {
+    "place": "rivalcap"
+   },
+   "goal": "{lord}の供として{rivalcap}へ向かう",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "{rival}の都、{rivalcap}。和議の使いとして来たはずの{lord}は、宴の席で捕らえられた。「{power}の宰相を返せば、虎を山に放つようなものだ」と、{rival}の重臣が説いたらしい。",
+    "夜更け、牢の格子越しに{lord}がささやく。「夜明け前に関を越えねばならん。だが関は一番鶏が鳴くまで開かぬ……」"
+   ],
+   "choices": [
+    {
+     "label": "鶏の鳴きまねで関を開けさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "c4ok",
+      "lose": "c4fight"
+     }
+    },
+    {
+     "label": "門番に金を握らせる（200{money}）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "c4ok"
+    },
+    {
+     "label": "門番を斬って押し通る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "c4ok",
+      "lose": "c4bad"
+     }
+    }
+   ]
+  },
+  "c4fight": {
+   "text": [
+    "声が裏返った。門番が槍を構える。もう斬り抜けるしかない。"
+   ],
+   "choices": [
+    {
+     "label": "剣を抜く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "c4ok",
+      "lose": "c4bad"
+     }
+    }
+   ]
+  },
+  "c4bad": {
+   "speaker": "lord",
+   "text": [
+    "傷だらけになりながらも、二人はどうにか追手をまいた。「命があるだけで儲けものだ」{lord}は苦く笑った。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "favor": 15
+    }
+   ],
+   "next": "c4home"
+  },
+  "c4ok": {
+   "speaker": "lord",
+   "text": [
+    "関の扉が軋んで開く。追手が来たのは、二人が関を抜けて半刻も後だった。「お前を客にして良かった」"
+   ],
+   "effects": [
+    {
+     "favor": 30
+    },
+    {
+     "fame": 5
+    }
+   ],
+   "next": "c4home"
+  },
+  "c4home": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{lord}とともに{capital}へ帰る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{capital}に戻ると、{ruler}みずから出迎えた。「宰相を救った者がいると聞いた。{player}、そなたの名は覚えておこう」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "power",
+     "n": 10
+    }
+   ],
+   "next": "c5"
+  },
+  "c5": {
+   "at": {
+    "place": "thirdcap",
+    "building": "palace"
+   },
+   "goal": "{thirdcap}の宮城へ行き、{third}に{power}との同盟を説く",
+   "speaker": "{third}の重臣",
+   "art": "court",
+   "text": [
+    "{third}の宮廷は冷ややかだった。「{power}と結べと？　虎と同じ檻に入れというのか。六国が力を合わせて{power}に当たるべきだ、と説く者もおる」"
+   ],
+   "choices": [
+    {
+     "label": "利を説く：「共に{rival}を討てば、土地は分け合える」",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "c5ok",
+      "lose": "c5ng"
+     }
+    },
+    {
+     "label": "理を説く：「戦が続けば、民がまず死ぬ」",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "c5ok",
+      "lose": "c5ng"
+     }
+    },
+    {
+     "label": "何も言わずに退く",
+     "next": "c5ng"
+    }
+   ]
+  },
+  "c5ok": {
+   "text": [
+    "長い沈黙のあと、{third}の重臣は盟約の竹簡に印を押した。{power}は東の憂いを除いた。"
+   ],
+   "effects": [
+    {
+     "flag": "main_allied"
+    },
+    {
+     "favor": 30
+    },
+    {
+     "fame": 5
+    }
+   ],
+   "next": "c6"
+  },
+  "c5ng": {
+   "text": [
+    "盟約は成らなかった。帰り道、{player}は{third}の兵が国境に集まっているのを見た。"
+   ],
+   "effects": [
+    {
+     "flag": "main_noally"
+    },
+    {
+     "favor": 5
+    }
+   ],
+   "next": "c6"
+  },
+  "c6": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "国境の{front}へ出陣する",
+   "speaker": "{power}の将",
+   "art": "war",
+   "text": [
+    "{front}の野に、{power}の旗が並んでいた。対する陣には{front:realm}の旗。",
+    "「客人、お前の噂は聞いている。左翼を任せる。崩れたら全軍が崩れるぞ」"
+   ],
+   "choices": [
+    {
+     "label": "左翼に立つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "c6win",
+      "lose": "c6lose"
+     }
+    }
+   ]
+  },
+  "c6win": {
+   "text": [
+    "左翼は持ちこたえ、やがて押し返した。夕暮れ、敵陣は退いていった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 40
+    },
+    {
+     "rank": 3
+    }
+   ],
+   "next": "c7"
+  },
+  "c6lose": {
+   "text": [
+    "左翼は崩れかけたが、援軍が間に合った。勝ちは勝ちだが、{player}の手柄とは言えなかった。"
+   ],
+   "effects": [
+    {
+     "favor": 10
+    }
+   ],
+   "next": "c7"
+  },
+  "c7": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の宮城へ戻る",
+   "wait": {
+    "days": 15
+   },
+   "speaker": "schemer",
+   "art": "court",
+   "text": [
+    "宮城の空気が変わっていた。{schemer}という男が、{ruler}の耳元で何かをささやいている。",
+    "「{player}は{rival}と通じております。函谷の夜、あまりに手際が良すぎたではありませんか」"
+   ],
+   "choices": [
+    {
+     "label": "{ruler}の前で弁明する",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "c7clear",
+      "lose": "c7exile"
+     }
+    },
+    {
+     "label": "夜のうちに{schemer}の屋敷を探り、証拠を握る",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "c7clear",
+      "lose": "c7exile"
+     }
+    },
+    {
+     "label": "何も言わずに都を去る",
+     "next": "c7exile"
+    }
+   ]
+  },
+  "c7clear": {
+   "speaker": "ruler",
+   "text": [
+    "{schemer}が{rival}から金を受け取っていたことが明らかになった。{ruler}は{schemer}を退け、{player}に向き直った。「疑ってすまなかった」"
+   ],
+   "effects": [
+    {
+     "favor": 30
+    },
+    {
+     "fame": 4
+    }
+   ],
+   "next": "c8"
+  },
+  "c7exile": {
+   "text": [
+    "{player}は都を離れた。背中に、{schemer}の笑い声が聞こえた気がした。"
+   ],
+   "effects": [
+    {
+     "flag": "main_exiled"
+    },
+    {
+     "favor": -40
+    }
+   ],
+   "next": "c7home"
+  },
+  "c7home": {
+   "at": {
+    "place": "home",
+    "building": "inn"
+   },
+   "goal": "故郷の{home}へ帰る",
+   "speaker": "mentor",
+   "art": "tale",
+   "text": [
+    "{mentor}は少し痩せていた。「讒言に遭うのは、出る杭だからだ。だが杭は打たれても、根があれば立つ」",
+    "「時を待て。{power}はいずれお前を必要とする」"
+   ],
+   "next": "c7recall"
+  },
+  "c7recall": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "30日ほど故郷で過ごしたのち、{capital}へ戻る",
+   "wait": {
+    "days": 30
+   },
+   "speaker": "lord",
+   "text": [
+    "{lord}が自ら迎えに出た。「{schemer}の企みは露見した。戻ってくれ。お前のような者が要るのだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "main_exiled"
+    },
+    {
+     "favor": 20
+    }
+   ],
+   "next": "c8"
+  },
+  "c8": {
+   "at": {
+    "place": "rivalcap"
+   },
+   "goal": "{rival}の都{rivalcap}を囲む陣へ向かう",
+   "speaker": "{power}の将",
+   "art": "war",
+   "text": [
+    "{power}の大軍が{rivalcap}を囲んで三月。城内では食が尽き、子を取り替えて食うとまで噂されている。",
+    "「明日、総攻めをかける」と将は言った。城壁の上に、痩せた民の顔が並んでいるのが見えた。"
+   ],
+   "choices": [
+    {
+     "label": "総攻めに加わる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "c8storm",
+      "lose": "c8storm"
+     }
+    },
+    {
+     "label": "夜に城へ忍び入り、降伏を説く",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "c8parley",
+      "lose": "c8storm"
+     }
+    },
+    {
+     "label": "城内に食糧を運び込む手引きをする（{power}には背く）",
+     "next": "c8mercy"
+    }
+   ]
+  },
+  "c8storm": {
+   "text": [
+    "城は落ちた。勝鬨の中で、{player}は燃える町を見ていた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 30
+    },
+    {
+     "flag": "main_stormed"
+    }
+   ],
+   "next": "c9"
+  },
+  "c8parley": {
+   "text": [
+    "夜明け、城門が内から開いた。一滴の血も流れなかった。{power}の将は唸り、{rivalcap}の民は{player}の名を口にした。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 40
+    },
+    {
+     "flag": "main_parley"
+    }
+   ],
+   "next": "c9"
+  },
+  "c8mercy": {
+   "text": [
+    "城の民は飢えから救われた。だが{power}の陣では、裏切り者を探す声が上がっていた。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": -30
+    },
+    {
+     "flag": "main_mercy"
+    },
+    {
+     "rep": "rival",
+     "n": 30
+    }
+   ],
+   "next": "c9"
+  },
+  "c9": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の宮城で{ruler}に会う",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は地図を広げていた。「七つに割れた天下を、一つにすべきだと思うか。それとも、国々が並び立つ方がよいか」",
+    "「そなたの考えを聞きたい」"
+   ],
+   "choices": [
+    {
+     "label": "「天下を一つにし、戦を終わらせるべきです」",
+     "effects": [
+      {
+       "flag": "main_unify"
+      },
+      {
+       "favor": 20
+      }
+     ],
+     "next": "c10"
+    },
+    {
+     "label": "「国々が盟を結び、並び立つ道があります」",
+     "effects": [
+      {
+       "flag": "main_balance"
+      }
+     ],
+     "next": "c10"
+    },
+    {
+     "label": "「私の役目は終わりました。野に帰らせてください」",
+     "effects": [
+      {
+       "flag": "main_hermit"
+      }
+     ],
+     "next": "c10"
+    }
+   ]
+  },
+  "c10": {
+   "text": [
+    "……それから幾年かが過ぎた。"
+   ],
+   "choices": [
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "main_hermit"
+     },
+     "next": "endHermit"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "main_unify",
+      "stands": "power"
+     },
+     "next": "endUnify"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "main_balance"
+     },
+     "next": "endBalance"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "notFlag": "main_hermit"
+     },
+     "next": "endFall"
+    }
+   ]
+  },
+  "endHermit": {
+   "speaker": "mentor",
+   "text": [
+    "{home}の村で、{player}は子らに字を教えていた。ときおり、都からの使いが訪ねてくる。そのたびに{player}は首を振った。「私は畑の方が性に合う」"
+   ],
+   "end": "野に還る"
+  },
+  "endUnify": {
+   "speaker": "ruler",
+   "text": [
+    "{power}の旗が、天下のすべての城に翻った。玉座の傍らで、{player}は新しい法の竹簡を読み上げていた。戦は終わった。そのために流れた血のことを、{player}は忘れまいと思った。"
+   ],
+   "end": "統一の礎"
+  },
+  "endBalance": {
+   "text": [
+    "国々は盟を結び、境の戦は減った。人々は{player}を「縦横の士」と呼んだ。それがいつまで続くかは誰にも分からない。だが、いま畑を耕す者たちは、明日も畑を耕せる。"
+   ],
+   "end": "並び立つ天下"
+  },
+  "endFall": {
+   "text": [
+    "{player}が仕えた国は、乱世の波に呑まれた。{player}は再び一人の旅人に戻った。手元に残ったのは、{mentor}の推挙状の写しと、幾つかの傷だけだった。"
+   ],
+   "end": "流転"
+  }
+ }
+}

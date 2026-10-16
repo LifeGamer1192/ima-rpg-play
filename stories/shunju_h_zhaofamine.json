@@ -1,0 +1,615 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_zhaofamine",
+ "kind": "history",
+ "title": "泣き叫ぶ趙",
+ "era": "shunju",
+ "event": "zhao_famine",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s3",
+  "s3gruel",
+  "s3hoard",
+  "s3hoard_ng",
+  "s3no",
+  "s4",
+  "s4grain",
+  "s4grain_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "handan"
+  },
+  "ford": {
+   "place": "near:city"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:zhao"
+  },
+  "guokai": {
+   "scnPerson": "郭開"
+  },
+  "child": {
+   "npc": "歌う童",
+   "sex": "f"
+  },
+  "dealer": {
+   "npc": "穀商",
+   "sex": "f"
+  },
+  "boatman": {
+   "npc": "斉の舟主",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の市で、はやり歌を聞く",
+   "speaker": "child",
+   "art": "trade",
+   "text": [
+    "{city}の市の穀の棚は、半ば空だった。代の地が揺れて倉が潰れ、北の麦は芽を出す前に枯れた。値札の数は、ひと月ごとに書き換えられていく。",
+    "市の角で、痩せた女の子が手を叩いて歌っていた。「趙は泣き叫び、秦は笑う。信じぬならば、地に生える草を見よ」まわりの大人たちは、誰も止めようとしなかった。草も、もう生えていないのだ。"
+   ],
+   "choices": [
+    {
+     "label": "{child}に干し肉を分けてやり、宮へ向かう",
+     "effects": [
+      {
+       "note": "{city}に飢えが迫り、「趙は泣き叫び、秦は笑う」という歌が流行っている。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "歌を背に、宮へ向かう",
+     "effects": [
+      {
+       "note": "{city}に飢えが迫り、「趙は泣き叫び、秦は笑う」という歌が流行っている。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で倉を開くよう訴える",
+   "speaker": "guokai",
+   "art": "court",
+   "text": [
+    "宮城の廊下で、{player}を迎えたのは王の寵臣{guokai}だった。絹の衣は、飢えた町には眩しすぎた。",
+    "「倉を開けと？　倉の穀は、秦と戦う兵のものだ。民に配れば、兵が飢える。兵が飢えれば、秦が来る。秦が来れば、民はもっと飢える」{guokai}はゆったりと笑った。「わしの言うことに、どこか誤りがあるかね」"
+   ],
+   "choices": [
+    {
+     "label": "居並ぶ大夫たちを説き、せめて粥の施しを上書させる",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "黙って宮を下がる",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2ok": {
+   "text": [
+    "三人の大夫が連署して、城門での粥の施しを上書した。{king}は「十日だけ」と書き添えて許した。十日では足りない。だが、十日分の命が延びた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "flag": "h_zfm_alms"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "大夫たちは{guokai}の顔色をうかがい、誰も筆を取らなかった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の市で{dealer}に会う",
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "市の外れの大きな倉の主、{dealer}が、{player}を奥の間へ招き入れた。倉には俵が天井まで積まれている。",
+    "「今、邯鄲じゅうの穀を買い集めれば、冬には値が十倍になるわ。宮の倉は兵のもの、民が頼れるのは市だけ。あなたの銭と私の倉で、一緒に冬を越さない？」"
+   ],
+   "choices": [
+    {
+     "label": "断って倉を出る",
+     "next": "s3no"
+    },
+    {
+     "label": "手持ちの銭で、城門の飢えた者に粥を炊く（100）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "s3gruel"
+    },
+    {
+     "label": "{dealer}と組み、邯鄲じゅうの穀を買い占めて値を吊り上げる",
+     "turn": true,
+     "check": {
+      "skill": "trade",
+      "dc": 37,
+      "win": "s3hoard",
+      "lose": "s3hoard_ng"
+     }
+    }
+   ]
+  },
+  "s3no": {
+   "speaker": "dealer",
+   "text": [
+    "「お人好しね」{dealer}は肩をすくめた。「でも、冬になれば分かるわ。人は歌では腹を満たせないのよ」"
+   ],
+   "next": "s4"
+  },
+  "s3gruel": {
+   "text": [
+    "城門の脇に大鍋を据え、朝夕に粥を炊いた。鍋の前の列は日ごとに長くなり、最後の者にまで行き渡るのは、薄い湯ばかりになった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_zfm_gruel"
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hoard": {
+   "speaker": "dealer",
+   "art": "backroom",
+   "text": [
+    "{player}は小さな穀屋を一軒ずつ回り、今の値の倍で俵を買い取った。売った者は喜んだ。冬にはその十倍で買い戻すことになるとも知らずに。",
+    "ひと月のうちに、{city}の市から穀の俵が消えた。{dealer}の倉の扉には、新しい錠が三つ掛けられた。「あとは冬を待つだけ。秦も笑っているでしょうけど、私たちも笑えるわ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_zf_hoard"
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "zhao",
+     "n": -10
+    },
+    {
+     "note": "{dealer}と組み、{city}の穀を買い占めた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hoard_ng": {
+   "text": [
+    "小さな穀屋たちは示し合わせて、{player}に俵を売らなかった。{dealer}は舌打ちをして、話をなかったことにした。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "ford"
+   },
+   "goal": "{ford}の渡しで、東から来る舟を見る",
+   "speaker": "boatman",
+   "art": "voyage",
+   "text": [
+    "漳水の渡しには、東の斉や南の楚から来た舟が、ときおり帆を下ろしていた。積み荷は塩や布で、穀はほとんどない。",
+    "斉の舟主{boatman}は、舟べりに腰を下ろして言った。「斉の倉には穀が余っておる。だが、趙へ運べば秦に睨まれる。秦に睨まれた舟は、どこの港でも荷を下ろせなくなる。銭だけでは動かぬよ」"
+   ],
+   "choices": [
+    {
+     "label": "舟の荷を見て、{city}へ戻る",
+     "next": "aftergo"
+    },
+    {
+     "label": "{boatman}と楚の舟主たちを説き、斉・楚の穀を邯鄲へ運ばせる",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 37,
+      "win": "s4grain",
+      "lose": "s4grain_ng"
+     }
+    }
+   ]
+  },
+  "s4grain": {
+   "speaker": "boatman",
+   "art": "voyage",
+   "text": [
+    "{player}は、趙が飢えて倒れれば次に秦の矛先が向くのは斉と楚であること、秦の役人は河の舟の荷までは数えきれぬこと、そして帰りの舟には趙の鉄と馬具を積めることを、三晩かけて説いた。",
+    "{boatman}は四晩目に、ほかの舟主たちを集めた。「秦に睨まれるのは怖い。だが、隣の家が飢え死にするのを黙って見ていた、と孫に言われるのはもっと怖い」翌月、穀を満載した舟が十艘、漳水を上りはじめた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_zf_grain"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "斉と楚の舟主を説き、穀を漳水から{city}へ運ばせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4grain_ng": {
+   "text": [
+    "舟主たちは頷きはしたが、帆を上げる者はいなかった。秦の役人が渡しに現れたのは、その翌日のことである。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、飢饉の冬を見届ける",
+   "wait": {
+    "settled": "zhao_famine"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "famine_grain"
+     },
+     "next": "grain"
+    },
+    {
+     "if": {
+      "branch": "famine_hoard"
+     },
+     "next": "hoarded"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "grain": {
+   "speaker": "boatman",
+   "art": "trade",
+   "text": [
+    "冬が来て、飢えは{city}を覆った。だが漳水の渡しには、斉と楚の舟が絶えず着き、穀の俵は荷車で城門へ運ばれた。市の値は高かったが、手が届かぬほどではなかった。",
+    "{boatman}は空になった舟の上で、{player}に言った。「秦の役人が、わしの名を書き留めていった。来年はこの河を上れぬかもしれん。まあいい。今年の分は運んだ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 8
+    },
+    {
+     "unflag": "h_zf_grain"
+    },
+    {
+     "unflag": "h_zfm_alms"
+    },
+    {
+     "unflag": "h_zfm_gruel"
+    },
+    {
+     "note": "趙の大飢饉に、斉と楚の穀が届いた。"
+    }
+   ],
+   "end": "漳水を上る舟"
+  },
+  "hoarded": {
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "冬が来ると、穀の値は本当に十倍になった。{dealer}の倉の前には、家財を担いだ人々が列をなした。銭を持たぬ者は、列にも並べなかった。",
+    "ある夜、飢えた群れが市の倉を襲った。{dealer}の倉の錠は、三つとも斧で叩き割られた。{player}の懐の銭は重かった。市の角で歌う子の声は、もう聞こえなかった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": -6
+    },
+    {
+     "wanted": "zhao",
+     "n": 20
+    },
+    {
+     "unflag": "h_zf_hoard"
+    },
+    {
+     "unflag": "h_zfm_alms"
+    },
+    {
+     "unflag": "h_zfm_gruel"
+    },
+    {
+     "note": "趙の大飢饉に、買い占めた穀を十倍で売った。"
+    }
+   ],
+   "end": "十倍の値"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、飢饉の冬を見届ける",
+   "wait": {
+    "settled": "zhao_famine"
+   },
+   "speaker": "child",
+   "art": "disaster",
+   "text": [
+    "冬が来て、飢えは{city}を覆った。城門の外には、北の村から流れてきた人々が筵を並べ、朝ごとに幾つかの筵が動かなくなった。",
+    "それでも、市の角では、あの歌が聞こえた。「趙は泣き叫び、秦は笑う」声はかすれて、前よりずっと小さかった。"
+   ],
+   "choices": [
+    {
+     "label": "城門の粥の施しを手伝う",
+     "if": {
+      "flag": "h_zfm_alms"
+     },
+     "next": "end_alms"
+    },
+    {
+     "label": "炊き続けてきた大鍋の火を、冬のあいだ絶やさない",
+     "if": {
+      "flag": "h_zfm_gruel"
+     },
+     "next": "end_gruel"
+    },
+    {
+     "label": "熱を出した子らを手当てして回る",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "end_heal",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "{city}を去る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_alms": {
+   "text": [
+    "十日のはずの施しは、大夫たちが自分の倉を開いて、ひと月に延びた。{player}は柄杓を握り続けた。その手を、{child}の小さな手が一度だけ握った。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "zhao",
+     "n": 5
+    },
+    {
+     "unflag": "h_zfm_alms"
+    },
+    {
+     "unflag": "h_zfm_gruel"
+    },
+    {
+     "note": "趙の大飢饉の冬、城門で粥を配った。"
+    }
+   ],
+   "end": "城門の柄杓"
+  },
+  "end_gruel": {
+   "text": [
+    "銭が尽きると、{player}は剣の鞘の飾りを売り、それも尽きると市で荷を担いで稼いだ。大鍋の火は、春まで消えなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "zhao",
+     "n": 8
+    },
+    {
+     "unflag": "h_zfm_alms"
+    },
+    {
+     "unflag": "h_zfm_gruel"
+    },
+    {
+     "note": "趙の大飢饉の冬、粥の鍋の火を絶やさなかった。"
+    }
+   ],
+   "end": "消えなかった火"
+  },
+  "end_heal": {
+   "text": [
+    "飢えた体に、熱はすぐに回る。{player}は湯を沸かし、薬草を煎じ、夜通し子らの額を冷やした。救えなかった子の数も、{player}は覚えている。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "unflag": "h_zfm_alms"
+    },
+    {
+     "unflag": "h_zfm_gruel"
+    },
+    {
+     "note": "趙の大飢饉の冬、病の子らを手当てした。"
+    }
+   ],
+   "end": "冷やした額"
+  },
+  "end_plain": {
+   "text": [
+    "{player}は北の門から{city}を出た。門の外の筵の列は、街道の先まで続いていた。秦の軍が来るのは、この翌年のことである。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zfm_alms"
+    },
+    {
+     "unflag": "h_zfm_gruel"
+    },
+    {
+     "note": "趙の大飢饉を見届けた。"
+    }
+   ],
+   "end": "泣き叫ぶ趙"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "famine_grain"
+     },
+     "next": "grain"
+    },
+    {
+     "if": {
+      "branch": "famine_hoard"
+     },
+     "next": "hoarded"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。趙に大飢饉が起こり、邯鄲の子らが「趙は泣き叫び、秦は笑う」と歌っているという。",
+    "噂の主は言った。「秦は、飢えた国を攻めるのが好きだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zfm_alms"
+    },
+    {
+     "unflag": "h_zfm_gruel"
+    },
+    {
+     "note": "趙の大飢饉を噂で聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "famine_grain",
+   "event": "zhao_famine",
+   "order": 2,
+   "why": "主人公が斉・楚の穀を邯鄲へ運ばせた",
+   "when": {
+    "flag": "h_zf_grain"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_zhao}に大飢饉が起こったが、斉と楚から穀を積んだ舟が漳水を上って邯鄲に着き、飢えて死ぬ者は少なかった。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "stability",
+      -0.05
+     ],
+     [
+      "add",
+      "zhao",
+      "treasury",
+      -50
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   }
+  },
+  {
+   "id": "famine_hoard",
+   "event": "zhao_famine",
+   "order": 1,
+   "why": "主人公が邯鄲の穀を買い占めた",
+   "when": {
+    "flag": "h_zf_hoard"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_zhao}に大飢饉が起こった。邯鄲の穀は商人に買い占められて値は十倍に跳ね、飢えた民は市の倉を襲った。「趙は泣き叫び、秦は笑う」の歌は、いっそう高く歌われた。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "stability",
+      -0.25
+     ],
+     [
+      "add",
+      "zhao",
+      "treasury",
+      -50
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   }
+  }
+ ]
+}

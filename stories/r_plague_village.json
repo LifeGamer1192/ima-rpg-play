@@ -1,0 +1,278 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_plague_village",
+ "kind": "random",
+ "where": "folk",
+ "hook": "村で熱病が出ました。役人は村を閉じると言っています",
+ "title": "疫病の村",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "村の娘"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "chief": {
+   "npc": "里正",
+   "sex": "m"
+  },
+  "captain": {
+   "npc": "県尉",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "{client}は薬を買いに町へ出てきたが、銭が足りなかったという。{village}の村で熱病が広がり、もう十人が死んだ。",
+    "「県尉の{captain}さまが兵を連れてきて、村の周りに柵を立てています。病が町に移らぬように、と。中にいる者は、死ぬまで出られないのです」"
+   ],
+   "choices": [
+    {
+     "label": "「村へ行こう」",
+     "next": "village"
+    },
+    {
+     "label": "薬草を分けて帰す",
+     "if": {
+      "item": "herbs"
+     },
+     "effects": [
+      {
+       "item": "herbs",
+       "n": -1
+      }
+     ],
+     "next": "end_herbs"
+    }
+   ]
+  },
+  "village": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の村へ行く",
+   "speaker": "chief",
+   "art": "disaster",
+   "text": [
+    "柵の向こうで、里正の{chief}が疲れた顔を上げた。家々からは咳と呻きが漏れてくる。柵の外では{captain}の兵が槍を立てていた。",
+    "「よく来てくださった。だが、ここに入れば出られませんぞ。……今夜、若い者たちが柵を破って逃げると言っております。止めるべきか、行かせるべきか、わしにはもう分からぬ」"
+   ],
+   "choices": [
+    {
+     "label": "病人を診る",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "end_healed",
+      "lose": "heal_ng"
+     }
+    },
+    {
+     "label": "町から薬を買い集める（200銭）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "end_medicine"
+    },
+    {
+     "label": "逃げる村人を守ってやる",
+     "next": "flee"
+    },
+    {
+     "label": "{captain}に手を貸し、柵を守る",
+     "next": "end_sealed"
+    }
+   ]
+  },
+  "heal_ng": {
+   "text": [
+    "煎じ薬を飲ませ、熱を冷まし続けたが、病は手に負えなかった。夜半、柵のほうで叫び声が上がる。若者たちが逃げ出したのだ。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "flee"
+  },
+  "flee": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "柵を破った若者たちに、{captain}の兵が弓を向けた。「戻れ。戻らねば射る。病を町に持ち込ませるわけにはいかぬ」",
+    "若者たちの中には、まだ咳をしている者もいた。"
+   ],
+   "choices": [
+    {
+     "label": "{captain}を説き伏せる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_fled",
+      "lose": "flee_fight"
+     }
+    },
+    {
+     "label": "兵の前に立ちはだかる",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "end_fled",
+      "lose": "end_broken"
+     }
+    }
+   ]
+  },
+  "flee_fight": {
+   "speaker": "captain",
+   "text": [
+    "「理屈はいい。退け」兵が槍を構えた。"
+   ],
+   "choices": [
+    {
+     "label": "剣を抜く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "end_fled",
+      "lose": "end_broken"
+     }
+    }
+   ]
+  },
+  "end_healed": {
+   "speaker": "chief",
+   "text": [
+    "病人を分け、水を煮て飲ませ、熱の高い者には薬を煎じた。十日後、新たに倒れる者はいなくなった。{captain}は柵を解き、黙って頭を下げた。",
+    "{chief}は村の者を並ばせ、地に額をつけた。「あなたは村の命の恩人だ」"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    },
+    {
+     "note": "{village}の疫病を鎮めた。"
+    }
+   ],
+   "end": "疫を鎮めた者"
+  },
+  "end_medicine": {
+   "speaker": "chief",
+   "text": [
+    "町の薬屋を回り、ありったけの薬草を買って柵の中へ運んだ。救えなかった者もいたが、多くは持ち直した。{chief}は村の蓄えから、せめてもの礼を出した。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "end": "薬の道"
+  },
+  "end_fled": {
+   "text": [
+    "若者たちは闇の中へ散っていった。{captain}は舌打ちをしたが、弓は下ろさせた。逃げた者が病を広めたかどうか、誰にも分からない。",
+    "ただ、{client}は兄が逃げた者の中にいたと、泣きながら礼を言った。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "favor": -10
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "end": "逃れた者たち"
+  },
+  "end_sealed": {
+   "speaker": "captain",
+   "text": [
+    "夜、柵を破ろうとした若者たちを、兵とともに押し返した。病は村の中だけで燃え尽き、町には及ばなかった。村の半分が死んだ。",
+    "「辛い務めだったな。だが、これで町の数千が助かった」{captain}は報奨の銭を渡した。{client}は、二度と目を合わせなかった。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "favor": 15
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "end": "封じられた村"
+  },
+  "end_broken": {
+   "text": [
+    "兵に打ち倒され、気づけば朝だった。若者たちは連れ戻され、柵は二重になっていた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "end": "閉ざされた柵"
+  },
+  "end_herbs": {
+   "speaker": "client",
+   "text": [
+    "薬草を受け取った{client}は、何度も頭を下げて村へ駆け戻っていった。一束の薬草で何人が救えるのか、それは分からない。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "xp": "medicine",
+     "n": 1
+    }
+   ],
+   "end": "一束の薬草"
+  }
+ }
+}

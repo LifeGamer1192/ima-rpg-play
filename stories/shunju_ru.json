@@ -1,0 +1,577 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_ru",
+ "kind": "school",
+ "title": "仁を問う旅",
+ "era": "shunju",
+ "school": "ru",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "師",
+   "sex": "m"
+  },
+  "peer": {
+   "npc": "同門",
+   "sex": "m"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "court": {
+   "realm": "second"
+  },
+  "courtcap": {
+   "place": "capital:court"
+  },
+  "prince": {
+   "person": "ruler:court"
+  },
+  "schemer": {
+   "npc": "寵臣",
+   "sex": "m"
+  },
+  "wild": {
+   "place": "border:court"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の儒家の学舎で師に会う",
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "学舎の庭では、若者たちが声を揃えて詩を誦していた。奥の座に、背筋の伸びた老人が端座している。{master}である。",
+    "束脩の干し肉を差し出すと、{master}はそれを受け取り、静かに問うた。「{player}よ。仁とは何か、言ってみなさい」"
+   ],
+   "choices": [
+    {
+     "label": "「人を愛することです」",
+     "check": {
+      "skill": "letters",
+      "dc": 8,
+      "win": "s1good",
+      "lose": "s1plain"
+     }
+    },
+    {
+     "label": "「分かりません。それを学びに来ました」",
+     "next": "s1plain"
+    }
+   ]
+  },
+  "s1good": {
+   "speaker": "master",
+   "text": [
+    "{master}は小さく頷いた。「書物の言葉をよく覚えている。だが、覚えた言葉を身に行えるかどうかは別のことだ」",
+    "傍らで聞いていた大柄な男が笑った。兄弟子の{peer}だという。「先生の問いは、一生かけて答えるものさ」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "c2"
+  },
+  "s1plain": {
+   "speaker": "master",
+   "text": [
+    "「知るを知るとなし、知らざるを知らずとなす。これ知るなり」{master}は目を細めた。「よい入り口だ」",
+    "傍らで聞いていた大柄な男が笑った。兄弟子の{peer}だという。「先生の問いは、一生かけて答えるものさ」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 1
+    },
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "next": "c2"
+  },
+  "c2": {
+   "at": {
+    "place": "village",
+    "building": "house"
+   },
+   "goal": "10日ほど学んだのち、{master}の使いで{village}の喪家へ行く",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "喪家の主",
+   "art": "faith",
+   "text": [
+    "{village}の豪家で、主の父が亡くなった。{master}の名代として礼を司るよう命じられたのだ。",
+    "屋敷には諸侯の葬儀さながらの棺と、八列に並べた舞人が用意されていた。「父の徳にふさわしく、盛大に送りたいのです」と主は言う。身分を越えた礼は、礼ではない。"
+   ],
+   "choices": [
+    {
+     "label": "古礼を引いて、身分にかなった喪礼を整える",
+     "check": {
+      "skill": "letters",
+      "dc": 18,
+      "win": "c2ok",
+      "lose": "c2ng"
+     }
+    },
+    {
+     "label": "「喪は、その易からんよりは寧ろ戚め」と主の心に説く",
+     "check": {
+      "skill": "speech",
+      "dc": 18,
+      "win": "c2ok",
+      "lose": "c2ng"
+     }
+    }
+   ]
+  },
+  "c2ok": {
+   "text": [
+    "主は舞人を下がらせ、白い喪服のまま棺の前に額ずいた。飾りは減ったが、泣く声はかえって深くなった。",
+    "帰り際、主は粗末な麻の包みを差し出した。「先生によろしく。父も、これで安んじて眠れましょう」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "money": 60
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "next": "c2back"
+  },
+  "c2ng": {
+   "text": [
+    "主は聞き入れず、葬列は鳴り物入りで村を練り歩いた。村人たちは見物に集まり、誰も泣いていなかった。",
+    "{player}は自分の言葉の軽さを恥じながら、学舎への道を戻った。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "next": "c2back"
+  },
+  "c2back": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の学舎に戻り、{master}に報告する",
+   "speaker": "master",
+   "text": [
+    "話を聞き終えると、{master}は長いあいだ黙っていた。「礼は人を縛る縄ではない。心を形にする器だ。そのことが少し分かったようだな」",
+    "「今日からお前を弟子と呼ぼう」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "note": "{master}の弟子となった。"
+    }
+   ],
+   "next": "c3"
+  },
+  "c3": {
+   "at": {
+    "place": "courtcap",
+    "building": "palace"
+   },
+   "goal": "学問を22まで修め、{master}の供として{courtcap}の宮城へ行く",
+   "wait": {
+    "skill": {
+     "letters": 22
+    },
+    "days": 20
+   },
+   "speaker": "prince",
+   "art": "court",
+   "text": [
+    "{court}の{prince}が、天下に名の聞こえた{master}を招いた。{master}は{player}と{peer}を供に、{courtcap}の宮城へ上った。",
+    "{prince}は脇息にもたれて言った。「先生の弟子に問おう。どうすれば我が国は強くなる」{master}は黙って、{player}に目で促した。"
+   ],
+   "choices": [
+    {
+     "label": "「民を富ませ、税を軽くなさいませ。仁政に敵なし」",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "c3ok",
+      "lose": "c3ng"
+     }
+    },
+    {
+     "label": "「君は君たり、臣は臣たり。まず名を正されませ」",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "c3ok",
+      "lose": "c3ng"
+     }
+    },
+    {
+     "label": "王の望む富国強兵の策を説いて、気に入られる",
+     "next": "c3flat"
+    }
+   ]
+  },
+  "c3ok": {
+   "speaker": "prince",
+   "text": [
+    "{prince}は身を起こした。「耳に痛いが、筋は通っておる」そう言って{master}に客卿の礼を与え、宮城に留めた。",
+    "{master}は帰り道でぽつりと言った。「聞く耳があるうちはよい。問題は、その耳に誰がささやくかだ」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "court",
+     "n": 10
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "c4"
+  },
+  "c3ng": {
+   "speaker": "prince",
+   "text": [
+    "{prince}はあくびを噛み殺した。「古い話は聞き飽きた」それでも{master}の名を惜しんで、客として宮城に留めた。",
+    "{peer}が肩を叩いた。「気にするな。先生だって、百たび説いて一たび聞かれれば良い方だと言っておられる」"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "c4"
+  },
+  "c3flat": {
+   "speaker": "prince",
+   "text": [
+    "{prince}は膝を打って喜び、{player}に銭を下賜した。居並ぶ臣のうち、{schemer}という男が目を光らせた。",
+    "{master}は何も言わなかった。その沈黙が、どんな叱責よりも重かった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "flag": "ru_flatter"
+    },
+    {
+     "rep": "court",
+     "n": 10
+    }
+   ],
+   "next": "c4"
+  },
+  "c4": {
+   "at": {
+    "place": "courtcap",
+    "building": "palace"
+   },
+   "goal": "名声を10まで上げ、{courtcap}の宮城へ戻る",
+   "wait": {
+    "fame": 10,
+    "days": 15
+   },
+   "speaker": "schemer",
+   "art": "court",
+   "text": [
+    "{prince}の寵臣{schemer}は、{master}を目の上の瘤と見ていた。ある朝、{prince}のもとに女楽八十人が贈られ、{prince}は三日のあいだ朝議に出なかった。",
+    "{master}は静かに荷をまとめた。「去るべき時に去るのも礼だ」そこへ{schemer}が{player}を呼び止める。「お前だけは残れ。官を与えよう。老人の放浪に付き合うことはあるまい」"
+   ],
+   "choices": [
+    {
+     "label": "{master}に従って都を去る",
+     "next": "c5"
+    },
+    {
+     "label": "{schemer}の誘いを受けて都に残る",
+     "next": "c4stay"
+    }
+   ]
+  },
+  "c4stay": {
+   "speaker": "peer",
+   "text": [
+    "{peer}は{player}の胸ぐらを掴みかけて、手を下ろした。「お前の道だ。好きにしろ」",
+    "城門を出ていく{master}の後ろ姿は、思っていたより小さかった。"
+   ],
+   "effects": [
+    {
+     "enlist": "court"
+    },
+    {
+     "rank": 2
+    },
+    {
+     "flag": "ru_court"
+    },
+    {
+     "note": "{court}に仕え、{master}のもとを離れた。"
+    }
+   ],
+   "next": "c5court"
+  },
+  "c5": {
+   "at": {
+    "place": "wild"
+   },
+   "goal": "{master}の一行とともに、{wild}へ流れていく",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "peer",
+   "art": "disaster",
+   "text": [
+    "国から国へと渡り歩くうち、一行は{wild}の野で土地の者たちに囲まれた。誰かが一行を、かつて村を荒らした者と取り違えたらしい。",
+    "糧は尽きて七日。弟子たちは立ち上がる力もない。{master}だけが、変わらず琴を弾き、歌っていた。{peer}が怒鳴った。「君子でも窮することがあるのですか！」"
+   ],
+   "choices": [
+    {
+     "label": "{peer}とともに囲みを破る",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "talk": true,
+      "win": "c5win",
+      "lose": "c5endure"
+     }
+    },
+    {
+     "label": "囲みの長に会い、人違いを説く",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "c5win",
+      "lose": "c5endure"
+     }
+    },
+    {
+     "label": "{master}のそばに座り、ともに耐える",
+     "next": "c5endure"
+    }
+   ]
+  },
+  "c5win": {
+   "text": [
+    "囲みが解け、近くの村から粥が届いた。{peer}は真っ先に{master}の椀に注ぎ、それから自分の椀を{player}に押しつけた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "c5end"
+  },
+  "c5endure": {
+   "text": [
+    "飢えは骨に染みた。それでも{master}の琴の音は乱れなかった。十日目、ようやく人違いと知れて、囲みは解かれた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "flag": "ru_endure"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "c5end"
+  },
+  "c5end": {
+   "speaker": "master",
+   "text": [
+    "焚き火の前で、{master}は{peer}の問いにようやく答えた。「君子も固より窮す。小人は窮すれば斯に濫る」",
+    "「歳寒くして、然る後に松柏の凋むに後るるを知る。{player}、お前はもう高弟だ。わしがいなくなっても、この道を絶やすな」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{master}から高弟と認められた。"
+    }
+   ],
+   "next": "c6"
+  },
+  "c5court": {
+   "at": {
+    "place": "courtcap",
+    "building": "palace"
+   },
+   "goal": "{court}の務めを3つ果たし、{courtcap}の宮城へ戻る",
+   "wait": {
+    "jobs": 3
+   },
+   "speaker": "schemer",
+   "art": "court",
+   "text": [
+    "宮仕えは思いのほか忙しかった。{schemer}は{player}を重宝し、{prince}の前でたびたび褒めた。",
+    "ある日、旅の商人が噂を運んできた。{master}の一行が{wild}の野で囲まれ、七日も食べていないという。{schemer}は笑った。「放っておけ。あの老人に関わると、お前の出世に障る」"
+   ],
+   "choices": [
+    {
+     "label": "俸禄から糧を買い、ひそかに{wild}へ送る（200{money}）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      },
+      {
+       "flag": "ru_grain"
+      }
+     ],
+     "next": "c6"
+    },
+    {
+     "label": "聞かなかったことにする",
+     "next": "c6"
+    }
+   ]
+  },
+  "c6": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "学問を38まで修めたのち、{here}の学舎へ帰る",
+   "wait": {
+    "skill": {
+     "letters": 38
+    },
+    "days": 30
+   },
+   "art": "tale",
+   "text": [
+    "{master}は故郷の学舎に帰り、もう旅をすることはなかった。弟子たちが書き留めた言葉を編み、古い詩を整えて余生を過ごしていたという。",
+    "その{master}が病に伏したと、知らせが届いた。朝、杖を曳いて門前を歩きながら「泰山其れ頽れんか、梁木其れ壊れんか」と歌ったきり、床を離れないのだと。"
+   ],
+   "choices": [
+    {
+     "label": "つづき",
+     "if": {
+      "notFlag": "ru_court"
+     },
+     "next": "endHeir"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "ru_grain"
+     },
+     "next": "endCourt"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "ru_court",
+      "notFlag": "ru_grain"
+     },
+     "next": "endAlone"
+    }
+   ]
+  },
+  "endHeir": {
+   "speaker": "master",
+   "text": [
+    "枕元に呼ばれると、{master}は痩せた手で、使い込んだ竹簡の束を{player}に渡した。「三年、喪に服したら、お前が教えよ。人に教えることが、いちばんの学びだ」",
+    "喪が明けた春、学舎の庭にはまた若者たちの誦す声が響いた。上座に端座しているのは、{player}である。人は{player}を師と呼んだ。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 5
+    },
+    {
+     "note": "{master}の学舎を継ぎ、師となった。"
+    }
+   ],
+   "end": "道を継ぐ者"
+  },
+  "endCourt": {
+   "speaker": "master",
+   "text": [
+    "枕元に座した{player}に、{master}は弱々しく笑いかけた。「{wild}の野で届いた糧は、お前のものだったな。宮廷にあって道を忘れぬ者もいる。それもまた、わしの弟子だ」",
+    "{player}は{courtcap}に戻り、{prince}の傍らで礼を正し、税を軽くする法を説き続けた。人々はやがて、{court}の朝廷に一人の儒者ありと噂した。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "rank": 3
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 20
+    }
+   ],
+   "end": "廟堂の儒"
+  },
+  "endAlone": {
+   "speaker": "peer",
+   "text": [
+    "{player}が{here}に着いたとき、{master}はすでに息を引き取っていた。門前に立つ{peer}は、何も言わずに道を空けた。",
+    "墓前に額ずいても、言葉は出てこなかった。{player}は{courtcap}へ戻った。官位は上がり続けたが、あの問い――仁とは何か――に、二度と答えることはできなかった。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    }
+   ],
+   "end": "師を喪う"
+  }
+ }
+}

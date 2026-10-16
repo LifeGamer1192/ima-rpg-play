@@ -1,0 +1,166 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "hunt_rebels",
+ "kind": "random",
+ "where": "office",
+ "weight": 1,
+ "trigger": {
+  "troubled": true
+ },
+ "hook": "乱の残党が沼地に立てこもっている。討伐に加われ",
+ "title": "残党狩り",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  },
+  "leader": {
+   "npc": "残党の首領",
+   "sex": "m"
+  },
+  "marsh": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "「先の乱の首謀者の一人が、{marsh}の沼地に逃げ込んだ。{realm}の兵は他所の戦で手一杯だ。腕のある者に賞金を出す」"
+   ],
+   "choices": [
+    {
+     "label": "「加わろう」",
+     "next": "marsh"
+    }
+   ]
+  },
+  "marsh": {
+   "at": {
+    "place": "marsh"
+   },
+   "goal": "{marsh}の沼地で残党の首領を捕らえる",
+   "speaker": "leader",
+   "art": "camp",
+   "text": [
+    "葦の中の砦で、{leader}は痩せた民兵たちを従えていた。「重税に耐えかねて立った。それが罪か」"
+   ],
+   "choices": [
+    {
+     "label": "首領を討つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "won",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "首領ひとりが縛につけば、民は許されると説く",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "yielded",
+      "lose": "marsh_ng"
+     }
+    },
+    {
+     "label": "見逃して、{office}には「沼に沈んだ」と言う",
+     "effects": [
+      {
+       "rep": "realm",
+       "n": -3
+      },
+      {
+       "fame": 1
+      }
+     ],
+     "next": "spared"
+    }
+   ]
+  },
+  "marsh_ng": {
+   "speaker": "leader",
+   "text": [
+    "「{office}の言葉を信じた者は、皆首を斬られた」"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "yielded": {
+   "text": [
+    "{leader}は自ら縄を受けた。民兵たちは村へ帰された。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 8
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "end": "首領は縛についた"
+  },
+  "won": {
+   "text": [
+    "首領は討たれ、砦は焼かれた。"
+   ],
+   "effects": [
+    {
+     "money": 220
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "end": "残党を討った"
+  },
+  "spared": {
+   "text": [
+    "葦の砦は空になった。{leader}がどこへ行ったか、知る者はいない。"
+   ],
+   "end": "見逃した"
+  },
+  "lost": {
+   "text": [
+    "沼の足場は悪く、民兵たちの竹槍に押し返された。"
+   ],
+   "end": "討ち損じ"
+  }
+ }
+}

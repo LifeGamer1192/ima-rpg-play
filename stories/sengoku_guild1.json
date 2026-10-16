@@ -1,0 +1,437 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_guild1",
+ "kind": "rank",
+ "guildTo": 1,
+ "title": "関所破り",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "頭",
+   "sex": "m"
+  },
+  "senior": {
+   "npc": "古参の手下",
+   "sex": "m"
+  },
+  "carter": {
+   "npc": "馬借",
+   "sex": "m"
+  },
+  "keeper": {
+   "npc": "関守",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "旅籠の裏の土間で、{boss}は煙管の灰を落とした。「使い走りはもう飽きたろう。馬三頭ぶんの荷を、{here}の関所の向こうへ運べ。関銭は一文も払うな。中身は聞くな」",
+    "「馬は馬借の{carter}が引く。{senior}が付いていく。荷を一俵でも欠かしたら、手下の話はなしだ」"
+   ],
+   "choices": [
+    {
+     "label": "市へ行き、{carter}と段取りをつける",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で馬借の{carter}に会う",
+   "speaker": "carter",
+   "art": "trade",
+   "text": [
+    "馬借の{carter}は、馬の腹帯を締めながら首を振った。「近ごろの関守の{keeper}は鼻が利く。先月は仲間が荷ごと馬を取り上げられた。割りに合わねえ」",
+    "{senior}が退屈そうに欠伸をした。「見習い、どうする」"
+   ],
+   "choices": [
+    {
+     "label": "「捕まったら一味が馬を弁償する」と言いくるめる",
+     "check": {
+      "skill": "speech",
+      "dc": 16,
+      "win": "s2ok",
+      "lose": "s2bad"
+     }
+    },
+    {
+     "label": "前金を弾む（30文）",
+     "if": {
+      "money": 30
+     },
+     "effects": [
+      {
+       "money": -30
+      }
+     ],
+     "next": "s2ok"
+    },
+    {
+     "label": "「断れば、おまえの馬がどうなるかな」と凄む",
+     "effects": [
+      {
+       "fame": -1
+      },
+      {
+       "flag": "sg_g1_threat"
+      }
+     ],
+     "next": "s2ok"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "carter",
+   "text": [
+    "{carter}は渋い顔で頷いた。「関の手前の峠に、獣道が一本ある。馬には険しいが、通れぬことはない。それと、{keeper}は酒に目がない」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_g1_path"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2bad": {
+   "text": [
+    "{carter}は返事もせずに馬を引いていった。結局、{senior}が別の馬借から老いぼれ馬を借りてきた。足が遅い。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here",
+    "building": "barracks"
+   },
+   "goal": "{here}の関所を荷とともに抜ける",
+   "speaker": "keeper",
+   "art": "hideout",
+   "text": [
+    "関所の木戸の前には、旅人や商人が列を作っていた。関守の{keeper}が一人ずつ荷を改め、関銭を取っている。荷の多い者ほど長く足止めされる。",
+    "{keeper}の目が、こちらの馬の荷に止まった。"
+   ],
+   "choices": [
+    {
+     "label": "{carter}の言った獣道へ、馬ごと回り込む",
+     "if": {
+      "flag": "sg_g1_path",
+      "notFlag": "sg_g1_threat"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 16,
+      "win": "s4",
+      "lose": "s3caught"
+     }
+    },
+    {
+     "label": "脅されて渋る{carter}を急かし、獣道へ回り込む",
+     "if": {
+      "flag": "sg_g1_threat"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "s4",
+      "lose": "s3caught"
+     }
+    },
+    {
+     "label": "酒を一樽差し出し、改めを手早く済ませてもらう",
+     "if": {
+      "item": "wine"
+     },
+     "effects": [
+      {
+       "item": "wine",
+       "n": -1
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "袖の下を渡す（40文）",
+     "if": {
+      "money": 40
+     },
+     "effects": [
+      {
+       "money": -40
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "「寺へ納める経巻にございます」と荷を偽る",
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "s4",
+      "lose": "s3caught"
+     }
+    },
+    {
+     "label": "列を離れ、夜を待って柵を越える",
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "s4",
+      "lose": "s3caught"
+     }
+    }
+   ]
+  },
+  "s3caught": {
+   "speaker": "keeper",
+   "art": "war",
+   "text": [
+    "「待て、その荷を解け」{keeper}が手を挙げると、番所から足軽が二人、棒を持って出てきた。"
+   ],
+   "choices": [
+    {
+     "label": "足軽を打ち倒し、馬を走らせて木戸を破る",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 8
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4",
+      "lose": "fail_caught"
+     }
+    },
+    {
+     "label": "荷を捨てて逃げる",
+     "next": "fail_lost"
+    }
+   ]
+  },
+  "s4": {
+   "art": "hideout",
+   "text": [
+    "関所を背にして峠を下ると、{senior}が馬を止めた。俵を一つ叩くと、中から油紙に包んだ鉄砲の筒が覗いた。",
+    "「頭は数までは数えておらん。一俵抜いて、隣国の商人に売れば十日は遊べる。おまえも半分取れ」"
+   ],
+   "choices": [
+    {
+     "label": "「荷は一俵も欠かさぬ約束だ」と断る",
+     "next": "win_straight"
+    },
+    {
+     "label": "話に乗り、抜いた一俵を隠す",
+     "check": {
+      "skill": "stealth",
+      "dc": 20,
+      "win": "win_skim",
+      "lose": "fail_skim"
+     }
+    },
+    {
+     "label": "{senior}の話を、そのまま頭に告げる",
+     "next": "win_tell"
+    }
+   ]
+  },
+  "win_straight": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は俵の数を数え、満足げに頷いた。「一俵も欠けておらん。関銭も払っておらん。それができる者は、案外少ないものだ」",
+    "「今日から手下だ。{senior}には後で、余計な口を叩かぬよう言っておく」頭はすべて知っていた。"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "unflag": "sg_g1_path"
+    },
+    {
+     "unflag": "sg_g1_threat"
+    },
+    {
+     "note": "関所を破って荷を運びきり、一味の手下となった。"
+    }
+   ],
+   "end": "一俵も欠かさず"
+  },
+  "win_skim": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は俵を数え終え、何も言わなかった。気づかれなかったのか、気づいて黙っているのか、{player}には分からない。",
+    "「手下にしてやる」その声は、いつもより少しだけ冷たかった。"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "money": 60
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    },
+    {
+     "unflag": "sg_g1_path"
+    },
+    {
+     "unflag": "sg_g1_threat"
+    },
+    {
+     "note": "関所破りの荷から一俵を抜き、それでも一味の手下となった。"
+    }
+   ],
+   "end": "抜いた一俵"
+  },
+  "win_tell": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "話を聞いた{boss}は、{senior}を土間に呼び、黙って煙管で頬を打った。{senior}は血の混じった唾を吐き、{player}を睨んだ。",
+    "「仲間を売る奴は嫌いだが、おれを売らん奴は好きだ。手下にしてやる。背中には気をつけろ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "flag": "sg_g1_senior_grudge"
+    },
+    {
+     "unflag": "sg_g1_path"
+    },
+    {
+     "unflag": "sg_g1_threat"
+    },
+    {
+     "note": "{senior}の抜き荷を頭に告げ、一味の手下となった。{senior}の恨みを買った。"
+    }
+   ],
+   "end": "告げ口"
+  },
+  "fail_skim": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は俵を数えるまでもなかった。{senior}がとうに、「見習いが一俵抜いた」と告げていたのだ。「おれの荷に手をつける奴を、手下にはできん。しばらく使い走りに戻れ」"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    },
+    {
+     "unflag": "sg_g1_path"
+    },
+    {
+     "unflag": "sg_g1_threat"
+    },
+    {
+     "note": "抜き荷を見抜かれた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "はめられた見習い"
+  },
+  "fail_lost": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "荷はすべて関所に取り上げられた。{boss}は煙管をくわえたまま、「見習いからやり直せ」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_g1_path"
+    },
+    {
+     "unflag": "sg_g1_threat"
+    },
+    {
+     "note": "関所で荷を失った。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "荷を捨てる"
+  },
+  "fail_caught": {
+   "art": "war",
+   "text": [
+    "棒で打ち据えられ、番所に放り込まれた。{boss}が関守に銭を積んで、どうにか出してもらえたが、顔はすっかり覚えられた。「間抜けを手下にはできん」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "money": -30
+    },
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "unflag": "sg_g1_path"
+    },
+    {
+     "unflag": "sg_g1_threat"
+    },
+    {
+     "note": "関所で捕らえられた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "番所の夜"
+  }
+ }
+}

@@ -1,0 +1,191 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "hunt_righteous",
+ "kind": "random",
+ "where": "office",
+ "weight": 1,
+ "hook": "山の盗賊を討ってほしい。報酬ははずむ",
+ "title": "盗賊討伐",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  },
+  "chief": {
+   "npc": "義賊の頭",
+   "sex": "m"
+  },
+  "lair": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "「{lair}の豪族の蔵ばかり破る{bandit}がいる。豪族どのがやかましくてな」{clerk}は肩をすくめた。"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "village"
+    }
+   ]
+  },
+  "village": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "{lair}で{bandit}の行方を探る",
+   "art": "disaster",
+   "text": [
+    "{lair}の村では、痩せた子どもたちが粟の粥をすすっていた。「夜のうちに、誰かが米を戸口に置いていくんです」と老婆が言う。豪族の蔵から消えた米と、同じ袋だった。"
+   ],
+   "next": "meet"
+  },
+  "meet": {
+   "speaker": "chief",
+   "art": "hideout",
+   "text": [
+    "山の洞で、{chief}は逃げも隠れもしなかった。「豪族は飢饉のあいだも年貢を取り立て、蔵を太らせた。わしらはそれを返しただけだ」"
+   ],
+   "choices": [
+    {
+     "label": "それでも盗みは盗み。討つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "beaten",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "見逃し、{office}には「逃げられた」と言う",
+     "effects": [
+      {
+       "fame": 2
+      },
+      {
+       "guildPath": "righteous"
+      }
+     ],
+     "next": "spared"
+    },
+    {
+     "label": "一味に加わる",
+     "effects": [
+      {
+       "joinGuild": true
+      },
+      {
+       "guildPath": "righteous"
+      }
+     ],
+     "next": "joined"
+    },
+    {
+     "label": "村と豪族のあいだを取りもち、一味を解かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "settled",
+      "lose": "meet_ng"
+     }
+    }
+   ]
+  },
+  "meet_ng": {
+   "speaker": "chief",
+   "text": [
+    "「豪族が耳を貸すものか」{chief}は首を振った。"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "beaten",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "見逃す",
+     "effects": [
+      {
+       "fame": 1
+      }
+     ],
+     "next": "spared"
+    }
+   ]
+  },
+  "beaten": {
+   "text": [
+    "{chief}は縄を打たれた。村の子どもたちが、遠くから黙ってこちらを見ていた。"
+   ],
+   "effects": [
+    {
+     "money": 140
+    },
+    {
+     "favor": 6
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "義賊を捕らえた"
+  },
+  "spared": {
+   "text": [
+    "{clerk}は「逃げられた？」と眉をひそめたが、それ以上は聞かなかった。村には、また米が届くだろう。"
+   ],
+   "end": "見逃した"
+  },
+  "joined": {
+   "text": [
+    "{chief}は笑って杯を差し出した。「義のための刃なら歓迎だ」"
+   ],
+   "end": "義賊に加わった"
+  },
+  "settled": {
+   "text": [
+    "豪族は渋々、蔵の米の一部を村に貸すと約束した。{chief}の一味は山を下り、田に戻った。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    }
+   ],
+   "end": "刃を収めさせた"
+  },
+  "lost": {
+   "text": [
+    "義賊は強かった。{chief}は倒れたあなたに背を向けた。「命までは取らぬ」"
+   ],
+   "end": "討ち損じ"
+  }
+ }
+}

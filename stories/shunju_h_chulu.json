@@ -1,0 +1,598 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_chulu",
+ "kind": "history",
+ "era": "shunju",
+ "title": "魯の祀り",
+ "event": "chu_lu",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2qi",
+  "s2qi_ng",
+  "s3",
+  "s3saved",
+  "s3saved_ng",
+  "s3guest",
+  "s4",
+  "s4ok",
+  "s4ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "qufu"
+  },
+  "chen": {
+   "scnPlace": "wanqiu"
+  },
+  "lu": {
+   "scnRealm": "lu"
+  },
+  "chu": {
+   "scnRealm": "chu"
+  },
+  "qi": {
+   "scnRealm": "qi"
+  },
+  "king": {
+   "person": "ruler:lu"
+  },
+  "chunshen": {
+   "scnPerson": "春申君"
+  },
+  "priest": {
+   "npc": "周公廟の祝",
+   "sex": "m"
+  },
+  "envoy": {
+   "npc": "斉の使者",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "shrine"
+   },
+   "goal": "{city}の周公の廟を訪ねる",
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "{city}の周公の廟は、柱の朱がところどころ剥げ、屋根の瓦も幾枚か落ちていた。それでも庭は掃き清められ、香の煙は絶えていない。",
+    "年老いた{priest}が、{player}に茶を勧めた。「周公旦さまが封ぜられてから八百年、この廟の火は一度も消えたことがない。孔子さまも、この庭で礼を問われた」",
+    "「だが南の楚が、もう泗水のほとりまで来ておる。楚の相の{chunshen}さまは、魯の地をそっくり楚の県にするおつもりだと聞く。県になれば、祀りは誰が続ける」"
+   ],
+   "choices": [
+    {
+     "label": "宮へ行き、魯の君の考えを聞く",
+     "effects": [
+      {
+       "note": "楚が魯を併せようとしている。{city}の周公の廟の祀りが絶えようとしている。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮で、魯の君の朝議を見る",
+   "speaker": "envoy",
+   "art": "court",
+   "text": [
+    "魯の宮は、宮というより古い屋敷だった。{king}は痩せた肩に重すぎる冠を載せ、黙って臣下の言い争いを聞いている。",
+    "列の端に、華やかな衣の男がいた。{qi}から来た{envoy}である。「楚に呑まれれば、魯の名は地図から消えましょう。斉を頼られるなら、斉王は周公の祀りを重んじ、魯の宗廟をそのまま守らせると仰せです」",
+    "老臣の一人が首を振った。「斉を頼れば斉に呑まれる。呑まれる口が変わるだけだ」"
+   ],
+   "choices": [
+    {
+     "label": "{envoy}に与し、「斉は祀りを守ると約している。楚はそれすら約さぬ」と魯の君に説く",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s2qi",
+      "lose": "s2qi_ng"
+     }
+    },
+    {
+     "label": "宮を下がり、楚の都の陳へ向かう",
+     "effects": [
+      {
+       "note": "楚の相、{chunshen}に会うため陳へ向かう。"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s2qi": {
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{player}は楚の県になった国々の末路を数え上げた。宗廟は壊され、祭器は溶かされて銭になった。斉はすくなくとも、祀りを残すと言っている。",
+    "{king}は長いあいだ目を閉じていたが、やがて静かに言った。「呑まれるならば、せめて祀りを守ると言う口に呑まれよう」{envoy}がにやりと笑い、深々と頭を下げた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lu_qi"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "qi",
+     "n": 12
+    },
+    {
+     "rep": "chu",
+     "n": -10
+    },
+    {
+     "note": "魯の君に、斉を頼るよう説いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2qi_ng": {
+   "speaker": "king",
+   "text": [
+    "「斉に呑まれるのも、楚に呑まれるのも同じことだ」{king}は力なく笑った。「客人、魯にはもう、選ぶ力すらないのだよ」{envoy}は舌打ちして席を立った。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "chen",
+    "building": "palace"
+   },
+   "goal": "{chen}で楚の相{chunshen}に会う",
+   "speaker": "chunshen",
+   "art": "court",
+   "text": [
+    "{chunshen}の門には三千の食客が出入りしていた。上客は珠で飾った履をはき、趙から来た使いが玳瑁の簪を見せびらかして恥をかいたという話が、まだ笑い種になっている。",
+    "{chunshen}は鷹揚に{player}を迎えた。「魯か。あれはもう国ではない。城が一つ、廟が一つ、昔話がいくつか。楚の県にして、令を置けば民も楽になろう。蘭陵には荀卿を令に据えた。学のある者に治めさせれば、魯の民も文句はあるまい」"
+   ],
+   "choices": [
+    {
+     "label": "「周公の祀りを絶てば、楚は天下の礼を失う」と説き、魯の宗廟を残させる",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s3saved",
+      "lose": "s3saved_ng"
+     }
+    },
+    {
+     "label": "食客の列に加わり、{chunshen}の話を聞く",
+     "next": "s3guest"
+    },
+    {
+     "label": "一礼して下がる",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3saved": {
+   "speaker": "chunshen",
+   "art": "court",
+   "text": [
+    "{player}は言った。「楚はいま、北の諸侯の盟主になろうとしておられる。盟主は力で決まるのではありませぬ。周公の祀りを守った国か、絶った国か。諸侯はそれを覚えております」",
+    "{chunshen}は扇を止め、しばらく庭の池を眺めていた。「……廟一つ残して天下の口が塞げるなら、安いものか」相は書記を呼び、魯に向かう将に使いを出させた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lu_saved"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "lu",
+     "n": 15
+    },
+    {
+     "rep": "chu",
+     "n": 5
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{chunshen}に説き、魯の祀りを残させた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3saved_ng": {
+   "speaker": "chunshen",
+   "text": [
+    "「礼で国が守れるなら、魯はとうに天下を取っている」{chunshen}は笑い、食客たちもどっと笑った。{player}は顔を伏せて下がるしかなかった。"
+   ],
+   "next": "s4"
+  },
+  "s3guest": {
+   "speaker": "chunshen",
+   "text": [
+    "{chunshen}は上機嫌で、魯を取ったあとの段取りを食客たちに語って聞かせた。魯の君は莒の近くの小邑に移し、家人として養う。祭器は郢へ運ぶ。廟は残すが、祀る者は置かない。",
+    "{player}は黙って杯を干した。祀る者のいない廟とは、つまり空き家のことだ。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lu_guest"
+    },
+    {
+     "money": 50
+    },
+    {
+     "note": "{chunshen}の食客の座で、魯を取ったあとの段取りを聞いた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "shrine"
+   },
+   "goal": "{city}の周公の廟へ戻る",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "廟に戻ると、{priest}が祭器を一つずつ布で拭いていた。鼎、簋、爵。どれも黒ずんで、何百年分の香の匂いが染みついている。",
+    "「楚の兵が来れば、これは郢へ運ばれ、溶かされるだろう。せめて幾つかでも、どこかへ移せればよいのだが……わしの足ではもう遠くへは行けぬ」"
+   ],
+   "choices": [
+    {
+     "label": "祭器と古い簡を背負い、夜のうちに城を出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "{priest}と共に廟の前で祈る",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s4ok": {
+   "speaker": "priest",
+   "text": [
+    "鼎を一つと、祭りの次第を記した簡を一束、背負子に括りつけて夜道を歩いた。泰山の麓の村の祠に預けると、村の長老は黙ってそれを奥へ運んだ。",
+    "戻った{player}に、{priest}は何も聞かず、ただ深く頭を下げた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lu_vessels"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "周公の廟の祭器と簡を、泰山の麓の村へ移した。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4ng": {
+   "text": [
+    "城門の番兵に荷を改められ、鼎は取り上げられた。「楚の兵が来る前に盗み出す気か」{player}は簡の束だけを懐に隠し、なんとか言い逃れた。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で魯の行く末を見届ける",
+   "wait": {
+    "settled": "chu_lu"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lu_saved"
+     },
+     "next": "saved"
+    },
+    {
+     "if": {
+      "branch": "lu_qi"
+     },
+     "next": "toqi"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "saved": {
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "楚の兵は泗水を越えてきたが、{city}の城門の前で止まった。将は{chunshen}の書を読み上げ、魯の君を城に留め、宗廟の祀りを続けることを許すと告げた。",
+    "その夜、周公の廟にはいつもより多くの香が焚かれた。{priest}は火を見つめながら言った。「八百年と一年。……一年でもよい。火は消さずにおくものだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lu_saved"
+    },
+    {
+     "unflag": "h_lu_qi"
+    },
+    {
+     "unflag": "h_lu_vessels"
+    },
+    {
+     "unflag": "h_lu_guest"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "lu",
+     "n": 10
+    },
+    {
+     "world": {
+      "ja": "{chu}は魯に向けた兵を城門の前で止めた。周公の祀りを憚ったとも、小国一つ取りきれなかったとも、諸侯は噂した。",
+      "do": [
+       [
+        "add",
+        "chu",
+        "prestige",
+        -3
+       ]
+      ],
+      "imp": 1
+     }
+    },
+    {
+     "note": "魯は滅ばず、周公の祀りは続いた。"
+    }
+   ],
+   "end": "消えなかった火"
+  },
+  "toqi": {
+   "speaker": "envoy",
+   "art": "court",
+   "text": [
+    "楚の兵が着く前に、斉の兵が北から{city}に入った。城の旗は斉のものに替わり、{king}は斉の臣として城に残された。周公の廟には斉の役人が来て、祀りの日取りを帳面に書きつけていった。",
+    "{envoy}は{player}の肩を叩いた。「楚は地団駄を踏んでおるそうだ。おぬしのおかげで、斉は戦わずに城を一つ得た」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lu_saved"
+    },
+    {
+     "unflag": "h_lu_qi"
+    },
+    {
+     "unflag": "h_lu_vessels"
+    },
+    {
+     "unflag": "h_lu_guest"
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "qi",
+     "n": 5
+    },
+    {
+     "note": "魯は斉に帰し、祀りは斉の手で続けられた。"
+    }
+   ],
+   "end": "東の盟"
+  },
+  "after": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で魯の終わりを見届ける",
+   "wait": {
+    "settled": "chu_lu"
+   },
+   "speaker": "priest",
+   "art": "tale",
+   "text": [
+    "楚の兵が{city}に入った。戦らしい戦はなかった。{king}は冠を脱いで城を出され、東の小さな邑へ移された。もう君ではなく、楚の一人の民である。",
+    "廟の祭器は車に積まれて南へ運ばれていった。{priest}は空になった祭壇の前に座り込み、灯明の火だけを守っていた。「周公旦さまから八百年。わしの代で終わるとはな」"
+   ],
+   "choices": [
+    {
+     "label": "泰山の麓へ預けた祭器のことを{priest}に告げる",
+     "if": {
+      "flag": "h_lu_vessels"
+     },
+     "next": "end_vessels"
+    },
+    {
+     "label": "{priest}の灯明の番を代わる",
+     "next": "end_lamp"
+    },
+    {
+     "label": "黙って{city}を去る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_vessels": {
+   "speaker": "priest",
+   "text": [
+    "{priest}は顔を上げ、それから声を上げて泣いた。「鼎一つ、簡一束。それで足りる。それさえあれば、いつか誰かが祀りを興せる」",
+    "何十年かのち、魯の故地の儒者たちが古い礼を伝えたとき、その手には泰山の麓の祠から出た一束の簡があったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lu_saved"
+    },
+    {
+     "unflag": "h_lu_qi"
+    },
+    {
+     "unflag": "h_lu_vessels"
+    },
+    {
+     "unflag": "h_lu_guest"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "魯は楚に滅ぼされた。周公の廟の祭器と簡を守った。"
+    }
+   ],
+   "end": "残された祭器"
+  },
+  "end_lamp": {
+   "text": [
+    "{player}は一晩、空の祭壇の前で灯明を守った。夜明けに楚の役人が来て、廟の門に封をした。",
+    "{priest}は門の外で、封をされた扉に向かって長いあいだ拝んでいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lu_saved"
+    },
+    {
+     "unflag": "h_lu_qi"
+    },
+    {
+     "unflag": "h_lu_vessels"
+    },
+    {
+     "unflag": "h_lu_guest"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "魯は楚に滅ぼされ、周公の祀りは絶えた。"
+    }
+   ],
+   "end": "封じられた廟"
+  },
+  "end_plain": {
+   "text": [
+    "{city}の城門を出ると、街道を楚の荷車が南へ連なっていた。積まれているのは、魯の八百年である。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lu_saved"
+    },
+    {
+     "unflag": "h_lu_qi"
+    },
+    {
+     "unflag": "h_lu_vessels"
+    },
+    {
+     "unflag": "h_lu_guest"
+    },
+    {
+     "note": "魯は楚に滅ぼされ、周公の祀りは絶えた。"
+    }
+   ],
+   "end": "絶えた祀り"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の途中で噂を聞いた。楚が魯を滅ぼし、魯の君は民に落とされたという。周公旦以来の祀りも、これで絶えた。",
+    "「孔子さまの国が、なくなったのか」と、宿の若い者がつぶやいた。誰も答えなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lu_saved"
+    },
+    {
+     "unflag": "h_lu_qi"
+    },
+    {
+     "unflag": "h_lu_vessels"
+    },
+    {
+     "unflag": "h_lu_guest"
+    },
+    {
+     "note": "魯が楚に滅ぼされたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった祀り"
+  }
+ },
+ "branches": [
+  {
+   "id": "lu_qi",
+   "why": "主人公が魯の君に斉を頼らせた",
+   "event": "chu_lu",
+   "order": 2,
+   "when": {
+    "flag": "h_lu_qi"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_chu}の兵が迫ると、{n_lu}の君は{n_qi}を頼み、魯の地は斉に帰した。周公以来の祀りは斉の手で続けられた。",
+    "do": [
+     [
+      "annex",
+      "qi",
+      "lu"
+     ]
+    ],
+    "imp": 2,
+    "at": "qufu"
+   }
+  },
+  {
+   "id": "lu_saved",
+   "why": "主人公が春申君に魯の祀りを説いた",
+   "event": "chu_lu",
+   "order": 1,
+   "when": {
+    "flag": "h_lu_saved"
+   },
+   "then": "cancel",
+   "note": "[[p:春申君]]は周公の祀りを絶つことを憚り、{n_lu}を滅ぼさずに置いた。"
+  }
+ ]
+}

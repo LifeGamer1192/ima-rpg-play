@@ -1,0 +1,801 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_jiuding",
+ "kind": "history",
+ "era": "shunju",
+ "title": "九鼎西へ",
+ "event": "qin_zhou",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2pay",
+  "s2talk",
+  "s2no",
+  "s2league",
+  "s2lg_ok",
+  "s2lg_ng",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s3scout",
+  "s3sink_ok",
+  "s3sink_ng",
+  "s4",
+  "s4ok",
+  "s4ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "luoyi"
+  },
+  "xianyang": {
+   "scnPlace": "xianyang"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "zhou": {
+   "scnRealm": "zhou"
+  },
+  "king": {
+   "person": "ruler:zhou"
+  },
+  "scribe": {
+   "npc": "周の史官",
+   "sex": "m"
+  },
+  "creditor": {
+   "npc": "金貸し",
+   "sex": "m"
+  },
+  "officer": {
+   "npc": "秦の校尉",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}へ行く",
+   "art": "tale",
+   "text": [
+    "天子の都というには、{city}は寂しかった。宮の瓦は割れ、門前の石畳には草が生えている。八百年前、武王が殷を討って鼎を据えた都だと言われても、にわかには信じがたい。",
+    "宮門の前に人だかりがしていた。証文を振りかざした商人たちが、口々に天子の名を呼んでいる。「借りた金を返せ！　兵を集めると言ったではないか！」",
+    "人垣の外で、白髪の老人が竹簡の束を抱えて立ちすくんでいた。{zhou}に仕える史官、{scribe}だという。"
+   ],
+   "choices": [
+    {
+     "label": "老人に事情を聞く",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮で{scribe}の話を聞く",
+   "speaker": "scribe",
+   "art": "court",
+   "text": [
+    "「{king}さまは、諸侯と合従して{qin}を討つと仰せになり、民から金を借りて兵を募られた。だが諸侯は来なかった。兵は散り、借金だけが残った」",
+    "「いま陛下は、宮の奥の高台に登って、債鬼から隠れておられる。民はそれを債台と呼んで笑っておる……」老人の声が震えた。表では{creditor}という金貸しが、宮の門扉を叩き壊さんばかりに怒鳴っている。"
+   ],
+   "choices": [
+    {
+     "label": "自分の金で、取り立ての一部を肩代わりする",
+     "if": {
+      "money": 150
+     },
+     "effects": [
+      {
+       "money": -150
+      }
+     ],
+     "next": "s2pay"
+    },
+    {
+     "label": "{creditor}を言いくるめて、今日は引き取らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2talk",
+      "lose": "s2no"
+     }
+    },
+    {
+     "label": "天子の借金など知ったことではない",
+     "next": "s2no"
+    },
+    {
+     "label": "「諸侯への救いの使いを、わたしが務めましょう」と申し出る",
+     "turn": true,
+     "next": "s2league"
+    }
+   ]
+  },
+  "s2league": {
+   "speaker": "scribe",
+   "art": "court",
+   "text": [
+    "老人は目を見開いた。「諸侯はもう誰も、天子の使いなど相手にせぬ。それでも行くと言うのか」",
+    "韓・魏・楚の宮へ、天子の印を押した書を届ける。{qin}の東進を恐れる国はある。だが恐れて動く国と、恐れて動かぬ国がある。"
+   ],
+   "choices": [
+    {
+     "label": "三国の宮を回り、{qin}が周を呑めば次は自分だと説く",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s2lg_ok",
+      "lose": "s2lg_ng"
+     }
+    },
+    {
+     "label": "やはり無理だと引き下がる",
+     "next": "s2no"
+    }
+   ]
+  },
+  "s2lg_ok": {
+   "speaker": "scribe",
+   "text": [
+    "一月のうちに、韓と魏の使いが{city}へ来た。兵は出さぬが、{qin}が周を攻めるなら黙ってはおらぬ、という書を携えて。楚も遅れて同じ書をよこした。",
+    "「これで少しは時が稼げる」{scribe}は書を抱いて泣いた。「少しだけだがな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jiuding_league"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "zhou",
+     "n": 15
+    },
+    {
+     "rep": "qin",
+     "n": -10
+    },
+    {
+     "note": "諸侯に{zhou}を見捨てぬよう説いて回った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2lg_ng": {
+   "text": [
+    "どの宮でも、使いは門の外で半日待たされ、書は封も切られずに返された。{player}は手ぶらで{city}へ戻った。"
+   ],
+   "next": "s3"
+  },
+  "s2pay": {
+   "speaker": "creditor",
+   "text": [
+    "{creditor}は銭を数え、鼻を鳴らした。「物好きな。天子に貸した金が戻るものか。だがまあ、今日のところは引き上げてやる」門前の人だかりが、ゆっくりと散っていった。"
+   ],
+   "effects": [
+    {
+     "rep": "zhou",
+     "n": 15
+    },
+    {
+     "note": "{king}の借金を一部肩代わりした。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2talk": {
+   "speaker": "creditor",
+   "text": [
+    "「{qin}の兵が来れば、証文はただの竹切れだ。いま騒いで天子を怒らせるより、新しい主に貸しを作る算段をした方が利口だぞ」{creditor}は舌打ちして、仲間を連れて去った。"
+   ],
+   "effects": [
+    {
+     "rep": "zhou",
+     "n": 8
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "s3"
+  },
+  "s2no": {
+   "text": [
+    "騒ぎは日が暮れるまで続いた。{scribe}は{player}の袖を引いた。「ならばせめて、別のことで力を貸してくれぬか。太廟へ来てほしい」"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "shrine"
+   },
+   "goal": "{city}の太廟で{scribe}と会う",
+   "speaker": "scribe",
+   "art": "faith",
+   "text": [
+    "薄暗い太廟の奥に、九つの鼎が並んでいた。禹が九州から集めた金で鋳たと伝わる鼎だ。腹には山川の神々と、遠い昔の王たちの言葉が鋳込まれている。",
+    "「{qin}が来れば、鼎は西へ運ばれる。止めることはできぬ。だが、この銘を写しておけば、言葉だけは周に残る。手伝ってくれぬか」老人はそう言ってから、さらに声を落とした。「……それとは別に、鼎を一つ東へ逃がそうという者たちもおる。運ぶ道筋を探る者が要るそうだ」"
+   ],
+   "choices": [
+    {
+     "label": "墨と紙を借り、銘を写し取る",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "鼎を逃がす者たちのために、{qin}の見張りを探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s3scout",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "scribe",
+   "text": [
+    "三晩かけて、九つの鼎の銘をすべて写し終えた。読めない古い字も多かったが、{scribe}が一字ずつ教えてくれた。「これで鼎が失われても、言葉は失われぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jiuding_rubbing"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "九鼎の銘を写し取った。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3scout": {
+   "text": [
+    "夜の城外を歩き回り、{qin}の斥候が見張る渡し場と、見張りのない古い間道を確かめた。鼎を運び出そうという者たちに伝えると、彼らは黙って頭を下げた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_jiuding_road"
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "wanted": "qin",
+     "n": 8
+    },
+    {
+     "note": "鼎を東へ逃がそうとする者たちに道を教えた。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "客舎へ戻る",
+     "next": "s4"
+    },
+    {
+     "label": "鼎を運ぶ者たちに加わり、一つを泗水の淵へ沈める",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 32,
+      "win": "s3sink_ok",
+      "lose": "s3sink_ng"
+     }
+    }
+   ]
+  },
+  "s3sink_ok": {
+   "art": "tale",
+   "text": [
+    "夜明け前の泗水に、牛車ごと鼎を押し出した。青銅の腹が水を呑み、泡を一つ吐いて沈んでいく。運んだ者たちは岸に膝をつき、東を向いて長いあいだ動かなかった。",
+    "「{qin}が九つをそろえることは、もうない」誰かが言った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_jiuding_sunk"
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "wanted": "qin",
+     "n": 15
+    },
+    {
+     "note": "鼎の一つを泗水に沈めた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3sink_ng": {
+   "text": [
+    "間道の途中で牛が倒れ、夜が明けた。{qin}の斥候の目を逃れるため、鼎は林の中に残して散るしかなかった。"
+   ],
+   "effects": [
+    {
+     "wanted": "qin",
+     "n": 10
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "text": [
+    "うまくいかなかった。墨はにじみ、夜道は迷い、時ばかりが過ぎた。{scribe}は「無理を言った」と寂しく笑った。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎に戻る",
+   "wait": {
+    "days": 5
+   },
+   "speaker": "officer",
+   "art": "war",
+   "text": [
+    "客舎に戻ると、{qin}の先触れの校尉{officer}が兵を連れて上がり込んでいた。「周の史官と通じている者がいると聞いた。隠した竹簡を出せ」",
+    "兵の一人が{scribe}の腕をねじり上げている。老人は唇を噛んで声を立てない。"
+   ],
+   "choices": [
+    {
+     "label": "兵を叩きのめし、老人を連れて逃げる",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "「ただの暦の写しです」と言い逃れる",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "銭を握らせて見逃してもらう",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "s4ok"
+    }
+   ]
+  },
+  "s4ok": {
+   "speaker": "scribe",
+   "text": [
+    "{officer}たちが去ると、{scribe}は崩れるように座り込んだ。「助かった。わしはもう老いた。鼎が西へ行く日を、この目で見届けたら、郷里へ帰ろう」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jiuding_saved"
+    },
+    {
+     "note": "{qin}の校尉から{scribe}を守った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4ng": {
+   "text": [
+    "{scribe}は引き立てられていった。翌朝、竹簡の束を焼いた灰の前で、老人は放り出されていた。命だけは助かったが、写しの一部は失われた。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "note": "{scribe}の竹簡が焼かれた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で{zhou}の最後を見届ける",
+   "wait": {
+    "settled": "qin_zhou"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "zhou_sunk"
+     },
+     "next": "after_sunk"
+    },
+    {
+     "if": {
+      "branch": "zhou_league"
+     },
+     "next": "after_league"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "after_sunk": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "text": [
+    "{qin}の軍が{city}に入った。{king}は頭を地につけ、残る邑と民を献じた。八百年続いた周の王統は、ここに絶えた。",
+    "太廟から引き出された鼎は八つだった。{qin}の校尉は九つ目を探して太廟の床まで剥がさせたが、見つからなかった。泗水の淵の底のことを知る者は、もう誰も口を開かない。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "note": "{qin}が持ち去った鼎は八つだった。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "写した銘を携えて{xianyang}へ行く",
+     "if": {
+      "flag": "h_jiuding_rubbing"
+     },
+     "next": "west"
+    },
+    {
+     "label": "{scribe}を郷里まで送る",
+     "if": {
+      "flag": "h_jiuding_saved"
+     },
+     "next": "end_scribe"
+    },
+    {
+     "label": "八つの鼎の行列を見送る",
+     "next": "end_watch"
+    }
+   ]
+  },
+  "after_league": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "text": [
+    "諸侯の書がもたらした二年は、短かった。韓も魏も、{qin}の兵が動くと、書のことなど忘れたように門を閉ざした。",
+    "{qin}の軍が{city}に入り、{king}は残る邑と民を献じた。九つの鼎が西へ運ばれていく。二年遅れの、同じ終わりだった。"
+   ],
+   "choices": [
+    {
+     "label": "写した銘を携えて{xianyang}へ行く",
+     "if": {
+      "flag": "h_jiuding_rubbing"
+     },
+     "next": "west"
+    },
+    {
+     "label": "{scribe}を郷里まで送る",
+     "if": {
+      "flag": "h_jiuding_saved"
+     },
+     "next": "end_scribe"
+    },
+    {
+     "label": "鼎の行列を見送る",
+     "next": "end_watch"
+    }
+   ]
+  },
+  "after": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で{zhou}の最後を見届ける",
+   "wait": {
+    "fired": "qin_zhou"
+   },
+   "art": "war",
+   "text": [
+    "{qin}の軍が{city}に入った。{king}は自ら{qin}へ赴いて頭を地につけ、残る三十六の邑と三万の民を献じた。八百年続いた周の王統は、ここに絶えた。",
+    "太廟から九つの鼎が引き出され、牛に曳かれた車に載せられて、西の{xianyang}へ向かっていく。沿道の民は声もなく見送った。後に、一つの鼎は途中で泗水に沈んで失われたとも、もとから八つしかなかったとも噂された。"
+   ],
+   "choices": [
+    {
+     "label": "写した銘を携えて{xianyang}へ行く",
+     "if": {
+      "flag": "h_jiuding_rubbing"
+     },
+     "next": "west"
+    },
+    {
+     "label": "{scribe}を郷里まで送る",
+     "if": {
+      "flag": "h_jiuding_saved"
+     },
+     "next": "end_scribe"
+    },
+    {
+     "label": "鼎の行列を見送る",
+     "next": "end_watch"
+    }
+   ]
+  },
+  "west": {
+   "at": {
+    "place": "xianyang",
+    "building": "palace"
+   },
+   "goal": "{xianyang}の宮城へ行く",
+   "speaker": "{qin}の礼官",
+   "art": "court",
+   "text": [
+    "{xianyang}の宮では、届いた鼎の銘を読める者がおらず、礼官たちが頭を抱えていた。{player}が写しを広げると、礼官の目の色が変わった。「これは……どの字が何と読むのか、分かるのか」"
+   ],
+   "choices": [
+    {
+     "label": "写しを献じ、読み方を教える",
+     "effects": [
+      {
+       "money": 300
+      },
+      {
+       "fame": 6
+      },
+      {
+       "rep": "qin",
+       "n": 10
+      }
+     ],
+     "next": "end_west"
+    },
+    {
+     "label": "「これは周の言葉だ」と写しを渡さずに去る",
+     "effects": [
+      {
+       "fame": 3
+      },
+      {
+       "xp": "letters",
+       "n": 3
+      }
+     ],
+     "next": "end_keep"
+    }
+   ]
+  },
+  "end_west": {
+   "speaker": "{qin}の礼官",
+   "text": [
+    "礼官は写しを押し戴いた。「鼎は{qin}のものとなった。だが鼎の言葉が読めねば、天命を受けたとは言えぬ。そなたのおかげだ」{player}の手に重い銭袋が残った。周の言葉は、{qin}の宮で生き延びることになった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_jiuding_rubbing"
+    },
+    {
+     "unflag": "h_jiuding_saved"
+    },
+    {
+     "unflag": "h_jiuding_road"
+    },
+    {
+     "note": "九鼎の銘の写しを{qin}の宮に献じた。"
+    }
+   ],
+   "end": "鼎の言葉"
+  },
+  "end_keep": {
+   "text": [
+    "{player}は写しを背負って{xianyang}を出た。鼎は西に奪われたが、その言葉は、いま自分の背にある。いつか読むべき者に渡そう、と思った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_jiuding_rubbing"
+    },
+    {
+     "unflag": "h_jiuding_saved"
+    },
+    {
+     "unflag": "h_jiuding_road"
+    },
+    {
+     "note": "九鼎の銘の写しを手元に残した。"
+    }
+   ],
+   "end": "背負った銘"
+  },
+  "end_scribe": {
+   "speaker": "scribe",
+   "text": [
+    "郷里へ向かう道すがら、{scribe}はぽつりぽつりと周の昔話をした。文王の徳、成王と周公、幽王と烽火の話。「鼎は器にすぎぬ。徳があれば軽く、徳がなければ重い。昔、楚の王が鼎の軽重を問うたとき、王孫満はそう答えたのだ」",
+    "別れ際、老人は一巻の竹簡を{player}に渡した。「わしが書き継いだ周の記録の最後の巻だ。そなたが持っていてくれ」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "item": "bamboo"
+    },
+    {
+     "unflag": "h_jiuding_rubbing"
+    },
+    {
+     "unflag": "h_jiuding_saved"
+    },
+    {
+     "unflag": "h_jiuding_road"
+    },
+    {
+     "note": "{scribe}を郷里へ送り、周の記録の最後の巻を託された。"
+    }
+   ],
+   "end": "最後の史官"
+  },
+  "end_watch": {
+   "text": [
+    "最後の車が西門をくぐるまで、{player}はそこに立っていた。隣で、昨日まで証文を振りかざしていた{creditor}が、帽子を取って黙って頭を下げていた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_jiuding_rubbing"
+    },
+    {
+     "unflag": "h_jiuding_saved"
+    },
+    {
+     "unflag": "h_jiuding_road"
+    },
+    {
+     "note": "九鼎が西へ運ばれるのを見送った。"
+    }
+   ],
+   "end": "周の終わり"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "zhou_sunk"
+     },
+     "next": "late_sunk"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_sunk": {
+   "art": "tale",
+   "text": [
+    "知らせが届いた。{qin}が{zhou}を滅ぼし、鼎を{xianyang}へ移したという。ただ、運ばれた鼎は八つだった。",
+    "泗水の淵に沈んだ九つ目のことを、{player}は誰にも話さなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_jiuding_rubbing"
+    },
+    {
+     "unflag": "h_jiuding_saved"
+    },
+    {
+     "unflag": "h_jiuding_road"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{qin}が持ち去った鼎は八つだった。"
+    }
+   ],
+   "end": "沈んだ鼎"
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "知らせが届いた。{qin}が{zhou}を滅ぼし、九鼎を{xianyang}へ移したという。八百年続いた天子の家は、もうない。",
+    "{player}がそれを聞いたのは、すべてが終わった後だった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_jiuding_rubbing"
+    },
+    {
+     "unflag": "h_jiuding_saved"
+    },
+    {
+     "unflag": "h_jiuding_road"
+    },
+    {
+     "note": "{zhou}の終わりに立ち会えなかった。"
+    }
+   ],
+   "end": "遠い鼎"
+  }
+ },
+ "branches": [
+  {
+   "id": "zhou_sunk",
+   "event": "qin_zhou",
+   "order": 2,
+   "why": "主人公が鼎の一つを泗水に沈めた",
+   "when": {
+    "flag": "h_jiuding_sunk"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_qin}は{n_zhou}を滅ぼし、鼎を咸陽へ移した。だが運ばれた鼎は八つだった。一つは泗水の淵に沈み、ついに見つからなかったという。八百年続いた周の王統はここに絶えた。",
+    "do": [
+     [
+      "annex",
+      "qin",
+      "zhou"
+     ],
+     [
+      "add",
+      "qin",
+      "prestige",
+      -10
+     ]
+    ],
+    "imp": 3,
+    "at": "luoyi"
+   }
+  },
+  {
+   "id": "zhou_league",
+   "event": "qin_zhou",
+   "order": 1,
+   "why": "主人公が諸侯に周の救いを説いて回った",
+   "when": {
+    "flag": "h_jiuding_league"
+   },
+   "then": "delay",
+   "months": 24,
+   "note": "韓・魏・楚が{n_zhou}を見捨てぬと書を送り、{n_qin}は周を攻めるのを見合わせた。"
+  }
+ ]
+}

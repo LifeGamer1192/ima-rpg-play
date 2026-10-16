@@ -1,0 +1,597 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_yishui",
+ "kind": "history",
+ "title": "易水の西",
+ "era": "shunju",
+ "event": "qin_ji",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s2hurt",
+  "s3",
+  "s3ok",
+  "s3hurt",
+  "s3hold",
+  "s3hold_ng",
+  "s4",
+  "s4dan",
+  "s4dan_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "ji_yan"
+  },
+  "river": {
+   "scnPlace": "xiadu"
+  },
+  "yan": {
+   "scnRealm": "yan"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:yan"
+  },
+  "dan": {
+   "scnPerson": "太子丹"
+  },
+  "wangjian": {
+   "scnPerson": "王翦"
+  },
+  "gao": {
+   "scnPerson": "高漸離"
+  },
+  "general": {
+   "npc": "燕の将",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の酒場で{gao}の筑を聞く",
+   "speaker": "gao",
+   "art": "inn",
+   "text": [
+    "{city}の市の酒場で、筑を打つ男がいた。{gao}。易水のほとりで、旅立つ荊軻のために筑を打ち、皆が涙を流したという、その人である。",
+    "荊軻の匕首は、秦王の袖を裂いただけだった。秦の怒りは燕へ向かい、{wangjian}の軍がもう易水の西に迫っているという。{gao}は弦を止めて言った。「あの男は帰らなかった。歌のとおりにな。次に帰らぬのは、この町かもしれん」"
+   ],
+   "choices": [
+    {
+     "label": "易水の陣へ向かう",
+     "effects": [
+      {
+       "note": "荊軻の企ては敗れ、{wangjian}の軍が易水の西に迫っている。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「その筑を、もう一曲」と頼んでから発つ",
+     "effects": [
+      {
+       "note": "荊軻の企ては敗れ、{wangjian}の軍が易水の西に迫っている。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "river",
+    "building": "barracks"
+   },
+   "goal": "{river}の陣で{general}に会う",
+   "speaker": "general",
+   "art": "war",
+   "text": [
+    "易水の東岸に、燕と代の兵が並んでいた。代は、邯鄲を逃れた趙の公子嘉が北に立てた国である。旗の色の違う二つの軍は、互いの陣の間に柵を立てていた。",
+    "{general}は西岸を睨んで言った。「{wangjian}は河を渡らぬ。渡るのを待っている我らを見て、笑っておる。せめて、どこから渡ってくるかが分かれば」"
+   ],
+   "choices": [
+    {
+     "label": "夜の河を渡り、秦の陣の渡し場の支度を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "代の陣を訪ね、燕と手を合わせるよう説く",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "text": [
+    "秦は上流の浅瀬に筏を集めていた。正面の陣は見せかけだ。{general}は報せを聞くと上流へ兵を回したが、代の陣は動かなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "河の中ほどで、秦の見張りの船に見つかった。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2hurt"
+     }
+    }
+   ]
+  },
+  "s2hurt": {
+   "text": [
+    "冷たい河に落ち、流されて東岸に這い上がった。何も持ち帰れなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の城壁で守りに就く",
+   "speaker": "general",
+   "art": "war",
+   "text": [
+    "易水の陣は、ひと月ともたなかった。上流から渡った秦の兵に背後を衝かれ、燕・代の軍は散った。{general}は残った兵をまとめて{city}に籠もった。",
+    "城の外では、秦の兵が雲梯と衝車を組み上げている。{general}は城壁の上で{player}に言った。「あれが城壁に着いたら、終わりだ」"
+   ],
+   "choices": [
+    {
+     "label": "城壁の守りに就く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3hurt"
+     }
+    },
+    {
+     "label": "夜、決死の兵と城を出て、秦の攻め具を焼き払う",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3hold",
+      "lose": "s3hold_ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "城壁に取りついた秦の兵を、何度も突き落とした。だが攻め具の組み上げは、昼も夜も止まらなかった。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hurt": {
+   "text": [
+    "城壁の上で矢を受け、櫓の中へ運び込まれた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hold": {
+   "speaker": "general",
+   "art": "war",
+   "text": [
+    "北風の強い夜を選んだ。{player}と兵五十は城の排水溝から抜け出し、組み上がった雲梯の足元に油の壺を叩きつけた。風が火を煽り、炎は隣の衝車へ、その隣の櫓へと走った。",
+    "朝、秦の陣の前には黒焦げの木組みが並んでいた。{general}は城壁の上で拳を突き上げた。「{wangjian}は、また一から木を伐らねばならん。冬が来る。薊は、もう一年もつぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qj_hold"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "yan",
+     "n": 15
+    },
+    {
+     "wanted": "qin",
+     "n": 15
+    },
+    {
+     "note": "{city}の城外で秦の攻め具を焼き払った。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hold_ng": {
+   "text": [
+    "秦の見張りは油の匂いに気づいていた。火を放つ前に囲まれ、{player}は兵の半ばを失って城へ逃げ戻った。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で{dan}に会う",
+   "speaker": "dan",
+   "art": "court",
+   "text": [
+    "宮城では、{king}が遼東へ落ちる支度をさせていた。代王から使いが来て、こう言ったという。「秦が燕を急に攻めるのは、太子丹のためです。太子を斬って秦に献じれば、秦は兵を退くでしょう」",
+    "{dan}は、自分の居室で荊軻の残した剣を磨いていた。「父上は迷っておられる。迷っておられるうちは、わたしは生きている」太子は笑った。「荊軻を送ったのはわたしだ。首を差し出すのが筋かもしれぬ」"
+   ],
+   "choices": [
+    {
+     "label": "黙って宮を下がる",
+     "next": "aftergo"
+    },
+    {
+     "label": "太子に、東の海辺の漁村へ落ちのびる道を手引きする",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 37,
+      "win": "s4dan",
+      "lose": "s4dan_ng"
+     }
+    }
+   ]
+  },
+  "s4dan": {
+   "speaker": "dan",
+   "art": "road",
+   "text": [
+    "{player}は塩を運ぶ車を一台買い、太子の髪を切らせ、塩商人の手代の衣を着せた。東の門の番兵は、塩の荷の重さだけを確かめて通した。",
+    "海の見える丘で、{dan}は車を降りた。「荊軻は帰らなかった。わたしは帰らぬわけにいかぬ。生きて、燕がどうなるかを見届けねばならぬ」太子は剣を{player}に預け、漁師の小屋へ消えていった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_qj_dan"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "yan",
+     "n": 10
+    },
+    {
+     "note": "{dan}を、東の海辺の漁村へ落ちのびさせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4dan_ng": {
+   "text": [
+    "塩の車が宮門を出る前に、{king}の近臣に見咎められた。{dan}は車から降り、静かに居室へ戻っていった。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、燕の都の行く末を見届ける",
+   "wait": {
+    "settled": "qin_ji"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qj_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "if": {
+      "branch": "qj_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "qj_dan"
+     },
+     "next": "escaped"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "noking": {
+   "speaker": "gao",
+   "art": "inn",
+   "text": [
+    "秦の王が死んだという報せが届くと、{wangjian}の軍は易水の西へ退いた。荊軻が果たせなかったことを、誰かが果たしたのか、天が果たしたのか。",
+    "{gao}は酒場で筑を打ちながら言った。「あの男の歌は、ようやく終わった。……いや、終わらせてもらった、か」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_qj_hold"
+    },
+    {
+     "unflag": "h_qj_dan"
+    },
+    {
+     "note": "秦の王が死に、{wangjian}は{city}から退いた。"
+    }
+   ],
+   "end": "終わった歌"
+  },
+  "held": {
+   "speaker": "general",
+   "art": "war",
+   "text": [
+    "攻め具を焼かれた{wangjian}は城を囲んだまま冬を越し、雪の中で木を伐り直した。{city}は落ちなかった。少なくとも、この一年は。",
+    "{general}は凍った城壁の上で{player}と並んだ。「一年で燕が強くなるわけではない。だが、太子と王の間を取り持つ一年にはなるかもしれん」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "yan",
+     "n": 10
+    },
+    {
+     "unflag": "h_qj_hold"
+    },
+    {
+     "unflag": "h_qj_dan"
+    },
+    {
+     "note": "{city}は一年持ちこたえた。"
+    }
+   ],
+   "end": "凍った城壁"
+  },
+  "escaped": {
+   "speaker": "gao",
+   "art": "tale",
+   "text": [
+    "{city}は落ち、{king}は遼東へ逃れた。王の使いは太子の居室へ向かったが、そこには磨きかけの砥石しか残っていなかった。秦に献じる首は、ついに届かなかった。",
+    "{gao}は焼け跡の酒場で、{player}に杯を渡した。「太子は生きて、燕の行く末を見届けるという。荊軻も、それなら許すだろう」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "unflag": "h_qj_hold"
+    },
+    {
+     "unflag": "h_qj_dan"
+    },
+    {
+     "note": "{city}は落ちたが、{dan}は海辺へ逃れて生きた。"
+    }
+   ],
+   "end": "届かなかった首"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、燕の都の行く末を見届ける",
+   "wait": {
+    "settled": "qin_ji"
+   },
+   "speaker": "gao",
+   "art": "war",
+   "text": [
+    "{city}は落ちた。{king}は遼東へ逃れ、代王の言うままに、太子{dan}の首を斬って秦に献じた。秦の兵は、それでも退かなかった。",
+    "焼け落ちた市の酒場で、{gao}が筑を抱えていた。「荊軻の首、樊於期の首、そして太子の首。燕は首ばかり差し出して、何も得なかった」"
+   ],
+   "choices": [
+    {
+     "label": "{gao}と共に、名を変えて{city}を落ちる",
+     "next": "end_gao"
+    },
+    {
+     "label": "筑の音を背に、黙って{city}を去る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_gao": {
+   "speaker": "gao",
+   "text": [
+    "{gao}は名を変え、宋子の町で雇われ人になるという。「いつか、筑の音がこの身を明かすだろう。そのときは、そのときだ」",
+    "別れ際、{gao}は弦を一本だけ鳴らした。易水の歌の、最初の音だった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_qj_hold"
+    },
+    {
+     "unflag": "h_qj_dan"
+    },
+    {
+     "note": "{city}は落ち、太子丹は父に斬られた。{gao}と共に落ちのびた。"
+    }
+   ],
+   "end": "名を変えた筑"
+  },
+  "end_plain": {
+   "text": [
+    "易水を東へ渡るとき、{player}は一度だけ振り返った。風は冷たく、河は黙って流れていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_qj_hold"
+    },
+    {
+     "unflag": "h_qj_dan"
+    },
+    {
+     "note": "{city}が落ち、太子丹が斬られるのを見届けた。"
+    }
+   ],
+   "end": "易水寒く"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qj_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "if": {
+      "branch": "qj_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "qj_dan"
+     },
+     "next": "escaped"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。秦の{wangjian}が易水の西で燕・代の軍を破り、薊を落としたという。燕王は遼東へ逃れ、太子丹の首を斬って秦に献じたとも。",
+    "「荊軻の匕首の代わりに、太子の首か」と、噂の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_qj_hold"
+    },
+    {
+     "unflag": "h_qj_dan"
+    },
+    {
+     "note": "薊が落ちたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "qj_noking",
+   "event": "qin_ji",
+   "order": 3,
+   "why": "秦王政がすでに殺されていた",
+   "when": {
+    "slain": [
+     "秦王政"
+    ]
+   },
+   "then": "cancel",
+   "note": "王を失った{n_qin}の[[p:王翦]]は易水の西へ兵を退き、{n_yan}の都薊は落ちなかった。"
+  },
+  {
+   "id": "qj_hold",
+   "event": "qin_ji",
+   "order": 2,
+   "why": "主人公が薊の城外で攻め具を焼いた",
+   "when": {
+    "flag": "h_qj_hold"
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "薊の城外で{n_qin}の攻め具が焼き払われ、[[p:王翦]]は城を抜けずに冬を越した。{n_yan}の都は一年持ちこたえた。",
+   "people": [
+    {
+     "spare": "太子丹",
+     "years": 1
+    }
+   ]
+  },
+  {
+   "id": "qj_dan",
+   "event": "qin_ji",
+   "order": 1,
+   "why": "主人公が太子丹を海辺へ逃がした",
+   "when": {
+    "flag": "h_qj_dan"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}の[[p:王翦]]は易水の西で燕・代の軍を破り、{n_yan}の都薊を落とした。[[p:燕王喜]]は遼東へ逃れたが、[[p:太子丹]]は手引きする者を得て東の海辺に落ちのび、首を斬られることはなかった。",
+    "do": [
+     [
+      "add",
+      "yan",
+      "prestige",
+      -8
+     ]
+    ],
+    "imp": 2,
+    "at": "ji_yan"
+   },
+   "people": [
+    {
+     "spare": "太子丹",
+     "years": 10
+    }
+   ]
+  }
+ ]
+}

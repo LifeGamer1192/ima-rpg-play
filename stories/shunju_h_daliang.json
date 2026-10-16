@@ -1,0 +1,853 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_daliang",
+ "kind": "history",
+ "title": "大梁の水",
+ "era": "shunju",
+ "event": "qin_wei",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2sab",
+  "s2sab2_ok",
+  "s2sab2_ng",
+  "s3",
+  "s3surr",
+  "s3surr_ok",
+  "s3surr_ng",
+  "s4",
+  "s5"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "daliang"
+  },
+  "wei": {
+   "scnRealm": "wei"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:wei"
+  },
+  "wangben": {
+   "scnPerson": "王賁"
+  },
+  "works": {
+   "place": "near:city"
+  },
+  "elder": {
+   "npc": "堤守りの老人",
+   "sex": "m"
+  },
+  "merchant": {
+   "npc": "米商人",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で堤守りの話を聞く",
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "大梁の客舎は、北から逃げてきた人で溢れていた。秦の軍が城の北に陣を張り、昼も夜も土を掘っているという。",
+    "泥のこびりついた手の老人が、{player}の袖を引いた。{elder}、五十年黄河の堤を守ってきたという。「あれは塹壕ではない。河の水を引く水路だ。大梁は低い。河が来れば、この城は鉢の底になる」"
+   ],
+   "choices": [
+    {
+     "label": "「確かめてこよう」",
+     "effects": [
+      {
+       "note": "{elder}に聞き、秦が黄河の水を引こうとしているのを確かめに行くことにした。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「その話、城の役人にはしたのか」",
+     "next": "s1b"
+    }
+   ]
+  },
+  "s1b": {
+   "speaker": "elder",
+   "text": [
+    "「したとも。三度な。三度とも、老いぼれの寝言だと追い返された」老人は唾を吐いた。「証がいるのだ。秦が何をしておるか、この目で見た者の言葉がな」"
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "works"
+   },
+   "goal": "{works}の河原で秦の工事を探る",
+   "speaker": "wangben",
+   "art": "war",
+   "text": [
+    "夜の河原に、松明が星のように並んでいた。何千という人夫が土を掘り、秦の兵が見張っている。掘られた溝は、まっすぐ大梁の方角へ伸びていた。",
+    "指図しているのは若い将だった。老将王翦の子、{wangben}である。「河が秋に増える前に掘り終えよ。一日遅れれば、一日余計に兵が死ぬ」"
+   ],
+   "choices": [
+    {
+     "label": "人夫に紛れて工事の図を盗み見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2fight"
+     }
+    },
+    {
+     "label": "人夫頭に酒をおごって聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s2fight"
+     }
+    },
+    {
+     "label": "見張りを斬り、堰の杭を抜く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2sab",
+      "lose": "s2run"
+     }
+    }
+   ]
+  },
+  "s2fight": {
+   "text": [
+    "「おい、どこの組の者だ」見張りの兵が槍を向けた。言い訳は通じそうにない。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2run"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "text": [
+    "水路は三本。堤を三か所で切り、秋の大水を一度に城へ流し込むつもりだ。図に書かれた日付は、そう遠くなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dl_plan"
+    },
+    {
+     "note": "秦が黄河の堤を三か所で切り、大梁を水に沈めるつもりだと知った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2sab": {
+   "text": [
+    "杭を何本か抜くと、堰の一つが崩れて溝が泥で埋まった。だが翌朝には、倍の人夫が集められていた。工事が遅れたのは数日。それだけだ。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dl_plan"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "wanted": "qin",
+     "n": 15
+    }
+   ],
+   "choices": [
+    {
+     "label": "{city}の宮へ急ぐ",
+     "next": "s3"
+    },
+    {
+     "label": "人夫頭たちに銭を握らせ、夜ごと堰を崩させる",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "s2sab2_ok",
+      "lose": "s2sab2_ng"
+     }
+    }
+   ]
+  },
+  "s2sab2_ok": {
+   "art": "tale",
+   "text": [
+    "人夫の多くは魏の村から駆り出された者たちだった。銭と、故郷の田が水に沈むという話だけで足りた。",
+    "夜ごと、どこかの堰が崩れた。秦の役人は人夫を鞭打ち、見張りを倍にしたが、崩れる堰の数は減らなかった。黄河の水が{city}に届く日は、季節ひとつ分ずつ遠のいていく。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dl_sabotage"
+    },
+    {
+     "wanted": "qin",
+     "n": 25
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "{qin}の水攻めの堰を夜ごと崩させた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2sab2_ng": {
+   "text": [
+    "人夫頭の一人が、銭を受け取ったその足で秦の役人に告げに走った。{player}は工事場から逃げ出すしかなかった。"
+   ],
+   "effects": [
+    {
+     "wanted": "qin",
+     "n": 20
+    }
+   ],
+   "next": "s3"
+  },
+  "s2run": {
+   "text": [
+    "矢が耳をかすめた。河に飛び込み、流れに任せて逃げた。見たものは少ないが、溝の向きだけは確かだった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で水攻めを告げる",
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{city}の宮城では、{king}が群臣を前に胸を張っていた。「大梁の城壁は天下一の堅さ。秦が百年攻めても落ちはせぬ」",
+    "居並ぶ大夫たちは、誰も顔を上げなかった。"
+   ],
+   "choices": [
+    {
+     "label": "工事の図を示し、民を城から出すよう説く",
+     "if": {
+      "flag": "h_dl_plan"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "低い城壁に土嚢を積む許しを願い出る",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "「降って民を救うべきです」と進言する",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s3surr",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "{king}は不機嫌に手を振ったが、一人の大夫がそっと進み出た。「老人と子どもだけでも東門から出しておけば、守りの口が減りましょう」王は渋々うなずいた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dl_evac"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "{city}の老人と子どもを東門から出す許しを得た。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3surr": {
+   "text": [
+    "{king}の顔が赤く染まった。「魏は文侯以来の国ぞ。下がれ」",
+    "退出すると、年老いた大夫が追ってきた。「よう言うてくれた。誰も言えなんだことを」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "黙って退出する",
+     "next": "s4"
+    },
+    {
+     "label": "老大夫らと連署し、降る策を幾度でも上奏する",
+     "turn": true,
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "s3surr_ok",
+      "lose": "s3surr_ng"
+     }
+    }
+   ]
+  },
+  "s3surr_ok": {
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "七度目の上奏の日、{king}は竹簡を最後まで読んだ。窓の外では、黄河の方角の空が鈍く光っている。",
+    "「民を沈めて国を守る王を、民は王と呼ぶか」王はそう呟き、玉璽を袱紗に包ませた。「水が来る前に、城を出る」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dl_surrender"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "wei",
+     "n": 10
+    },
+    {
+     "note": "魏王に、水が来る前に降るよう説いた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3surr_ng": {
+   "text": [
+    "上奏は二度、三度と退けられ、四度目には宮門で追い返された。"
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "text": [
+    "「臆病者の言葉を聞く耳はない」{player}は衛士に追い出された。宮門の外では、{elder}が黙って首を振った。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の市で{merchant}に会う",
+   "speaker": "merchant",
+   "art": "trade",
+   "text": [
+    "米の値は日ごとに上がっていた。{merchant}は倉いっぱいに米を抱えている。",
+    "「水が来るなら、米は金より重くなるわ。あなた、一口乗らない？　舟も買っておけば、水の上で米を売れるのよ」"
+   ],
+   "choices": [
+    {
+     "label": "米を買い占め、高く売る",
+     "check": {
+      "skill": "trade",
+      "dc": 24,
+      "win": "s4rich",
+      "lose": "s4loss"
+     }
+    },
+    {
+     "label": "舟を買い集め、城の子どもたちのために米を積む（200）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "s4boats"
+    },
+    {
+     "label": "{merchant}を説き、米を安く町へ出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s4boats",
+      "lose": "s4loss"
+     }
+    }
+   ]
+  },
+  "s4rich": {
+   "speaker": "merchant",
+   "text": [
+    "米は飛ぶように売れた。{merchant}は銭を数えながら言った。「水の中じゃ、銭は浮かないけれどね」"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "flag": "h_dl_greed"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4boats": {
+   "text": [
+    "小舟が十艘、米を積んで東門の内に繋がれた。町の子どもたちが、物珍しげに舟べりを叩いて遊んでいる。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dl_boats"
+    },
+    {
+     "note": "{city}の東門に、米を積んだ舟を用意した。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4loss": {
+   "text": [
+    "値は思うように動かず、手元の銭が少し減っただけだった。"
+   ],
+   "effects": [
+    {
+     "money": -50
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で秋の大水を待つ",
+   "wait": {
+    "days": 40
+   },
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "ある夜、北の空が地鳴りのように鳴った。堤が切れたのだ。朝には、大梁の城は見渡すかぎりの泥水に囲まれていた。",
+    "水は日ごとに城壁を噛み、低い町では井戸が濁った。熱を出す子が増えている。{elder}が言った。「三月もこれが続けば、壁より先に人が崩れる」"
+   ],
+   "choices": [
+    {
+     "label": "病人を手当てして回る",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "s5heal",
+      "lose": "s5tired"
+     }
+    },
+    {
+     "label": "城壁に上り、崩れかけた所を土嚢で塞ぐ",
+     "check": {
+      "skill": "blade",
+      "dc": 22,
+      "win": "s5wall",
+      "lose": "s5tired"
+     }
+    }
+   ]
+  },
+  "s5heal": {
+   "text": [
+    "濁った水を煮てから飲ませ、熱の子を高い所へ移した。死ぬ者は減った。それでも水は引かない。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "flag": "h_dl_healer"
+    }
+   ],
+   "next": "s6go"
+  },
+  "s5wall": {
+   "text": [
+    "夜通し土嚢を運び、城壁の裂け目を塞いだ。だが、塞いだ隣からまた水が滲み出してくる。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "next": "s6go"
+  },
+  "s5tired": {
+   "text": [
+    "働いても働いても、水は減らなかった。{player}も熱を出し、三日寝込んだ。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s6go"
+  },
+  "s6go": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、事の終わりを見届ける",
+   "wait": {
+    "settled": "qin_wei"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dl_surrender"
+     },
+     "next": "surrendered"
+    },
+    {
+     "if": {
+      "branch": "dl_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "surrendered": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "wangben",
+   "art": "court",
+   "text": [
+    "{king}は白い衣で城門を出て、{wangben}の陣に玉璽を差し出した。堰はその日のうちに閉じられ、黄河の水は{city}に届かなかった。",
+    "{wangben}は{player}を見て言った。「水を引いたのは私だが、水を止めたのはおぬしらの王だ。私は戦を一つ、おぬしは町を一つ、減らした」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "unflag": "h_dl_surrender"
+    },
+    {
+     "unflag": "h_dl_plan"
+    },
+    {
+     "unflag": "h_dl_evac"
+    },
+    {
+     "unflag": "h_dl_boats"
+    },
+    {
+     "unflag": "h_dl_greed"
+    },
+    {
+     "unflag": "h_dl_healer"
+    },
+    {
+     "note": "{city}は水に沈まず、魏は降った。"
+    }
+   ],
+   "end": "沈まなかった都"
+  },
+  "noking": {
+   "at": {
+    "place": "city"
+   },
+   "art": "tale",
+   "text": [
+    "王を失った{qin}の軍は、堰を半ばで捨てて西へ引き揚げていった。{city}の人々は、掘りかけの溝を見に行き、首をかしげて帰ってきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dl_plan"
+    },
+    {
+     "unflag": "h_dl_evac"
+    },
+    {
+     "unflag": "h_dl_boats"
+    },
+    {
+     "unflag": "h_dl_greed"
+    },
+    {
+     "unflag": "h_dl_healer"
+    }
+   ],
+   "end": "掘りかけの溝"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "水に囲まれた{city}で、事の終わりを見届ける",
+   "wait": {
+    "settled": "qin_wei"
+   },
+   "speaker": "wangben",
+   "art": "disaster",
+   "text": [
+    "三か月。城壁はついに崩れ、{king}は城を出て降った。魏という国は、ここで終わった。",
+    "秦の兵が舟で城内へ漕ぎ入ってきた。先頭の舟に{wangben}が立っていた。「この水を引いたのは私だ。恨むなら恨め。だが、これで戦は一つ減る」"
+   ],
+   "choices": [
+    {
+     "label": "用意した舟で、取り残された人々を救いに漕ぎ出す",
+     "if": {
+      "flag": "h_dl_boats"
+     },
+     "next": "end_boats"
+    },
+    {
+     "label": "東門から出した人々のもとへ向かう",
+     "if": {
+      "flag": "h_dl_evac"
+     },
+     "next": "end_evac"
+    },
+    {
+     "label": "秦の兵に残りの米を売りつける",
+     "if": {
+      "flag": "h_dl_greed"
+     },
+     "next": "end_greed"
+    },
+    {
+     "label": "{wangben}に「この水の名は、ここに残る」と言い放つ",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "end_defy",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "静かに城を去る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_boats": {
+   "text": [
+    "{player}の舟は三日のあいだ水の上を巡り、屋根にしがみつく人々を拾い続けた。秦の兵も、それを止めはしなかった。",
+    "のちに大梁の人々は、あの年の水を語るとき、決まって「米を積んだ舟」の話をした。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "wei",
+     "n": 15
+    },
+    {
+     "note": "大梁は水に沈み、魏は滅んだ。舟で人々を救った。"
+    }
+   ],
+   "end": "水の上の舟"
+  },
+  "end_evac": {
+   "speaker": "elder",
+   "text": [
+    "東の丘の上に、城から出した老人と子どもたちが身を寄せ合っていた。{elder}が{player}を見つけて、泥だらけの手で拝んだ。",
+    "「鉢の底から、これだけは掬えた。わしの五十年の堤より、あんたの一言のほうが人を守ったわい」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "wei",
+     "n": 10
+    },
+    {
+     "note": "大梁は水に沈み、魏は滅んだ。城の老人と子どもを先に逃がしていた。"
+    }
+   ],
+   "end": "丘の上の子ら"
+  },
+  "end_greed": {
+   "speaker": "merchant",
+   "text": [
+    "秦の兵は、腹が減っていた。米は言い値で売れた。{merchant}は銭を数えて笑い、それから急に黙った。",
+    "水に浮かぶものの中に、小さな履が一つあった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "wei",
+     "n": -15
+    },
+    {
+     "rep": "qin",
+     "n": 5
+    },
+    {
+     "note": "大梁は水に沈み、魏は滅んだ。米を売って儲けた。"
+    }
+   ],
+   "end": "水の上の銭"
+  },
+  "end_defy": {
+   "speaker": "wangben",
+   "text": [
+    "{wangben}はしばらく{player}を見つめ、それから頷いた。「覚えておこう。私の名と一緒にな」",
+    "秦の将は降った者の命を取らず、水の引いた町に粥を配らせた。それが{player}の言葉のせいかどうかは、誰にも分からない。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "qin",
+     "n": 5
+    },
+    {
+     "rep": "wei",
+     "n": 5
+    },
+    {
+     "note": "大梁は水に沈み、魏は滅んだ。{wangben}に物申した。"
+    }
+   ],
+   "end": "水の名"
+  },
+  "end_plain": {
+   "text": [
+    "{player}は泥の道を東へ歩いた。振り返ると、大梁の城壁は水の中に半ば沈み、秦の旗が濡れて垂れていた。"
+   ],
+   "effects": [
+    {
+     "note": "大梁は水に沈み、魏は滅んだ。"
+    }
+   ],
+   "end": "鉢の底の都"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dl_surrender"
+     },
+     "next": "surrendered"
+    },
+    {
+     "if": {
+      "branch": "dl_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "噂が届いた。秦の{wangben}が黄河の堤を切り、大梁を三か月のあいだ水に浸したという。城壁は崩れ、魏王は降った。",
+    "旅人は言った。「あの城は、いまでも雨のたびに泥の匂いがするそうだ」"
+   ],
+   "effects": [
+    {
+     "note": "大梁が水に沈み、魏が滅んだと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "dl_noking",
+   "event": "qin_wei",
+   "order": 3,
+   "why": "秦王政がすでに殺されていた",
+   "when": {
+    "slain": [
+     "秦王政"
+    ]
+   },
+   "then": "cancel",
+   "note": "王を失った{n_qin}の軍は大梁の堰を半ばで捨てて退き、{n_wei}は滅びなかった。"
+  },
+  {
+   "id": "dl_surrender",
+   "event": "qin_wei",
+   "order": 2,
+   "why": "主人公が魏王に水の前に降るよう説いた",
+   "when": {
+    "flag": "h_dl_surrender"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_wei}の王は黄河の水が大梁に届く前に城を出て、[[p:王賁]]の陣に降った。都は水に沈まず、魏はここに終わった。",
+    "do": [
+     [
+      "annex",
+      "qin",
+      "wei"
+     ]
+    ],
+    "imp": 3,
+    "at": "daliang"
+   }
+  },
+  {
+   "id": "dl_sabotage",
+   "event": "qin_wei",
+   "order": 1,
+   "why": "主人公が人夫に堰を夜ごと崩させた",
+   "when": {
+    "flag": "h_dl_sabotage"
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "大梁を水攻めにする{n_qin}の堰は夜ごとに崩され、水が届くのは一年遅れた。"
+  }
+ ]
+}

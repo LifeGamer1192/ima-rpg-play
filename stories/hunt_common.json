@@ -1,0 +1,140 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "hunt_common",
+ "kind": "random",
+ "where": "office",
+ "weight": 3,
+ "hook": "山の盗賊を討ってほしい。報酬ははずむ",
+ "title": "盗賊討伐",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  },
+  "lair": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}が地図を広げた。「{lair}の峠に{bandit}が巣くって、荷車が三台やられた。兵は出せぬ。腕の立つ者を探している」"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "lair"
+    }
+   ]
+  },
+  "lair": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "{lair}の峠で{bandit}を討つ",
+   "art": "hideout",
+   "text": [
+    "峠の岩陰に、焚き火の跡と盗品の山があった。見張りの口笛が鳴り、刃物を手にした男たちが出てくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り込む",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "頭目を説いて散らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "talked",
+      "lose": "lair_ng"
+     }
+    }
+   ]
+  },
+  "lair_ng": {
+   "text": [
+    "「口の達者な奴だ」頭目は笑い、手下に顎をしゃくった。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "won": {
+   "text": [
+    "{bandit}は散り散りに逃げた。盗品を荷車に積んで{here}へ戻ると、{clerk}が約束の銭を数えた。"
+   ],
+   "effects": [
+    {
+     "money": 160
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "峠は静かになった"
+  },
+  "talked": {
+   "text": [
+    "頭目はしばらく黙っていたが、やがて手下に引き上げを命じた。{clerk}は首をかしげながらも報酬を払った。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "end": "口で散らした"
+  },
+  "lost": {
+   "text": [
+    "多勢に無勢だった。命からがら{here}へ逃げ戻ると、{clerk}は黙って首を振った。"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    }
+   ],
+   "end": "討ち損じ"
+  }
+ }
+}

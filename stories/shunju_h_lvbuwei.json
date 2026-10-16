@@ -1,0 +1,678 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_lvbuwei",
+ "kind": "history",
+ "era": "shunju",
+ "title": "奇貨居くべし",
+ "event": "lv_buwei_xiang",
+ "lead": 10,
+ "before": [
+  "s1",
+  "s1ok",
+  "s1ng",
+  "s2",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s3fight",
+  "s4",
+  "s4give",
+  "s4sell",
+  "s4burn",
+  "s4accuse_ok",
+  "s4accuse_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "xianyang"
+  },
+  "handan": {
+   "scnPlace": "handan"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "lv": {
+   "scnPerson": "呂不韋"
+  },
+  "king": {
+   "person": "ruler:qin"
+  },
+  "steward": {
+   "npc": "呂家の家宰",
+   "sex": "m"
+  },
+  "noble": {
+   "npc": "秦の宗室",
+   "sex": "m"
+  },
+  "agent": {
+   "npc": "宗室の刺客",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の市へ行く",
+   "speaker": "steward",
+   "art": "trade",
+   "text": [
+    "{city}の市に、{lv}の家の者が人を求める札を出していた。{lv}は陽翟の大商人で、いまは{king}の側近として宮に出入りしている。商人上がりの寵臣を、古い家の者たちは露骨に嫌っていた。",
+    "家宰の{steward}は{player}を値踏みするように見た。「主は算盤の分かる者を求めておる。一つ問おう。人質に出された、母の身分も低い、国から見捨てられた公子がいる。その値打ちはいくらだ」"
+   ],
+   "choices": [
+    {
+     "label": "「いまは一銭。だが国を買えば、値は量れません」",
+     "check": {
+      "skill": "trade",
+      "dc": 24,
+      "win": "s1ok",
+      "lose": "s1ng"
+     }
+    },
+    {
+     "label": "「値は、その公子を誰が買うかで決まります」",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s1ok",
+      "lose": "s1ng"
+     }
+    }
+   ]
+  },
+  "s1ok": {
+   "speaker": "steward",
+   "text": [
+    "{steward}は初めて笑った。「主と同じことを言う。ついて来い。主が会ってくださる」"
+   ],
+   "effects": [
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "next": "s2"
+  },
+  "s1ng": {
+   "speaker": "steward",
+   "text": [
+    "「凡庸な答えだ」{steward}はそう言いかけて、ふと手を止めた。「……だが、おぬしの顔は{city}で知られておらぬ。それが今は役に立つ。来い」"
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で{lv}に会う",
+   "speaker": "lv",
+   "art": "court",
+   "text": [
+    "{lv}は太った体を揺らして、穏やかに笑った。「若いころ、{handan}で商いをしていてな。{qin}から来た人質の公子を見かけた。粗末な車に乗り、着る物にも事欠いておられた。わしはその場で言ったのだ。これは奇貨だ、居くべし、とな」",
+    "「千金を投じた。半分で公子の暮らしを立て、半分で珍しい品を買って華陽夫人に献じ、公子を跡継ぎにしていただいた。その公子が、いまの{king}さまだ」",
+    "笑みが消えた。「その千金の帳簿が、まだ{handan}の旧宅に残っている。誰にいくら贈ったかが、すべて書いてある。{noble}さまの手の者が、それを探しに{handan}へ向かったそうだ。王の位を金で買ったと言いふらされれば、わしはともかく、王の御名に傷がつく」"
+   ],
+   "choices": [
+    {
+     "label": "{handan}へ行き、帳簿を探す",
+     "effects": [
+      {
+       "note": "{lv}の頼みで、{handan}の旧宅にある帳簿を探しに行く。"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "handan",
+    "building": "inn"
+   },
+   "goal": "{handan}の客舎で{lv}の旧宅を探る",
+   "speaker": "客舎の主",
+   "art": "tale",
+   "text": [
+    "{lv}の旧宅は、いまは空き家になって、客舎の主が鍵を預かっていた。「つい昨日も、{qin}訛りの男が同じことを聞いてきましたよ」",
+    "夜、旧宅の土間を掘り返すと、漆の箱が出てきた。中には細かい字で埋まった竹簡の束。そのとき、背後の戸口に人影が立った。{noble}の手の者、{agent}だ。"
+   ],
+   "choices": [
+    {
+     "label": "箱を抱えて闇に紛れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s3ok",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "「同じ{qin}の者同士、話をしよう」と持ちかける",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s3ok",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "剣を抜く",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3fight": {
+   "speaker": "agent",
+   "text": [
+    "逃げ道は塞がれていた。{agent}が刃を抜く。「箱を置いていけば命までは取らぬ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り結ぶ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "箱を置いて逃げる",
+     "next": "s3ng"
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "{agent}を振り切り、帳簿の箱を手に入れた。月明かりで竹簡を繰ると、名だたる貴人たちへの贈り物が、日付と額まで並んでいる。これ一つで{city}の宮が揺れるだろう。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lv_ledger"
+    },
+    {
+     "item": "lacquer"
+    },
+    {
+     "note": "{lv}の千金の帳簿を手に入れた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "speaker": "agent",
+   "text": [
+    "結局、帳簿は{agent}の手に渡った。{agent}は肩をすくめた。「恨むなよ。だが、商人が王を買った証が出たところで、王が商人を捨てるとは限らぬがな」"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    },
+    {
+     "note": "帳簿は{noble}の手の者に奪われた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城へ戻る",
+   "speaker": "noble",
+   "art": "court",
+   "text": [
+    "宮の門の前で、輿から降りてきた{noble}に呼び止められた。「{lv}の犬か。帳簿のことは聞いておる」",
+    "「あの商人は、王の御心を金で買った。{qin}の宗廟に商人の帳面を持ち込ませるわけにはいかぬのだ。帳簿を持っておるなら、わしに渡せ。礼はする。持っておらぬなら、それでよい。どのみち、わしの手の者が見つけておる」"
+   ],
+   "choices": [
+    {
+     "label": "帳簿を{lv}に届ける",
+     "if": {
+      "flag": "h_lv_ledger"
+     },
+     "next": "s4give"
+    },
+    {
+     "label": "帳簿を{noble}に売る",
+     "if": {
+      "flag": "h_lv_ledger"
+     },
+     "next": "s4sell"
+    },
+    {
+     "label": "帳簿をその場で火にくべる",
+     "if": {
+      "flag": "h_lv_ledger"
+     },
+     "next": "s4burn"
+    },
+    {
+     "label": "手ぶらで{lv}のもとへ戻る",
+     "if": {
+      "notFlag": "h_lv_ledger"
+     },
+     "effects": [
+      {
+       "flag": "h_lv_none"
+      }
+     ],
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s4give": {
+   "speaker": "lv",
+   "text": [
+    "{lv}は帳簿を一巻ずつ確かめ、静かに頷いた。「よくやってくれた。これは焼かぬ。いつか、わしが誰に何を贈ったか、わし自身が忘れぬためにな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_lv_loyal"
+    },
+    {
+     "unflag": "h_lv_ledger"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4sell": {
+   "speaker": "noble",
+   "text": [
+    "{noble}は帳簿を受け取り、銭袋を投げてよこした。「賢い。商人に付く者より、{qin}の血に付く者のほうが長生きする」"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "flag": "h_lv_sold"
+    },
+    {
+     "unflag": "h_lv_ledger"
+    },
+    {
+     "note": "帳簿を{noble}に売った。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "銭を懐に、沙汰を待つ",
+     "next": "aftergo"
+    },
+    {
+     "label": "{noble}と共に朝議に出て、商人が王位を買ったことを鳴らす",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s4accuse_ok",
+      "lose": "s4accuse_ng"
+     }
+    }
+   ]
+  },
+  "s4accuse_ok": {
+   "speaker": "noble",
+   "art": "court",
+   "text": [
+    "朝議の席で、{player}は帳簿を一巻ずつ読み上げた。どの夫人に何を贈り、どの宗室にいくら握らせたか。居並ぶ大夫の顔が、一人また一人と強張っていく。",
+    "{king}は最後まで黙って聞き、やがて詔を巻き戻させた。「相国の沙汰は、しばし措く」{lv}は顔色一つ変えずに一礼し、退出していった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lv_accused"
+    },
+    {
+     "spare": "lv",
+     "years": 15
+    },
+    {
+     "rep": "qin",
+     "n": 5
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "朝議で{lv}の買収を鳴らした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4accuse_ng": {
+   "text": [
+    "朝議の門の前で、{noble}は急に足を止めた。「やはりやめておこう。王の御前で王の値を読み上げる者は、王に疎まれる」帳簿は宗室の邸に消え、{player}の手には銭だけが残った。"
+   ],
+   "next": "aftergo"
+  },
+  "s4burn": {
+   "text": [
+    "{player}は門番の火鉢に竹簡を一巻ずつくべた。{noble}が何か叫んだが、炎は止まらない。誰のものにもならぬ方がいい帳面というものがある。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lv_burned"
+    },
+    {
+     "unflag": "h_lv_ledger"
+    },
+    {
+     "rep": "qin",
+     "n": -3
+    },
+    {
+     "note": "帳簿を焼き捨てた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で沙汰を待つ",
+   "wait": {
+    "settled": "lv_buwei_xiang"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lv_unmade"
+     },
+     "next": "unmade"
+    },
+    {
+     "if": {
+      "branch": "lv_gone"
+     },
+     "next": "gone"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "unmade": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "speaker": "lv",
+   "art": "court",
+   "text": [
+    "相国の沙汰は、ついに下りなかった。{lv}は洛陽の邸に退き、門客たちは潮が引くように散っていった。",
+    "宮を出るとき、{player}は門の脇で{lv}とすれ違った。商人は立ち止まり、{player}の顔をじっと見た。「よい商いをしたな。だが覚えておけ。値の付いたものは、いつか別の誰かに買われる。おぬしも、だ」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_lv_sold"
+    },
+    {
+     "unflag": "h_lv_accused"
+    },
+    {
+     "note": "{lv}は相国にならず、洛陽へ退いた。"
+    }
+   ],
+   "end": "読み上げられた帳簿"
+  },
+  "gone": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "art": "court",
+   "text": [
+    "相国に立てられるはずだった商人は、もういない。{king}は誰を相国とするでもなく、宮の廊下の食客の列も、いつのまにか消えていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lv_ledger"
+    },
+    {
+     "unflag": "h_lv_loyal"
+    },
+    {
+     "unflag": "h_lv_sold"
+    },
+    {
+     "unflag": "h_lv_burned"
+    },
+    {
+     "unflag": "h_lv_none"
+    }
+   ],
+   "end": "主のない門"
+  },
+  "after": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で沙汰を待つ",
+   "wait": {
+    "fired": "lv_buwei_xiang"
+   },
+   "art": "court",
+   "text": [
+    "{king}は詔を下した。{lv}を相国とし、文信侯に封じて、洛陽の十万戸を食ませる。{handan}の市で人質の公子に目を留めた商人が、ついに{qin}の宰相となったのだ。",
+    "宮の廊下には、これから{lv}の門に身を寄せようとする食客が早くも列をなしていた。いずれ三千人を数えることになる。"
+   ],
+   "choices": [
+    {
+     "label": "{lv}に祝いを述べる",
+     "if": {
+      "flag": "h_lv_loyal"
+     },
+     "next": "end_loyal"
+    },
+    {
+     "label": "{lv}の前に顔を出す",
+     "if": {
+      "flag": "h_lv_burned"
+     },
+     "next": "end_burned"
+    },
+    {
+     "label": "{city}を去る",
+     "if": {
+      "flag": "h_lv_sold"
+     },
+     "next": "end_sold"
+    },
+    {
+     "label": "列に並び、門客となる",
+     "if": {
+      "flag": "h_lv_none"
+     },
+     "next": "end_queue"
+    }
+   ]
+  },
+  "end_loyal": {
+   "speaker": "lv",
+   "text": [
+    "{lv}は{player}を上客の席に座らせた。「奇貨とは、人のことだ。わしは公子に賭けて勝った。そなたにも賭けよう」",
+    "「門下の学者たちに、天下のあらゆる学を一つの書にまとめさせるつもりだ。出来上がったら{city}の市の門に掲げ、一字でも直せる者には千金を与えると触れを出す。そなたも、ひとつ読んでみてくれ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "money": 300
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "unflag": "h_lv_loyal"
+    },
+    {
+     "note": "相国となった{lv}の上客に迎えられた。"
+    }
+   ],
+   "end": "相国の上客"
+  },
+  "end_burned": {
+   "speaker": "lv",
+   "text": [
+    "{lv}は{player}の話を聞くと、腹を抱えて笑った。「焼いたか！　わしが千金で買ったものを、そなたは火鉢一つで片付けたわけだ」",
+    "「よい。値打ちのある物を、持たぬことで守るという商いもある。そなたはわしより商人だ」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "money": 150
+    },
+    {
+     "unflag": "h_lv_burned"
+    },
+    {
+     "note": "{lv}に、帳簿を焼いたことを笑って許された。"
+    }
+   ],
+   "end": "持たぬ商い"
+  },
+  "end_sold": {
+   "text": [
+    "{noble}は帳簿を王に差し出したという。だが{king}は竹簡を開きもせず、「わしがこの身を買われたことは、わしが一番よく知っている」とだけ言って退けたそうだ。",
+    "{player}の懐の銭は重かったが、{city}で{lv}の門をくぐることは、もうないだろう。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "rep": "qin",
+     "n": -5
+    },
+    {
+     "unflag": "h_lv_sold"
+    },
+    {
+     "note": "帳簿を売った銭を懐に、{city}を去った。"
+    }
+   ],
+   "end": "売られた帳簿"
+  },
+  "end_queue": {
+   "speaker": "steward",
+   "text": [
+    "列の先で、{steward}が{player}に気づいた。「帳簿は取り返せなんだが、命を張ったことは主も聞いておる。客の末席に名を書いておこう」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "money": 100
+    },
+    {
+     "unflag": "h_lv_none"
+    },
+    {
+     "note": "相国{lv}の門客の末席に名を連ねた。"
+    }
+   ],
+   "end": "三千の客の一人"
+  },
+  "late": {
+   "art": "tale",
+   "text": [
+    "知らせが届いた。{qin}の王は、かつて{handan}で人質だった自分を助けた商人{lv}を相国とし、文信侯に封じたという。",
+    "「奇貨居くべし」と言った男の賭けは、{player}の知らぬところで実を結んでいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lv_ledger"
+    },
+    {
+     "unflag": "h_lv_loyal"
+    },
+    {
+     "unflag": "h_lv_sold"
+    },
+    {
+     "unflag": "h_lv_burned"
+    },
+    {
+     "unflag": "h_lv_none"
+    },
+    {
+     "note": "{lv}が{qin}の相国となった。"
+    }
+   ],
+   "end": "商人の宰相"
+  }
+ },
+ "branches": [
+  {
+   "id": "lv_unmade",
+   "event": "lv_buwei_xiang",
+   "order": 2,
+   "why": "主人公が朝議で呂不韋の買収を暴いた",
+   "when": {
+    "flag": "h_lv_accused"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}の王は[[p:呂不韋]]を相国にしようとしたが、宗室が商人の買収を記した帳簿を朝議に持ち出し、沙汰は止んだ。呂不韋は洛陽の邸に退いた。",
+    "do": [
+     [
+      "add",
+      "qin",
+      "stability",
+      -0.05
+     ]
+    ],
+    "imp": 2,
+    "at": "xianyang"
+   }
+  },
+  {
+   "id": "lv_gone",
+   "event": "lv_buwei_xiang",
+   "order": 1,
+   "why": "呂不韋がすでに亡くなっていた",
+   "when": {
+    "dead": [
+     "呂不韋"
+    ]
+   },
+   "then": "cancel",
+   "note": "相国に立てられるはずだった[[p:呂不韋]]はもういない。{n_qin}の相国の座は空いたままだった。"
+  }
+ ]
+}

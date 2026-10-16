@@ -1,0 +1,112 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_kosenjo",
+ "kind": "random",
+ "where": "folk",
+ "hook": "戦で死んだ夫の刀を、せめて取り戻したいのです",
+ "title": "古戦場の形見",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "後家"
+  },
+  "husband": {
+   "npc": "亡き夫",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}の夫{husband}は、先の戦で討ち死にした。首は届いたが、刀は戻らなかった。",
+    "「戦のあった野には、今も屍あさりがうろついているそうです。夫の刀には、家の紋を刻んだ鍔がついております」"
+   ],
+   "choices": [
+    {
+     "label": "古戦場を探しに行く",
+     "effects": [
+      {
+       "site": {
+        "kind": "battlefield",
+        "place": "here",
+        "foes": [
+         {
+          "type": "robber",
+          "n": 3,
+          "level": 0,
+          "name": "屍あさり"
+         }
+        ],
+        "people": [
+         {
+          "role": "priest"
+         }
+        ]
+       }
+      }
+     ],
+     "next": "field"
+    },
+    {
+     "label": "断る",
+     "next": "end_refuse"
+    }
+   ]
+  },
+  "field": {
+   "at": {
+    "place": "here",
+    "site": "chest"
+   },
+   "goal": "古戦場で打ち捨てられた荷を探す",
+   "art": "ruins",
+   "text": [
+    "打ち捨てられた荷の下に、泥にまみれた刀があった。鍔に、{client}の言った紋が刻まれている。"
+   ],
+   "choices": [
+    {
+     "label": "刀を持ち帰る",
+     "next": "end_back"
+    }
+   ]
+  },
+  "end_back": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "text": [
+    "{client}は刀を胸に抱き、しばらく動かなかった。「これで、あの人を弔えます」礼にと、なけなしの銭を差し出した。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "古戦場から{husband}の形見の刀を持ち帰った。"
+    }
+   ],
+   "end": "戻った形見"
+  },
+  "end_refuse": {
+   "speaker": "client",
+   "text": [
+    "{client}はうつむいて去っていった。"
+   ],
+   "end": "断った"
+  }
+ }
+}

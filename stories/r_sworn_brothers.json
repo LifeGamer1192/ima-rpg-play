@@ -1,0 +1,276 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_sworn_brothers",
+ "kind": "random",
+ "where": "road",
+ "hook": "義兄が亭長に捕らえられた。一緒に来てくれぬか",
+ "title": "遊侠の義兄弟",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "遊侠"
+  },
+  "elder": {
+   "npc": "義兄",
+   "sex": "m"
+  },
+  "chief": {
+   "npc": "亭長",
+   "sex": "m"
+  },
+  "widow": {
+   "npc": "寡婦",
+   "sex": "f"
+  },
+  "town": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "道端の茶店で、{client}が酒の甕を卓に置いた。義兄の{elder}が、{town}の亭長{chief}の手下を斬って捕らえられたという。",
+    "「{chief}は弱い者から銭を巻き上げる悪党だ。義兄はそれを見かねただけよ。お前の目は信が置ける。義兄弟の契りを結び、ともに助けに行かぬか」"
+   ],
+   "choices": [
+    {
+     "label": "杯を交わし、契りを結ぶ",
+     "effects": [
+      {
+       "flag": "sworn_oath"
+      }
+     ],
+     "next": "jail"
+    },
+    {
+     "label": "契りは結ばずに、手だけ貸す",
+     "next": "jail"
+    },
+    {
+     "label": "「よく知らぬ者のために命は張れぬ」",
+     "next": "end_declined"
+    }
+   ]
+  },
+  "jail": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{client}とともに{town}へ向かう",
+   "speaker": "widow",
+   "art": "tale",
+   "text": [
+    "{town}に着くと、{client}は牢の見張りを数えに行った。その間に、井戸端で{widow}という女が話しかけてきた。",
+    "「あの{elder}を助けに来たのですか。あの男は、うちの亭主の形見の銭を奪っていったのですよ。亭長の手下を斬ったのは、その銭を取り返されそうになったからです」"
+   ],
+   "choices": [
+    {
+     "label": "{client}に問いただす",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "truth",
+      "lose": "raid"
+     }
+    },
+    {
+     "label": "聞かなかったことにして、牢を襲う",
+     "next": "raid"
+    }
+   ]
+  },
+  "truth": {
+   "speaker": "client",
+   "text": [
+    "{client}は長いあいだ黙っていた。「……知っていた。義兄は義に厚いが、銭には汚い。それでも、俺には兄なのだ」",
+    "{chief}が悪党なのも本当らしい。悪党が悪党を裁こうとしている。"
+   ],
+   "choices": [
+    {
+     "label": "「それでも助ける。だが銭は寡婦に返させる」",
+     "next": "raid_return"
+    },
+    {
+     "label": "「義より法だ。俺は手を引く」",
+     "next": "end_law"
+    }
+   ]
+  },
+  "raid_return": {
+   "text": [
+    "{client}は頷いた。「約束しよう。義兄にも返させる」"
+   ],
+   "effects": [
+    {
+     "flag": "sworn_return"
+    }
+   ],
+   "next": "raid"
+  },
+  "raid": {
+   "speaker": "chief",
+   "art": "war",
+   "text": [
+    "夜、牢を襲った。だが{chief}は待ち構えていた。「遊侠の徒は仲間を見捨てぬ。来ると思っておったわ」"
+   ],
+   "choices": [
+    {
+     "label": "{client}と背中合わせに戦う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "freed",
+      "lose": "end_fallen"
+     }
+    }
+   ]
+  },
+  "freed": {
+   "speaker": "elder",
+   "text": [
+    "牢から出された{elder}は、{client}の肩を叩いて笑った。「持つべきものは義兄弟よ」"
+   ],
+   "choices": [
+    {
+     "label": "寡婦に銭を返させる",
+     "if": {
+      "flag": "sworn_return"
+     },
+     "next": "end_returned"
+    },
+    {
+     "label": "黙って立ち去る",
+     "next": "end_brothers"
+    }
+   ]
+  },
+  "end_returned": {
+   "speaker": "widow",
+   "text": [
+    "{elder}はしぶしぶ銭袋を{widow}に投げた。{widow}は泣き崩れ、{client}は気まずそうに頭を下げた。",
+    "「お前のおかげで、義兄も俺も、少しはまともな侠になれた」{client}は自分の取り分を差し出した。"
+   ],
+   "effects": [
+    {
+     "unflag": "sworn_oath"
+    },
+    {
+     "unflag": "sworn_return"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "義と銭"
+  },
+  "end_brothers": {
+   "speaker": "client",
+   "text": [
+    "三人で夜明けの街道を逃げた。{client}は「いつでも呼んでくれ。命を貸す」と言って、別の道へ去っていった。",
+    "{widow}の銭がどうなったのかは、誰も口にしなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sworn_oath"
+    },
+    {
+     "unflag": "sworn_return"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": -10
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "遊侠の{client}と義を結んだ。"
+    }
+   ],
+   "end": "義兄弟の夜"
+  },
+  "end_law": {
+   "speaker": "client",
+   "text": [
+    "「そうか。お前は正しいのだろうな」{client}は一人で牢へ向かい、翌朝、捕らえられたと聞いた。",
+    "{widow}の銭は官府を通して返された。{chief}は手柄を誇り、町では何も変わらなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sworn_oath"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 1
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "end": "義より法"
+  },
+  "end_fallen": {
+   "text": [
+    "多勢に押され、{client}が殿となってこちらを逃がした。それきり、{client}の姿を見ることはなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sworn_oath"
+    },
+    {
+     "unflag": "sworn_return"
+    },
+    {
+     "hp": -25
+    }
+   ],
+   "end": "散った侠"
+  },
+  "end_declined": {
+   "speaker": "client",
+   "text": [
+    "「そうか。無理強いはせぬ」{client}は甕の酒を一人で飲み干し、街道を去っていった。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "end": "茶店の別れ"
+  }
+ }
+}

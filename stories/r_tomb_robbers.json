@@ -1,0 +1,210 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_tomb_robbers",
+ "kind": "random",
+ "where": "office",
+ "hook": "先代の大夫の墓が荒らされた。盗人を捕らえた者には賞を与える",
+ "title": "墓荒らし",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "県吏"
+  },
+  "leader": {
+   "npc": "石工の頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "官府の門に布告が貼られていた。町の北にある先代の大夫の墓が掘られ、青銅の器と漆の棺飾りが持ち去られたという。",
+    "{client}は渋い顔で言った。「大夫の家は今も力がある。早く捕らえねば、こちらの首が危ない。賞は二百銭だ」"
+   ],
+   "choices": [
+    {
+     "label": "墓に残った跡を調べる",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "trace",
+      "lose": "night"
+     }
+    },
+    {
+     "label": "夜の墓地で張り込む",
+     "next": "night"
+    }
+   ]
+  },
+  "trace": {
+   "text": [
+    "盗掘の穴は、墓の造りを知り尽くした者の掘り方だった。石室の弱いところだけを、迷わず抜いている。墓を築いた石工たちの仕業に違いない。"
+   ],
+   "effects": [
+    {
+     "flag": "tomb_masons"
+    }
+   ],
+   "next": "night"
+  },
+  "night": {
+   "speaker": "leader",
+   "art": "tale",
+   "text": [
+    "三晩目、墓の陰に灯りが揺れた。痩せた男たちが、副葬の器を袋に詰めている。頭らしい{leader}が、こちらに気づいて鑿を構えた。",
+    "「待て。わしらはこの墓を築いた石工だ。大夫の家は、工事が終われば口封じに仲間を三人殺し、残りには約束の手間賃を一銭も払わなかった。わしらは、払われなかったものを取りに来ただけだ」"
+   ],
+   "choices": [
+    {
+     "label": "「言い分は官府で言え」と捕らえる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "end_caught",
+      "lose": "end_hurt"
+     }
+    },
+    {
+     "label": "「掘り方で分かった。墓を築いた者だな」と器を返させる",
+     "if": {
+      "flag": "tomb_masons"
+     },
+     "next": "end_returned"
+    },
+    {
+     "label": "器は返させ、石工は見逃す",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_returned",
+      "lose": "night_ng"
+     }
+    },
+    {
+     "label": "分け前をもらって目をつぶる",
+     "next": "end_share"
+    }
+   ]
+  },
+  "night_ng": {
+   "speaker": "leader",
+   "text": [
+    "「返せと言うなら、お前も大夫の犬だ」石工たちが鑿と槌を手に囲んできた。"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_caught",
+      "lose": "end_hurt"
+     }
+    }
+   ]
+  },
+  "end_caught": {
+   "speaker": "client",
+   "text": [
+    "縛り上げた石工たちを官府に引き渡すと、{client}は胸をなで下ろした。「これで大夫の家に顔が立つ」",
+    "石工たちの訴えが取り上げられることはなかった。{leader}は刑場へ引かれる前に、一度だけこちらを振り返った。"
+   ],
+   "effects": [
+    {
+     "unflag": "tomb_masons"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 1
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "捕らえられた石工"
+  },
+  "end_returned": {
+   "text": [
+    "器を墓に戻させ、石工たちを闇に逃がした。官府には「盗人は逃げたが、宝は取り戻した」と告げた。",
+    "{client}は賞の半分だけを払い、それ以上は聞かなかった。後日、石工の誰かが、戸口に干し肉を置いていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "tomb_masons"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "end": "戻された器"
+  },
+  "end_share": {
+   "speaker": "leader",
+   "text": [
+    "{leader}は漆器をひとつ、こちらに押しつけた。「これで、お前も同じ穴の狢だ」",
+    "石工たちは夜のうちに国を出た。官府には何も見なかったと告げた。{client}は疑わしげな目を向けたが、何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "tomb_masons"
+    },
+    {
+     "item": "lacquer",
+     "n": 1
+    },
+    {
+     "money": 120
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "墓の分け前"
+  },
+  "end_hurt": {
+   "text": [
+    "槌で打たれて倒れた。気がつけば朝で、墓は空になり、石工たちは消えていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "tomb_masons"
+    },
+    {
+     "hp": -20
+    }
+   ],
+   "end": "空の墓"
+  }
+ }
+}

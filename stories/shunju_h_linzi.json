@@ -1,0 +1,729 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_linzi",
+ "kind": "history",
+ "title": "松か柏か",
+ "era": "shunju",
+ "event": "qin_qi",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s3",
+  "s4",
+  "s4win",
+  "s4rs_ng",
+  "s5"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "linzi"
+  },
+  "jimo": {
+   "scnPlace": "jimo"
+  },
+  "qi": {
+   "scnRealm": "qi"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:qi"
+  },
+  "wangben": {
+   "scnPerson": "王賁"
+  },
+  "chancellor": {
+   "npc": "斉の相国",
+   "sex": "m"
+  },
+  "scholar": {
+   "npc": "稷下の老学士",
+   "sex": "m"
+  },
+  "governor": {
+   "npc": "即墨の大夫",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で稷下の学士の話を聞く",
+   "speaker": "scholar",
+   "art": "tale",
+   "text": [
+    "{city}の大通りは、相変わらず車の轂がぶつかり、人の肩が触れ合うほどの賑わいだった。だが、かつて千人の学士で溢れた稷下の学宮は、空き部屋ばかりになっている。",
+    "老学士{scholar}は、酒に口もつけずに言った。「秦は五つの国を呑んだ。斉は四十年、戦をしておらぬ。相国{chancellor}は秦の金を受け、『秦と和すれば斉は安泰』と王に説き続けておる。狼と和した羊が、どこにおった」",
+    "「即墨の大夫は、戦うべしと言うておる。だが、その声は王の耳まで届かぬ」"
+   ],
+   "choices": [
+    {
+     "label": "即墨へ行き、大夫の言葉を聞く",
+     "effects": [
+      {
+       "note": "{scholar}に聞き、即墨の大夫を訪ねることにした。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「書はどうなさる」と問う",
+     "next": "s1books"
+    }
+   ]
+  },
+  "s1books": {
+   "speaker": "scholar",
+   "text": [
+    "「秦の法は、詩書を語る者を憎む。いずれ書を焼けと言い出すだろう」老学士は苦く笑った。「だが、それは後の話だ。まず即墨へ行ってくれ。国が残れば、書も残る」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qq_bookworry"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "jimo",
+    "building": "palace"
+   },
+   "goal": "{jimo}へ行き、即墨の大夫に会う",
+   "speaker": "governor",
+   "art": "war",
+   "text": [
+    "即墨は、かつて田単が火牛を放って燕の大軍を破った城である。城壁の上で、{governor}が{player}を迎えた。",
+    "「斉にはまだ数百里の地と、数十万の兵がある。三晋の大夫たちは秦を憎み、阿と鄄のあいだに何百人も集まっている。王が立てば、天下はまだ分からぬ」",
+    "「王への上書を書いた。だが、わしの使いは三度とも、相国の門で止められた」"
+   ],
+   "choices": [
+    {
+     "label": "上書を預かる",
+     "effects": [
+      {
+       "flag": "h_qq_plea"
+      },
+      {
+       "note": "{governor}から{king}への上書を預かった。"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "城の兵を検め、守りの弱みを正してから上書を預かる",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "governor",
+   "text": [
+    "{player}が城門と糧の蔵の配置を正すと、{governor}は目を見張った。「この城なら、一年は持つ。王に伝えてくれ。即墨は戦える、と」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qq_plea"
+    },
+    {
+     "flag": "h_qq_jimo"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "即墨の守りを整え、{governor}の上書を預かった。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "兵の数を数え直してみると、帳簿の半分は名ばかりだった。{governor}は顔を曇らせたが、上書は{player}に託した。"
+   ],
+   "effects": [
+    {
+     "flag": "h_qq_plea"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}へ戻り、知り合いの家に身を寄せる",
+   "art": "tale",
+   "speaker": "相国の家士",
+   "text": [
+    "{city}の路地。宿へ向かう途中で、覆面の男たちに囲まれた。「即墨からの使いだな。その竹簡を置いていけ。相国さまは、余計な声が王の耳に入るのを好まれぬ」"
+   ],
+   "choices": [
+    {
+     "label": "剣を抜く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "talk": true,
+      "win": "s4",
+      "lose": "s3lose"
+     }
+    },
+    {
+     "label": "「相国が秦の金を受けているのは、もう市中の噂だ」と言い返す",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s3talk",
+      "lose": "s3lose"
+     }
+    },
+    {
+     "label": "屋根伝いに逃れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s4",
+      "lose": "s3lose"
+     }
+    }
+   ]
+  },
+  "s3talk": {
+   "text": [
+    "男たちは顔を見合わせた。「……われらは銭で雇われただけだ」一人が呟くと、皆、闇へ散っていった。"
+   ],
+   "next": "s4"
+  },
+  "s3lose": {
+   "text": [
+    "打ち倒され、懐を探られた。上書の竹簡は奪われ、目の前で火にくべられた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "unflag": "h_qq_plea"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で{king}に会う",
+   "speaker": "chancellor",
+   "art": "court",
+   "text": [
+    "{city}の宮城。{chancellor}が{king}の傍らに立っていた。「秦王は、斉に五百里の地を与えると約されました。兵を動かせば、その約は反故になりましょう」",
+    "{king}は迷う顔で、{player}を見た。"
+   ],
+   "choices": [
+    {
+     "label": "即墨の大夫の上書を読み上げる",
+     "if": {
+      "flag": "h_qq_plea"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s4win",
+      "lose": "s4lose"
+     }
+    },
+    {
+     "label": "「五国の王は皆、その約を信じて滅びました」と説く",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "s4win",
+      "lose": "s4lose"
+     }
+    },
+    {
+     "label": "黙って退く",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4win": {
+   "speaker": "king",
+   "text": [
+    "{king}の手が震えた。「……即墨は、まだ戦えるのか」群臣の幾人かが顔を上げた。",
+    "だがその夜、{chancellor}は王の寝所に長く留まった。翌朝、王は兵を動かさぬと告げた。{player}の名だけが、宮中に残った。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "flag": "h_qq_spoke"
+    },
+    {
+     "rep": "qi",
+     "n": 10
+    }
+   ],
+   "choices": [
+    {
+     "label": "宮を下がる",
+     "next": "s5"
+    },
+    {
+     "label": "夜のうちに寝所の前に立ち、{chancellor}が受けた秦の金の証を王に差し出す",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s4resist",
+      "lose": "s4rs_ng"
+     }
+    }
+   ]
+  },
+  "s4resist": {
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "衛士に囲まれながら、{player}は秦の印のある金の延べ板を寝所の前の床に置いた。扉が開き、{king}が{chancellor}の顔と金を見比べた。",
+    "翌朝、王は相国を獄に下し、即墨の大夫を将とすると告げた。「四十年、戦わずに国を保ってきた。最後の一年くらい、戦ってもよかろう」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qq_resist"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "qi",
+     "n": 15
+    },
+    {
+     "rep": "qin",
+     "n": -15
+    },
+    {
+     "note": "斉王に、秦に降らず戦うよう説いた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4rs_ng": {
+   "text": [
+    "寝所の前で衛士に取り押さえられ、金は{chancellor}の手に渡った。{player}は夜明けに宮の外へ放り出された。"
+   ],
+   "effects": [
+    {
+     "wanted": "qi",
+     "n": 10
+    }
+   ],
+   "next": "s5"
+  },
+  "s4lose": {
+   "speaker": "chancellor",
+   "text": [
+    "「田舎の大夫の言葉を真に受けて、斉を戦火に投じるおつもりか」{chancellor}の一喝で、{player}は宮門の外へ追われた。"
+   ],
+   "effects": [
+    {
+     "wanted": "qi",
+     "n": 10
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}で、秦の軍が来るのを待つ",
+   "wait": {
+    "days": 30
+   },
+   "speaker": "scholar",
+   "art": "tale",
+   "text": [
+    "燕を滅ぼした{wangben}の軍が、北から南へ下りはじめたという。斉の国境の兵は、一本の矢も放たずに退いた。",
+    "{scholar}は、稷下に残った竹簡の山を前に座っていた。「国はもう助からぬ。だが、書は助けられるかもしれぬ。手を貸してくれ」"
+   ],
+   "choices": [
+    {
+     "label": "書を車に積み、{jimo}の方へ運び出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "s5ok",
+      "lose": "s5part"
+     }
+    },
+    {
+     "label": "学宮の壁の中に塗り込めて隠す",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "s5ok",
+      "lose": "s5part"
+     }
+    },
+    {
+     "label": "書より人を。若い学士たちを先に逃がす",
+     "effects": [
+      {
+       "flag": "h_qq_students"
+      }
+     ],
+     "next": "s6"
+    }
+   ]
+  },
+  "s5ok": {
+   "text": [
+    "夜通し働いた。孟子の問答も、荀子の礼の論も、鄒衍の五徳の説も、竹簡の一枚まで隠しおおせた。{scholar}は土埃の中で泣いていた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_qq_books"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "稷下の書を隠した。"
+    }
+   ],
+   "next": "s6go"
+  },
+  "s5part": {
+   "text": [
+    "半ばまで運んだところで、夜が明けた。残った竹簡は、そのまま学宮に置くしかなかった。"
+   ],
+   "next": "s6go"
+  },
+  "s6go": {
+   "goal": "{city}で、事の終わりを見届ける",
+   "wait": {
+    "settled": "qin_qi"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qq_resist"
+     },
+     "next": "resist"
+    },
+    {
+     "if": {
+      "branch": "qq_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "resist": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "governor",
+   "art": "war",
+   "text": [
+    "秦の軍が{city}に迫ると、城門は閉ざされ、城壁の上に斉の旗が並んだ。四十年、戦を知らなかった兵たちが、震える手で弩を構えている。",
+    "{governor}は{player}の手を握った。「勝てるとは言わぬ。だが、斉は戦わずに滅んだと書かれずに済む。それで足りる」天下は、まだ一つになっていない。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "unflag": "h_qq_resist"
+    },
+    {
+     "unflag": "h_qq_spoke"
+    },
+    {
+     "unflag": "h_qq_plea"
+    },
+    {
+     "unflag": "h_qq_jimo"
+    },
+    {
+     "note": "斉は降らず、秦と戦った。"
+    }
+   ],
+   "end": "柏として立つ"
+  },
+  "noking": {
+   "at": {
+    "place": "city"
+   },
+   "art": "tale",
+   "text": [
+    "秦王の死は、ここ{city}にも届いていた。東へ向かうはずだった秦の軍は、函谷関の西で止まったままだという。斉の宮では、相国が青い顔で秦の金を数え直している。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_qq_spoke"
+    },
+    {
+     "unflag": "h_qq_plea"
+    },
+    {
+     "unflag": "h_qq_jimo"
+    }
+   ],
+   "end": "来なかった秦軍"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、事の終わりを見届ける",
+   "wait": {
+    "settled": "qin_qi"
+   },
+   "speaker": "wangben",
+   "art": "war",
+   "text": [
+    "城門は内から開かれた。秦の軍は戦わずして{city}に入り、{king}は降った。斉の兵は、最後まで一本の矢も放たなかった。",
+    "{wangben}は大通りを馬で進みながら言った。「五つの国は戦って滅んだ。斉だけが戦わずに滅んだ。これで天下は一つだ」秦王は、皇帝と称するという。"
+   ],
+   "choices": [
+    {
+     "label": "隠した書のことは、誰にも言わずにおく",
+     "if": {
+      "flag": "h_qq_books"
+     },
+     "next": "end_books"
+    },
+    {
+     "label": "{wangben}に、斉の王と民を寛く扱うよう説く",
+     "if": {
+      "flag": "h_qq_spoke"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "end_plead",
+      "lose": "end_quiet"
+     }
+    },
+    {
+     "label": "逃がした学士たちの後を追う",
+     "if": {
+      "flag": "h_qq_students"
+     },
+     "next": "end_students"
+    },
+    {
+     "label": "新しい天下で身を立てる道を探す",
+     "next": "end_new"
+    },
+    {
+     "label": "静かに{city}を去る",
+     "next": "end_quiet"
+    }
+   ]
+  },
+  "end_books": {
+   "speaker": "scholar",
+   "text": [
+    "{scholar}は秦の役人に囲まれても、書の在りかを言わなかった。{player}も言わなかった。",
+    "八年の後、秦は天下の詩書を焼けと命じた。そのとき{city}の壁の中で、あるいは{jimo}の土の下で、竹簡たちは息をひそめていた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "qi",
+     "n": 10
+    },
+    {
+     "note": "斉は戦わずに降り、天下は秦のもとに一つになった。稷下の書を守った。"
+    }
+   ],
+   "end": "壁の中の書"
+  },
+  "end_plead": {
+   "speaker": "wangben",
+   "text": [
+    "{wangben}は馬を止め、{player}の言葉を聞いた。「斉の民は一人も殺さぬ。それは約束しよう。王のことは、私の決めることではない」",
+    "のちに{king}は共の地へ移され、松と柏の林の中で食を絶たれて死んだという。斉の人々は歌った。「松か、柏か。王を共に住まわせしは、客か」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "qi",
+     "n": 10
+    },
+    {
+     "rep": "qin",
+     "n": 3
+    },
+    {
+     "note": "斉は戦わずに降り、天下は秦のもとに一つになった。{wangben}に民の命を請うた。"
+    }
+   ],
+   "end": "松か柏か"
+  },
+  "end_students": {
+   "text": [
+    "若い学士たちは、魯や楚の山あいへ散っていった。彼らが口伝えに覚えた書は、竹簡よりも長く生き延びるだろう。",
+    "{player}は東の海を見た。天下は一つになった。だが、言葉はまだ一つではない。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "qi",
+     "n": 5
+    },
+    {
+     "note": "斉は戦わずに降り、天下は秦のもとに一つになった。稷下の若い学士を逃がした。"
+    }
+   ],
+   "end": "口伝えの書"
+  },
+  "end_new": {
+   "text": [
+    "秦の役人は、字の書ける者、数の数えられる者を探していた。郡を置き、県を置き、文字と度量衡を一つにするのだという。",
+    "{player}は新しい天下の帳簿に、自分の名を書き込んだ。戦の世は終わった。少なくとも、いまのところは。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "note": "斉は戦わずに降り、天下は秦のもとに一つになった。"
+    }
+   ],
+   "end": "一つの天下"
+  },
+  "end_quiet": {
+   "text": [
+    "{player}は{city}の東門を出た。門の上には、もう黒い秦の旗が翻っていた。五百年の乱世が、ひとつの旗の下に終わった。"
+   ],
+   "effects": [
+    {
+     "note": "斉は戦わずに降り、天下は秦のもとに一つになった。"
+    }
+   ],
+   "end": "乱世の終わり"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qq_resist"
+     },
+     "next": "resist"
+    },
+    {
+     "if": {
+      "branch": "qq_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "噂が届いた。秦の軍が戦わずして{city}に入り、斉の王は降ったという。六つの国はすべて亡び、秦王は皇帝と称した。",
+    "旅の老人は空を仰いだ。「天下が一つになったそうだ。さて、それが良いことか悪いことか、わしが生きているうちに分かるかの」"
+   ],
+   "effects": [
+    {
+     "note": "斉が降り、天下が秦のもとに一つになったと聞いた。"
+    }
+   ],
+   "end": "天下一つ"
+  }
+ },
+ "branches": [
+  {
+   "id": "qq_noking",
+   "event": "qin_qi",
+   "order": 2,
+   "why": "秦王政がすでに殺されていた",
+   "when": {
+    "slain": [
+     "秦王政"
+    ]
+   },
+   "then": "cancel",
+   "note": "王を失った{n_qin}の軍は東へ向かわず、{n_qi}は滅びなかった。"
+  },
+  {
+   "id": "qq_resist",
+   "event": "qin_qi",
+   "order": 1,
+   "why": "主人公が相国の受けた秦の金を王に示した",
+   "when": {
+    "flag": "h_qq_resist"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "秦の軍が臨淄に迫ると、{n_qi}の王は秦の金を受けた相国を獄に下し、即墨の大夫を将として戦った。斉はなお降らない。",
+    "do": [
+     [
+      "war",
+      "qin",
+      "qi"
+     ],
+     [
+      "add",
+      "qi",
+      "stability",
+      0.1
+     ],
+     [
+      "army",
+      "qi",
+      1.1
+     ]
+    ],
+    "imp": 3,
+    "at": "linzi"
+   }
+  }
+ ]
+}

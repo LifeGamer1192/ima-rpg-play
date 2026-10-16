@@ -1,0 +1,408 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_guild2",
+ "kind": "rank",
+ "guildTo": 2,
+ "title": "水軍崩れ",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "頭",
+   "sex": "m"
+  },
+  "captain": {
+   "npc": "水軍崩れの船頭",
+   "sex": "m"
+  },
+  "merchant": {
+   "npc": "堺の商人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は酒を注ぎながら言った。「瀬戸内の水軍が主家を失って散った。その崩れ者が、{here}の川湊に流れてきておる。船頭は{captain}という。海の上なら負け知らずだった男だ」",
+    "「三日後、堺の商人{merchant}の荷船が川を上る。{captain}と組んで、その船を取れ。手下を五人付ける。うまくやれば小頭だ」"
+   ],
+   "choices": [
+    {
+     "label": "川湊へ{captain}を訪ねる",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の川湊の市で{captain}に会う",
+   "speaker": "captain",
+   "art": "voyage",
+   "text": [
+    "川湊の網小屋で、{captain}は潮焼けした腕で櫓を削っていた。「陸の{bandit}と組めと？　わしらは海の侍だった。帆別銭を取って船を通し、払わぬ船だけを沈めた。むやみに奪う連中とは違う」",
+    "小屋の奥では、{captain}の手下たちがこちらを値踏みしている。"
+   ],
+   "choices": [
+    {
+     "label": "酒を酌み交わし、海の掟を聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "「腕で話そう」と、{captain}の手下と手合わせをする",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "手付けに銭を置く（60文）",
+     "if": {
+      "money": 60
+     },
+     "effects": [
+      {
+       "money": -60
+      }
+     ],
+     "next": "s2ok"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "captain",
+   "text": [
+    "{captain}は櫓を置いた。「よかろう。船の上では、わしの言うことを聞け。川の流れは、陸の者が思うより気まぐれだ」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_g2_captain"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "speaker": "captain",
+   "text": [
+    "{captain}は鼻で笑った。「陸の者は陸でやれ」それでも、川船の一艘くらいは貸してやる、と言った。漕ぎ手は、一味の者がやるしかない。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "三日待ち、{here}の川筋で{merchant}の荷船を待ち伏せる",
+   "wait": {
+    "days": 3
+   },
+   "art": "voyage",
+   "text": [
+    "朝霧の川面を、{merchant}の荷船がゆっくり上ってくる。船縁に雇いの牢人が三人、長刀を抱えて座っている。積荷は生糸と、堺から運んだ鉄砲の玉薬らしい。"
+   ],
+   "choices": [
+    {
+     "label": "{captain}の舟で船の行く手を塞ぎ、帆別銭を出せと呼ばわる",
+     "if": {
+      "flag": "sg_g2_captain"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s4toll",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "葦の陰から泳ぎ寄り、夜のうちに艫綱を切って船を岸に寄せる",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s4board",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "舟を寄せて斬り込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4board",
+      "lose": "fail_sunk"
+     }
+    }
+   ]
+  },
+  "s3fight": {
+   "art": "war",
+   "text": [
+    "牢人の一人が気づいて叫んだ。長刀が舟縁を薙ぐ。もう斬り合うしかない。"
+   ],
+   "choices": [
+    {
+     "label": "斬り結ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4board",
+      "lose": "fail_sunk"
+     }
+    },
+    {
+     "label": "舟を返して逃げる",
+     "next": "fail_ditch"
+    }
+   ]
+  },
+  "s4toll": {
+   "speaker": "merchant",
+   "art": "trade",
+   "text": [
+    "{merchant}は船縁から身を乗り出し、扇で口元を隠した。「海の衆の作法でございますな。帆別銭とあらば、払わぬとは申しませぬ。ただ、いかほどで」",
+    "{captain}が小声で言った。「ここで欲を張れば、ただの{bandit}だ。だが取れるものは取れ」"
+   ],
+   "choices": [
+    {
+     "label": "相応の帆別銭を取り、通行の札を渡す",
+     "effects": [
+      {
+       "money": 120
+      }
+     ],
+     "next": "win_toll"
+    },
+    {
+     "label": "「この川を上り下りするたびに払え」と約定させる",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "win_contract",
+      "lose": "win_toll"
+     }
+    },
+    {
+     "label": "銭を受け取ったうえで、積荷も奪う",
+     "effects": [
+      {
+       "money": 200
+      },
+      {
+       "fame": -3
+      },
+      {
+       "wanted": "here",
+       "n": 6
+      }
+     ],
+     "next": "win_loot"
+    }
+   ]
+  },
+  "s4board": {
+   "speaker": "merchant",
+   "art": "war",
+   "text": [
+    "牢人たちは川へ落ち、船は一味のものになった。{merchant}は帳場の箱を抱えて震えている。「積荷は差し上げます。命ばかりは。それに、この船を取れば、堺の会合衆が黙ってはおりませぬぞ」"
+   ],
+   "choices": [
+    {
+     "label": "積荷を根こそぎ奪い、{merchant}は岸に放り出す",
+     "effects": [
+      {
+       "money": 200
+      },
+      {
+       "wanted": "here",
+       "n": 8
+      }
+     ],
+     "next": "win_loot"
+    },
+    {
+     "label": "積荷の半ばで手を打ち、以後の帆別銭を約させる",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "win_contract",
+      "lose": "win_loot"
+     }
+    },
+    {
+     "label": "{merchant}を人質に取り、堺から身代金を取る",
+     "effects": [
+      {
+       "money": 260
+      },
+      {
+       "fame": -4
+      },
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "next": "win_loot"
+    }
+   ]
+  },
+  "win_toll": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "血を一滴も流さず、銭だけを取ってきた{player}を見て、{boss}は呆れたように笑った。「水軍の真似事か。だが、商人に恨まれん稼ぎは長続きする」",
+    "{captain}が戸口で頷いた。「この男の下なら、わしらも働こう」{player}は小頭になった。"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "unflag": "sg_g2_captain"
+    },
+    {
+     "note": "{merchant}の荷船から帆別銭を取り、一味の小頭となった。"
+    }
+   ],
+   "end": "帆別銭"
+  },
+  "win_contract": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{merchant}の判を押した約定書を見て、{boss}は目を剝いた。「堺の商人に、毎度の帆別銭を約させたか。これは一度の荷より重いぞ」",
+    "{player}は小頭となり、川筋の帆別銭の取り立てを任された。{captain}たち水軍崩れも、その下に付いた。"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "flag": "sg_g2_river_toll"
+    },
+    {
+     "unflag": "sg_g2_captain"
+    },
+    {
+     "note": "{merchant}に帆別銭を約させ、川筋を預かる小頭となった。"
+    }
+   ],
+   "end": "川の関"
+  },
+  "win_loot": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は生糸の束と玉薬の樽を前に上機嫌だった。「上々だ。今日から小頭と名乗れ」",
+    "ただ、{captain}は分け前を受け取ると、黙って川湊へ帰っていった。海の侍の作法は、陸の{bandit}には通じなかったらしい。"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "unflag": "sg_g2_captain"
+    },
+    {
+     "note": "{merchant}の荷船を奪い、一味の小頭となった。"
+    }
+   ],
+   "end": "荷船を奪う"
+  },
+  "fail_sunk": {
+   "art": "war",
+   "text": [
+    "舟が傾き、{player}は冷たい川に投げ出された。どうにか岸に這い上がったときには、荷船はとうに上流へ消えていた。手下が二人、戻らなかった。{boss}は「小頭はまだ早い」と言った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "wanted": "here",
+     "n": 5
+    },
+    {
+     "unflag": "sg_g2_captain"
+    },
+    {
+     "note": "荷船を襲い損ねた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "川に沈む"
+  },
+  "fail_ditch": {
+   "art": "voyage",
+   "text": [
+    "舟を返して葦の中に逃げ込んだ。荷船は何事もなかったように川を上っていった。{boss}は「臆病な手下には、小頭は務まらん」と吐き捨てた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_g2_captain"
+    },
+    {
+     "note": "荷船を前に退いた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "葦の中"
+  }
+ }
+}

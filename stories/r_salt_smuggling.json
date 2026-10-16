@@ -1,0 +1,252 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_salt_smuggling",
+ "kind": "random",
+ "where": "inn",
+ "hook": "関所をひとつ越えるだけだ。腕の立つ用心棒がほしい",
+ "title": "塩の密売",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "塩の運び屋"
+  },
+  "gate": {
+   "place": "near:here"
+  },
+  "guard": {
+   "npc": "関吏",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}は日に焼けた顔で笑った。「塩は官の専売だ。官の値では、山の村の者は塩を舐めることもできぬ。わしらは浜で買った塩を、関の税を払わずに運ぶ。それだけのことよ」",
+    "「{gate}の関を越えるまで付いてきてくれれば、二百。どうだ」"
+   ],
+   "choices": [
+    {
+     "label": "用心棒を引き受ける",
+     "next": "gate"
+    },
+    {
+     "label": "官府に密告する",
+     "next": "report"
+    },
+    {
+     "label": "断る",
+     "next": "end_refused"
+    }
+   ]
+  },
+  "gate": {
+   "at": {
+    "place": "gate"
+   },
+   "goal": "塩の荷とともに{gate}の関へ向かう",
+   "speaker": "guard",
+   "art": "voyage",
+   "text": [
+    "夜明け前、{gate}の関が見えてきた。荷車の塩は、上に薪を積んで隠してある。関吏の{guard}が松明を掲げて近づいてきた。",
+    "「こんな刻限に薪売りか。荷を改める」"
+   ],
+   "choices": [
+    {
+     "label": "うまく言い逃れる",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "passed",
+      "lose": "gate_ng"
+     }
+    },
+    {
+     "label": "裏の獣道を回る",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "passed",
+      "lose": "gate_ng"
+     }
+    },
+    {
+     "label": "{guard}に銭を握らせる（100銭）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "passed"
+    }
+   ]
+  },
+  "gate_ng": {
+   "speaker": "guard",
+   "art": "war",
+   "text": [
+    "薪の下から白い粒がこぼれた。「塩だな。者ども、捕らえよ」{guard}の配下が槍を構えた。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "passed",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "荷を捨てて逃げる",
+     "next": "end_dropped"
+    }
+   ]
+  },
+  "passed": {
+   "speaker": "client",
+   "text": [
+    "関を抜けると、{client}は荷車の上で大笑いした。「見事だ。さて、塩は山の村へ持っていけば三倍で売れる。だがな……」",
+    "{client}は少し黙った。「村の者は、どのみち三倍は払えん。官の値で売っても、まだ儲けは出る。お前ならどうする」"
+   ],
+   "choices": [
+    {
+     "label": "「高く売れるところに売れ」",
+     "next": "end_profit"
+    },
+    {
+     "label": "「村には安く売ってやれ」",
+     "next": "end_cheap"
+    }
+   ]
+  },
+  "report": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の官府に塩の密売を知らせる",
+   "speaker": "官府の役人",
+   "art": "court",
+   "text": [
+    "役人は膝を打った。「あの一味か。前から追っておった。よく知らせてくれた」その夜、宿は兵に囲まれ、{client}は縄を打たれた。連れていかれる{client}は、こちらを見ようともしなかった。"
+   ],
+   "next": "end_reported"
+  },
+  "end_profit": {
+   "speaker": "client",
+   "text": [
+    "塩は町の商人に高値で売れた。{client}は約束より多く銭を分けてくれた。山の村では、今年も塩の足りぬ冬になるだろう。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "item": "salt",
+     "n": 2
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "end": "塩の儲け"
+  },
+  "end_cheap": {
+   "speaker": "client",
+   "text": [
+    "山の村で、塩は官の値の半分で売られた。老婆が塩をひとつまみ舐め、子どもに分けた。",
+    "「儲けは薄いが、悪くない気分だ」{client}は約束の銭を払った。法を破ったことに変わりはないが、山の村では{player}の名を口にする者が増えた。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "貧者の塩"
+  },
+  "end_reported": {
+   "text": [
+    "官府から報奨の銭が下された。専売の法は守られ、塩の値は変わらない。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "favor": 15
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "守られた専売"
+  },
+  "end_caught": {
+   "text": [
+    "兵に打ち倒され、塩は没収された。{client}は捕らえられたが、こちらは隙を見て逃げ出した。手配書が出ないことを祈るしかない。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "favor": -5
+    }
+   ],
+   "end": "関の夜明け"
+  },
+  "end_dropped": {
+   "text": [
+    "荷車を捨てて林に逃げ込んだ。塩はすべて関に没収された。{client}は「命があれば、また運べる」と笑ったが、約束の銭は出なかった。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 1
+    }
+   ],
+   "end": "捨てた荷"
+  },
+  "end_refused": {
+   "speaker": "client",
+   "text": [
+    "「そうか。ならば、この話は忘れてくれ」{client}は酒代を置いて出ていった。山の村に塩が届いたかどうか、知る由もない。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    }
+   ],
+   "end": "関わらぬ塩"
+  }
+ }
+}

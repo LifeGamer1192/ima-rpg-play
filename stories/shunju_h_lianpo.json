@@ -1,0 +1,1036 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_lianpo",
+ "kind": "history",
+ "era": "shunju",
+ "title": "老将の出奔",
+ "event": "lianpo_flees",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2rec_ng",
+  "s2qin_ng",
+  "s3",
+  "s3ok",
+  "s3ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "handan"
+  },
+  "daliang": {
+   "scnPlace": "daliang"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "wei": {
+   "scnRealm": "wei"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "lianpo": {
+   "scnPerson": "廉頗"
+  },
+  "guokai": {
+   "scnPerson": "郭開"
+  },
+  "aide": {
+   "npc": "廉頗の舎人",
+   "sex": "m"
+  },
+  "qinke": {
+   "npc": "秦の客",
+   "sex": "m"
+  },
+  "envoy": {
+   "npc": "趙王の使者",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で老将の噂を聞く",
+   "speaker": "aide",
+   "art": "tale",
+   "text": [
+    "{city}の客舎は、宮中の噂で持ちきりだった。王は病が重く、太子が立てば、老将{lianpo}から将印を取り上げて楽乗に与えるという。",
+    "隅の卓で酒をあおっていた男が、{player}に目を留めた。{lianpo}の舎人、{aide}と名乗った。「将軍は長平の前から{zhao}の壁だった。燕の六十万を退けたのも将軍だ。それを、宮中の口先ひとつで退けるという」",
+    "「将軍は気が短い。何をなさるか分からぬ。そばに、物の分かる者が一人でも欲しいのだ」"
+   ],
+   "choices": [
+    {
+     "label": "{lianpo}の陣を訪ねる",
+     "effects": [
+      {
+       "note": "{zhao}の老将{lianpo}が将印を取り上げられるという。{aide}に頼まれ、陣を訪ねることにした。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の軍営で{lianpo}に会う",
+   "speaker": "lianpo",
+   "art": "camp",
+   "text": [
+    "陣の幕舎で、白い髭の老将が鎧の紐を締め直していた。七十を越えてなお、腕は丸太のように太い。{lianpo}は{player}を一瞥すると、卓の上の竹簡を叩いた。",
+    "「新しい王の命だ。楽乗に将印を渡せとな。楽乗が戦で何をした。わしは斉を破り、魏を破り、燕を都の下まで追った。それを、宮の奥で育った若造が取り上げるという」",
+    "「楽乗が来たら、追い返す。それで罪になるなら、それでよい」"
+   ],
+   "choices": [
+    {
+     "label": "{lianpo}の側に立ち、楽乗の到着を待つ",
+     "next": "s3"
+    },
+    {
+     "label": "黙って成り行きを見る",
+     "next": "s3"
+    },
+    {
+     "label": "楽乗の陣へ走り、二人の間を取り持つ",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s2rec_ok",
+      "lose": "s2rec_ng"
+     }
+    },
+    {
+     "label": "{qinke}を引き合わせ、{lianpo}を{qin}へ誘う",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s2qin_ok",
+      "lose": "s2qin_ng"
+     }
+    }
+   ]
+  },
+  "s2rec_ok": {
+   "speaker": "lianpo",
+   "art": "camp",
+   "text": [
+    "楽乗の陣で{player}は言った。「将軍は印が惜しいのではない。兵が惜しいのだ。印を受けるなら、将軍を副えて兵を預かられよ」楽乗は長く考え、やがて頷いた。",
+    "陣へ戻って同じことを告げると、{lianpo}は顔を真っ赤にして黙った。{player}は続けた。「昔、将軍は荊を負うて藺相如どのの門に詫びられた。あれで{zhao}は一つになった。二度目ができぬ将軍ではありますまい」",
+    "老将はしばらく{player}を睨んでいたが、やがて大声で笑った。「若いのに、古い話を持ち出しおる。よかろう、荊はもう背負わぬが、楽乗と酒くらいは飲んでやる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_lp_reconcile"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{lianpo}と楽乗の間を取り持った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2rec_ng": {
+   "text": [
+    "楽乗は{player}の話を半ばで遮った。「王命だ。老人の機嫌を取るために、王命を曲げられるか」陣の外へ出されたとき、遠くで太鼓が鳴りはじめていた。"
+   ],
+   "next": "s3"
+  },
+  "s2qin_ok": {
+   "speaker": "qinke",
+   "art": "backroom",
+   "text": [
+    "夜更け、{qinke}は{lianpo}の前に跪いた。「秦王は、将軍の名を幼いころから聞いて育たれました。{qin}には、将を年で量る者はおりませぬ。一軍をお任せすると」",
+    "{lianpo}は長いあいだ灯を見つめていた。「趙の王は、わしを要らぬと言う。秦の王は、わしを要ると言う」老将は鎧の上に外套を羽織った。「趙の兵を斬るつもりはない。だが、王に捨てられた犬が、拾ってくれた家の門を守って何が悪い」"
+   ],
+   "effects": [
+    {
+     "flag": "h_lp_qin"
+    },
+    {
+     "money": 300
+    },
+    {
+     "rep": "qin",
+     "n": 15
+    },
+    {
+     "rep": "zhao",
+     "n": -20
+    },
+    {
+     "wanted": "zhao",
+     "n": 15
+    },
+    {
+     "note": "{lianpo}を{qin}へ誘った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2qin_ng": {
+   "speaker": "lianpo",
+   "text": [
+    "「秦だと」{lianpo}は卓を蹴り倒した。「長平の四十万を埋めた国に、わしが仕えると思うたか。出ていけ。二度と顔を見せるな」{qinke}は青い顔で闇へ消えた。"
+   ],
+   "effects": [
+    {
+     "rep": "zhao",
+     "n": -5
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の軍営で楽乗の到着を待つ",
+   "speaker": "lianpo",
+   "art": "war",
+   "text": [
+    "王の喪の白い旗が宮に揚がった数日後、楽乗の兵が陣の前に並んだ。使いが新しい王の命を読み上げる。{lianpo}は最後まで聞かず、太鼓を打たせた。",
+    "「この陣はわしの陣だ。欲しければ、取りに来い」老将の兵が、雄叫びを上げて門を開いた。"
+   ],
+   "choices": [
+    {
+     "label": "{lianpo}の兵とともに打って出る",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "陣の後ろで、傷ついた兵を運ぶ",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "art": "war",
+   "text": [
+    "楽乗の兵は、老将の一撃に崩れて逃げた。だが勝ってしまった以上、{lianpo}にはもう{zhao}に居場所がない。",
+    "「魏へ行く」老将は短く言った。「大梁なら、わしの名を知る者もいよう」舎人の{aide}が、{player}に頭を下げた。「将軍について来てはくれぬか」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "flag": "h_lp_follow"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3ng": {
+   "art": "war",
+   "text": [
+    "乱戦の中で{player}は傷を負い、陣の隅に倒れ込んだ。気がつくと、楽乗の兵はもう逃げ散っていた。だが、勝った{lianpo}の顔は晴れなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で老将の行く末を見届ける",
+   "wait": {
+    "settled": "lianpo_flees"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lp_nolianpo"
+     },
+     "next": "nolp"
+    },
+    {
+     "if": {
+      "branch": "lp_reconcile"
+     },
+     "next": "reconciled"
+    },
+    {
+     "if": {
+      "branch": "lp_qin"
+     },
+     "next": "toqin"
+    },
+    {
+     "next": "fled"
+    }
+   ]
+  },
+  "reconciled": {
+   "speaker": "lianpo",
+   "art": "feast",
+   "text": [
+    "{lianpo}は将印を楽乗に渡し、自らは副将として陣に残った。宮中の者たちは拍子抜けしたように黙った。",
+    "酒の席で、老将は楽乗の杯に酒を注ぎながら{player}に言った。「藺相如どのが生きておられたら、同じことを言われたろう。国が二つに割れれば、喜ぶのは秦だけだ、とな」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 5
+    },
+    {
+     "unflag": "h_lp_reconcile"
+    },
+    {
+     "unflag": "h_lp_follow"
+    },
+    {
+     "note": "{lianpo}は楽乗と和し、{zhao}に留まった。"
+    }
+   ],
+   "end": "二度目の和"
+  },
+  "toqin": {
+   "speaker": "qinke",
+   "art": "road",
+   "text": [
+    "{lianpo}は楽乗を打ち払うと、その足で西へ向かった。函谷関の秦の兵は、老将の車を見ると道を開けて礼をした。",
+    "{qinke}が{player}に重い袋を渡した。「秦は名将を一人、戦わずして得た。趙は、自分で自分の壁を一枚剥がした」{player}は袋の重さほどには、心が軽くならなかった。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "unflag": "h_lp_qin"
+    },
+    {
+     "unflag": "h_lp_follow"
+    },
+    {
+     "note": "{lianpo}は{zhao}を去り、{qin}へ奔った。"
+    }
+   ],
+   "end": "西へ行った老将"
+  },
+  "nolp": {
+   "art": "tale",
+   "text": [
+    "将印を取り上げられるはずの老将は、もうこの世にいなかった。楽乗は誰と争うこともなく陣に入り、{zhao}の兵たちは黙ってそれを迎えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lp_follow"
+    }
+   ],
+   "end": "主なき将印"
+  },
+  "fled": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で老将の出奔を見届ける",
+   "wait": {
+    "settled": "lianpo_flees"
+   },
+   "speaker": "aide",
+   "art": "road",
+   "text": [
+    "{lianpo}は楽乗を打ち払うと、その夜のうちに{city}を出た。従う者はわずかな舎人だけだった。東の空が白むころ、老将の車は魏の境を越えた。",
+    "{aide}が振り返って言った。「将軍は大梁へ行かれる。魏王が将軍を用いてくれればよいが」"
+   ],
+   "choices": [
+    {
+     "label": "{lianpo}を追って{daliang}へ行く",
+     "next": "s4"
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "daliang",
+    "building": "inn"
+   },
+   "goal": "{daliang}の客舎で{lianpo}を訪ねる",
+   "speaker": "lianpo",
+   "art": "inn",
+   "text": [
+    "{daliang}の客舎の離れで、{lianpo}は昼から酒を飲んでいた。魏王は老将を迎えはしたが、兵は一人も預けなかった。「客として養う、だそうだ。わしは客になりに来たのではない」",
+    "老将は杯を置き、北の空を見た。「わしが使いたいのは、趙の兵だ。魏の兵では、どう動くか分からぬ。三十年、趙の兵と一緒に戦ってきたのだ」"
+   ],
+   "choices": [
+    {
+     "label": "{lianpo}のそばに留まる",
+     "effects": [
+      {
+       "note": "{daliang}で、魏に用いられぬ{lianpo}のそばに留まった。"
+      }
+     ],
+     "next": "s5"
+    }
+   ]
+  },
+  "s5": {
+   "at": {
+    "place": "daliang",
+    "building": "house"
+   },
+   "goal": "{daliang}で{zhao}からの便りを待つ",
+   "wait": {
+    "days": 200
+   },
+   "speaker": "aide",
+   "art": "tale",
+   "text": [
+    "年が改まり、秦の攻めに苦しむ{zhao}の王は、ついに{lianpo}を呼び戻そうと考えたらしい。まず使者をよこし、老将がまだ使えるかどうかを見させるという。",
+    "{aide}が声をひそめた。「使者は{envoy}という男だ。ところが、{city}を発つ前の晩に{guokai}の屋敷に呼ばれている。{guokai}は昔から将軍を憎んでいる。何もなかったはずがない」"
+   ],
+   "goto": [
+    {
+     "if": {
+      "settled": "lianpo_old"
+     },
+     "next": "aftergo2"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{lianpo}が使者を迎えるのを見守る",
+     "next": "s6"
+    },
+    {
+     "label": "使者の宿に忍び込み、{guokai}の金と書付を押さえる",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s5proof",
+      "lose": "s5proof_ng"
+     }
+    },
+    {
+     "label": "{city}へ取って返し、{guokai}を討つ",
+     "turn": true,
+     "next": "s5gk"
+    }
+   ]
+  },
+  "s5proof": {
+   "art": "backroom",
+   "text": [
+    "{envoy}の行李の底に、布に包んだ金の板が二十枚あった。添えられた書付には、走り書きでこうある。「廉頗はすでに老い、用うるに足らず。そう申せ。残りは帰ってから」",
+    "{player}は書付を懐に、夜明け前に{daliang}を発った。{city}の宮で、王の耳に直に届けねばならない。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lpo_proof"
+    },
+    {
+     "note": "{guokai}が使者{envoy}に与えた金と書付を押さえた。"
+    }
+   ],
+   "next": "s5king"
+  },
+  "s5proof_ng": {
+   "text": [
+    "行李に手をかけたところで、{envoy}の従者が目を覚ました。{player}は窓から転がり出て逃げた。何も持ち出せなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s6"
+  },
+  "s5king": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で{zhao}の王に会う",
+   "speaker": "{zhao}の王",
+   "art": "court",
+   "text": [
+    "宮の廊下は長かった。{guokai}の息のかかった宦官が三度、{player}を追い返そうとした。四度目に、ようやく王の前に出た。",
+    "若い王は、疲れた目で{player}を見下ろした。「廉頗のことか。使者はまだ戻らぬ」"
+   ],
+   "choices": [
+    {
+     "label": "金の板と書付を差し出し、使者の偽りを告げる",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s5truth",
+      "lose": "s5truth_ng"
+     }
+    }
+   ]
+  },
+  "s5truth": {
+   "speaker": "{zhao}の王",
+   "art": "court",
+   "text": [
+    "王は書付を二度読み、それから脇に控える{guokai}の顔を見た。寵臣は笑おうとしたが、頬が引きつっていた。",
+    "その日の夕べ、{envoy}が戻って「廉将軍はお元気ですが、わたしと座っているうちに三度も厠に立たれました」と申し上げた。王は何も言わず、使者を獄へ下した。そして、もう一度大梁へ車を出させた。今度は、迎えの車だった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lpo_truth"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "wanted": "zhao",
+     "n": -10
+    },
+    {
+     "note": "{guokai}に買われた使者の偽りを、王の前で暴いた。"
+    }
+   ],
+   "next": "aftergo2"
+  },
+  "s5truth_ng": {
+   "speaker": "guokai",
+   "text": [
+    "「この書付が、使者の手であると誰が言える」{guokai}は穏やかに言った。「廉頗の取り巻きが、帰りたい一心で作ったものでございましょう」王は頷き、書付を火鉢にくべた。"
+   ],
+   "effects": [
+    {
+     "wanted": "zhao",
+     "n": 10
+    }
+   ],
+   "next": "aftergo2"
+  },
+  "s5gk": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の{guokai}の屋敷へ向かう",
+   "speaker": "guokai",
+   "art": "backroom",
+   "text": [
+    "{guokai}の屋敷の裏庭に、夜の灯がひとつ揺れていた。寵臣は家士を二人連れ、誰かを待っている様子だった。「大梁の使者はうまくやったか。老いぼれが帰ってくれば、わしの首が危うい」"
+   ],
+   "choices": [
+    {
+     "label": "闇から躍り出て、{guokai}を討つ",
+     "turn": true,
+     "fight": {
+      "foes": "person",
+      "who": "guokai",
+      "n": 3,
+      "level": 0,
+      "confirm": "王の寵臣を斬れば、もう{zhao}では表を歩けない。それでも斬るか。",
+      "win": "s5gk_ok",
+      "lose": "s5gk_ng"
+     }
+    },
+    {
+     "label": "手を出さずに大梁へ戻る",
+     "next": "s6"
+    }
+   ]
+  },
+  "s5gk_ok": {
+   "art": "duel",
+   "text": [
+    "家士の槍を払い、逃げようとする{guokai}の背に剣を突き立てた。寵臣は庭の池に倒れ込み、そのまま動かなくなった。",
+    "翌朝、{city}の宮は大騒ぎになった。だが、{guokai}がいなくなって、使者の偽りを守る者もいなくなった。使者は脅えて、すべてを王に白状したという。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lpo_guokai"
+    },
+    {
+     "kill": "guokai",
+     "cause": "killed"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "wanted": "zhao",
+     "n": 35
+    },
+    {
+     "note": "{city}で{guokai}を討った。"
+    }
+   ],
+   "next": "aftergo2"
+  },
+  "s5gk_ng": {
+   "text": [
+    "家士の槍が脇腹をかすめた。叫び声に屋敷じゅうの灯がともり、{player}は塀を越えて逃げるしかなかった。{guokai}は、その夜から屋敷を出なくなった。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "wanted": "zhao",
+     "n": 20
+    }
+   ],
+   "next": "aftergo2"
+  },
+  "s6": {
+   "at": {
+    "place": "daliang",
+    "building": "house"
+   },
+   "goal": "{daliang}で使者を迎える{lianpo}を見守る",
+   "speaker": "lianpo",
+   "art": "feast",
+   "text": [
+    "{envoy}の前で、{lianpo}は一斗の飯と十斤の肉を平らげてみせた。それから鎧を着込み、馬に跨がって庭を三度めぐった。",
+    "「見たか。まだ使えるぞ」老将は息ひとつ乱さずに言った。{envoy}は深く頭を下げ、目を伏せたまま帰っていった。{player}には、その目が笑っていたように見えた。"
+   ],
+   "next": "aftergo2"
+  },
+  "aftergo2": {
+   "goal": "{zhao}の王の答えを待つ",
+   "wait": {
+    "settled": "lianpo_old"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lpo_nolianpo"
+     },
+     "next": "nolp2"
+    },
+    {
+     "if": {
+      "branch": "lianpo_guokai"
+     },
+     "next": "back_gk"
+    },
+    {
+     "if": {
+      "branch": "lianpo_back"
+     },
+     "next": "back"
+    },
+    {
+     "next": "old"
+    }
+   ]
+  },
+  "back": {
+   "at": {
+    "place": "daliang"
+   },
+   "speaker": "lianpo",
+   "art": "road",
+   "text": [
+    "迎えの車が{daliang}の門に着いた日、{lianpo}は朝から鎧を着て待っていた。「三度も厠に立つ年寄りを、王は迎えに来られたか」老将は笑ったが、目は濡れていた。",
+    "車に乗る前に、{lianpo}は{player}の手を握った。「わしは趙の兵を使いたかった。それが叶う。この恩は、秦の首で返そう」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "unflag": "h_lpo_truth"
+    },
+    {
+     "unflag": "h_lpo_proof"
+    },
+    {
+     "unflag": "h_lp_follow"
+    },
+    {
+     "note": "{lianpo}は{zhao}に呼び戻された。"
+    }
+   ],
+   "end": "帰る老将"
+  },
+  "back_gk": {
+   "at": {
+    "place": "daliang"
+   },
+   "speaker": "aide",
+   "art": "road",
+   "text": [
+    "{guokai}が斬られ、使者が偽りを白状して、王はようやく{lianpo}を呼び戻した。老将の車は北へ向かい、{daliang}の人々はそれを門まで見送った。",
+    "{aide}は{player}にだけ囁いた。「寵臣を斬った者を、王は探している。将軍の名で匿えるのは、しばらくの間だけだ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "unflag": "h_lpo_guokai"
+    },
+    {
+     "unflag": "h_lpo_proof"
+    },
+    {
+     "unflag": "h_lp_follow"
+    },
+    {
+     "note": "{guokai}は死に、{lianpo}は{zhao}に戻った。"
+    }
+   ],
+   "end": "血で開いた道"
+  },
+  "nolp2": {
+   "art": "tale",
+   "text": [
+    "趙の使者が{daliang}に着いたとき、迎えるはずの老将はもういなかった。使者は誰にも会わず、そのまま北へ帰っていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lp_follow"
+    },
+    {
+     "unflag": "h_lpo_proof"
+    }
+   ],
+   "end": "迎える人なく"
+  },
+  "old": {
+   "at": {
+    "place": "daliang"
+   },
+   "goal": "{daliang}で{lianpo}の行く末を見届ける",
+   "wait": {
+    "settled": "lianpo_old"
+   },
+   "speaker": "lianpo",
+   "art": "tale",
+   "text": [
+    "{city}から届いた噂は短かった。使者は王にこう申し上げたという。「廉将軍はなお健やかですが、わたしと座っているうちに三度も厠に立たれました」王は、廉頗は老いたと言って、呼び戻さなかった。",
+    "{lianpo}は黙って聞き、それから天井を仰いで笑った。笑い声は、しまいに咳に変わった。「三度か。よう数えたものだ」"
+   ],
+   "choices": [
+    {
+     "label": "「楚が将軍を招いているそうです」と、楚への道を勧める",
+     "next": "end_chu"
+    },
+    {
+     "label": "最後の夜まで、{lianpo}と酒を酌み交わす",
+     "next": "end_cup"
+    },
+    {
+     "label": "何も言わずに{daliang}を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_chu": {
+   "speaker": "lianpo",
+   "text": [
+    "{lianpo}は楚へ行った。楚は老将を将に任じたが、兵は老将の声に慣れなかった。",
+    "去り際に、老将は言った。「わしは趙の兵を使いたかった」それが、{player}の聞いた{lianpo}の最後の言葉になった。老将は数年ののち、寿春で死んだという。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_lp_follow"
+    },
+    {
+     "unflag": "h_lpo_proof"
+    },
+    {
+     "note": "{lianpo}は{zhao}に呼び戻されず、楚へ去った。"
+    }
+   ],
+   "end": "我、趙人を用いんと思う"
+  },
+  "end_cup": {
+   "speaker": "lianpo",
+   "text": [
+    "夜通し飲んだ。{lianpo}は長平の前の話をし、藺相如の話をし、燕の六十万の話をした。どの話にも、趙の兵の名が出てきた。",
+    "明け方、老将は眠りこけたまま言った。「一斗の飯も、十斤の肉も、まだ食える。食えるのだ」{player}は外套をかけて、そっと戸を閉めた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "unflag": "h_lp_follow"
+    },
+    {
+     "unflag": "h_lpo_proof"
+    },
+    {
+     "note": "{lianpo}は老いたとされ、{zhao}に呼び戻されなかった。最後の夜に酒を酌み交わした。"
+    }
+   ],
+   "end": "一斗の飯"
+  },
+  "end_left": {
+   "text": [
+    "{player}は{daliang}を後にした。振り返ると、客舎の離れの窓に、鎧を着たままの老人の影が見えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lp_follow"
+    },
+    {
+     "unflag": "h_lpo_proof"
+    },
+    {
+     "note": "{lianpo}は老いたとされ、{zhao}に呼び戻されなかった。"
+    }
+   ],
+   "end": "老将の影"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lp_nolianpo"
+     },
+     "next": "nolp"
+    },
+    {
+     "if": {
+      "branch": "lp_reconcile"
+     },
+     "next": "reconciled"
+    },
+    {
+     "if": {
+      "branch": "lp_qin"
+     },
+     "next": "toqin"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の途中で噂を聞いた。{zhao}の老将{lianpo}が、将印を取りに来た楽乗を打ち払い、そのまま魏の{daliang}へ奔ったという。",
+    "「三十年、趙の壁だった男が、壁の外へ出てしまった」と、宿の老人は言った。老将はいまも、{daliang}の客舎にいるらしい。"
+   ],
+   "choices": [
+    {
+     "label": "{daliang}へ{lianpo}を訪ねる",
+     "next": "s4"
+    }
+   ]
+  }
+ },
+ "branches": [
+  {
+   "id": "lp_nolianpo",
+   "event": "lianpo_flees",
+   "order": 3,
+   "why": "廉頗がすでに死んでいた",
+   "when": {
+    "dead": [
+     "廉頗"
+    ]
+   },
+   "then": "cancel",
+   "note": "将印を取り上げられるはずの[[p:廉頗]]は、もういなかった。楽乗は争うことなく{n_zhao}の将となった。"
+  },
+  {
+   "id": "lp_reconcile",
+   "event": "lianpo_flees",
+   "order": 2,
+   "why": "主人公が廉頗と楽乗の間を取り持った",
+   "when": {
+    "flag": "h_lp_reconcile"
+   },
+   "then": "cancel",
+   "note": "{n_zhao}の[[p:廉頗]]は将印を楽乗に譲って副将に退き、二人は和した。廉頗は趙に留まった。"
+  },
+  {
+   "id": "lp_qin",
+   "event": "lianpo_flees",
+   "order": 1,
+   "why": "主人公が廉頗を秦へ誘った",
+   "when": {
+    "flag": "h_lp_qin"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_zhao}の王は老将[[p:廉頗]]に代えて楽乗を将にしようとした。怒った廉頗は楽乗を攻めて走らせ、そのまま西の{n_qin}へ奔った。秦は戦わずして名将を得た。",
+    "do": [
+     [
+      "add",
+      "qin",
+      "prestige",
+      5
+     ],
+     [
+      "add",
+      "zhao",
+      "prestige",
+      -5
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   },
+   "people": [
+    {
+     "move": "廉頗",
+     "to": "qin"
+    }
+   ]
+  },
+  {
+   "id": "lpo_noflee",
+   "event": "lianpo_old",
+   "order": 4,
+   "why": "廉頗が魏へ奔っていなかった",
+   "when": {
+    "changed": [
+     "lianpo_flees"
+    ]
+   },
+   "then": "cancel",
+   "note": "[[p:廉頗]]は魏へ奔っていなかったので、{n_zhao}の王が使者をやって老いを確かめることもなかった。"
+  },
+  {
+   "id": "lpo_nolianpo",
+   "event": "lianpo_old",
+   "order": 3,
+   "why": "廉頗がすでに死んでいた",
+   "when": {
+    "dead": [
+     "廉頗"
+    ]
+   },
+   "then": "cancel",
+   "note": "{n_zhao}の王が呼び戻そうとした[[p:廉頗]]は、もうこの世にいなかった。"
+  },
+  {
+   "id": "lianpo_guokai",
+   "event": "lianpo_old",
+   "order": 2,
+   "why": "主人公が郭開を討った",
+   "when": {
+    "flag": "h_lpo_guokai"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:廉頗]]を憎む[[p:郭開]]は何者かに斬られ、金をつかまされた使者は偽りを白状した。{n_zhao}の王は老将を大梁から呼び戻し、再び将とした。",
+    "do": [
+     [
+      "army",
+      "zhao",
+      1.1
+     ],
+     [
+      "add",
+      "zhao",
+      "stability",
+      -0.03
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   },
+   "people": [
+    {
+     "move": "廉頗",
+     "to": "zhao"
+    },
+    {
+     "spare": "廉頗",
+     "years": 12
+    }
+   ]
+  },
+  {
+   "id": "lianpo_back",
+   "event": "lianpo_old",
+   "order": 1,
+   "why": "主人公が使者の偽りを王に暴いた",
+   "when": {
+    "flag": "h_lpo_truth"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_zhao}の王は[[p:廉頗]]を用いようと使者を送ったが、使者が[[p:郭開]]の金を受けて偽りを申すことが露わになった。王は老将を大梁から呼び戻し、再び将とした。",
+    "do": [
+     [
+      "army",
+      "zhao",
+      1.1
+     ],
+     [
+      "add",
+      "zhao",
+      "prestige",
+      3
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   },
+   "people": [
+    {
+     "move": "廉頗",
+     "to": "zhao"
+    },
+    {
+     "spare": "廉頗",
+     "years": 12
+    }
+   ]
+  }
+ ]
+}

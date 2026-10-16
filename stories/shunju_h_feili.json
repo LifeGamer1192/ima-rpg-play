@@ -1,0 +1,835 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_feili",
+ "kind": "history",
+ "title": "肥のほとり",
+ "era": "shunju",
+ "event": "feili_233",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s2hurt",
+  "s2lose",
+  "s2lose_ng",
+  "s3",
+  "s3ok",
+  "s3hurt",
+  "s3huanyi",
+  "s3hy_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "handan"
+  },
+  "field": {
+   "place": "near:city"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:zhao"
+  },
+  "limu": {
+   "scnPerson": "李牧"
+  },
+  "huanyi": {
+   "scnPerson": "桓齮"
+  },
+  "sima": {
+   "scnPerson": "司馬尚"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で{sima}に会う",
+   "speaker": "sima",
+   "art": "tale",
+   "text": [
+    "平陽で十万を失った{city}は、葬いの白い布がまだ門に掛かったままだった。そこへ、秦の{huanyi}が赤麗と宜安を攻めているという報せが来た。",
+    "客舎の奥で、日に焼けた武人が{player}を手招きした。趙の将{sima}である。「王は北の{limu}将軍を呼び戻された。匈奴を十年寄せつけなかった方だ。将軍は兵より先に、目と耳を欲しがっておられる。来てくれぬか」"
+   ],
+   "choices": [
+    {
+     "label": "{limu}の陣へ向かう",
+     "effects": [
+      {
+       "note": "{sima}に誘われ、北から呼び戻された{limu}の陣に加わることになった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の陣で{limu}に会う",
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "{limu}の陣は、壁を高く、溝を深くして、ひたすら守りを固めていた。兵たちは毎日牛を食い、弓を引き、だが一度も打って出ない。邯鄲からは「なぜ戦わぬ」という使いが来ては帰っていく。",
+    "将軍は{player}に地図を示した。「{huanyi}は勝ちに驕っている。わしが動かねば、あの男はしびれを切らして兵を分ける。分けたところを叩く。それまでに、秦の陣のどこが薄いかを知りたい」"
+   ],
+   "choices": [
+    {
+     "label": "物見に出て、秦の陣の継ぎ目を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "秦の陣へ糧を運ぶ人夫に紛れ、話を拾う",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "{qin}の間者として、この陣の守りの薄いところを{huanyi}に流す",
+     "turn": true,
+     "if": {
+      "patron": "qin"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "s2lose",
+      "lose": "s2lose_ng"
+     }
+    }
+   ]
+  },
+  "s2ng": {
+   "text": [
+    "秦の見張りに見咎められた。言い訳を口にする前に、相手はもう剣を抜いていた。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2hurt"
+     }
+    }
+   ]
+  },
+  "s2hurt": {
+   "text": [
+    "肩に一太刀を受けて、陣へ逃げ戻った。{limu}は傷を見て「生きて帰ったなら、それで十分だ」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ok": {
+   "text": [
+    "{huanyi}は肥下に本陣を置き、宜安を囲む兵と、趙の陣を見張る兵とに分けていた。本陣の東は葦の原で、柵が途切れている。",
+    "{limu}は報せを聞くと、黙って地図の葦の原に指を置いた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_feili_seen"
+    },
+    {
+     "note": "{huanyi}の本陣の東の柵が途切れているのを見つけた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2lose": {
+   "speaker": "huanyi",
+   "art": "war",
+   "text": [
+    "夜、{player}は葦の原を抜けて秦の本陣に入り、{huanyi}の前に趙の陣の図を広げた。どの壁が土だけで、どの溝が浅く、どの門の兵が北辺から来たばかりの新兵か。",
+    "{huanyi}は図を眺めて笑った。「李牧は動かぬことで勝つ将だ。ならば、動かぬ陣の中で崩してやろう。おぬしの名は咸陽に届けておく」"
+   ],
+   "effects": [
+    {
+     "flag": "h_feili_lose"
+    },
+    {
+     "rep": "qin",
+     "n": 15
+    },
+    {
+     "rep": "zhao",
+     "n": -15
+    },
+    {
+     "note": "{limu}の陣の図を{huanyi}に渡した。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2lose_ng": {
+   "text": [
+    "陣の図を写しているところを、{sima}の兵に見られかけた。{player}は筆を折って火にくべ、何食わぬ顔で夜番に立った。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の陣で、打って出る時を待つ",
+   "wait": {
+    "days": 6
+   },
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "{huanyi}はついにしびれを切らした。宜安を囲む兵を残し、本陣の兵を割いて肥の流れを渡り、趙の陣の側面を衝こうとしている。",
+    "{limu}は初めて鎧の紐を締めた。「今だ。渡りかけた兵は首だけ岸に出た亀と同じだ。全軍、肥のほとりへ」"
+   ],
+   "choices": [
+    {
+     "label": "{limu}の本隊に従い、渡りかけた秦兵を討つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3hurt"
+     }
+    },
+    {
+     "label": "乱戦を抜けて、肥下の本陣にいる{huanyi}の首を狙う",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3huanyi",
+      "lose": "s3hy_ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "秦の兵は河の中ほどで足を取られ、趙の弓に次々と倒れた。肥の流れは、日が傾くころには赤く濁っていた。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3hurt": {
+   "text": [
+    "水の中で槍に突かれ、岸へ引きずり上げられた。勝ち鬨は、気を失いかけた耳に遠く聞こえた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3huanyi": {
+   "speaker": "huanyi",
+   "art": "duel",
+   "text": [
+    "葦の原から柵の切れ目を抜けると、本陣の幕舎が目の前にあった。{huanyi}は自ら剣を取って立ちはだかった。「趙の雑兵が、ここまで来るか」",
+    "斬り結んだのは十合に満たなかった。秦の将の体が幕舎の柱にもたれるように崩れ、旗が倒れた。それを見た秦の兵たちは、我先に河を渡って逃げはじめた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_feili_huanyi"
+    },
+    {
+     "fame": 10
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "rep": "qin",
+     "n": -20
+    },
+    {
+     "note": "肥のほとりの乱戦で、秦の将{huanyi}を討ち取った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3hy_ng": {
+   "text": [
+    "本陣の手前で、秦の親衛に押し返された。{huanyi}の旗は乱戦の向こうで揺れ、やがて北へ遠ざかっていった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}で、肥の戦の成り行きを見届ける",
+   "wait": {
+    "settled": "feili_233"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "fl_nolimu"
+     },
+     "next": "nolimu"
+    },
+    {
+     "if": {
+      "branch": "fl_huanyi"
+     },
+     "next": "huanyi"
+    },
+    {
+     "if": {
+      "branch": "fl_lose"
+     },
+     "next": "lost"
+    },
+    {
+     "next": "s4"
+    }
+   ]
+  },
+  "nolimu": {
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "北から来るはずの将は、来なかった。{sima}が代わりに兵を率いたが、{huanyi}は赤麗も宜安も抜き、肥のほとりで趙の兵を蹴散らした。",
+    "「将軍がおられれば」{sima}はそれしか言わなかった。秦は来年もまた来るだろう。"
+   ],
+   "effects": [
+    {
+     "note": "{limu}はもういない。肥のほとりで趙は敗れた。"
+    }
+   ],
+   "next": "s6"
+  },
+  "huanyi": {
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "秦の将が討たれたという報せは、その夜のうちに邯鄲に届いた。{king}は{limu}を武安君に封じ、{player}の名も功の札に書き加えさせた。",
+    "{limu}は封の印を受け取ると、すぐに{player}を呼んだ。「将が一人死んでも、秦は次の将を送ってくる。来年は番吾だろう。おぬしの目と耳を、もう少し貸してくれ」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "favor": 10
+    },
+    {
+     "note": "肥のほとりで趙が大勝し、{huanyi}は討たれた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "lost": {
+   "speaker": "huanyi",
+   "art": "war",
+   "text": [
+    "秦の兵は、図に記された浅い溝から趙の陣になだれ込んだ。{limu}は陣を捨てて北へ退き、{huanyi}は肥のほとりで勝ち鬨を上げた。",
+    "{huanyi}は約束どおり、重い袋を{player}に投げてよこした。「趙の長城も、内から崩せば土塀と同じだ」その夜から、趙の地で{player}の名を口にする者は、声をひそめるようになった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "wanted": "zhao",
+     "n": 20
+    },
+    {
+     "unflag": "h_feili_lose"
+    },
+    {
+     "unflag": "h_feili_seen"
+    },
+    {
+     "note": "{limu}の陣を秦に売り、肥のほとりで秦が勝った。"
+    }
+   ],
+   "end": "崩された長城"
+  },
+  "s4": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}で、肥の戦の成り行きを見届ける",
+   "wait": {
+    "settled": "feili_233"
+   },
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "肥のほとりの戦は、趙の大勝に終わった。{huanyi}は少ない供回りと共に北へ逃れ、秦の兵は河原に鎧を捨てて散った。{king}は{limu}を武安君に封じた。",
+    "その夜、{limu}は祝いの酒に口をつけなかった。「秦は負けても、また来る。来年は番吾だろう。勝つたびに、こちらの兵も減っていく」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "note": "肥のほとりで{limu}が秦の{huanyi}を破った。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で、番吾の守りの軍議に出る",
+   "wait": {
+    "settled": "feili_233"
+   },
+   "speaker": "limu",
+   "art": "court",
+   "text": [
+    "年が明け、秦は再び北から番吾をうかがっていた。宮城の軍議で、{king}の近臣たちは口々に言った。「武安君ならば、また大勝なさるでしょう。秦の首を、今度は二万、三万と」",
+    "{limu}は黙って聞いていた。帳簿を見れば、肥で勝った兵のうち、まだ槍を持てる者は半ばに満たない。"
+   ],
+   "choices": [
+    {
+     "label": "黙って番吾への出陣に従う",
+     "next": "s6"
+    },
+    {
+     "label": "「勝ち急がず、敵を引き付けては退き、兵を損なわぬ戦をなさいませ」と献策する",
+     "turn": true,
+     "check": {
+      "skill": "letters",
+      "dc": 37,
+      "win": "s5spare",
+      "lose": "s5spare_ng"
+     }
+    }
+   ]
+  },
+  "s5spare": {
+   "speaker": "limu",
+   "art": "court",
+   "text": [
+    "{player}は兵の名簿と糧の帳を並べ、番吾の山道に三重の砦を描いた。一つ目で叩き、二つ目まで退き、三つ目で待つ。首を取るより、兵を残す戦である。",
+    "近臣たちは鼻で笑ったが、{limu}は名簿の束を手に取り、しばらく離さなかった。「首の数を数える戦は、もう十分だ。この策で行く」"
+   ],
+   "effects": [
+    {
+     "flag": "h_fw_spare"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{limu}に、兵を損なわぬ番吾の守りを献じた。"
+    }
+   ],
+   "next": "s6"
+  },
+  "s5spare_ng": {
+   "text": [
+    "近臣の一人が「臆病の策」と言い、{king}が頷いた。{limu}は何も言わなかったが、退出するとき、{player}の肩を一度だけ叩いた。"
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}の陣で、番吾の戦を見届ける",
+   "wait": {
+    "settled": "fanwu_232"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "fw_nolimu"
+     },
+     "next": "fw_lost"
+    },
+    {
+     "if": {
+      "branch": "fw_spare"
+     },
+     "next": "fw_spared"
+    },
+    {
+     "next": "s7"
+    }
+   ]
+  },
+  "fw_lost": {
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "番吾も落ちた。率いる将のいない趙の兵は、秦の騎兵に押されるまま山道を退き、多くが谷に倒れた。",
+    "{sima}は折れた剣を鞘に戻しながら言った。「北の長城を守った方がおられぬ。趙は、壁のない家のようなものだ」"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "unflag": "h_feili_seen"
+    },
+    {
+     "unflag": "h_feili_huanyi"
+    },
+    {
+     "unflag": "h_fw_spare"
+    },
+    {
+     "note": "番吾で趙は秦に敗れた。"
+    }
+   ],
+   "end": "壁のない家"
+  },
+  "fw_spared": {
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "秦の兵は一つ目の砦で叩かれ、二つ目の砦で足を止め、三つ目の砦を見上げて引き返した。首の数は少なかった。だが、番吾から帰った趙の兵は、出て行った兵とほとんど同じ数だった。",
+    "{limu}は帰ってきた兵の列を、最後の一人まで見送った。「勝ったのか、と王は問われるだろう。わしは答える。皆、帰ってきた、と」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "unflag": "h_feili_seen"
+    },
+    {
+     "unflag": "h_feili_huanyi"
+    },
+    {
+     "unflag": "h_fw_spare"
+    },
+    {
+     "note": "番吾で{limu}は兵を損なわずに秦を退けた。"
+    }
+   ],
+   "end": "皆、帰ってきた"
+  },
+  "s7": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}の陣で、番吾の戦を見届ける",
+   "wait": {
+    "settled": "fanwu_232"
+   },
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "番吾でも、{limu}は秦を退けた。だが二年続いた戦で、趙の兵は目に見えて減っていた。陣の天幕は半ば空き、炊ぎの煙は細い。",
+    "{sima}が言った。「勝っても勝っても、兵は戻らぬ。秦は負けても、次の兵を送ってくる。このままでは、勝ちながら滅ぶ」"
+   ],
+   "choices": [
+    {
+     "label": "傷ついた兵の手当てに回る",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "end_heal",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "陣を去る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_heal": {
+   "text": [
+    "{player}は空いた天幕を病舎に変え、ひと月のあいだ傷の手当てを続けた。歩いて郷里へ帰れるようになった兵が、一人、また一人と陣を出ていく。",
+    "「趙が勝ちながら滅ぶなら、せめて人だけは残したい」{sima}はそう言って、{player}に頭を下げた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "unflag": "h_feili_seen"
+    },
+    {
+     "unflag": "h_feili_huanyi"
+    },
+    {
+     "unflag": "h_fw_spare"
+    },
+    {
+     "note": "肥と番吾で{limu}が秦を退けた。傷ついた兵の手当てをした。"
+    }
+   ],
+   "end": "勝ちながら"
+  },
+  "end_plain": {
+   "text": [
+    "{player}は陣を後にした。勝ち戦の後とは思えぬほど、陣は静かだった。武安君の旗だけが、北の風に高く鳴っていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_feili_seen"
+    },
+    {
+     "unflag": "h_feili_huanyi"
+    },
+    {
+     "unflag": "h_fw_spare"
+    },
+    {
+     "note": "肥と番吾で{limu}が秦を退けるのを見届けた。"
+    }
+   ],
+   "end": "武安君の旗"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "fl_nolimu"
+     },
+     "next": "nolimu"
+    },
+    {
+     "if": {
+      "branch": "fl_huanyi"
+     },
+     "next": "huanyi"
+    },
+    {
+     "if": {
+      "branch": "fl_lose"
+     },
+     "next": "lost"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。北から呼び戻された{limu}が、肥のほとりで秦の{huanyi}を大いに破ったという。趙王は将軍を武安君に封じた。",
+    "「秦はまた来る」と噂の主は言った。「次は番吾だそうだ」"
+   ],
+   "effects": [
+    {
+     "note": "肥のほとりで{limu}が秦を破ったと聞いた。"
+    }
+   ],
+   "next": "s5"
+  }
+ },
+ "branches": [
+  {
+   "id": "fl_nolimu",
+   "event": "feili_233",
+   "order": 3,
+   "why": "李牧がすでに殺されていた",
+   "when": {
+    "slain": [
+     "李牧"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}の[[p:桓齮]]は赤麗・宜安を抜き、肥のほとりで趙軍を破った。北辺の名将はもうおらず、これを防ぐ者はいなかった。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "prestige",
+      -10
+     ],
+     [
+      "army",
+      "zhao",
+      0.85
+     ]
+    ],
+    "imp": 3,
+    "at": "handan"
+   }
+  },
+  {
+   "id": "fl_huanyi",
+   "event": "feili_233",
+   "order": 2,
+   "why": "主人公が乱戦で桓齮を討ち取った",
+   "when": {
+    "flag": "h_feili_huanyi"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "北辺から呼び戻された[[p:李牧]]が肥のほとりで{n_qin}の軍を大いに破り、秦の将[[p:桓齮]]は乱戦の中で討ち取られた。趙王は李牧を武安君に封じた。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "prestige",
+      20
+     ],
+     [
+      "add",
+      "qin",
+      "prestige",
+      -10
+     ]
+    ],
+    "imp": 3,
+    "at": "handan"
+   },
+   "people": [
+    {
+     "kill": "桓齮",
+     "cause": "battle"
+    }
+   ]
+  },
+  {
+   "id": "fl_lose",
+   "event": "feili_233",
+   "order": 1,
+   "why": "主人公が李牧の陣の図を秦に流した",
+   "when": {
+    "flag": "h_feili_lose"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}の[[p:桓齮]]は内通する者から[[p:李牧]]の陣の図を得て、肥のほとりで趙軍を破った。李牧は兵をまとめて北へ退いた。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "prestige",
+      -10
+     ],
+     [
+      "army",
+      "zhao",
+      0.85
+     ]
+    ],
+    "imp": 3,
+    "at": "handan"
+   }
+  },
+  {
+   "id": "fw_nolimu",
+   "event": "fanwu_232",
+   "order": 2,
+   "why": "李牧がすでに殺されていた",
+   "when": {
+    "slain": [
+     "李牧"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}が番吾を攻め、率いる名将のいない趙軍を破った。",
+    "do": [
+     [
+      "army",
+      "zhao",
+      0.85
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   }
+  },
+  {
+   "id": "fw_spare",
+   "event": "fanwu_232",
+   "order": 1,
+   "why": "主人公が兵を損なわぬ守りを献じた",
+   "when": {
+    "flag": "h_fw_spare"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}が番吾を攻めたが、[[p:李牧]]は砦を三重に構えて敵を引き付けては退き、兵を損なわずにこれを退けた。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "prestige",
+      8
+     ],
+     [
+      "army",
+      "zhao",
+      1.05
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   }
+  }
+ ]
+}

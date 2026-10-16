@@ -1,0 +1,628 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_zong",
+ "kind": "school",
+ "title": "合従連衡",
+ "era": "shunju",
+ "school": "zong",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "先生",
+   "sex": "m"
+  },
+  "peer": {
+   "npc": "同門",
+   "sex": "m"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "powercap": {
+   "place": "capital:power"
+  },
+  "powerruler": {
+   "person": "ruler:power"
+  },
+  "powermin": {
+   "person": "minister:power"
+  },
+  "weak": {
+   "realm": "weakest"
+  },
+  "weakcap": {
+   "place": "capital:weak"
+  },
+  "weakruler": {
+   "person": "ruler:weak"
+  },
+  "ally": {
+   "realm": "second"
+  },
+  "allycap": {
+   "place": "capital:ally"
+  },
+  "allyruler": {
+   "person": "ruler:ally"
+  },
+  "front": {
+   "place": "border:power"
+  }
+ },
+ "start": "z1",
+ "scenes": {
+  "z1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の縦横家の館へ行く",
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "館の奥で、{master}は脇息にもたれて目を閉じていた。傍らには、{player}と同じ日に門を叩いた{peer}が控えている。",
+    "「舌は剣より長く届く。人の欲と恐れを量り、言葉でそれを動かす。これを揣摩という」{master}は片目を開けた。「試しに、わしをこの部屋から出してみよ」"
+   ],
+   "choices": [
+    {
+     "label": "「外へ出ていただくのは難しい。ですが外からなら、中へお招きできます」",
+     "check": {
+      "skill": "speech",
+      "dc": 14,
+      "win": "z1ok",
+      "lose": "z1ng"
+     }
+    },
+    {
+     "label": "「館に火が！」と叫ぶ",
+     "next": "z1ng"
+    }
+   ]
+  },
+  "z1ok": {
+   "speaker": "master",
+   "text": [
+    "{master}は面白がって庭へ出た。そして縁側に座ったまま、自分が部屋の外にいることに気づいて笑った。「やられたな。その手を忘れるな」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "z2"
+  },
+  "z1ng": {
+   "speaker": "peer",
+   "text": [
+    "{master}は眉ひとつ動かさなかった。横で{peer}が肩をすくめる。「先生を動かすには、先生の欲を量らないと。嘘で動くのは臆病者だけさ」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "z2"
+  },
+  "z2": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "弁舌を18まで磨き、{here}の館に戻る",
+   "wait": {
+    "skill": {
+     "speech": 18
+    }
+   },
+   "speaker": "master",
+   "text": [
+    "「二人とも、もう教えることは少ない。今日より弟子と名乗れ」",
+    "「天下はいま{power}が最も強い。強きに付いて利を分けるを連衡、弱きを束ねて強きに当たるを合従という。どちらを説くかは、お前たちが選べ」",
+    "{peer}はその夜のうちに旅支度をした。「俺は{power}へ行く。勝つ方に付くのが、一番話が早い」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "note": "縦横家の弟子となった。{peer}は{power}へ向かった。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "路銀を分けてやる（50{money}）",
+     "if": {
+      "money": 50
+     },
+     "effects": [
+      {
+       "money": -50
+      },
+      {
+       "flag": "zong_helped"
+      }
+     ],
+     "next": "z3"
+    },
+    {
+     "label": "黙って見送る",
+     "next": "z3"
+    }
+   ]
+  },
+  "z3": {
+   "at": {
+    "place": "powercap",
+    "building": "palace"
+   },
+   "goal": "{powercap}の宮城で{powerruler}に連衡を説く",
+   "speaker": "powerruler",
+   "art": "court",
+   "text": [
+    "{player}は{power}の天下を論じた。関の険しさ、兵の多さ、倉の厚さ。十度、二十度と書を奉った。",
+    "{powerruler}は退屈そうに手を振った。「羽の生えそろわぬ鳥は高く飛べぬ。そなたの策はまだ早い」隣の{powermin}は、口の端で笑っていた。"
+   ],
+   "choices": [
+    {
+     "label": "夜に{powermin}の屋敷を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "z3spy",
+      "lose": "z3out"
+     }
+    },
+    {
+     "label": "黙って都を去る",
+     "next": "z3out"
+    }
+   ]
+  },
+  "z3spy": {
+   "text": [
+    "屋敷の書庫で、{player}は兵糧の割り当てを記した竹簡を見つけた。{power}は来年、{weak}を攻めるつもりだ。"
+   ],
+   "effects": [
+    {
+     "flag": "zong_intel"
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "{power}が{weak}を攻める計画を知った。"
+    }
+   ],
+   "next": "z3out"
+  },
+  "z3out": {
+   "text": [
+    "帰り道、黒貂の裘はすり切れ、路銀も尽きた。宿の者は{player}を物乞いのように扱った。だが胸の内で、ひとつの考えが形をとりはじめていた。{power}が相手にせぬなら、{power}以外のすべてを相手にすればよい。"
+   ],
+   "effects": [
+    {
+     "money": -50
+    }
+   ],
+   "next": "z4"
+  },
+  "z4": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の館に籠もり、30日ほど書を読んで弁舌を28まで磨く",
+   "wait": {
+    "days": 30,
+    "skill": {
+     "speech": 28
+    }
+   },
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "{player}は館の一室に籠もり、兵法と諸国の地誌を読み抜いた。眠気が来れば錐で腿を刺した。",
+    "{master}が戸口から覗いて言った。「顔つきが変わったな。もう人に頭を下げる顔ではない。人を頷かせる顔だ」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "z5"
+  },
+  "z5": {
+   "at": {
+    "place": "weakcap",
+    "building": "palace"
+   },
+   "goal": "{weakcap}の宮城で{weakruler}に合従を説く",
+   "speaker": "weakruler",
+   "art": "court",
+   "text": [
+    "{weak}の宮廷は、明日にも滅ぶ国の静けさに満ちていた。{weakruler}は疲れた声で言った。「{power}に地を割いて和を乞えば、今年は生き延びられる」",
+    "{player}は進み出た。「地を割くのは、薪を抱いて火を消すようなもの。薪が尽きるまで火は消えませぬ」"
+   ],
+   "choices": [
+    {
+     "label": "{power}の出兵の計画を明かす",
+     "if": {
+      "flag": "zong_intel"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "z5ok",
+      "lose": "z5test"
+     }
+    },
+    {
+     "label": "「鶏口となるも牛後となるなかれ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "z5ok",
+      "lose": "z5test"
+     }
+    }
+   ]
+  },
+  "z5test": {
+   "speaker": "weakruler",
+   "art": "war",
+   "text": [
+    "「口ではどうとでも言える」{weakruler}は言った。「わが使者を{ally}へ送る。その道中、賊がしきりに出る。そなたが守り抜けば、信じよう」"
+   ],
+   "choices": [
+    {
+     "label": "使者の車に付き従う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "z5ok",
+      "lose": "z5late"
+     }
+    }
+   ]
+  },
+  "z5late": {
+   "text": [
+    "賊は退いたが、使者は傷を負い、旅は半月遅れた。それでも{player}が逃げなかったことは、{weakruler}の耳に届いた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "z5ok"
+  },
+  "z5ok": {
+   "speaker": "weakruler",
+   "text": [
+    "{weakruler}は盟約の竹簡に印を押した。「{ally}が動くなら、わが国も動こう。そなたに相の印を預ける」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "weak",
+     "n": 15
+    },
+    {
+     "note": "{weak}を合従に加えた。"
+    }
+   ],
+   "next": "z6"
+  },
+  "z6": {
+   "at": {
+    "place": "allycap",
+    "building": "palace"
+   },
+   "goal": "名声を12まで上げ、{allycap}の宮城で{allyruler}を説く",
+   "wait": {
+    "fame": 12
+   },
+   "speaker": "allyruler",
+   "art": "court",
+   "text": [
+    "{allyruler}は{weak}の印を見て、ゆっくりと頷いた。「{ally}は{power}に次ぐ国だ。{power}が天下を呑めば、次に呑まれるのはわが国だということくらい、分かっておる」",
+    "「よかろう。合従の盟主となろう。そなたはわが国の相も兼ねよ」二つの相印が、{player}の腰で触れ合って鳴った。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "ally",
+     "n": 15
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{weak}と{ally}の相印を帯び、縦横家の高弟と認められた。"
+    }
+   ],
+   "next": "z7"
+  },
+  "z7": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "30日のうちに支度を整え、国境の{front}で開かれる会盟へ向かう",
+   "wait": {
+    "days": 30
+   },
+   "speaker": "peer",
+   "art": "court",
+   "text": [
+    "{front}の会盟の幕舎に、{power}からの使いが現れた。{power}の衣を着た{peer}だった。",
+    "「諸君、合従とは砂を固めて城を築くようなものだ。{ally}と{weak}は昨日まで国境で斬り合っていた。どちらが先に裏切るか、賭けてみるかね」幕舎がざわめいた。"
+   ],
+   "choices": [
+    {
+     "label": "{peer}と正面から論じ合う",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "z7win",
+      "lose": "z7lose"
+     }
+    },
+    {
+     "label": "夜のうちに{peer}の密書を盗み、{power}の離間策を暴く",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "z7win",
+      "lose": "z7lose"
+     }
+    },
+    {
+     "label": "「同門のよしみで、今日は引いてくれ」と頼む",
+     "if": {
+      "flag": "zong_helped"
+     },
+     "next": "z7friend"
+    }
+   ]
+  },
+  "z7friend": {
+   "speaker": "peer",
+   "text": [
+    "{peer}は目をそらした。「あの時の路銀の借りは返す。今日のところはな」{peer}は論を収め、早々に幕舎を去った。"
+   ],
+   "effects": [
+    {
+     "flag": "zong_hold"
+    }
+   ],
+   "next": "z8"
+  },
+  "z7win": {
+   "text": [
+    "{player}の言葉に、諸国の使者は互いの顔を見て頷いた。合従の盟は誓いの血をすすって結ばれた。{peer}は唇を噛んで去った。"
+   ],
+   "effects": [
+    {
+     "flag": "zong_hold"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "z8"
+  },
+  "z7lose": {
+   "text": [
+    "{peer}の言葉は毒のように回った。盟は結ばれたが、使者たちの目には互いへの疑いが残った。"
+   ],
+   "effects": [
+    {
+     "flag": "zong_cracked"
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "next": "z8"
+  },
+  "z8": {
+   "at": {
+    "place": "front",
+    "building": "inn"
+   },
+   "goal": "{front}の客舎で一夜を明かす",
+   "art": "war",
+   "text": [
+    "夜半、戸の隙間から刃の光が差し込んだ。合従を目障りに思う者が、刺客を放ったのだ。"
+   ],
+   "choices": [
+    {
+     "label": "剣を取る",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "z8win",
+      "lose": "z8hurt"
+     }
+    }
+   ]
+  },
+  "z8win": {
+   "text": [
+    "刺客の懐から、{power}の符が出てきた。{player}はそれを諸国に回し、合従の名分をさらに固めた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "power",
+     "n": -10
+    }
+   ],
+   "next": "z9"
+  },
+  "z8hurt": {
+   "text": [
+    "刃は脇腹をかすめた。{player}は血を押さえて窓から逃れた。天下を動かす舌も、喉を斬られればそれまでだ。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    }
+   ],
+   "next": "z9"
+  },
+  "z9": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "傷を癒やし、{here}の館の{master}を訪ねる",
+   "wait": {
+    "days": 20
+   },
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "{master}はますます老いていたが、声は張りを失っていなかった。「二人とも、よく舌を磨いた。一人は合従、一人は連衡。天下はいま、わが門の二人の舌の上で揺れておる」",
+    "「今日よりお前を師と呼ぶ。だが忘れるな。言葉で結んだものは、言葉でほどける」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "note": "縦横家の師となった。"
+    }
+   ],
+   "next": "z10"
+  },
+  "z10": {
+   "at": {
+    "place": "powercap",
+    "building": "palace"
+   },
+   "goal": "弁舌を40まで磨き、名声25に達したら{powercap}へ合従の使いに立つ",
+   "wait": {
+    "skill": {
+     "speech": 40
+    },
+    "fame": 25
+   },
+   "speaker": "powerruler",
+   "art": "court",
+   "text": [
+    "かつて{player}を追い返した宮殿に、今度は諸国の相印を帯びて入った。{powerruler}の傍らには{peer}が立っている。",
+    "「来たか」{powerruler}は言った。「そなたの盟と、わが国の兵。どちらが長く保つか、聞かせてもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "合従の盟主として、{power}に兵を退かせる",
+     "if": {
+      "flag": "zong_hold"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "endHold",
+      "lose": "endScatter"
+     }
+    },
+    {
+     "label": "盟の綻びを認め、{power}と結ぶ道を探る",
+     "next": "endTurn"
+    },
+    {
+     "label": "盟を信じて退かぬ",
+     "if": {
+      "notFlag": "zong_hold"
+     },
+     "next": "endScatter"
+    }
+   ]
+  },
+  "endHold": {
+   "speaker": "peer",
+   "text": [
+    "{player}は一刻にわたって天下を論じた。{power}の兵が関を出れば、諸国の兵が背後を突く。その図を、誰もが目の前に見た。{powerruler}はついに、盟の続く限り関を出ぬと約した。",
+    "宮殿を出ると、{peer}が待っていた。「負けたよ。だが覚えておけ。お前の盟が続く間は、俺の連衡も要らない。お前が倒れたら、俺の出番だ」二人は昔のように笑った。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "ally",
+     "n": 20
+    },
+    {
+     "rep": "weak",
+     "n": 20
+    }
+   ],
+   "end": "六国の相印"
+  },
+  "endTurn": {
+   "speaker": "powerruler",
+   "text": [
+    "{player}は合従の旗を巻き、{power}と諸国を一国ずつ結ぶ策を献じた。{powerruler}は満足げに頷き、{peer}は複雑な顔をした。",
+    "諸国はしばらく安らぎ、{player}は富み栄えた。だが人は陰で言う。「縦横の士は、風の吹く方へ舌を向ける」と。{player}はそれを否まなかった。"
+   ],
+   "effects": [
+    {
+     "money": 500
+    },
+    {
+     "rep": "power",
+     "n": 20
+    },
+    {
+     "fame": 4
+    }
+   ],
+   "end": "連衡に転ず"
+  },
+  "endScatter": {
+   "text": [
+    "{player}の言葉は届かなかった。ひと月のうちに、{peer}の使いが諸国を巡り、一国ずつ{power}と和を結ばせた。合従の盟は、砂の城のように崩れた。",
+    "相印を返した{player}は、{here}の館に戻った。若い門人たちを前に、{player}は言う。「言葉で結んだものは、言葉でほどける。だから、ほどけぬ言葉を探せ」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    }
+   ],
+   "end": "盟は散る"
+  }
+ }
+}

@@ -1,0 +1,493 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_guild1",
+ "kind": "rank",
+ "guildTo": 1,
+ "title": "初仕事",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "頭目",
+   "sex": "m"
+  },
+  "senior": {
+   "npc": "古参の手下",
+   "sex": "m"
+  },
+  "mark": {
+   "npc": "陶工",
+   "sex": "m"
+  },
+  "usurer": {
+   "npc": "高利貸し",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で頭目に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "裏部屋の灯は暗く、{boss}の顔は半分しか見えなかった。「見習いの使い走りは今日で終わりだ。今夜、東の外れの{mark}の家に入れ。何を持ってきてもいい。ただし手ぶらで戻るな」",
+    "{boss}は顎で隅の男を指した。古参の{senior}が、欠けた歯を見せて笑った。「おれが後ろから見ている。しくじったら置いていくぞ」"
+   ],
+   "choices": [
+    {
+     "label": "日のあるうちに市で下調べをする",
+     "next": "s1scout"
+    },
+    {
+     "label": "下調べなどいらぬ。今夜すぐに入る",
+     "next": "s2"
+    }
+   ]
+  },
+  "s1scout": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で{mark}の家のことを探る",
+   "speaker": "senior",
+   "art": "trade",
+   "text": [
+    "市の雑踏で、{senior}が退屈そうに欠伸をした。「下調べとは、見習いらしい律儀さだな」",
+    "土器を並べる露店がある。{mark}の焼いたものだという。"
+   ],
+   "choices": [
+    {
+     "label": "土器を値切りながら、それとなく{mark}の暮らしを聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 15,
+      "win": "scout_ok",
+      "lose": "scout_ng"
+     }
+    },
+    {
+     "label": "家路につく{mark}の後を、人に紛れてつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 15,
+      "win": "scout_ok",
+      "lose": "scout_ng"
+     }
+    }
+   ]
+  },
+  "scout_ok": {
+   "text": [
+    "{mark}は貧しい陶工で、病の子を抱えている。窯の火を絶やさぬために、隣に屋敷を構える高利貸しの{usurer}から借りた銭が、利に利を重ねて膨らんでいるらしい。",
+    "{usurer}の屋敷の蔵には、取り立てた銭と借券が積んであるという。"
+   ],
+   "effects": [
+    {
+     "flag": "g1_scouted"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "s2"
+  },
+  "scout_ng": {
+   "text": [
+    "露店の女が怪訝そうに{player}を見た。「あんた、何を嗅ぎまわってるんだい」それ以上は聞けず、そそくさと場を離れた。"
+   ],
+   "effects": [
+    {
+     "wanted": "here",
+     "n": 3
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "夜、{here}の東の外れ、{mark}の家に忍び込む",
+   "art": "hideout",
+   "text": [
+    "月は雲に隠れていた。{mark}の家は傾いた土塀に囲まれ、戸には粗末な閂が一本かかっているだけだ。背後の闇で、{senior}が息を殺している。"
+   ],
+   "choices": [
+    {
+     "label": "戸の隙間から閂を外す",
+     "check": {
+      "skill": "theft",
+      "dc": 16,
+      "win": "s3",
+      "lose": "s2noise"
+     }
+    },
+    {
+     "label": "裏の土塀を音もなく越える",
+     "check": {
+      "skill": "stealth",
+      "dc": 16,
+      "win": "s3",
+      "lose": "s2noise"
+     }
+    }
+   ]
+  },
+  "s2noise": {
+   "art": "hideout",
+   "text": [
+    "足もとの土器のかけらが鳴った。近所の犬が吠え立て、通りの向こうから夜回りの灯がこちらへ揺れてくる。"
+   ],
+   "choices": [
+    {
+     "label": "物陰に身を伏せ、やり過ごす",
+     "check": {
+      "skill": "stealth",
+      "dc": 20,
+      "win": "s3",
+      "lose": "fail_run"
+     }
+    },
+    {
+     "label": "夜回りを殴り倒して黙らせる",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 8
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 1,
+      "level": 0,
+      "win": "s3",
+      "lose": "fail_caught"
+     }
+    },
+    {
+     "label": "今夜は諦めて引き上げる",
+     "next": "fail_run"
+    }
+   ]
+  },
+  "s3": {
+   "art": "hideout",
+   "text": [
+    "家の中は冷えきっていた。筵の上で老いた母が眠り、その胸で幼い子が苦しげに咳をしている。目ぼしい物は何もない。ただ竈の上の壺に、布で包んだ小さな銭袋がひとつ。薬代として貯めたものだろう。",
+    "{senior}が肩越しに囁いた。「それだ。取れ。頭目は中身までは問わん」"
+   ],
+   "choices": [
+    {
+     "label": "銭袋を懐に入れる",
+     "effects": [
+      {
+       "money": 40
+      },
+      {
+       "fame": -1
+      }
+     ],
+     "next": "win_cold"
+    },
+    {
+     "label": "何も取らず、隣の{usurer}の蔵を狙う",
+     "if": {
+      "flag": "g1_scouted"
+     },
+     "check": {
+      "skill": "theft",
+      "dc": 22,
+      "win": "s3usurer",
+      "lose": "s3usurer_ng"
+     }
+    },
+    {
+     "label": "何も取らずに家を出る",
+     "next": "s4empty"
+    }
+   ]
+  },
+  "s3usurer": {
+   "art": "hideout",
+   "text": [
+    "{usurer}の蔵の錠は重かったが、腕は鈍っていなかった。中には銭箱と、近隣の貧家の名を連ねた借券の束があった。{mark}の名もある。",
+    "{senior}が口笛を吹きかけて止めた。「見習いが、言われた家より大きな蔵を抜くとはな」"
+   ],
+   "choices": [
+    {
+     "label": "銭を一握り、{mark}の戸口に置いていく",
+     "effects": [
+      {
+       "money": 90
+      },
+      {
+       "fame": 2
+      },
+      {
+       "flag": "g1_gave"
+      }
+     ],
+     "next": "win_bold"
+    },
+    {
+     "label": "借券を竈にくべ、銭はすべて持ち帰る",
+     "effects": [
+      {
+       "money": 120
+      },
+      {
+       "fame": 1
+      },
+      {
+       "wanted": "here",
+       "n": 4
+      }
+     ],
+     "next": "win_bold"
+    },
+    {
+     "label": "借券も持ち帰り、貧家から自分で取り立てる",
+     "effects": [
+      {
+       "money": 160
+      },
+      {
+       "fame": -2
+      }
+     ],
+     "next": "win_bold"
+    }
+   ]
+  },
+  "s3usurer_ng": {
+   "art": "war",
+   "text": [
+    "錠が甲高い音を立てた。「盗人だ！」{usurer}の雇った用心棒が棍棒を掴んで飛び出してくる。"
+   ],
+   "choices": [
+    {
+     "label": "用心棒と渡り合う",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 6
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4scrap",
+      "lose": "fail_caught"
+     }
+    },
+    {
+     "label": "闇に紛れて逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 20,
+      "win": "s4empty",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s4scrap": {
+   "art": "hideout",
+   "text": [
+    "用心棒を打ち倒し、蔵の口に転がった銭箱をひとつ抱えて塀を越えた。後ろで屋敷じゅうの灯がともった。"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "wanted": "here",
+     "n": 6
+    }
+   ],
+   "next": "win_bold"
+  },
+  "s4empty": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は{player}の空の両手を見て、しばらく黙っていた。{senior}が横から言う。「あの家には薬代しかなかったんでさ。こいつは手を出さなかった」",
+    "「手ぶらで戻るなと言ったはずだ」"
+   ],
+   "choices": [
+    {
+     "label": "「病の子の薬代を盗んで、一味の名が上がりますか」",
+     "check": {
+      "skill": "speech",
+      "dc": 18,
+      "win": "win_spare",
+      "lose": "fail_empty"
+     }
+    },
+    {
+     "label": "黙って頭を下げる",
+     "next": "fail_empty"
+    }
+   ]
+  },
+  "win_cold": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は銭袋の重さを掌で量り、鼻を鳴らした。「少ないな。だが言われたことを言われたとおりにやった。それが手下の始まりだ」",
+    "帰り道、{senior}がぼそりと言った。「あの家の子、助かるといいな」{player}は答えなかった。"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    },
+    {
+     "unflag": "g1_scouted"
+    },
+    {
+     "note": "{mark}の家から薬代を盗み、一味の手下となった。"
+    }
+   ],
+   "end": "言われたとおりに"
+  },
+  "win_bold": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{senior}の話を聞き終えると、{boss}は声を立てて笑った。「指図の家を素通りして、隣の高利貸しを抜いたか。言うことを聞かぬ奴は嫌いだが、稼ぐ奴は好きだ」",
+    "{boss}は杯を突き出した。「今日からお前は手下だ。次は勝手をする前に、おれに一言言え」"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "xp": "theft",
+     "n": 6
+    },
+    {
+     "unflag": "g1_scouted"
+    },
+    {
+     "unflag": "g1_gave"
+    },
+    {
+     "note": "高利貸し{usurer}の蔵を抜き、一味の手下となった。"
+    }
+   ],
+   "end": "隣の蔵"
+  },
+  "win_spare": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は{player}を睨みつけ、やがて鼻で笑った。「甘い奴だ。だが、貧乏人を泣かせれば里の口が閉じなくなる。分かっているなら、それでいい」",
+    "「手下にしてやる。次は甘さの分だけ、どこかで稼いでこい」"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "unflag": "g1_scouted"
+    },
+    {
+     "note": "貧しい陶工の家を見逃し、それでも一味の手下と認められた。"
+    }
+   ],
+   "end": "貧家を見逃す"
+  },
+  "fail_empty": {
+   "speaker": "boss",
+   "text": [
+    "「情けをかけるのは、かける余裕のある者だけだ」{boss}は手を振って{player}を下がらせた。「しばらく見習いのまま働け。働きが溜まれば、また仕事をくれてやる」"
+   ],
+   "effects": [
+    {
+     "unflag": "g1_scouted"
+    },
+    {
+     "note": "初仕事で手ぶらに終わった。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "手ぶらの夜"
+  },
+  "fail_run": {
+   "art": "hideout",
+   "text": [
+    "{player}は塀の外へ逃れた。{senior}の姿はとうに消えている。翌朝、裏部屋で聞いた{boss}の言葉は短かった。「見習いからやり直せ」"
+   ],
+   "effects": [
+    {
+     "unflag": "g1_scouted"
+    },
+    {
+     "note": "初仕事をしくじって逃げ帰った。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "逃げ帰る"
+  },
+  "fail_caught": {
+   "art": "war",
+   "text": [
+    "組み伏せられ、衛兵に引き渡された。袖の下でどうにか放免されたが、顔はすっかり覚えられた。{boss}は「間抜けを手下にはできん」と吐き捨てた。"
+   ],
+   "effects": [
+    {
+     "money": -50
+    },
+    {
+     "hp": -10
+    },
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "unflag": "g1_scouted"
+    },
+    {
+     "note": "初仕事で捕らえられた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "捕らわれの初仕事"
+  }
+ }
+}

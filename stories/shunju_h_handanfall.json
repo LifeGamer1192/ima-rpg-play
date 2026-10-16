@@ -1,0 +1,808 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_handanfall",
+ "kind": "history",
+ "title": "邯鄲落つ",
+ "era": "shunju",
+ "event": "qin_zhao",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2hurt",
+  "s2hold",
+  "s2hold_ng",
+  "s3",
+  "s3jia",
+  "s3jia_ng",
+  "s4",
+  "s4spare",
+  "s4spare_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "handan"
+  },
+  "camp": {
+   "place": "near:city"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:zhao"
+  },
+  "qking": {
+   "person": "ruler:qin"
+  },
+  "wangjian": {
+   "scnPerson": "王翦"
+  },
+  "sima": {
+   "scnPerson": "司馬尚"
+  },
+  "limu": {
+   "scnPerson": "李牧"
+  },
+  "crone": {
+   "npc": "路地の老婆",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で{sima}に会う",
+   "speaker": "sima",
+   "art": "tale",
+   "text": [
+    "{city}の客舎の奥に、将の任を解かれた{sima}が、ただの客として座っていた。卓の上の酒には口がつけられていない。",
+    "「長城を自分で崩した国に、何が残る」{sima}は低く言った。「{wangjian}の軍は井陘を越えた。年が明ければ、この城を囲むだろう。わしはもう将ではない。だが、城壁の上に立つ一人の兵にはなれる。おぬしはどうする」"
+   ],
+   "choices": [
+    {
+     "label": "「城壁の上で、隣に立とう」",
+     "effects": [
+      {
+       "note": "{wangjian}の軍が{city}に迫っている。{sima}と共に守りに就くことにした。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「守るにしても、まず城の様子を見たい」",
+     "effects": [
+      {
+       "note": "{wangjian}の軍が{city}に迫っている。{sima}と共に守りに就くことにした。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の砦で、邯鄲の守りに就く",
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "邯鄲の外の砦から見下ろすと、秦の陣は野を埋めていた。{wangjian}は急がない。土塁を築き、溝を掘り、兵に十分食わせて、城の中の飢えが熟すのを待っている。",
+    "{sima}が北の山道を指した。「秦の糧は、あの道を通って太行の向こうから来る。あれを断てれば、{wangjian}も急がざるを得なくなる。急げば、隙ができる」"
+   ],
+   "choices": [
+    {
+     "label": "砦の守りに就き、夜襲に備える",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2hurt"
+     }
+    },
+    {
+     "label": "決死の兵を集め、北の山道を通る秦の糧道を焼く",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s2hold",
+      "lose": "s2hold_ng"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "text": [
+    "夜半、秦の斥候が砦の溝を越えてきた。{player}と兵たちはそれを押し返したが、翌朝、秦の陣はまた一歩近くなっていた。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hurt": {
+   "text": [
+    "溝の中の乱戦で足を斬られた。{sima}に担がれて砦へ戻った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hold": {
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "月の出ない三夜、{player}と兵百人は山道の崖の上に伏せた。糧を積んだ車の列が谷に入ったところで、油を染ませた柴を投げ落とす。谷は一夜で炎の川になった。",
+    "三度目の夜が明けると、{wangjian}の陣の炊ぎの煙が目に見えて細くなっていた。{sima}が笑った。「老将は急がぬのが取り柄だ。だが、腹が減れば、急がずにはおれん。……いや、あの男なら、急がずに退くかもしれんな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qz_hold"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "wanted": "qin",
+     "n": 15
+    },
+    {
+     "note": "{wangjian}の糧道を焼き、秦の陣を飢えさせた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hold_ng": {
+   "text": [
+    "崖の上に伏せていたところを、秦の騎兵に見つかった。兵の半ばを失い、{player}は谷を這うようにして砦へ戻った。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で公子嘉に会う",
+   "speaker": "公子嘉",
+   "art": "court",
+   "text": [
+    "宮城の奥で、{player}は公子嘉に引き合わされた。先の王の太子だったが、母の身分のために位を退けられた人である。",
+    "「王は{wangjian}に降るおつもりだ。郭開がそう勧めている」公子は声をひそめた。「わたしは降らぬ。北の代へ逃れ、一族と兵を集めて、燕と結ぶ。だが城は囲まれつつあり、北の門には郭開の手の者が立っている」"
+   ],
+   "choices": [
+    {
+     "label": "宮を下がる",
+     "next": "s4"
+    },
+    {
+     "label": "公子の一族を荷車に紛れさせ、北の門を抜ける手引きをする",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "s3jia",
+      "lose": "s3jia_ng"
+     }
+    }
+   ]
+  },
+  "s3jia": {
+   "speaker": "公子嘉",
+   "art": "road",
+   "text": [
+    "{player}は北の門の番兵の交代の刻を調べ、酒樽を積んだ荷車を十台用意した。樽の半ばには酒ではなく、公子の一族の子らが息を殺して入っている。",
+    "門は開き、荷車は北の街道へ出た。最後の車が闇に消える前に、公子嘉は振り返って言った。「趙の祀りが絶えぬかぎり、この恩も絶えぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_zf_jia"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "note": "公子嘉の一族を、北の門から代へ逃がす手引きをした。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3jia_ng": {
+   "text": [
+    "郭開の手の者は、荷車の樽を一つずつ槍で突いて改めた。{player}は計を捨て、公子の一族を宮へ戻すしかなかった。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の古い路地を訪ねる",
+   "speaker": "crone",
+   "art": "tale",
+   "text": [
+    "{city}の西の古い路地に、{crone}という老婆が住んでいた。三十年前、秦の人質の子とその母がこの路地に隠れ住んだとき、石を投げた子どもの一人が、自分の息子だったという。",
+    "「あの子が、秦の王になって帰ってくる」老婆は震える手で、路地の家々を指した。「あの頃、あの母子を罵った家、追い立てた家、宿を貸さなかった家。秦の役人が、もう名を書き集めていると聞いた」"
+   ],
+   "choices": [
+    {
+     "label": "「噂にすぎぬ」と慰めて路地を出る",
+     "next": "aftergo"
+    },
+    {
+     "label": "名を書かれた家々の者を、夜のうちに城の外へ逃がす",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s4spare",
+      "lose": "s4spare_ng"
+     }
+    }
+   ]
+  },
+  "s4spare": {
+   "speaker": "crone",
+   "art": "road",
+   "text": [
+    "{player}は秦の役人の名簿を盗み見て、路地の家を一軒ずつ回った。夜ごとに数家族ずつ、水路の暗渠を抜けて城の外へ出す。老婆の息子も、その中にいた。",
+    "{crone}は自分は残ると言った。「わしまで消えたら、役人が怪しむ。この歳だ、穴の中も、寝床も、そう変わらんよ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qkh_spare"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "wanted": "qin",
+     "n": 10
+    },
+    {
+     "note": "秦王の恨みを買った{city}の路地の家々の者を、城の外へ逃がした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4spare_ng": {
+   "text": [
+    "暗渠の出口に、秦の間者が立っていた。{player}は逃がそうとした一家と共に路地へ引き返した。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、趙の行く末を見届ける",
+   "wait": {
+    "settled": "qin_zhao"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qz_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "if": {
+      "branch": "qz_limu"
+     },
+     "next": "limu"
+    },
+    {
+     "if": {
+      "branch": "qz_hold"
+     },
+     "next": "held"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "noking": {
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "秦の陣に、王の死を告げる早馬が入った。{wangjian}は三日のあいだ動かず、四日目に囲みを解いて西へ退いた。老将は、主のいない国のために兵を損なう男ではなかった。",
+    "{sima}は城壁の上で、遠ざかる秦の旗を見送った。「趙が勝ったのではない。だが、趙は生きている。生きていれば、次がある」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_qz_hold"
+    },
+    {
+     "unflag": "h_zf_jia"
+    },
+    {
+     "unflag": "h_qkh_spare"
+    },
+    {
+     "note": "秦の王が死に、{wangjian}は{city}の囲みを解いた。"
+    }
+   ],
+   "end": "解かれた囲み"
+  },
+  "limu": {
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "北の陣から、{limu}の旗が戻ってきた。讒言を免れた名将は、秦の糧道を断ち、{wangjian}の陣の背後に回った。老将同士の睨み合いはひと冬続き、春になって、秦の軍は兵を返した。",
+    "{limu}は{city}の城門をくぐり、{player}に言った。「{wangjian}は負けて退いたのではない。勝てぬと見て退いたのだ。ああいう将が、一番手強い。次は、もっと多くの兵を連れてくる」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "unflag": "h_qz_hold"
+    },
+    {
+     "unflag": "h_zf_jia"
+    },
+    {
+     "unflag": "h_qkh_spare"
+    },
+    {
+     "note": "{limu}が{wangjian}を防ぎ、{city}は落ちなかった。"
+    }
+   ],
+   "end": "長城ふたたび"
+  },
+  "held": {
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "糧の尽きかけた{wangjian}は、城を急がなかった。陣を一歩ずつ下げ、冬が来る前に太行の向こうへ兵を返した。邯鄲は、また二年を生きることになった。",
+    "{sima}は焼けた山道の方角を眺めて言った。「老将は、負け戦はせぬ。二年後、倍の兵と倍の糧を連れて戻ってくる。それまでに、この国が自分を立て直せるかどうかだ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "unflag": "h_qz_hold"
+    },
+    {
+     "unflag": "h_zf_jia"
+    },
+    {
+     "unflag": "h_qkh_spare"
+    },
+    {
+     "note": "{wangjian}の糧道を焼き、{city}の陥落は二年遅れた。"
+    }
+   ],
+   "end": "焼けた山道"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、趙の行く末を見届ける",
+   "wait": {
+    "settled": "qin_zhao"
+   },
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "城門は内から開かれた。{wangjian}の軍は整然と{city}に入り、{king}は宮の階を下りて捕らえられた。武霊王が胡服を着て騎射を教えてから七十年余り、趙の都は秦のものとなった。",
+    "{sima}は剣を地に置き、秦の兵に背を向けて歩きだした。「わしは将ではなかった。だから降る必要もない」"
+   ],
+   "next": "fallgo"
+  },
+  "fallgo": {
+   "wait": {
+    "settled": "zhao_falls"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "zfall_jia"
+     },
+     "next": "jia"
+    },
+    {
+     "next": "s5b"
+    }
+   ]
+  },
+  "jia": {
+   "art": "road",
+   "text": [
+    "北から便りが届いた。公子嘉は一族数百人と共に代に入り、代王を称して燕と結んだという。荷車の樽から出てきた子らも、皆無事だそうだ。趙の祀りは、細い糸のようにまだつながっている。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "note": "{player}の手引きで、公子嘉は代へ逃れた。"
+    }
+   ],
+   "next": "kinggo"
+  },
+  "s5b": {
+   "art": "tale",
+   "text": [
+    "噂では、公子嘉が一族数百人を連れて北の代へ逃れ、代王を称したという。どうやって秦の囲みを抜けたのかは、誰も知らない。"
+   ],
+   "next": "kinggo"
+  },
+  "kinggo": {
+   "wait": {
+    "settled": "qin_king_handan"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qkh_nozhao"
+     },
+     "next": "end_quiet"
+    },
+    {
+     "if": {
+      "branch": "qkh_noking"
+     },
+     "next": "end_quiet"
+    },
+    {
+     "if": {
+      "branch": "qkh_spare"
+     },
+     "next": "spared"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "spared": {
+   "speaker": "crone",
+   "art": "disaster",
+   "text": [
+    "{qking}は{city}に入り、名簿を読み上げさせた。役人たちは名の家を一軒ずつ戸を破って回ったが、半ばの家は空だった。穴は掘られ、埋められた者もいた。だが、名簿の数には遠く及ばなかった。",
+    "{crone}は、空になった路地の真ん中に一人で座っていた。役人に引き立てられていく前に、老婆は{player}の方を見て、かすかに笑った。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "unflag": "h_zf_jia"
+    },
+    {
+     "unflag": "h_qkh_spare"
+    },
+    {
+     "note": "秦王は{city}で恨みある者を穴埋めにしたが、逃れた者たちがいた。"
+    }
+   ],
+   "end": "空の路地"
+  },
+  "end_quiet": {
+   "art": "tale",
+   "text": [
+    "秦の王が{city}に来ることはなかった。路地の名簿は、役所の棚で埃をかぶったままになった。{crone}は、相変わらず路地の入り口で日なたぼっこをしている。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zf_jia"
+    },
+    {
+     "unflag": "h_qkh_spare"
+    },
+    {
+     "note": "{city}は落ちたが、秦の王は来なかった。"
+    }
+   ],
+   "end": "来なかった王"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、秦の王の入城を見届ける",
+   "wait": {
+    "settled": "qin_king_handan"
+   },
+   "speaker": "qking",
+   "art": "disaster",
+   "text": [
+    "{qking}は{city}に入った。人質の子として生まれ、この町の路地で石を投げられて育った王である。王は宮には入らず、まず西の古い路地へ向かった。",
+    "役人が名簿を読み上げ、名を呼ばれた家の者たちが引き出された。城の外には、もう大きな穴が掘られていた。{crone}の息子の名も、その中にあった。"
+   ],
+   "choices": [
+    {
+     "label": "夜を待ち、穴の縁に花を手向ける",
+     "next": "end_mourn"
+    },
+    {
+     "label": "列の端の子を一人、人混みに紛れて連れ出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_child",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "目を背けて{city}を去る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_mourn": {
+   "speaker": "crone",
+   "text": [
+    "埋め戻された土の上に、{player}は野の花を置いた。いつの間にか{crone}が隣に立っていた。「石を投げたのは、九つのときだった。あの子は、九つのまま埋められた」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_zf_jia"
+    },
+    {
+     "unflag": "h_qkh_spare"
+    },
+    {
+     "note": "趙は滅び、秦王は{city}で恨みある者を穴埋めにした。"
+    }
+   ],
+   "end": "穴の縁の花"
+  },
+  "end_child": {
+   "text": [
+    "列の端で泣いていた男の子の手を引き、人混みの中に紛れ込んだ。誰も追ってこなかった。名簿の数が一つ足りないことに、役人は気づかなかったか、気づかぬふりをした。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "zhao",
+     "n": 5
+    },
+    {
+     "unflag": "h_zf_jia"
+    },
+    {
+     "unflag": "h_qkh_spare"
+    },
+    {
+     "note": "趙は滅び、秦王は{city}で恨みある者を穴埋めにした。子を一人連れ出した。"
+    }
+   ],
+   "end": "一つ足りない名簿"
+  },
+  "end_plain": {
+   "text": [
+    "{player}は南の門から{city}を出た。背中で、土を投げ入れる音が長く続いていた。趙という国は、ここに終わった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zf_jia"
+    },
+    {
+     "unflag": "h_qkh_spare"
+    },
+    {
+     "note": "趙は滅び、秦王が{city}に入るのを見届けた。"
+    }
+   ],
+   "end": "邯鄲落つ"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qz_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "if": {
+      "branch": "qz_limu"
+     },
+     "next": "limu"
+    },
+    {
+     "if": {
+      "branch": "qz_hold"
+     },
+     "next": "held"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。秦の{wangjian}が邯鄲を落とし、趙王を捕らえたという。公子嘉は北の代へ逃れ、秦の王は邯鄲に入って、母の家に恨みのあった者たちを穴埋めにしたとも。",
+    "「李牧を斬った翌年に、これだ」と、噂の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zf_jia"
+    },
+    {
+     "unflag": "h_qkh_spare"
+    },
+    {
+     "note": "邯鄲が落ち、趙が滅んだと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "qz_noking",
+   "event": "qin_zhao",
+   "order": 4,
+   "why": "秦王政がすでに殺されていた",
+   "when": {
+    "slain": [
+     "秦王政"
+    ]
+   },
+   "then": "cancel",
+   "note": "王を失った{n_qin}の[[p:王翦]]は邯鄲の囲みを解いて西へ退き、{n_zhao}は滅びなかった。"
+  },
+  {
+   "id": "qz_limu",
+   "event": "qin_zhao",
+   "order": 3,
+   "why": "李牧が生きて王翦を防いだ",
+   "when": {
+    "alive": [
+     "李牧"
+    ],
+    "changed": [
+     "li_mu_dies"
+    ]
+   },
+   "then": "cancel",
+   "note": "讒言を免れた[[p:李牧]]が[[p:王翦]]の軍を防ぎ、邯鄲は落ちなかった。"
+  },
+  {
+   "id": "qz_hold",
+   "event": "qin_zhao",
+   "order": 1,
+   "why": "主人公が王翦の糧道を焼いた",
+   "when": {
+    "flag": "h_qz_hold"
+   },
+   "then": "delay",
+   "months": 24,
+   "note": "糧道を焼かれた{n_qin}の[[p:王翦]]は邯鄲を抜けずに兵を返し、{n_zhao}の滅びは二年遅れた。"
+  },
+  {
+   "id": "zfall_none",
+   "event": "zhao_falls",
+   "order": 2,
+   "why": "邯鄲が落ちていなかった",
+   "when": {
+    "changed": [
+     "qin_zhao"
+    ]
+   },
+   "then": "cancel",
+   "note": "邯鄲は落ちず、趙の祀りは絶えなかった。"
+  },
+  {
+   "id": "zfall_jia",
+   "event": "zhao_falls",
+   "order": 1,
+   "why": "主人公が公子嘉の一族を北へ逃がした",
+   "when": {
+    "flag": "h_zf_jia"
+   },
+   "then": "replace",
+   "keep": true,
+   "alt": {
+    "ja": "趙の滅亡。邯鄲は落ち、[[p:幽繆王]]遷は捕らえられた。公子嘉は手引きする者を得て、荷車に一族を紛れさせて北の門を抜け、代に入って代王を称し、燕と結んだ。",
+    "imp": 3,
+    "at": "handan"
+   }
+  },
+  {
+   "id": "qkh_nozhao",
+   "event": "qin_king_handan",
+   "order": 3,
+   "why": "邯鄲が落ちていなかった",
+   "when": {
+    "changed": [
+     "qin_zhao"
+    ]
+   },
+   "then": "cancel",
+   "note": "邯鄲は{n_qin}の手に落ちておらず、秦の王が邯鄲に赴くことはなかった。"
+  },
+  {
+   "id": "qkh_noking",
+   "event": "qin_king_handan",
+   "order": 2,
+   "why": "秦王政がすでに殺されていた",
+   "when": {
+    "slain": [
+     "秦王政"
+    ]
+   },
+   "then": "cancel",
+   "note": "人質の子として邯鄲に育った秦の王はもういない。邯鄲の路地の名簿は、使われずに終わった。"
+  },
+  {
+   "id": "qkh_spare",
+   "event": "qin_king_handan",
+   "order": 1,
+   "why": "主人公が名簿の家々を城外へ逃がした",
+   "when": {
+    "flag": "h_qkh_spare"
+   },
+   "then": "replace",
+   "keep": true,
+   "alt": {
+    "ja": "{n_qin}の王は邯鄲に赴き、かつて母の家と恨みのあった者たちを穴埋めにしたが、名簿に書かれた家の半ばは、前の夜のうちに城を逃れていた。",
+    "imp": 2,
+    "at": "handan"
+   }
+  }
+ ]
+}

@@ -1,0 +1,586 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_rank4_monogashira",
+ "kind": "rank",
+ "rankTo": 4,
+ "title": "雨の砦",
+ "era": "sengoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "enemy": {
+   "realm": "enemy:patron"
+  },
+  "egen": {
+   "person": "general:enemy"
+  },
+  "fort": {
+   "place": "border:patron"
+  },
+  "gunner": {
+   "npc": "鉄砲組の小頭",
+   "sex": "m"
+  },
+  "dealer": {
+   "npc": "硝石を扱う商人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城で昇進を願い出る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は絵図の上に扇を置いた。「{fort}の砦が手薄だ。{enemy}の{egen}が国境に兵を寄せておる。鉄砲足軽五十を預ける。梅雨が明けるまで、砦を落とさせるな」",
+    "{minister}が付け加えた。「物頭とは、己の槍ではなく、預かった者の数で戦う役だ。それを見せてもらう」"
+   ],
+   "effects": [
+    {
+     "note": "鉄砲足軽五十を預かり、{fort}の砦を守ることになった。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "fort",
+    "building": "barracks"
+   },
+   "goal": "国境の{fort}の砦に入る",
+   "speaker": "gunner",
+   "art": "war",
+   "text": [
+    "砦の番所は雨漏りがしていた。鉄砲組の小頭{gunner}が、湿った玉薬の袋を逆さにして見せた。「このとおり、火薬は半分が湿気っております。これでは撃っても三発に一発しか火がつきませぬ」",
+    "「それに、組の者は撃つのは上手いが、込め直しの間に槍で突かれるのを怖がる。敵が騎馬で来たら、それまでにございます」"
+   ],
+   "choices": [
+    {
+     "label": "市で乾いた玉薬と硝石を買い付ける（300文）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      },
+      {
+       "flag": "sg_r4_powder"
+      }
+     ],
+     "next": "s2buy"
+    },
+    {
+     "label": "硝石の商人{dealer}と掛け合い、後払いで玉薬を出させる",
+     "check": {
+      "skill": "trade",
+      "dc": 38,
+      "win": "s2buy",
+      "lose": "s2wet"
+     }
+    },
+    {
+     "label": "湿った火薬を炒り直し、合薬を調え直させる",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "s2dry",
+      "lose": "s2wet"
+     }
+    },
+    {
+     "label": "{gunner}に任せ、己は柵の普請を見る",
+     "effects": [
+      {
+       "flag": "sg_r4_fence"
+      }
+     ],
+     "next": "s2wet"
+    }
+   ]
+  },
+  "s2buy": {
+   "speaker": "dealer",
+   "text": [
+    "{dealer}は荷車に乾いた玉薬の樽を積んで砦に上ってきた。「戦が済んだら、この砦の御用はうちに。それで手を打ちましょう」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r4_powder"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2dry": {
+   "speaker": "gunner",
+   "text": [
+    "火薬を鉄鍋で炒り、硫黄と炭を量り直した。{gunner}が目を丸くした。「侍の方が合薬の調合をご存じとは」火の付きは見違えるほどよくなった。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r4_powder"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "next": "s3"
+  },
+  "s2wet": {
+   "text": [
+    "乾いた火薬は手に入らなかった。せめてもと、組の者を総出で砦の前に柵を打ち込ませた。雨はやまない。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r4_fence"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "fort"
+   },
+   "goal": "{fort}の砦で{enemy}の来襲を待つ",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "gunner",
+   "art": "war",
+   "text": [
+    "三日目の明け方、雨が小降りになった。霧の向こうに{enemy}の旗が揺れ、法螺貝が鳴る。先頭には騎馬武者が並び、その後ろに長槍の足軽が続いている。",
+    "「物頭、ご下知を！」"
+   ],
+   "choices": [
+    {
+     "label": "組を三列に分け、入れ替わりに撃たせて間を空けぬ",
+     "if": {
+      "flag": "sg_r4_powder"
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 36,
+      "win": "s4",
+      "lose": "s3break"
+     }
+    },
+    {
+     "label": "柵の内に引きつけ、湿った火薬でも撃てるだけ撃つ",
+     "if": {
+      "notFlag": "sg_r4_powder"
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 46,
+      "win": "s4",
+      "lose": "s3break"
+     }
+    },
+    {
+     "label": "馬防ぎの柵を盾に、騎馬が絡まったところを撃ち崩す",
+     "if": {
+      "flag": "sg_r4_fence"
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 40,
+      "win": "s4",
+      "lose": "s3break"
+     }
+    },
+    {
+     "label": "雑賀の撃ち手に倣い、名手を選んで敵の侍大将だけを狙わせる",
+     "if": {
+      "realm": [
+       "鈴木",
+       "織田"
+      ]
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 34,
+      "win": "s4",
+      "lose": "s3break"
+     }
+    },
+    {
+     "label": "鉄砲で足を止めた隙に、騎馬を率いて敵の脇腹を衝く",
+     "if": {
+      "realm": [
+       "武田",
+       "上杉"
+      ]
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4",
+      "lose": "s3break"
+     }
+    },
+    {
+     "label": "鉄砲は捨て置き、自ら槍を取って打って出る",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "s4",
+      "lose": "s3break"
+     }
+    }
+   ]
+  },
+  "s3break": {
+   "art": "war",
+   "text": [
+    "騎馬が柵を越えた。鉄砲足軽たちは込め直しの手を止めて逃げまどう。{player}は残った者をまとめて本丸へ退いた。"
+   ],
+   "choices": [
+    {
+     "label": "本丸の門を閉ざし、斬って出て押し返す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4",
+      "lose": "s3fall"
+     }
+    },
+    {
+     "label": "砦を捨てて退く",
+     "next": "s3fall"
+    }
+   ]
+  },
+  "s3fall": {
+   "art": "war",
+   "text": [
+    "{fort}の砦に{enemy}の旗が立った。{player}は鉄砲足軽の半ばを連れて、雨の山道を落ちのびた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "fail_fall"
+  },
+  "s4": {
+   "art": "war",
+   "text": [
+    "硝煙が晴れると、柵の前に馬が幾頭も倒れていた。{enemy}の勢は旗を巻いて退いていく。組の者たちが、煤だらけの顔で鬨の声をあげた。",
+    "その夜、砦の門に矢文が射込まれた。{egen}の名で、「砦を明け渡せば、{enemy}にて今の倍の知行を与える」とある。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "bow",
+     "n": 6
+    }
+   ],
+   "choices": [
+    {
+     "label": "矢文を封のまま、{cap}の{ruler}に届ける",
+     "effects": [
+      {
+       "flag": "sg_r4_letter"
+      }
+     ],
+     "next": "s5"
+    },
+    {
+     "label": "矢文を焼き、組の者にも黙っておく",
+     "next": "s5"
+    },
+    {
+     "label": "寝返るふりをして返書を送り、{egen}の勢を砦の前に誘き寄せる",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s4ruse",
+      "lose": "s4ruse_ng"
+     }
+    }
+   ]
+  },
+  "s4ruse": {
+   "art": "war",
+   "text": [
+    "返書を信じた{enemy}の一隊が、夜明けに砦の門へ近づいてきた。門が開いたと見えた刹那、五十の鉄砲が一斉に火を噴いた。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r4_ruse"
+    },
+    {
+     "fame": 4
+    }
+   ],
+   "next": "s5"
+  },
+  "s4ruse_ng": {
+   "text": [
+    "返書は無視された。それどころか、「{player}が{enemy}と通じている」という噂が、砦の足軽たちのあいだに流れ始めた。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r4_rumor"
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "梅雨明けを待ち、{cap}の城で砦の守りを報じる",
+   "wait": {
+    "days": 5
+   },
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "梅雨が明けた。{cap}の広間で、{ruler}は砦の報告を聞いた。{minister}が一通の書付を手にしている。"
+   ],
+   "choices": [
+    {
+     "label": "{egen}の矢文の件を申し上げる",
+     "if": {
+      "flag": "sg_r4_letter"
+     },
+     "next": "win_loyal"
+    },
+    {
+     "label": "誘き寄せて討ち取った次第を申し上げる",
+     "if": {
+      "flag": "sg_r4_ruse"
+     },
+     "next": "win_ruse"
+    },
+    {
+     "label": "砦を守りきったことだけを申し上げる",
+     "if": {
+      "notFlag": "sg_r4_rumor"
+     },
+     "next": "win_hold"
+    },
+    {
+     "label": "寝返りの噂は、敵を欺くための策であったと弁じる",
+     "if": {
+      "flag": "sg_r4_rumor"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "win_hold",
+      "lose": "fail_doubt"
+     }
+    }
+   ]
+  },
+  "win_loyal": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は封の切られていない矢文を見て、表情を和らげた。「敵の誘いを、封も切らずに届ける者は少ない。殿も見ておられる」",
+    "{ruler}は{player}を物頭に任じ、鉄砲組をそのまま預けた。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 14
+    },
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "sg_r4_powder"
+    },
+    {
+     "unflag": "sg_r4_fence"
+    },
+    {
+     "unflag": "sg_r4_letter"
+    },
+    {
+     "unflag": "sg_r4_ruse"
+    },
+    {
+     "unflag": "sg_r4_rumor"
+    },
+    {
+     "note": "{fort}の砦を守りきり、敵の誘いを殿に届けて物頭となった。"
+    }
+   ],
+   "end": "封のままの矢文"
+  },
+  "win_ruse": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}は声をあげて笑った。「敵の矢文を逆手に取ったか。守るだけの物頭はいくらでもおるが、守りながら討つ者は少ない」",
+    "{player}は物頭となった。{enemy}の陣では、{player}の名が忌々しげに語られているという。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "enemy",
+     "n": -5
+    },
+    {
+     "unflag": "sg_r4_powder"
+    },
+    {
+     "unflag": "sg_r4_fence"
+    },
+    {
+     "unflag": "sg_r4_letter"
+    },
+    {
+     "unflag": "sg_r4_ruse"
+    },
+    {
+     "unflag": "sg_r4_rumor"
+    },
+    {
+     "note": "{fort}の砦で{enemy}の勢を誘き寄せて討ち、物頭となった。"
+    }
+   ],
+   "end": "矢文返し"
+  },
+  "win_hold": {
+   "speaker": "ruler",
+   "text": [
+    "「雨の中、鉄砲で砦を守りきった。それで十分だ」{ruler}は短く言い、{player}を物頭に任じた。",
+    "{gunner}たち鉄砲組の者は、新しい物頭の下で次の戦を待つことになった。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "sg_r4_powder"
+    },
+    {
+     "unflag": "sg_r4_fence"
+    },
+    {
+     "unflag": "sg_r4_letter"
+    },
+    {
+     "unflag": "sg_r4_ruse"
+    },
+    {
+     "unflag": "sg_r4_rumor"
+    },
+    {
+     "note": "{fort}の砦を鉄砲で守りきり、物頭となった。"
+    }
+   ],
+   "end": "砦を守る"
+  },
+  "fail_doubt": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は首を振った。「砦を守った功は認める。だが敵と書状を交わした者に、組を預けるわけにはいかぬ」褒美の銭だけが下された。務めを重ねて疑いを晴らせば、また機会はある。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "money": 150
+    },
+    {
+     "unflag": "sg_r4_powder"
+    },
+    {
+     "unflag": "sg_r4_fence"
+    },
+    {
+     "unflag": "sg_r4_letter"
+    },
+    {
+     "unflag": "sg_r4_ruse"
+    },
+    {
+     "unflag": "sg_r4_rumor"
+    },
+    {
+     "note": "砦は守ったが、寝返りの疑いで物頭になれなかった。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "疑いの砦"
+  },
+  "fail_fall": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城へ戻り、砦を失ったことを報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{ruler}は何も言わなかった。代わりに{minister}が告げた。「砦は取り返せる。だが組を崩した物頭の名は、取り返すのに時がかかる。侍として務めを重ねよ」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sg_r4_powder"
+    },
+    {
+     "unflag": "sg_r4_fence"
+    },
+    {
+     "unflag": "sg_r4_letter"
+    },
+    {
+     "unflag": "sg_r4_ruse"
+    },
+    {
+     "unflag": "sg_r4_rumor"
+    },
+    {
+     "note": "{fort}の砦を落とされた。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "落ちた砦"
+  }
+ }
+}

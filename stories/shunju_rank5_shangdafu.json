@@ -1,0 +1,494 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_rank5_shangdafu",
+ "kind": "rank",
+ "rankTo": 5,
+ "title": "敵国への使い",
+ "era": "shunju",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "other": {
+   "realm": "enemy:patron"
+  },
+  "ocap": {
+   "place": "capital:other"
+  },
+  "oking": {
+   "person": "ruler:other"
+  },
+  "ominister": {
+   "person": "minister:other"
+  },
+  "rival": {
+   "npc": "政敵",
+   "sex": "m"
+  },
+  "vice": {
+   "npc": "副使",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城で昇進を願い出る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "「{other}と国境で小競り合いが続いておる。和を結び、捕らわれた兵を返させよ。それが成れば上大夫だ」{ruler}は使者の節を{player}に授けた。",
+    "ところが副使には、{rival}の推した{vice}が付けられた。{minister}が渋い顔で言う。「断れば{rival}の顔を潰す。連れて行け。ただし背を見せるな」"
+   ],
+   "effects": [
+    {
+     "item": "letter"
+    },
+    {
+     "note": "{other}への使者の節と国書を預かった。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "ocap",
+    "building": "inn"
+   },
+   "goal": "{other}の都{ocap}へ向かう",
+   "speaker": "vice",
+   "art": "voyage",
+   "text": [
+    "{ocap}の客舎に着いた夜、{vice}の寝床が空だった。明け方に戻ってきた{vice}は、靴に宮城の白砂をつけていた。",
+    "「眠れなくて、少し歩いておりました」"
+   ],
+   "choices": [
+    {
+     "label": "次の夜、{vice}の後を尾ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 44,
+      "win": "s2a",
+      "lose": "s2b"
+     }
+    },
+    {
+     "label": "{vice}を問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 46,
+      "win": "s2a",
+      "lose": "s2b"
+     }
+    },
+    {
+     "label": "気づかぬふりをして、会見に備える",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2a": {
+   "text": [
+    "{vice}は{ominister}の屋敷の裏門をくぐった。漏れ聞こえた声によれば、{rival}は和議を潰し、{player}を失脚させる代わりに、国境の邑を一つ{other}に譲るつもりらしい。"
+   ],
+   "effects": [
+    {
+     "flag": "rank5_knows"
+    },
+    {
+     "note": "{vice}が{rival}の命で{ominister}と密約していると知った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2b": {
+   "text": [
+    "{vice}は路地で{player}をまいた。翌朝、何事もなかったように朝餉の席に座っていた。こちらが疑っていることは、もう知られた。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "ocap",
+    "building": "palace"
+   },
+   "goal": "{ocap}の宮城で{oking}に国書を奉る",
+   "speaker": "ominister",
+   "art": "court",
+   "text": [
+    "{oking}は玉座から{player}を見下ろし、{ominister}が先に口を開いた。「{patron}の使いは、犬の門から入るのが似合いだ。和を乞いに来たのなら、まず国境の邑を差し出されよ」",
+    "列臣が嘲り笑う。{vice}は{player}の後ろで、目を伏せていた。"
+   ],
+   "choices": [
+    {
+     "label": "{vice}の密約をこの場で暴き、{ominister}の足元を崩す",
+     "if": {
+      "flag": "rank5_knows"
+     },
+     "next": "s4"
+    },
+    {
+     "label": "利害を説く：「戦が続けば、得をするのは第三の国だけ」",
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "古の盟約と礼を引き、無礼をたしなめる",
+     "check": {
+      "skill": "letters",
+      "dc": 44,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "稷下仕込みの弁で、{ominister}の論を逆手に取る",
+     "if": {
+      "realm": [
+       "斉"
+      ]
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "家祖の名と楚の礼を掲げ、堂々と上座を求める",
+     "if": {
+      "realm": [
+       "楚"
+      ]
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "「秦の甲士百万が国境で待っている」と兵威で迫る",
+     "if": {
+      "realm": [
+       "秦"
+      ]
+     },
+     "effects": [
+      {
+       "rep": "other",
+       "n": -5
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "韓・魏の間者の術で掴んだ{other}の内情をほのめかす",
+     "if": {
+      "realm": [
+       "魏",
+       "韓"
+      ]
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ng": {
+   "speaker": "oking",
+   "art": "court",
+   "text": [
+    "「口ほどにもない」{oking}が手を振ると、兵が{player}の両腕をつかんだ。「使者を斬るのは礼に反するが、牢に入れるのは構うまい」"
+   ],
+   "choices": [
+    {
+     "label": "「斬られても構わぬ。最後まで聞かれよ」と命を懸けて説く",
+     "check": {
+      "skill": "speech",
+      "dc": 48,
+      "win": "s4",
+      "lose": "fail_flee"
+     }
+    },
+    {
+     "label": "兵を振り払い、都を脱出する",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "fail_flee",
+      "lose": "fail_jail"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "speaker": "oking",
+   "art": "court",
+   "text": [
+    "{oking}は長く黙っていたが、やがて笑った。「肝の据わった使いだ。よかろう、捕虜は返す。和の盟書に印を押そう」",
+    "{ominister}は苦い顔をし、{vice}は青ざめていた。帰りの車の中で、{vice}は一言も口をきかなかった。"
+   ],
+   "effects": [
+    {
+     "rep": "other",
+     "n": 10
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城へ戻り、{ruler}に復命する",
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "復命の場で、{rival}が先に進み出た。「和は成りましたが、{player}は{other}の宰相と夜ごと密会していたと副使が申しております。国を売る密約があったのでは」",
+    "{vice}は{rival}の後ろで小さく頷いた。"
+   ],
+   "choices": [
+    {
+     "label": "{vice}こそが{ominister}の屋敷に通っていたと、日付と場所を挙げて暴く",
+     "if": {
+      "flag": "rank5_knows"
+     },
+     "next": "win_expose"
+    },
+    {
+     "label": "盟書を示し、一つずつ反駁する",
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "win_envoy",
+      "lose": "fail_slander"
+     }
+    },
+    {
+     "label": "何も弁ぜず、盟書を差し出して裁きを待つ",
+     "next": "win_quiet"
+    }
+   ]
+  },
+  "win_expose": {
+   "speaker": "ruler",
+   "text": [
+    "{vice}は膝から崩れ、{rival}の名を口にした。{ruler}の目が冷えた。「{rival}は謹慎せよ。{player}を上大夫とする」",
+    "{minister}が後で言った。「これで{rival}の派は、そなたを本気で潰しにくるぞ」"
+   ],
+   "effects": [
+    {
+     "item": "letter",
+     "n": -1
+    },
+    {
+     "rank": 5
+    },
+    {
+     "favor": 15
+    },
+    {
+     "fame": 6
+    },
+    {
+     "flag": "rank5_envoy"
+    },
+    {
+     "flag": "rank5_rival_disgraced"
+    },
+    {
+     "unflag": "rank5_knows"
+    },
+    {
+     "note": "{other}との和を結び、{rival}の企みを暴いて上大夫となった。"
+    }
+   ],
+   "end": "使命を果たし、讒を返す"
+  },
+  "win_envoy": {
+   "speaker": "ruler",
+   "text": [
+    "「盟書がすべてを語っておる」{ruler}はそう言って{rival}を下がらせた。{player}は上大夫に任じられた。"
+   ],
+   "effects": [
+    {
+     "item": "letter",
+     "n": -1
+    },
+    {
+     "rank": 5
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 5
+    },
+    {
+     "flag": "rank5_envoy"
+    },
+    {
+     "unflag": "rank5_knows"
+    },
+    {
+     "note": "{other}との和を結び、上大夫となった。"
+    }
+   ],
+   "end": "使命を果たす"
+  },
+  "win_quiet": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}は盟書を長く眺め、「功は功だ」と言った。上大夫には任じられたが、疑いの影は消えきらず、褒美は少なかった。{rival}は満足げだった。"
+   ],
+   "effects": [
+    {
+     "item": "letter",
+     "n": -1
+    },
+    {
+     "rank": 5
+    },
+    {
+     "favor": 4
+    },
+    {
+     "fame": 2
+    },
+    {
+     "flag": "rank5_envoy"
+    },
+    {
+     "flag": "rank5_suspected"
+    },
+    {
+     "unflag": "rank5_knows"
+    },
+    {
+     "note": "上大夫となったが、{other}と通じた疑いが残った。"
+    }
+   ],
+   "end": "疑いを抱えて上大夫に"
+  },
+  "fail_slander": {
+   "speaker": "minister",
+   "text": [
+    "反駁は空回りし、{ruler}は「追って糾す」とだけ言った。和の功は{rival}の推した{vice}のものとされた。{minister}は「時を待て。いずれ真は出る」と慰めた。"
+   ],
+   "effects": [
+    {
+     "item": "letter",
+     "n": -1
+    },
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "rank5_knows"
+    },
+    {
+     "note": "使いの功を讒言に奪われた。覚えを取り戻せば、また試しを願い出られる。"
+    }
+   ],
+   "end": "功を奪われる"
+  },
+  "fail_flee": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}へ逃げ帰る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "和は成らず、{player}はほうほうの体で{cap}に帰り着いた。{ruler}は顔も上げなかった。「使いを果たせぬ者に上大夫は任せられぬ」また務めを重ねて、機を待つしかない。"
+   ],
+   "effects": [
+    {
+     "item": "letter",
+     "n": -1
+    },
+    {
+     "favor": -10
+    },
+    {
+     "rep": "other",
+     "n": -10
+    },
+    {
+     "unflag": "rank5_knows"
+    },
+    {
+     "note": "{other}への使いにしくじった。覚えを取り戻せば、また試しを願い出られる。"
+    }
+   ],
+   "end": "使命ならず"
+  },
+  "fail_jail": {
+   "text": [
+    "兵に打ち据えられ、牢で十日を過ごした。{patron}が身代金を払ってようやく放たれたが、その銭の分だけ、主君の覚えは冷えていた。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "pass": 14400
+    },
+    {
+     "item": "letter",
+     "n": -1
+    },
+    {
+     "favor": -15
+    },
+    {
+     "rep": "other",
+     "n": -10
+    },
+    {
+     "unflag": "rank5_knows"
+    },
+    {
+     "note": "{other}の牢に囚われた。覚えを取り戻せば、また試しを願い出られる。"
+    }
+   ],
+   "end": "囚われの使者"
+  }
+ }
+}

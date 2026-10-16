@@ -1,0 +1,572 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_guild3",
+ "kind": "rank",
+ "guildTo": 3,
+ "title": "義と外道",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "老いた頭目",
+   "sex": "m"
+  },
+  "brute": {
+   "npc": "荒くれの頭目",
+   "sex": "m"
+  },
+  "official": {
+   "npc": "県の役人",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "村の長老",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で頭目に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は咳き込みながら床から身を起こした。「おれはもう長くない。一味を束ねる大頭目を決めねばならん。おまえか、{brute}か」",
+    "「県の役人{official}が、村々から定めの倍の穀を取り立て、都へ送る前に己の屋敷に積んでいる。その穀を奪ってこい。どう奪い、どう分けるか。それで一味の行く道が決まる」"
+   ],
+   "choices": [
+    {
+     "label": "市で村の様子を聞いてみる",
+     "next": "s2"
+    },
+    {
+     "label": "まず{brute}の腹を確かめる",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で村の者に話を聞く",
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "市の隅で、痩せた老人が子どもの手を引いて売り物の札を首にかけさせていた。村の長老{elder}だという。",
+    "「種籾まで持っていかれました。この冬を越せる家は、村に三軒もありませぬ。せめてこの子だけは、食わせてくれる家へ」"
+   ],
+   "choices": [
+    {
+     "label": "「その子を売るのは、あと十日待て」と銭を握らせる（20）",
+     "if": {
+      "money": 20
+     },
+     "effects": [
+      {
+       "money": -20
+      },
+      {
+       "fame": 1
+      },
+      {
+       "flag": "g3_promise"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "黙ってその場を離れる",
+     "next": "s3"
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で一味の寄り合いに出る",
+   "speaker": "brute",
+   "art": "backroom",
+   "text": [
+    "寄り合いの座で、{brute}が膝を叩いた。「役人の屋敷を襲う。ついでに村々からも根こそぎ取る。どうせ飢えて死ぬ連中だ。逆らう者は斬れ。それが盗賊のやり方だろうが」",
+    "一味の者たちの目が、{player}に集まった。"
+   ],
+   "choices": [
+    {
+     "label": "「奪うのは役人からだけだ。穀は村に返す」と座を説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s4r",
+      "lose": "s3split"
+     }
+    },
+    {
+     "label": "「いいだろう。取れるところから全部取る」",
+     "next": "s4w"
+    },
+    {
+     "label": "{brute}に刃を向け、力で黙らせる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s4r",
+      "lose": "fail_ousted"
+     }
+    }
+   ]
+  },
+  "s3split": {
+   "speaker": "brute",
+   "art": "war",
+   "text": [
+    "{brute}が鼻で笑った。「村に返す？　義賊ごっこがしたいなら一人でやれ」座の半分が{brute}の側に寄った。"
+   ],
+   "choices": [
+    {
+     "label": "{brute}と刃で決着をつける",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s4r",
+      "lose": "fail_ousted"
+     }
+    },
+    {
+     "label": "折れて、{brute}のやり方に従う",
+     "next": "s4w"
+    },
+    {
+     "label": "座を立つ",
+     "next": "fail_ousted"
+    }
+   ]
+  },
+  "s4r": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "夜、{official}の屋敷に押し入る",
+   "art": "hideout",
+   "text": [
+    "一味は{player}の言葉に従った。{official}の屋敷の裏手、穀倉の影に、手下たちが息を潜めている。「村の者には指一本触れるな」念を押す声に、誰も笑わなかった。"
+   ],
+   "choices": [
+    {
+     "label": "先に一人で忍び込み、倉の錠を外す",
+     "check": {
+      "skill": "theft",
+      "dc": 30,
+      "win": "s5r",
+      "lose": "s4r_alarm"
+     }
+    },
+    {
+     "label": "正面から押し込む",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 10
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5r",
+      "lose": "fail_raid"
+     }
+    }
+   ]
+  },
+  "s4r_alarm": {
+   "art": "war",
+   "text": [
+    "錠が鳴った。屋敷の私兵が松明を掲げて駆けてくる。"
+   ],
+   "choices": [
+    {
+     "label": "手下を呼んで迎え撃つ",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 10
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s5r",
+      "lose": "fail_raid"
+     }
+    },
+    {
+     "label": "手下をまとめて引く",
+     "next": "fail_raid"
+    }
+   ]
+  },
+  "s5r": {
+   "art": "hideout",
+   "text": [
+    "倉の戸が開くと、穀の匂いが溢れ出た。その奥に、{official}が懐に入れた銭の箱もある。縛り上げた{official}が喚いた。「わしに手を出せば、県の兵が黙っておらんぞ」"
+   ],
+   "choices": [
+    {
+     "label": "{elder}との約束どおり、真っ先にその村へ穀を運ぶ",
+     "if": {
+      "flag": "g3_promise"
+     },
+     "effects": [
+      {
+       "money": 100
+      },
+      {
+       "fame": 9
+      },
+      {
+       "wanted": "here",
+       "n": 8
+      }
+     ],
+     "next": "win_r"
+    },
+    {
+     "label": "穀はすべて村へ。銭は一味で分ける",
+     "effects": [
+      {
+       "money": 120
+      },
+      {
+       "fame": 6
+      },
+      {
+       "wanted": "here",
+       "n": 10
+      }
+     ],
+     "next": "win_r"
+    },
+    {
+     "label": "銭の半ばも村々に撒く",
+     "effects": [
+      {
+       "money": 50
+      },
+      {
+       "fame": 10
+      },
+      {
+       "wanted": "here",
+       "n": 10
+      }
+     ],
+     "next": "win_r"
+    },
+    {
+     "label": "{official}の不正の帳簿を官府の門に貼り出す",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "win_r_ledger",
+      "lose": "win_r"
+     }
+    }
+   ]
+  },
+  "s4w": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "夜、{official}の屋敷に押し入る",
+   "art": "war",
+   "text": [
+    "{brute}が嬉しげに刀の峰で肩を叩いた。「話が分かる。屋敷を片づけたら、そのまま村へ回るぞ」一味の者たちは、{official}の屋敷を囲んだ。"
+   ],
+   "choices": [
+    {
+     "label": "門番を斬り、屋敷の者を縛り上げる",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s5w",
+      "lose": "fail_raid"
+     }
+    },
+    {
+     "label": "一人で忍び込み、倉を開けてから合図する",
+     "check": {
+      "skill": "theft",
+      "dc": 30,
+      "win": "s5w",
+      "lose": "s4w_alarm"
+     }
+    }
+   ]
+  },
+  "s4w_alarm": {
+   "art": "war",
+   "text": [
+    "犬が吠え、私兵が飛び出してきた。{brute}が舌打ちして叫ぶ。「構わん、皆殺しにしろ！」"
+   ],
+   "choices": [
+    {
+     "label": "斬り込む",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5w",
+      "lose": "fail_raid"
+     }
+    },
+    {
+     "label": "引く",
+     "next": "fail_raid"
+    }
+   ]
+  },
+  "s5w": {
+   "art": "war",
+   "text": [
+    "{official}の倉は空になった。夜明け前、{brute}は手下を連れて村へ向かおうとしている。「村の者が隠した穀と娘は、まだ残っている」"
+   ],
+   "choices": [
+    {
+     "label": "村にも押し入る",
+     "effects": [
+      {
+       "money": 260
+      },
+      {
+       "fame": -8
+      },
+      {
+       "wanted": "here",
+       "n": 25
+      }
+     ],
+     "next": "win_w"
+    },
+    {
+     "label": "「村は放っておけ。役人の倉で十分だ」",
+     "effects": [
+      {
+       "money": 160
+      },
+      {
+       "fame": -2
+      },
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "next": "win_w_spare"
+    }
+   ]
+  },
+  "win_r": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "夜のうちに、村々の門口に穀の袋が置かれた。翌朝から、市では「義賊が出た」という噂でもちきりになった。",
+    "{boss}は床の上で笑った。「盗賊が礼を言われるとはな。役人には恨まれ、民には匿われる。それがおまえの選んだ道だ。一味を頼む、大頭目」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "xp": "theft",
+     "n": 6
+    },
+    {
+     "unflag": "g3_promise"
+    },
+    {
+     "note": "奪った穀を村々に返し、義賊の道を選んで大頭目となった。"
+    }
+   ],
+   "end": "義賊の道"
+  },
+  "win_r_ledger": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "穀は村々に戻り、官府の門には{official}の裏帳簿が貼り出された。役人どもは盗賊を追うより先に、{official}の首をどうするかで揉めはじめた。",
+    "{boss}は目を細めた。「奪うだけでなく、相手の首に縄までかけたか。義賊でも頭は使え。大頭目は、おまえだ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 8
+    },
+    {
+     "wanted": "here",
+     "n": 4
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "unflag": "g3_promise"
+    },
+    {
+     "note": "{official}の不正を暴いて穀を村へ返し、義賊の大頭目となった。"
+    }
+   ],
+   "end": "帳簿の門"
+  },
+  "win_w": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "brute",
+   "art": "war",
+   "text": [
+    "二つの村が焼けた。{here}の街道を行く者は、一味の名を聞くだけで荷を投げ出して逃げるようになった。",
+    "{boss}は何も言わず目を閉じていた。代わりに{brute}が杯を掲げた。「大頭目に。これで{bandit}の名を知らぬ者はいなくなる」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "unflag": "g3_promise"
+    },
+    {
+     "note": "役人の倉も村も根こそぎ奪い、外道の道を選んで大頭目となった。"
+    }
+   ],
+   "end": "外道の道"
+  },
+  "win_w_spare": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿の裏部屋で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{brute}は不満げだったが、{player}の言葉に逆らう者はいなかった。だが一味は、すでに役人の私兵を斬り、恐れで人を従わせる味を覚えていた。",
+    "{boss}は溜息をついた。「村を見逃しても、一度踏み出した道は戻らん。おまえが大頭目だ。手綱を放すなよ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "unflag": "g3_promise"
+    },
+    {
+     "note": "{brute}のやり方に乗り、外道の道で大頭目となった。村だけは見逃した。"
+    }
+   ],
+   "end": "血の手綱"
+  },
+  "fail_raid": {
+   "art": "war",
+   "text": [
+    "私兵の数は思ったより多かった。手下を何人か失い、一味は散り散りに逃げ戻った。{boss}は目を閉じたまま言った。「大頭目を決めるのは、まだ早かったようだ」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "unflag": "g3_promise"
+    },
+    {
+     "note": "{official}の屋敷を襲い損ねた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "襲撃ならず"
+  },
+  "fail_ousted": {
+   "art": "hideout",
+   "text": [
+    "{brute}が一味の半分を連れて{official}の屋敷へ向かった。{player}は座に残され、頭目のままだった。{boss}は「まだその時ではない」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    },
+    {
+     "unflag": "g3_promise"
+    },
+    {
+     "note": "{brute}に座を奪われた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "座を追われる"
+  }
+ }
+}

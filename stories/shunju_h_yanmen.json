@@ -1,0 +1,650 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_yanmen",
+ "kind": "history",
+ "era": "shunju",
+ "title": "雁門の烽火",
+ "event": "li_mu_xiongnu",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2talk",
+  "s3",
+  "s3spy",
+  "s3spy_ng",
+  "s4",
+  "s4rep",
+  "s4rep_ng",
+  "s5",
+  "s5ok",
+  "s5ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "linhu"
+  },
+  "handan": {
+   "scnPlace": "handan"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "king": {
+   "person": "ruler:zhao"
+  },
+  "limu": {
+   "scnPerson": "李牧"
+  },
+  "soldier": {
+   "npc": "辺境の兵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "北辺の{city}の客舎で噂を聞く",
+   "speaker": "soldier",
+   "art": "tale",
+   "text": [
+    "北の辺境、雁門の塞に近い{city}の客舎は、羊の脂と馬糞の匂いがした。卓を囲む兵たちは、酒が回ると決まって同じ愚痴をこぼす。",
+    "「うちの将軍は臆病者よ」{soldier}が椀を叩いた。「{limu}さまの命はこうだ。『匈奴が来たら、すぐに牛馬をまとめて城に入れ。打って出る者は斬る』。おかげでここ何年、一人の首も挙げておらぬ。匈奴の奴らまで、趙の将は臆病だと笑っておる」",
+    "「そのくせ毎日、牛をつぶして兵に食わせ、弓を引かせ、馬を走らせる。何のための稽古か、誰にも分からぬ」"
+   ],
+   "choices": [
+    {
+     "label": "塞の軍営へ行き、{limu}に会う",
+     "effects": [
+      {
+       "note": "北辺の将{limu}は、匈奴と戦わず臆病者と笑われているという。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の軍営で{limu}に会う",
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "{limu}はまだ若さの残る将だった。帳の中には地図と、烽火台の番の帳面が山と積まれている。市の税はすべて幕府に入れ、兵の飯に回しているという。",
+    "「旅の者か。ちょうどいい、人が足りぬ」将軍は帳面から目を上げずに言った。「烽火台の番を頼みたい。煙が一本上がれば匈奴が見えた、二本なら近い、三本なら城に入れ。それだけ守ってくれればいい」"
+   ],
+   "choices": [
+    {
+     "label": "「なぜ戦わぬのですか」と問う",
+     "effects": [
+      {
+       "flag": "h_lmx_asked"
+      }
+     ],
+     "next": "s2talk"
+    },
+    {
+     "label": "黙って烽火台の番に就く",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2talk": {
+   "speaker": "limu",
+   "text": [
+    "{limu}は初めて顔を上げ、少し笑った。「匈奴は風だ。風を剣で斬ることはできぬ。来れば逃げ、追えば散る。小さく勝っても、翌月にはまた来る」",
+    "「だから、一度だけ戦う。一度で十年、二度と来ぬように。そのための兵を、いま養っている。臆病と言われるのは、その代金だ」"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の烽火台で番をする",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "soldier",
+   "art": "war",
+   "text": [
+    "烽火台の上から見る草原は、果てがなかった。ある朝、地平に砂煙が立ち、{player}は煙を三本上げた。兵も牛馬も城に入り、門が閉じられる。匈奴の騎馬は城のまわりを駆け回り、矢を射込み、笑いながら去っていった。",
+    "{soldier}が城壁を蹴った。「また逃げた。いつまでこうしている。邯鄲の王さまに訴えてでも、将軍を替えてもらうべきだ」"
+   ],
+   "choices": [
+    {
+     "label": "{soldier}らの訴えを携え、{handan}の王に将軍の臆病を訴えに行く",
+     "turn": true,
+     "next": "s4"
+    },
+    {
+     "label": "間者として草原へ入り、単于の本営を探って烽火の網に繋ぐ",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "s3spy",
+      "lose": "s3spy_ng"
+     }
+    },
+    {
+     "label": "命に従い、烽火台の番を続ける",
+     "next": "s5"
+    }
+   ]
+  },
+  "s3spy": {
+   "speaker": "limu",
+   "art": "camp",
+   "text": [
+    "羊飼いに身をやつし、十日かけて草原の奥へ入った。単于の本営は思ったより近く、天幕の数は思ったより多い。{player}は帰り道に、泉ごとに目印を残し、烽火台からそれが見えるよう道筋を書きとめた。",
+    "{limu}は書きつけを見て、黙って地図に印を足した。「これで、奴らがどの泉から来るか分かる。十万が来るなら、来る道に網を張れる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_lmx_help"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "草原の奥で単于の本営を探り、{limu}の烽火の網に繋いだ。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s3spy_ng": {
+   "text": [
+    "二日目に匈奴の騎兵に見つかり、馬を捨てて岩陰に隠れた。三日かけて歩いて戻ったときには、何一つ持ち帰れなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s5"
+  },
+  "s4": {
+   "at": {
+    "place": "handan",
+    "building": "palace"
+   },
+   "goal": "{handan}の宮で{king}に訴える",
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{king}は辺境の話に退屈そうだった。だが「臆病」という言葉が出ると、王の眉が動いた。「趙の将が匈奴を恐れて籠もっていると、諸侯に笑われているのか」",
+    "近臣が囁いた。「王は以前にも、{limu}に打って出よと命じておられます。将軍はそれを聞き流しております」"
+   ],
+   "choices": [
+    {
+     "label": "兵たちの訴えを読み上げ、将軍を替えるよう重ねて説く",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s4rep",
+      "lose": "s4rep_ng"
+     }
+    },
+    {
+     "label": "訴えを取り下げ、北へ戻る",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4rep": {
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{player}が兵たちの名を一つずつ読み上げるたびに、{king}の顔は赤くなっていった。「趙の兵が、自分の将を臆病と呼んでいるのか」",
+    "王は即座に使いを北へ走らせた。{limu}は将の任を解かれ、代わりに勇ましさで知られた将が送られることになった。近臣は{player}に銭を渡した。「兵の声を王に届けた。それは忠義だ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_lmx_report"
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "zhao",
+     "n": 5
+    },
+    {
+     "note": "{limu}の臆病を王に訴え、将を替えさせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4rep_ng": {
+   "speaker": "king",
+   "text": [
+    "「辺境の兵の愚痴を、いちいち聞いてはおれぬ」{king}は手を振った。訴えの竹簡は、近臣の袖の中に消えた。"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の軍営に戻る",
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "ある日、{limu}は城門を開かせ、牛馬と民を野に放った。草原一面に家畜が散らばる。匈奴の小勢が来ると、趙の兵はわざと負けて数千人を捨てて逃げた。",
+    "「単于は来る」将軍は言った。「臆病な趙の将が、ついに家畜を守りきれなくなったと思ってな」選び抜いた戦車千三百、騎馬一万三千、百金の賞を受けた勇士五万、弓を引く者十万。何年も養ってきた兵が、ついに陣を組んだ。"
+   ],
+   "choices": [
+    {
+     "label": "左翼の騎馬に加わり、回り込んで匈奴の横腹を突く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s5ok",
+      "lose": "s5ng"
+     }
+    },
+    {
+     "label": "烽火台に上り、戦の行方を見る",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s5ok": {
+   "text": [
+    "左右の翼が開き、単于の騎馬を包むように閉じた。{player}は乱戦の中で二騎を叩き落とし、気がつけば草原は匈奴の旗と屍で埋まっていた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lmx_wing"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{limu}の陣の左翼で、匈奴の横腹を突いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5ng": {
+   "text": [
+    "乱戦の中で馬を射られ、草の中に投げ出された。起き上がったときには、もう戦は趙の勝ちに傾いていた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で事の終わりを見届ける",
+   "wait": {
+    "settled": "li_mu_xiongnu"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lmx_nolimu"
+     },
+     "next": "nolimu"
+    },
+    {
+     "if": {
+      "branch": "lmx_report"
+     },
+     "next": "reported"
+    },
+    {
+     "if": {
+      "branch": "lmx_help"
+     },
+     "next": "helped"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "reported": {
+   "speaker": "soldier",
+   "art": "disaster",
+   "text": [
+    "新しい将は勇ましかった。匈奴が来るたびに打って出て、そのたびに負けた。牛馬は奪われ、辺境の村は焼かれ、田を耕す者もいなくなった。",
+    "{soldier}は片腕を吊って、焼け跡に座っていた。「臆病者の将軍の下では、誰も死ななかった」それだけ言って、{player}の顔を見ようとはしなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lmx_report"
+    },
+    {
+     "unflag": "h_lmx_help"
+    },
+    {
+     "unflag": "h_lmx_asked"
+    },
+    {
+     "unflag": "h_lmx_wing"
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "zhao",
+     "n": -5
+    },
+    {
+     "note": "{limu}は外され、代わりの将は匈奴に敗れ続けた。"
+    }
+   ],
+   "end": "勇ましい将"
+  },
+  "helped": {
+   "speaker": "limu",
+   "art": "war",
+   "text": [
+    "泉ごとの目印と烽火の網は、単于の本隊の通る道をすべて教えた。{limu}は十余万騎を草原の谷に誘い込んで討ち、勢いに乗って襜襤を滅ぼし、東胡を破り、林胡を降した。単于は北の果てへ逃れた。",
+    "{limu}は勝ち戦の宴で、{player}の椀に自ら酒を注いだ。「風を斬ることはできぬと言ったな。だが、風の通り道を知れば、網は張れる。網の目を編んだのはおぬしだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lmx_report"
+    },
+    {
+     "unflag": "h_lmx_help"
+    },
+    {
+     "unflag": "h_lmx_asked"
+    },
+    {
+     "unflag": "h_lmx_wing"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "note": "{limu}は匈奴を大いに破った。烽火と間者で将軍を助けた。"
+    }
+   ],
+   "end": "風の通り道"
+  },
+  "nolimu": {
+   "art": "tale",
+   "text": [
+    "北の塞には、もう{limu}の旗はなかった。匈奴は相変わらず辺境を荒らし、それを一度で終わらせる将は、どこにもいなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lmx_report"
+    },
+    {
+     "unflag": "h_lmx_help"
+    },
+    {
+     "unflag": "h_lmx_asked"
+    },
+    {
+     "unflag": "h_lmx_wing"
+    },
+    {
+     "note": "{limu}はおらず、匈奴との戦は続いた。"
+    }
+   ],
+   "end": "将なき北辺"
+  },
+  "after": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で勝ち戦を見届ける",
+   "wait": {
+    "settled": "li_mu_xiongnu"
+   },
+   "speaker": "soldier",
+   "art": "war",
+   "text": [
+    "{limu}は匈奴の十余万騎を討ち、襜襤を滅ぼし、東胡を破り、林胡を降した。単于は北へ逃れ、それから十余年、匈奴は趙の辺境に近づかなかった。",
+    "「臆病者」と笑っていた兵たちは、もう誰も何も言わなかった。{soldier}は照れくさそうに頭をかいた。「あの稽古は、このためだったのか」"
+   ],
+   "choices": [
+    {
+     "label": "{limu}の帳を訪ねる",
+     "if": {
+      "flag": "h_lmx_asked"
+     },
+     "next": "end_limu"
+    },
+    {
+     "label": "{soldier}らと勝ち戦の酒を飲む",
+     "next": "end_feast"
+    },
+    {
+     "label": "静かに烽火台に上る",
+     "next": "end_beacon"
+    }
+   ]
+  },
+  "end_limu": {
+   "speaker": "limu",
+   "text": [
+    "{limu}は帳の中で、変わらず帳面をつけていた。「十年、これで北は静かになる。そのあいだに、趙は西を向ける」",
+    "将軍は筆を置いて言った。「いつか、西の秦が、北の匈奴より厄介になる。そのとき、わしはまた臆病者と呼ばれるだろう。呼ばれたら、おぬしは笑っておれ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lmx_report"
+    },
+    {
+     "unflag": "h_lmx_help"
+    },
+    {
+     "unflag": "h_lmx_asked"
+    },
+    {
+     "unflag": "h_lmx_wing"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "zhao",
+     "n": 8
+    },
+    {
+     "note": "{limu}が匈奴を大いに破った。将軍と語り合った。"
+    }
+   ],
+   "end": "臆病者の将軍"
+  },
+  "end_feast": {
+   "text": [
+    "牛が何頭もつぶされ、篝火のまわりで兵たちが踊った。誰かが{limu}の名を叫ぶと、千の声がそれに応えた。北辺に、こんな夜が来るとは誰も思っていなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lmx_report"
+    },
+    {
+     "unflag": "h_lmx_help"
+    },
+    {
+     "unflag": "h_lmx_asked"
+    },
+    {
+     "unflag": "h_lmx_wing"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{limu}が匈奴を大いに破った。"
+    }
+   ],
+   "end": "北辺の宴"
+  },
+  "end_beacon": {
+   "text": [
+    "烽火台の上から見る草原は、静かだった。煙を上げる理由は、もうしばらく来ないだろう。{player}は薪の山に腰を下ろし、北の風を聞いていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lmx_report"
+    },
+    {
+     "unflag": "h_lmx_help"
+    },
+    {
+     "unflag": "h_lmx_asked"
+    },
+    {
+     "unflag": "h_lmx_wing"
+    },
+    {
+     "note": "{limu}が匈奴を大いに破った。"
+    }
+   ],
+   "end": "雁門の烽火"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lmx_nolimu"
+     },
+     "next": "nolimu"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の途中で噂を聞いた。趙の北辺を守る{limu}が、臆病者と笑われながら何年も兵を養い、ついに打って出て匈奴の十余万騎を討ったという。",
+    "「臆病というのは、待てるということだ」と、宿の老人は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lmx_report"
+    },
+    {
+     "unflag": "h_lmx_help"
+    },
+    {
+     "unflag": "h_lmx_asked"
+    },
+    {
+     "unflag": "h_lmx_wing"
+    },
+    {
+     "note": "{limu}が匈奴を破ったと聞いた。"
+    }
+   ],
+   "end": "遠い北の勝ち"
+  }
+ },
+ "branches": [
+  {
+   "id": "lmx_nolimu",
+   "why": "李牧がすでに世を去っていた",
+   "event": "li_mu_xiongnu",
+   "order": 3,
+   "when": {
+    "dead": [
+     "李牧"
+    ]
+   },
+   "then": "cancel",
+   "note": "北辺を守るはずの[[p:李牧]]はもういなかった。匈奴は趙の辺境を荒らし続けた。"
+  },
+  {
+   "id": "lmx_report",
+   "why": "主人公が王に李牧の臆病を訴えた",
+   "event": "li_mu_xiongnu",
+   "order": 2,
+   "when": {
+    "flag": "h_lmx_report"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_zhao}の王は北辺の[[p:李牧]]を臆病と責めて退け、代わりの将を送った。新しい将は匈奴が来るたびに打って出て敗れ、北の辺境は荒れ果てた。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "prestige",
+      -8
+     ],
+     [
+      "army",
+      "zhao",
+      0.9
+     ]
+    ],
+    "imp": 2,
+    "at": "linhu"
+   }
+  },
+  {
+   "id": "lmx_help",
+   "why": "主人公が草原で単于の本営を探った",
+   "event": "li_mu_xiongnu",
+   "order": 1,
+   "when": {
+    "flag": "h_lmx_help"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_zhao}の北辺を守る[[p:李牧]]は、烽火と間者で匈奴の動きをことごとく掴み、単于の本隊を谷に誘い込んで十余万騎を討った。襜襤を滅ぼし東胡を破り、林胡を降して、以後十余年、匈奴は趙の辺境に近づかなかった。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "prestige",
+      12
+     ]
+    ],
+    "imp": 2,
+    "at": "linhu"
+   }
+  }
+ ]
+}

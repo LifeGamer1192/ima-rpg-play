@@ -1,0 +1,775 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_shinobi",
+ "kind": "school",
+ "title": "影の掟",
+ "era": "sengoku",
+ "school": "shinobi",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "kashira": {
+   "npc": "頭領",
+   "sex": "m"
+  },
+  "kunoichi": {
+   "npc": "くノ一",
+   "sex": "f"
+  },
+  "ridge": {
+   "place": "near:here"
+  },
+  "client": {
+   "realm": "second"
+  },
+  "clientcap": {
+   "place": "capital:client"
+  },
+  "clientmin": {
+   "npc": "雇い主の家老",
+   "sex": "m"
+  },
+  "target": {
+   "realm": "enemy:client"
+  },
+  "targetcap": {
+   "place": "capital:target"
+  },
+  "targetmin": {
+   "npc": "敵方の家老",
+   "sex": "m"
+  }
+ },
+ "start": "n1",
+ "scenes": {
+  "n1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の外れの隠れ家で頭領に会う",
+   "speaker": "kashira",
+   "art": "tale",
+   "text": [
+    "案内された隠れ家は、ただの百姓家にしか見えなかった。囲炉裏端で縄を綯っている男が、頭領の{kashira}だという。腰の曲がった、どこにでもいる老爺である。",
+    "{kashira}は懐から小さな鈴を出し、自分の枕元に置いた。「今夜、わしが眠っておるあいだに、これを取ってみよ。鳴らせば、それまでだ」"
+   ],
+   "choices": [
+    {
+     "label": "夜更けを待ち、息を殺して枕元へ忍び寄る",
+     "check": {
+      "skill": "stealth",
+      "dc": 8,
+      "win": "n1good",
+      "lose": "n1plain"
+     }
+    },
+    {
+     "label": "日のあるうちに「その鈴をください」と頼む",
+     "next": "n1ask"
+    }
+   ]
+  },
+  "n1good": {
+   "speaker": "kashira",
+   "text": [
+    "鈴は{player}の掌の中で、鳴らずに眠っていた。翌朝、{kashira}は空の枕元を見て、欠伸まじりに言った。「ふむ。わしが起きておったことに、気づいてはおらなんだろう」",
+    "戸口に、若い女がもたれて笑っていた。「頭領はいつも寝たふりよ。わたしは{kunoichi}。今日からあなたの面倒を見る」"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "n2"
+  },
+  "n1plain": {
+   "speaker": "kashira",
+   "text": [
+    "畳がきしみ、鈴が鳴った。{kashira}は目も開けずに言った。「三歩目で床を踏んだな。床板の継ぎ目を覚えておけ」",
+    "戸口に、若い女がもたれて笑っていた。「最初からうまくやる人はいないわ。わたしは{kunoichi}。今日からあなたの面倒を見る」"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 1
+    }
+   ],
+   "next": "n2"
+  },
+  "n1ask": {
+   "speaker": "kashira",
+   "text": [
+    "{kashira}はきょとんとして、それから膝を打って笑った。鈴を放ってよこす。「忍びの一番の術は、忍ばずに済ませることよ。だが、それが通じるのは一度きりだ」",
+    "戸口に、若い女がもたれて笑っていた。「頭領を笑わせた人は久しぶり。わたしは{kunoichi}。今日からあなたの面倒を見る」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "n2"
+  },
+  "n2": {
+   "at": {
+    "place": "ridge"
+   },
+   "goal": "10日ほど修業したのち、{kunoichi}と{ridge}の峠へ向かう",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "kunoichi",
+   "art": "war",
+   "text": [
+    "里の下忍が一人、{ridge}の峠で他の里の忍びに捕らえられた。峠の番小屋に押し込められ、明日には責め問いにかけられるという。",
+    "{kunoichi}は小屋の灯を見下ろしながら言った。「見張りは三人。里の掟では、捕まった者は見捨てることになってる。でも頭領は、行けとも行くなとも言わなかった」"
+   ],
+   "choices": [
+    {
+     "label": "見張りの交代の隙に、裏の板壁を外して連れ出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 15,
+      "win": "n2ok",
+      "lose": "n2fight"
+     }
+    },
+    {
+     "label": "火矢で小屋の脇の柴に火を放ち、騒ぎに紛れる",
+     "check": {
+      "skill": "bow",
+      "dc": 15,
+      "win": "n2ok",
+      "lose": "n2fight"
+     }
+    },
+    {
+     "label": "正面から斬り込む",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "n2ok",
+      "lose": "n2ng"
+     }
+    }
+   ]
+  },
+  "n2fight": {
+   "text": [
+    "板が鳴り、見張りが振り向いた。手裏剣が闇を裂いて飛んでくる。"
+   ],
+   "choices": [
+    {
+     "label": "刀を抜いて応じる",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "n2ok",
+      "lose": "n2ng"
+     }
+    }
+   ]
+  },
+  "n2ok": {
+   "speaker": "kunoichi",
+   "text": [
+    "捕らわれていた下忍を背負い、二人は夜の尾根を駆けた。追手の気配が消えたところで、{kunoichi}がふっと息をついた。「掟破りね。でも、悪くない掟破り」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "next": "n2back"
+  },
+  "n2ng": {
+   "speaker": "kunoichi",
+   "text": [
+    "{player}が斬られて倒れかけたところを、{kunoichi}が煙玉で救った。捕らわれていた下忍も、その煙に紛れて自力で縄を抜けていた。",
+    "「生きて帰れたんだから、それで十分」{kunoichi}は{player}の傷を縛りながら、小さく笑った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "n2back"
+  },
+  "n2back": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の隠れ家に戻り、{kashira}に報告する",
+   "speaker": "kashira",
+   "text": [
+    "{kashira}は囲炉裏の火を見つめたまま話を聞いた。「掟は、里を守るためにある。だが掟のために仲間を見捨てる里は、いずれ誰も守らなくなる」",
+    "「お前を中忍とする。次からは、里の外の仕事も回す」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "note": "忍びの里の中忍となった。"
+    }
+   ],
+   "next": "n3"
+  },
+  "n3": {
+   "at": {
+    "place": "targetcap",
+    "building": "palace"
+   },
+   "goal": "隠密を22まで磨き、{client}の依頼で{targetcap}の城に忍び込む",
+   "wait": {
+    "skill": {
+     "stealth": 22
+    },
+    "days": 20
+   },
+   "speaker": "kunoichi",
+   "art": "war",
+   "text": [
+    "{client}から仕事が来た。{target}の居城、{targetcap}の城の縄張り図を盗み出せ。堀の深さ、櫓の数、抜け道のありかまで、一枚の絵図に記されているという。",
+    "{kunoichi}は城下の茶屋から天守を見上げた。「絵図は奥の書院の文箱の中。入り方は二つ。堀と石垣を越えるか、薬売りに化けて表から入るか」"
+   ],
+   "choices": [
+    {
+     "label": "新月の夜、堀を泳ぎ渡って石垣を登る",
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "n3ok",
+      "lose": "n3chase"
+     }
+    },
+    {
+     "label": "薬売りに化け、奥向きの女中に取り入って書院へ入る",
+     "check": {
+      "skill": "medicine",
+      "dc": 20,
+      "win": "n3ok",
+      "lose": "n3chase"
+     }
+    }
+   ]
+  },
+  "n3chase": {
+   "text": [
+    "書院の襖を開けたところで、宿直の侍と目が合った。「曲者！」の声が廊下に響く。"
+   ],
+   "choices": [
+    {
+     "label": "文箱をつかみ、斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "n3ok",
+      "lose": "n3lost"
+     }
+    }
+   ]
+  },
+  "n3ok": {
+   "speaker": "kunoichi",
+   "text": [
+    "夜明け前、{player}は城下の茶屋の裏で{kunoichi}に絵図を広げて見せた。墨の線の一本一本が、何百人もの命の重さを持っていた。",
+    "{kunoichi}が囁いた。「これを渡せば、{targetcap}はいつか落ちる。わたしたちの仕事は、そういう仕事よ」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "flag": "shin_map"
+    }
+   ],
+   "next": "n4"
+  },
+  "n3lost": {
+   "text": [
+    "{player}は肩を斬られながら堀に飛び込み、からくも逃げおおせた。だが、文箱は手から滑り落ちて堀の底に沈んだ。",
+    "{kunoichi}は黙って{player}を担ぎ、城下を抜けた。「絵図はまた盗める。あなたの首は、一つしかない」"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "next": "n4"
+  },
+  "n4": {
+   "at": {
+    "place": "clientcap",
+    "building": "palace"
+   },
+   "goal": "{clientcap}の城に、雇い主を訪ねる",
+   "speaker": "clientmin",
+   "art": "court",
+   "text": [
+    "{clientcap}の城の裏手の茶室で、{client}の家老{clientmin}が待っていた。{player}の話を聞くと、{clientmin}は薄く笑った。",
+    "「仕事ぶりは聞いた。次は、もっと大きな仕事だ。{target}の家老{targetmin}を消せ。あの男がいる限り、{target}は崩れぬ」金の包みが、畳の上を滑ってきた。"
+   ],
+   "choices": [
+    {
+     "label": "絵図を渡し、仕事を引き受ける",
+     "if": {
+      "flag": "shin_map"
+     },
+     "effects": [
+      {
+       "money": 300
+      },
+      {
+       "rep": "client",
+       "n": 10
+      }
+     ],
+     "next": "n5"
+    },
+    {
+     "label": "絵図の写しをひそかに手元に残してから渡す",
+     "if": {
+      "flag": "shin_map"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 18,
+      "win": "n4copy",
+      "lose": "n4plain"
+     }
+    },
+    {
+     "label": "絵図はしくじったと詫び、次の仕事で返すと誓う",
+     "if": {
+      "notFlag": "shin_map"
+     },
+     "effects": [
+      {
+       "money": 100
+      }
+     ],
+     "next": "n5"
+    }
+   ]
+  },
+  "n4copy": {
+   "text": [
+    "城下の宿で、{player}は一晩かけて絵図を写し取った。{clientmin}は何も気づかず、金の包みを寄越した。",
+    "{kunoichi}が写しを見て眉を上げた。「雇い主を信じていないのね」「信じているさ。銭の続くあいだはな」"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "flag": "shin_copy"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "n5"
+  },
+  "n4plain": {
+   "text": [
+    "写しを取る暇はなかった。{clientmin}の家来が、宿の外で{player}を見張っていたからだ。{player}は絵図をそのまま渡し、金を受け取った。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    }
+   ],
+   "next": "n5"
+  },
+  "n5": {
+   "at": {
+    "place": "targetcap",
+    "building": "house"
+   },
+   "goal": "隠密を30まで磨き、名声10に達したら{targetcap}の{targetmin}の屋敷へ忍び込む",
+   "wait": {
+    "skill": {
+     "stealth": 30
+    },
+    "fame": 10
+   },
+   "speaker": "targetmin",
+   "art": "war",
+   "text": [
+    "{targetmin}の屋敷に忍び込んだ{player}は、天井裏から寝所を見下ろした。灯の下で、{targetmin}はまだ起きていた。広げているのは、飢饉に備えた蔵米の帳面だった。",
+    "「今年の年貢は三分減じよ。百姓が倒れれば、国も倒れる」家来にそう言いつける声が聞こえた。隣で{kunoichi}が、小さく息を呑んだ。"
+   ],
+   "choices": [
+    {
+     "label": "寝所に降り、護衛ごと討つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "n5kill",
+      "lose": "n5fail"
+     }
+    },
+    {
+     "label": "茶に薬を盛り、半年ほど病に伏させる（殺さずに務めを果たす）",
+     "check": {
+      "skill": "medicine",
+      "dc": 28,
+      "win": "n5sick",
+      "lose": "n5fail"
+     }
+    },
+    {
+     "label": "寝所に降りて刀を収め、{client}の企みを明かす",
+     "effects": [
+      {
+       "flag": "shin_spare"
+      }
+     ],
+     "next": "n5spare"
+    }
+   ]
+  },
+  "n5kill": {
+   "text": [
+    "護衛が倒れ、{targetmin}は帳面を胸に抱いたまま斬られた。{player}が屋敷を抜け出したとき、背後で女の泣き声が上がった。",
+    "{kunoichi}は帰り道、一言も口をきかなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "money": 400
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "rep": "client",
+     "n": 10
+    }
+   ],
+   "next": "n6"
+  },
+  "n5sick": {
+   "text": [
+    "翌朝から{targetmin}は高い熱を出し、床を離れられなくなった。{target}の政は滞り、{clientmin}は満足げに残りの金を払った。",
+    "{kunoichi}が言った。「半年経てば治るのね」「治る。そのころには、戦の大勢は決まっているだろう」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "next": "n6"
+  },
+  "n5spare": {
+   "speaker": "targetmin",
+   "text": [
+    "{targetmin}は刀を見ても眉一つ動かさなかった。{player}が{client}の企みを明かすと、長い沈黙ののち、深く頭を下げた。",
+    "「忍びに命を拾われるとは思わなんだ。この借りは、いつか必ず返す」{player}は、雇い主を裏切ったことになる。そのことを、まだ誰も知らない。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "rep": "target",
+     "n": 20
+    }
+   ],
+   "next": "n6"
+  },
+  "n5fail": {
+   "text": [
+    "物音に気づいた宿直の侍たちが駆けつけ、{player}は手ぶらで屋敷を逃れた。{clientmin}からは、二度目はないという短い文が届いた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "next": "n6"
+  },
+  "n6": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "15日ほどのちに、{here}の里へ戻る",
+   "wait": {
+    "days": 15
+   },
+   "speaker": "kashira",
+   "art": "disaster",
+   "text": [
+    "里に戻って幾日も経たぬうちに、峠の物見が駆け下りてきた。{client}の兵が、里を囲みつつあるという。秘密を知りすぎた忍びの口を、まとめて封じるつもりなのだ。",
+    "{kashira}は囲炉裏の灰をならしながら、静かに言った。「雇い主に噛まれるのは、忍びの常よ。{player}、女子供を逃がす時を稼げるか」"
+   ],
+   "choices": [
+    {
+     "label": "{clientmin}の陣に乗り込み、絵図の写しを{target}に売ると脅して兵を退かせる",
+     "if": {
+      "flag": "shin_copy"
+     },
+     "next": "n6threat"
+    },
+    {
+     "label": "{targetmin}に急使を送り、借りを返してもらう",
+     "if": {
+      "flag": "shin_spare"
+     },
+     "next": "n6help"
+    },
+    {
+     "label": "里の者を、獣道の抜け道へ導く",
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "n6save",
+      "lose": "n6fight"
+     }
+    },
+    {
+     "label": "弓を取り、峠の切所で兵を食い止める",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "n6save",
+      "lose": "n6burn"
+     }
+    }
+   ]
+  },
+  "n6threat": {
+   "speaker": "clientmin",
+   "text": [
+    "陣幕の内で、{clientmin}は{player}の差し出した写しの端を見て、顔色を変えた。「……下衆め」",
+    "「お互いさまでございましょう」{player}が笑うと、{clientmin}は采配を投げ捨てた。その日のうちに、兵は峠を下りていった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "n6save"
+  },
+  "n6help": {
+   "speaker": "kunoichi",
+   "text": [
+    "三日目の夜明け、峠の向こうに{target}の旗が立った。{targetmin}が送った兵だった。挟まれる形になった{client}の兵は、戦わずに引き揚げていった。",
+    "{kunoichi}が{player}の脇腹を肘でつついた。「人を殺さなかったおかげで、里が助かった。忍びらしくないわね」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    }
+   ],
+   "next": "n6save"
+  },
+  "n6fight": {
+   "text": [
+    "抜け道の入口で、先回りした兵と鉢合わせた。後ろには、里の女子供がいる。"
+   ],
+   "choices": [
+    {
+     "label": "刀を抜いて道を開く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "n6save",
+      "lose": "n6burn"
+     }
+    }
+   ]
+  },
+  "n6save": {
+   "speaker": "kashira",
+   "text": [
+    "里の者は一人も欠けずに夜明けを迎えた。家はいくつか焼けたが、家などまた建てればよい。{kashira}は焦げた梁の下で、{player}の肩を叩いた。",
+    "「お前を上忍とする。わしの目の届かぬところは、お前が見よ」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "note": "忍びの里の上忍となった。"
+    }
+   ],
+   "next": "n7"
+  },
+  "n6burn": {
+   "speaker": "kunoichi",
+   "text": [
+    "里は焼けた。それでも、{player}が峠で兵を止めているあいだに、女子供の多くは山へ逃れた。{kashira}は逃げ遅れた者を背負って最後に山へ入り、足に深手を負った。",
+    "焼け跡で、{kunoichi}が言った。「あなたは里を守れなかった。でも、里の人は守った」{kashira}は杖をつきながら、{player}を上忍に任じた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "忍びの里の上忍となった。"
+    }
+   ],
+   "next": "n7"
+  },
+  "n7": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "隠密を38まで磨いたのち、{here}の隠れ家に戻る",
+   "wait": {
+    "skill": {
+     "stealth": 38
+    },
+    "days": 30
+   },
+   "speaker": "kashira",
+   "art": "tale",
+   "text": [
+    "{kashira}は、もう峠を歩けなくなっていた。囲炉裏端で縄を綯いながら、{player}に言う。「里を継げとは言わぬ。忍びの生き方を選ぶかどうかは、自分で決めよ」",
+    "戸口では、{kunoichi}が黙って{player}の答えを待っていた。"
+   ],
+   "choices": [
+    {
+     "label": "頭領の右腕となり、里を守る",
+     "next": "endHeir"
+    },
+    {
+     "label": "雇い主を選ぶ里に作り変える",
+     "if": {
+      "flag": "shin_spare"
+     },
+     "next": "endChoose"
+    },
+    {
+     "label": "影を捨て、里を抜ける",
+     "next": "endNuke"
+    }
+   ]
+  },
+  "endHeir": {
+   "speaker": "kashira",
+   "text": [
+    "{kashira}は満足げに頷き、鈴を一つ、{player}の掌に載せた。最初の夜に取らせた、あの鈴だった。「鳴らさずに持っておれ。それが頭領の務めよ」",
+    "その後、諸国の大名は{here}の忍びを恐れ、また重宝した。どれほどの銭を積まれても、仲間を見捨てる仕事だけは決して受けない里として。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 5
+    },
+    {
+     "note": "頭領の右腕として里を預かった。"
+    }
+   ],
+   "end": "鳴らぬ鈴"
+  },
+  "endChoose": {
+   "speaker": "kunoichi",
+   "text": [
+    "{player}は里の掟に一条を書き加えた。「民を飢えさせる者には雇われず」。銭の多寡ではなく、雇い主を選ぶ。忍びの里としては、前代未聞の掟だった。",
+    "{targetmin}は約束どおり、里を陰から守った。{kunoichi}は笑った。「忍びが義を語るなんて、世も末ね。でも、わたしは嫌いじゃない」{player}は頭領の右腕として、その掟を守り通した。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "target",
+     "n": 10
+    }
+   ],
+   "end": "義の影"
+  },
+  "endNuke": {
+   "speaker": "kunoichi",
+   "text": [
+    "抜け忍は、里の掟では死に値する。それでも{kashira}は追手を出さず、ただ「達者でな」と言った。",
+    "{kunoichi}は里の外れまで送ってくれた。「どこへ行くの」「影のない所へ」。その後、{player}を見た者はいない。ただ、どこかの町で、昔は忍びだったという薬売りが、子どもたちに字を教えていたという噂だけが残った。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "money": 300
+    }
+   ],
+   "end": "影を捨てる"
+  }
+ }
+}

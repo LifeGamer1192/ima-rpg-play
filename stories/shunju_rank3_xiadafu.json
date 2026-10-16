@@ -1,0 +1,368 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_rank3_xiadafu",
+ "kind": "rank",
+ "rankTo": 3,
+ "title": "小城の検分",
+ "era": "shunju",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "town": {
+   "place": "near:cap"
+  },
+  "warden": {
+   "npc": "邑宰",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "政敵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城で昇進を願い出る",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "「下大夫ともなれば、邑の一つも預かることになる。その前に、人の邑を見る目を確かめたい」{minister}は地図の一点を指した。「{town}だ。城壁と倉を検分してこい。邑宰は{warden}という」",
+    "退出しかけたとき、大夫の{rival}が呼び止めた。「{town}の{warden}は、わしが推した男でな。よしなに頼む」笑っているのは口だけだった。"
+   ],
+   "choices": [
+    {
+     "label": "「見たままを申し上げます」と答える",
+     "next": "s2"
+    },
+    {
+     "label": "「心得ております」と含みを持たせる",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "town",
+    "building": "office"
+   },
+   "goal": "{town}の官府で邑宰{warden}に会う",
+   "speaker": "warden",
+   "art": "trade",
+   "text": [
+    "{warden}は門の外まで迎えに出た。酒肴が並び、帰り際には漆の箱が差し出された。中には銭が詰まっている。",
+    "「長旅のお疲れを。{rival}さまからも、くれぐれもと言われておりますので」"
+   ],
+   "choices": [
+    {
+     "label": "箱を受け取る",
+     "effects": [
+      {
+       "money": 300
+      },
+      {
+       "flag": "rank3_bribe"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "「職務の最中だ」と突き返す",
+     "effects": [
+      {
+       "fame": 1
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "town",
+    "building": "market"
+   },
+   "goal": "{town}の市と倉を調べる",
+   "art": "trade",
+   "text": [
+    "城壁は新しく塗り直してあった。だが市の米は高く、痩せた子どもが多い。倉の番人は、鍵を持つ{warden}の許しなく扉は開けられぬと言う。"
+   ],
+   "choices": [
+    {
+     "label": "倉の出納の帳簿を写させ、突き合わせる",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "夜を待ち、倉に忍び込む",
+     "check": {
+      "skill": "stealth",
+      "dc": 32,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "市の民に話を聞いて回る",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "秦の律にならい、隣保の者に互いを告発させる",
+     "if": {
+      "realm": [
+       "秦"
+      ]
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    }
+   ]
+  },
+  "s3b": {
+   "art": "war",
+   "text": [
+    "何も掴めぬまま宿へ戻る夜道で、覆面の男が二人、行く手を塞いだ。抜いた刃が月を映す。誰の差し金かは、問うまでもなかった。"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3c",
+      "lose": "fail_hurt"
+     }
+    }
+   ]
+  },
+  "s3c": {
+   "text": [
+    "倒れた男の懐から、{warden}の印のある割符が出てきた。倉の穀を他国の商人に売った、その受け取りだ。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "speaker": "warden",
+   "art": "court",
+   "text": [
+    "倉の半分は空だった。帳簿の上では満ちているはずの粟が、他国の商人へ流れていた。その銭の行き先には、{rival}の家宰の名がある。",
+    "{warden}は床に額をこすりつけた。「わたしは命じられただけです。{rival}さまに逆らえば、この首が飛びます」"
+   ],
+   "choices": [
+    {
+     "label": "すべてを記し、{rival}の名も含めて都へ報じる",
+     "next": "s5"
+    },
+    {
+     "label": "{warden}だけを処断し、{rival}の名は伏せる",
+     "effects": [
+      {
+       "flag": "rank3_spared_rival"
+      }
+     ],
+     "next": "s5b"
+    },
+    {
+     "label": "帳簿を戻し、見なかったことにする",
+     "effects": [
+      {
+       "money": 200
+      }
+     ],
+     "next": "fail_blind"
+    }
+   ]
+  },
+  "s5": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城へ戻り、検分の結果を報じる",
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "{ruler}の御前で報告を読み上げると、{rival}が声を荒らげた。「でたらめだ。{player}こそ{warden}から賄賂を受け取ったと聞いておる。罪を逃れるため、わしに擦りつけているのだ」",
+    "重臣たちの目が{player}に注がれる。"
+   ],
+   "choices": [
+    {
+     "label": "受け取った銭をそのまま差し出す。「これが邑宰の賄賂でございます」",
+     "if": {
+      "flag": "rank3_bribe",
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "win_just"
+    },
+    {
+     "label": "帳簿と割符を示し、筋道立てて反駁する",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "win_just",
+      "lose": "fail_slander"
+     }
+    },
+    {
+     "label": "律の条文を引き、{rival}の家宰の罪を論じる",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "win_just",
+      "lose": "fail_slander"
+     }
+    }
+   ]
+  },
+  "s5b": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城へ戻り、検分の結果を報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "報告は{warden}の罪だけで終わった。{minister}は何も聞かずに頷き、{rival}は廊下ですれ違いざまに「話の分かる男だ」とささやいた。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 5
+    },
+    {
+     "fame": 1
+    },
+    {
+     "flag": "rank3_rival_faction"
+    },
+    {
+     "unflag": "rank3_bribe"
+    },
+    {
+     "note": "{town}の邑宰を裁き、下大夫となった。{rival}の派に貸しを作った。"
+    }
+   ],
+   "end": "目をつぶって下大夫に"
+  },
+  "win_just": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}が手を上げると、{rival}は黙った。「倉は国の命だ。{rival}は家宰を差し出せ。{player}、そなたを下大夫とする」",
+    "宮城を出るとき、背中に刺さる視線を感じた。{rival}の派が一つ、敵になった。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 5
+    },
+    {
+     "flag": "rank3_rival_enemy"
+    },
+    {
+     "unflag": "rank3_bribe"
+    },
+    {
+     "note": "{town}の不正を暴いて下大夫となった。{rival}を敵に回した。"
+    }
+   ],
+   "end": "倉を正して下大夫に"
+  },
+  "fail_slander": {
+   "speaker": "minister",
+   "text": [
+    "言葉が詰まった。疑いは晴れず、件は「追って調べる」と棚上げにされた。{minister}は肩をすくめた。「讒言は先に言った者が勝つ。また出直せ」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "rank3_bribe"
+    },
+    {
+     "note": "検分の報告は讒言に潰された。覚えを取り戻せば、また試しを願い出られる。"
+    }
+   ],
+   "end": "讒言に敗れる"
+  },
+  "fail_hurt": {
+   "text": [
+    "深手を負い、{player}は何も持たずに都へ逃げ帰った。検分は果たせなかった。いずれ、また機会を願い出るしかない。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "rank3_bribe"
+    },
+    {
+     "note": "{town}の検分にしくじった。覚えを取り戻せば、また試しを願い出られる。"
+    }
+   ],
+   "end": "闇討ちに倒れる"
+  },
+  "fail_blind": {
+   "text": [
+    "報告は「異状なし」とした。だが半年もせぬうちに{town}で飢えた民が騒ぎ、{ruler}は検分した者の名を思い出した。今は覚えを取り戻すほかない。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "rank3_bribe"
+    },
+    {
+     "note": "{town}の不正を見逃し、覚えを損ねた。また試しを願い出られる。"
+    }
+   ],
+   "end": "見て見ぬふり"
+  }
+ }
+}

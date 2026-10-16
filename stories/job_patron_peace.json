@@ -1,0 +1,21 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_peace",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "persuade",
+ "target": "other-realm",
+ "hostile": true,
+ "title": "{realm}への遊説",
+ "desc": "{realm}の宮廷に乗り込み、和を説いてこい。命がけの役目だ。",
+ "reward": {
+  "base": 200
+ },
+ "favor": 45,
+ "fame": 8,
+ "deadline": {
+  "base": 60
+ }
+}

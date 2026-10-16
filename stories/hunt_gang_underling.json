@@ -1,0 +1,187 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "hunt_gang_underling",
+ "kind": "random",
+ "where": "office",
+ "weight": 1,
+ "hook": "山の盗賊を討ってほしい。報酬ははずむ",
+ "title": "盗賊討伐",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  },
+  "boss": {
+   "npc": "大盗賊",
+   "sex": "m"
+  },
+  "lair": {
+   "place": "near:here"
+  },
+  "den": {
+   "place": "far:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "「{lair}の谷に{bandit}が五、六人。たいした連中ではないが、旅人が怖がって通らぬ」{clerk}は軽く言った。"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "lair"
+    }
+   ]
+  },
+  "lair": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "{lair}の谷で{bandit}を討つ",
+   "art": "hideout",
+   "text": [
+    "谷の小屋には、腕に同じ刺青をした男たちがいた。蛇の刺青。この辺りの{bandit}が皆恐れる大盗賊、{boss}の印だ。"
+   ],
+   "choices": [
+    {
+     "label": "斬り込む",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "won": {
+   "text": [
+    "最後の一人が逃げながら叫んだ。「{boss}の親分が黙っちゃいねえぞ！」",
+    "{clerk}は報酬を払いながら顔をしかめた。「蛇の一味に手を出したか。しばらく街道には気をつけろ」"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "hunted": 90
+    },
+    {
+     "note": "大盗賊{boss}の一味に恨まれた。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{boss}の根城を探す",
+     "next": "den"
+    },
+    {
+     "label": "今は放っておく",
+     "next": "later"
+    }
+   ]
+  },
+  "later": {
+   "text": [
+    "街道を行くたび、蛇の刺青の男たちの影がちらつくだろう。"
+   ],
+   "end": "蛇の一味に睨まれた"
+  },
+  "den": {
+   "at": {
+    "place": "den"
+   },
+   "goal": "{den}の根城で大盗賊{boss}を討つ",
+   "art": "hideout",
+   "text": [
+    "{den}の山奥の砦。見張り櫓に蛇の旗がはためいていた。{boss}は大刀を肩に、ゆっくりと立ち上がった。「わしの手下を斬ったのはお前か」"
+   ],
+   "choices": [
+    {
+     "label": "{boss}に挑む",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "den_won",
+      "lose": "den_lost"
+     }
+    },
+    {
+     "label": "詫びを入れて手を引く（500銭）",
+     "if": {
+      "money": 500
+     },
+     "effects": [
+      {
+       "money": -500
+      },
+      {
+       "hunted": 0
+      }
+     ],
+     "next": "peace"
+    }
+   ]
+  },
+  "den_won": {
+   "text": [
+    "{boss}が倒れ、蛇の旗が焼け落ちた。砦の蔵には奪われた品が山と積まれていた。"
+   ],
+   "effects": [
+    {
+     "money": 600
+    },
+    {
+     "fame": 10
+    },
+    {
+     "hunted": 0
+    },
+    {
+     "favor": 10
+    }
+   ],
+   "end": "蛇の一味は滅んだ"
+  },
+  "den_lost": {
+   "text": [
+    "{boss}の大刀は重かった。砦から転げ落ちるように逃げた。蛇の一味は、これからもあなたを狙うだろう。"
+   ],
+   "effects": [
+    {
+     "hunted": 120
+    }
+   ],
+   "end": "大盗賊に敗れた"
+  },
+  "peace": {
+   "text": [
+    "{boss}は銭袋を受け取り、鼻で笑った。「命拾いしたな。二度とわしの縄張りに入るな」"
+   ],
+   "end": "手打ち"
+  },
+  "lost": {
+   "text": [
+    "刺青の男たちは手強かった。{here}へ逃げ帰った。"
+   ],
+   "end": "討ち損じ"
+  }
+ }
+}

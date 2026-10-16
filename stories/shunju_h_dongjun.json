@@ -1,0 +1,641 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_dongjun",
+ "kind": "history",
+ "era": "shunju",
+ "title": "東郡",
+ "event": "qin_dongjun",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s4",
+  "s4ok",
+  "s4ng",
+  "s4evac",
+  "s4hold_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "daliang"
+  },
+  "front": {
+   "scnPlace": "yongqiu"
+  },
+  "wei": {
+   "scnRealm": "wei"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:wei"
+  },
+  "mengao": {
+   "scnPerson": "蒙驁"
+  },
+  "captain": {
+   "npc": "雍丘の守将",
+   "sex": "m"
+  },
+  "widow": {
+   "npc": "雍丘の機織り女",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で西からの知らせを聞く",
+   "art": "tale",
+   "text": [
+    "{city}の客舎は、どこか沈んでいた。五国の兵を率いて{qin}を函谷関まで追った公子は、王に疑われて兵を取り上げられ、いまは酒と女に身を沈めて政には顔も出さぬという。",
+    "「公子が兵を握っていれば、秦はこうも大胆には来なかった」と、商人が言った。{qin}の老将{mengao}が、西から城を一つずつ抜きながら東へ進んでいるという。酸棗、燕、虚、そして{front}。",
+    "辻の高札には、{front}の守りに加わる者を募るとあった。"
+   ],
+   "choices": [
+    {
+     "label": "高札に応じ、軍営へ行く",
+     "effects": [
+      {
+       "note": "{qin}の{mengao}が{wei}の東の城を抜きながら進んでいる。{front}の守りに加わる者が募られている。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の軍営で{front}の守りに加わる",
+   "speaker": "captain",
+   "art": "camp",
+   "text": [
+    "軍営で兵を集めていたのは、{front}から援けを乞いに来た守将{captain}だった。鎧は古く、顔は日焼けと寝不足で黒ずんでいる。",
+    "「王は{city}の守りを固めるので手一杯だそうだ。{front}に回せるのは、ここに集まった者だけ。三百人だ。{mengao}の兵は三万と聞く」",
+    "{captain}は苦笑した。「それでも、城を空けて逃げるわけにはいかぬ。城の中には一万の民がいる」"
+   ],
+   "choices": [
+    {
+     "label": "{captain}とともに{front}へ向かう",
+     "next": "s3"
+    },
+    {
+     "label": "「民を逃がす手伝いならできる」と申し出て、同行する",
+     "effects": [
+      {
+       "flag": "h_dj_folk"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "front",
+    "building": "barracks"
+   },
+   "goal": "{front}の城に入り、守りにつく",
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "{front}の城壁は、ところどころ崩れて土が見えていた。城外の野には、西から逃げてきた人々の小屋がひしめいている。酸棗は三日で落ちたという。",
+    "「{mengao}の先鋒は、酸棗の後始末を終えれば、ここに来る」{captain}は西の丘を指さした。「あの丘の向こうの様子が知りたい。陣の場所、兵の数、渡しの位置」"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れて西の丘を越え、秦の陣を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "城外の小屋を回り、逃げてきた者から話を聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "{qin}の先鋒は、丘の向こうの川沿いに陣を張っていた。兵は多いが、長い行軍に疲れている。糧を積んだ車が陣の東の端に固めて置かれ、見張りは薄い。",
+    "{captain}は{player}の話を聞いて、長く地図を見つめた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dj_scout"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "{mengao}の先鋒の陣を探った。糧車が陣の東の端に置かれている。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "text": [
+    "秦の斥候の騎兵に見つかり、矢を背に受けながら城へ逃げ帰った。分かったのは、丘の向こうに篝火が数えきれぬほどあることだけだった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "{front}で{qin}の先鋒を待つ",
+   "wait": {
+    "days": 120
+   },
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "秋の終わり、西の丘に{qin}の黒い旗が並んだ。先鋒の陣は城から半日の所に据えられ、雲梯と衝車が組み上げられていく。",
+    "{captain}は城壁の上で{player}に言った。「守れるのは、せいぜい一月だ。その間に何ができるか、だ」"
+   ],
+   "choices": [
+    {
+     "label": "城壁に上がり、守りにつく",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "城の東門を開き、民を{city}の方へ逃がす",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s4evac",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "決死の兵を募って夜襲をかけ、{mengao}の先鋒の陣を焼く",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "confirm": "三百で三万の陣に斬り込む。生きて戻れる保証はない。",
+      "win": "s4hold",
+      "lose": "s4hold_ng"
+     }
+    }
+   ]
+  },
+  "s4ok": {
+   "art": "war",
+   "text": [
+    "梯子を登ってくる{qin}の兵を三度突き落とした。夕暮れ、敵は退いたが、城壁の上の味方も半ばに減っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4ng": {
+   "art": "war",
+   "text": [
+    "乱戦の中で、{player}は肩に矢を受けて倒れた。運び込まれた櫓の中で、城壁の上の喊声を聞いていることしかできなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4evac": {
+   "speaker": "widow",
+   "text": [
+    "東門から、老人と女と子どもが列をなして出ていった。{widow}が最後まで残って、機を背負った老婆の手を引いていた。「織る機さえあれば、どこでも生きていけます」",
+    "列は三日かかって、{city}の方へ消えた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dj_evac"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "wei",
+     "n": 5
+    },
+    {
+     "note": "{front}の民を東門から逃がした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4hold": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "月のない夜、三十人の決死の兵とともに川を渡った。糧車に油をかけ、火を放つ。炎は風に煽られて陣の中へ広がり、秦の兵は闇の中で同士討ちを始めた。",
+    "夜明け、焼け跡の向こうで{qin}の先鋒が退いていくのが見えた。{captain}は煤だらけの顔で笑った。「糧がなくては、{mengao}も城は囲めまい。これで、この冬はもつ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dj_hold"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "wei",
+     "n": 15
+    },
+    {
+     "rep": "qin",
+     "n": -15
+    },
+    {
+     "note": "{front}で夜襲をかけ、{mengao}の先鋒の糧を焼いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4hold_ng": {
+   "art": "war",
+   "text": [
+    "川を渡りきる前に、見張りの太鼓が鳴った。決死の兵の半ばは戻らなかった。{player}は血まみれで城壁にたどり着き、それきり三日動けなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "{front}で城の行く末を見届ける",
+   "wait": {
+    "settled": "qin_dongjun"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dj_xinling"
+     },
+     "next": "xinling"
+    },
+    {
+     "if": {
+      "branch": "dj_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "dj_nomengao"
+     },
+     "next": "nomengao"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "held": {
+   "at": {
+    "place": "front"
+   },
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "糧を失った{qin}の軍は、{front}を囲むことができず、冬を前に西へ引き揚げていった。酸棗の城にも、魏の旗が再び揚がった。",
+    "{captain}は{player}に酒を注いだ。「東郡などという名は、今年は聞かずにすんだ。来年はどうか分からぬがな」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 10
+    },
+    {
+     "unflag": "h_dj_hold"
+    },
+    {
+     "unflag": "h_dj_scout"
+    },
+    {
+     "unflag": "h_dj_folk"
+    },
+    {
+     "unflag": "h_dj_evac"
+    },
+    {
+     "note": "{front}は落ちず、{qin}は東郡を置けなかった。"
+    }
+   ],
+   "end": "焼けた糧車"
+  },
+  "xinling": {
+   "at": {
+    "place": "front"
+   },
+   "art": "war",
+   "text": [
+    "{qin}の軍は来なかった。函谷関で五国の兵に破られた傷が、まだ癒えていないのだ。公子が生きているかぎり、秦は東へ手を伸ばせない。",
+    "{front}の人々は、壊れた城壁を直しながら、公子の名を口々に唱えた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_dj_hold"
+    },
+    {
+     "unflag": "h_dj_scout"
+    },
+    {
+     "unflag": "h_dj_folk"
+    },
+    {
+     "unflag": "h_dj_evac"
+    },
+    {
+     "note": "公子の威が残り、{qin}は東へ兵を出さなかった。"
+    }
+   ],
+   "end": "公子の威"
+  },
+  "nomengao": {
+   "at": {
+    "place": "front"
+   },
+   "art": "tale",
+   "text": [
+    "将を失った{qin}の軍は、{front}の手前で一年のあいだ足踏みした。だが新しい将が来れば、同じことが起きるだろう。人々はその一年を、畑を耕して過ごした。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dj_hold"
+    },
+    {
+     "unflag": "h_dj_scout"
+    },
+    {
+     "unflag": "h_dj_folk"
+    },
+    {
+     "unflag": "h_dj_evac"
+    }
+   ],
+   "end": "一年の猶予"
+  },
+  "s5": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "{front}で城の行く末を見届ける",
+   "wait": {
+    "settled": "qin_dongjun"
+   },
+   "speaker": "mengao",
+   "art": "war",
+   "text": [
+    "一月ののち、{front}の城門は内から開かれた。{captain}は最後まで城壁にいたが、兵がもう残っていなかった。",
+    "城に入った{mengao}は、白い髭をしごきながら告げた。「酸棗より東、二十の城をもって東郡を置く。今日から、ここは{qin}の郡県である」これで{qin}の地は、東の斉と境を接した。"
+   ],
+   "choices": [
+    {
+     "label": "逃がした民のあとを追い、{city}への道を守る",
+     "if": {
+      "flag": "h_dj_evac"
+     },
+     "next": "end_folk"
+    },
+    {
+     "label": "捕らえられた{captain}の助命を{mengao}に願う",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_captain",
+      "lose": "end_fall"
+     }
+    },
+    {
+     "label": "城を出て、東へ落ちのびる",
+     "next": "end_fall"
+    }
+   ]
+  },
+  "end_folk": {
+   "speaker": "widow",
+   "text": [
+    "{city}への道の途中で、{widow}たちの列に追いついた。秦の騎兵が一度だけ近づいてきたが、女と子どもばかりの列を見て、何もせずに去った。",
+    "「城はなくなっても、人は残りました」{widow}は背の機を下ろして言った。「布は、どこで織っても布です」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wei",
+     "n": 10
+    },
+    {
+     "unflag": "h_dj_evac"
+    },
+    {
+     "unflag": "h_dj_scout"
+    },
+    {
+     "unflag": "h_dj_folk"
+    },
+    {
+     "note": "{qin}は{front}を抜いて東郡を置いた。逃がした民を{city}まで送り届けた。"
+    }
+   ],
+   "end": "機を背負う人々"
+  },
+  "end_captain": {
+   "speaker": "mengao",
+   "text": [
+    "{mengao}は{player}を見下ろし、それから縛られた{captain}を見た。「三百で一月もたせた将か。斬るには惜しい」老将は縄を解かせた。「魏へ帰って伝えよ。次は二月もつ城を作っておけ、とな」",
+    "{captain}は黙って一礼し、{player}とともに東へ歩いた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "wei",
+     "n": 8
+    },
+    {
+     "unflag": "h_dj_evac"
+    },
+    {
+     "unflag": "h_dj_scout"
+    },
+    {
+     "unflag": "h_dj_folk"
+    },
+    {
+     "note": "{qin}は{front}を抜いて東郡を置いた。守将{captain}の命を乞うた。"
+    }
+   ],
+   "end": "惜しまれた将"
+  },
+  "end_fall": {
+   "text": [
+    "{player}は東門から城を出た。振り返ると、{front}の城壁の上に{qin}の黒い旗が揚がっていた。",
+    "のちに聞いた。この年、{qin}は魏の二十の城を抜いて東郡を置いた。秦の地は、初めて東の斉と境を接したという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dj_evac"
+    },
+    {
+     "unflag": "h_dj_scout"
+    },
+    {
+     "unflag": "h_dj_folk"
+    },
+    {
+     "note": "{qin}は{front}を抜いて東郡を置いた。"
+    }
+   ],
+   "end": "東郡の旗"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dj_xinling"
+     },
+     "next": "xinling"
+    },
+    {
+     "if": {
+      "branch": "dj_nomengao"
+     },
+     "next": "nomengao"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "噂が届いた。{qin}の{mengao}が{wei}の酸棗、燕、虚、長平、{front}、山陽など二十の城を抜き、初めて東郡を置いたという。",
+    "「秦の地が斉に届いた。次は誰の番だ」と、宿の客は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dj_scout"
+    },
+    {
+     "unflag": "h_dj_folk"
+    },
+    {
+     "note": "{qin}が東郡を置いたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "dj_xinling",
+   "event": "qin_dongjun",
+   "order": 3,
+   "why": "信陵君が生きて五国の勢いが残った",
+   "when": {
+    "taken": [
+     "xinling_hangu"
+    ],
+    "alive": [
+     "信陵君"
+    ]
+   },
+   "then": "cancel",
+   "note": "函谷関で五国の兵に破られた{n_qin}は、[[p:信陵君]]がなお魏にあるのを恐れ、東へ兵を出さなかった。東郡は置かれなかった。"
+  },
+  {
+   "id": "dj_hold",
+   "event": "qin_dongjun",
+   "order": 2,
+   "why": "主人公が夜襲で秦の先鋒の糧を焼いた",
+   "when": {
+    "flag": "h_dj_hold"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}の[[p:蒙驁]]は{n_wei}の東の城を攻めたが、雍丘の守りに夜襲を受けて糧を焼かれ、兵を退いた。東郡は置かれなかった。",
+    "do": [
+     [
+      "army",
+      "qin",
+      0.9
+     ]
+    ],
+    "imp": 2,
+    "at": "yongqiu"
+   }
+  },
+  {
+   "id": "dj_nomengao",
+   "event": "qin_dongjun",
+   "order": 1,
+   "why": "秦の将の蒙驁が死んでいた",
+   "when": {
+    "dead": [
+     "蒙驁"
+    ]
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "将の[[p:蒙驁]]を失った{n_qin}は、{n_wei}の東の城を攻めるのを一年のあいだ見合わせた。"
+  }
+ ]
+}

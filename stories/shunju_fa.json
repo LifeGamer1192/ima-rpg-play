@@ -1,0 +1,571 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_fa",
+ "kind": "school",
+ "title": "変法の代償",
+ "era": "shunju",
+ "school": "fa",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "師",
+   "sex": "m"
+  },
+  "reform": {
+   "realm": "second"
+  },
+  "cap": {
+   "place": "capital:reform"
+  },
+  "ruler": {
+   "person": "ruler:reform"
+  },
+  "elder": {
+   "npc": "里正",
+   "sex": "m"
+  },
+  "noble": {
+   "npc": "公子",
+   "sex": "m"
+  },
+  "border": {
+   "place": "border:reform"
+  }
+ },
+ "start": "f1",
+ "scenes": {
+  "f1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の法家の書院へ行く",
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "書院の板間には竹簡が山と積まれ、墨の匂いがこもっていた。{master}は痩せた指で一巻を叩いた。",
+    "「礼は貴き者を守り、法は国を守る。法を明らかにし、術で臣を御し、勢で民を従わせる。これがわが門の学だ」",
+    "「では問う、{player}。民が法を信じぬとき、国はまず何をすべきか」"
+   ],
+   "choices": [
+    {
+     "label": "「約束を必ず守ってみせることです」",
+     "check": {
+      "skill": "letters",
+      "dc": 12,
+      "win": "f1ok",
+      "lose": "f1ng"
+     }
+    },
+    {
+     "label": "「罰を重くし、恐れさせることです」",
+     "next": "f1ng"
+    }
+   ]
+  },
+  "f1ok": {
+   "speaker": "master",
+   "text": [
+    "{master}は目を細めた。「よい。信なき法は紙より軽い。罰の重さは、その後の話だ」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{master}に「信なき法は紙より軽い」と教えられた。"
+    }
+   ],
+   "next": "f2"
+  },
+  "f1ng": {
+   "speaker": "master",
+   "text": [
+    "「半分だ」{master}は首を振った。「恐れだけで従う民は、恐れが去れば背く。まず信を立てよ。罰の重さはその後だ」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "f2"
+  },
+  "f2": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "法の書を学び（学問15）、{here}の書院の{master}のもとへ戻る",
+   "wait": {
+    "skill": {
+     "letters": 15
+    }
+   },
+   "speaker": "master",
+   "text": [
+    "「{reform}の{ruler}が、国を変える士を求めて令を下したそうだ。旧い貴族に縛られた国ほど、法の力を欲しがる」",
+    "{master}は封をした竹簡を差し出した。「わしはもう老いた。お前が行け。今日よりお前を弟子と呼ぼう」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "item": "letter"
+    },
+    {
+     "note": "法家の弟子となり、{reform}へ行くよう命じられた。"
+    }
+   ],
+   "next": "f3"
+  },
+  "f3": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城で{ruler}に会う",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は若くはないが、目だけは飢えた獣のようだった。「法を変えたいのは山々だ。だが民は役人を信じぬ。新しい令を出しても、誰も従わぬだろう」",
+    "{player}は答えた。「では、まず市の南門に三丈の木を立てさせてください。北門まで運んだ者に、十金を与えると布告するのです」"
+   ],
+   "next": "f3b"
+  },
+  "f3b": {
+   "at": {
+    "place": "cap",
+    "building": "market"
+   },
+   "goal": "{cap}の市で、木を運ぶ者を待つ",
+   "art": "trade",
+   "text": [
+    "南門の木を、民は遠巻きに眺めるばかりだった。「たかが木を運んで十金など、役人の罠に決まっている」とささやく声がする。",
+    "報賞を五十金に上げても、誰も動かない。日が傾きはじめた。"
+   ],
+   "choices": [
+    {
+     "label": "自分の金を積んで見せる（100{money}）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "f3ok"
+    },
+    {
+     "label": "市の顔役に掛け合い、一人を出させる",
+     "check": {
+      "skill": "trade",
+      "dc": 18,
+      "win": "f3ok",
+      "lose": "f3slow"
+     }
+    }
+   ]
+  },
+  "f3slow": {
+   "text": [
+    "顔役は笑うばかりだった。三日目の夕方、ようやく酔った人足がふらふらと木を担いだ。"
+   ],
+   "next": "f3ok"
+  },
+  "f3ok": {
+   "speaker": "ruler",
+   "text": [
+    "男が木を北門に下ろすと、{player}はその場で金を渡した。どよめきが市を走った。翌朝には、新しい令の前に人だかりができていた。",
+    "{ruler}は膝を打った。「国の法を、そなたに預けよう」"
+   ],
+   "effects": [
+    {
+     "enlist": "reform"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "reform",
+     "n": 10
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "item": "letter",
+     "n": -1
+    },
+    {
+     "note": "木を移して信を立て、{reform}の変法を預かった。"
+    }
+   ],
+   "next": "f4"
+  },
+  "f4": {
+   "at": {
+    "place": "cap",
+    "building": "office"
+   },
+   "goal": "{reform}の務めを2つ果たしてから、{cap}の官府で郊外の郷へ新法を施す手はずを整える",
+   "wait": {
+    "jobs": 2
+   },
+   "speaker": "elder",
+   "art": "trade",
+   "text": [
+    "新法は五家を伍、十家を什として互いに見張らせ、田の畦を引き直し、耕して実らせた者を賞する。{cap}の郊外の郷で、里正の{elder}は、竹簡を読み上げる{player}を苦い顔で見ていた。",
+    "「田の境は、わしらの爺さまのそのまた爺さまが決めたものだ。それに、この地の田の半分は{noble}さまの私田でな。測りに来た役人は、昨日も追い返されたよ」"
+   ],
+   "choices": [
+    {
+     "label": "「開いた田は耕す者のものになる」と利を説く",
+     "check": {
+      "skill": "trade",
+      "dc": 25,
+      "win": "f4ok",
+      "lose": "f4guard"
+     }
+    },
+    {
+     "label": "兵を連れて測量を強行する",
+     "next": "f4guard"
+    }
+   ]
+  },
+  "f4guard": {
+   "art": "war",
+   "text": [
+    "縄を張りはじめたとたん、{noble}の私兵が畦道に現れた。「ここは公子さまの田だ。法など知らん」"
+   ],
+   "choices": [
+    {
+     "label": "退かせる",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "talk": true,
+      "win": "f4ok",
+      "lose": "f4hurt"
+     }
+    }
+   ]
+  },
+  "f4hurt": {
+   "text": [
+    "{player}は傷を負ったが、騒ぎを聞いた県の兵が駆けつけ、私兵は散った。測量は三日遅れで終わった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "f5"
+  },
+  "f4ok": {
+   "speaker": "elder",
+   "text": [
+    "新しい畦が引かれ、戸籍の竹簡が積み上がった。{elder}はしぶしぶ言った。「なるほど、荒れ地を開けば己の田になるなら、若い者は喜ぶだろう」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "next": "f5"
+  },
+  "f5": {
+   "speaker": "elder",
+   "text": [
+    "去り際、{elder}が袖を引いた。「隣の家の倅が盗みをはたらいた。新法では、告げなかった伍の者もみな同罪だという。老いた母親まで罰するのか」"
+   ],
+   "choices": [
+    {
+     "label": "「法に例外はない」と連坐を行う",
+     "effects": [
+      {
+       "flag": "fa_strict"
+      },
+      {
+       "rep": "reform",
+       "n": 5
+      },
+      {
+       "note": "{cap}の郊外の郷で連坐を行った。"
+      }
+     ],
+     "next": "f6"
+    },
+    {
+     "label": "母親の罪だけは不問とし、記録から外す",
+     "effects": [
+      {
+       "flag": "fa_lenient"
+      },
+      {
+       "note": "里正の{elder}の願いを聞き、老母を罰しなかった。"
+      }
+     ],
+     "next": "f6"
+    }
+   ]
+  },
+  "f6": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "名声を12まで上げ、{cap}の宮城へ戻る",
+   "wait": {
+    "fame": 12
+   },
+   "speaker": "{reform}の廷尉",
+   "art": "court",
+   "text": [
+    "新法の施行から幾月。国の倉は満ち、兵は首級の数で爵を得るようになった。だが宮城に戻った{player}を待っていたのは、一件の訴えだった。",
+    "「太子さまが法を犯されました。そそのかしたのは、太子の傅である{noble}さまです。太子を刑すわけにはまいりませぬ。いかがなさいます」"
+   ],
+   "choices": [
+    {
+     "label": "太子に代わり、傅の{noble}を刑す",
+     "effects": [
+      {
+       "fame": 5
+      },
+      {
+       "rep": "reform",
+       "n": 10
+      }
+     ],
+     "next": "f6hard"
+    },
+    {
+     "label": "条文を引いて罪を軽くし、{noble}と手を打つ",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "f6soft",
+      "lose": "f6hard"
+     }
+    }
+   ]
+  },
+  "f6hard": {
+   "speaker": "noble",
+   "text": [
+    "刑は市で行われた。鼻を削がれた{noble}は、引き立てられながら{player}をにらんだ。「覚えておけ。法は今日お前のものでも、明日は誰のものか知れぬぞ」",
+    "その日から、法を軽んじる者は{reform}に一人もいなくなった。"
+   ],
+   "effects": [
+    {
+     "flag": "fa_hard"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "f7"
+  },
+  "f6soft": {
+   "speaker": "noble",
+   "text": [
+    "{player}は罪を罰金にとどめた。{noble}は形ばかりの礼をした。「話の分かる男だ」だが市では「法は貴人の前で曲がる」とささやかれはじめた。"
+   ],
+   "effects": [
+    {
+     "flag": "fa_soft"
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "reform",
+     "n": -5
+    }
+   ],
+   "next": "f7"
+  },
+  "f7": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の書院の{master}に変法の次第を報せる",
+   "wait": {
+    "days": 20
+   },
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "{master}は話を聞き終えると、長く黙っていた。「よくやった。今日よりお前は高弟だ。後輩たちに法を講じてやれ」",
+    "「だが覚えておけ。法は刃だ。人を切れば、握る者の手も切る。主君の後ろ盾が消えた日に、お前を守る者は誰もおらぬ」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "法家の高弟となった。"
+    }
+   ],
+   "next": "f8"
+  },
+  "f8": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "学問を40まで磨き、名声25に達したら{here}の書院へ戻る",
+   "wait": {
+    "skill": {
+     "letters": 40
+    },
+    "fame": 25
+   },
+   "speaker": "master",
+   "text": [
+    "{master}は床に伏していた。枕元には、若いころに書いたという法の書が一巻あるだけだった。",
+    "「この書院を継げ、{player}。お前はもう師だ」かすれた声が続く。「{reform}から急ぎの使いが来ておる。{ruler}が病に倒れたそうだ。……急げ」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "note": "{master}から書院を継ぎ、法家の師となった。"
+    }
+   ],
+   "next": "f9"
+  },
+  "f9": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城へ急ぐ",
+   "art": "court",
+   "text": [
+    "宮城の門には、見覚えのない兵が立っていた。{ruler}の寝所には近づけず、廷では旧い貴族たちが声を上げていた。",
+    "「{player}は法を口実に国を私し、謀反を企てている」先頭に立つのは、旧怨を抱く{noble}だった。"
+   ],
+   "choices": [
+    {
+     "label": "廷に踏みとどまり、法によって弁ずる",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "endLaw",
+      "lose": "f10"
+     }
+    },
+    {
+     "label": "夜のうちに都を出る",
+     "next": "f10"
+    }
+   ]
+  },
+  "f10": {
+   "at": {
+    "place": "border"
+   },
+   "goal": "国境の{border}まで逃れる",
+   "speaker": "宿の主",
+   "art": "tale",
+   "text": [
+    "{border}の客舎で戸を叩くと、主は灯りを掲げて{player}の顔を見た。「通行の符はお持ちで？　符のない客を泊めれば、わしらも罪になる。そういう法でしてな」",
+    "自分の書いた条文が、自分の前に戸を閉ざしていた。背後の闇で、追手の松明が揺れた。"
+   ],
+   "choices": [
+    {
+     "label": "郊外の郷で救った老母の縁を頼る",
+     "if": {
+      "flag": "fa_lenient"
+     },
+     "next": "f10help"
+    },
+    {
+     "label": "追手を迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "endExile",
+      "lose": "endFall"
+     }
+    }
+   ]
+  },
+  "f10help": {
+   "speaker": "elder",
+   "text": [
+    "闇から現れたのは、あの郷の里正の{elder}だった。「あの家の婆さまが、あんたの名を毎日拝んでおってな」抜け道を知る村の若者が、{player}を国境の外へ導いた。"
+   ],
+   "next": "endExile"
+  },
+  "endLaw": {
+   "speaker": "ruler",
+   "text": [
+    "{player}は一条ずつ法を引き、貴族たちの私田と私兵の記録を廷に積み上げた。訴えは崩れ、病床から起きた{ruler}は{noble}を退けた。",
+    "法は人の上に立った。{player}の名は恐れとともに語られ、{reform}の倉はなおも満ちていく。その重さを、{player}は書院で弟子たちに語り続けた。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "reform",
+     "n": 20
+    }
+   ],
+   "end": "法は人に勝る"
+  },
+  "endExile": {
+   "text": [
+    "{player}は国境を越えた。{reform}では変法を罵る声が上がったが、新しい法そのものを廃そうとする者はいなかった。倉が満ち、兵が強いことを、誰も手放せなかったのだ。",
+    "異国の小さな書院で、{player}は弟子たちに説く。「法は信より始まる。そして、法を立てた者も法の外にはいられない」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    }
+   ],
+   "end": "法を残して去る"
+  },
+  "endFall": {
+   "text": [
+    "{player}は捕らえられ、すべての官を奪われて辺境へ流された。かつて自ら定めた条文のとおりに。",
+    "数年ののち、許されて戻った{player}が見たのは、自分の名を消したまま新法で治まる{reform}の姿だった。法は残り、人は消える。{player}はそれを、己の学の正しさとして受け入れた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "money": -200
+    }
+   ],
+   "end": "作法自斃"
+  }
+ }
+}

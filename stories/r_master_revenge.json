@@ -1,0 +1,216 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_master_revenge",
+ "kind": "random",
+ "where": "folk",
+ "hook": "師の仇を討ちたいのです。力を貸してください",
+ "title": "師の仇討ち",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "剣術道場の弟子"
+  },
+  "master": {
+   "npc": "剣の師",
+   "sex": "m"
+  },
+  "foe": {
+   "npc": "剣客",
+   "sex": "m"
+  },
+  "town": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は腰に師の形見の剣を差していた。師の{master}は、ひと月前、{foe}という剣客との立ち合いで斬られたという。",
+    "「{foe}はいま、{town}の豪族の食客になっています。官に訴えても、豪族の客には手が出せぬと。わたしの腕では、とても敵いません」"
+   ],
+   "choices": [
+    {
+     "label": "{town}へ同行する",
+     "next": "face"
+    },
+    {
+     "label": "「仇討ちは仇を生むだけだ」と思いとどまらせる",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_stayed",
+      "lose": "face"
+     }
+    }
+   ]
+  },
+  "face": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{client}とともに{town}で{foe}を探す",
+   "speaker": "foe",
+   "art": "war",
+   "text": [
+    "{foe}は酒楼の二階にいた。{client}が名乗ると、{foe}は杯を置いた。",
+    "「{master}の弟子か。あれは尋常の立ち合いだった。だが、話していないことがある。十年前、{master}はわしの兄を闇討ちにした。わしはその仇を討っただけだ」{client}の顔から血の気が引いた。"
+   ],
+   "choices": [
+    {
+     "label": "{client}に代わって斬る",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "end_avenged",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "仇討ちの連鎖を断てと二人を説く",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_peace",
+      "lose": "face_ng"
+     }
+    },
+    {
+     "label": "官府に訴え、裁きを求める",
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "end_law",
+      "lose": "face_ng"
+     }
+    }
+   ]
+  },
+  "face_ng": {
+   "speaker": "client",
+   "text": [
+    "「師がどうあれ、わたしの師です」{client}が剣を抜いた。{foe}も立ち上がる。もう止められない。"
+   ],
+   "choices": [
+    {
+     "label": "{client}の前に出て剣を抜く",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "end_avenged",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "end_avenged": {
+   "speaker": "client",
+   "text": [
+    "{foe}は膝をつき、「これでいい」と言って事切れた。{client}は師の墓に{foe}の髷を供え、長いあいだ手を合わせていた。",
+    "仇討ちの話はたちまち広まった。豪族は面目を潰されたと怒り、官は見て見ぬふりをした。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "{client}の師の仇、{foe}を討った。"
+    }
+   ],
+   "end": "仇討ち成就"
+  },
+  "end_peace": {
+   "speaker": "foe",
+   "text": [
+    "長い沈黙ののち、{foe}は剣を外して卓に置いた。「わしも、もう疲れた。兄の仇は討ち、その報いを今受けようとしている。ここで終わりにしよう」",
+    "{client}は泣きながら剣を収めた。二人は師と兄の墓に、それぞれ酒を注ぎに行くと約した。"
+   ],
+   "effects": [
+    {
+     "money": 80
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "end": "刃を収めて"
+  },
+  "end_law": {
+   "text": [
+    "豪族が{foe}を庇っても、私闘で人を殺めた罪は法に明らかだと、条文を引いて官府に訴えた。{foe}は捕らえられ、辺境の城壁を築く刑に送られた。",
+    "{client}は「斬れなかった」と悔しがったが、その目には少し安堵もあった。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "end": "法の裁き"
+  },
+  "end_beaten": {
+   "text": [
+    "{foe}の剣は速かった。斬られて倒れたところを、{client}が引きずって逃げた。「もういいのです」と、{client}は言った。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    }
+   ],
+   "end": "届かぬ刃"
+  },
+  "end_stayed": {
+   "speaker": "client",
+   "text": [
+    "{client}は長いあいだうつむいていたが、やがて師の剣を地に置いた。「この剣で人を斬るより、人を守れるようになります」そう言って、道場を継ぐと決めた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "end": "継がれた道場"
+  }
+ }
+}

@@ -1,0 +1,740 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_cha",
+ "kind": "school",
+ "title": "一期一会",
+ "era": "sengoku",
+ "school": "cha",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "sosho": {
+   "npc": "宗匠",
+   "sex": "m"
+  },
+  "gosho": {
+   "npc": "豪商",
+   "sex": "m"
+  },
+  "town": {
+   "place": "near:here"
+  },
+  "widow": {
+   "npc": "後家",
+   "sex": "f"
+  },
+  "far": {
+   "place": "far:here"
+  },
+  "lord": {
+   "realm": "strongest"
+  },
+  "lordcap": {
+   "place": "capital:lord"
+  },
+  "daimyo": {
+   "person": "ruler:lord"
+  },
+  "envoy": {
+   "npc": "大名の使者",
+   "sex": "m"
+  },
+  "plotter": {
+   "npc": "重臣",
+   "sex": "m"
+  }
+ },
+ "start": "c1",
+ "scenes": {
+  "c1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の茶室で宗匠に会う",
+   "speaker": "sosho",
+   "art": "tale",
+   "text": [
+    "躙口をくぐると、二畳の座敷に釜の湯がしゅんしゅんと鳴っていた。床には一輪の野菊。点前座に、墨染めの衣の老人が端座している。宗匠の{sosho}である。",
+    "{sosho}は黙って一服を点て、{player}の前に置いた。歪んだ黒い茶碗で、縁に小さなひびが走っている。「この茶碗、どう見る」"
+   ],
+   "choices": [
+    {
+     "label": "「ひびが、景色になっております」",
+     "check": {
+      "skill": "speech",
+      "dc": 8,
+      "win": "c1good",
+      "lose": "c1plain"
+     }
+    },
+    {
+     "label": "「値の張るものとは見えませぬ」と正直に言う",
+     "check": {
+      "skill": "trade",
+      "dc": 8,
+      "win": "c1honest",
+      "lose": "c1plain"
+     }
+    }
+   ]
+  },
+  "c1good": {
+   "speaker": "sosho",
+   "text": [
+    "{sosho}の目尻にしわが寄った。「人から聞いた言葉でも、腹に入っておればよい。茶の湯とは、ただ湯を沸かし、茶を点てて飲むばかりのこと。だが、そのばかりが難しい」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "c2"
+  },
+  "c1honest": {
+   "speaker": "sosho",
+   "text": [
+    "{sosho}は声を立てて笑った。「そのとおり。これは村の瓦焼きが焼いた、三十文の碗だ。だが、わしはこれで茶を飲むのがいちばん好きでな」",
+    "「値の分かる目は大事だ。その目で、値の付かぬものも見られるようになれ」"
+   ],
+   "effects": [
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "next": "c2"
+  },
+  "c1plain": {
+   "speaker": "sosho",
+   "text": [
+    "言葉に詰まる{player}を見て、{sosho}は穏やかに言った。「分からぬなら、まず飲め。茶碗は、飲んでから見るものだ」",
+    "茶は思ったより苦く、そしてあとから甘かった。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "next": "c2"
+  },
+  "c2": {
+   "at": {
+    "place": "town",
+    "building": "house"
+   },
+   "goal": "10日ほど稽古を積んだのち、{town}の豪商の茶会に{sosho}の名代で出る",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "gosho",
+   "art": "trade",
+   "text": [
+    "{town}の豪商{gosho}が、新しく手に入れた唐物の茶入を披露する茶会を開いた。{sosho}の名代として、{player}も末席に招かれた。",
+    "{gosho}が誇らしげに仕覆を解く。「千貫で手に入れた名物でござる」客たちが溜め息をつく中、{player}は気づいた。釉の流れ方が、{sosho}に見せてもらった写しの品とまったく同じだった。"
+   ],
+   "choices": [
+    {
+     "label": "茶会の後、{gosho}にだけそっと告げる",
+     "check": {
+      "skill": "speech",
+      "dc": 15,
+      "win": "c2tact",
+      "lose": "c2cold"
+     }
+    },
+    {
+     "label": "「恐れながら、これは写しにございましょう」とその場で言う",
+     "check": {
+      "skill": "trade",
+      "dc": 15,
+      "win": "c2blunt",
+      "lose": "c2cold"
+     }
+    },
+    {
+     "label": "何も言わず、ただ茶を喫する",
+     "next": "c2silent"
+    }
+   ]
+  },
+  "c2tact": {
+   "speaker": "gosho",
+   "text": [
+    "{gosho}は顔を青くし、それから深々と頭を下げた。「皆の前で言われておったら、わしは腹を切らねばならんところだった。この恩は忘れぬ」",
+    "売り手の商人は翌月、{town}から姿を消したという。{gosho}は以後、{player}を何かと引き立てるようになった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "c2back"
+  },
+  "c2blunt": {
+   "text": [
+    "座敷が凍りついた。{gosho}は茶入を取り上げて底を見、やがて震える声で言った。「……そのとおりだ」客の一人が噴き出し、{gosho}は耳まで赤くなった。",
+    "目利きの評判は広まった。だが、{gosho}が{player}を見る目は冷たかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "next": "c2back"
+  },
+  "c2cold": {
+   "text": [
+    "{player}の言葉は、うまく伝わらなかった。{gosho}は鼻で笑った。「名代とはいえ、若い者の目は当てにならぬ」",
+    "帰り道、{player}は自分の目を信じきれなかったことを悔やんだ。"
+   ],
+   "effects": [
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "next": "c2back"
+  },
+  "c2silent": {
+   "text": [
+    "茶会は和やかに終わった。{gosho}は満足し、客たちも満足した。偽物の茶入だけが、何も知らずに床の間に飾られていた。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "next": "c2back"
+  },
+  "c2back": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の茶室に戻り、{sosho}に報告する",
+   "speaker": "sosho",
+   "text": [
+    "話を聞いて、{sosho}は湯を一杓、釜に差した。「茶入の真贋など、どうでもよいことだ。大事なのは、その座にいた者が、どういう心で一服を飲んだかよ」",
+    "「だが、見えるものを見えると知っておくのは悪くない。今日からお前を弟子とする」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "note": "{sosho}の弟子となった。"
+    }
+   ],
+   "next": "c3"
+  },
+  "c3": {
+   "at": {
+    "place": "far",
+    "building": "house"
+   },
+   "goal": "弁舌を22まで磨き、{sosho}の使いで{far}の後家を訪ねる",
+   "wait": {
+    "skill": {
+     "speech": 22
+    },
+    "days": 20
+   },
+   "speaker": "widow",
+   "art": "tale",
+   "text": [
+    "{far}の町に、{sosho}の古い茶友の後家、{widow}が住んでいる。亡き夫が遺した茶入「夕霧」は、天下に三つとない名物と言われていた。",
+    "その夕霧を、{lord}の{daimyo}が欲している。先客として来ていた大名の使者{envoy}が、金の包みを積み上げていた。{widow}は首を振るばかりだった。「これは夫の形見です。売り物ではございません」{envoy}の目が険しくなる。"
+   ],
+   "choices": [
+    {
+     "label": "{widow}に、夕霧を手放して身を守るよう説く",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "c3sell",
+      "lose": "c3refuse"
+     }
+    },
+    {
+     "label": "{envoy}と掛け合い、代わりの名物を周旋すると申し出る",
+     "check": {
+      "skill": "trade",
+      "dc": 24,
+      "win": "c3swap",
+      "lose": "c3refuse"
+     }
+    },
+    {
+     "label": "夕霧を預かり、{sosho}の茶室に隠すと{widow}に申し出る",
+     "effects": [
+      {
+       "flag": "cha_hidden"
+      }
+     ],
+     "next": "c3hide"
+    }
+   ]
+  },
+  "c3sell": {
+   "speaker": "widow",
+   "text": [
+    "{widow}は長いあいだ夕霧を撫でていた。「夫は、茶入のために人が死ぬのをいちばん嫌っていました」そう言って、仕覆ごと{envoy}に差し出した。",
+    "{envoy}は満足して去った。{widow}は、空になった棚を見つめて言った。「これで、よかったのでしょう」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "money": 200
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "c4"
+  },
+  "c3swap": {
+   "speaker": "envoy",
+   "text": [
+    "{player}は、別の町の寺に眠る唐物の茶壺のことを話した。名は夕霧に劣るが、姿はまさるとも劣らない。{envoy}は興味を示した。「殿は珍しいものがお好きだ。それで手を打とう」",
+    "{widow}は夕霧を胸に抱いて泣いた。{player}は、名物というものが、人の手から手へ渡るたびに涙と銭を吸うものだと知った。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "next": "c4"
+  },
+  "c3refuse": {
+   "speaker": "envoy",
+   "text": [
+    "話はこじれた。{envoy}は席を蹴って立ち、捨て台詞を残した。「殿の望みを拒んだ者が、どうなるか見ておれ」",
+    "{widow}は震えていた。{player}は、この話が{sosho}の身にまで及ぶのではないかと、嫌な予感を覚えた。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "c4"
+  },
+  "c3hide": {
+   "speaker": "widow",
+   "text": [
+    "{widow}は迷った末、夕霧を{player}に託した。「{sosho}さまなら、夫も許してくれましょう」",
+    "{player}は夕霧を懐に、夜のうちに{far}を発った。{envoy}には、茶入は盗まれたと告げるよう言い含めて。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "c4"
+  },
+  "c4": {
+   "at": {
+    "place": "lordcap",
+    "building": "palace"
+   },
+   "goal": "弁舌を30まで磨き、名声10に達したら、{sosho}の供として{lordcap}の城の茶会へ",
+   "wait": {
+    "skill": {
+     "speech": 30
+    },
+    "fame": 10
+   },
+   "speaker": "daimyo",
+   "art": "court",
+   "text": [
+    "{daimyo}が、{sosho}を茶頭として城中で大茶会を開いた。{sosho}は腰を痛め、点前の半ばを{player}に任せると言った。",
+    "書院の茶室には{daimyo}と、その重臣{plotter}ら数人が居並んでいる。{daimyo}は{player}の手元をじっと見ていた。「茶頭の弟子とやら。わしを満足させてみよ」"
+   ],
+   "choices": [
+    {
+     "label": "{sosho}に教わったとおり、無駄のない点前を務める",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "c4good",
+      "lose": "c4ng"
+     }
+    },
+    {
+     "label": "城の蔵の名物を使い、豪奢にもてなす",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "c4good",
+      "lose": "c4ng"
+     }
+    }
+   ]
+  },
+  "c4good": {
+   "speaker": "daimyo",
+   "text": [
+    "{daimyo}は茶碗を置き、しばらく何も言わなかった。「戦の最中に、心が静まったのは久しぶりだ」そう言って、{player}に小袖を一領与えた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "rep": "lord",
+     "n": 10
+    }
+   ],
+   "next": "c4plot"
+  },
+  "c4ng": {
+   "speaker": "daimyo",
+   "text": [
+    "茶筅の手が震え、茶は泡立ちきらなかった。{daimyo}は眉をひそめたが、{sosho}が静かに言葉を添えた。「若い者の茶には、若い者の味がございます」{daimyo}は笑って許した。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "c4plot"
+  },
+  "c4plot": {
+   "speaker": "plotter",
+   "art": "court",
+   "text": [
+    "{daimyo}が席を立ったあと、片付けをしていた{player}の耳に、隣の間から低い声が届いた。{plotter}と、もう一人の重臣だった。",
+    "「次の出陣の折に、殿を本陣で……」「茶室の中の話だ。誰も聞いておらぬ」茶室の内で聞いたことは、外に持ち出さぬのが茶人の作法である。"
+   ],
+   "choices": [
+    {
+     "label": "ひそかに{daimyo}に告げる",
+     "effects": [
+      {
+       "flag": "cha_tell"
+      },
+      {
+       "rep": "lord",
+       "n": 20
+      }
+     ],
+     "next": "c4tell"
+    },
+    {
+     "label": "{sosho}にだけ打ち明けて判断を仰ぐ",
+     "next": "c4ask"
+    },
+    {
+     "label": "茶室の作法に従い、聞かなかったことにする",
+     "next": "c4silent"
+    }
+   ]
+  },
+  "c4tell": {
+   "text": [
+    "数日のうちに{plotter}は捕らえられ、謀は潰えた。{daimyo}は{player}を呼び、「茶人の耳は、千の物見に勝る」と笑った。",
+    "{sosho}は何も言わなかった。ただ、その日から{player}に茶を点てるとき、少しだけ間を置くようになった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "note": "{sosho}の高弟となった。"
+    }
+   ],
+   "next": "c5"
+  },
+  "c4ask": {
+   "speaker": "sosho",
+   "text": [
+    "{sosho}は長いあいだ炉の火を見ていた。「茶室は、刀を外して入る所だ。その中で刀の話をした者は、もう茶人の客ではない」",
+    "{sosho}は自ら{daimyo}に謁して、遠回しに身辺の用心を勧めた。{plotter}は罪を問われぬまま、遠国の城に移された。「お前を高弟とする。茶の湯は、人の命を量る秤でもあるのだ」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{sosho}の高弟となった。"
+    }
+   ],
+   "next": "c5"
+  },
+  "c4silent": {
+   "text": [
+    "{player}は茶碗を拭き、何も聞かなかった顔で城を下がった。茶室の作法は守った。だが、その夜は眠れなかった。",
+    "{sosho}は事情を何も聞かぬまま、{player}を高弟に取り立てた。「茶人の口は堅いほどよい。重いほどよい」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{sosho}の高弟となった。"
+    }
+   ],
+   "next": "c5"
+  },
+  "c5": {
+   "at": {
+    "place": "lordcap",
+    "building": "palace"
+   },
+   "goal": "20日ほどのちに、{lordcap}の城へ{sosho}の赦免を願いに上る",
+   "wait": {
+    "days": 20
+   },
+   "speaker": "envoy",
+   "art": "court",
+   "text": [
+    "{sosho}が{daimyo}の勘気を蒙った。茶頭の分を越えて政に口を出した、名物の値をつり上げて私腹を肥やした、と讒言する者がいたのだ。{sosho}は屋敷に押し込められ、腹を切れとの沙汰が下ろうとしている。",
+    "城の取次に出てきたのは、{far}で会った{envoy}だった。「宗匠の命乞いか。殿は、言い訳を好まれぬぞ」"
+   ],
+   "choices": [
+    {
+     "label": "{sosho}に代わって、夕霧の茶入を献上する",
+     "if": {
+      "flag": "cha_hidden"
+     },
+     "next": "c5gift"
+    },
+    {
+     "label": "謀を告げた功に免じてと願い出る",
+     "if": {
+      "flag": "cha_tell"
+     },
+     "next": "c5save"
+    },
+    {
+     "label": "{sosho}が政に口を出したのは、殿の御身を案じてのことと説く",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "c5save",
+      "lose": "c5die"
+     }
+    },
+    {
+     "label": "夜のうちに、{sosho}を屋敷から逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "c5flee",
+      "lose": "c5die"
+     }
+    }
+   ]
+  },
+  "c5gift": {
+   "speaker": "daimyo",
+   "text": [
+    "{player}が仕覆を解くと、{daimyo}は息を呑んだ。「夕霧……。盗まれたと聞いておったが」",
+    "「宗匠が守っておりました。この茶入にふさわしい主が現れるまで、と」{daimyo}は夕霧を掌に載せ、長いあいだ眺めていた。「茶入一つに、命一つか。安いものだな」沙汰は取り消された。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    }
+   ],
+   "next": "c5save"
+  },
+  "c5save": {
+   "speaker": "sosho",
+   "text": [
+    "{sosho}は赦された。だが、茶頭の職は解かれ、{here}の茶室に帰ることになった。",
+    "帰りの道で、{sosho}は言った。「命を拾ったのは、これで二度目だ。一度目は若い頃の戦。二度目は、弟子にな」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "c6"
+  },
+  "c5flee": {
+   "text": [
+    "{player}は塀の破れ目から屋敷に入り、{sosho}を連れ出した。{sosho}は草鞋の紐を結びながら笑った。「茶人が夜逃げとは、さまにならんな」",
+    "二人は夜明け前に{lordcap}を抜け、{here}へ向かった。{sosho}の名は、城下では二度と口にされなくなった。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "rep": "lord",
+     "n": -15
+    }
+   ],
+   "next": "c6"
+  },
+  "c5die": {
+   "speaker": "sosho",
+   "text": [
+    "願いは聞き届けられなかった。{sosho}は最後に一服を点て、{player}に飲ませた。そして、自ら削った竹の茶杓を{player}の手に握らせた。",
+    "「茶の湯とは、ただ湯を沸かし、茶を点てて飲むばかりのこと。忘れるな」その日の夕刻、{sosho}は腹を切った。辞世は一行、「一期一会」とだけあった。"
+   ],
+   "effects": [
+    {
+     "flag": "cha_dead"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "next": "c6"
+  },
+  "c6": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "弁舌を38まで磨いたのち、{here}の茶室に戻る",
+   "wait": {
+    "skill": {
+     "speech": 38
+    },
+    "days": 30
+   },
+   "speaker": "gosho",
+   "art": "tale",
+   "text": [
+    "月日が流れた。{here}の茶室には、今も釜の湯が鳴っている。{gosho}が久しぶりに訪ねてきて、床の間を見上げた。",
+    "「宗匠の名を、継ぐ気はあるのか。{lordcap}の城からも、新しい茶頭を求める使いが来ておるぞ」"
+   ],
+   "choices": [
+    {
+     "label": "{here}の茶室で、宗匠の名を継ぐ",
+     "if": {
+      "notFlag": "cha_dead"
+     },
+     "next": "endHeir"
+    },
+    {
+     "label": "師の茶杓で、師の茶室を守る",
+     "if": {
+      "flag": "cha_dead"
+     },
+     "next": "endMemorial"
+    },
+    {
+     "label": "{lordcap}の城に上り、茶頭として仕える",
+     "if": {
+      "flag": "cha_tell"
+     },
+     "next": "endSado"
+    }
+   ]
+  },
+  "endHeir": {
+   "speaker": "sosho",
+   "text": [
+    "老いた{sosho}は、点前座を{player}に譲った。「もう、わしが教えることはない。あとは、毎日一服を点てよ。同じ一服は二度とない」",
+    "{player}は宗匠となった。二畳の茶室には、大名も、商人も、百姓も、刀を外して躙口をくぐった。そこでは誰もが、ただの客だった。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 5
+    },
+    {
+     "note": "{sosho}の後を継いで宗匠となった。"
+    }
+   ],
+   "end": "二畳の天下"
+  },
+  "endMemorial": {
+   "text": [
+    "{player}は{sosho}の茶室を継ぎ、毎朝、師の茶杓で一服を点てて仏前に供えた。宗匠と呼ばれても、自分では決してそう名乗らなかった。",
+    "茶室の床には、師の辞世の一行が掛けてある。客がその意味を問うと、{player}は黙って一服を点てて出す。それが答えだった。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 6
+    },
+    {
+     "note": "{sosho}の茶室を継いだ。"
+    }
+   ],
+   "end": "一期一会"
+  },
+  "endSado": {
+   "speaker": "daimyo",
+   "text": [
+    "{player}は{lordcap}の城に上り、{daimyo}の茶頭となった。茶会は政の場となり、{player}の点てる一服の前で、いくつもの同盟が結ばれ、いくつもの謀が暴かれた。",
+    "「茶人の耳は、千の物見に勝る」{daimyo}はそう言って笑った。{player}は笑い返しながら、躙口の向こうに置いてきた二畳の茶室のことを、ときどき思った。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 5
+    },
+    {
+     "enlist": "lord"
+    },
+    {
+     "rank": 3
+    },
+    {
+     "money": 500
+    }
+   ],
+   "end": "城中の茶頭"
+  }
+ }
+}

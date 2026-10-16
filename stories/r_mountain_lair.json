@@ -1,0 +1,136 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_mountain_lair",
+ "kind": "random",
+ "where": "folk",
+ "hook": "娘が山の{bandit}にさらわれたのです",
+ "title": "山寨の娘",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "村の老人"
+  },
+  "girl": {
+   "npc": "娘",
+   "sex": "f"
+  },
+  "chief": {
+   "npc": "頭目",
+   "sex": "m"
+  },
+  "land": {
+   "realm": "here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は地に額をこすりつけた。「孫娘の{girl}が、薪を拾いに出たところを山の{bandit}にさらわれました。尾根の上に、丸太の柵をめぐらせた山寨があるのです」",
+    "「官府に訴えても、兵は出せぬと。どうか、どうか……」"
+   ],
+   "choices": [
+    {
+     "label": "山寨へ向かう",
+     "effects": [
+      {
+       "site": {
+        "kind": "lair_mountain",
+        "place": "here",
+        "name": "{chief}の山寨",
+        "foes": [
+         {
+          "type": "bandit",
+          "n": 2,
+          "level": 0,
+          "name": "見張り"
+         },
+         {
+          "type": "bandit",
+          "n": 3,
+          "level": 0
+         },
+         {
+          "type": "bandit",
+          "n": 1,
+          "level": 0,
+          "name": "{chief}"
+         }
+        ],
+        "people": [
+         {
+          "role": "woodcutter"
+         }
+        ]
+       }
+      }
+     ],
+     "next": "lair"
+    },
+    {
+     "label": "断る",
+     "next": "end_refuse"
+    }
+   ]
+  },
+  "lair": {
+   "at": {
+    "place": "here",
+    "site": "cleared"
+   },
+   "goal": "{chief}の山寨へ行き、{bandit}を退ける",
+   "speaker": "girl",
+   "art": "hideout",
+   "text": [
+    "最後の一人が倒れると、頭目の小屋の奥から、縄を打たれた{girl}が這い出してきた。「おじいさまの使いの方ですか……」"
+   ],
+   "choices": [
+    {
+     "label": "縄を解いて村へ連れ帰る",
+     "next": "end_home"
+    }
+   ]
+  },
+  "end_home": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "text": [
+    "{client}は{girl}を抱きしめ、声を上げて泣いた。村じゅうの者が集まって、乏しい蓄えから礼を出し合ってくれた。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "land",
+     "n": 3
+    },
+    {
+     "note": "{chief}の山寨から{girl}を救い出した。"
+    }
+   ],
+   "end": "救われた娘"
+  },
+  "end_refuse": {
+   "speaker": "client",
+   "text": [
+    "{client}は黙って頭を下げ、よろめきながら去っていった。"
+   ],
+   "end": "断った"
+  }
+ }
+}

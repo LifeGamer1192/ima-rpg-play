@@ -1,0 +1,20 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_war",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "war",
+ "target": "front",
+ "title": "{realm}との戦",
+ "desc": "{realm}との戦が続いている。{place}の戦場へ赴き、敵を討て。",
+ "reward": {
+  "base": 300
+ },
+ "favor": 40,
+ "fame": 8,
+ "deadline": {
+  "base": 45
+ }
+}

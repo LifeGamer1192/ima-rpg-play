@@ -1,0 +1,980 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_hanfei",
+ "kind": "history",
+ "era": "shunju",
+ "title": "孤憤",
+ "event": "han_fei_dies",
+ "lead": 10,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s4",
+  "s4ok",
+  "s4ng",
+  "s5",
+  "s5ok",
+  "s5ng",
+  "s5side",
+  "s6",
+  "s6ok",
+  "s6ng",
+  "s6save_ng",
+  "s6flee_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "xianyang"
+  },
+  "xinzheng": {
+   "scnPlace": "xinzheng"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "han": {
+   "scnRealm": "han"
+  },
+  "king": {
+   "person": "ruler:qin"
+  },
+  "hanfei": {
+   "scnPerson": "韓非"
+  },
+  "lisi": {
+   "scnPerson": "李斯"
+  },
+  "jailer": {
+   "npc": "獄吏",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の市へ行く",
+   "speaker": "書写の男",
+   "art": "trade",
+   "text": [
+    "{city}の市の片隅で、書写の男が竹簡を並べていた。「孤憤」「五蠹」――近ごろ宮で評判の書だという。",
+    "「{king}さまがこれを読まれて、こう仰せになったそうだ。ああ、この書を書いた者と会って語り合えるなら、死んでも恨みはない、と。書いたのは{han}の公子{hanfei}。{king}さまの側におられる{lisi}さまとは、荀卿の門で机を並べた仲だとか」"
+   ],
+   "choices": [
+    {
+     "label": "一巻買って読み、宮城へ向かう",
+     "if": {
+      "money": 30
+     },
+     "effects": [
+      {
+       "money": -30
+      },
+      {
+       "xp": "letters",
+       "n": 2
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "立ち読みで済ませ、宮城へ向かう",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で{lisi}に会う",
+   "speaker": "lisi",
+   "art": "court",
+   "text": [
+    "{lisi}は痩せた男で、よく笑うが、目は笑っていなかった。「{hanfei}の書を読んだか。あれは天下の才だ。口は吃るが、筆を持てばわたしなど足元にも及ばぬ」",
+    "「王はあの男を欲しがっておられる。{han}を攻めれば、{han}はきっと{hanfei}を使者に出す。……その前に、{xinzheng}で{hanfei}がどんな男か、見てきてくれぬか。旧い友がいまどうしているか、知りたいのだ」"
+   ],
+   "choices": [
+    {
+     "label": "「法・術・勢のどれを重んじる男か、見てまいりましょう」",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "s2ok",
+      "lose": "s3"
+     }
+    },
+    {
+     "label": "黙って頭を下げ、{xinzheng}へ向かう",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "lisi",
+   "text": [
+    "{lisi}の笑みが、一瞬だけ固まった。「……よく読んでいる。ならば、あの男がこちらに来たとき、王の側に誰がいるべきかも分かるな」その言葉の意味を、{player}はまだ量りかねた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_hanfei_wary"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "xinzheng",
+    "building": "palace"
+   },
+   "goal": "{xinzheng}の宮で{hanfei}に会う",
+   "speaker": "hanfei",
+   "art": "court",
+   "text": [
+    "{xinzheng}の宮の片隅の書庫で、{hanfei}は竹簡に埋もれていた。客が来ても顔も上げず、ようやく口を開くと、言葉が喉に引っかかってなかなか出てこない。",
+    "「わ、わが王は……わたしの書を、読まれぬ。{qin}の王は、読まれる。皮肉な、ことだ」机の上の一巻には「説難」とあった。人主に説くことの難しさを書いたものだ。",
+    "「竜は、馴らせば背に、乗れる。だが喉の下に、逆さに生えた鱗が一枚ある。それに触れれば、必ず人を、殺す。人主にも、逆鱗が、ある」"
+   ],
+   "choices": [
+    {
+     "label": "言葉を整える手伝いをし、{qin}の王への口上を練る",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "「説難」を書き写させてもらう",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "hanfei",
+   "text": [
+    "何日か通ううちに、{hanfei}は{player}の前では少しだけ滑らかに話すようになった。「{qin}へ使いに出よと、王が仰せだ。{han}を、存えさせよ、と。……来てくれるか」"
+   ],
+   "effects": [
+    {
+     "flag": "h_hanfei_friend"
+    },
+    {
+     "rep": "han",
+     "n": 5
+    },
+    {
+     "note": "{hanfei}と親しくなった。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "speaker": "hanfei",
+   "text": [
+    "{hanfei}は筆を置き、長いあいだ黙っていた。「……{qin}へ、使いに出る。{lisi}に、よろしく」それだけ言って、また竹簡に戻った。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "xinzheng"
+   },
+   "art": "war",
+   "text": [
+    "{hanfei}の車が{xinzheng}の城門を出た。だが半日も行かぬうちに、林の中から覆面の男たちが現れた。{han}の朝廷には、{hanfei}が{qin}で何を言うか恐れる者もいる。"
+   ],
+   "choices": [
+    {
+     "label": "車の前に立ちはだかる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "「この方は王命の使者だ」と一喝する",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    }
+   ]
+  },
+  "s4ok": {
+   "speaker": "hanfei",
+   "text": [
+    "男たちは散った。{hanfei}は車の上から、震える手で{player}の袖をつかんだ。「か、かたじけない。……これで、{qin}の王に、会える」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "next": "s5"
+  },
+  "s4ng": {
+   "text": [
+    "傷を負いながらも、どうにか車を守り抜いた。{hanfei}は黙って、{player}の傷に自分の衣を裂いて巻いた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{hanfei}に従い、{city}の宮城へ行く",
+   "speaker": "lisi",
+   "art": "court",
+   "text": [
+    "{king}は{hanfei}を喜んで迎えたが、すぐには用いなかった。そのあいだに、{lisi}と、その仲間の重臣たちが王に説いた。",
+    "「{hanfei}は{han}の公子です。結局は{han}のために謀り、{qin}のためには謀りますまい。用いずに帰せば、後の憂いとなりましょう。罪を設けて誅するに如かず」",
+    "王の目が、末席の{player}に向いた。「そなたは{hanfei}と共に来たな。どう思う」"
+   ],
+   "choices": [
+    {
+     "label": "「あの方は天下のために書いております」と弁護する",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s5ok",
+      "lose": "s5ng"
+     }
+    },
+    {
+     "label": "吃る{hanfei}に代わり、練った口上を読み上げる",
+     "if": {
+      "flag": "h_hanfei_friend"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "s5ok",
+      "lose": "s5ng"
+     }
+    },
+    {
+     "label": "「同門の才を恐れる者の言です」と{lisi}を指す",
+     "if": {
+      "flag": "h_hanfei_wary"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "s5ok",
+      "lose": "s5ng"
+     }
+    },
+    {
+     "label": "{lisi}の言に頷く",
+     "effects": [
+      {
+       "money": 200
+      },
+      {
+       "flag": "h_hanfei_betray"
+      }
+     ],
+     "next": "s5side"
+    },
+    {
+     "label": "黙して答えない",
+     "next": "s5ng"
+    }
+   ]
+  },
+  "s5ok": {
+   "speaker": "king",
+   "text": [
+    "王はしばし考え込んだ。「……そなたの言うことにも理がある。だが、しばらく獄に預けて様子を見る」{lisi}が袖の中で拳を握るのが見えた。"
+   ],
+   "effects": [
+    {
+     "rep": "han",
+     "n": 5
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "next": "s6"
+  },
+  "s5ng": {
+   "text": [
+    "王は頷き、{hanfei}を獄に下すよう命じた。{hanfei}は振り返って何か言おうとしたが、言葉は喉で詰まったままだった。"
+   ],
+   "next": "s6"
+  },
+  "s5side": {
+   "speaker": "lisi",
+   "text": [
+    "退出の後、{lisi}は{player}に銭袋を渡した。「賢明だ。同門だからこそ分かる。あの男の筆は、いずれ{qin}を刺す」その手は、少し震えていた。"
+   ],
+   "effects": [
+    {
+     "note": "{lisi}に同調し、{hanfei}を獄に送る側に回った。"
+    }
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "city",
+    "building": "office"
+   },
+   "goal": "{city}の獄を訪ねる",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "jailer",
+   "art": "tale",
+   "text": [
+    "獄吏の{jailer}は、{player}の顔を見ると目を逸らした。「{lisi}さまの使いが、さきほど薬を届けていった。……あれが何かは、聞かぬ方がいい」",
+    "格子の向こうで、{hanfei}が小さな椀を前に座っていた。{player}を見ると、彼は笑った。「や、やはり、逆鱗に、触れたらしい」"
+   ],
+   "choices": [
+    {
+     "label": "椀の中身を確かめ、毒だと告げる",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "s6ok",
+      "lose": "s6ng"
+     }
+    },
+    {
+     "label": "王に会わせるよう、もう一度願い出ると約束する",
+     "next": "s6ng"
+    }
+   ]
+  },
+  "s6ok": {
+   "speaker": "hanfei",
+   "text": [
+    "「分かって、いる」{hanfei}は静かに言った。「王に会って、自ら陳べたいと、何度も、申し出た。だが、取り次がれぬ。……これを」",
+    "彼は格子の間から、一巻の竹簡を差し出した。獄中で書き継いだものだという。「読むべき人に、渡してくれ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_hanfei_scroll"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "note": "獄中の{hanfei}から、最後の書を託された。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "書を受け取り、獄を出る",
+     "next": "aftergo"
+    },
+    {
+     "label": "椀を取り上げ、宮の門で王に赦しを乞う",
+     "turn": true,
+     "if": {
+      "alive": "hanfei"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s6save_ok",
+      "lose": "s6save_ng"
+     }
+    },
+    {
+     "label": "{jailer}に銭を握らせ、夜のうちに{hanfei}を獄から連れ出す",
+     "turn": true,
+     "if": {
+      "alive": "hanfei",
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "s6flee_ok",
+      "lose": "s6flee_ng"
+     }
+    }
+   ]
+  },
+  "s6save_ok": {
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "宮の門前で、{player}は日が暮れるまで叫び続けた。「王が読んで、会いたいと願った書の主が、いま獄で毒を前にしております」",
+    "夜半、門が開いた。{king}は自ら獄へ使いを走らせ、椀を割らせたという。翌朝、{hanfei}は吃りながら王の前で三刻語り、王は一度も遮らなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_hanfei_saved"
+    },
+    {
+     "spare": "hanfei",
+     "years": 15
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "note": "{hanfei}を毒から救い、王に会わせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6save_ng": {
+   "text": [
+    "門衛は{player}を打ち据えて追い払った。「王はお休みだ」その夜のうちに、獄の椀は空になったという。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6flee_ok": {
+   "art": "tale",
+   "text": [
+    "子の刻、{jailer}は鍵を落としたふりをして背を向けた。{player}は{hanfei}に旅人の衣を着せ、東の関へ向かう荷車の藁の下に隠した。",
+    "「わ、わたしは、韓の、公子だ。逃げて、どうする」「書くのです。韓で、韓のために」{hanfei}はしばらく黙り、やがて小さく頷いた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_hanfei_home"
+    },
+    {
+     "spare": "hanfei",
+     "years": 15
+    },
+    {
+     "wanted": "qin",
+     "n": 35
+    },
+    {
+     "rep": "han",
+     "n": 20
+    },
+    {
+     "note": "{hanfei}を{qin}の獄から逃がし、{han}へ送った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6flee_ng": {
+   "text": [
+    "関の手前で荷車は止められた。{player}だけは藁の中から転がり出て逃げたが、{hanfei}は連れ戻された。"
+   ],
+   "effects": [
+    {
+     "wanted": "qin",
+     "n": 25
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6ng": {
+   "speaker": "hanfei",
+   "text": [
+    "{hanfei}は首を振った。「い、いい。もう、いいのだ。人主に説くのは、難しい。書いたとおりだ」獄吏に促されて、{player}は外へ出た。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で知らせを待つ",
+   "wait": {
+    "settled": "han_fei_dies"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "hanfei_saved"
+     },
+     "next": "saved"
+    },
+    {
+     "if": {
+      "branch": "hanfei_home"
+     },
+     "next": "fled"
+    },
+    {
+     "if": {
+      "branch": "hanfei_nolisi"
+     },
+     "next": "nolisi"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "saved": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "speaker": "hanfei",
+   "art": "court",
+   "text": [
+    "{hanfei}は{qin}の客卿となった。{lisi}は顔色一つ変えずに同門の才子を迎えたが、二人が廊下ですれ違うとき、どちらも足を止めなかった。",
+    "{han}は{qin}の属国となった。{hanfei}は国を救えなかったが、国を呑む王の耳に、毎日のように言葉を吹き込んでいる。「法は、民を守るためにも、使える。そ、それを、王に、分からせる」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "unflag": "h_hanfei_saved"
+    },
+    {
+     "unflag": "h_hanfei_scroll"
+    },
+    {
+     "unflag": "h_hanfei_friend"
+    },
+    {
+     "unflag": "h_hanfei_wary"
+    },
+    {
+     "note": "{hanfei}は生きて{qin}に仕えた。"
+    }
+   ],
+   "end": "王の客卿"
+  },
+  "fled": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "art": "tale",
+   "text": [
+    "{hanfei}が獄から消えたと知って、{lisi}は獄吏を斬らせた。{qin}は使者を{han}へ送って引き渡しを求めたが、{han}の王は初めて首を横に振った。",
+    "{han}は{qin}の属国にはならなかった。{xinzheng}の宮では、吃りながら法を説く公子の声が、夜更けまで聞こえるという。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "han",
+     "n": 10
+    },
+    {
+     "unflag": "h_hanfei_home"
+    },
+    {
+     "unflag": "h_hanfei_scroll"
+    },
+    {
+     "unflag": "h_hanfei_friend"
+    },
+    {
+     "unflag": "h_hanfei_wary"
+    },
+    {
+     "note": "{hanfei}は{han}へ帰った。{han}は{qin}の属国にならなかった。"
+    }
+   ],
+   "end": "帰った公子"
+  },
+  "nolisi": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "art": "court",
+   "text": [
+    "讒する者のいない宮で、{hanfei}は{king}に迎えられ、客卿となった。同門の{lisi}が{qin}にいたなら、こうはならなかったと人は言う。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_hanfei_scroll"
+    },
+    {
+     "unflag": "h_hanfei_friend"
+    },
+    {
+     "unflag": "h_hanfei_wary"
+    },
+    {
+     "unflag": "h_hanfei_betray"
+    },
+    {
+     "note": "{hanfei}は{qin}に仕えた。"
+    }
+   ],
+   "end": "讒されなかった書"
+  },
+  "after": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で知らせを待つ",
+   "wait": {
+    "fired": "han_fei_dies"
+   },
+   "art": "court",
+   "text": [
+    "{hanfei}は獄中で毒を仰いで死んだ。数日の後、{king}は悔いて赦しの使いを獄へ走らせたが、もう遅かった。",
+    "{lisi}は何事もなかったように朝廷に立っている。{hanfei}の書は、その後も王の座右に置かれたという。"
+   ],
+   "choices": [
+    {
+     "label": "託された書を、王に献じる",
+     "if": {
+      "flag": "h_hanfei_scroll"
+     },
+     "next": "end_king"
+    },
+    {
+     "label": "託された書を、{xinzheng}の{hanfei}の家へ届ける",
+     "if": {
+      "flag": "h_hanfei_scroll"
+     },
+     "next": "home"
+    },
+    {
+     "label": "{lisi}から約束の褒美を受け取る",
+     "if": {
+      "flag": "h_hanfei_betray"
+     },
+     "next": "end_lisi"
+    },
+    {
+     "label": "{city}を去る",
+     "if": {
+      "notFlag": "h_hanfei_betray"
+     },
+     "next": "end_leave"
+    }
+   ]
+  },
+  "end_king": {
+   "speaker": "king",
+   "text": [
+    "{king}は竹簡を開き、長いあいだ黙って読んでいた。それから一言だけ言った。「惜しいことをした」",
+    "{player}には褒美が下された。だが退出するとき、廊下の陰から{lisi}の視線が背中に刺さるのを感じた。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "money": 300
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "unflag": "h_hanfei_scroll"
+    },
+    {
+     "unflag": "h_hanfei_friend"
+    },
+    {
+     "unflag": "h_hanfei_wary"
+    },
+    {
+     "note": "{hanfei}の最後の書を{king}に献じた。"
+    }
+   ],
+   "end": "王の座右の書"
+  },
+  "home": {
+   "at": {
+    "place": "xinzheng"
+   },
+   "goal": "{hanfei}の書を{xinzheng}へ届ける",
+   "speaker": "{hanfei}の老僕",
+   "art": "tale",
+   "text": [
+    "{xinzheng}の{hanfei}の屋敷には、老僕が一人残っているだけだった。竹簡を受け取ると、老僕は声を上げて泣いた。",
+    "「若さまは、{han}が{qin}に呑まれるのを、誰よりも分かっておられた。分かっていて、筆を執っておられたのです」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "han",
+     "n": 15
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "unflag": "h_hanfei_scroll"
+    },
+    {
+     "unflag": "h_hanfei_friend"
+    },
+    {
+     "unflag": "h_hanfei_wary"
+    },
+    {
+     "note": "{hanfei}の最後の書を、{xinzheng}の家に届けた。"
+    }
+   ],
+   "end": "孤憤の書"
+  },
+  "end_lisi": {
+   "speaker": "lisi",
+   "text": [
+    "{lisi}は約束の銭を数えて渡し、ふと窓の外を見た。「荀卿の門で、あの男だけがわたしより上だった。……これで、わたしが一番だ」",
+    "その声には、少しも喜びがなかった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "qin",
+     "n": 5
+    },
+    {
+     "rep": "han",
+     "n": -15
+    },
+    {
+     "unflag": "h_hanfei_betray"
+    },
+    {
+     "unflag": "h_hanfei_scroll"
+    },
+    {
+     "unflag": "h_hanfei_friend"
+    },
+    {
+     "unflag": "h_hanfei_wary"
+    },
+    {
+     "note": "{lisi}から褒美を受け取った。"
+    }
+   ],
+   "end": "同門の毒"
+  },
+  "end_leave": {
+   "text": [
+    "{player}は{city}を出た。道の脇の書写の店に、まだ「孤憤」が並んでいた。書いた者が死んでも、書は売れつづける。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "unflag": "h_hanfei_scroll"
+    },
+    {
+     "unflag": "h_hanfei_friend"
+    },
+    {
+     "unflag": "h_hanfei_wary"
+    },
+    {
+     "note": "{hanfei}の死を見届けて{city}を去った。"
+    }
+   ],
+   "end": "書は残る"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "hanfei_nolisi"
+     },
+     "next": "nolisi"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "知らせが届いた。{han}の使者として{qin}に来た{hanfei}が、{lisi}らに讒されて獄に下り、毒を仰いで死んだという。",
+    "{qin}の王が会いたいと願った男は、王と語り合うこともなく逝った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_hanfei_scroll"
+    },
+    {
+     "unflag": "h_hanfei_friend"
+    },
+    {
+     "unflag": "h_hanfei_wary"
+    },
+    {
+     "unflag": "h_hanfei_betray"
+    },
+    {
+     "note": "{hanfei}の死を、遠くで聞いた。"
+    }
+   ],
+   "end": "遠い獄"
+  }
+ },
+ "branches": [
+  {
+   "id": "hanfei_home",
+   "event": "han_fei_dies",
+   "order": 3,
+   "why": "主人公が韓非を獄から連れ出した",
+   "when": {
+    "flag": "h_hanfei_home"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:韓非]]は獄を抜け出して{n_han}へ逃れた。{n_qin}は引き渡しを求めたが韓はこれを拒み、秦の属国とはならなかった。",
+    "do": [
+     [
+      "add",
+      "han",
+      "stability",
+      0.1
+     ],
+     [
+      "add",
+      "qin",
+      "prestige",
+      -5
+     ]
+    ],
+    "imp": 2,
+    "at": "xinzheng"
+   },
+   "people": [
+    {
+     "spare": "韓非",
+     "years": 15
+    },
+    {
+     "move": "韓非",
+     "to": "han"
+    }
+   ]
+  },
+  {
+   "id": "hanfei_saved",
+   "event": "han_fei_dies",
+   "order": 2,
+   "why": "主人公が王に韓非の赦しを乞うた",
+   "when": {
+    "flag": "h_hanfei_saved"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "獄中で毒を前にした[[p:韓非]]のもとへ、{r_qin}は赦しの使いを間に合わせた。韓非は王と語り合って客卿となり、{n_han}は秦の属国となった。",
+    "do": [
+     [
+      "vassal",
+      "qin",
+      "han"
+     ]
+    ],
+    "imp": 2,
+    "at": "xianyang"
+   },
+   "people": [
+    {
+     "spare": "韓非",
+     "years": 15
+    },
+    {
+     "move": "韓非",
+     "to": "qin"
+    }
+   ]
+  },
+  {
+   "id": "hanfei_nolisi",
+   "event": "han_fei_dies",
+   "order": 1,
+   "why": "讒言する李斯が秦にいなかった",
+   "when": {
+    "changed": [
+     "li_si_memorial"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "同門の[[p:李斯]]が去った{n_qin}で、[[p:韓非]]を讒する者はいなかった。{r_qin}は韓非を客卿に迎え、{n_han}は秦の属国となった。",
+    "do": [
+     [
+      "vassal",
+      "qin",
+      "han"
+     ]
+    ],
+    "imp": 2,
+    "at": "xianyang"
+   },
+   "people": [
+    {
+     "spare": "韓非",
+     "years": 15
+    },
+    {
+     "move": "韓非",
+     "to": "qin"
+    }
+   ]
+  }
+ ]
+}

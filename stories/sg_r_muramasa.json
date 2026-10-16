@@ -1,0 +1,174 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_muramasa",
+ "kind": "random",
+ "where": "folk",
+ "hook": "亡き夫の刀が恐ろしくて……どうか引き取ってくださいまし",
+ "title": "祟りの刀",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "後家"
+  },
+  "priest": {
+   "npc": "住職",
+   "sex": "m"
+  },
+  "gosho": {
+   "npc": "豪商",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}の夫は牢人だった。先月、喧嘩で斬られて死んだ。残されたのは一振りの刀。茎には「村正」と刻まれている。",
+    "「村正は持ち主に祟ると申します。夫もそれで……。夜な夜な、刀が鳴るのです」"
+   ],
+   "choices": [
+    {
+     "label": "刀を見せてもらう",
+     "next": "look"
+    }
+   ]
+  },
+  "look": {
+   "speaker": "client",
+   "text": [
+    "抜いてみると、刃は冷たく冴えていた。よく斬れそうだ。ただ、どこかで見られているような気もする。"
+   ],
+   "choices": [
+    {
+     "label": "「祟りなど迷信だ」と自分が引き取る",
+     "next": "keep"
+    },
+    {
+     "label": "寺で供養してもらう",
+     "next": "temple"
+    },
+    {
+     "label": "刀を欲しがる者を探す",
+     "next": "merchant"
+    }
+   ]
+  },
+  "keep": {
+   "speaker": "client",
+   "text": [
+    "{client}はほっとしたように、何度も頭を下げた。「どうか、お気をつけて」"
+   ],
+   "effects": [
+    {
+     "item": "t_muramasa"
+    },
+    {
+     "note": "後家から村正の刀を引き取った。"
+    }
+   ],
+   "end": "村正を佩く"
+  },
+  "temple": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の寺で住職に頼む",
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "{priest}は刀を前に経を上げた。「刀に罪はない。人の心が刀を鳴らすのです」住職は刀を寺で預かり、{client}には夫の菩提を弔うよう勧めた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "money": 50
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "end": "供養された刀"
+  },
+  "merchant": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で刀を欲しがる者を探す",
+   "speaker": "gosho",
+   "art": "trade",
+   "text": [
+    "豪商の{gosho}が目を細めた。「村正なら、欲しがる殿さまがおられる。祟りを恐れぬ方でな。二千文で買おう」"
+   ],
+   "choices": [
+    {
+     "label": "売って代金を後家に渡す",
+     "effects": [
+      {
+       "fame": 2
+      },
+      {
+       "xp": "trade",
+       "n": 2
+      }
+     ],
+     "next": "end_sold_widow"
+    },
+    {
+     "label": "値を吊り上げる",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_sold_high",
+      "lose": "end_sold_widow"
+     }
+    },
+    {
+     "label": "やはり自分で持つ",
+     "next": "keep"
+    }
+   ]
+  },
+  "end_sold_widow": {
+   "speaker": "client",
+   "text": [
+    "{client}は代金を受け取り、泣きながら礼を言った。「これで里へ帰れます」礼にと、少しの銭を差し出した。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    }
+   ],
+   "end": "刀は殿さまのもとへ"
+  },
+  "end_sold_high": {
+   "speaker": "gosho",
+   "text": [
+    "「……三千文。それ以上は出せぬ」{gosho}は苦笑した。後家に二千文を渡し、残りは手間賃としてもらっておいた。"
+   ],
+   "effects": [
+    {
+     "money": 1000
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "end": "高く売れた刀"
+  }
+ }
+}

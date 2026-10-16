@@ -1,0 +1,192 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "hunt_desperate",
+ "kind": "random",
+ "where": "office",
+ "weight": 1,
+ "hook": "山の盗賊を討ってほしい。報酬ははずむ",
+ "title": "盗賊討伐",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "元の村長",
+   "sex": "m"
+  },
+  "lair": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "「{lair}の林で旅人の荷を奪う{bandit}がいる。手口は素人だ。すぐ片づくだろう」"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "lair"
+    }
+   ]
+  },
+  "lair": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "{lair}の林で{bandit}を探す",
+   "speaker": "elder",
+   "art": "hideout",
+   "text": [
+    "林の奥にいたのは、鍬や鎌を手にした痩せた男たちだった。年かさの{elder}が前に出る。「税が払えず、田を取り上げられた。妻子を食わせる道は、これしかなかった」"
+   ],
+   "choices": [
+    {
+     "label": "「村へ戻れ。{office}には私が話す」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "reformed",
+      "lose": "lair_ng"
+     }
+    },
+    {
+     "label": "有り金を分けて、山を下りさせる（200銭）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "reformed"
+    },
+    {
+     "label": "盗みは盗み。討つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "beaten",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "lair_ng": {
+   "speaker": "elder",
+   "text": [
+    "「口ではなんとでも言える」男たちは鍬を握り直した。"
+   ],
+   "choices": [
+    {
+     "label": "刃を使わずに押さえる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "beaten",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "有り金を分けて、山を下りさせる（200銭）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "reformed"
+    }
+   ]
+  },
+  "reformed": {
+   "speaker": "clerk",
+   "text": [
+    "男たちは鍬を担いで村へ帰った。{clerk}は「討ったことにしておこう」と苦笑し、報酬の半分を払った。"
+   ],
+   "effects": [
+    {
+     "money": 70
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "flag": "helped_village"
+    }
+   ],
+   "next": "thanks"
+  },
+  "thanks": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "（季節が巡ったら、{lair}の村に寄ってみる）",
+   "wait": {
+    "days": 90
+   },
+   "speaker": "elder",
+   "art": "feast",
+   "text": [
+    "{lair}の村は、秋の刈り入れを終えたところだった。{elder}が駆け寄ってきた。「あのときのお方だ！」村人たちが干し肉と新米の酒を山ほど持ってくる。"
+   ],
+   "effects": [
+    {
+     "item": "rations",
+     "n": 6
+    },
+    {
+     "item": "wine",
+     "n": 2
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "end": "恩返し"
+  },
+  "beaten": {
+   "text": [
+    "男たちは鍬を捨てて地に伏した。{office}に引き渡すと、{clerk}は満足げに報酬を払った。村には、もう働き手が残っていない。"
+   ],
+   "effects": [
+    {
+     "money": 140
+    },
+    {
+     "favor": 5
+    }
+   ],
+   "end": "討った"
+  },
+  "lost": {
+   "text": [
+    "必死の鍬は思いのほか鋭かった。"
+   ],
+   "end": "討ち損じ"
+  }
+ }
+}

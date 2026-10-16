@@ -1,0 +1,217 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_assassin_job",
+ "kind": "random",
+ "where": "inn",
+ "hook": "腕が立つと見込んで頼みがある。人ひとり、消してほしい",
+ "title": "刺客の依頼",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "黒衣の客"
+  },
+  "target": {
+   "npc": "県令",
+   "sex": "m"
+  },
+  "town": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "宿の奥の暗がりで、{client}が杯を差し出した。「{town}の{target}を知っているか。重い税を取り立て、逆らう者は鞭打つ。民はみな、あの男が死ねばよいと思っている」",
+    "{client}は銭袋を卓に置いた。「前金に百。事が成れば、さらに三百」"
+   ],
+   "choices": [
+    {
+     "label": "前金を受け取る",
+     "effects": [
+      {
+       "money": 100
+      },
+      {
+       "flag": "assassin_paid"
+      }
+     ],
+     "next": "meet"
+    },
+    {
+     "label": "断る",
+     "next": "end_refused"
+    },
+    {
+     "label": "受けたふりをして、{target}に知らせに行く",
+     "next": "warn"
+    }
+   ]
+  },
+  "meet": {
+   "at": {
+    "place": "town",
+    "building": "office"
+   },
+   "goal": "{town}の官府に{target}を訪ねる",
+   "speaker": "target",
+   "art": "court",
+   "text": [
+    "{target}は、思っていたより若く、やつれた男だった。卓には帳簿が山と積まれている。",
+    "「税が重いのは承知している。だがこの県は塩の抜け荷で倉が空なのだ。抜け荷の元締めを、わしは三人まで牢に入れた。残る一人は、まだ尻尾を出さぬ」{target}は、宿で見た黒衣と同じ色の布切れを見せた。"
+   ],
+   "choices": [
+    {
+     "label": "それでも斬る",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "end_killed",
+      "lose": "end_wounded"
+     }
+    },
+    {
+     "label": "刃を収め、依頼人のことを打ち明ける",
+     "next": "warn"
+    },
+    {
+     "label": "何もせず、前金を持って町を去る",
+     "next": "end_walked"
+    }
+   ]
+  },
+  "warn": {
+   "at": {
+    "place": "town",
+    "building": "office"
+   },
+   "goal": "{town}の官府で{target}に企みを知らせる",
+   "speaker": "target",
+   "art": "war",
+   "text": [
+    "話を聞いた{target}は、静かに頷いた。「やはり来たか。ならば、こちらから迎え撃とう」",
+    "その夜、官府の庭に影が三つ降りた。{client}が、念のために放った別の刺客だった。"
+   ],
+   "choices": [
+    {
+     "label": "刺客を迎え撃つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "end_warned",
+      "lose": "end_wounded"
+     }
+    }
+   ]
+  },
+  "end_killed": {
+   "text": [
+    "{target}は倒れた。翌月、{town}の税は軽くなったが、塩の値は倍になった。宿に戻ると、{client}は約束どおり銭を払い、二度と姿を見せなかった。",
+    "刺客の名はひそかに広まった。それを誇るべきかどうか、誰も教えてはくれない。"
+   ],
+   "effects": [
+    {
+     "unflag": "assassin_paid"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": -10
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "note": "{town}の{target}を斬った。"
+    }
+   ],
+   "end": "血の報酬"
+  },
+  "end_warned": {
+   "speaker": "target",
+   "text": [
+    "捕らえた刺客の口から、元締めが{client}であることが知れた。{client}は宿を引き払う前に捕らえられた。",
+    "「命の恩人だ。官としては、これくらいしか報いられぬが」{target}は県の印を押した礼状と銭を渡した。"
+   ],
+   "effects": [
+    {
+     "unflag": "assassin_paid"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 15
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "{target}を刺客から守った。"
+    }
+   ],
+   "end": "刺客を返り討ち"
+  },
+  "end_walked": {
+   "text": [
+    "前金を懐に、黙って{town}を出た。後で、{target}が別の刺客に襲われたと噂に聞いた。生きているのか死んだのか、噂はどちらとも言っていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "assassin_paid"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "見なかったこと"
+  },
+  "end_refused": {
+   "speaker": "client",
+   "text": [
+    "「そうか。ならば、この話は聞かなかったことにしてくれ」{client}は銭袋をしまい、闇に消えた。翌朝、宿の主が言った。「あの客には近づかないほうがいい。昨夜のことは忘れなされ」"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    }
+   ],
+   "end": "聞かなかった話"
+  },
+  "end_wounded": {
+   "text": [
+    "傷を負い、血を流しながら塀を越えた。夜が明けたとき、{town}の騒ぎがどう収まったのかは分からなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "assassin_paid"
+    },
+    {
+     "hp": -25
+    }
+   ],
+   "end": "血まみれの夜"
+  }
+ }
+}

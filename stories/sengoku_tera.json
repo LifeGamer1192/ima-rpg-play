@@ -1,0 +1,712 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_tera",
+ "kind": "school",
+ "title": "焼け残る経",
+ "era": "sengoku",
+ "school": "tera",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "osho": {
+   "npc": "住職",
+   "sex": "m"
+  },
+  "kozo": {
+   "npc": "小僧",
+   "sex": "m"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "lord": {
+   "realm": "strongest"
+  },
+  "lordcap": {
+   "place": "capital:lord"
+  },
+  "daimyo": {
+   "person": "ruler:lord"
+  },
+  "vassal": {
+   "npc": "奉行",
+   "sex": "m"
+  },
+  "fugitive": {
+   "npc": "落ち武者",
+   "sex": "m"
+  },
+  "monto": {
+   "npc": "門徒の坊主",
+   "sex": "m"
+  }
+ },
+ "start": "t1",
+ "scenes": {
+  "t1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の寺で住職に会う",
+   "speaker": "osho",
+   "art": "faith",
+   "text": [
+    "山門をくぐると、境内では子どもたちが砂に指で字を書いていた。庫裏の縁側で、痩せた老僧が薬研を挽いている。住職の{osho}である。",
+    "{osho}は手を止めずに言った。「寺に来る者は、字を学びたい者か、薬を学びたい者か、食うに困った者だ。お前はどれだ」そして、乾いた草の束と、一巻の経を並べて置いた。"
+   ],
+   "choices": [
+    {
+     "label": "経を手に取り、声に出して読んでみせる",
+     "check": {
+      "skill": "letters",
+      "dc": 8,
+      "win": "t1good",
+      "lose": "t1plain"
+     }
+    },
+    {
+     "label": "草の束を手に取り、薬草の名を言い当てる",
+     "check": {
+      "skill": "medicine",
+      "dc": 8,
+      "win": "t1good",
+      "lose": "t1plain"
+     }
+    },
+    {
+     "label": "「食うに困った者です」と正直に答える",
+     "next": "t1honest"
+    }
+   ]
+  },
+  "t1good": {
+   "speaker": "osho",
+   "text": [
+    "{osho}は薬研を置いた。「ほう。少しは仕込まれておるな。だが、知っておることと、人の役に立つことは違う。そこを間違えるな」",
+    "「{kozo}、この者に寝る場所を教えてやれ」呼ばれて出てきたのは、{player}と同じ年頃の小僧だった。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 1
+    },
+    {
+     "xp": "medicine",
+     "n": 1
+    }
+   ],
+   "next": "t2"
+  },
+  "t1plain": {
+   "speaker": "osho",
+   "text": [
+    "{player}がつかえるのを、{osho}は笑いもせずに聞いていた。「よい。知らぬことを知らぬと分かっているなら、ここで学べばよい」",
+    "「{kozo}、この者に寝る場所を教えてやれ」呼ばれて出てきたのは、{player}と同じ年頃の小僧だった。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "next": "t2"
+  },
+  "t1honest": {
+   "speaker": "osho",
+   "text": [
+    "{osho}は初めて顔を上げ、声を立てて笑った。「正直でよい。仏の前で飾る者は、どうせ長続きせん」",
+    "「{kozo}、この者に粥と寝る場所をやれ。明日から、字も薬も両方覚えてもらう」"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 1
+    },
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "next": "t2"
+  },
+  "t2": {
+   "at": {
+    "place": "village",
+    "building": "house"
+   },
+   "goal": "10日ほど学んだのち、{osho}の使いで{village}の村へ行く",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "kozo",
+   "art": "disaster",
+   "text": [
+    "{village}の村で、熱と発疹の病が広がっていた。{osho}は腰を痛めて動けず、代わりに{player}と{kozo}が薬箱を背負って村に入った。",
+    "一軒の家では、母親が子を抱いて祈祷師を待っていた。囲炉裏端には、同じ熱に浮かされた家族が三人、枕を並べている。「お坊さま、加持をしてくだされ。それで治るのでしょう」"
+   ],
+   "choices": [
+    {
+     "label": "熱を冷まし、病人を分けて寝かせ、水を沸かして飲ませる",
+     "check": {
+      "skill": "medicine",
+      "dc": 15,
+      "win": "t2ok",
+      "lose": "t2ng"
+     }
+    },
+    {
+     "label": "寺から持ってきた医書を引き、手当ての法を探す",
+     "check": {
+      "skill": "letters",
+      "dc": 15,
+      "win": "t2ok",
+      "lose": "t2ng"
+     }
+    },
+    {
+     "label": "母親の望むとおり、経を読んで加持をする",
+     "next": "t2pray"
+    }
+   ]
+  },
+  "t2ok": {
+   "text": [
+    "病人を離れ屋に移し、煮立てた湯を冷ましては飲ませた。十日目の朝、子の熱が下がった。それを境に、村で新たに倒れる者は減っていった。",
+    "母親は{player}の手を握って離さなかった。「仏さまより、お坊さまの手のほうがありがたい」{kozo}が慌てて「罰が当たるぞ」と言い、皆が笑った。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "next": "t2back"
+  },
+  "t2ng": {
+   "text": [
+    "手は尽くしたが、病の勢いは強かった。老人が二人、幼子が一人、息を引き取った。{player}は{kozo}と夜通し経を読み、小さな墓を掘った。",
+    "それでも、離れ屋に移した者たちは助かった。母親は涙を拭いて言った。「来てくださらなければ、もっと死んでおりました」"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "next": "t2back"
+  },
+  "t2pray": {
+   "text": [
+    "{player}は枕元で経を読んだ。母親は安心したように眠った。だが、病人を同じ部屋に寝かせたままでは、熱は家じゅうに回った。",
+    "帰り道、{kozo}がぽつりと言った。「経は心を救う。でも、熱は下げてくれない。和尚さまはいつもそう言ってるよ」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "t2back"
+  },
+  "t2back": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の寺に戻り、{osho}に報告する",
+   "speaker": "osho",
+   "text": [
+    "話を聞くと、{osho}は腰をさすりながら頷いた。「経も薬も、人を生かすための道具だ。どちらか一方しか持たぬ坊主は、片手で水をすくうようなものよ」",
+    "「今日からお前を小僧と呼ぶ。{kozo}と並んで、朝の勤めにも出よ」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "note": "寺の小僧となった。"
+    }
+   ],
+   "next": "t3"
+  },
+  "t3": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "医術を22まで修め、{here}の寺に戻る",
+   "wait": {
+    "skill": {
+     "medicine": 22
+    },
+    "days": 20
+   },
+   "speaker": "fugitive",
+   "art": "war",
+   "text": [
+    "戦に敗れた側の侍が、夜半に寺の裏口へ転がり込んできた。{fugitive}と名乗るその男は、肩に矢を受け、血の気が失せている。「一夜でよい。匿ってくだされ」",
+    "夜明け前、山門を叩く音がした。松明を掲げた追手の侍たちだ。「落ち武者を一人追っている。寺に隠しておるなら、すぐに出せ。出さねば寺ごと改める」{osho}は本堂で勤めの最中で、山門には{player}しかいない。"
+   ],
+   "choices": [
+    {
+     "label": "寺の由緒と、当地の守護が下した禁制の書付を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "t3hide",
+      "lose": "t3search"
+     }
+    },
+    {
+     "label": "手当てを急ぎ、夜明け前に裏山の炭焼き小屋へ逃がす",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "t3hide",
+      "lose": "t3search"
+     }
+    },
+    {
+     "label": "寺を守るため、{fugitive}を追手に引き渡す",
+     "next": "t3give"
+    }
+   ]
+  },
+  "t3hide": {
+   "speaker": "fugitive",
+   "text": [
+    "追手は舌打ちして去った。{fugitive}は傷が塞がるまで寺の納屋に身を潜め、十日後、薬の包みを懐に山を下りた。",
+    "「この恩は忘れぬ。生き延びたら、どこにいても必ず返す」男の名を、{player}は帳面の隅に書き留めた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "flag": "tera_refuge"
+    }
+   ],
+   "next": "t4"
+  },
+  "t3search": {
+   "text": [
+    "追手は山門を押し開け、境内を改めはじめた。納屋の戸に手がかかったとき、本堂から{osho}が現れた。「この寺に用があるなら、まずこの年寄りを斬ってからにせよ」",
+    "老僧の気迫に追手はたじろぎ、やがて引き揚げた。{fugitive}は助かったが、{osho}は{player}に言った。「寺は砦ではない。次は、もっと上手くやれ」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "flag": "tera_refuge"
+    }
+   ],
+   "next": "t4"
+  },
+  "t3give": {
+   "speaker": "osho",
+   "text": [
+    "{fugitive}は抵抗しなかった。縄を打たれながら、{player}を一度だけ見た。その日の昼、河原で首が晒されたと聞いた。",
+    "{osho}は何も責めなかった。ただ、その夜から本堂の灯明が一つ増えた。「寺を守るとは、何を守ることか。お前が自分で答えを出すまで、この灯は消さぬ」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "flag": "tera_gave"
+    }
+   ],
+   "next": "t4"
+  },
+  "t4": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "学問を28まで修め、名声10に達したら{here}の寺に戻る",
+   "wait": {
+    "skill": {
+     "letters": 28
+    },
+    "fame": 10
+   },
+   "speaker": "monto",
+   "art": "faith",
+   "text": [
+    "{monto}という坊主が、門徒の村々を回っていた。懐には本願寺から下されたという檄文がある。「{lord}は仏敵である。念仏の者は立て。進めば往生、退けば地獄」",
+    "寺の檀家の若者たちが、鍬や竹槍を手に境内に集まりはじめた。{osho}は困り果てた顔で{player}を見た。「わしの言葉は、もう年寄りの小言にしか聞こえんらしい。お前ならどうする」"
+   ],
+   "choices": [
+    {
+     "label": "檄に応じ、門徒とともに立つ",
+     "effects": [
+      {
+       "flag": "tera_ikki"
+      }
+     ],
+     "next": "t4ikki"
+    },
+    {
+     "label": "「命を粗末にするのは仏の教えではない」と若者たちに説く",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "t4calm",
+      "lose": "t4split"
+     }
+    },
+    {
+     "label": "一揆の動きを{lord}の城へ知らせる",
+     "effects": [
+      {
+       "flag": "tera_inform"
+      },
+      {
+       "rep": "lord",
+       "n": 15
+      }
+     ],
+     "next": "t4inform"
+    }
+   ]
+  },
+  "t4ikki": {
+   "speaker": "monto",
+   "text": [
+    "{monto}は{player}の手を取った。「学のある御坊が加われば百人力だ」若者たちの歓声が境内に響いた。",
+    "{osho}は本堂に籠もり、出てこなかった。{kozo}だけが、山門で{player}の背中を黙って見送っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "t5"
+  },
+  "t4calm": {
+   "text": [
+    "{player}は経の一節を引き、往生とは死ぬことではなく生き切ることだと説いた。若者たちは一人、また一人と竹槍を下ろした。",
+    "{monto}は唾を吐いて去った。「腰抜けの寺め。いずれ仏罰が下るぞ」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "next": "t5"
+  },
+  "t4split": {
+   "text": [
+    "言葉は届かなかった。若者の半分は{monto}について村を出ていき、残った者たちとのあいだに深い溝が残った。",
+    "{osho}は肩を落とした。「仏の言葉も、腹の減った者には届かぬか」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "t5"
+  },
+  "t4inform": {
+   "speaker": "kozo",
+   "text": [
+    "城からの返事は早かった。一揆は芽のうちに摘まれ、{monto}は捕らえられた。",
+    "{kozo}は何日も{player}と口をきかなかった。「檀家の中には、おれの兄もいたんだ」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "t5"
+  },
+  "t5": {
+   "at": {
+    "place": "lordcap",
+    "building": "palace"
+   },
+   "goal": "20日のうちに{lordcap}の城へ上り、寺の焼き討ちを止める",
+   "wait": {
+    "days": 20
+   },
+   "speaker": "vassal",
+   "art": "court",
+   "text": [
+    "一揆に手を焼いた{lord}は、門徒をかくまう寺はことごとく焼くと触れを出した。その名簿に、{here}の寺の名も載っていた。",
+    "{player}は寺を代表して{lordcap}の城に上った。応じたのは{daimyo}の寺社奉行、{vassal}だった。「寺は戦の巣になる。焼かぬ理由があるなら、申してみよ」"
+   ],
+   "choices": [
+    {
+     "label": "寺は一揆に加わっていないと、檀家の起請文を示して説く",
+     "if": {
+      "notFlag": "tera_ikki"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "t5spare",
+      "lose": "t5burn"
+     }
+    },
+    {
+     "label": "かつて匿った{fugitive}の名を出す",
+     "if": {
+      "flag": "tera_refuge"
+     },
+     "next": "t5refuge"
+    },
+    {
+     "label": "一揆を知らせた功を申し立てる",
+     "if": {
+      "flag": "tera_inform"
+     },
+     "next": "t5spare"
+    },
+    {
+     "label": "寺の蔵の銭を矢銭として差し出す（500文）",
+     "if": {
+      "money": 500
+     },
+     "effects": [
+      {
+       "money": -500
+      }
+     ],
+     "next": "t5spare"
+    },
+    {
+     "label": "ひれ伏して、ただ嘆願する",
+     "next": "t5burn"
+    }
+   ]
+  },
+  "t5refuge": {
+   "speaker": "fugitive",
+   "text": [
+    "{vassal}が怪訝な顔をしたとき、居並ぶ侍の中から一人が進み出た。肩をかばうような歩き方に、見覚えがあった。{fugitive}である。主家が滅んだのち、この家に仕えていたのだ。",
+    "「この坊主に命を拾われました。あの寺は人を生かす寺にございます。焼くなら、まずそれがしを」{vassal}はしばらく考え、名簿の寺の名に墨を引いた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    }
+   ],
+   "next": "t5spare"
+  },
+  "t5spare": {
+   "speaker": "vassal",
+   "text": [
+    "「よかろう。{here}の寺は改めに及ばず」{vassal}は禁制の札を書かせ、{player}に渡した。「これを山門に掲げておけ。足軽どもも手は出せぬ」",
+    "城を出ると、膝が震えていた。寺に戻ると、{osho}と{kozo}が山門の前で待っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "next": "t6"
+  },
+  "t5burn": {
+   "speaker": "vassal",
+   "text": [
+    "「聞き置く」それだけだった。{player}が寺へ駆け戻る道の向こうに、もう黒い煙が上がっていた。"
+   ],
+   "effects": [
+    {
+     "flag": "tera_burned"
+    }
+   ],
+   "next": "t5fire"
+  },
+  "t5fire": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "燃える{here}の寺へ駆け戻る",
+   "speaker": "kozo",
+   "art": "disaster",
+   "text": [
+    "本堂が燃えていた。{osho}は病人を寝かせた庫裏から動こうとせず、{kozo}が泣きながらその腕を引いている。経蔵にも火が回りはじめた。百年分の経巻と医書が、そこにある。"
+   ],
+   "choices": [
+    {
+     "label": "庫裏に飛び込み、{osho}と病人を背負って逃がす",
+     "effects": [
+      {
+       "hp": -15
+      },
+      {
+       "flag": "tera_saved_people"
+      },
+      {
+       "xp": "medicine",
+       "n": 3
+      }
+     ],
+     "next": "t5ash"
+    },
+    {
+     "label": "経蔵に飛び込み、医書と経巻を運び出す",
+     "effects": [
+      {
+       "hp": -15
+      },
+      {
+       "flag": "tera_saved_books"
+      },
+      {
+       "xp": "letters",
+       "n": 3
+      }
+     ],
+     "next": "t5ash"
+    }
+   ]
+  },
+  "t5ash": {
+   "text": [
+    "夜が明けると、寺は柱だけを残して焼け落ちていた。焼け跡の灰の中に、溶けた鐘が転がっている。",
+    "{osho}は煤だらけの顔で手を合わせた。「仏は焼けぬ。焼けたのは、木と紙だけだ」"
+   ],
+   "next": "t6"
+  },
+  "t6": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "学問を38まで修めたのち、{here}の寺に戻る",
+   "wait": {
+    "skill": {
+     "letters": 38
+    },
+    "days": 30
+   },
+   "speaker": "osho",
+   "art": "faith",
+   "text": [
+    "月日が流れ、{osho}はめっきり足が弱った。朝の勤めも、{player}が代わりに導師を務めることが多くなった。",
+    "ある夕暮れ、{osho}は{player}を縁側に呼んだ。「わしの役目は、もう終わりに近い。お前は、これからこの寺で何をする」"
+   ],
+   "choices": [
+    {
+     "label": "「寺子に字を、病人に薬を。それだけです」",
+     "if": {
+      "notFlag": "tera_burned"
+     },
+     "next": "endHeir"
+    },
+    {
+     "label": "「焼け跡に、もう一度寺を建てます」",
+     "if": {
+      "flag": "tera_burned"
+     },
+     "next": "endAsh"
+    },
+    {
+     "label": "「門徒とともに、本願寺へまいります」",
+     "if": {
+      "flag": "tera_ikki"
+     },
+     "next": "endMonto"
+    }
+   ]
+  },
+  "endHeir": {
+   "speaker": "osho",
+   "text": [
+    "{osho}は満足げに頷いた。「それでよい。大きなことを言う坊主に、ろくな者はおらん」",
+    "翌年の春、{osho}は眠るように世を去った。{player}は住職の右腕として寺を預かり、{kozo}とともに寺子屋と施薬院を開いた。山門の禁制の札は雨風に色褪せたが、子どもたちの手習いの声は絶えなかった。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 5
+    },
+    {
+     "note": "住職の右腕として寺を預かった。"
+    }
+   ],
+   "end": "山門の灯"
+  },
+  "endAsh": {
+   "speaker": "kozo",
+   "text": [
+    "焼け跡に、{player}は{kozo}と二人で小さな庵を結んだ。本堂も鐘もない。それでも病人は来たし、字を習いたい子どもも来た。",
+    "{osho}は庵の縁側で最期を迎えた。「寺とは、建物のことではなかったな」それが最後の言葉だった。{player}は住職の右腕として、師の言葉を一字ずつ紙に書き留め、焼け残った経とともに庵に納めた。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 4
+    },
+    {
+     "note": "焼け跡に庵を結び、寺を継いだ。"
+    }
+   ],
+   "end": "焼け残る経"
+  },
+  "endMonto": {
+   "speaker": "monto",
+   "text": [
+    "{osho}は長いあいだ黙っていたが、やがて数珠を一連、{player}の手に握らせた。「行け。だが、人を殺すために念仏を唱えるな」",
+    "{player}は門徒の群れとともに西へ向かった。石山の御坊に籠もる門徒たちのあいだで、薬を煎じ、字の読めぬ者に代わって文を書く坊主がいたという。その坊主は戦の最中にも、敵味方の区別なく手負いの者の傷を縫っていたと伝わる。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    }
+   ],
+   "end": "念仏の陣"
+  }
+ }
+}

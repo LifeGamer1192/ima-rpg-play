@@ -1,0 +1,835 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_guild4",
+ "kind": "rank",
+ "guildTo": 4,
+ "title": "蔵破り",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "fence": {
+   "npc": "口入屋の顔役",
+   "sex": "m"
+  },
+  "smith": {
+   "npc": "錠前鍛冶",
+   "sex": "f"
+  },
+  "clerk": {
+   "npc": "蔵奉行の下役",
+   "sex": "m"
+  },
+  "clerk2": {
+   "npc": "堺の豪商の番頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で顔役に会う",
+   "speaker": "fence",
+   "art": "backroom",
+   "text": [
+    "口入屋の{fence}は、いつになく声を潜めた。「狙い目が二つある。一つは{here}の城の御蔵。{here:realm}の殿が次の戦のために貯めた軍用金だ。百姓から絞った年貢の銭よ」",
+    "「もう一つは、堺の豪商が{here}に構えた出店の蔵。飢饉を見越して米を買い占め、鉄砲の玉薬で儲けた銭が唸っておる。どちらか一つ、抜いた者を裏の世界では大盗と呼ぶ」"
+   ],
+   "choices": [
+    {
+     "label": "城の御蔵を狙う",
+     "effects": [
+      {
+       "flag": "sg_g4_castle"
+      },
+      {
+       "note": "{here}の城の御蔵に眠る{here:realm}の軍用金を狙うことになった。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "堺の豪商の蔵を狙う",
+     "effects": [
+      {
+       "flag": "sg_g4_sakai"
+      },
+      {
+       "note": "{here}にある堺の豪商の蔵を狙うことになった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "{here}の鍛冶屋で錠の手立てを探る",
+   "speaker": "smith",
+   "art": "trade",
+   "text": [
+    "鍛冶場の奥で、錠前鍛冶の{smith}が鞴を止めた。「その蔵の海老錠なら、打ったのはうちの亡き親方だ。合鍵を作れぬこともない。けど、ばれたら首が飛ぶのはあたしだよ」"
+   ],
+   "choices": [
+    {
+     "label": "銭を積んで合鍵を頼む（200文）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "s2done"
+    },
+    {
+     "label": "夜のうちに、{smith}の型帳から錠の写しを盗む",
+     "check": {
+      "skill": "theft",
+      "dc": 40,
+      "win": "s2key",
+      "lose": "s2key_ng"
+     }
+    },
+    {
+     "label": "義賊の名を明かし、「抜いた銭は町に撒く」と頼み込む",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "s2done",
+      "lose": "s2key_ng"
+     }
+    },
+    {
+     "label": "{smith}の弟子の小僧をさらい、合鍵と引き換えにする",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "effects": [
+      {
+       "fame": -3
+      }
+     ],
+     "next": "s2done"
+    },
+    {
+     "label": "合鍵には頼らず、己の指を信じる",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2key": {
+   "art": "hideout",
+   "text": [
+    "型帳の綴じ紐を解き、錠の図を写し取って戻した。夜明けまでに、{player}は自分の手で粗い合鍵を削り出した。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_g4_key"
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2key_ng": {
+   "art": "hideout",
+   "text": [
+    "{smith}は首を振り、「この話は聞かなかったことにする」と鞴に向き直った。翌日、町には蔵破りを企む者がいるという噂が流れた。"
+   ],
+   "effects": [
+    {
+     "wanted": "here",
+     "n": 6
+    },
+    {
+     "flag": "sg_g4_alert"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2done": {
+   "art": "trade",
+   "text": [
+    "{smith}は黙って炉に向かった。三日ののち、油紙に包んだ重い鉄の合鍵が{player}の手に渡された。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_g4_key"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠で、蔵の内を知る者に近づく手立てを考える",
+   "speaker": "fence",
+   "art": "backroom",
+   "text": [
+    "{fence}が二つの名を挙げた。「城の御蔵なら、蔵奉行の下役{clerk}。博打で首が回らぬ。豪商の蔵なら、番頭の{clerk2}。主人に隠れて米の横流しをしておる」",
+    "「どちらも、こちらの狙いに合う方だけ使え。両方に声をかければ、どちらかが口を滑らす」"
+   ],
+   "choices": [
+    {
+     "label": "城の下役{clerk}に会う",
+     "if": {
+      "flag": "sg_g4_castle"
+     },
+     "next": "s3c"
+    },
+    {
+     "label": "豪商の番頭{clerk2}に会う",
+     "if": {
+      "flag": "sg_g4_sakai"
+     },
+     "next": "s3s"
+    },
+    {
+     "label": "内の者には頼らず、見張りを自分で数える",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3c": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "{here}の城下で蔵奉行の下役{clerk}に近づく",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "城の通用門の脇で、{clerk}は帳面を抱えて溜息をついていた。御蔵の出し入れを記すのも、夜の番の順を決めるのも、この男の役目だという。"
+   ],
+   "choices": [
+    {
+     "label": "博打の借りを肩代わりすると持ちかける（250文）",
+     "if": {
+      "money": 250
+     },
+     "effects": [
+      {
+       "money": -250
+      }
+     ],
+     "next": "s3ok"
+    },
+    {
+     "label": "帳面の誤魔化しを見抜き、黙っている代わりに手を貸せと迫る",
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "{clerk}の妻子の住む長屋を知っていると囁く",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "effects": [
+      {
+       "fame": -2
+      }
+     ],
+     "next": "s3ok"
+    }
+   ]
+  },
+  "s3s": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で豪商の番頭{clerk2}に近づく",
+   "speaker": "clerk2",
+   "art": "trade",
+   "text": [
+    "市の米問屋の帳場で、{clerk2}は算盤を弾いていた。主人は堺にいて、{here}の出店はこの男が一人で切り盛りしているという。"
+   ],
+   "choices": [
+    {
+     "label": "横流しの米の売り先を世話すると持ちかける",
+     "check": {
+      "skill": "trade",
+      "dc": 38,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "横流しの証を握っていると脅す",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "飢えた町衆の前で、買い占めの米蔵を開ける義を説く",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "art": "hideout",
+   "text": [
+    "相手は青い顔で頷いた。「三日後の晦日の夜、子の刻。裏の番は一人になる。わしは何も知らぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_g4_inside"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "art": "hideout",
+   "text": [
+    "相手は顔を強張らせ、人を呼ぶ素振りを見せた。{player}は笑って誤魔化してその場を離れた。蔵の番は、きっと厳しくなる。"
+   ],
+   "effects": [
+    {
+     "wanted": "here",
+     "n": 8
+    },
+    {
+     "flag": "sg_g4_alert"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "晦日の夜を待ち、{here}の旅籠の裏に一味を集める",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "fence",
+   "art": "backroom",
+   "text": [
+    "裏の土間に、一味の腕利きが揃った。荷車も、逃げる道も、川を下る舟も手配してある。{fence}が灯を吹き消した。「月のない晦日だ。あとは、あんたが蔵の戸を開けるだけだ」"
+   ],
+   "choices": [
+    {
+     "label": "城の御蔵へ向かう",
+     "if": {
+      "flag": "sg_g4_castle"
+     },
+     "next": "s5c"
+    },
+    {
+     "label": "豪商の蔵へ向かう",
+     "if": {
+      "flag": "sg_g4_sakai"
+     },
+     "next": "s5s"
+    }
+   ]
+  },
+  "s5c": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "晦日の夜、{here}の城の御蔵に忍び込む",
+   "art": "hideout",
+   "text": [
+    "子の刻。城の外堀を渡ると、二の丸の御蔵の前を、番の足軽の松明がゆっくりと巡っていた。"
+   ],
+   "choices": [
+    {
+     "label": "{clerk}の言った裏の番が一人になる隙に入る",
+     "if": {
+      "flag": "sg_g4_inside"
+     },
+     "next": "s6"
+    },
+    {
+     "label": "石垣をよじ登り、番の目を盗む",
+     "if": {
+      "notFlag": "sg_g4_alert"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 42,
+      "win": "s6",
+      "lose": "s5alarm"
+     }
+    },
+    {
+     "label": "増えた番の目を盗んで石垣を登る",
+     "if": {
+      "flag": "sg_g4_alert"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 48,
+      "win": "s6",
+      "lose": "s5alarm"
+     }
+    },
+    {
+     "label": "番を斬って押し通る",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 20
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "s6",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s5s": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "晦日の夜、{here}の豪商の蔵に忍び込む",
+   "art": "hideout",
+   "text": [
+    "子の刻。米問屋の裏の蔵は、漆喰の壁が闇に白く浮かんでいた。雇われの牢人が、拍子木を打ちながら蔵の周りを巡っている。"
+   ],
+   "choices": [
+    {
+     "label": "{clerk2}が開けておいた裏木戸から入る",
+     "if": {
+      "flag": "sg_g4_inside"
+     },
+     "next": "s6"
+    },
+    {
+     "label": "塀を越えて、拍子木の間を縫う",
+     "if": {
+      "notFlag": "sg_g4_alert"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "s6",
+      "lose": "s5alarm"
+     }
+    },
+    {
+     "label": "増えた牢人の目を盗んで塀を越える",
+     "if": {
+      "flag": "sg_g4_alert"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 44,
+      "win": "s6",
+      "lose": "s5alarm"
+     }
+    },
+    {
+     "label": "牢人を斬って押し通る",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "s6",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s5alarm": {
+   "art": "war",
+   "text": [
+    "半鐘が鳴り響いた。「蔵破りだ！」闇の四方から足音と松明が集まってくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り伏せて蔵へ押し入る",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 15
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s7hot",
+      "lose": "fail_caught"
+     }
+    },
+    {
+     "label": "闇に紛れて退く",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "fail_abort",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s6": {
+   "art": "hideout",
+   "text": [
+    "蔵の戸の前に立つと、大きな海老錠が星明かりを映して鈍く光っていた。この戸の向こうに、千両に届こうかという銭が眠っている。"
+   ],
+   "choices": [
+    {
+     "label": "合鍵を差し込む",
+     "if": {
+      "flag": "sg_g4_key"
+     },
+     "next": "s7"
+    },
+    {
+     "label": "己の指で錠を解く",
+     "check": {
+      "skill": "theft",
+      "dc": 44,
+      "win": "s7",
+      "lose": "s5alarm"
+     }
+    }
+   ]
+  },
+  "s7": {
+   "art": "hideout",
+   "text": [
+    "戸が開いた。銭の緡が薪のように積まれ、奥には米俵と、油紙に包んだ金の延べ板がある。一味の者たちが声にならない声を漏らした。夜明けまでに運び出せるのは、この半分がせいぜいだろう。"
+   ],
+   "choices": [
+    {
+     "label": "米俵を町の辻々に置き、銭の半ばを飢えた者に撒く",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "effects": [
+      {
+       "money": 600
+      },
+      {
+       "fame": 15
+      },
+      {
+       "wanted": "here",
+       "n": 30
+      }
+     ],
+     "next": "win_r"
+    },
+    {
+     "label": "蔵に火を放ち、追手の目を塞いで残らず運ぶ",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "effects": [
+      {
+       "money": 1200
+      },
+      {
+       "fame": -6
+      },
+      {
+       "wanted": "here",
+       "n": 45
+      }
+     ],
+     "next": "win_w"
+    },
+    {
+     "label": "運べるだけ運び、錠を元どおりに掛けて去る",
+     "effects": [
+      {
+       "money": 900
+      },
+      {
+       "fame": 5
+      },
+      {
+       "wanted": "here",
+       "n": 25
+      }
+     ],
+     "next": "win_plain"
+    }
+   ]
+  },
+  "s7hot": {
+   "art": "war",
+   "text": [
+    "血の匂いの中で蔵の戸を破った。だが加勢がもう辻に迫っている。抱えられるだけの銭を背負い、一味は塀を越えて川の舟へ走った。"
+   ],
+   "effects": [
+    {
+     "money": 450
+    },
+    {
+     "wanted": "here",
+     "n": 15
+    }
+   ],
+   "choices": [
+    {
+     "label": "追手を振り切って川を下る",
+     "next": "win_hot"
+    }
+   ]
+  },
+  "win_r": {
+   "speaker": "fence",
+   "art": "hideout",
+   "text": [
+    "夜明け、{here}の辻という辻に米俵が置かれ、長屋の戸口には銭の緡が投げ込まれていた。役人がいくら探しても、町衆は誰ひとり盗人の行方を口にしなかった。",
+    "{fence}は目を細めた。「蔵を抜き、町に匿われる。そんな大盗は、百年に一人だ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "xp": "theft",
+     "n": 8
+    },
+    {
+     "unflag": "sg_g4_castle"
+    },
+    {
+     "unflag": "sg_g4_sakai"
+    },
+    {
+     "unflag": "sg_g4_key"
+    },
+    {
+     "unflag": "sg_g4_inside"
+    },
+    {
+     "unflag": "sg_g4_alert"
+    },
+    {
+     "note": "{here}の蔵を破って米と銭を町に撒き、義賊の大盗と呼ばれるようになった。"
+    }
+   ],
+   "end": "町に匿われる大盗"
+  },
+  "win_w": {
+   "speaker": "fence",
+   "art": "disaster",
+   "text": [
+    "蔵は一夜で焼け落ち、火は隣の町家まで舐めた。焼け跡からは、逃げ遅れた番の者の骨が出たという。",
+    "{fence}は銭の山を前に、乾いた声で笑った。「{here}を半ば焼いた男だ。もう誰も、あんたの名を口にするときに声を潜めずにはいられん。大盗に」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "xp": "theft",
+     "n": 8
+    },
+    {
+     "unflag": "sg_g4_castle"
+    },
+    {
+     "unflag": "sg_g4_sakai"
+    },
+    {
+     "unflag": "sg_g4_key"
+    },
+    {
+     "unflag": "sg_g4_inside"
+    },
+    {
+     "unflag": "sg_g4_alert"
+    },
+    {
+     "note": "{here}の蔵を焼き払って銭を奪い、外道の大盗として恐れられるようになった。"
+    }
+   ],
+   "end": "焼け跡の大盗"
+  },
+  "win_plain": {
+   "speaker": "fence",
+   "art": "hideout",
+   "text": [
+    "朝になって蔵を開けた者たちは、錠が掛かったまま中身が半分消えているのを見て、狐に化かされたと騒いだ。",
+    "{fence}は銭を一枚かじって笑った。「血も火も使わず、蔵を抜いた。腕だけで大盗になった者を、わしは初めて見た」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "xp": "theft",
+     "n": 8
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "unflag": "sg_g4_castle"
+    },
+    {
+     "unflag": "sg_g4_sakai"
+    },
+    {
+     "unflag": "sg_g4_key"
+    },
+    {
+     "unflag": "sg_g4_inside"
+    },
+    {
+     "unflag": "sg_g4_alert"
+    },
+    {
+     "note": "{here}の蔵を音もなく抜き、大盗と呼ばれるようになった。"
+    }
+   ],
+   "end": "狐の仕業"
+  },
+  "win_hot": {
+   "speaker": "fence",
+   "art": "war",
+   "text": [
+    "舟で川を下りきったときには、夜が白んでいた。運び出せた銭は蔵の一割にも満たない。それでも、あの蔵を破って生きて帰った者はほかにいない。",
+    "{fence}は傷だらけの{player}の肩を叩いた。「荒い仕事だったが、仕事は仕事だ。大盗の名は、あんたのものだ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "unflag": "sg_g4_castle"
+    },
+    {
+     "unflag": "sg_g4_sakai"
+    },
+    {
+     "unflag": "sg_g4_key"
+    },
+    {
+     "unflag": "sg_g4_inside"
+    },
+    {
+     "unflag": "sg_g4_alert"
+    },
+    {
+     "note": "斬り抜けて{here}の蔵を破り、大盗と呼ばれるようになった。"
+    }
+   ],
+   "end": "血路の大盗"
+  },
+  "fail_abort": {
+   "speaker": "fence",
+   "art": "hideout",
+   "text": [
+    "一味は手ぶらで隠れ家に戻った。{fence}は肩をすくめた。「蔵は逃げん。番が緩むまで、名を上げ直しておけ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_g4_castle"
+    },
+    {
+     "unflag": "sg_g4_sakai"
+    },
+    {
+     "unflag": "sg_g4_key"
+    },
+    {
+     "unflag": "sg_g4_inside"
+    },
+    {
+     "unflag": "sg_g4_alert"
+    },
+    {
+     "note": "蔵破りを諦めて退いた。働きを重ねれば、また大仕事に挑める。"
+    }
+   ],
+   "end": "手ぶらの晦日"
+  },
+  "fail_caught": {
+   "art": "war",
+   "text": [
+    "槍に囲まれ、{player}は蔵の前に組み伏せられた。一味の者たちが騒ぎを起こした隙に縄を抜けて逃れたものの、顔も名も、{here:realm}の役人の帳面に刻まれた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "wanted": "here",
+     "n": 20
+    },
+    {
+     "unflag": "sg_g4_castle"
+    },
+    {
+     "unflag": "sg_g4_sakai"
+    },
+    {
+     "unflag": "sg_g4_key"
+    },
+    {
+     "unflag": "sg_g4_inside"
+    },
+    {
+     "unflag": "sg_g4_alert"
+    },
+    {
+     "note": "蔵破りにしくじり、{here:realm}のお尋ね者となった。働きを重ねれば、また大仕事に挑める。"
+    }
+   ],
+   "end": "蔵の前に倒れる"
+  }
+ }
+}

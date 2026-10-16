@@ -1,0 +1,464 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_rank3_samurai",
+ "kind": "rank",
+ "rankTo": 3,
+ "title": "首実検",
+ "era": "sengoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "enemy": {
+   "realm": "enemy:patron"
+  },
+  "rival": {
+   "npc": "馬廻りの侍",
+   "sex": "m"
+  },
+  "witness": {
+   "npc": "若い足軽",
+   "sex": "m"
+  },
+  "dresser": {
+   "npc": "首化粧の女",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城で昇進を願い出る",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "先の小競り合いで、{player}の組は{enemy}の名のある侍を討ち取った。槍を合わせ、組み伏せて首を掻いたのは{player}だ。だが乱戦のさなか、その首は人の手から手へ渡った。",
+    "{minister}が渋い顔で告げた。「その首、馬廻りの{rival}が己の手柄として届け出ておる。明後日の首実検で殿がお決めになる。侍に取り立てるかどうかも、それ次第だ」"
+   ],
+   "choices": [
+    {
+     "label": "あの場にいた足軽を探す",
+     "next": "s2"
+    },
+    {
+     "label": "まず首そのものを改めに行く",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "barracks"
+   },
+   "goal": "{cap}の番所で、あの場にいた足軽を探す",
+   "speaker": "witness",
+   "art": "war",
+   "text": [
+    "番所の隅で、{witness}という若い足軽が槍の穂を研いでいた。あの日、{player}のすぐ後ろにいた男だ。",
+    "「……見ました。けど、{rival}さまは馬廻りです。足軽が侍に盾突いたら、次の戦で背中から槍が来ます」"
+   ],
+   "choices": [
+    {
+     "label": "「見たことを見たと言うのが、槍を持つ者の誇りだ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s2yes",
+      "lose": "s2no"
+     }
+    },
+    {
+     "label": "「わしが侍になれば、おぬしをわしの組に引き取る」と約す",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2yes",
+      "lose": "s2no"
+     }
+    },
+    {
+     "label": "銭を握らせる（100文）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      },
+      {
+       "flag": "sg_r3_paid"
+      }
+     ],
+     "next": "s2yes"
+    }
+   ]
+  },
+  "s2yes": {
+   "speaker": "witness",
+   "text": [
+    "{witness}は研ぎかけの槍を置き、しばらく黙ってから頷いた。「首実検の場で、見たとおりに申します」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r3_witness"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2no": {
+   "text": [
+    "{witness}は首を振り、槍を抱えて番所を出ていった。責めることはできなかった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "cap",
+    "building": "shrine"
+   },
+   "goal": "{cap}の社の境内で、首化粧の場を訪ねる",
+   "speaker": "dresser",
+   "art": "faith",
+   "text": [
+    "社の裏の小屋では、女たちが首を洗い、髪を結い直し、歯に鉄漿をさしていた。首実検の前の首化粧だ。束ねている{dresser}は、{player}の顔を見ても手を止めなかった。",
+    "「首は何も言いませぬが、傷は嘘をつきませぬ。お確かめになりたいなら、どうぞ」"
+   ],
+   "choices": [
+    {
+     "label": "首の傷を改め、槍の入った向きを確かめる",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "s3proof",
+      "lose": "s3none"
+     }
+    },
+    {
+     "label": "首に付けられた札の筆跡と日付を読む",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s3proof",
+      "lose": "s3none"
+     }
+    },
+    {
+     "label": "{dresser}に、首を届けに来た者の様子を聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "s3talk",
+      "lose": "s3none"
+     }
+    }
+   ]
+  },
+  "s3proof": {
+   "text": [
+    "致命の傷は喉の左から右へ、下から突き上げた槍のものだった。組み伏せた者でなければ、この向きには入らない。{rival}は馬上の侍だ。馬の上から、この傷はつけられない。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r3_proof"
+    },
+    {
+     "note": "首の傷が、組み伏せて討った者の槍だと確かめた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3talk": {
+   "speaker": "dresser",
+   "text": [
+    "{dresser}は手を拭きながら言った。「届けに来たのは、{rival}さまの小者でした。血がもう乾いておったのに、着物は泥ひとつついておらなんだ。首を拾っただけの者の着物でございます」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r3_proof"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3none": {
+   "text": [
+    "首は静かに目を閉じているばかりだった。確かなことは何も分からない。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "二日待ち、{cap}の城の首実検に出る",
+   "wait": {
+    "days": 2
+   },
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "首実検の座で、{ruler}は床几に腰を据え、首を横目で見た。{rival}が進み出て、よく通る声で言った。「この首、それがしが馬上より突き伏せて討ち取りしもの。組頭風情が、拾った首を己の手柄と言い立てておるだけにございます」",
+    "居並ぶ侍たちの目が、{player}に集まった。"
+   ],
+   "choices": [
+    {
+     "label": "「傷をお改めください。下から突き上げた槍にございます」",
+     "if": {
+      "flag": "sg_r3_proof"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "s5",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "{witness}を呼び、見たとおりを申させる",
+     "if": {
+      "flag": "sg_r3_witness"
+     },
+     "next": "s5"
+    },
+    {
+     "label": "首帳と軍忠状の書式に照らし、届け出の不備を突く",
+     "if": {
+      "realm": [
+       "北条",
+       "毛利"
+      ]
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "s5",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "「討ったのは己だ」と、己の言葉だけで言い張る",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s5",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "黙って首を{rival}に譲る",
+     "next": "fail_yield"
+    }
+   ]
+  },
+  "s4ng": {
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "{ruler}は眉をひそめた。{rival}が畳みかける。「殿、この者は手柄欲しさに偽りを申しております」座の空気が{player}から離れていく。"
+   ],
+   "choices": [
+    {
+     "label": "「ならば太刀で決めさせていただきたい」と{rival}に挑む",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s5duel",
+      "lose": "fail_lost"
+     }
+    },
+    {
+     "label": "頭を下げて引き下がる",
+     "next": "fail_lost"
+    }
+   ]
+  },
+  "s5": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}はしばらく首を見つめ、それから扇の先で{player}を指した。「首は、この者の手柄とする」",
+    "{rival}の顔から血の気が引いた。{minister}が小さく咳払いをして、次の首を運ばせた。"
+   ],
+   "choices": [
+    {
+     "label": "{rival}の偽りをこの場で咎めてもらう",
+     "next": "win_expose"
+    },
+    {
+     "label": "「乱戦のことゆえ、思い違いもございましょう」と{rival}の顔を立てる",
+     "next": "win_grace"
+    }
+   ]
+  },
+  "s5duel": {
+   "speaker": "ruler",
+   "art": "war",
+   "text": [
+    "庭先での立ち合いは一合で決まった。{rival}の太刀が飛び、{player}の切っ先が喉元で止まった。",
+    "{ruler}は立ち上がって言った。「口より太刀の方が正直なこともある。首はこの者のものだ。侍に取り立てる」"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 6
+    },
+    {
+     "fame": 5
+    },
+    {
+     "flag": "sg_r3_rival_enemy"
+    },
+    {
+     "unflag": "sg_r3_witness"
+    },
+    {
+     "unflag": "sg_r3_proof"
+    },
+    {
+     "unflag": "sg_r3_paid"
+    },
+    {
+     "note": "首実検の座で{rival}と立ち合って勝ち、侍となった。{rival}の恨みを買った。"
+    }
+   ],
+   "end": "太刀で決める"
+  },
+  "win_expose": {
+   "speaker": "minister",
+   "text": [
+    "{rival}は馬廻りを外され、所領を半ば召し上げられた。{minister}は{player}に囁いた。「手柄を盗む者は、いずれ味方の背も刺す。咎めて正しい。だが恨みは残るぞ」",
+    "{player}は侍の列に加わった。{witness}は約束どおり、{player}の下に付けられた。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 4
+    },
+    {
+     "flag": "sg_r3_rival_enemy"
+    },
+    {
+     "unflag": "sg_r3_witness"
+    },
+    {
+     "unflag": "sg_r3_proof"
+    },
+    {
+     "unflag": "sg_r3_paid"
+    },
+    {
+     "note": "首実検で手柄を認められ、侍となった。偽った{rival}は馬廻りを外された。"
+    }
+   ],
+   "end": "首は語る"
+  },
+  "win_grace": {
+   "speaker": "rival",
+   "text": [
+    "首実検のあと、廊下の暗がりで{rival}が{player}を呼び止めた。「……情けをかけられたとは思わぬ。だが、借りは返す」",
+    "{player}は侍に取り立てられた。馬廻りに一人、借りのある者ができた。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 8
+    },
+    {
+     "fame": 3
+    },
+    {
+     "flag": "sg_r3_rival_owes"
+    },
+    {
+     "unflag": "sg_r3_witness"
+    },
+    {
+     "unflag": "sg_r3_proof"
+    },
+    {
+     "unflag": "sg_r3_paid"
+    },
+    {
+     "note": "首実検で手柄を認められ、侍となった。{rival}の顔を立てて貸しを作った。"
+    }
+   ],
+   "end": "貸しの首"
+  },
+  "fail_yield": {
+   "speaker": "minister",
+   "text": [
+    "首は{rival}の手柄となった。座を下がったあとで、{minister}が言った。「争わぬのも一つの器量だ。だが侍は、己の手柄を己で守らねばならぬ。務めを重ねよ。機はまた来る」"
+   ],
+   "effects": [
+    {
+     "favor": -5
+    },
+    {
+     "flag": "sg_r3_rival_owes"
+    },
+    {
+     "unflag": "sg_r3_witness"
+    },
+    {
+     "unflag": "sg_r3_proof"
+    },
+    {
+     "unflag": "sg_r3_paid"
+    },
+    {
+     "note": "首を{rival}に譲った。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "首を譲る"
+  },
+  "fail_lost": {
+   "speaker": "minister",
+   "text": [
+    "首は{rival}のものとされた。{minister}は「証の無い言い分は、言い分にすぎぬ」とだけ言った。組頭として務めを重ね、覚えを取り戻せば、また首実検の場に立てるだろう。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sg_r3_witness"
+    },
+    {
+     "unflag": "sg_r3_proof"
+    },
+    {
+     "unflag": "sg_r3_paid"
+    },
+    {
+     "note": "首実検で手柄を奪われた。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "奪われた首"
+  }
+ }
+}

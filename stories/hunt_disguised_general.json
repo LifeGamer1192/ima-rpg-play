@@ -1,0 +1,235 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "hunt_disguised_general",
+ "kind": "random",
+ "where": "office",
+ "weight": 1,
+ "hook": "山の盗賊を討ってほしい。報酬ははずむ",
+ "title": "盗賊討伐",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "local": {
+   "realm": "here"
+  },
+  "spy": {
+   "realm": "enemy:local"
+  },
+  "general": {
+   "person": "general:spy"
+  },
+  "lair": {
+   "place": "near:here"
+  },
+  "target": {
+   "place": "border:spy"
+  },
+  "court": {
+   "place": "capital:local"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "「{lair}の峠に、妙な{bandit}が出る。荷は奪わず、道と川の深さばかり尋ねるそうだ」"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "lair"
+    }
+   ]
+  },
+  "lair": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "{lair}の峠で妙な{bandit}を探す",
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "峠の小屋で、ぼろを着た大柄な男が地図に墨を入れていた。手下たちの立ち方は兵のものだ。男が顔を上げる。その目に、見覚えのある者もいるだろう。{spy}の将、{general}である。",
+    "「{bandit}退治に来たか。あいにく、わしは{bandit}ではない」{general}は筆を置いた。"
+   ],
+   "choices": [
+    {
+     "label": "「何をしに来た」と問う",
+     "next": "talk"
+    },
+    {
+     "label": "斬りかかる",
+     "fight": {
+      "foes": "person",
+      "who": "general",
+      "n": 3,
+      "level": 0,
+      "free": true,
+      "confirm": "相手は{spy}の名だたる将{general}と、その近習たちだ。いまのあなたの腕では、まず歯が立たない。それでも戦うか？（途中で逃げれば追ってはこない）",
+      "cancel": "lair",
+      "win": "beat_general",
+      "lose": "lost",
+      "fled": "fled"
+     }
+    }
+   ]
+  },
+  "talk": {
+   "speaker": "general",
+   "text": [
+    "{general}は少し考えてから言った。「どうせ、じき知れることだ。{spy}は{target}を攻める。わしはその道を見に来た。それと、この先の宿で、{local}に入り込ませた密偵と会う」",
+    "「見逃してくれるなら、黙って峠を下りる。{office}には、{bandit}は逃げたと言えばよい」"
+   ],
+   "choices": [
+    {
+     "label": "黙って見逃す",
+     "effects": [
+      {
+       "flag": "knows_campaign"
+      }
+     ],
+     "next": "let_go"
+    },
+    {
+     "label": "見逃すふりをして、{court}の宮廷に知らせる",
+     "if": {
+      "patron": true
+     },
+     "next": "warn"
+    },
+    {
+     "label": "密偵を捕らえる",
+     "check": {
+      "skill": "stealth",
+      "dc": 55,
+      "win": "caught_spy",
+      "lose": "missed_spy"
+     }
+    },
+    {
+     "label": "やはり斬りかかる",
+     "fight": {
+      "foes": "person",
+      "who": "general",
+      "n": 3,
+      "level": 0,
+      "free": true,
+      "confirm": "{general}は{spy}きっての将だ。勝てる見込みはほとんどない。それでも戦うか？（途中で逃げれば追ってはこない）",
+      "cancel": "talk",
+      "win": "beat_general",
+      "lose": "lost",
+      "fled": "fled"
+     }
+    }
+   ]
+  },
+  "let_go": {
+   "speaker": "general",
+   "text": [
+    "「話の分かる者だ。いつか戦場で会おう」{general}たちは夜のうちに峠を越えていった。{clerk}には「逃げられた」と告げた。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "note": "{spy}が{target}を攻めるらしいと聞いた。"
+    }
+   ],
+   "end": "将を見逃した"
+  },
+  "warn": {
+   "at": {
+    "place": "court",
+    "building": "palace"
+   },
+   "goal": "{court}の宮廷に、{spy}が{target}を攻めると知らせる",
+   "art": "court",
+   "text": [
+    "宮廷の重臣は、地図に墨を入れていた将の名を聞くと顔色を変えた。「{general}が自ら……。{target}の守りを固めよ」"
+   ],
+   "effects": [
+    {
+     "favor": 15
+    },
+    {
+     "fame": 5
+    },
+    {
+     "money": 200
+    }
+   ],
+   "end": "敵の企てを知らせた"
+  },
+  "caught_spy": {
+   "text": [
+    "宿の裏で、{general}と会うはずだった男を押さえた。懐の密書には{local}の砦の配置が記されていた。{office}は大いに喜んだ。"
+   ],
+   "effects": [
+    {
+     "favor": 12
+    },
+    {
+     "fame": 6
+    },
+    {
+     "money": 250
+    },
+    {
+     "xp": "stealth",
+     "n": 6
+    }
+   ],
+   "end": "密偵を捕らえた"
+  },
+  "missed_spy": {
+   "text": [
+    "宿に着いたときには、密偵らしい男はもう消えていた。"
+   ],
+   "end": "密偵を取り逃がした"
+  },
+  "beat_general": {
+   "text": [
+    "信じられないことに、{general}が膝をついた。「見事だ……」近習が将を担いで山へ消えた。あなたの名は、たちまち近隣に知れ渡った。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "favor": 10
+    },
+    {
+     "money": 300
+    }
+   ],
+   "end": "名将を退けた"
+  },
+  "fled": {
+   "speaker": "general",
+   "text": [
+    "背を向けて走ると、{general}は追ってこなかった。笑い声だけが峠に響いた。「命を大事にせよ」"
+   ],
+   "end": "名将から逃げた"
+  },
+  "lost": {
+   "speaker": "general",
+   "text": [
+    "{general}の一撃は、{bandit}のそれとは比べものにならなかった。気がつくと、峠には誰もいなかった。殺されなかったのは、情けか、侮りか。"
+   ],
+   "end": "名将に敗れた"
+  }
+ }
+}

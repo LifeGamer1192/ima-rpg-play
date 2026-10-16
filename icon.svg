@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#2b241b"/>
+  <rect x="76" y="76" width="360" height="360" rx="28" fill="#9b3b2a"/>
+  <rect x="96" y="96" width="320" height="320" rx="16" fill="none" stroke="#efe4cc" stroke-width="10"/>
+  <text x="256" y="330" font-size="230" text-anchor="middle" fill="#efe4cc" font-family="'Shippori Mincho','Hiragino Mincho ProN','Yu Mincho','Noto Serif CJK JP',serif" font-weight="700">今</text>
+</svg>

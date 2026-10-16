@@ -1,0 +1,1125 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_jingke",
+ "kind": "history",
+ "title": "易水寒し",
+ "era": "shunju",
+ "event": "jing_ke",
+ "lead": 10,
+ "before": [
+  "s1",
+  "s2",
+  "s3",
+  "s4",
+  "s5",
+  "s5stop_ng",
+  "s6",
+  "s7in",
+  "s7in_ok",
+  "s7in_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "ji": {
+   "scnPlace": "ji_yan"
+  },
+  "yi": {
+   "scnPlace": "xiadu"
+  },
+  "xy": {
+   "scnPlace": "xianyang"
+  },
+  "yan": {
+   "scnRealm": "yan"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:qin"
+  },
+  "jingke": {
+   "scnPerson": "荊軻"
+  },
+  "gao": {
+   "scnPerson": "高漸離"
+  },
+  "dan": {
+   "scnPerson": "太子丹"
+  },
+  "fan": {
+   "scnPerson": "樊於期"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "ji",
+    "building": "market"
+   },
+   "goal": "{ji}の市の酒肆をのぞく",
+   "speaker": "jingke",
+   "art": "tale",
+   "text": [
+    "{ji}の市の酒肆。筑を打つ男と、それに合わせて歌う男がいた。歌い終わると二人は肩を抱いて泣き、まわりの客は目をそらした。",
+    "筑の男は{gao}、歌う男は衛から流れてきた{jingke}という。{jingke}が杯を突き出した。「見ない顔だな。泣く男を笑うか、一緒に飲むか」"
+   ],
+   "choices": [
+    {
+     "label": "筑に合わせて古い歌を返す",
+     "check": {
+      "skill": "letters",
+      "dc": 23,
+      "win": "s1ok",
+      "lose": "s1meh"
+     }
+    },
+    {
+     "label": "「泣くほどの憂いとは何だ」と問う",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s1ok",
+      "lose": "s1meh"
+     }
+    },
+    {
+     "label": "黙って酒代を払い、隣に座る（30）",
+     "if": {
+      "money": 30
+     },
+     "effects": [
+      {
+       "money": -30
+      }
+     ],
+     "next": "s1ok"
+    }
+   ]
+  },
+  "s1ok": {
+   "speaker": "jingke",
+   "text": [
+    "{jingke}は大笑いして、{player}の杯になみなみと注いだ。{gao}が筑をもう一度鳴らす。夜が明けるまで、三人は飲んだ。",
+    "別れ際、{jingke}は急に声を落とした。「太子が人を探している。剣の立つ者、口の固い者をな。明日、宮へ来い」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jk_friend"
+    },
+    {
+     "note": "{ji}の市で{jingke}、{gao}と知り合った。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s1meh": {
+   "speaker": "jingke",
+   "text": [
+    "{jingke}は肩をすくめ、また{gao}の筑に合わせて歌い出した。帰りぎわ、店の主がささやいた。「太子さまが、ああいう男たちを集めていなさる。宮へ行けば仕事があるかもしれん」"
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "ji",
+    "building": "palace"
+   },
+   "goal": "{ji}の宮城で{dan}に会う",
+   "speaker": "dan",
+   "art": "court",
+   "text": [
+    "{dan}はかつて秦に人質として送られ、幼なじみであったはずの秦王に冷たくあしらわれて、逃げ帰った人である。",
+    "「韓は亡び、趙も亡んだ。秦の兵はもう易水に迫っている。燕が生き延びる道は一つしかない。秦王の懐に入る者を送るのだ」",
+    "「秦王が欲しがる土産が二つある。督亢の地図と、秦から逃げてきた{fan}将軍の首だ。だが将軍はわしを頼ってきた。わしには殺せぬ」"
+   ],
+   "choices": [
+    {
+     "label": "「{fan}将軍の身を、秦の刺客から守りましょう」",
+     "effects": [
+      {
+       "note": "{dan}の頼みで、{fan}の隠れ家を守ることになった。"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "「そのような企てには加われませぬ」と辞する",
+     "next": "end_refuse"
+    }
+   ]
+  },
+  "end_refuse": {
+   "speaker": "dan",
+   "text": [
+    "{dan}は引き止めなかった。「それもよい。ただ、今日聞いたことは、墓まで持っていってくれ」{player}は{ji}の宮を出た。冷たい風が北から吹いていた。"
+   ],
+   "effects": [
+    {
+     "note": "{dan}の企てには加わらなかった。"
+    }
+   ],
+   "end": "易水を知らず"
+  },
+  "s3": {
+   "at": {
+    "place": "ji",
+    "building": "house"
+   },
+   "goal": "{ji}の外れの隠れ家に{fan}を訪ねる",
+   "speaker": "fan",
+   "art": "war",
+   "text": [
+    "{fan}は痩せた大男だった。「秦王はわしの父母と一族を皆殺しにし、わしの首に金千斤と一万戸の邑を懸けた。毎晩、それを思うと骨の髄が痛む」",
+    "その夜、塀の外に足音がした。懸けられた金を狙って、秦の刺客がやって来たのだ。"
+   ],
+   "choices": [
+    {
+     "label": "戸口に立ちはだかる",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "s3win",
+      "lose": "s3lose"
+     }
+    },
+    {
+     "label": "灯を消し、闇に紛れて刺客の背後を取る",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s3win",
+      "lose": "s3lose"
+     }
+    }
+   ]
+  },
+  "s3win": {
+   "text": [
+    "刺客の一人は倒れ、一人は闇へ逃げた。{fan}は{player}の手を両手で握った。「この命、拾ってもらったな」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "next": "s3fan"
+  },
+  "s3lose": {
+   "text": [
+    "刺客は{player}を斬りつけて逃げた。{fan}は無事だったが、{player}の腕からは血が止まらなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3fan"
+  },
+  "s3fan": {
+   "speaker": "jingke",
+   "text": [
+    "翌朝、{jingke}が隠れ家に来た。「将軍の首を秦王に献じれば、王は喜んでわたしに会う。そのとき左手で袖をつかみ、右手で胸を刺す。将軍の仇は討たれ、燕の恥はそそがれる」",
+    "{fan}は片肌を脱いで、腕を握りしめた。「これこそ、わしが日夜歯ぎしりして心を腐らせてきたことだ。いま教えを聞いた」将軍は剣を取った。"
+   ],
+   "choices": [
+    {
+     "label": "止めようと手を伸ばす",
+     "next": "s3end"
+    },
+    {
+     "label": "目をそらさずに見届ける",
+     "effects": [
+      {
+       "flag": "h_jk_witness"
+      }
+     ],
+     "next": "s3end"
+    }
+   ]
+  },
+  "s3end": {
+   "text": [
+    "間に合わなかった。いや、間に合わせてはいけなかったのだろう。{fan}の首は箱に収められ、封をされた。{dan}は駆けつけて、屍に伏して泣いた。"
+   ],
+   "effects": [
+    {
+     "note": "{fan}は自ら首をはね、秦王への土産とした。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "ji",
+    "building": "smithy"
+   },
+   "goal": "{ji}の鍛冶場で匕首と地図の支度を手伝う",
+   "speaker": "jingke",
+   "art": "trade",
+   "text": [
+    "{dan}は趙の徐夫人の匕首を百金で買い、毒を焼き入れさせた。人で試すと、糸ほどの血が出ただけで、死なぬ者はなかったという。",
+    "残るは督亢の地図である。巻物の芯に匕首を巻き込み、秦王の前で開けば、最後に刃が現れる。「地図が粗ければ、王は身を乗り出さぬ」と{jingke}は言った。"
+   ],
+   "choices": [
+    {
+     "label": "督亢の地図を細かく描き上げる",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "s4map",
+      "lose": "s4plain"
+     }
+    },
+    {
+     "label": "毒の効き目と、刃の重さを確かめる",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "s4poison",
+      "lose": "s4plain"
+     }
+    },
+    {
+     "label": "巻物の軸を削り、刃が自然に転がり出るよう仕掛ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s4map",
+      "lose": "s4plain"
+     }
+    }
+   ]
+  },
+  "s4map": {
+   "speaker": "jingke",
+   "text": [
+    "巻物を広げると、督亢の田と川がありありと現れ、最後にかちりと匕首が手に落ちた。{jingke}は唸った。「これなら秦王も身を乗り出す」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jk_map"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{jingke}の地図の巻物を作った。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4poison": {
+   "speaker": "jingke",
+   "text": [
+    "刃の毒は確かだった。かすり傷でも、獣は半刻ともたなかった。{jingke}は匕首を灯にかざした。「あとは、届くかどうかだけだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jk_map"
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "note": "{jingke}の匕首の毒を確かめた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4plain": {
+   "text": [
+    "出来は悪くない。だが、何かが足りない気がした。{jingke}は黙って巻物を受け取った。"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "ji",
+    "building": "palace"
+   },
+   "goal": "{ji}の宮城で{jingke}の出立を待つ（二十日ほど）",
+   "wait": {
+    "days": 20
+   },
+   "speaker": "dan",
+   "art": "court",
+   "text": [
+    "{jingke}は出立を延ばしていた。遠方の友を待ち、ともに行くつもりだという。{dan}は焦れた。「荊卿、心変わりされたか。ならば先に秦舞陽を遣わそう」",
+    "秦舞陽は十三で人を殺した若者で、人は目を合わせようとしない。{jingke}は怒鳴った。「何を急かれる。匕首一本で、測り知れぬ強秦に入るのですぞ。……よろしい。行きましょう」"
+   ],
+   "choices": [
+    {
+     "label": "「私も供に加えてください」と願い出る",
+     "if": {
+      "flag": "h_jk_friend"
+     },
+     "effects": [
+      {
+       "flag": "h_jk_go"
+      }
+     ],
+     "next": "s6"
+    },
+    {
+     "label": "秦舞陽の度胸を確かめる",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s5warn",
+      "lose": "s6"
+     }
+    },
+    {
+     "label": "何も言わず、出立を見送ることにする",
+     "next": "s6"
+    },
+    {
+     "label": "「行かれるな。匕首一本で天下は変わらぬ」と{jingke}を思いとどまらせる",
+     "turn": true,
+     "if": {
+      "flag": "h_jk_friend"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s5stop",
+      "lose": "s5stop_ng"
+     }
+    },
+    {
+     "label": "秦の間者に、燕の使いの真の目的を売る",
+     "turn": true,
+     "next": "s5betray"
+    }
+   ]
+  },
+  "s5stop": {
+   "speaker": "jingke",
+   "art": "tale",
+   "text": [
+    "{jingke}は長いあいだ杯を見つめていた。「太子は、わしが行かねば秦舞陽を一人で遣わすだろう。あの若者は、階の下で震えて死ぬ」",
+    "「ならば誰も行かせぬよう、太子に申し上げましょう」{player}が言うと、{jingke}は初めて声を上げて笑った。「刺客を止める刺客の友か。……よかろう。今夜は、{gao}の筑を聴いて寝る」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jk_stopped"
+    },
+    {
+     "rep": "yan",
+     "n": -10
+    },
+    {
+     "note": "{jingke}に易水を渡らせなかった。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5stop_ng": {
+   "speaker": "jingke",
+   "text": [
+    "「もう遅い」{jingke}は首を振った。「樊将軍の首は、もう箱の中だ。あの人の死を無駄にはできぬ」"
+   ],
+   "next": "s6"
+  },
+  "s5betray": {
+   "speaker": "秦の商人",
+   "art": "backroom",
+   "text": [
+    "市の裏の酒肆で、秦の商人は{player}の話を黙って聞き、銭袋を卓に置いた。「督亢の地図の箱に、匕首か。確かに伝えよう」",
+    "店を出ると、易水の方角から筑の音が聞こえた気がした。"
+   ],
+   "effects": [
+    {
+     "flag": "h_jk_betray"
+    },
+    {
+     "money": 500
+    },
+    {
+     "rep": "qin",
+     "n": 15
+    },
+    {
+     "rep": "yan",
+     "n": -30
+    },
+    {
+     "note": "燕の使いの企てを秦に売った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5warn": {
+   "text": [
+    "{player}が秦の宮殿の作法を話して聞かせると、秦舞陽の頬がかすかにこわばった。人を殺すのと、王の前に立つのは違う。",
+    "{player}はそっと{jingke}に告げた。{jingke}は苦く笑った。「分かっている。だが、待つ時はもう尽きた」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jk_warned"
+    }
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "yi"
+   },
+   "goal": "{yi}の易水のほとりで{jingke}を見送る",
+   "speaker": "jingke",
+   "art": "tale",
+   "text": [
+    "易水のほとり。{dan}と事情を知る客は、みな白い衣冠で見送りに来た。{gao}が筑を打ち、{jingke}が和して歌う。",
+    "「風蕭蕭として易水寒し、壮士一たび去りて復た還らず」",
+    "調べが変わると、見送る者はみな目を怒らせ、髪は逆立って冠を突き上げた。{jingke}は車に乗り、ついに一度も振り返らなかった。"
+   ],
+   "choices": [
+    {
+     "label": "供として車の後に続き、{xy}へ向かう",
+     "if": {
+      "flag": "h_jk_go"
+     },
+     "effects": [
+      {
+       "note": "{jingke}の供として{xy}へ向かった。"
+      }
+     ],
+     "next": "s7in"
+    },
+    {
+     "label": "一行に遅れて、ひそかに{xy}へ入る",
+     "effects": [
+      {
+       "note": "{jingke}の後を追って{xy}へ向かった。"
+      }
+     ],
+     "next": "xgo"
+    },
+    {
+     "label": "{gao}とともに{ji}へ戻り、報せを待つ",
+     "effects": [
+      {
+       "note": "{ji}で{jingke}の報せを待つことにした。"
+      }
+     ],
+     "next": "jgo"
+    }
+   ]
+  },
+  "s7in": {
+   "at": {
+    "place": "xy",
+    "building": "inn"
+   },
+   "goal": "{xy}の客舎で謁見の日を待つ",
+   "speaker": "jingke",
+   "art": "inn",
+   "text": [
+    "謁見の日が決まった。九賓の礼で迎えるという。秦舞陽は客舎の隅で、夜ごと寝返りを打っている。",
+    "{jingke}は{player}を呼んだ。「階の上まで地図の箱を運ぶのは副使の役だ。秦舞陽が震えれば、すべては階の下で終わる」"
+   ],
+   "choices": [
+    {
+     "label": "箱を運ぶのは秦舞陽に任せ、宮門の外で待つ",
+     "next": "xgo"
+    },
+    {
+     "label": "秦舞陽に代わって副使となり、宮の柱と王の座の間合いを頭に叩き込む",
+     "turn": true,
+     "if": {
+      "flag": "h_jk_map"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 42,
+      "win": "s7in_ok",
+      "lose": "s7in_ng"
+     }
+    }
+   ]
+  },
+  "s7in_ok": {
+   "speaker": "jingke",
+   "text": [
+    "三晩かけて、{player}は秦の宮の作法を、柱の数を、王の座から東の階までの歩数を、すべて体に入れた。毒は刃の溝に、乾くまで塗り重ねた。",
+    "「王が袖を引きちぎって逃げたら、柱の陰で待て」{jingke}は低く言った。「わしの刃が届かずとも、おぬしの刃は届く」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jk_success"
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "副使として{jingke}と共に秦王の前に立つことになった。"
+    }
+   ],
+   "next": "xgo"
+  },
+  "s7in_ng": {
+   "text": [
+    "秦の謁見の作法は細かく、柱の数を数える間もなく、{player}は副使の役を外された。秦舞陽が青い顔で箱を抱えている。"
+   ],
+   "next": "xgo"
+  },
+  "xgo": {
+   "at": {
+    "place": "xy"
+   },
+   "goal": "{xy}で{jingke}の謁見を待つ",
+   "wait": {
+    "settled": "jing_ke"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "jk_success"
+     },
+     "next": "x_success"
+    },
+    {
+     "next": "s7x"
+    }
+   ]
+  },
+  "x_success": {
+   "speaker": "jingke",
+   "art": "court",
+   "text": [
+    "地図が尽きて匕首が現れた。{jingke}の刃は袖を裂いただけだった。{king}は柱をめぐって逃げる。その先の柱の陰に、{player}がいた。",
+    "毒を塗った刃が、王の脇腹に浅く入った。浅かった。だが王は夜を越せなかった。",
+    "{jingke}は殿上で斬られた。柱にもたれて笑い、「事は成った」と言ったという。宮門が閉ざされていく。燕の使いの供を捕らえよ、という声がする。"
+   ],
+   "effects": [
+    {
+     "fame": 15
+    },
+    {
+     "wanted": "qin",
+     "n": 100
+    },
+    {
+     "note": "{xy}の宮で、{king}を刺した。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "衛兵を斬り抜けて逃れる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s8out",
+      "lose": "s8caught"
+     }
+    },
+    {
+     "label": "人波に紛れて門を抜ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "s8out",
+      "lose": "s8caught"
+     }
+    }
+   ]
+  },
+  "s7x": {
+   "at": {
+    "place": "xy"
+   },
+   "goal": "{xy}で{jingke}の謁見を待つ",
+   "wait": {
+    "fired": "jing_ke"
+   },
+   "speaker": "jingke",
+   "art": "court",
+   "text": [
+    "{xy}の宮で、燕の使いは九賓の礼をもって迎えられた。{player}は宮門の外で待った。半刻後、宮の中から叫び声が上がった。",
+    "逃げ出してきた宦者が口々に語った。秦舞陽は階の下で色を失って震えた。{jingke}は笑って振り返り、地図を開いた。地図が尽きて、匕首が現れた。左手で王の袖をつかみ、右手で突いたが、刃は届かなかった。",
+    "{king}は袖を引きちぎって逃げ、柱をめぐった。「王よ、剣を背に負われよ」の声に王は長剣を抜き、{jingke}の左の股を断った。投げつけた匕首は柱に突き立った。{jingke}は柱にもたれて笑い、両足を投げ出して言ったという。「事が成らなかったのは、生きたまま脅して約を取り、太子に報いようとしたからだ」",
+    "宮門が閉ざされていく。燕の使いの供を捕らえよ、という声がする。"
+   ],
+   "choices": [
+    {
+     "label": "衛兵を斬り抜けて逃れる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s8out",
+      "lose": "s8caught"
+     }
+    },
+    {
+     "label": "人波に紛れて門を抜ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s8out",
+      "lose": "s8caught"
+     }
+    },
+    {
+     "label": "「燕の商人にすぎぬ」と役人に言い繕う",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s8out",
+      "lose": "s8caught"
+     }
+    }
+   ]
+  },
+  "s8out": {
+   "text": [
+    "{xy}を抜けたとき、背後で鐘が鳴りやまなかった。秦王は激怒し、王翦に燕を討てと命じたという。{player}の胸には、{jingke}の最期の言葉だけが残っていた。"
+   ],
+   "effects": [
+    {
+     "wanted": "qin",
+     "n": 15
+    }
+   ],
+   "choices": [
+    {
+     "label": "{ji}へ戻り、{gao}に最期の言葉を伝える",
+     "next": "end_words"
+    },
+    {
+     "label": "あの巻物を作ったのは自分だと胸に刻み、名を伏せて生きる",
+     "if": {
+      "flag": "h_jk_map"
+     },
+     "next": "end_map"
+    }
+   ]
+  },
+  "s8caught": {
+   "text": [
+    "槍の柄で打ち倒され、牢に放り込まれた。燕の使いの供は皆、首を刎ねられると聞いた。三日目の夜、牢番の酒に紛れて、{player}はようやく壁を抜けた。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "wanted": "qin",
+     "n": 40
+    }
+   ],
+   "next": "end_caught"
+  },
+  "end_words": {
+   "speaker": "gao",
+   "text": [
+    "{gao}は{jingke}の最期の言葉を黙って聞き、筑を一度だけ鳴らした。音は途中で割れた。",
+    "翌年、王翦は易水の西で燕を破り、{ji}は落ちた。{gao}は名を変えて姿を消した。のちに彼が筑に鉛を仕込んだという話は、また別の物語である。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "yan",
+     "n": 15
+    },
+    {
+     "note": "{jingke}は秦王を刺し損ねて斬られた。その最期の言葉を{gao}に伝えた。"
+    }
+   ],
+   "end": "壮士の言葉を運ぶ"
+  },
+  "end_map": {
+   "text": [
+    "督亢の田と川を描いたあの巻物は、いまも秦の宮のどこかにあるのだろう。最後に刃が転がり出る、あの仕掛けとともに。",
+    "{player}は誰にも語らなかった。ただ、北風が易水を渡る季節になると、決まって酒を一杯、地にこぼした。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "yan",
+     "n": 10
+    },
+    {
+     "note": "{jingke}は秦王を刺し損ねて斬られた。あの巻物を作ったのは{player}だった。"
+    }
+   ],
+   "end": "図窮まりて"
+  },
+  "end_caught": {
+   "text": [
+    "{xy}を這うように逃れたとき、{jingke}の首はもう城門に晒されていた。秦では、{player}の人相書きが関ごとに貼られているという。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "note": "{jingke}は秦王を刺し損ねて斬られた。{player}は秦の牢を破って逃れた。"
+    }
+   ],
+   "end": "咸陽の牢を出る"
+  },
+  "jgo": {
+   "at": {
+    "place": "ji",
+    "building": "inn"
+   },
+   "goal": "{ji}の客舎で{jingke}の報せを待つ",
+   "wait": {
+    "settled": "jing_ke"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "jk_success"
+     },
+     "next": "j_success"
+    },
+    {
+     "next": "s7j"
+    }
+   ]
+  },
+  "j_success": {
+   "speaker": "gao",
+   "art": "tale",
+   "text": [
+    "報せは秋風より速く届いた。{jingke}は殿上で斬られた。だが、秦王もその夜のうちに死んだという。毒の刃が届いたのだ。",
+    "{gao}は筑を膝に置き、長いあいだ弦を鳴らさなかった。やがて一音だけ、高く打った。{ji}の町は喜びに沸いたが、西の空は暗い。王を殺された秦が、黙っているはずはない。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "note": "{jingke}の刃は届いた。秦王は死んだ。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "燕の兵に加わり、易水で秦を迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_fight",
+      "lose": "end_flee"
+     }
+    },
+    {
+     "label": "{gao}の筑を聴いて夜を明かす",
+     "next": "end_flee"
+    }
+   ]
+  },
+  "aftergo": {
+   "wait": {
+    "settled": "jing_ke"
+   },
+   "goal": "{jingke}の行く末を待つ",
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "jk_stopped"
+     },
+     "next": "stopped"
+    },
+    {
+     "if": {
+      "branch": "jk_betray"
+     },
+     "next": "betrayed"
+    },
+    {
+     "if": {
+      "branch": "jk_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "next": "jgo"
+    }
+   ]
+  },
+  "stopped": {
+   "at": {
+    "place": "ji"
+   },
+   "speaker": "jingke",
+   "art": "tale",
+   "text": [
+    "{jingke}は易水を渡らなかった。{dan}は激しく怒り、{player}を宮から追ったが、刺客は出なかった。",
+    "それでも秦の兵は来た。王翦の軍が易水を越えたと聞いた夜、{jingke}は剣を取って立ち上がった。「刺客としてではなく、燕の一人の兵として死ぬ。それなら悔いはない」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_jk_stopped"
+    },
+    {
+     "unflag": "h_jk_friend"
+    },
+    {
+     "note": "{jingke}は刺客にならず、一人の兵として秦を迎え撃った。"
+    }
+   ],
+   "end": "易水を渡らず"
+  },
+  "betrayed": {
+   "art": "tale",
+   "text": [
+    "燕の使いは、函谷関を越えたところで捕らえられた。督亢の地図の箱から匕首が出ると、秦の役人は笑ったという。{jingke}は咸陽の市で斬られた。",
+    "易水の歌を歌う者はいない。歌われるはずの歌は、歌われる前に終わった。"
+   ],
+   "effects": [
+    {
+     "fame": -6
+    },
+    {
+     "unflag": "h_jk_betray"
+    },
+    {
+     "note": "{jingke}の企ては秦に漏れ、咸陽に着く前に終わった。"
+    }
+   ],
+   "end": "歌われなかった歌"
+  },
+  "noking": {
+   "art": "tale",
+   "text": [
+    "狙うべき秦王は、もういなかった。{dan}は匕首を箱に戻させ、{jingke}は易水を渡らなかった。"
+   ],
+   "end": "刺す王なし"
+  },
+  "s7j": {
+   "at": {
+    "place": "ji",
+    "building": "inn"
+   },
+   "goal": "{ji}の客舎で{jingke}の報せを待つ",
+   "wait": {
+    "fired": "jing_ke"
+   },
+   "speaker": "gao",
+   "art": "tale",
+   "text": [
+    "報せは秋風より速く届いた。{jingke}は秦王を刺し損ね、柱のもとで斬られた。{dan}は宮に籠もり、誰にも会わない。",
+    "{gao}は筑を抱えたまま、ひとことも口をきかなかった。秦は激怒し、王翦の兵が易水を越えてくるという。"
+   ],
+   "choices": [
+    {
+     "label": "{gao}を連れて{ji}を離れ、身を隠させる",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "end_gao",
+      "lose": "end_flee"
+     }
+    },
+    {
+     "label": "燕の兵に加わり、易水で秦を迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_fight",
+      "lose": "end_flee"
+     }
+    },
+    {
+     "label": "何も言わずに立ち去る",
+     "next": "end_flee"
+    }
+   ]
+  },
+  "end_gao": {
+   "speaker": "gao",
+   "text": [
+    "雪の街道を南へ下り、宋子の町の酒屋に{gao}を雇い人として預けた。「筑は打つなよ」と言うと、{gao}はかすかに笑った。",
+    "のちに彼が筑の名手として秦の宮に召され、筑に鉛を仕込んだという話は、また別の物語である。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "yan",
+     "n": 10
+    },
+    {
+     "note": "{jingke}は秦王を刺し損ねて斬られた。{gao}を落ち延びさせた。"
+    }
+   ],
+   "end": "筑を隠す"
+  },
+  "end_fight": {
+   "text": [
+    "易水の西で、燕と代の兵は王翦の軍とぶつかった。{player}の隊は持ちこたえたが、全軍は崩れた。{ji}は落ち、燕王は遼東へ逃れた。",
+    "秦への申し開きのため、燕王は{dan}の首を斬って送ったという。易水の水は、あの日と同じように冷たかった。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "yan",
+     "n": 10
+    },
+    {
+     "note": "{jingke}は秦王を刺し損ねて斬られた。易水で秦と戦った。"
+    }
+   ],
+   "end": "易水の戦い"
+  },
+  "end_flee": {
+   "text": [
+    "{player}は{ji}を後にした。振り返ると、北の空が煙っていた。翌年、{ji}は秦の手に落ちた。"
+   ],
+   "effects": [
+    {
+     "note": "{jingke}は秦王を刺し損ねて斬られた。"
+    }
+   ],
+   "end": "壮士去りて"
+  },
+  "late": {
+   "text": [
+    "噂が届いた。燕の刺客{jingke}が、督亢の地図に匕首を隠して秦王に迫り、柱をめぐって逃げる王を刺し損ねて斬られたという。",
+    "易水のほとりで彼が歌った歌は、もう子どもたちまで口ずさんでいる。「風蕭蕭として易水寒し」"
+   ],
+   "effects": [
+    {
+     "note": "{jingke}が秦王を刺し損ねて斬られたと聞いた。"
+    }
+   ],
+   "end": "易水の噂"
+  }
+ },
+ "branches": [
+  {
+   "id": "jk_noking",
+   "event": "jing_ke",
+   "order": 4,
+   "why": "秦王政がすでに殺されていた",
+   "when": {
+    "slain": [
+     "秦王政"
+    ]
+   },
+   "then": "cancel",
+   "note": "狙うべき秦王はもういなかった。[[p:荊軻]]は易水を渡らなかった。"
+  },
+  {
+   "id": "jk_success",
+   "event": "jing_ke",
+   "order": 3,
+   "leave": true,
+   "why": "主人公が副使として秦王に刃を届けた",
+   "when": {
+    "flag": "h_jk_success"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:荊軻]]は地図に隠した匕首で秦王に迫った。王は柱をめぐって逃れたが、副使の刃が毒とともに届き、{r_qin}はその夜のうちに死んだ。荊軻は殿上で斬られた。天下を一つにするはずだった王はもういない。",
+    "do": [
+     [
+      "rulerDies",
+      "qin",
+      "assassination"
+     ],
+     [
+      "add",
+      "qin",
+      "stability",
+      -0.35
+     ],
+     [
+      "army",
+      "qin",
+      0.85
+     ],
+     [
+      "war",
+      "qin",
+      "yan"
+     ]
+    ],
+    "imp": 3,
+    "at": "xianyang"
+   },
+   "people": [
+    {
+     "kill": "荊軻",
+     "cause": "executed"
+    }
+   ]
+  },
+  {
+   "id": "jk_betray",
+   "event": "jing_ke",
+   "order": 2,
+   "why": "主人公が企てを秦に売った",
+   "when": {
+    "flag": "h_jk_betray"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "燕の使いの企ては秦に漏れていた。[[p:荊軻]]の一行は咸陽に着く前に捕らえられ、地図の箱から匕首が出た。荊軻は市で斬られ、{n_qin}は燕を討った。",
+    "do": [
+     [
+      "war",
+      "qin",
+      "yan"
+     ]
+    ],
+    "imp": 2,
+    "at": "xianyang"
+   },
+   "people": [
+    {
+     "kill": "荊軻",
+     "cause": "executed"
+    }
+   ]
+  },
+  {
+   "id": "jk_stopped",
+   "event": "jing_ke",
+   "order": 1,
+   "why": "主人公が荊軻を思いとどまらせた",
+   "when": {
+    "flag": "h_jk_stopped"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:荊軻]]は易水を渡らず、燕から刺客は出なかった。それでも{n_qin}は燕に兵を向けた。",
+    "do": [
+     [
+      "war",
+      "qin",
+      "yan"
+     ]
+    ],
+    "imp": 2,
+    "at": "xiadu"
+   }
+  }
+ ]
+}

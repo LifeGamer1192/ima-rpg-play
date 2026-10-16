@@ -1,0 +1,292 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_suigun",
+ "kind": "random",
+ "where": "road",
+ "hook": "海賊衆に舟と倅を取られました。帆別銭を払えなかったのです",
+ "title": "海賊衆の帆別銭",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "渡し舟の船頭"
+  },
+  "captain": {
+   "npc": "海賊衆の船大将",
+   "sex": "m"
+  },
+  "son": {
+   "npc": "船頭の倅",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "voyage",
+   "text": [
+    "浜沿いの道で、{client}が網を繕う手を止めて声をかけてきた。沖の小島に城を構える海賊衆が、この瀬戸を通る舟から帆別銭を取っている。今年は不漁で払えず、舟ごと倅の{son}を連れていかれたという。",
+    "「海賊と申しても、払えば瀬戸を守ってくれるお人たちです。けれど払えぬ者には容赦がない。舟がなければ、わしらは食っていけません」"
+   ],
+   "choices": [
+    {
+     "label": "帆別銭を立て替えて島へ渡る（150文）",
+     "if": {
+      "money": 150
+     },
+     "effects": [
+      {
+       "money": -150
+      },
+      {
+       "flag": "sg_suigun_paid"
+      }
+     ],
+     "next": "island"
+    },
+    {
+     "label": "島へ乗り込み、船大将と話をつける",
+     "next": "island"
+    },
+    {
+     "label": "夜陰に紛れて舟を取り返す",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "boat",
+      "lose": "caught"
+     }
+    }
+   ]
+  },
+  "boat": {
+   "art": "voyage",
+   "text": [
+    "月のない夜、小舟で島の入江に忍び込み、繋がれていた{client}の舟の綱を切った。だが{son}は、浜の柵の中の小屋に押し込められている。見張りは三人、焚き火のそばで酒を飲んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "見張りを倒して{son}を救い出す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "舟だけ持ち帰り、{son}は談判で取り戻す",
+     "next": "island"
+    }
+   ]
+  },
+  "caught": {
+   "speaker": "captain",
+   "text": [
+    "松明に囲まれ、浜に引き据えられた。船大将の{captain}が、日焼けした顔で見下ろしてくる。「夜中に人の浜を嗅ぎ回るとは、肝の据わった陸者だ。……面白い、話くらいは聞いてやろう」"
+   ],
+   "next": "island"
+  },
+  "island": {
+   "speaker": "captain",
+   "art": "voyage",
+   "text": [
+    "島の城の広間には、櫓や銛が壁一面に掛けてあった。{captain}は大杯の酒を干して言った。",
+    "「この瀬戸は我らの海だ。帆別銭を払う舟は守る。払わぬ舟は通さぬ。それが掟よ。掟を曲げろと言うなら、それに見合うものを見せてもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "帆別銭を差し出す",
+     "if": {
+      "flag": "sg_suigun_paid"
+     },
+     "next": "end_paid"
+    },
+    {
+     "label": "「船頭が干上がれば、来年は誰も払えぬ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "respect",
+      "lose": "test"
+     }
+    },
+    {
+     "label": "「腕で示せと言うなら、受けて立つ」",
+     "next": "test"
+    }
+   ]
+  },
+  "test": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "{captain}が顎をしゃくると、銛を持った大男が進み出た。「こいつに勝てば、倅も舟も返してやる。負ければお前も櫓を漕いでもらう」"
+   ],
+   "choices": [
+    {
+     "label": "大男と立ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "respect",
+      "lose": "end_thrown"
+     }
+    }
+   ]
+  },
+  "respect": {
+   "speaker": "captain",
+   "text": [
+    "{captain}は膝を打って笑った。「よかろう。倅も舟も返す。それと、これを持っていけ」差し出されたのは、家紋を染め抜いた小旗だった。",
+    "「我らの過所旗だ。これを舳先に立てた舟は、この海のどの浦でも襲われぬ。……あるいは、お主ほどの者なら、我らの客分として迎えてもよいが」"
+   ],
+   "choices": [
+    {
+     "label": "過所旗を{client}に渡させる",
+     "next": "end_flag"
+    },
+    {
+     "label": "海賊衆の客分となって、しばらく船に乗る",
+     "next": "end_guest"
+    }
+   ]
+  },
+  "end_paid": {
+   "speaker": "client",
+   "text": [
+    "{captain}は銭を数え、あっさりと{son}と舟を返した。「払う者には、我らは仏よ」",
+    "{client}は倅を抱きしめ、何度も頭を下げた。「立て替えていただいた銭は、魚で必ずお返しします」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_suigun_paid"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 2
+    },
+    {
+     "item": "rations",
+     "n": 3
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "払われた帆別銭"
+  },
+  "end_flag": {
+   "speaker": "client",
+   "text": [
+    "過所旗を舳先に立てた{client}の舟は、それから一度も止められることがなかった。浦の漁師たちが、旗を一目見ようと集まってくる。",
+    "「この旗は、村の宝にいたします」{client}は、とれた鯛を籠いっぱいに持ってきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_suigun_paid"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "海賊衆の船大将{captain}から過所旗を得た。"
+    }
+   ],
+   "end": "過所旗"
+  },
+  "end_guest": {
+   "speaker": "captain",
+   "text": [
+    "ひと月、海賊衆の船に乗った。帆別銭を取り立て、払わぬ商船を追い、嵐の夜には櫓を漕いだ。{captain}は別れ際に、取り分の銭をどさりと渡した。",
+    "「陸が嫌になったら、いつでも戻ってこい」浜では、海賊の仲間と噂されるようになった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_suigun_paid"
+    },
+    {
+     "money": 350
+    },
+    {
+     "fame": 3
+    },
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "pass": 43200
+    },
+    {
+     "note": "海賊衆の客分として船に乗った。"
+    }
+   ],
+   "end": "海の客分"
+  },
+  "end_rescued": {
+   "speaker": "son",
+   "text": [
+    "{son}を連れて入江を漕ぎ出すと、背後で法螺貝が鳴った。夜明けまで漕ぎ続け、ようやく浜にたどり着いた。",
+    "{client}は泣いて喜んだが、海賊衆の恨みを買ったことは間違いない。当分、この瀬戸を舟で渡るのはやめたほうがいいだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_suigun_paid"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "海賊衆の島から船頭の倅を救い出した。"
+    }
+   ],
+   "end": "夜の入江"
+  },
+  "end_thrown": {
+   "speaker": "captain",
+   "text": [
+    "大男の銛の柄で打ち倒された。気がつくと、浜に放り出されていた。{captain}の笑い声が、波の向こうから聞こえた気がした。{son}は、まだ島にいる。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_suigun_paid"
+    },
+    {
+     "hp": -20
+    }
+   ],
+   "end": "浜に捨てられて"
+  }
+ }
+}

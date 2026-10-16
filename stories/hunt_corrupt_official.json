@@ -1,0 +1,211 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "hunt_corrupt_official",
+ "kind": "random",
+ "where": "office",
+ "weight": 1,
+ "hook": "山の盗賊を討ってほしい。報酬ははずむ",
+ "title": "盗賊討伐",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  },
+  "official": {
+   "npc": "倉の役人",
+   "sex": "m"
+  },
+  "lair": {
+   "place": "near:here"
+  },
+  "court": {
+   "place": "capital:realm"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は声をひそめた。「{lair}の街道で、年貢の荷ばかり狙う{bandit}がいる。不思議と、役所の荷の道筋を知っている」"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "lair"
+    }
+   ]
+  },
+  "lair": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "{lair}の街道で{bandit}を待ち伏せる",
+   "art": "road",
+   "text": [
+    "夜明け前、覆面の一団が年貢の荷車を襲った。だが{bandit}にしては足並みが揃いすぎている。腰の剣も、官給の拵えだ。"
+   ],
+   "choices": [
+    {
+     "label": "斬りかかる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "proof",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "あとをつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "follow",
+      "lose": "lair_seen"
+     }
+    }
+   ]
+  },
+  "lair_seen": {
+   "text": [
+    "小枝を踏んだ音に、覆面の男が振り向いた。「見られたぞ、消せ！」"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "proof",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "follow": {
+   "text": [
+    "覆面の一団は荷を{here}の裏手の倉へ運び込んだ。覆面を外した男の顔に見覚えがある。倉の役人、{official}だ。帳面と、荷の割符が棚に並んでいる。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 4
+    }
+   ],
+   "next": "proof"
+  },
+  "proof": {
+   "art": "backroom",
+   "text": [
+    "倒れた男の懐から、年貢の割符と{official}の印のある帳面が出てきた。{bandit}は、倉の役人の手下だったのだ。",
+    "{official}の使いが来て、銀の包みを差し出した。「見なかったことにしてくれれば、これを」"
+   ],
+   "choices": [
+    {
+     "label": "帳面を{clerk}に届ける",
+     "next": "report"
+    },
+    {
+     "label": "銭を受け取って口をつぐむ",
+     "effects": [
+      {
+       "money": 400
+      },
+      {
+       "wanted": "realm",
+       "n": 10
+      },
+      {
+       "note": "倉の役人の悪事に目をつぶった。"
+      }
+     ],
+     "next": "bribed"
+    },
+    {
+     "label": "都の{realm}の宮廷へ直に訴える",
+     "next": "appeal"
+    }
+   ]
+  },
+  "report": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "帳面を{here}の{office}へ届ける",
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は帳面をめくるうちに青ざめた。「{official}どのは、上の方とつながっている……」それでも彼は帳面を受け取り、上役に回すと約束した。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": -4
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    }
+   ],
+   "end": "帳面は上へ回った"
+  },
+  "bribed": {
+   "text": [
+    "銀は重かった。年貢の荷はこれからも消え続けるだろう。"
+   ],
+   "end": "口止め料"
+  },
+  "appeal": {
+   "at": {
+    "place": "court",
+    "building": "palace"
+   },
+   "goal": "{court}の宮廷で{official}の悪事を訴える",
+   "art": "court",
+   "text": [
+    "{court}の宮廷で、帳面と割符を差し出した。重臣の一人が目を細め、すぐに役人を{here}へ走らせた。{official}は捕らえられ、倉の年貢は戻った。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 6
+    }
+   ],
+   "end": "悪い役人は裁かれた"
+  },
+  "lost": {
+   "text": [
+    "手練れの一団だった。{here}へ逃げ戻ると、{clerk}は「やはり、ただの{bandit}ではなかったか」とつぶやいた。"
+   ],
+   "end": "討ち損じ"
+  }
+ }
+}

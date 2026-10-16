@@ -1,0 +1,532 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_rank7_xiang",
+ "kind": "rank",
+ "rankTo": 7,
+ "title": "相印",
+ "era": "shunju",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "big": {
+   "realm": "enemy:patron"
+  },
+  "bigcap": {
+   "place": "capital:big"
+  },
+  "bigking": {
+   "person": "ruler:big"
+  },
+  "elder": {
+   "npc": "公族の長老",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "縦横の客",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城で昇進を願い出る",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "老いた{minister}は、相の印綬を卓に置いた。「わしはもう長くない。後を継ぐ者は、{ruler}さまが朝議で決められる。名が挙がっているのは、そなたと、公族の長老{elder}どのだ」",
+    "「{elder}どのの後ろには、宗室の半ばと、近ごろ宮中に出入りする遊説の客{rival}がついておる。{rival}は{big}の金で動いているという噂もある。十日後の朝議まで、背中に気をつけよ」"
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "house"
+   },
+   "goal": "{cap}の屋敷で朝議に備える",
+   "wait": {
+    "days": 3
+   },
+   "art": "war",
+   "text": [
+    "三日目の夜、灯を消した書斎の外で、床板がかすかに鳴った。刃の擦れる音が二つ。"
+   ],
+   "choices": [
+    {
+     "label": "剣を取って迎え撃つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "s2win",
+      "lose": "s2hurt"
+     }
+    },
+    {
+     "label": "灯を消したまま身を潜め、一人を生け捕りにする",
+     "check": {
+      "skill": "stealth",
+      "dc": 55,
+      "win": "s2proof",
+      "lose": "s2hurt"
+     }
+    }
+   ]
+  },
+  "s2win": {
+   "text": [
+    "刺客は二人とも倒れた。身元を示すものは何も持っていなかったが、使った剣は宗室の工房のものだった。"
+   ],
+   "next": "s3"
+  },
+  "s2proof": {
+   "text": [
+    "捕らえた刺客は、明け方になってついに口を割った。雇い主は{elder}の家宰、仲立ちは{rival}。{player}はその口書きに指印を押させた。"
+   ],
+   "effects": [
+    {
+     "flag": "rank7_elder_proof"
+    },
+    {
+     "note": "{elder}と{rival}が刺客を放った口書きを得た。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hurt": {
+   "text": [
+    "肩を斬られたが、家人が駆けつけて刺客は逃げ去った。傷を布で縛りながら、{player}は朝議の日を数えた。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "朝議の日を待ち、{cap}の宮城へ上る",
+   "wait": {
+    "days": 7
+   },
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "朝議の場で、{elder}が白い鬚を震わせた。「祖宗の法を変えれば国が乱れる。卿{player}は成り上がりゆえ、礼を知らぬ」",
+    "{rival}が続いた。「それに、{big}は強うございます。逆らうより、盟を結んで矛先を他国へ向けさせるのが上策」{ruler}が{player}を見た。「そなたは、この国をどうする」"
+   ],
+   "choices": [
+    {
+     "label": "変法を説く：「法を明らかにし、爵は家柄でなく功に与えるべし」",
+     "effects": [
+      {
+       "flag": "rank7_reform"
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 55,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "秦の律をさらに推し進め、什伍の制と軍功爵で国を一つにせよと説く",
+     "if": {
+      "realm": [
+       "秦"
+      ]
+     },
+     "effects": [
+      {
+       "flag": "rank7_reform"
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "守成を説く：「礼を守り、公族と和して内を固めるべし」",
+     "effects": [
+      {
+       "flag": "rank7_tradition"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 55,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "楚の古い家々を立て、王族と大家の和をもって国を保てと説く",
+     "if": {
+      "realm": [
+       "楚"
+      ]
+     },
+     "effects": [
+      {
+       "flag": "rank7_tradition"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "天下の学士を招き、その智で国を富ませよと説く",
+     "if": {
+      "realm": [
+       "斉"
+      ]
+     },
+     "effects": [
+      {
+       "flag": "rank7_academy"
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "胡服騎射を国の法とし、北の騎兵に倣えと説く",
+     "if": {
+      "realm": [
+       "趙"
+      ]
+     },
+     "effects": [
+      {
+       "flag": "rank7_reform"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "法と術をもって臣を御し、才ある者を家柄を問わず用いよと説く",
+     "if": {
+      "realm": [
+       "魏",
+       "韓"
+      ]
+     },
+     "effects": [
+      {
+       "flag": "rank7_reform"
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "s4",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ng": {
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "{elder}の一派が声を揃えて{player}を責め立て、論は押し流された。{ruler}は眉を寄せたまま、「明日また聞く」と席を立った。"
+   ],
+   "choices": [
+    {
+     "label": "刺客の口書きを{ruler}に差し出す",
+     "if": {
+      "flag": "rank7_elder_proof"
+     },
+     "next": "s4"
+    },
+    {
+     "label": "その夜、{ruler}に一人で拝謁を願い、改めて説く",
+     "check": {
+      "skill": "speech",
+      "dc": 58,
+      "win": "s4",
+      "lose": "fail_debate"
+     }
+    },
+    {
+     "label": "潔く退く",
+     "next": "fail_debate"
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "bigcap",
+    "building": "palace"
+   },
+   "goal": "{ruler}の名代として{big}の都{bigcap}へ赴く",
+   "speaker": "bigking",
+   "art": "court",
+   "text": [
+    "{ruler}は言った。「論は聞いた。最後に、国の命運を預ける。{big}が国境の三城を求めてきた。応じねば兵を出すと」",
+    "{bigcap}の宮城で、{bigking}は冷ややかに笑った。「三城を差し出すか、十万の兵を迎えるか。{patron}の新しい相は、どちらを選ぶ」"
+   ],
+   "choices": [
+    {
+     "label": "合従：「一寸も譲らぬ。攻めれば、諸国がこぞって背後を衝く」",
+     "effects": [
+      {
+       "flag": "rank7_vertical"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 55,
+      "win": "s5",
+      "lose": "fail_diplo"
+     }
+    },
+    {
+     "label": "連衡：「三城の代わりに盟を結び、ともに他国の地を分けよう」",
+     "effects": [
+      {
+       "flag": "rank7_horizontal"
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 55,
+      "win": "s5",
+      "lose": "fail_diplo"
+     }
+    },
+    {
+     "label": "遠交近攻：「遠い{big}と結び、近い国を攻めるのが互いの利」",
+     "if": {
+      "realm": [
+       "秦"
+      ]
+     },
+     "effects": [
+      {
+       "flag": "rank7_horizontal"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "s5",
+      "lose": "fail_diplo"
+     }
+    },
+    {
+     "label": "{rival}が{big}の金で動いていたことを突きつけ、謀りを恥じさせる",
+     "if": {
+      "flag": "rank7_elder_proof"
+     },
+     "effects": [
+      {
+       "flag": "rank7_vertical"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 48,
+      "win": "s5",
+      "lose": "fail_diplo"
+     }
+    }
+   ]
+  },
+  "s5": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の宮城へ戻り、{ruler}に復命する",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{bigking}は兵を引いた。{cap}に戻った{player}を、{ruler}は階を降りて迎えた。「相の印を授ける。最初の務めだ。{elder}と{rival}をどうする」",
+    "{elder}は青ざめて控え、{rival}の姿はすでに宮中から消えていた。"
+   ],
+   "choices": [
+    {
+     "label": "{elder}を赦し、宗室を味方に引き入れる",
+     "next": "win_mercy"
+    },
+    {
+     "label": "法に照らして{elder}を裁き、宗室の特権を削る",
+     "if": {
+      "flag": "rank7_reform"
+     },
+     "next": "win_purge"
+    },
+    {
+     "label": "刺客の件を公にし、{elder}を退け、{rival}を間者として手配する",
+     "if": {
+      "flag": "rank7_elder_proof"
+     },
+     "next": "win_purge"
+    }
+   ]
+  },
+  "win_mercy": {
+   "speaker": "elder",
+   "text": [
+    "{elder}は震える手で{player}の袖を取った。「この恩は、宗室の名にかけて忘れぬ」",
+    "{player}は相の印綬を帯びた。敵を味方に変えた相として、その名は列国に伝わった。"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 20
+    },
+    {
+     "fame": 10
+    },
+    {
+     "flag": "rank7_merciful"
+    },
+    {
+     "unflag": "rank7_elder_proof"
+    },
+    {
+     "note": "{patron}の相となった。{elder}を赦し、宗室と和した。"
+    }
+   ],
+   "end": "相印を帯びる"
+  },
+  "win_purge": {
+   "speaker": "ruler",
+   "text": [
+    "{elder}は封地を削られ、{rival}の名は国境の関に貼り出された。{ruler}は相の印綬を{player}の手に置いた。「国の法は、今日からそなたが作る」",
+    "宗室の者たちは道を譲るようになったが、その目には暗い火が残っていた。"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 22
+    },
+    {
+     "fame": 12
+    },
+    {
+     "flag": "rank7_purge"
+    },
+    {
+     "unflag": "rank7_elder_proof"
+    },
+    {
+     "note": "{patron}の相となった。{elder}を退け、宗室の力を削いだ。"
+    }
+   ],
+   "end": "法をもって相となる"
+  },
+  "fail_debate": {
+   "speaker": "minister",
+   "text": [
+    "相の印綬は{elder}の手に渡った。病床の{minister}は言った。「長老も長くはない。卿のまま務めを重ねよ。機はまた巡る」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "rank7_reform"
+    },
+    {
+     "unflag": "rank7_tradition"
+    },
+    {
+     "unflag": "rank7_academy"
+    },
+    {
+     "unflag": "rank7_elder_proof"
+    },
+    {
+     "note": "朝議に敗れ、相の位は{elder}に渡った。覚えを取り戻せば、また試しを願い出られる。"
+    }
+   ],
+   "end": "朝議に敗れる"
+  },
+  "fail_diplo": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}へ戻り、交渉の不首尾を報じる",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{bigking}は耳を貸さず、国境の一城が{big}の手に落ちた。{ruler}は長い沈黙のあと、「相はまだ早かったか」とだけ言った。卿として務めを重ね、もう一度機を待つしかない。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "rep": "big",
+     "n": -10
+    },
+    {
+     "unflag": "rank7_reform"
+    },
+    {
+     "unflag": "rank7_tradition"
+    },
+    {
+     "unflag": "rank7_academy"
+    },
+    {
+     "unflag": "rank7_vertical"
+    },
+    {
+     "unflag": "rank7_horizontal"
+    },
+    {
+     "unflag": "rank7_elder_proof"
+    },
+    {
+     "note": "{big}との交渉に敗れた。覚えを取り戻せば、また試しを願い出られる。"
+    }
+   ],
+   "end": "国の命運を誤る"
+  }
+ }
+}

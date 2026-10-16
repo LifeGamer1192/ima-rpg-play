@@ -1,0 +1,846 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_lixin",
+ "kind": "history",
+ "title": "二十万と六十万",
+ "era": "shunju",
+ "event": "li_xin",
+ "lead": 10,
+ "before": [
+  "s1",
+  "s1brave",
+  "s1wj_ng",
+  "s2",
+  "s3",
+  "s4",
+  "s4xy",
+  "s4kill_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "xy": {
+   "scnPlace": "xianyang"
+  },
+  "front": {
+   "scnPlace": "shangcai"
+  },
+  "chucap": {
+   "scnPlace": "shouchun"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "chu": {
+   "scnRealm": "chu"
+  },
+  "king": {
+   "person": "ruler:qin"
+  },
+  "lixin": {
+   "scnPerson": "李信"
+  },
+  "wangjian": {
+   "scnPerson": "王翦"
+  },
+  "xiangyan": {
+   "scnPerson": "項燕"
+  },
+  "mengtian": {
+   "scnPerson": "蒙恬"
+  },
+  "home": {
+   "place": "near:xy"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "xy",
+    "building": "palace"
+   },
+   "goal": "{xy}の宮城の朝議に出る",
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{xy}の朝議。韓を滅ぼし、趙を滅ぼし、燕の都も落とした秦は、次に南の楚を見ていた。{king}が問う。「楚を取るに、兵はいかほど要る」",
+    "若い{lixin}が進み出た。「二十万で足ります」老将{wangjian}は、ゆっくりと答えた。「六十万なくては、なりませぬ」",
+    "{king}は笑った。「王将軍も老いたな。李将軍は果断で勇ましい」……その目が、末席の{player}に向いた。「そなたはどう見る」"
+   ],
+   "choices": [
+    {
+     "label": "「李将軍の勇に賭けましょう」",
+     "effects": [
+      {
+       "flag": "h_lx_young"
+      },
+      {
+       "rep": "qin",
+       "n": 3
+      }
+     ],
+     "next": "s1after"
+    },
+    {
+     "label": "「楚は広く、民は秦を憎んでおります。王将軍の言に理があります」",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s1brave",
+      "lose": "s1scold"
+     }
+    },
+    {
+     "label": "黙して答えない",
+     "next": "s1after"
+    }
+   ]
+  },
+  "s1brave": {
+   "speaker": "king",
+   "text": [
+    "座が静まった。{king}は眉をひそめたが、怒りはしなかった。「覚えておこう」それだけ言って、{lixin}に二十万を授けた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lx_old"
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "下がる",
+     "next": "s1after"
+    },
+    {
+     "label": "「楚は六十万でなければ落ちませぬ」と、王が頷くまで重ねて説く",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s1wj_ok",
+      "lose": "s1wj_ng"
+     }
+    }
+   ]
+  },
+  "s1wj_ok": {
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{king}は長いあいだ{player}を見ていた。やがて{lixin}に向き直った。「将軍の勇は惜しい。だが、この者の言にも、老将の言にも、同じ数が出てくる。六十万だ」",
+    "{lixin}は唇を噛んで退いた。その日のうちに、{wangjian}の邸へ王の使いが走った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lx_wangjian"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "note": "朝議で{wangjian}の六十万を通した。"
+    }
+   ],
+   "next": "s5go"
+  },
+  "s1wj_ng": {
+   "speaker": "king",
+   "text": [
+    "「くどい」{king}の声が冷えた。{player}はそれ以上何も言えなかった。"
+   ],
+   "next": "s1after"
+  },
+  "s1scold": {
+   "speaker": "king",
+   "text": [
+    "「臆病風は老人ひとりで足りる」{king}の一言に、座から笑いが起きた。{player}は顔を伏せた。"
+   ],
+   "effects": [
+    {
+     "favor": -5
+    }
+   ],
+   "next": "s1after"
+  },
+  "s1after": {
+   "speaker": "wangjian",
+   "text": [
+    "{wangjian}は病と称して職を辞し、郷里の{home}へ退いた。宮門を出るとき、老将は{player}に目で合図した。「暇があれば、田舎へ遊びに来られよ」"
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "home"
+   },
+   "goal": "郷里へ退いた{wangjian}を{home}に訪ねる",
+   "speaker": "wangjian",
+   "art": "tale",
+   "text": [
+    "{wangjian}は鍬を手に、畑の畝を見回っていた。「わしが六十万と言ったのは、楚の兵が多いからではない。楚の地が広く、楚の人が負けを認めぬからだ」",
+    "「{xiangyan}という将がおる。退くと見せて、三日三晩でも追ってくる男だ。{lixin}は若い。若い者は一度負けねば分からぬ。だが、兵は死なせたくない。……そなた、あの軍について行ってはくれぬか。崩れたとき、一人でも多く連れ帰ってほしい」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "effects": [
+      {
+       "flag": "h_lx_charge"
+      },
+      {
+       "note": "{wangjian}に頼まれ、{lixin}の軍に加わることになった。"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "楚との戦い方を問う",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "s2learn",
+      "lose": "s2plain"
+     }
+    }
+   ]
+  },
+  "s2learn": {
+   "speaker": "wangjian",
+   "text": [
+    "「勝って驕る軍は、夜に崩れる。陣は必ず二重に張り、斥候は退く敵の後ろにこそ出せ」老将は土の上に枝で図を描いた。「頼んだぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_lx_charge"
+    },
+    {
+     "flag": "h_lx_lesson"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{wangjian}に兵法を学び、{lixin}の軍に加わることになった。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2plain": {
+   "speaker": "wangjian",
+   "text": [
+    "「兵法は書いてあるとおりにはゆかぬ。行って見てくるがよい」老将はそれだけ言うと、また畝に目を落とした。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lx_charge"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "front",
+    "building": "barracks"
+   },
+   "goal": "{front}の陣で{lixin}の軍に加わる",
+   "speaker": "lixin",
+   "art": "war",
+   "text": [
+    "{lixin}は平輿を、{mengtian}は寝を攻め、どちらも楚の兵を大いに破った。陣は勝ち戦の酒に沸いている。",
+    "{lixin}は上機嫌だった。「見たか。二十万で足りると言っただろう。城父で蒙将軍と合わさり、そのまま{chucap}を衝く」"
+   ],
+   "choices": [
+    {
+     "label": "退いた楚の兵の行方を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s3scout",
+      "lose": "s3miss"
+     }
+    },
+    {
+     "label": "{mengtian}に、後ろの備えを厚くするよう説く",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s3meng",
+      "lose": "s3miss"
+     }
+    },
+    {
+     "label": "先陣に加わり、楚の砦を落とす",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3win",
+      "lose": "s3miss"
+     }
+    }
+   ]
+  },
+  "s3scout": {
+   "text": [
+    "楚の兵は退いたが、散ってはいなかった。林の中に、炊煙を立てずに休む大軍がいる。旗には「項」の字。秦の軍の背後を、一日遅れでついてきている。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lx_scout"
+    },
+    {
+     "note": "{xiangyan}の軍が秦の軍の後をつけているのを見た。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3meng": {
+   "speaker": "mengtian",
+   "text": [
+    "{mengtian}は黙って聞き、やがて頷いた。「李将軍には言えぬが、わしの隊だけでも後ろを固めておこう。そなたも、わしの隊にいてくれ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_lx_meng"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3win": {
+   "text": [
+    "楚の砦は一刻で落ちた。{lixin}は{player}の肩を叩いた。「次も先陣だ」勝てば勝つほど、軍の足は速くなった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    }
+   ],
+   "next": "s4"
+  },
+  "s3miss": {
+   "text": [
+    "思うようにはいかなかった。軍は勝ち戦の勢いのまま、西へ東へと進んでいく。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "front",
+    "building": "barracks"
+   },
+   "goal": "{front}の陣で、軍が城父へ向かうのを待つ",
+   "wait": {
+    "days": 20
+   },
+   "speaker": "lixin",
+   "art": "war",
+   "text": [
+    "軍は城父へ向かう支度を始めた。夜になると、遠くの林で鳥が騒ぐ。見張りの兵は「狐だろう」と言った。",
+    "{lixin}は地図の上に酒杯を置いた。「楚はもう逃げるだけだ。明日には{chucap}への道が開ける」"
+   ],
+   "choices": [
+    {
+     "label": "{lixin}に、背後の楚軍を警告する",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s4warn",
+      "lose": "s4scoff"
+     }
+    },
+    {
+     "label": "夜、楚の陣へ忍び込み、{xiangyan}の顔を見に行く",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s4xy",
+      "lose": "s4caught"
+     }
+    }
+   ]
+  },
+  "s4warn": {
+   "speaker": "lixin",
+   "text": [
+    "{lixin}は笑い飛ばしかけて、ふと真顔になった。「……後ろの陣を一つ増やしておけ」それだけだった。だが、それだけでも違うかもしれない。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lx_warned"
+    }
+   ],
+   "next": "s5go"
+  },
+  "s4scoff": {
+   "speaker": "lixin",
+   "text": [
+    "「王将軍の弟子にでもなったか」{lixin}は杯をあおった。「老人の怯えは移るものだな」"
+   ],
+   "next": "s5go"
+  },
+  "s4xy": {
+   "speaker": "xiangyan",
+   "text": [
+    "楚の陣の奥、焚き火の明かりの中に、白髪まじりの将が座っていた。{xiangyan}である。",
+    "「秦の若造は、勝ったと思っておる。三日三晩、眠らせずに追え。二つの壁を破れば、あとは勝手に崩れる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_lx_xy"
+    },
+    {
+     "note": "{xiangyan}が三日三晩、秦の軍を追うつもりだと知った。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "気づかれぬうちに陣へ戻る",
+     "next": "s5go"
+    },
+    {
+     "label": "焚き火の陰から躍り出て、{xiangyan}を討つ",
+     "turn": true,
+     "fight": {
+      "foes": "person",
+      "who": "xiangyan",
+      "n": 2,
+      "level": 0,
+      "confirm": "楚の老将とその護衛だ。勝っても生きて陣を出られるとは限らない。",
+      "win": "s4kill",
+      "lose": "s4kill_ng"
+     }
+    }
+   ]
+  },
+  "s4kill": {
+   "art": "war",
+   "text": [
+    "{xiangyan}は剣を抜く間もなく倒れた。焚き火が蹴散らされ、楚の陣が騒然となる。{player}は闇に紛れて秦の陣へ駆け戻った。",
+    "翌朝、楚の軍は将を失って南へ退いた。三日三晩の追撃は、起こらなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lx_xiangyan"
+    },
+    {
+     "kill": "xiangyan",
+     "cause": "battle"
+    },
+    {
+     "fame": 10
+    },
+    {
+     "rep": "qin",
+     "n": 15
+    },
+    {
+     "rep": "chu",
+     "n": -30
+    },
+    {
+     "note": "楚の陣に忍び込み、{xiangyan}を討った。"
+    }
+   ],
+   "next": "s5go"
+  },
+  "s4kill_ng": {
+   "text": [
+    "護衛の戈に阻まれ、{player}は傷を負って闇へ逃げ込んだ。楚の陣の篝火が倍に増えた。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    }
+   ],
+   "next": "s5go"
+  },
+  "s4caught": {
+   "text": [
+    "楚の見張りに見つかった。逃げるしかない。"
+   ],
+   "choices": [
+    {
+     "label": "斬り払って陣へ戻る",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4hurt"
+     }
+    }
+   ]
+  },
+  "s4hurt": {
+   "text": [
+    "矢傷を負いながら、どうにか秦の陣へ転がり込んだ。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s5go"
+  },
+  "s5go": {
+   "goal": "{lixin}の軍の行方を見届ける",
+   "wait": {
+    "settled": "li_xin"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lx_wangjian"
+     },
+     "next": "wangjian"
+    },
+    {
+     "if": {
+      "branch": "lx_xiangyan"
+     },
+     "next": "won"
+    },
+    {
+     "if": {
+      "branch": "lx_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "wangjian": {
+   "speaker": "wangjian",
+   "art": "war",
+   "text": [
+    "{wangjian}の六十万は、一年のあいだ陣を固めて動かなかった。兵は石を投げ、跳ぶ高さを競って遊んでいた。楚の軍が痺れを切らして東へ動いた日、老将は初めて全軍を出した。",
+    "楚は崩れた。王は捕らえられ、{xiangyan}は自ら命を絶ったという。「若い者に二十万を任せていたら、どうなっていたか」老将は{player}にだけ、そう呟いた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 10
+    },
+    {
+     "unflag": "h_lx_wangjian"
+    },
+    {
+     "unflag": "h_lx_old"
+    },
+    {
+     "note": "{wangjian}の六十万が楚を討った。"
+    }
+   ],
+   "end": "六十万の陣"
+  },
+  "won": {
+   "at": {
+    "place": "front"
+   },
+   "speaker": "lixin",
+   "art": "war",
+   "text": [
+    "将を失った楚の軍は、追うことも守ることもできずに崩れた。{lixin}は城父を抜き、{chucap}の方角へ兵を進めている。",
+    "「おぬしが{xiangyan}を討たねば、背後を突かれていたのはこちらだったかもしれぬ」若い将はそれだけ言って、すぐに地図に目を戻した。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lx_xiangyan"
+    },
+    {
+     "unflag": "h_lx_xy"
+    },
+    {
+     "favor": 15
+    },
+    {
+     "note": "{lixin}の軍は楚を破った。"
+    }
+   ],
+   "end": "二十万の勝ち"
+  },
+  "noking": {
+   "art": "tale",
+   "text": [
+    "王を失った{qin}の軍は、楚との境で兵を止めた。二十万も六十万も、もう誰も口にしない。"
+   ],
+   "end": "止まった軍"
+  },
+  "s5": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "{front}で{lixin}の軍の行方を見届ける",
+   "wait": {
+    "settled": "li_xin"
+   },
+   "speaker": "mengtian",
+   "art": "war",
+   "text": [
+    "{xiangyan}の軍は三日三晩、休まず秦の軍を追った。二つの陣が破られ、七人の都尉が討たれた。{lixin}の軍は崩れ、兵は散り散りに西へ逃げていく。",
+    "血と泥にまみれた{mengtian}が叫んだ。「殿がいる。誰か、追手を止めろ」"
+   ],
+   "choices": [
+    {
+     "label": "殿に立ち、兵を西へ逃がす",
+     "if": {
+      "flag": "h_lx_charge"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_rear",
+      "lose": "end_rout"
+     }
+    },
+    {
+     "label": "楚の追手の道を読み、兵を間道へ導く",
+     "if": {
+      "flag": "h_lx_scout"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "end_path",
+      "lose": "end_rout"
+     }
+    },
+    {
+     "label": "{xiangyan}の追い方を逆手に取り、兵を間道へ導く",
+     "if": {
+      "flag": "h_lx_xy"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "end_path",
+      "lose": "end_rout"
+     }
+    },
+    {
+     "label": "落馬した{lixin}を馬に乗せ、ともに逃れる",
+     "check": {
+      "skill": "bow",
+      "dc": 25,
+      "win": "end_lixin",
+      "lose": "end_rout"
+     }
+    },
+    {
+     "label": "一人で逃げる",
+     "next": "end_rout"
+    }
+   ]
+  },
+  "end_rear": {
+   "speaker": "wangjian",
+   "text": [
+    "{player}の隊が追手を食い止めるあいだに、千を超える兵が西へ逃れた。",
+    "敗報を聞いた{king}は、自ら{home}へ馬を走らせ、{wangjian}に詫びたという。老将は六十万を率いて南へ下り、二年の後、楚は滅んだ。出陣の前、{wangjian}は{player}を呼んで言った。「よく連れ帰ってくれた。あの兵たちが、今度は勝つ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 20
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "note": "{lixin}は{xiangyan}に大敗した。殿に立って兵を逃がした。"
+    }
+   ],
+   "end": "殿の功"
+  },
+  "end_path": {
+   "speaker": "mengtian",
+   "text": [
+    "楚の追手が大道を駆けるあいだに、{player}は兵を林の間道へ導いた。夜明け、振り返ると、追手の松明は遠く東に揺れていた。",
+    "{mengtian}は言った。「そなたは楚の動きを読んでいた。王将軍に伝えよう」二年の後、{wangjian}は六十万を率いて楚を滅ぼした。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "favor": 15
+    },
+    {
+     "rep": "qin",
+     "n": 8
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "{lixin}は{xiangyan}に大敗した。兵を間道へ導いて逃がした。"
+    }
+   ],
+   "end": "林の間道"
+  },
+  "end_lixin": {
+   "speaker": "lixin",
+   "text": [
+    "振り向きざまに追手の騎兵を射落とし、{lixin}を馬の背に押し上げた。若い将は泣いていた。「王将軍の言うとおりだった」",
+    "{king}は{wangjian}に詫び、六十万を授けた。{lixin}は罪を許され、のちに{wangjian}の子とともに燕と斉を討つことになる。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "qin",
+     "n": 5
+    },
+    {
+     "note": "{lixin}は{xiangyan}に大敗した。{lixin}を救い出した。"
+    }
+   ],
+   "end": "若き将を拾う"
+  },
+  "end_rout": {
+   "text": [
+    "{player}も泥の中を西へ走った。どこをどう逃げたのか、覚えていない。{front}の野には、秦の旗が踏みにじられて残っていた。",
+    "二年の後、{wangjian}は六十万を率いて楚を滅ぼした。人々は言った。「楚は三戸と雖も、秦を亡ぼすは必ず楚ならん」"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "note": "{lixin}は{xiangyan}に大敗した。"
+    }
+   ],
+   "end": "敗走"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lx_wangjian"
+     },
+     "next": "wangjian"
+    },
+    {
+     "if": {
+      "branch": "lx_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "噂が届いた。秦の若い将{lixin}が、二十万で楚を討とうとして{xiangyan}に大敗したという。秦王は老将{wangjian}のもとへ自ら赴き、詫びたとも。",
+    "「六十万と言った老人が正しかったのさ」と、宿の客は言った。"
+   ],
+   "effects": [
+    {
+     "note": "{lixin}が{xiangyan}に大敗したと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "lx_noking",
+   "event": "li_xin",
+   "order": 3,
+   "why": "秦王政がすでに殺されていた",
+   "when": {
+    "slain": [
+     "秦王政"
+    ]
+   },
+   "then": "cancel",
+   "note": "王を失った{n_qin}は楚へ兵を出さなかった。"
+  },
+  {
+   "id": "lx_wangjian",
+   "event": "li_xin",
+   "order": 2,
+   "why": "主人公が朝議で王翦の六十万を通した",
+   "when": {
+    "flag": "h_lx_wangjian"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_qin}は若い[[p:李信]]の二十万を退け、老将[[p:王翦]]に六十万を授けた。王翦は陣を固めて楚の軍を疲れさせ、ついにこれを破って楚王を捕らえた。",
+    "do": [
+     [
+      "battle",
+      "qin_chu"
+     ],
+     [
+      "annex",
+      "qin",
+      "chu"
+     ]
+    ],
+    "imp": 3,
+    "at": "shouchun"
+   }
+  },
+  {
+   "id": "lx_xiangyan",
+   "event": "li_xin",
+   "order": 1,
+   "why": "主人公が項燕を陣中で討った",
+   "when": {
+    "flag": "h_lx_xiangyan"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "楚の[[p:項燕]]は陣中で討たれ、将を失った楚軍は崩れた。[[p:李信]]の二十万は城父を抜いて楚の奥深くへ進んだ。",
+    "do": [
+     [
+      "add",
+      "chu",
+      "prestige",
+      -10
+     ],
+     [
+      "army",
+      "chu",
+      0.8
+     ],
+     [
+      "add",
+      "qin",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 2,
+    "at": "shangcai"
+   }
+  }
+ ]
+}

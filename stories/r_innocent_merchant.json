@@ -1,0 +1,304 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_innocent_merchant",
+ "kind": "random",
+ "where": "folk",
+ "hook": "夫は盗みなどしていません。牢に入れられたのは濡れ衣です",
+ "title": "冤罪の商人",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "商人の妻"
+  },
+  "merchant": {
+   "npc": "絹商人",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "絹問屋",
+   "sex": "m"
+  },
+  "jailer": {
+   "npc": "獄吏",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "市の外れで、{client}が袖をつかんできた。夫の{merchant}が、蔵から盗まれた絹を売りさばいた罪で牢に入れられたという。",
+    "「絹は問屋の{rival}さまから仕入れたものです。なのに{rival}さまは、そんな取引は知らぬと。夫は来月、刑を受けます。足を断たれたら、もう市には立てません」"
+   ],
+   "choices": [
+    {
+     "label": "{rival}の蔵に忍び込み、証を探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "proof",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "官府で{jailer}に事情を説く",
+     "next": "plead"
+    },
+    {
+     "label": "「ならば牢から出すしかない」",
+     "next": "breakout"
+    }
+   ]
+  },
+  "proof": {
+   "text": [
+    "夜の蔵で、{rival}の帳面を見つけた。盗まれたはずの絹が、たしかに{merchant}へ売り渡されたと記してある。{rival}は盗品と知って流し、罪を{merchant}一人にかぶせたのだ。",
+    "帳面を懐に入れたところで、ふと考えた。これを官府に出せば{rival}が罰を受ける。だが{rival}に見せれば、いくらでも払うだろう。"
+   ],
+   "choices": [
+    {
+     "label": "帳面を官府へ差し出す",
+     "next": "end_cleared"
+    },
+    {
+     "label": "{rival}を強請り、訴えを取り下げさせる",
+     "next": "end_bought"
+    }
+   ]
+  },
+  "caught": {
+   "text": [
+    "蔵の戸を探っていると、松明が近づいた。{rival}の雇った無頼の者たちだ。「盗人がまた来たぞ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "proof",
+      "lose": "end_failed"
+     }
+    }
+   ]
+  },
+  "plead": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の官府で{jailer}に会う",
+   "speaker": "jailer",
+   "art": "court",
+   "text": [
+    "{jailer}は竹簡から顔も上げずに言った。「訴えがあり、証人がいる。それで足りる。法とはそういうものだ」",
+    "だが{jailer}の目は、ちらりとこちらの財布を見た。"
+   ],
+   "choices": [
+    {
+     "label": "証言の食い違いを突く",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_law",
+      "lose": "plead_ng"
+     }
+    },
+    {
+     "label": "袖の下を渡す（200銭）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "end_bribe"
+    },
+    {
+     "label": "話にならぬ。牢を破る",
+     "next": "breakout"
+    }
+   ]
+  },
+  "plead_ng": {
+   "speaker": "jailer",
+   "text": [
+    "「口が過ぎるぞ。お前も牢に入りたいか」{jailer}は衛士を呼んだ。追い出された門の外で、{client}が泣き崩れている。"
+   ],
+   "choices": [
+    {
+     "label": "牢を破る",
+     "next": "breakout"
+    },
+    {
+     "label": "{rival}の蔵を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "proof",
+      "lose": "caught"
+     }
+    }
+   ]
+  },
+  "breakout": {
+   "speaker": "client",
+   "art": "war",
+   "text": [
+    "月のない夜、{client}が用意した縄梯子を手に、牢の裏手に回った。見張りは二人。片づければ{merchant}を連れて城外へ出られる。だが、二度とこの町には戻れまい。"
+   ],
+   "choices": [
+    {
+     "label": "見張りを倒す",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "end_fled",
+      "lose": "end_failed"
+     }
+    }
+   ]
+  },
+  "end_cleared": {
+   "speaker": "client",
+   "text": [
+    "帳面を見た{jailer}は顔色を変え、その日のうちに{rival}を捕らえた。{merchant}は牢から出され、{client}と抱き合って泣いた。",
+    "「この恩は、一生忘れません」夫婦はなけなしの銭を包んでくれた。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "{merchant}の冤罪を晴らした。"
+    }
+   ],
+   "end": "晴れた冤罪"
+  },
+  "end_bought": {
+   "speaker": "rival",
+   "text": [
+    "{rival}は帳面を見ると、黙って銭箱を開けた。翌日、訴えは取り下げられ、{merchant}は放たれた。",
+    "{rival}は罰を受けずに済み、また誰かに罪をかぶせるかもしれない。{client}は何も知らずに礼を言った。"
+   ],
+   "effects": [
+    {
+     "money": 350
+    },
+    {
+     "fame": 1
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "{rival}を強請って{merchant}を出させた。"
+    }
+   ],
+   "end": "金で買った赦免"
+  },
+  "end_law": {
+   "speaker": "jailer",
+   "text": [
+    "証人の言うことが日ごとに違うと指摘すると、{jailer}は黙り込み、やがて裁きのやり直しを命じた。半月後、{merchant}は無罪とされた。「お前のような者がいると、仕事が増えて困る」{jailer}はそう言って、少し笑った。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "弁舌で{merchant}の裁きをやり直させた。"
+    }
+   ],
+   "end": "法の正しさ"
+  },
+  "end_bribe": {
+   "speaker": "client",
+   "text": [
+    "銭を受け取った{jailer}は、刑を軽い罰金に改めた。{merchant}は出てきたが、盗人の汚名は消えない。「命と足があれば、また商いはできます」{client}はそう言って、深く頭を下げた。"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "fame": 1
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "軽くなった罪"
+  },
+  "end_fled": {
+   "text": [
+    "見張りを倒し、{merchant}を連れて城壁を越えた。夫婦は闇の中、南へ去っていった。翌朝、町には牢破りの手配書が貼られたが、顔を知る者はいない。遊侠の徒のあいだでは、少しだけ名が知られた。"
+   ],
+   "effects": [
+    {
+     "money": 80
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": -10
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "{merchant}の牢破りを手伝った。"
+    }
+   ],
+   "end": "闇夜の牢破り"
+  },
+  "end_failed": {
+   "text": [
+    "多勢に押され、傷を負って逃げるのがやっとだった。{merchant}がどうなったかは、もう知るすべもない。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "end": "届かなかった手"
+  }
+ }
+}

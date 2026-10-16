@@ -1,0 +1,620 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_guild3",
+ "kind": "rank",
+ "guildTo": 3,
+ "title": "一揆の夜",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "老いた頭領",
+   "sex": "m"
+  },
+  "brute": {
+   "npc": "荒くれの小頭",
+   "sex": "m"
+  },
+  "deputy": {
+   "npc": "代官",
+   "sex": "m"
+  },
+  "headman": {
+   "npc": "惣村の乙名",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で頭領に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は痩せた手で茶碗を包んだ。「代官の{deputy}が年貢を七公三民に上げた。近在の村々は、近いうちに一揆を起こす。代官所が燃えれば、蔵が開く」",
+    "「おれの跡は、おまえか{brute}が継ぐ。一揆にどう乗るか、それを見て決める。一味の行く道も、そこで決まる」"
+   ],
+   "choices": [
+    {
+     "label": "村の寄合をのぞきに行く",
+     "next": "s2"
+    },
+    {
+     "label": "まず{brute}の腹を確かめる",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の社で開かれる村の寄合をのぞく",
+   "speaker": "headman",
+   "art": "faith",
+   "text": [
+    "夜の社の拝殿に、村々の百姓が筵旗を巻いて集まっていた。乙名の{headman}が、起請文を焼いた灰を神水に溶かし、回し飲みさせている。一味神水の誓いだ。",
+    "{headman}が{player}に気づいた。「{bandit}の衆か。槍の使い方を知っておる者が、わしらには足りん。手を貸してくれるなら、この水を飲んでくれ」"
+   ],
+   "choices": [
+    {
+     "label": "神水を飲み、一揆に加わると誓う",
+     "effects": [
+      {
+       "flag": "sg_g3_oath"
+      },
+      {
+       "note": "{headman}らの一揆に加わり、一味神水を飲んだ。"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "「考えておく」とだけ言って社を出る",
+     "next": "s3"
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で一味の寄り合いに出る",
+   "speaker": "brute",
+   "art": "backroom",
+   "text": [
+    "寄り合いの座で、{brute}が膝を打った。「一揆が代官所に押し寄せたら、その隙におれたちは裏から蔵を抜く。ついでに乙名どもの名を代官に売れば、褒美まで出る。百姓は勝手に死ねばいい」",
+    "一味の者たちの目が、{player}に集まった。"
+   ],
+   "choices": [
+    {
+     "label": "「代官の蔵は抜く。だが百姓は売らぬ。一揆とともに戦う」と座を説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s4r",
+      "lose": "s3split"
+     }
+    },
+    {
+     "label": "「それでいこう。取れるものは全部取る」",
+     "next": "s4w"
+    },
+    {
+     "label": "{brute}に刃を向け、力で黙らせる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s4r",
+      "lose": "fail_ousted"
+     }
+    }
+   ]
+  },
+  "s3split": {
+   "speaker": "brute",
+   "art": "war",
+   "text": [
+    "{brute}が笑った。「百姓と一緒に戦う？　一揆が負けたら、おれたちも磔だぞ」座の半分が{brute}の側に寄った。"
+   ],
+   "choices": [
+    {
+     "label": "{brute}と刃で決着をつける",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s4r",
+      "lose": "fail_ousted"
+     }
+    },
+    {
+     "label": "折れて、{brute}のやり方に従う",
+     "next": "s4w"
+    },
+    {
+     "label": "座を立つ",
+     "next": "fail_ousted"
+    }
+   ]
+  },
+  "s4r": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "一揆の夜、{here}の代官所へ押し寄せる",
+   "art": "war",
+   "text": [
+    "松明の列が田の畦を伝って代官所へ迫った。筵旗の下で、百姓たちが竹槍を握りしめている。代官所の門では、{deputy}の侍たちが鉄砲を構えていた。",
+    "一味の者たちは、{player}の合図を待っている。"
+   ],
+   "choices": [
+    {
+     "label": "一揆に先立ち、裏塀を越えて門の閂を外す",
+     "check": {
+      "skill": "theft",
+      "dc": 30,
+      "win": "s5r",
+      "lose": "s4r_alarm"
+     }
+    },
+    {
+     "label": "一揆の先頭に立ち、門へ斬り込む",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 10
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5r",
+      "lose": "fail_raid"
+     }
+    },
+    {
+     "label": "百姓に竹束を作らせ、鉄砲の玉を防ぎながら押し寄せる",
+     "if": {
+      "flag": "sg_g3_oath"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "s5r",
+      "lose": "s4r_alarm"
+     }
+    }
+   ]
+  },
+  "s4r_alarm": {
+   "art": "war",
+   "text": [
+    "鉄砲が火を噴いた。先頭の百姓が倒れ、一揆の列が乱れる。"
+   ],
+   "choices": [
+    {
+     "label": "倒れた者を跨いで斬り込む",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 10
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s5r",
+      "lose": "fail_raid"
+     }
+    },
+    {
+     "label": "一揆をまとめて引かせる",
+     "next": "fail_raid"
+    }
+   ]
+  },
+  "s5r": {
+   "art": "hideout",
+   "text": [
+    "門が破れ、百姓たちが代官所になだれ込んだ。蔵には年貢米が積まれ、帳場には村々の借銭の証文が束になっている。縛り上げられた{deputy}が喚いた。「わしに手を出せば、殿の兵が村を焼くぞ」"
+   ],
+   "choices": [
+    {
+     "label": "証文を焼き、徳政を叫ばせる。米は村々へ返す",
+     "effects": [
+      {
+       "money": 80
+      },
+      {
+       "fame": 6
+      },
+      {
+       "wanted": "here",
+       "n": 10
+      }
+     ],
+     "next": "win_r"
+    },
+    {
+     "label": "{deputy}を殿の城へ突き出し、非道を訴える書状を添える",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "win_r_appeal",
+      "lose": "win_r"
+     }
+    },
+    {
+     "label": "一揆の後の仕置きから乙名たちを逃がす手筈を整える",
+     "if": {
+      "flag": "sg_g3_oath"
+     },
+     "effects": [
+      {
+       "money": 40
+      },
+      {
+       "fame": 9
+      },
+      {
+       "wanted": "here",
+       "n": 8
+      }
+     ],
+     "next": "win_r_oath"
+    }
+   ]
+  },
+  "s4w": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "一揆の夜、{here}の代官所の裏へ回る",
+   "art": "war",
+   "text": [
+    "表門の方で鬨の声があがり、鉄砲の音が続いた。百姓たちが代官所の侍を引きつけているあいだに、一味は裏手の蔵へ回る。{brute}が嬉しげに鉈を振った。"
+   ],
+   "choices": [
+    {
+     "label": "一人で蔵の錠を外し、手下を呼び込む",
+     "check": {
+      "skill": "theft",
+      "dc": 30,
+      "win": "s5w",
+      "lose": "s4w_alarm"
+     }
+    },
+    {
+     "label": "蔵番を斬り伏せる",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s5w",
+      "lose": "fail_raid"
+     }
+    }
+   ]
+  },
+  "s4w_alarm": {
+   "art": "war",
+   "text": [
+    "錠が鳴り、蔵番が呼子を吹いた。表から侍が駆け戻ってくる。{brute}が叫ぶ。「構わん、斬れ！」"
+   ],
+   "choices": [
+    {
+     "label": "斬り込む",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5w",
+      "lose": "fail_raid"
+     }
+    },
+    {
+     "label": "引く",
+     "next": "fail_raid"
+    }
+   ]
+  },
+  "s5w": {
+   "art": "war",
+   "text": [
+    "蔵の銭箱は一味の背に移った。表門では、一揆がまだ代官所の侍と揉み合っている。{brute}が懐から書付を出した。乙名たちの名だ。「これを代官方に渡せば、褒美が出る。一揆は今夜で終わりだ」"
+   ],
+   "choices": [
+    {
+     "label": "名を売る",
+     "if": {
+      "notFlag": "sg_g3_oath"
+     },
+     "effects": [
+      {
+       "money": 260
+      },
+      {
+       "fame": -8
+      },
+      {
+       "wanted": "here",
+       "n": -5
+      }
+     ],
+     "next": "win_w"
+    },
+    {
+     "label": "神水の誓いを踏みにじり、名を売る",
+     "if": {
+      "flag": "sg_g3_oath"
+     },
+     "effects": [
+      {
+       "money": 260
+      },
+      {
+       "fame": -12
+      },
+      {
+       "wanted": "here",
+       "n": -5
+      }
+     ],
+     "next": "win_w"
+    },
+    {
+     "label": "「名は売るな。銭だけで十分だ」",
+     "effects": [
+      {
+       "money": 160
+      },
+      {
+       "fame": -2
+      },
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "next": "win_w_spare"
+    }
+   ]
+  },
+  "win_r": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "証文を焼く炎が、夜明けまで代官所の庭を照らしていた。村々には米が戻り、{here}の市では「{bandit}が一揆の先頭に立った」という噂でもちきりになった。",
+    "{boss}は床の上で笑った。「領主には追われ、百姓には匿われる。それがおまえの選んだ道だ。一味を頼む、頭領」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "xp": "theft",
+     "n": 6
+    },
+    {
+     "unflag": "sg_g3_oath"
+    },
+    {
+     "note": "一揆とともに代官所を破り、義賊の道を選んで頭領となった。"
+    }
+   ],
+   "end": "徳政の炎"
+  },
+  "win_r_appeal": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{deputy}は縛られたまま城の門前に転がされ、非道を訴える書状がその胸に縫い付けられていた。城の者たちは{bandit}を追うより先に、{deputy}の始末で揉め始めた。",
+    "{boss}は目を細めた。「奪うだけでなく、殿様に代官を裁かせたか。義賊でも頭は使え。頭領は、おまえだ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 8
+    },
+    {
+     "wanted": "here",
+     "n": 4
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "unflag": "sg_g3_oath"
+    },
+    {
+     "note": "代官{deputy}の非道を訴え出て一揆を勝たせ、義賊の頭領となった。"
+    }
+   ],
+   "end": "城門の訴状"
+  },
+  "win_r_oath": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で{boss}に報告する",
+   "speaker": "headman",
+   "art": "backroom",
+   "text": [
+    "仕置きの兵が村に着いたとき、{headman}たち乙名の姿はもうなかった。一味の隠れ家で、{headman}は{player}の手を両手で握った。「神水を飲んだ者は、死ぬまで仲間だ。村の者は、決してあんたらを売らぬ」",
+    "{boss}は話を聞き、黙って頭領の印の小刀を{player}に渡した。"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "flag": "sg_g3_village_friend"
+    },
+    {
+     "unflag": "sg_g3_oath"
+    },
+    {
+     "note": "一揆の乙名たちを仕置きから逃がし、義賊の頭領となった。村々が一味を匿う。"
+    }
+   ],
+   "end": "神水の誓い"
+  },
+  "win_w": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で{boss}に報告する",
+   "speaker": "brute",
+   "art": "disaster",
+   "text": [
+    "一揆は崩れ、乙名たちは河原で磔にされた。村々には、誰が名を売ったのかという囁きだけが残った。",
+    "{boss}は何も言わずに目を閉じていた。代わりに{brute}が杯を掲げた。「頭領に。これで{here}の裏で、一味に逆らう者はいなくなる」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "unflag": "sg_g3_oath"
+    },
+    {
+     "note": "一揆の乙名を代官に売り、外道の道を選んで頭領となった。"
+    }
+   ],
+   "end": "磔の河原"
+  },
+  "win_w_spare": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の旅籠の裏で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{brute}は不満げだったが、{player}の言葉には逆らわなかった。だが一揆を盾にして蔵を抜いたことは、百姓たちの耳にも届いていた。",
+    "{boss}は溜息をついた。「名を売らずとも、百姓を楯にした道は戻らん。おまえが頭領だ。手綱を放すなよ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "xp": "theft",
+     "n": 3
+    },
+    {
+     "unflag": "sg_g3_oath"
+    },
+    {
+     "note": "一揆を楯に代官所の蔵を抜き、外道の道で頭領となった。乙名の名だけは売らなかった。"
+    }
+   ],
+   "end": "楯にした一揆"
+  },
+  "fail_raid": {
+   "art": "war",
+   "text": [
+    "代官所の鉄砲は思ったより多かった。一揆は崩れ、一味も手下を何人か失って散り散りに逃げた。{boss}は目を閉じたまま言った。「頭領を決めるのは、まだ早かったようだ」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "unflag": "sg_g3_oath"
+    },
+    {
+     "note": "代官所を破り損ねた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "崩れた一揆"
+  },
+  "fail_ousted": {
+   "art": "hideout",
+   "text": [
+    "{brute}が一味の半分を連れて代官所へ向かった。{player}は座に残され、小頭のままだった。{boss}は「まだその時ではない」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    },
+    {
+     "unflag": "sg_g3_oath"
+    },
+    {
+     "note": "{brute}に座を奪われた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "座を追われる"
+  }
+ }
+}

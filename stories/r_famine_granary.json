@@ -1,0 +1,231 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_famine_granary",
+ "kind": "random",
+ "where": "office",
+ "hook": "倉の番を募る。飢えた者どもが倉を狙っている",
+ "title": "飢饉の倉",
+ "era": "shunju",
+ "trigger": {
+  "troubled": true
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "倉の役人"
+  },
+  "elder": {
+   "npc": "村の長老",
+   "sex": "m"
+  },
+  "land": {
+   "realm": "home"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "日照りで麦が枯れ、町の外には痩せた人々が座り込んでいる。官府の布告は、倉を守る者を募っていた。",
+    "{client}は額の汗を拭った。「倉の穀は、戦のための蓄えだ。一粒も手をつけるなと上から言われている。今夜あたり、村の者が押し寄せてくるという噂だ。番をしてくれれば、一晩百銭出す」"
+   ],
+   "choices": [
+    {
+     "label": "倉の番を引き受ける",
+     "next": "night"
+    },
+    {
+     "label": "倉の帳簿を見せてもらう",
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "ledger",
+      "lose": "night"
+     }
+    }
+   ]
+  },
+  "ledger": {
+   "text": [
+    "帳簿の数と、倉の中の俵の数が合わない。多すぎるのだ。{client}は、上に届けた数より多くを隠し持ち、飢饉で値が上がりきったところで売るつもりらしい。"
+   ],
+   "effects": [
+    {
+     "flag": "granary_hoard"
+    }
+   ],
+   "next": "night"
+  },
+  "night": {
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "夜半、鍬や棒を手にした村人たちが倉の前に集まった。先頭の{elder}が声を張った。",
+    "「わしらは盗人ではない。去年納めた税の穀を、少し返してほしいだけだ。このままでは、冬を越せずに子らが死ぬ」後ろで、骨と皮の子どもが母親にしがみついていた。"
+   ],
+   "choices": [
+    {
+     "label": "村人を追い払う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "end_guarded",
+      "lose": "end_overrun"
+     }
+    },
+    {
+     "label": "隠し穀のことを上役に訴えると約束する",
+     "if": {
+      "flag": "granary_hoard"
+     },
+     "next": "appeal"
+    },
+    {
+     "label": "倉の戸を開けてやる",
+     "next": "end_opened"
+    }
+   ]
+  },
+  "appeal": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の官府で、倉の役人の隠し穀を訴える",
+   "speaker": "県の長官",
+   "art": "court",
+   "text": [
+    "翌朝、帳簿を手に官府の長官に面会を求めた。長官は帳簿をめくり、眉をひそめた。「倉の役人が穀を隠していたと。……証はこれだけか」"
+   ],
+   "choices": [
+    {
+     "label": "帳簿の数を一つずつ説く",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_exposed",
+      "lose": "end_dismissed"
+     }
+    }
+   ]
+  },
+  "end_guarded": {
+   "speaker": "client",
+   "text": [
+    "棒で打ち払うと、村人たちは散っていった。{elder}だけが最後まで立っていて、黙って背を向けた。",
+    "「よくやった」{client}は約束の銭を払った。その冬、町の外の道端には、いくつもの小さな墓が並んだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "granary_hoard"
+    },
+    {
+     "money": 200
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "守られた倉"
+  },
+  "end_opened": {
+   "speaker": "elder",
+   "text": [
+    "閂を外すと、村人たちは声もなく俵を担いでいった。{elder}は地に額をつけて礼を言った。",
+    "翌朝、{client}は真っ青になって怒鳴り散らした。官府はこちらを咎めたが、町の外の人々は{player}の名を忘れなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "granary_hoard"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": -15
+    },
+    {
+     "rep": "land",
+     "n": -3
+    }
+   ],
+   "end": "開かれた倉"
+  },
+  "end_exposed": {
+   "speaker": "県の長官",
+   "text": [
+    "長官は倉を検めさせ、隠し穀を見つけた。{client}は職を解かれて牢に入れられ、隠されていた分は村々に分けられた。戦の蓄えには手をつけずに済んだ。",
+    "「法は飢えた者のためにもある。よく知らせてくれた」"
+   ],
+   "effects": [
+    {
+     "unflag": "granary_hoard"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 15
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "倉の役人の隠し穀を暴き、村に分けさせた。"
+    }
+   ],
+   "end": "暴かれた隠し穀"
+  },
+  "end_dismissed": {
+   "speaker": "県の長官",
+   "text": [
+    "「数え違いもあろう。それに、蓄えは多いに越したことはない」長官は帳簿を閉じた。{client}は何事もなく倉番を続け、春には大きな屋敷を建てた。"
+   ],
+   "effects": [
+    {
+     "unflag": "granary_hoard"
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "閉じられた帳簿"
+  },
+  "end_overrun": {
+   "text": [
+    "数に押されて倒れ、そのあいだに倉は破られた。村人たちは穀を担いで闇に消えた。{client}は、番を雇った銭を払わなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "granary_hoard"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "破られた倉"
+  }
+ }
+}

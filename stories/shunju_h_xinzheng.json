@@ -1,0 +1,605 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_xinzheng",
+ "kind": "history",
+ "title": "新鄭の門",
+ "era": "shunju",
+ "event": "qin_han",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s3hurt",
+  "s3hold",
+  "s3hold_ng",
+  "s4",
+  "s4ok",
+  "s4ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "xinzheng"
+  },
+  "gate": {
+   "place": "near:city"
+  },
+  "han": {
+   "scnRealm": "han"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:han"
+  },
+  "qking": {
+   "person": "ruler:qin"
+  },
+  "scribe": {
+   "npc": "韓の老史官",
+   "sex": "m"
+  },
+  "captain": {
+   "npc": "城門の将",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で{scribe}に会う",
+   "speaker": "scribe",
+   "art": "tale",
+   "text": [
+    "{city}の客舎は、南陽から逃げてきた者でごった返していた。韓は去年、南陽の地を秦に差し出した。差し出した地の守りに秦が置いたのは、内史の騰という男だという。",
+    "「その騰が、南陽から北へ兵を進めておる」墨の染みた指の老人が言った。韓の史官、{scribe}である。「韓は鄭を併せて百五十年、記してきた竹簡は蔵に三つ。国が滅ぶのは天命かもしれぬ。だが、記したものまで灰にされてはかなわぬ」"
+   ],
+   "choices": [
+    {
+     "label": "「宮へ行き、王の様子を見てこよう」",
+     "effects": [
+      {
+       "note": "韓の史官{scribe}から、秦の内史騰が新鄭へ迫っていると聞いた。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「竹簡を運ぶ手が要るなら、手を貸そう」",
+     "effects": [
+      {
+       "note": "韓の史官{scribe}から、秦の内史騰が新鄭へ迫っていると聞いた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で{king}に会う",
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{king}の宮は、静かすぎた。大夫たちは柱の陰で囁き合い、誰も王の前に進み出ようとしない。玉座の王は、秦の{qking}に宛てた書の下書きを、何度も書き直していた。",
+    "「地を差し出し、人質を送り、臣と称した。それでも秦は来る」王は筆を置いた。「何を差し出せば、秦は止まるのだ」"
+   ],
+   "choices": [
+    {
+     "label": "「差し出すものはもうありませぬ。城を固め、民を守る支度を」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "黙って宮を下がる",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "king",
+   "text": [
+    "王はしばらく{player}を見つめ、それから小さく頷いた。「城門の将に、そなたの話を聞くよう伝えよう。……もう、そのくらいしかできぬ」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "flag": "h_qh_king"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "王は答えず、また筆を取った。秦への書の下書きが、もう一枚、床に落ちた。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "gate",
+    "building": "barracks"
+   },
+   "goal": "{gate}の砦で{captain}に会う",
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "新鄭の南の砦は、物見の櫓から秦の先鋒の篝火が見える距離にあった。{captain}は傷だらけの盾を叩いて言った。「王は秦への書を書いておられる。わしらは秦の兵を数えておる。どちらが先に役に立つかな」",
+    "秦の先鋒は、攻城の車と雲梯を組み立てていた。本隊が着くまで、あと半月というところか。"
+   ],
+   "choices": [
+    {
+     "label": "櫓に登り、秦の陣立てを数える",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "{captain}の兵と共に城壁の守りに就く",
+     "next": "s4"
+    },
+    {
+     "label": "{captain}の兵を率い、夜のうちに城外の秦の先鋒を討って攻め具を焼く",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3hold",
+      "lose": "s3hold_ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "雲梯が十二、衝車が三。先鋒は五千ほどで、本隊を待っている。{captain}は数を聞くと、城壁の弱いところに石を運ばせた。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "text": [
+    "櫓の上で身を乗り出したところを、秦の弓手に見つかった。矢が板に突き立つ音が続いた。"
+   ],
+   "choices": [
+    {
+     "label": "櫓を降りて斬り結ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3hurt"
+     }
+    }
+   ]
+  },
+  "s3hurt": {
+   "text": [
+    "腕に矢を受けた。{captain}が笑った。「秦の弓は遠くまで届く。覚えておけ」"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hold": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "月の無い夜だった。{player}と{captain}の兵二百は、松明も持たずに城外へ出た。油を染ませた藁を雲梯の下に押し込み、火を放つ。燃え上がる炎の中を、秦の兵が鎧もつけずに逃げ惑った。",
+    "夜明け、秦の先鋒の陣には焼け焦げた木組みしか残っていなかった。{captain}は煤だらけの顔で言った。「攻め具を作り直すのに、秋まではかかろう。韓は、もう一年生きる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qh_hold"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "han",
+     "n": 15
+    },
+    {
+     "wanted": "qin",
+     "n": 15
+    },
+    {
+     "note": "{city}の城外で秦の先鋒を夜討ちし、攻め具を焼いた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hold_ng": {
+   "text": [
+    "秦の見張りは眠っていなかった。夜討ちの兵は半ばで押し返され、{player}は傷を負って城へ逃げ込んだ。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の史官の家で竹簡の蔵を見る",
+   "speaker": "scribe",
+   "art": "tale",
+   "text": [
+    "{scribe}の家の裏の蔵には、竹簡の束が天井まで積まれていた。韓の歴代の君の名、盟いの言葉、戦の勝ち負け、飢饉の年の米の値。",
+    "「秦は滅ぼした国の書を焼く、と聞く」老人は一番古い束を撫でた。「全部は無理だ。せめて、これだけでも城の外へ出せぬか」"
+   ],
+   "choices": [
+    {
+     "label": "竹簡を荷車に積み、夜のうちに城を出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "s4ok",
+      "lose": "s4ng"
+     }
+    },
+    {
+     "label": "「城が落ちるとは限らぬ」と言って蔵を出る",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s4ok": {
+   "text": [
+    "荷車三台分の竹簡は、東の山あいの廟の床下に納められた。{scribe}は廟の扉に鍵をかけ、その鍵を{player}に渡した。「わしが死んだら、これはおぬしのものだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qh_books"
+    },
+    {
+     "note": "韓の史官{scribe}の竹簡を、城の外の廟に隠した。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4ng": {
+   "text": [
+    "荷車の車軸が城門で折れた。竹簡は門番に見咎められ、蔵へ戻された。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、韓の行く末を見届ける",
+   "wait": {
+    "settled": "qin_han"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qh_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "if": {
+      "branch": "qh_hanfei"
+     },
+     "next": "hanfei"
+    },
+    {
+     "if": {
+      "branch": "qh_hold"
+     },
+     "next": "held"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "noking": {
+   "speaker": "captain",
+   "art": "tale",
+   "text": [
+    "秦の王が死んだという報せが、新鄭の城外の秦の陣にも届いた。内史騰は三日のあいだ陣に籠もり、四日目の朝、兵をまとめて西へ去った。",
+    "{captain}は城壁の上で、遠ざかる秦の旗を眺めていた。「韓が強くなったわけではない。秦が転んだだけだ。だが、転んだ隙に立ち上がるのも、国の才覚というものよ」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_qh_hold"
+    },
+    {
+     "unflag": "h_qh_king"
+    },
+    {
+     "unflag": "h_qh_books"
+    },
+    {
+     "note": "秦の王が死に、新鄭を囲む秦の兵は去った。"
+    }
+   ],
+   "end": "去った秦の旗"
+  },
+  "hanfei": {
+   "speaker": "scribe",
+   "art": "court",
+   "text": [
+    "秦から逃れ帰った公子韓非は、宮に入るとすぐに法を改めた。賞罰を明らかにし、怠る官を罷め、兵を城に集めた。内史騰の兵は新鄭を囲んだが、城の内は思いのほか乱れなかった。",
+    "{scribe}は新しい法の写しを竹簡に記しながら言った。「秦の王は、この方の書を読んで会いたがったという。その書の通りに国を治められては、秦も攻めあぐねるわけだ」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "unflag": "h_qh_hold"
+    },
+    {
+     "unflag": "h_qh_king"
+    },
+    {
+     "unflag": "h_qh_books"
+    },
+    {
+     "note": "韓へ帰った韓非が法を整え、韓はなお持ちこたえた。"
+    }
+   ],
+   "end": "孤憤の国"
+  },
+  "held": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "焼けた攻め具の代わりが西から届くまでに、秋が来て、冬が来た。秦の本隊は城を囲んだまま年を越し、韓は一年を生き延びた。",
+    "{captain}は{player}に酒を注いだ。「一年で何が変わるかは知らぬ。だが、一年あれば、子が一人生まれ、麦が一度実る。それで十分だ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "han",
+     "n": 10
+    },
+    {
+     "unflag": "h_qh_hold"
+    },
+    {
+     "unflag": "h_qh_king"
+    },
+    {
+     "unflag": "h_qh_books"
+    },
+    {
+     "note": "新鄭の夜討ちで、韓の滅びは一年遅れた。"
+    }
+   ],
+   "end": "一年の麦"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、韓の行く末を見届ける",
+   "wait": {
+    "settled": "qin_han"
+   },
+   "speaker": "scribe",
+   "art": "war",
+   "text": [
+    "城門は、攻められる前に開いた。内史騰の兵は粛々と新鄭に入り、{king}は宮の階を下りて捕らえられた。六国のうち、最初に滅んだのは韓であった。",
+    "秦の役人たちが宮の書庫の竹簡を運び出し、広場に積み上げはじめた。{scribe}がそれを見て、膝から崩れ落ちた。"
+   ],
+   "choices": [
+    {
+     "label": "{scribe}を連れて、山あいの廟へ向かう",
+     "if": {
+      "flag": "h_qh_books"
+     },
+     "next": "end_books"
+    },
+    {
+     "label": "秦の役人に、書を焼かずに咸陽へ送るよう掛け合う",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_speak",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "広場の煙に背を向け、城を去る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_books": {
+   "speaker": "scribe",
+   "text": [
+    "廟の床下の竹簡は、無事だった。{scribe}は一番古い束を抱きしめ、声を上げて泣いた。",
+    "「国は滅んでも、国があったことは残る」老人はその日から、廟の番人になった。のちにこの竹簡を読みに、遠くから学者が訪ねてくるようになる。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "rep": "han",
+     "n": 10
+    },
+    {
+     "unflag": "h_qh_king"
+    },
+    {
+     "unflag": "h_qh_books"
+    },
+    {
+     "note": "韓は滅んだ。史官の竹簡は廟に残った。"
+    }
+   ],
+   "end": "廟の竹簡"
+  },
+  "end_speak": {
+   "text": [
+    "秦の役人は渋い顔をしたが、「法の書と地の図は咸陽の役に立つ」という{player}の言葉に頷いた。竹簡の半ばは火を免れ、車に積まれて西へ去った。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_qh_king"
+    },
+    {
+     "unflag": "h_qh_books"
+    },
+    {
+     "note": "韓は滅んだ。宮の書の半ばを火から救った。"
+    }
+   ],
+   "end": "西へ去る竹簡"
+  },
+  "end_plain": {
+   "text": [
+    "広場の煙は三日のあいだ空に昇り続けた。{player}は東の街道を歩きながら、一度だけ振り返った。新鄭の城壁の上には、もう秦の旗しか見えなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_qh_king"
+    },
+    {
+     "unflag": "h_qh_books"
+    },
+    {
+     "note": "韓が滅ぶのを見届けた。"
+    }
+   ],
+   "end": "最初に滅んだ国"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qh_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "if": {
+      "branch": "qh_hanfei"
+     },
+     "next": "hanfei"
+    },
+    {
+     "if": {
+      "branch": "qh_hold"
+     },
+     "next": "held"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。秦の内史騰が新鄭に入り、韓王を捕らえたという。六国のうち、最初に滅んだのは韓であった。",
+    "「次はどこだ」と、宿の客たちは囁き合った。誰も答えなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_qh_king"
+    },
+    {
+     "unflag": "h_qh_books"
+    },
+    {
+     "note": "韓が滅んだと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "qh_noking",
+   "event": "qin_han",
+   "order": 3,
+   "why": "秦王政がすでに殺されていた",
+   "when": {
+    "slain": [
+     "秦王政"
+    ]
+   },
+   "then": "cancel",
+   "note": "王を失った{n_qin}の軍は新鄭を囲んだまま兵を返し、{n_han}は滅びなかった。"
+  },
+  {
+   "id": "qh_hanfei",
+   "event": "qin_han",
+   "order": 2,
+   "why": "韓非が韓へ帰って法を整えていた",
+   "when": {
+    "taken": [
+     "hanfei_home"
+    ]
+   },
+   "then": "delay",
+   "months": 18,
+   "note": "韓へ帰った[[p:韓非]]が法を整え兵を城に集めたので、{n_qin}は新鄭を攻めあぐね、{n_han}はなお一年半を持ちこたえた。"
+  },
+  {
+   "id": "qh_hold",
+   "event": "qin_han",
+   "order": 1,
+   "why": "主人公が城外の秦の攻め具を焼いた",
+   "when": {
+    "flag": "h_qh_hold"
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "新鄭の城外で{n_qin}の先鋒が夜討ちに遭って攻め具を焼かれ、{n_han}の滅びは一年遅れた。"
+  }
+ ]
+}

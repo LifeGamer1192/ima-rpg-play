@@ -1,0 +1,566 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_mo",
+ "kind": "school",
+ "title": "非攻の城",
+ "era": "shunju",
+ "school": "mo",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "juzi": {
+   "npc": "鉅子",
+   "sex": "m"
+  },
+  "comrade": {
+   "npc": "墨者",
+   "sex": "f"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "weak": {
+   "realm": "weakest"
+  },
+  "weakcap": {
+   "place": "capital:weak"
+  },
+  "strong": {
+   "realm": "enemy:weak"
+  },
+  "strongcap": {
+   "place": "capital:strong"
+  },
+  "king": {
+   "person": "ruler:strong"
+  },
+  "engineer": {
+   "npc": "工匠",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の墨家の工房で鉅子に会う",
+   "speaker": "juzi",
+   "art": "tale",
+   "text": [
+    "工房には鉋屑の匂いが立ちこめていた。褐衣に草鞋の男たちが、黙々と木を削り、縄を綯っている。誰が頭目か見分けがつかない。",
+    "「わしが{juzi}だ」声をかけてきたのは、手を真っ黒にして車輪の軸を直していた男だった。日に焼け、脛の毛はすり切れている。「墨者は飾らず、奢らず、楽を聴かず。人の国を己の国のごとく視る。それでも来るか」"
+   ],
+   "choices": [
+    {
+     "label": "「来ます。何をすればよいですか」",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 1
+      },
+      {
+       "xp": "letters",
+       "n": 1
+      }
+     ],
+     "next": "s1q"
+    },
+    {
+     "label": "「なぜ、他人の城まで守るのです」と問う",
+     "effects": [
+      {
+       "xp": "letters",
+       "n": 2
+      }
+     ],
+     "next": "s1why"
+    }
+   ]
+  },
+  "s1why": {
+   "speaker": "juzi",
+   "text": [
+    "「一人を殺せば不義と言い、必ず死罪となる。百人を殺せば百の不義だ。ところが国を攻めて万人を殺すと、人はそれを義と呼んで褒める」{juzi}は鉋を置いた。「白を少し見て白と言い、多く見て黒と言う。そういう者を、お前はどう思う」",
+    "答えに詰まる{player}に、{juzi}は笑って薪を指した。「まずは割れ。話はそれからだ」"
+   ],
+   "next": "s1q"
+  },
+  "s1q": {
+   "speaker": "comrade",
+   "text": [
+    "薪割りと水汲みに明け暮れる日々が始まった。指南役についたのは、{comrade}という女の墨者だった。無口だが、弩の弦を張る手つきは誰より速い。",
+    "「ここでは剣も字も、城を守るために習う。人を攻めるためじゃない。それだけは忘れないで」"
+   ],
+   "next": "c2"
+  },
+  "c2": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "10日ほど修業したのち、{comrade}と{village}の村を守りに行く",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "comrade",
+   "art": "war",
+   "text": [
+    "{village}の村が{bandit}に狙われている、と村の長老が工房に駆け込んできた。墨者は頼まれれば、銭を取らずに守りに行く。",
+    "村には崩れかけた土塀しかない。「夜までに支度をする」{comrade}が言った。「塀を直すか、待ち伏せるか。あなたが決めて」"
+   ],
+   "choices": [
+    {
+     "label": "塀の外に逆茂木と落とし穴を拵える",
+     "check": {
+      "skill": "letters",
+      "dc": 14,
+      "win": "c2ok",
+      "lose": "c2fight"
+     }
+    },
+    {
+     "label": "村の若者を率いて、門で迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "c2ok",
+      "lose": "c2ng"
+     }
+    }
+   ]
+  },
+  "c2fight": {
+   "text": [
+    "逆茂木は間に合わなかった。月明かりの下、松明を掲げた{bandit}どもが塀に迫る。"
+   ],
+   "choices": [
+    {
+     "label": "棒を取って門に立つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "talk": true,
+      "win": "c2ok",
+      "lose": "c2ng"
+     }
+    }
+   ]
+  },
+  "c2ok": {
+   "text": [
+    "夜明け、{bandit}どもは一人も塀を越えられぬまま退いた。長老が礼の銭を差し出したが、{comrade}は首を振った。「代わりに、塀をちゃんと直しておいて」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "c2back"
+  },
+  "c2ng": {
+   "text": [
+    "倉の一つを焼かれたが、村人は誰も死ななかった。{comrade}は{player}の傷を縫いながら言った。「守りきれない夜もある。次は、もっと前から備える」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "c2back"
+  },
+  "c2back": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の工房に戻り、{juzi}に報告する",
+   "speaker": "juzi",
+   "text": [
+    "{juzi}は話を聞くと、{player}に褐衣を一着投げてよこした。「今日からお前も墨者だ。墨者の法では、人を殺せば死、人を傷つければ刑。わしの子であろうと曲げぬ。よいな」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "note": "墨者として認められた。"
+    }
+   ],
+   "next": "c3"
+  },
+  "c3": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "剣術を20まで鍛え、{here}の工房に戻る",
+   "wait": {
+    "skill": {
+     "blade": 20
+    },
+    "days": 20
+   },
+   "speaker": "juzi",
+   "art": "war",
+   "text": [
+    "旅の墨者が、息を切らせて工房に飛び込んできた。{strong}の工匠{engineer}が、城壁を越える巨大な梯子――雲梯を造り上げた。{strong}はそれで{weak}を攻めるつもりだという。",
+    "{juzi}は立ち上がった。「弟子三百を{weakcap}の城壁に送れ。わしは{strongcap}へ行き、{king}に会う」そして{player}を振り返った。「お前はわしと来い。足の裏の皮が剥けるぞ」"
+   ],
+   "next": "c4"
+  },
+  "c4": {
+   "at": {
+    "place": "strongcap",
+    "building": "palace"
+   },
+   "goal": "{juzi}とともに、十日十夜歩いて{strongcap}の宮城へ",
+   "speaker": "engineer",
+   "art": "court",
+   "text": [
+    "{king}の御前に、{engineer}が雲梯の模型を据えた。{juzi}は帯を解いて床に輪を描き、城とした。木の札を楯とし、攻め手と守り手に分かれて、机上の戦が始まる。",
+    "{engineer}は九たび攻め方を変え、{juzi}は九たびそれを防いだ。十度目、{juzi}が言った。「{player}、ここはお前が守ってみよ」"
+   ],
+   "choices": [
+    {
+     "label": "工房で学んだ守りの法で受ける",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "c4ok",
+      "lose": "c4ng"
+     }
+    },
+    {
+     "label": "「鉅子にお任せします」と退く",
+     "next": "c4ng"
+    }
+   ]
+  },
+  "c4ok": {
+   "text": [
+    "{player}は城の下に穴を掘る攻めを読み、内から穴を掘って煙を送り込む手で応じた。{engineer}の手が止まった。攻め手の札は尽き、守り手の札はまだ余っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "flag": "mo_defended"
+    }
+   ],
+   "next": "c4b"
+  },
+  "c4ng": {
+   "text": [
+    "{player}の守りはすぐに破られかけたが、{juzi}が札を一枚動かすだけで形勢は戻った。攻め手の札は尽き、守り手の札はまだ余っていた。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "c4b"
+  },
+  "c4b": {
+   "speaker": "engineer",
+   "text": [
+    "{engineer}は薄く笑った。「あなたに勝つ手を、わたしは知っている。だが言いますまい」",
+    "{juzi}も笑った。「その手もわしは知っておる。わしを殺せば守る者がいなくなる、と言いたいのだろう。だが、わしの弟子三百人は、すでにわしの守りの器を携えて{weakcap}の城壁の上で待っている。わしを殺しても、城は落ちぬ」{king}は長い沈黙ののち、兵を引くと言った。"
+   ],
+   "next": "c4night"
+  },
+  "c4night": {
+   "at": {
+    "place": "strongcap",
+    "building": "inn"
+   },
+   "speaker": "juzi",
+   "art": "war",
+   "text": [
+    "その夜、客舎の戸板が音もなく外された。黒衣の刺客が二人。誰の差し金かは、問うまでもなかった。"
+   ],
+   "choices": [
+    {
+     "label": "{juzi}の前に立ちはだかる",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "c4safe",
+      "lose": "c4hurt"
+     }
+    }
+   ]
+  },
+  "c4safe": {
+   "speaker": "juzi",
+   "text": [
+    "刺客は闇に消えた。{juzi}は乱れた衣を直しながら言った。「よくやった。だが、追うな。殺せば、墨者の法に背く」",
+    "「{player}、お前を高弟とする。{weakcap}へ急ぐぞ。王が兵を引くと言っても、前線の将が素直に従うとは限らぬ」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "{juzi}の高弟となった。"
+    }
+   ],
+   "next": "c5"
+  },
+  "c4hurt": {
+   "speaker": "juzi",
+   "text": [
+    "肩を斬られながらも、{player}は{juzi}を背にかばい続けた。物音に客舎の者たちが起き出し、刺客は逃げ去った。",
+    "{juzi}は傷を縛ってくれた。「身を捨てて人を守る。それが兼愛だ。{player}、お前を高弟とする。{weakcap}へ急ぐぞ。王が兵を引くと言っても、前線の将が素直に従うとは限らぬ」"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{juzi}の高弟となった。"
+    }
+   ],
+   "next": "c5"
+  },
+  "c5": {
+   "at": {
+    "place": "weakcap"
+   },
+   "goal": "{weak}の都、{weakcap}の城壁へ向かう",
+   "wait": {
+    "days": 15
+   },
+   "speaker": "comrade",
+   "art": "war",
+   "text": [
+    "{juzi}の読みは当たった。功に逸る{strong}の将が、王命を待たずに{weakcap}を囲んだのだ。城壁の上では、{comrade}たち墨者が転射機を据え、煮えた油を用意していた。",
+    "「雲梯が三つ、東の壁に来る。それと――地の下で鍬の音がする」{comrade}が土に耳を当てたまま言った。"
+   ],
+   "choices": [
+    {
+     "label": "城壁に立ち、雲梯を登る兵を斬り落とす",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "c5win",
+      "lose": "c5hold"
+     }
+    },
+    {
+     "label": "城内から迎えの坑道を掘り、地下の敵を燻す",
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "c5win",
+      "lose": "c5hold"
+     }
+    }
+   ]
+  },
+  "c5win": {
+   "speaker": "comrade",
+   "text": [
+    "雲梯は燃えて崩れ、坑道の敵は煙に追われて逃げ出した。七日後、{strong}の陣は囲みを解いた。城壁の上で、{comrade}が珍しく笑った。「勝ったんじゃない。守れただけ。でも、それで十分」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "rep": "weak",
+     "n": 20
+    }
+   ],
+   "next": "c6"
+  },
+  "c5hold": {
+   "text": [
+    "東の壁は一度破られた。崩れた石の間で{comrade}が深手を負い、それでも墨者たちは一歩も退かなかった。十日後、{strong}の陣は囲みを解いた。",
+    "{comrade}は命を取りとめたが、もう弩を引くことはできないだろうと医者は言った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "rep": "weak",
+     "n": 15
+    },
+    {
+     "flag": "mo_wounded"
+    }
+   ],
+   "next": "c6"
+  },
+  "c6": {
+   "at": {
+    "place": "weakcap",
+    "building": "palace"
+   },
+   "goal": "{weakcap}の宮城に招かれる",
+   "wait": {
+    "days": 5
+   },
+   "speaker": "{weak}の重臣",
+   "art": "court",
+   "text": [
+    "{weak}の宮城では、守りの功を賞するという。重臣が金の盆を捧げた。「墨者の方々には銭も官もいらぬと聞く。だが、そなた一人ならどうだ。この都の守りの長として、残ってはくれぬか」",
+    "{juzi}の姿は、もうどこにもなかった。賞を受けぬうちに、一人で{here}へ帰ってしまったのだという。"
+   ],
+   "choices": [
+    {
+     "label": "辞退し、{juzi}を追って{here}へ帰る",
+     "next": "c6rain"
+    },
+    {
+     "label": "城の守りの長として{weak}に残る",
+     "effects": [
+      {
+       "flag": "mo_stay"
+      },
+      {
+       "enlist": "weak"
+      },
+      {
+       "money": 500
+      }
+     ],
+     "next": "endOfficer"
+    }
+   ]
+  },
+  "c6rain": {
+   "text": [
+    "{weakcap}の城門を出るころ、大粒の雨が降り出した。門楼の下で雨宿りしようとすると、門番が槍で追い払った。「よそ者は入るな」この城を守ったのが誰か、門番は知らない。",
+    "{player}は濡れながら歩いた。腹は立たなかった。知られずに人を守る。それが墨者なのだと、ようやく分かった気がした。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "c7"
+  },
+  "c7": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "名声を20まで上げ、{here}の工房に戻る",
+   "wait": {
+    "fame": 20,
+    "days": 20
+   },
+   "speaker": "juzi",
+   "art": "tale",
+   "text": [
+    "工房に戻ると、{juzi}はまた車輪の軸を直していた。顔も上げずに言う。「雨に濡れたか」",
+    "「濡れました」と答えると、{juzi}は初めて手を止めた。"
+   ],
+   "next": "endHeir"
+  },
+  "endHeir": {
+   "speaker": "juzi",
+   "text": [
+    "「誰にも知られずに城を守り、門番に追われて濡れて帰る。それで腹を立てぬ者でなければ、墨者の頭は務まらん」{juzi}は真っ黒な手で、{player}の肩を叩いた。「今日からお前がわしの右腕だ。わしが倒れたら、この工房を頼む」",
+    "その後も、攻められた城があると聞けば、褐衣の一団が夜を日に継いで駆けつけた。その先頭には、いつも{player}の姿があったという。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 5
+    },
+    {
+     "note": "{juzi}の右腕となった。"
+    }
+   ],
+   "end": "非攻の守り手"
+  },
+  "endOfficer": {
+   "speaker": "comrade",
+   "text": [
+    "{player}は{weakcap}の守りの長となり、城壁を厚く、濠を深くした。{weak}を攻めようとする国は、それからしばらく現れなかった。",
+    "別れ際、{comrade}は言った。「鉅子は怒らないと思う。守る場所が一つに決まっただけ。ただ、義を売らないで」{player}は頷き、腰に下げていた褐衣の帯を、そっと締め直した。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "fame": 4
+    }
+   ],
+   "end": "一城の守将"
+  }
+ }
+}

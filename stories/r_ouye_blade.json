@@ -1,0 +1,288 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_ouye_blade",
+ "kind": "random",
+ "where": "folk",
+ "hook": "師の遺した剣を、ふさわしい人に託したいのです",
+ "title": "龍淵の剣",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "刀匠の弟子"
+  },
+  "smith": {
+   "npc": "老刀匠",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "剣客",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は、欧冶子の流れを汲む刀匠の家の者だという。「師の{smith}は病に伏しています。家には、欧冶子と干将が鍛えたと伝わる剣が一振り。雨の日には刃が青く光るのです」",
+    "「師は、剣を持つにふさわしい人を見たいと言っています。ですが、噂を聞いた剣客の{rival}も、剣を寄こせと毎日のように押しかけてきて……」"
+   ],
+   "choices": [
+    {
+     "label": "刀匠に会いに行く",
+     "next": "smith"
+    }
+   ]
+  },
+  "smith": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "{here}の鍛冶場で老刀匠に会う",
+   "speaker": "smith",
+   "art": "tale",
+   "text": [
+    "炉の火は落ちていた。{smith}は床から身を起こし、布に包んだ剣を膝に置いた。「剣は人を選ぶ。……そなた、なぜ剣を求める」"
+   ],
+   "choices": [
+    {
+     "label": "「弱き者を守るために」",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "trust",
+      "lose": "doubt"
+     }
+    },
+    {
+     "label": "「腕を見ていただきたい」と型を見せる",
+     "check": {
+      "skill": "blade",
+      "dc": 35,
+      "win": "trust",
+      "lose": "doubt"
+     }
+    },
+    {
+     "label": "「値をつけてください」",
+     "if": {
+      "money": 3000
+     },
+     "next": "buy"
+    }
+   ]
+  },
+  "doubt": {
+   "speaker": "smith",
+   "text": [
+    "{smith}は首を振った。「まだ若い。……だが、あの{rival}に渡すよりはましか」そのとき、戸が荒々しく開いた。"
+   ],
+   "next": "rival"
+  },
+  "trust": {
+   "speaker": "smith",
+   "text": [
+    "{smith}はしばらく目を閉じていたが、やがて剣を差し出した。「持ってゆけ。ただし――」そのとき、戸が荒々しく開いた。"
+   ],
+   "effects": [
+    {
+     "flag": "ouye_trust"
+    }
+   ],
+   "next": "rival"
+  },
+  "buy": {
+   "speaker": "smith",
+   "text": [
+    "「銭で剣を売るのは刀匠の恥だが、薬代がいる」{smith}は寂しく笑った。そのとき、戸が荒々しく開いた。"
+   ],
+   "effects": [
+    {
+     "flag": "ouye_buy"
+    }
+   ],
+   "next": "rival"
+  },
+  "rival": {
+   "speaker": "rival",
+   "art": "duel",
+   "text": [
+    "「その剣はわしがもらう」{rival}が剣の柄に手をかけた。「欲しければ、わしを倒してからにしろ」"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "「刀匠の前で血を流すな」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "won_talk",
+      "lose": "lost_talk"
+     }
+    }
+   ]
+  },
+  "lost_talk": {
+   "speaker": "rival",
+   "text": [
+    "「口では剣は振れぬ」{rival}は剣を抜いた。"
+   ],
+   "choices": [
+    {
+     "label": "戦う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "won_talk": {
+   "speaker": "rival",
+   "text": [
+    "{rival}は唇を噛んだが、やがて剣から手を離した。「……病人の前で騒いだのは恥だった」そう言って去っていった。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "gift"
+  },
+  "won": {
+   "speaker": "smith",
+   "text": [
+    "{rival}は膝をつき、這うように出ていった。{smith}は咳き込みながら笑った。「剣が、そなたを選んだようだ」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "next": "gift"
+  },
+  "gift": {
+   "speaker": "smith",
+   "text": [
+    "布を解くと、青みを帯びた刃が現れた。「龍淵という。雨の日には、この刃が青く光り、よく斬れる。……正しく使え」"
+   ],
+   "choices": [
+    {
+     "label": "受け取る",
+     "if": {
+      "notFlag": "ouye_buy"
+     },
+     "effects": [
+      {
+       "unflag": "ouye_trust"
+      },
+      {
+       "item": "t_longyuan"
+      },
+      {
+       "note": "老刀匠から名剣「龍淵」を託された。"
+      }
+     ],
+     "next": "end_keep"
+    },
+    {
+     "label": "代を払って受け取る（3000銭）",
+     "if": {
+      "flag": "ouye_buy",
+      "money": 3000
+     },
+     "effects": [
+      {
+       "unflag": "ouye_buy"
+      },
+      {
+       "money": -3000
+      },
+      {
+       "item": "t_longyuan"
+      },
+      {
+       "note": "老刀匠から名剣「龍淵」を買い受けた。"
+      }
+     ],
+     "next": "end_keep"
+    },
+    {
+     "label": "「師の薬代にしてください」と辞退し、市に売る口をきく",
+     "effects": [
+      {
+       "unflag": "ouye_trust"
+      },
+      {
+       "unflag": "ouye_buy"
+      },
+      {
+       "money": 600
+      },
+      {
+       "fame": 3
+      }
+     ],
+     "next": "end_decline"
+    }
+   ]
+  },
+  "lost": {
+   "text": [
+    "打ち倒された。目を覚ますと、{rival}の姿も剣もなかった。{client}が泣きながら{smith}の背をさすっていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "ouye_trust"
+    },
+    {
+     "unflag": "ouye_buy"
+    },
+    {
+     "hp": -15
+    }
+   ],
+   "end": "奪われた剣"
+  },
+  "end_keep": {
+   "speaker": "client",
+   "text": [
+    "{client}は深く頭を下げた。「師も安心したでしょう。雨の日には、どうか師を思い出してください」"
+   ],
+   "end": "託された龍淵"
+  },
+  "end_decline": {
+   "speaker": "client",
+   "text": [
+    "剣は、{here}の豪族が高値で買い取った。{smith}の薬代は足り、{client}は鍛冶場を継ぐと言った。「いつか、あなたのための剣を打ちます」"
+   ],
+   "end": "薬代になった剣"
+  }
+ }
+}

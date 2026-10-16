@@ -1,0 +1,254 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_hitokai",
+ "kind": "random",
+ "where": "road",
+ "hook": "乱取りで子らを攫われました。人買いの列がこの先に",
+ "title": "人買いの列",
+ "era": "sengoku",
+ "trigger": {
+  "war": true
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "焼け出された村の者"
+  },
+  "trader": {
+   "npc": "人買いの頭",
+   "sex": "m"
+  },
+  "girl": {
+   "npc": "攫われた娘",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "街道の脇で、{client}が泥だらけの足で座り込んでいた。先の戦で足軽たちが村を乱取りし、米も牛も、子どもまで連れていった。子らは人買いに売られ、縄でつながれてこの先の宿場へ運ばれていくという。",
+    "「娘の{girl}が、あの列の中にいるのです。銭は焼けてしまいました。どうか、どうか」"
+   ],
+   "choices": [
+    {
+     "label": "一緒に列を追う",
+     "next": "caravan"
+    },
+    {
+     "label": "先回りして人買いの様子を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "scout",
+      "lose": "caravan"
+     }
+    }
+   ]
+  },
+  "scout": {
+   "text": [
+    "宿場の木賃宿の裏で、人買いの手下たちの話を聞いた。連れているのは二十人余り、見張りは四人。しかも、この国の殿は先ごろ「領内での人の売り買いを禁ず」という掟を出しており、人買いたちは役人の目を避けて裏道を通っているらしい。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_hk_law"
+    }
+   ],
+   "next": "caravan"
+  },
+  "caravan": {
+   "speaker": "trader",
+   "art": "war",
+   "text": [
+    "峠の下で列に追いついた。腰を縄でつながれた子どもや女たちが、うつむいて歩いている。その中の一人が顔を上げ、{client}の姿を見つけて泣き叫んだ。{girl}だ。",
+    "人買いの{trader}が鞭を手に振り返った。「欲しけりゃ買え。一人二百文。乱取りの品を買うのは、誰に咎められることでもねえ」"
+   ],
+   "choices": [
+    {
+     "label": "{girl}を買い戻す（200文）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "end_bought"
+    },
+    {
+     "label": "「この国の掟では、人の売り買いは御法度だ」",
+     "if": {
+      "flag": "sg_hk_law"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "end_released",
+      "lose": "fight"
+     }
+    },
+    {
+     "label": "「その縄、全部切らせてもらう」",
+     "next": "fight"
+    }
+   ]
+  },
+  "fight": {
+   "speaker": "trader",
+   "art": "war",
+   "text": [
+    "{trader}が指笛を吹くと、見張りの男たちが棒や刀を手に集まってきた。「商いの邪魔をする奴は、まとめて売り飛ばしてやる」"
+   ],
+   "choices": [
+    {
+     "label": "斬り込む",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "freed",
+      "lose": "end_failed"
+     }
+    }
+   ]
+  },
+  "freed": {
+   "speaker": "girl",
+   "text": [
+    "人買いたちは逃げ散った。縄を切ると、二十人余りの子どもや女たちが、泣きながら座り込んだ。{girl}は{client}の胸に飛び込んだ。",
+    "{trader}が置いていった銭箱が、道に転がっている。解き放たれた者たちの村は、みな別々の方角だ。"
+   ],
+   "choices": [
+    {
+     "label": "銭箱の銭を分け、皆を村々へ送り届ける",
+     "next": "end_all"
+    },
+    {
+     "label": "銭箱をもらい、ここで別れる",
+     "next": "end_loot"
+    }
+   ]
+  },
+  "end_bought": {
+   "speaker": "client",
+   "text": [
+    "{trader}は銭を数えて、{girl}の縄だけを解いた。{client}は娘を抱きしめて泣いた。",
+    "列はまた動き出した。残された子どもたちが、振り返りながら峠を越えていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hk_law"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "一人分の銭"
+  },
+  "end_released": {
+   "speaker": "trader",
+   "text": [
+    "掟の文言を突きつけ、宿場の役人を呼ぶぞと言うと、{trader}の顔から余裕が消えた。「……ちっ、売れねえ品を連れていても仕方ねえ」",
+    "人買いたちは縄を捨てて逃げていった。二十人余りが解き放たれ、{client}は娘を抱いて何度も頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hk_law"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "人買いの列から二十人余りを解き放った。"
+    }
+   ],
+   "end": "掟の力"
+  },
+  "end_all": {
+   "speaker": "client",
+   "text": [
+    "十日かけて、子どもたちを一人ずつ村へ送り届けた。焼け跡の村々で、親たちが泣きながら迎えた。",
+    "銭は残らなかった。だが街道筋では、人買いの列を斬った者の話が語られるようになった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hk_law"
+    },
+    {
+     "fame": 7
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "pass": 14400
+    },
+    {
+     "note": "人買いから救った子らを村々へ送り届けた。"
+    }
+   ],
+   "end": "帰り道"
+  },
+  "end_loot": {
+   "text": [
+    "銭箱を担いで、峠の分かれ道で皆と別れた。{client}と{girl}は何度も振り返って手を振った。",
+    "残りの者たちが無事に村へ帰れたかどうかは、分からない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hk_law"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "峠の銭箱"
+  },
+  "end_failed": {
+   "text": [
+    "多勢に囲まれて打ち倒された。列は峠の向こうへ消え、{client}は道端で声を上げて泣いていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hk_law"
+    },
+    {
+     "hp": -20
+    }
+   ],
+   "end": "峠の向こうへ"
+  }
+ }
+}

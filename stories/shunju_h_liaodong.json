@@ -1,0 +1,551 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_liaodong",
+ "kind": "history",
+ "title": "遼東",
+ "era": "shunju",
+ "event": "qin_yan",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2esc",
+  "s2esc_ng",
+  "s3",
+  "s3hide",
+  "s3hide_ng",
+  "s4",
+  "s4ok",
+  "s4hurt"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "ji_yan"
+  },
+  "refuge": {
+   "place": "near:city"
+  },
+  "dai": {
+   "scnPlace": "jinyang"
+  },
+  "yan": {
+   "scnRealm": "yan"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:yan"
+  },
+  "wangben": {
+   "scnPerson": "王賁"
+  },
+  "retainer": {
+   "npc": "燕の旧臣",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で燕の旧臣に会う",
+   "speaker": "retainer",
+   "art": "tale",
+   "text": [
+    "{city}の城壁には、もう三年、秦の旗が翻っていた。客舎の隅で、すり切れた官服の男が{player}に酒を勧めた。燕の旧臣、{retainer}である。",
+    "「王は遼東におられる。太子の首を差し出してまで守った国は、いまや海辺の痩せた地だけだ」{retainer}は声を落とした。「秦の{wangben}が、大梁を水に沈めたあの将が、遼東へ兵を向けるという。王を落とす道を探さねばならぬ。それと、代だ。西の代王嘉どのにも、急を知らせねば」"
+   ],
+   "choices": [
+    {
+     "label": "まず西の代へ急を知らせに行く",
+     "effects": [
+      {
+       "note": "燕の旧臣{retainer}から、秦の{wangben}が遼東と代を攻めると聞いた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "dai",
+    "building": "palace"
+   },
+   "goal": "{dai}の代王の宮へ急を知らせる",
+   "speaker": "代王嘉",
+   "art": "court",
+   "text": [
+    "代の宮は、宮と呼ぶのがはばかられるほど小さかった。邯鄲が落ちた日に北へ逃れた公子嘉は、ここで代王を称し、趙の祀りを六年守ってきた。",
+    "王は{player}の報せを聞いても、顔色を変えなかった。「燕が落ちれば、次は代。分かっていたことだ。趙の祖の廟をここに移したのは、わたしが最後の祀り手になるためだった」"
+   ],
+   "choices": [
+    {
+     "label": "報せを伝えて、遼東へ向かう",
+     "next": "s3"
+    },
+    {
+     "label": "王と廟の木主を連れ、北の胡の地へ落ちる道を手引きする",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s2esc",
+      "lose": "s2esc_ng"
+     }
+    }
+   ]
+  },
+  "s2esc": {
+   "speaker": "代王嘉",
+   "art": "road",
+   "text": [
+    "{player}は北の胡の部族と馬の取引をしている商人を探し出し、羊の群れを追う牧人の一行を仕立てた。王と幼い子らは羊皮をまとい、祖の木主は羊毛の袋の底に縫い込まれた。",
+    "「秦が来たら、宮には空の玉座だけを置いておけ」代王嘉は{player}に言った。「趙の祀りは、草の上で続ける。それもまた、祀りだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_df_escape"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "note": "代王嘉が北の胡の地へ落ちる道を手引きした。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2esc_ng": {
+   "text": [
+    "胡の商人は銭を受け取ったが、約束の日に現れなかった。王は「天命だ」と言って、宮に残った。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "refuge",
+    "building": "palace"
+   },
+   "goal": "{refuge}に落ちた{king}の仮の宮へ行く",
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "遼東へ向かう道の先、{refuge}の古い館に、{king}は仮の宮を構えていた。従う臣は数えるほどしかいない。王は痩せ、目ばかりが大きかった。",
+    "「太子を斬れば秦は兵を退く、と代王は言った」王はつぶやいた。「わしは斬った。秦は退かなかった。わしは息子と国と、両方を失った」{retainer}が膝をついて言った。「まだ王がおられます。王がおられるかぎり、燕は滅びませぬ」"
+   ],
+   "choices": [
+    {
+     "label": "王の供回りに加わる",
+     "next": "s4"
+    },
+    {
+     "label": "{king}を塩商人の荷に紛れさせ、山の隠れ里へ匿う",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 37,
+      "win": "s3hide",
+      "lose": "s3hide_ng"
+     }
+    }
+   ]
+  },
+  "s3hide": {
+   "speaker": "retainer",
+   "art": "road",
+   "text": [
+    "{player}は塩の荷車を三台仕立て、王を荷の間に伏せさせた。山の奥の、地図にも載らぬ隠れ里である。仮の宮には、王の衣を着せた老僕を一人残した。",
+    "{retainer}は里の入口で振り返った。「秦の兵が老僕に気づくまで、ひと月。山を探しつくすまで、半年。冬が来れば、雪が道を閉ざす。一年は稼げよう」"
+   ],
+   "effects": [
+    {
+     "flag": "h_qy_hide"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "yan",
+     "n": 10
+    },
+    {
+     "wanted": "qin",
+     "n": 15
+    },
+    {
+     "note": "{king}を山の隠れ里へ匿った。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hide_ng": {
+   "text": [
+    "荷車が館を出る前に、秦の斥候の騎馬が街道に姿を見せた。計は捨てるしかなかった。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "refuge",
+    "building": "barracks"
+   },
+   "goal": "{refuge}で、秦の斥候を防ぐ",
+   "speaker": "retainer",
+   "art": "war",
+   "text": [
+    "秦の斥候の騎馬が、館のまわりを嗅ぎまわりはじめた。{wangben}の本隊が来る前に、目を潰しておかねばならない。"
+   ],
+   "choices": [
+    {
+     "label": "斥候を討つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4ok",
+      "lose": "s4hurt"
+     }
+    }
+   ]
+  },
+  "s4ok": {
+   "text": [
+    "斥候の二騎を林の中で討ち取った。馬は放した。だが、帰らぬ斥候は、それだけで報せになる。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4hurt": {
+   "text": [
+    "斥候の一騎を取り逃がし、{player}も槍に突かれた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "refuge"
+   },
+   "goal": "{refuge}で、燕の行く末を見届ける",
+   "wait": {
+    "settled": "qin_yan"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qy_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "if": {
+      "branch": "qy_hide"
+     },
+     "next": "hidden"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "noking": {
+   "speaker": "retainer",
+   "art": "tale",
+   "text": [
+    "秦の王が死んだという報せが届き、{wangben}の兵は遼東から退いていった。{king}は仮の宮で、長いあいだ西の空を眺めていた。",
+    "「太子の首は、秦の王に届けられた」王は言った。「その王が、もういない。わしは何のために、息子を斬ったのだ」{retainer}は答えなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_qy_hide"
+    },
+    {
+     "unflag": "h_df_escape"
+    },
+    {
+     "note": "秦の王が死に、{wangben}は遼東から退いた。"
+    }
+   ],
+   "end": "西の空"
+  },
+  "hidden": {
+   "speaker": "retainer",
+   "art": "tale",
+   "text": [
+    "{wangben}の兵は仮の宮で王の衣を着た老僕を捕らえ、怒って山狩りを始めた。だが山は深く、冬は早かった。王が見つかったのは、雪の解けた翌年のことである。",
+    "{retainer}は隠れ里で、王と過ごした冬のことを語った。「王は毎晩、太子の話をなさった。国の話は一度もなさらなかった。……あの一年は、王のための一年だったのだ」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "note": "{king}は山に匿われ、燕の滅びは一年遅れた。"
+    }
+   ],
+   "next": "daigo"
+  },
+  "s5": {
+   "at": {
+    "place": "refuge"
+   },
+   "goal": "{refuge}で、燕の行く末を見届ける",
+   "wait": {
+    "settled": "qin_yan"
+   },
+   "speaker": "wangben",
+   "art": "war",
+   "text": [
+    "{wangben}の兵が館を囲み、{king}は抗わずに捕らえられた。召公奭が封ぜられてから八百年余り、燕という国はここに終わった。",
+    "{wangben}は捕らえた王を車に乗せ、西へ発つ前に言った。「これで燕は終わり。帰り道に、代を片付ける」"
+   ],
+   "next": "daigo"
+  },
+  "daigo": {
+   "at": {
+    "place": "dai"
+   },
+   "goal": "{dai}で、代の行く末を見届ける",
+   "wait": {
+    "settled": "dai_falls"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "df_none"
+     },
+     "next": "nodai"
+    },
+    {
+     "if": {
+      "branch": "df_escape"
+     },
+     "next": "escaped"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "nodai": {
+   "art": "tale",
+   "text": [
+    "代の宮は、空だった。趙が滅んでいないのなら、代という国はそもそも生まれていない。{dai}の人々は、秦の兵が何を探しに来たのかと首をかしげた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_qy_hide"
+    },
+    {
+     "unflag": "h_df_escape"
+    },
+    {
+     "note": "代の国は生まれておらず、秦の兵は空の宮を見ただけだった。"
+    }
+   ],
+   "end": "空の宮"
+  },
+  "escaped": {
+   "speaker": "wangben",
+   "art": "road",
+   "text": [
+    "{wangben}の兵が代の宮に踏み込んだとき、玉座は空だった。北の草原に、羊の群れを追う一行が小さく見えた気がしたが、それを追う者はいなかった。",
+    "{wangben}は空の玉座を見下ろして笑った。「趙の祀りを、羊が運んでいったか。好きにさせよ。草の上の王など、秦の地図には載らぬ」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "unflag": "h_qy_hide"
+    },
+    {
+     "unflag": "h_df_escape"
+    },
+    {
+     "note": "代王嘉は北の草原へ逃れ、趙の祀りは絶えなかった。"
+    }
+   ],
+   "end": "草の上の祀り"
+  },
+  "s6": {
+   "at": {
+    "place": "dai"
+   },
+   "goal": "{dai}で、代の行く末を見届ける",
+   "wait": {
+    "settled": "dai_falls"
+   },
+   "speaker": "代王嘉",
+   "art": "war",
+   "text": [
+    "{wangben}は燕を滅ぼした帰りに代を攻め、代王嘉を捕らえた。王は祖の廟の前で縄を受けた。趙の祀りは、ここに絶えた。",
+    "引かれていく前に、王は{player}を見て言った。「よく知らせてくれた。おかげで、廟の掃除だけは済ませられた」"
+   ],
+   "choices": [
+    {
+     "label": "廟の木主を拾い、ひそかに持ち出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "end_tablet",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "黙って見送る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_tablet": {
+   "text": [
+    "秦の兵が廟の木主を焚き火に投げ込む前に、{player}は一つを袖に隠した。趙の祖の名が刻まれた、小さな板である。それを祀る者は、もういない。{player}を除いては。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_qy_hide"
+    },
+    {
+     "unflag": "h_df_escape"
+    },
+    {
+     "note": "燕と代は滅んだ。趙の祖の木主を一つ持ち出した。"
+    }
+   ],
+   "end": "袖の木主"
+  },
+  "end_plain": {
+   "text": [
+    "北の空を雁が渡っていった。燕も代も、もうない。東の海の向こうの斉だけが、まだ静かに残っている。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_qy_hide"
+    },
+    {
+     "unflag": "h_df_escape"
+    },
+    {
+     "note": "燕と代が滅ぶのを見届けた。"
+    }
+   ],
+   "end": "北の雁"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "qy_noking"
+     },
+     "next": "noking"
+    },
+    {
+     "if": {
+      "branch": "qy_hide"
+     },
+     "next": "hidden"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。秦の{wangben}が遼東で燕王喜を捕らえ、燕は滅んだという。{wangben}は帰り道に代を攻めるつもりらしい。"
+   ],
+   "effects": [
+    {
+     "note": "燕が滅んだと聞いた。"
+    }
+   ],
+   "next": "daigo"
+  }
+ },
+ "branches": [
+  {
+   "id": "qy_noking",
+   "event": "qin_yan",
+   "order": 2,
+   "why": "秦王政がすでに殺されていた",
+   "when": {
+    "slain": [
+     "秦王政"
+    ]
+   },
+   "then": "cancel",
+   "note": "王を失った{n_qin}の[[p:王賁]]は遼東から兵を退き、{n_yan}は滅びなかった。"
+  },
+  {
+   "id": "qy_hide",
+   "event": "qin_yan",
+   "order": 1,
+   "why": "主人公が燕王喜を山の隠れ里へ匿った",
+   "when": {
+    "flag": "h_qy_hide"
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "[[p:燕王喜]]は山の隠れ里に匿われ、[[p:王賁]]の兵は一年のあいだ王を見つけられなかった。"
+  },
+  {
+   "id": "df_none",
+   "event": "dai_falls",
+   "order": 2,
+   "why": "邯鄲が落ちず代の国が生まれなかった",
+   "when": {
+    "changed": [
+     "qin_zhao"
+    ]
+   },
+   "then": "cancel",
+   "note": "邯鄲は落ちておらず、代の国は生まれていなかった。"
+  },
+  {
+   "id": "df_escape",
+   "event": "dai_falls",
+   "order": 1,
+   "why": "主人公が代王嘉を北の草原へ逃がした",
+   "when": {
+    "flag": "h_df_escape"
+   },
+   "then": "replace",
+   "keep": true,
+   "alt": {
+    "ja": "{n_qin}の[[p:王賁]]は燕を滅ぼした帰りに代を攻めたが、宮の玉座は空だった。[[p:代王嘉]]は手引きする者を得て、祖の木主を携え北の草原へ逃れていた。",
+    "imp": 2,
+    "at": "jinyang"
+   }
+  }
+ ]
+}

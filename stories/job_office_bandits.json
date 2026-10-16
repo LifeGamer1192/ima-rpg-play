@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_bandits",
+ "kind": "job",
+ "era": "*",
+ "giver": "office",
+ "mechanism": "bandits",
+ "target": "gang-near",
+ "title": "{place}の{bandit}討伐",
+ "desc": "{place}の街道に{bandit}が出て、旅人が襲われている。退治してほしい。",
+ "reward": {
+  "base": 120,
+  "perDay": 15
+ },
+ "favor": 12,
+ "fame": 3,
+ "deadline": {
+  "base": 20,
+  "perDay": 2
+ }
+}

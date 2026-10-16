@@ -1,0 +1,221 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_routed_soldier",
+ "kind": "random",
+ "where": "road",
+ "hook": "頼む、見逃してくれ。国へ帰りたいだけなのだ",
+ "title": "敗残兵の行方",
+ "era": "shunju",
+ "trigger": {
+  "war": true
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "敗残兵"
+  },
+  "land": {
+   "realm": "patron"
+  },
+  "foe": {
+   "realm": "enemy:land"
+  },
+  "border": {
+   "place": "border:land"
+  },
+  "officer": {
+   "npc": "追捕の什長",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "war",
+   "text": [
+    "道端の葦の茂みに、血に汚れた男がうずくまっていた。鎧の札は{foe}の兵のものだ。先の戦で隊が崩れ、ひとり逃げてきたという。",
+    "「家には母と幼い弟がいる。俺が死ねば、畑を耕す者がいなくなる」遠くから、馬の蹄の音が近づいてくる。{land}の追手だ。"
+   ],
+   "choices": [
+    {
+     "label": "茂みに隠してやる",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "hidden",
+      "lose": "found"
+     }
+    },
+    {
+     "label": "追手に引き渡す",
+     "next": "end_handed"
+    }
+   ]
+  },
+  "hidden": {
+   "speaker": "officer",
+   "text": [
+    "馬を止めた{officer}が、じろりとこちらを見た。「このあたりで{foe}の兵を見なかったか」首を振ると、{officer}は鼻を鳴らして駆け去った。"
+   ],
+   "next": "choice"
+  },
+  "found": {
+   "speaker": "officer",
+   "art": "war",
+   "text": [
+    "{officer}の目が茂みの揺れを捉えた。「そこにいるな。旅の者、退け。退かぬなら同罪だ」"
+   ],
+   "choices": [
+    {
+     "label": "男を引き渡す",
+     "next": "end_handed"
+    },
+    {
+     "label": "追手と斬り結ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "talk": true,
+      "win": "choice",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "choice": {
+   "speaker": "client",
+   "text": [
+    "男は傷を押さえて立ち上がった。「恩に着る。……だが、この傷では国境まで一人では行けぬ」"
+   ],
+   "choices": [
+    {
+     "label": "{border}まで送ってやる",
+     "next": "escort"
+    },
+    {
+     "label": "乾し飯を渡して別れる",
+     "if": {
+      "item": "rations"
+     },
+     "effects": [
+      {
+       "item": "rations",
+       "n": -1
+      }
+     ],
+     "next": "end_parted"
+    },
+    {
+     "label": "「ここまでだ」と言って別れる",
+     "next": "end_parted"
+    }
+   ]
+  },
+  "escort": {
+   "at": {
+    "place": "border"
+   },
+   "goal": "敗残兵を{border}まで送り届ける",
+   "speaker": "client",
+   "art": "voyage",
+   "text": [
+    "人目を避けて山道を行き、{border}の近くまでたどり着いた。峠の上で、男は{foe}の方角を見て泣いた。",
+    "そのとき、谷から男たちが現れた。落ち武者の持ち物を狙う追い剥ぎだ。"
+   ],
+   "choices": [
+    {
+     "label": "追い剥ぎを追い払う",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "talk": true,
+      "win": "end_home",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "end_handed": {
+   "speaker": "officer",
+   "text": [
+    "男は縄をかけられ、引かれていった。振り返った目に、恨みはなかった。ただ、ひどく疲れていた。",
+    "「ご協力に感謝する」{officer}は褒美の銭を投げてよこした。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "land",
+     "n": 3
+    }
+   ],
+   "end": "縄目の兵"
+  },
+  "end_parted": {
+   "text": [
+    "男は何度も振り返りながら、足を引きずって森へ消えた。彼が国に帰れたかどうかは、ついに分からない。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "森へ消えた背"
+  },
+  "end_home": {
+   "speaker": "client",
+   "text": [
+    "男は峠を越える前に、鎧の札を一枚外してよこした。「いつか{foe}の地で困ったら、これを見せてくれ。俺の村の者なら、必ず力になる」",
+    "敵の兵を逃がしたことは、誰にも言えない。だが、胸の奥は不思議と軽かった。"
+   ],
+   "effects": [
+    {
+     "money": 50
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "rep": "foe",
+     "n": 5
+    },
+    {
+     "note": "{foe}の敗残兵を故郷へ逃がした。"
+    }
+   ],
+   "end": "故郷への道"
+  },
+  "end_lost": {
+   "text": [
+    "多勢に押され、傷を負って倒れた。目を覚ましたとき、男の姿はどこにもなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "end": "踏みにじられた情け"
+  }
+ }
+}

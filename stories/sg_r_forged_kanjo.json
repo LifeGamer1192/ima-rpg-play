@@ -1,0 +1,324 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_forged_kanjo",
+ "kind": "random",
+ "where": "office",
+ "hook": "この感状、どうも臭う。目利きのできる者を求む",
+ "title": "書き換えられた感状",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "奉行所の右筆"
+  },
+  "claimant": {
+   "npc": "足軽組頭",
+   "sex": "m"
+  },
+  "captain": {
+   "npc": "物頭",
+   "sex": "m"
+  },
+  "witness": {
+   "npc": "槍持ちの小者",
+   "sex": "m"
+  },
+  "village": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "奉行所の奥で、{client}が一枚の感状を広げた。先の戦で一番首を挙げた者に与えられたもので、組頭の{claimant}がこれを差し出し、恩賞の田を願い出ているという。",
+    "「ところが物頭の{captain}どのが、あの首は自分が取ったもの、感状は盗まれたのだと言い張る。花押は殿のものに見えるが、どうも紙の手触りがおかしい」"
+   ],
+   "choices": [
+    {
+     "label": "感状の紙と墨を改める",
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "scraped",
+      "lose": "claimant"
+     }
+    },
+    {
+     "label": "{claimant}に会って話を聞く",
+     "next": "claimant"
+    }
+   ]
+  },
+  "scraped": {
+   "text": [
+    "灯にかざすと、宛名のところだけ紙が薄い。もとの名を小刀で削り、上から{claimant}の名を書いたのだ。花押は本物だった。",
+    "つまり、この感状はもともと別の誰かに与えられたものになる。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_kanjo_scraped"
+    }
+   ],
+   "next": "claimant"
+  },
+  "claimant": {
+   "at": {
+    "place": "here",
+    "building": "barracks"
+   },
+   "goal": "{here}の番所で{claimant}に会う",
+   "speaker": "claimant",
+   "art": "war",
+   "text": [
+    "番所の土間で、{claimant}は腕を組んで座っていた。問い詰めると、しばらくして吐き出すように言った。",
+    "「名を書き換えたのは俺だ。だが首を取ったのも俺だ。{captain}は後ろで見ていただけで、首を取り上げて本陣に届け、感状を受けた。俺はそれを{captain}の文箱から盗み、名を削った。あの場を見ていた槍持ちが、{village}にいる」"
+   ],
+   "choices": [
+    {
+     "label": "{village}へ証人を探しに行く",
+     "next": "witness"
+    },
+    {
+     "label": "「偽造は偽造だ」と奉行所に突き出す",
+     "next": "end_strict"
+    },
+    {
+     "label": "{captain}に直に会う",
+     "next": "captain"
+    }
+   ]
+  },
+  "witness": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}で槍持ちの{witness}を探す",
+   "speaker": "witness",
+   "art": "tale",
+   "text": [
+    "{village}の外れの小屋で、{witness}は足を引きずりながら薪を割っていた。戦で膝を砕かれ、暇を出されたのだという。",
+    "「見ましたとも。首を取ったのは{claimant}さまだ。だが物頭さまに逆らえば、わしなど一晩で川に浮きます」"
+   ],
+   "choices": [
+    {
+     "label": "「奉行所が守る。見たままを話してくれ」",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "testify",
+      "lose": "witness_ng"
+     }
+    },
+    {
+     "label": "暮らしの足しに銭を渡す（100文）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "testify"
+    }
+   ]
+  },
+  "witness_ng": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "{witness}が首を振ったそのとき、戸口に人影が立った。{captain}の手の者だ。「余計な口を利く前に、片づけておけと言われてな」"
+   ],
+   "choices": [
+    {
+     "label": "{witness}をかばって戦う",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "testify",
+      "lose": "end_silenced"
+     }
+    }
+   ]
+  },
+  "testify": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{witness}を連れて{here}の奉行所へ戻る",
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{witness}は奉行所の白洲で、見たままを語った。{client}は筆を止め、長いため息をついた。",
+    "「名を削ったのは罪だ。だが首を盗んだのはもっと重い罪だ。……さて、この裁き、どう申し上げたものか」"
+   ],
+   "choices": [
+    {
+     "label": "「手柄は{claimant}に。偽造の罪は手柄で償わせよ」",
+     "next": "end_justice"
+    },
+    {
+     "label": "「どちらも罰すべきだ」",
+     "next": "end_strict"
+    }
+   ]
+  },
+  "captain": {
+   "speaker": "captain",
+   "text": [
+    "{captain}は屋敷の縁側で茶を啜っていた。「下郎の戯言に耳を貸すとは、奉行所も暇よの」そう言って、懐から紙包みを出した。",
+    "「三百文ある。忙しい身で手間をかけさせた礼だ。あの感状は偽物、それで終いにせい」"
+   ],
+   "choices": [
+    {
+     "label": "紙包みを受け取る",
+     "effects": [
+      {
+       "money": 300
+      }
+     ],
+     "next": "end_bribed"
+    },
+    {
+     "label": "「首を取った腕が本当にあるか、見せてもらおう」",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "end_duel",
+      "lose": "end_silenced"
+     }
+    },
+    {
+     "label": "紙包みを返し、証人を探しに行く",
+     "next": "witness"
+    }
+   ]
+  },
+  "end_justice": {
+   "speaker": "client",
+   "text": [
+    "恩賞の田は{claimant}に与えられ、名を削った罪は一度の戦功で相殺とされた。{captain}は物頭の役を解かれ、国を去った。",
+    "{client}は筆を置いて笑った。「感状が正しい者の手に渡るのは、案外少ないものだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kanjo_scraped"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{claimant}の手柄を明らかにした。"
+    }
+   ],
+   "end": "正しい宛名"
+  },
+  "end_strict": {
+   "speaker": "client",
+   "text": [
+    "{claimant}は感状を偽った罪で、組頭の役を解かれ、追放された。首を取ったのが誰かは、問われることもなかった。",
+    "{client}は淡々と礼の銭を差し出した。「法は法だ。ご苦労であった」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kanjo_scraped"
+    },
+    {
+     "money": 100
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "end": "法の宛名"
+  },
+  "end_bribed": {
+   "text": [
+    "奉行所には「感状は偽物だった」とだけ告げた。{claimant}は追放され、{captain}は何事もなかったように物頭を続けている。",
+    "紙包みの銭は重かった。だが番所の足軽たちは、こちらを見ると黙るようになった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kanjo_scraped"
+    },
+    {
+     "fame": -2
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "黙った感状"
+  },
+  "end_duel": {
+   "speaker": "captain",
+   "text": [
+    "{captain}の太刀筋は鈍く、三合と保たずに刀を落とした。膝をついたまま、{captain}は呻いた。「……首は、{claimant}が取った。わしは届けただけだ」",
+    "縁側の騒ぎを聞いた家人たちが、その言葉を聞いていた。{claimant}の手柄は認められ、{captain}は役を解かれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kanjo_scraped"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "物頭{captain}を打ち負かし、偽りの手柄を白状させた。"
+    }
+   ],
+   "end": "太刀の証"
+  },
+  "end_silenced": {
+   "text": [
+    "手傷を負って退くしかなかった。数日後、{witness}が川に浮かんでいたと聞いた。{claimant}は偽造の罪で追放され、{captain}の手柄はそのまま残った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kanjo_scraped"
+    },
+    {
+     "hp": -20
+    }
+   ],
+   "end": "川に流れた証"
+  }
+ }
+}

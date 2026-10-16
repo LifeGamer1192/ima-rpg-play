@@ -1,0 +1,860 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_zui",
+ "kind": "history",
+ "era": "shunju",
+ "title": "最後の合従",
+ "event": "zui_241",
+ "lead": 10,
+ "before": [
+  "s1",
+  "s1stay_ok",
+  "s1stay_ng",
+  "s2",
+  "s2wey",
+  "s2wey_ok",
+  "s2wey_ng",
+  "s2break_ng",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s3win_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "chucap": {
+   "scnPlace": "wanqiu"
+  },
+  "xy": {
+   "scnPlace": "xianyang"
+  },
+  "zhaoge": {
+   "scnPlace": "zhaoge"
+  },
+  "chu": {
+   "scnRealm": "chu"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "wey": {
+   "scnRealm": "wey"
+  },
+  "king": {
+   "person": "ruler:chu"
+  },
+  "chunshen": {
+   "scnPerson": "春申君"
+  },
+  "pangxuan": {
+   "scnPerson": "龐煖"
+  },
+  "weyofficer": {
+   "npc": "衛の大夫",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "chucap",
+    "building": "palace"
+   },
+   "goal": "{chucap}の宮城で{chunshen}に会う",
+   "speaker": "chunshen",
+   "art": "court",
+   "text": [
+    "{chucap}の宮城には、五つの国の使いが集まっていた。楚、趙、魏、韓、燕。合従の長に推されたのは{king}、だが采配を振るうのは令尹の{chunshen}である。",
+    "{chunshen}は{player}を広間の隅に招いた。「函谷関を正面から叩けば、また跳ね返される。だから今度は関を避け、北から回り込んで秦の都の喉元を突く。将は趙の{pangxuan}だ」",
+    "「ただ、朝議には別の声もある。合従が敗れたら、すぐに都を東の寿春へ移せと。逃げ支度をしながら戦に出る軍が、勝てると思うか」"
+   ],
+   "choices": [
+    {
+     "label": "合従の軍に加わると申し出る",
+     "effects": [
+      {
+       "note": "{chunshen}の合従に加わり、{pangxuan}の軍に従うことになった。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "朝議に出て、都を東へ移す議を退ける",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s1stay_ok",
+      "lose": "s1stay_ng"
+     }
+    }
+   ]
+  },
+  "s1stay_ok": {
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{player}は朝議の座で言った。「都を移すと決めた国の兵は、戦の前から背中を見せております。勝っても負けても、都はここに置く。そう王が仰せになれば、五国の兵は楚の旗を信じましょう」",
+    "{king}は長く黙り、やがて玉座の肘掛けを叩いた。「遷都の議は、今後口にすることを許さぬ」{chunshen}が、{player}にだけ分かるように頷いた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_ss_stay"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "chu",
+     "n": 10
+    },
+    {
+     "note": "{chu}の朝議で、都を寿春へ移す議を退けた。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s1stay_ng": {
+   "text": [
+    "遷都を説く老臣は、{player}の言葉を鼻で笑った。「戦を知らぬ客が、国の大計に口を挟むか」議は覆らず、寿春へ荷を運ぶ車の手配だけが、ひそかに進められていった。"
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "chucap",
+    "building": "barracks"
+   },
+   "goal": "{chucap}の軍営で{pangxuan}の軍議に加わる",
+   "speaker": "pangxuan",
+   "art": "camp",
+   "text": [
+    "軍営の大幕には、五つの国の旗が並んでいた。趙の老将{pangxuan}は、黙って地図の上に石を置いていく。函谷関を避け、河を北で渡り、秦の都の東、蕞の野へ。",
+    "「各国の将は、自分の兵を惜しむ。それが合従の病だ」{pangxuan}は呟いた。「誰が先に退くか、皆それを見ている」",
+    "幕の外で、衛から来た使いが叫んでいた。「秦は合従の隙に、朝歌を取りに来る。誰か、衛にも兵を」"
+   ],
+   "choices": [
+    {
+     "label": "{pangxuan}の軍に従って西へ向かう",
+     "next": "s3"
+    },
+    {
+     "label": "{zhaoge}へ走り、衛の君角を守る",
+     "turn": true,
+     "next": "s2wey"
+    },
+    {
+     "label": "秦の間者として、諸国の将のあいだに疑いを撒く",
+     "turn": true,
+     "if": {
+      "patron": "qin"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s2break_ok",
+      "lose": "s2break_ng"
+     }
+    }
+   ]
+  },
+  "s2break_ok": {
+   "art": "backroom",
+   "text": [
+    "{player}は夜ごと各国の将の幕を回った。魏の将には「楚は勝てば魏の地を取るつもりだ」と、韓の将には「趙は先鋒を韓に押しつける」と、楚の将には「寿春への車はもう出ている」と。",
+    "十日のうちに、軍議の席は空席だらけになった。燕の兵が北へ帰り、韓の兵が後に続いた。{pangxuan}は地図の上の石を、一つずつ黙って片づけた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_zui_break"
+    },
+    {
+     "rep": "qin",
+     "n": 20
+    },
+    {
+     "rep": "chu",
+     "n": -15
+    },
+    {
+     "rep": "zhao",
+     "n": -10
+    },
+    {
+     "money": 300
+    },
+    {
+     "note": "{qin}のために、合従の将たちのあいだに疑いを撒いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2break_ng": {
+   "text": [
+    "魏の将は、{player}の言葉を最後まで聞いてから、刀の柄に手をかけた。「秦の匂いがする」{player}は幕を蹴って逃げ、そのまま西へ向かう軍の列に紛れ込むしかなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "rep": "chu",
+     "n": -5
+    }
+   ],
+   "next": "s3"
+  },
+  "s2wey": {
+   "at": {
+    "place": "zhaoge",
+    "building": "palace"
+   },
+   "goal": "{zhaoge}へ行き、衛の君角を守る",
+   "speaker": "weyofficer",
+   "art": "war",
+   "text": [
+    "{zhaoge}は、殷の都だった古い城だ。いまは衛の君がわずかな兵とともに身を寄せている。城壁は高いが、守る兵は千に足りない。",
+    "{weyofficer}が城壁の上で西を指さした。「秦の先鋒が河を渡った。合従の兵がみな西へ出払ったのを見て、こちらへ来たのだ。君は、祖先の祀りを捨てて逃げることはできぬと仰せだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_zg2_there"
+    }
+   ],
+   "choices": [
+    {
+     "label": "城壁を固め、渡ってきた秦の先鋒を河岸で叩く",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "confirm": "千に足りぬ兵で、秦の先鋒を迎え撃つ。退く道はない。",
+      "win": "s2wey_ok",
+      "lose": "s2wey_ng"
+     }
+    },
+    {
+     "label": "城の民とともに成り行きを待つ",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s2wey_ok": {
+   "speaker": "weyofficer",
+   "art": "war",
+   "text": [
+    "河岸の葦の中に伏せた兵が、渡り終えたばかりの秦の先鋒に矢を浴びせた。{player}は先頭で斬り込み、敵の旗手を河へ叩き落とした。",
+    "先鋒は浮き足立って河を渡り返した。{weyofficer}は泥だらけの顔で{player}の手を握った。「衛は小さい。だが、小さいからといって、黙って呑まれてやる義理はない」"
+   ],
+   "effects": [
+    {
+     "flag": "h_zg2_wey"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wey",
+     "n": 20
+    },
+    {
+     "rep": "qin",
+     "n": -10
+    },
+    {
+     "note": "{zhaoge}で秦の先鋒を河岸に退け、衛の君を守った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2wey_ng": {
+   "art": "war",
+   "text": [
+    "河岸の伏兵は先に見つかり、矢を射かけられて散った。{player}は傷を負って城へ逃げ込んだ。城壁の上から見ると、秦の陣はもう城の西に据えられつつあった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3": {
+   "at": {
+    "place": "xy"
+   },
+   "goal": "{pangxuan}の軍に従い、{xy}の東、蕞の野へ行く",
+   "speaker": "pangxuan",
+   "art": "war",
+   "text": [
+    "五国の軍は函谷関を避けて北から回り込み、ついに{xy}の東、蕞の野に陣を張った。秦の都の城壁が、晴れた日には地平に見える。",
+    "{pangxuan}は陣の櫓から西を見ていた。「秦の兵は都を守るために戻ってくる。戻りきる前に本陣を突けば、勝てる。戻りきれば、負ける」老将は{player}を振り返った。「明日の朝だ」"
+   ],
+   "choices": [
+    {
+     "label": "陣の守りにつく",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "夜明けに、{pangxuan}の精鋭とともに秦の本陣へ斬り込む",
+     "turn": true,
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "confirm": "戻りつつある秦の大軍のただ中へ斬り込む。勝てば合従の勝ち、負ければ骨も残らない。",
+      "win": "s3win",
+      "lose": "s3win_ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "art": "war",
+   "text": [
+    "夜襲に来た秦の騎兵を、柵の内から追い払った。だが夜が明けると、西の地平に秦の大軍の旗が並んでいた。都を守る兵が、戻ってきたのだ。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3ng": {
+   "art": "war",
+   "text": [
+    "柵を越えてきた秦の騎兵に斬られ、{player}は泥の中に倒れた。夜が明けると、西の地平に秦の大軍の旗が並んでいた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3win": {
+   "speaker": "pangxuan",
+   "art": "war",
+   "text": [
+    "朝霧の中を、五千の精鋭が音もなく進んだ。秦の本陣は、戻ってきたばかりの兵が鎧も脱がずに眠っていた。{player}は柵を斬り倒し、真っ先に陣の中へ躍り込んだ。",
+    "秦の兵は四方へ崩れた。{pangxuan}は馬上で剣を掲げた。「五国の兵よ、これが合従だ。一つになれば、秦も退く」その声に、遠くの諸国の陣からも喊声が上がった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_zui_win"
+    },
+    {
+     "fame": 12
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "rep": "chu",
+     "n": 15
+    },
+    {
+     "rep": "qin",
+     "n": -25
+    },
+    {
+     "note": "蕞の野で{pangxuan}とともに秦の本陣を破った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3win_ng": {
+   "art": "war",
+   "text": [
+    "霧が晴れるのが早すぎた。秦の弩兵の列が、斬り込んだ精鋭を正面から射すくめた。{player}は倒れた兵の下から這い出し、ようやく味方の陣へ戻った。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "goal": "合従の行く末を見届ける",
+   "wait": {
+    "settled": "zui_241"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "zui_break"
+     },
+     "next": "broken"
+    },
+    {
+     "if": {
+      "branch": "zui_win"
+     },
+     "next": "won"
+    },
+    {
+     "if": {
+      "flag": "h_zg2_there"
+     },
+     "next": "zgwait"
+    },
+    {
+     "if": {
+      "branch": "zui_nopang"
+     },
+     "next": "nopang"
+    },
+    {
+     "next": "s4"
+    }
+   ]
+  },
+  "won": {
+   "at": {
+    "place": "xy"
+   },
+   "speaker": "chunshen",
+   "art": "war",
+   "text": [
+    "秦の軍は{xy}の城に籠もり、五国の兵は蕞の野に勝ちの旗を立てた。都を落とすには至らなかったが、秦がこれほど都の近くで敗れたのは、何十年ぶりのことだという。",
+    "遅れて着いた{chunshen}は、{player}の泥だらけの鎧を見て笑った。「寿春へ逃げる車は、もう要らぬな。合従は、まだ死んではいなかった」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 10
+    },
+    {
+     "unflag": "h_zui_win"
+    },
+    {
+     "unflag": "h_ss_stay"
+    },
+    {
+     "unflag": "h_zg2_there"
+    },
+    {
+     "note": "蕞の野で合従が{qin}を破った。"
+    }
+   ],
+   "end": "蕞の勝ち"
+  },
+  "broken": {
+   "art": "tale",
+   "text": [
+    "五国の軍は、秦の兵と刃を交えることもなく、ばらばらに国へ帰っていった。最後の合従は、戦場に出る前に終わった。",
+    "{xy}から来た使いが、{player}に褒美の袋を渡した。「王は、一兵も損なわずに五国を退けた者の名を覚えておられる」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "favor": 15
+    },
+    {
+     "unflag": "h_zui_break"
+    },
+    {
+     "unflag": "h_ss_stay"
+    },
+    {
+     "note": "合従は戦わずに崩れた。崩したのは{player}だった。"
+    }
+   ],
+   "end": "戦わずして散る"
+  },
+  "nopang": {
+   "art": "war",
+   "text": [
+    "将を失った五国の軍は、蕞の野で秦の兵に押されて散った。誰が率いても同じだったのか、それとも{pangxuan}がいれば違ったのか、答える者はいない。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ss_stay"
+    },
+    {
+     "note": "合従は蕞で敗れて散った。"
+    }
+   ],
+   "end": "将なき合従"
+  },
+  "s4": {
+   "at": {
+    "place": "xy"
+   },
+   "goal": "蕞の野で合従の行く末を見届ける",
+   "wait": {
+    "settled": "zui_241"
+   },
+   "speaker": "pangxuan",
+   "art": "war",
+   "text": [
+    "秦の兵は都から、そして函谷関から戻ってきた。蕞の野で五国の軍は挟まれ、まず燕の兵が、次に韓の兵が崩れた。{pangxuan}は最後まで踏みとどまったが、やがて退き鉦を鳴らさせた。",
+    "「合従は、これで終わりだ」老将は血のついた剣を拭いながら言った。「次に秦と戦うときは、どの国も一国で戦うことになる」"
+   ],
+   "choices": [
+    {
+     "label": "{pangxuan}とともに殿に立つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "end_rear",
+      "lose": "end_rout"
+     }
+    },
+    {
+     "label": "傷ついた兵を車に乗せて退く",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "end_wounded",
+      "lose": "end_rout"
+     }
+    },
+    {
+     "label": "一人で東へ落ちのびる",
+     "next": "end_rout"
+    }
+   ]
+  },
+  "end_rear": {
+   "speaker": "pangxuan",
+   "text": [
+    "殿の兵は三日のあいだ秦の追手を食い止め、五国の兵の多くが河を渡って逃れた。",
+    "別れ際に{pangxuan}は言った。「わしは老いた。だが、あの野で一緒に退いた若い者がいたことは覚えておく」のちに聞いた。{chu}の王は都を東の寿春へ移したという。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "unflag": "h_ss_stay"
+    },
+    {
+     "note": "最後の合従は蕞で敗れた。{pangxuan}とともに殿に立った。"
+    }
+   ],
+   "end": "最後の殿"
+  },
+  "end_wounded": {
+   "text": [
+    "{player}は荷車に傷ついた兵を積めるだけ積み、東へ向かった。車を引く牛が倒れると、自ら轅を引いた。",
+    "河を渡りきったとき、兵の一人が言った。「どこの国の者か知らぬが、恩に着る」その兵は燕の言葉を話し、隣の兵は楚の言葉を話していた。合従が一つになったのは、その荷車の上だけだった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "unflag": "h_ss_stay"
+    },
+    {
+     "note": "最後の合従は蕞で敗れた。傷ついた兵を連れて退いた。"
+    }
+   ],
+   "end": "荷車の上の合従"
+  },
+  "end_rout": {
+   "text": [
+    "{player}は泥と血の中を東へ走った。振り返ると、蕞の野には五つの国の旗が踏みにじられて残っていた。",
+    "のちに聞いた。{chu}の王は都を東の寿春へ移し、秦は朝歌を抜いて衛の君を野王へ移したという。諸侯が力を合わせて秦に当たることは、二度となかった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "unflag": "h_ss_stay"
+    },
+    {
+     "note": "最後の合従は蕞で敗れて散った。"
+    }
+   ],
+   "end": "散りぢりの旗"
+  },
+  "zgwait": {
+   "at": {
+    "place": "zhaoge"
+   },
+   "goal": "{zhaoge}で衛の行く末を見届ける",
+   "wait": {
+    "settled": "qin_zhaoge"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "zg2_wey"
+     },
+     "next": "wey_saved"
+    },
+    {
+     "next": "zg_fall"
+    }
+   ]
+  },
+  "wey_saved": {
+   "at": {
+    "place": "zhaoge"
+   },
+   "speaker": "weyofficer",
+   "art": "feast",
+   "text": [
+    "合従は西で敗れたと聞こえてきた。だが{zhaoge}に、秦の兵は戻ってこなかった。河岸で叩かれた先鋒は、もう一度渡る気をなくしたらしい。",
+    "衛の君は祖先の廟に酒を注ぎ、{player}にも杯を賜った。{weyofficer}が言った。「衛は小国だ。いずれ呑まれる日も来よう。だが、それは今年ではなかった」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wey",
+     "n": 10
+    },
+    {
+     "unflag": "h_zg2_wey"
+    },
+    {
+     "unflag": "h_zg2_there"
+    },
+    {
+     "unflag": "h_ss_stay"
+    },
+    {
+     "note": "{zhaoge}は落ちず、衛の君は都に留まった。"
+    }
+   ],
+   "end": "朝歌の祀り"
+  },
+  "zg_fall": {
+   "at": {
+    "place": "zhaoge"
+   },
+   "goal": "{zhaoge}で衛の行く末を見届ける",
+   "wait": {
+    "settled": "qin_zhaoge"
+   },
+   "speaker": "weyofficer",
+   "art": "war",
+   "text": [
+    "合従が西で敗れたという知らせと前後して、秦の兵が{zhaoge}の城壁に取りついた。城は七日で落ちた。衛の君は秦の命で、河内の野王へ移されることになった。",
+    "{weyofficer}は君の車の轅を握ったまま、{player}に言った。「祖先の祀りは、野王でも続ける。国の名が残るかぎり、衛は衛だ」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_zg2_there"
+    },
+    {
+     "unflag": "h_ss_stay"
+    },
+    {
+     "note": "秦は{zhaoge}を抜き、衛の君を野王へ移した。"
+    }
+   ],
+   "end": "野王へ移る君"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "zui_break"
+     },
+     "next": "broken"
+    },
+    {
+     "if": {
+      "branch": "zui_nopang"
+     },
+     "next": "nopang"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "噂が届いた。楚・趙・魏・韓・燕の五国が最後の合従を結んで秦を攻め、{xy}の東の蕞まで迫ったが、敗れて散ったという。",
+    "「これで、もう誰も秦に逆らわぬ」と、宿の客は言った。その声は、どこか安堵しているようにも聞こえた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ss_stay"
+    },
+    {
+     "unflag": "h_zg2_there"
+    },
+    {
+     "note": "最後の合従が蕞で敗れたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "ss_zuiwin",
+   "event": "chu_shouchun",
+   "order": 2,
+   "why": "主人公が蕞で秦の本陣を破った",
+   "when": {
+    "flag": "h_zui_win"
+   },
+   "then": "cancel",
+   "note": "五国の兵が蕞の野で{n_qin}の本陣を破ったと聞き、{r_chu}は都を寿春へ移す議を退けた。"
+  },
+  {
+   "id": "ss_stay",
+   "event": "chu_shouchun",
+   "order": 1,
+   "why": "主人公が楚の朝議で遷都の議を退けた",
+   "when": {
+    "flag": "h_ss_stay"
+   },
+   "then": "cancel",
+   "note": "{r_chu}は朝議で遷都の議を退け、都を動かさなかった。"
+  },
+  {
+   "id": "zui_break",
+   "event": "zui_241",
+   "order": 3,
+   "why": "主人公が合従の将たちの仲を裂いた",
+   "when": {
+    "flag": "h_zui_break"
+   },
+   "then": "cancel",
+   "note": "五国の合従は、将たちが互いに疑い合って戦う前に崩れ、兵はそれぞれの国へ帰った。蕞の役は起こらなかった。"
+  },
+  {
+   "id": "zui_win",
+   "event": "zui_241",
+   "order": 2,
+   "why": "主人公が龐煖と秦の本陣を破った",
+   "when": {
+    "flag": "h_zui_win"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "楚・趙・魏・韓・燕の五国は最後の合従を結んで{n_qin}を攻め、[[p:龐煖]]の精鋭が蕞の野で秦の本陣を破った。秦がこれほど都の近くで敗れたのは久しくなかった。",
+    "do": [
+     [
+      "war",
+      "chu",
+      "qin",
+      {
+       "ja": "蕞の役",
+       "en": "the Zui campaign"
+      }
+     ],
+     [
+      "army",
+      "qin",
+      0.75
+     ],
+     [
+      "add",
+      "qin",
+      "prestige",
+      -15
+     ]
+    ],
+    "imp": 1,
+    "at": "xianyang"
+   }
+  },
+  {
+   "id": "zui_nopang",
+   "event": "zui_241",
+   "order": 1,
+   "why": "龐煖がすでに死んでいた",
+   "when": {
+    "dead": [
+     "龐煖"
+    ]
+   },
+   "then": "replace",
+   "keep": true,
+   "alt": {
+    "ja": "楚・趙・魏・韓・燕の五国は最後の合従を結んで{n_qin}を攻めたが、[[p:龐煖]]なき軍をまとめる将はなく、蕞まで迫ったところで敗れて散った。",
+    "do": [
+     [
+      "war",
+      "chu",
+      "qin",
+      {
+       "ja": "蕞の役",
+       "en": "the Zui campaign"
+      }
+     ],
+     [
+      "add",
+      "qin",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 1,
+    "at": "xianyang"
+   }
+  },
+  {
+   "id": "zg2_wey",
+   "event": "qin_zhaoge",
+   "order": 2,
+   "why": "主人公が朝歌の河岸で秦の先鋒を退けた",
+   "when": {
+    "flag": "h_zg2_wey"
+   },
+   "then": "cancel",
+   "note": "{n_qin}の先鋒は朝歌の河岸で衛の兵に叩かれて退き、衛の君は都に留まった。"
+  },
+  {
+   "id": "zg2_zuiwin",
+   "event": "qin_zhaoge",
+   "order": 1,
+   "why": "合従が蕞で秦を破っていた",
+   "when": {
+    "taken": [
+     "zui_win"
+    ]
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "蕞で敗れた{n_qin}は、朝歌を攻めるのを一年のあいだ見合わせた。"
+  }
+ ]
+}

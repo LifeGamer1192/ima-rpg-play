@@ -1,0 +1,194 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_false_prince",
+ "kind": "random",
+ "where": "inn",
+ "hook": "あの若者が本当に亡き公子の遺児なのか、見極めてほしい",
+ "title": "偽の王子",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "老いた遺臣"
+  },
+  "prince": {
+   "npc": "公子を名乗る若者",
+   "sex": "m"
+  },
+  "broker": {
+   "npc": "後見人を名乗る男",
+   "sex": "m"
+  },
+  "land": {
+   "realm": "home"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "宿の離れに、近ごろ人が集まっている。政争で殺された{land}の公子の遺児が、密かに生き延びていたというのだ。その若者{prince}のもとへ、昔の家臣たちが銭を持ち寄っている。",
+    "{client}も、その一人だった。「公子さまの面影がある気もする。だが後見人の{broker}という男が、どうにも胡散臭い。わしの蓄えを渡す前に、確かめてくだされ」"
+   ],
+   "choices": [
+    {
+     "label": "若者に昔の宮中のことを問う",
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "fake",
+      "lose": "unsure"
+     }
+    },
+    {
+     "label": "{broker}の身辺を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "fake",
+      "lose": "unsure"
+     }
+    }
+   ]
+  },
+  "fake": {
+   "text": [
+    "若者は宮中の礼を何ひとつ知らなかった。夜、{broker}の部屋を探ると、各地の遺臣の名と、取り立てた銭の額を記した帳面があった。",
+    "{prince}本人は、どこかの戦災孤児らしい。{broker}に拾われ、言われるままに公子を演じている。逃げれば殺すと脅されているようだった。"
+   ],
+   "next": "decide"
+  },
+  "unsure": {
+   "text": [
+    "問いには曖昧な答えしか返ってこない。真とも偽とも言いきれなかった。だが{broker}の目つきだけは、たしかに銭を数える商人のものだった。"
+   ],
+   "next": "decide"
+  },
+  "decide": {
+   "speaker": "client",
+   "text": [
+    "「どうであった」{client}がすがるように聞いてくる。離れでは、遺臣たちが若者を囲んで、昔の主の名を呼んで泣いていた。"
+   ],
+   "choices": [
+    {
+     "label": "皆の前で{broker}の偽りを暴く",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_exposed",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "{prince}を連れて逃がしてやる",
+     "next": "brawl"
+    },
+    {
+     "label": "「本物でしょう」と告げ、{broker}から口止め料を取る",
+     "next": "end_propped"
+    }
+   ]
+  },
+  "brawl": {
+   "speaker": "broker",
+   "art": "war",
+   "text": [
+    "{broker}が叫んだ。「そやつは公子さまを害しに来た刺客だ」雇われ者たちが棒を手に囲んでくる。"
+   ],
+   "choices": [
+    {
+     "label": "{prince}をかばって戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_freed",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "end_exposed": {
+   "speaker": "client",
+   "text": [
+    "帳面を示し、若者に宮中の礼を一つずつ問うてみせると、遺臣たちの顔が変わっていった。{broker}は袋叩きにされ、官府に突き出された。",
+    "{client}は肩を落とした。「夢を見ておったのですな、わしらは」それでも蓄えは守られ、礼として一部を差し出してくれた。{prince}は、遺臣の一人が下男として引き取った。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "end": "偽りを暴く"
+  },
+  "end_freed": {
+   "speaker": "prince",
+   "text": [
+    "雇われ者を蹴散らし、{prince}の手を引いて町を出た。峠で若者は振り返り、初めて自分の本当の名を名乗った。",
+    "「田を耕して生きます。もう誰の子でもない」{broker}は混乱の中で銭袋を残して逃げ、{client}はそれを遺臣たちに分け戻した。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "操り人形の糸"
+  },
+  "end_propped": {
+   "speaker": "broker",
+   "text": [
+    "「話の分かる人だ」{broker}は重い袋をよこした。{client}は涙を流して蓄えを差し出した。",
+    "半年後、偽の公子は{land}への謀反の旗印として担がれ、捕らえられたと聞いた。担いだ遺臣たちがどうなったかは、誰も口にしなかった。"
+   ],
+   "effects": [
+    {
+     "money": 350
+    },
+    {
+     "fame": -2
+    },
+    {
+     "favor": -10
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "祭り上げた公子"
+  },
+  "end_beaten": {
+   "text": [
+    "多勢に打ち倒され、宿の外へ放り出された。翌朝、離れは空になっていた。{broker}も{prince}も、遺臣たちの銭も、消えていた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "end": "消えた公子"
+  }
+ }
+}

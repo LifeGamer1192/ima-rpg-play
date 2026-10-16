@@ -1,0 +1,500 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_rank7_shukuro",
+ "kind": "rank",
+ "rankTo": 7,
+ "title": "天下人への使者",
+ "era": "sengoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "big": {
+   "realm": "enemy:patron"
+  },
+  "bigcap": {
+   "place": "capital:big"
+  },
+  "bigking": {
+   "person": "ruler:big"
+  },
+  "tea": {
+   "npc": "茶人",
+   "sex": "m"
+  },
+  "hawk": {
+   "npc": "主戦派の老臣",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城で昇進を願い出る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}の前に、{big}からの書状が開かれていた。天下に号令せんとする{bigking}が、{patron}に臣従と人質を求めてきたのだ。応じねば、来春には大軍を差し向けるという。",
+    "主戦派の老臣{hawk}が吠えた。「頭を下げて家が残った例があるか。籠城して一戦すべし」{ruler}は{player}を見た。「そなたが使者に立て。家の行く末を預ける。持ち帰ったもので、宿老に据えるかどうかを決める」"
+   ],
+   "effects": [
+    {
+     "note": "{big}の{bigking}のもとへ、{patron}の使者として赴くことになった。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "bigcap",
+    "building": "house"
+   },
+   "goal": "{big}の{bigcap}へ赴き、茶人の{tea}を訪ねる",
+   "speaker": "tea",
+   "art": "court",
+   "text": [
+    "{bigcap}の城下は普請の槌音が絶えず、市には諸国の商人があふれていた。{bigking}に近い茶人{tea}は、四畳半の茶室に{player}を通し、黙って茶を点てた。",
+    "「殿は、使者の口上より、使者の器を見られます。この一碗をどう飲まれるかで、わたしも口添えするかどうかを決めましょう」"
+   ],
+   "choices": [
+    {
+     "label": "作法どおりに茶を喫し、道具の由来を問う",
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "持参した名物の茶器を、{tea}を通じて献じる",
+     "if": {
+      "item": "lacquer"
+     },
+     "effects": [
+      {
+       "item": "lacquer",
+       "n": -1
+      }
+     ],
+     "next": "s2ok"
+    },
+    {
+     "label": "黄金を包んで{tea}に口添えを頼む（800文）",
+     "if": {
+      "money": 800
+     },
+     "effects": [
+      {
+       "money": -800
+      }
+     ],
+     "next": "s2ok"
+    },
+    {
+     "label": "茶はそこそこに、本題を切り出す",
+     "next": "s2ng"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "tea",
+   "text": [
+    "{tea}は碗を引き寄せ、薄く笑った。「殿には、話の分かる使者だと申し上げておきましょう。明日、城で」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r7_tea"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "speaker": "tea",
+   "text": [
+    "{tea}は静かに碗を洗い始めた。「急がれる方ですな」それ以上、何も言わなかった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "bigcap",
+    "building": "palace"
+   },
+   "goal": "{bigcap}の城で{bigking}に拝謁する",
+   "speaker": "bigking",
+   "art": "court",
+   "text": [
+    "天守を仰ぐ広間で、{bigking}は南蛮渡りの椅子に腰かけていた。居並ぶ将の具足には、異国の意匠が混じっている。",
+    "「{patron}の使者か。臣従か、戦か。一言で申せ。長い口上は好かぬ」"
+   ],
+   "choices": [
+    {
+     "label": "臣従を受け、その代わりに本領安堵の朱印を取り付ける",
+     "if": {
+      "flag": "sg_r7_tea"
+     },
+     "effects": [
+      {
+       "flag": "sg_r7_submit"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 48,
+      "win": "s4",
+      "lose": "fail_envoy"
+     }
+    },
+    {
+     "label": "臣従を受け、その代わりに本領安堵の朱印を取り付ける",
+     "if": {
+      "notFlag": "sg_r7_tea"
+     },
+     "effects": [
+      {
+       "flag": "sg_r7_submit"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 55,
+      "win": "s4",
+      "lose": "fail_envoy"
+     }
+    },
+    {
+     "label": "人質は出さぬ。代わりに先手として兵を出す、対等の盟を説く",
+     "effects": [
+      {
+       "flag": "sg_r7_ally"
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 55,
+      "win": "s4",
+      "lose": "fail_envoy"
+     }
+    },
+    {
+     "label": "「攻めれば、一向門徒と西国の大名がこぞって背後を衝く」と突きつける",
+     "effects": [
+      {
+       "flag": "sg_r7_defy"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 58,
+      "win": "s4",
+      "lose": "fail_envoy"
+     }
+    },
+    {
+     "label": "堺の商人の名を挙げ、{patron}の湊と銭の道を差し出すと持ちかける",
+     "if": {
+      "skill": {
+       "trade": 40
+      }
+     },
+     "effects": [
+      {
+       "flag": "sg_r7_ally"
+      }
+     ],
+     "check": {
+      "skill": "trade",
+      "dc": 50,
+      "win": "s4",
+      "lose": "fail_envoy"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "bigcap",
+    "building": "inn"
+   },
+   "goal": "{bigcap}の旅籠で、帰り支度をする",
+   "art": "war",
+   "text": [
+    "{bigking}の返書を懐に、{player}は旅籠に戻った。夜半、雨戸の外で草鞋の擦れる音がした。話がまとまっては困る者がいる。{big}の中にも、{patron}の中にも。"
+   ],
+   "choices": [
+    {
+     "label": "太刀を取り、雨戸を蹴破って斬って出る",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "s4win",
+      "lose": "s4hurt"
+     }
+    },
+    {
+     "label": "灯を消して床下に潜み、刺客を生け捕りにする",
+     "check": {
+      "skill": "stealth",
+      "dc": 52,
+      "win": "s4proof",
+      "lose": "s4hurt"
+     }
+    }
+   ]
+  },
+  "s4win": {
+   "text": [
+    "刺客は二人とも倒れた。懐を探ると、{patron}の城下で鋳た銭が出てきた。{player}は黙ってそれを袂に入れた。"
+   ],
+   "next": "s5"
+  },
+  "s4proof": {
+   "text": [
+    "捕らえた刺客は、夜明け前に口を割った。雇い主は{hawk}だった。「使者が死ねば、和議は流れる。そう言われた」{player}はその口書きに爪印を押させた。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r7_proof"
+    },
+    {
+     "note": "{hawk}が刺客を放った口書きを得た。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4hurt": {
+   "text": [
+    "脇腹を浅く斬られたが、旅籠の者が騒いで刺客は逃げた。返書だけは、血に濡れずに済んだ。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城へ戻り、{ruler}に復命する",
+   "speaker": "hawk",
+   "art": "court",
+   "text": [
+    "{cap}の評定の間で、{player}は{bigking}の返書を読み上げた。読み終わる前に、{hawk}が膝を叩いた。「使者が敵に丸め込まれて帰ってきおった。こんな約定を呑めば、先祖に顔向けができぬ」",
+    "{ruler}が{player}を見た。「皆を説いてみよ。それができねば、約定は紙切れだ」"
+   ],
+   "choices": [
+    {
+     "label": "{hawk}の刺客の口書きを差し出す",
+     "if": {
+      "flag": "sg_r7_proof"
+     },
+     "next": "s6"
+    },
+    {
+     "label": "臣従しても家と民は残る、残せば次の手はある、と説く",
+     "if": {
+      "flag": "sg_r7_submit"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 54,
+      "win": "s6",
+      "lose": "fail_council"
+     }
+    },
+    {
+     "label": "盟の約定で得る湊と所領を数え上げ、利を説く",
+     "if": {
+      "flag": "sg_r7_ally"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 52,
+      "win": "s6",
+      "lose": "fail_council"
+     }
+    },
+    {
+     "label": "{bigking}が兵を退くと誓った返書を示し、戦わずして退けたと説く",
+     "if": {
+      "flag": "sg_r7_defy"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "s6",
+      "lose": "fail_council"
+     }
+    }
+   ]
+  },
+  "s6": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "評定の座は静まりかえった。{ruler}は返書を受け取り、ゆっくりと折りたたんだ。「宿老として、家の行く末をともに担え。まずは{hawk}の始末を申せ」"
+   ],
+   "choices": [
+    {
+     "label": "{hawk}を赦し、主戦派をなだめて家をまとめる",
+     "next": "win_mercy"
+    },
+    {
+     "label": "刺客の件を公にし、{hawk}に腹を切らせる",
+     "if": {
+      "flag": "sg_r7_proof"
+     },
+     "next": "win_purge"
+    }
+   ]
+  },
+  "win_mercy": {
+   "speaker": "hawk",
+   "text": [
+    "{hawk}は白髪の頭を畳にすりつけた。「……老いぼれの意地で、家を危うくするところであった」",
+    "{player}は宿老となった。{big}との約定は守られ、{patron}の家は嵐の中で舵を取り直した。"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 20
+    },
+    {
+     "fame": 10
+    },
+    {
+     "unflag": "sg_r7_tea"
+    },
+    {
+     "unflag": "sg_r7_proof"
+    },
+    {
+     "note": "{bigking}への使者を果たし、{patron}の宿老となった。"
+    }
+   ],
+   "end": "宿老となる"
+  },
+  "win_purge": {
+   "speaker": "ruler",
+   "text": [
+    "{hawk}は自邸で腹を切った。主戦派の者たちは口をつぐみ、評定は{player}の言葉で動くようになった。",
+    "{ruler}は言った。「家の外にも内にも、刃を向けられる宿老か。頼もしくもあり、恐ろしくもある」"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 22
+    },
+    {
+     "fame": 12
+    },
+    {
+     "flag": "sg_r7_purge"
+    },
+    {
+     "unflag": "sg_r7_tea"
+    },
+    {
+     "unflag": "sg_r7_proof"
+    },
+    {
+     "note": "{bigking}への使者を果たし、{hawk}を除いて{patron}の宿老となった。"
+    }
+   ],
+   "end": "刃を持つ宿老"
+  },
+  "fail_envoy": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}へ戻り、使者の不首尾を報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{bigking}は返書もよこさず、{player}を城から追い出した。{cap}に戻ると、{minister}が言った。「天下人の前で言葉を失うのは、恥ではない。だが家は待ってはくれぬ。家老として務めを重ね、また機を待て」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "rep": "big",
+     "n": -10
+    },
+    {
+     "unflag": "sg_r7_tea"
+    },
+    {
+     "unflag": "sg_r7_submit"
+    },
+    {
+     "unflag": "sg_r7_ally"
+    },
+    {
+     "unflag": "sg_r7_defy"
+    },
+    {
+     "unflag": "sg_r7_proof"
+    },
+    {
+     "note": "{bigking}との談判に敗れた。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "使者の帰還"
+  },
+  "fail_council": {
+   "speaker": "hawk",
+   "text": [
+    "評定は{hawk}の声に押し流された。{ruler}は返書を脇に置き、「しばし考える」とだけ言った。約定は宙に浮いた。家老として務めを重ね、覚えを取り戻せば、また機は巡る。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sg_r7_tea"
+    },
+    {
+     "unflag": "sg_r7_submit"
+    },
+    {
+     "unflag": "sg_r7_ally"
+    },
+    {
+     "unflag": "sg_r7_defy"
+    },
+    {
+     "unflag": "sg_r7_proof"
+    },
+    {
+     "note": "評定を説ききれず、約定は宙に浮いた。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "評定に敗れる"
+  }
+ }
+}

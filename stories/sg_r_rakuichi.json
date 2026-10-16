@@ -1,0 +1,288 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_rakuichi",
+ "kind": "random",
+ "where": "folk",
+ "hook": "楽市のはずが、座の者に店を壊されました",
+ "title": "楽市の制札",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "振売りの商人"
+  },
+  "zato": {
+   "npc": "油座の座頭",
+   "sex": "m"
+  },
+  "bugyo": {
+   "npc": "市奉行",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "市の入口に、新しい制札が立っていた。「当市は楽市とし、諸座の役を免ず」。誰でも店を出してよいという、殿の触れだ。",
+    "その制札の下で、{client}が割れた油壺を拾い集めていた。「油座の者たちです。寺の本所から許しを得た座の者でなければ、この国で油を売ってはならぬと。殿のお触れなど知らぬと言って」"
+   ],
+   "choices": [
+    {
+     "label": "市に立ち、座の者を待ち構える",
+     "next": "brawl"
+    },
+    {
+     "label": "奉行所で市奉行に訴え出る",
+     "next": "bugyo"
+    },
+    {
+     "label": "座頭{zato}と話をつけに行く",
+     "next": "zato"
+    }
+   ]
+  },
+  "brawl": {
+   "speaker": "zato",
+   "art": "war",
+   "text": [
+    "昼過ぎ、棒を手にした男たちが市に入ってきた。先頭に立つのは油座の座頭{zato}の手下だ。「座の外の油は売らせぬ。壺ごと叩き割れ」"
+   ],
+   "choices": [
+    {
+     "label": "{client}の店の前に立ちはだかる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "after_brawl",
+      "lose": "end_smashed"
+     }
+    }
+   ]
+  },
+  "after_brawl": {
+   "speaker": "client",
+   "text": [
+    "男たちは捨て台詞を残して逃げていった。市の商人たちが手を叩いた。だが{client}は浮かない顔だ。",
+    "「座頭は寺と殿の重臣に顔が利きます。このままでは、今度は奉行所の役人を連れてきますよ」"
+   ],
+   "choices": [
+    {
+     "label": "先に奉行所へ訴え出る",
+     "next": "bugyo"
+    },
+    {
+     "label": "座頭のもとへ乗り込む",
+     "next": "zato"
+    }
+   ]
+  },
+  "bugyo": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の奉行所で市奉行{bugyo}に訴える",
+   "speaker": "bugyo",
+   "art": "court",
+   "text": [
+    "市奉行の{bugyo}は、面倒そうに扇を使った。「楽市は殿のお考えだが、座の者も古くからの付き合いでな。寺の顔もある。そう事を荒立てるな」",
+    "座からの付け届けが、奉行の懐にも入っているのだろう。"
+   ],
+   "choices": [
+    {
+     "label": "制札の文言を読み上げ、殿の触れに背くのかと迫る",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "end_ruled",
+      "lose": "bugyo_ng"
+     }
+    },
+    {
+     "label": "楽市で市の地子銭がどれだけ増えるかを数で示す",
+     "check": {
+      "skill": "trade",
+      "dc": 35,
+      "win": "end_ruled",
+      "lose": "bugyo_ng"
+     }
+    }
+   ]
+  },
+  "bugyo_ng": {
+   "speaker": "bugyo",
+   "text": [
+    "「下がれ。市のことは市の者同士で片をつけよ」{bugyo}は扇で襖を指した。"
+   ],
+   "next": "zato"
+  },
+  "zato": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市の座の会所で{zato}に会う",
+   "speaker": "zato",
+   "text": [
+    "油座の会所は、市でいちばん大きな構えだった。{zato}は帳場に座ったまま、こちらを値踏みした。",
+    "「楽市だの何だの、殿さまの気まぐれは三年と続かぬ。だが座は百年続いてきた。……お主、腕が立つようだな。座の用心棒になれば、月に百文出そう」"
+   ],
+   "choices": [
+    {
+     "label": "「座の荷も楽市で売ればよい。客が増えるのは座も同じだ」",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_compromise",
+      "lose": "brawl2"
+     }
+    },
+    {
+     "label": "座の用心棒を引き受ける",
+     "next": "end_switched"
+    },
+    {
+     "label": "「座の時代は終わった」と言い放つ",
+     "next": "brawl2"
+    }
+   ]
+  },
+  "brawl2": {
+   "speaker": "zato",
+   "art": "war",
+   "text": [
+    "{zato}が手を叩くと、会所の奥から屈強な男たちが出てきた。「ならば、その口を二度と利けぬようにしてやる」"
+   ],
+   "choices": [
+    {
+     "label": "会所で暴れる",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "end_free",
+      "lose": "end_smashed"
+     }
+    }
+   ]
+  },
+  "end_ruled": {
+   "speaker": "bugyo",
+   "text": [
+    "{bugyo}は苦い顔で筆を取り、座の者が楽市で狼藉を働けば召し捕ると、新しい触れを出した。制札の横に、もう一枚の札が立った。",
+    "{client}は新しい油壺を並べながら、こちらに一番いい油を一樽押しつけた。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "楽市の制札を守らせた。"
+    }
+   ],
+   "end": "二枚目の札"
+  },
+  "end_compromise": {
+   "speaker": "zato",
+   "text": [
+    "{zato}は長いこと算盤を弾いていたが、やがて笑い出した。「座の油を楽市で売り、楽市の客を座の店に引く。なるほど、損はない」",
+    "座の者と振売りが、同じ市に並んで店を出すようになった。{client}も{zato}も、それぞれ礼の銭を包んできた。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "座と振売りの手打ちをまとめた。"
+    }
+   ],
+   "end": "座と楽市"
+  },
+  "end_switched": {
+   "speaker": "client",
+   "text": [
+    "座の用心棒として市に立った初日、{client}が壊れた油壺を抱えてこちらを見ていた。何も言わなかった。",
+    "座の銭は確かだった。だが市の者たちの目は冷たい。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": -2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "end": "座の用心棒"
+  },
+  "end_free": {
+   "speaker": "client",
+   "text": [
+    "会所の男たちを叩き伏せると、{zato}は青い顔で「楽市の者には手を出さぬ」と誓った。",
+    "市の商人たちは喝采したが、座の後ろ盾の寺は黙っていまい。奉行所にも「会所で暴れた者がいる」と届けが出た。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 4
+    },
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "油座の会所に殴り込んだ。"
+    }
+   ],
+   "end": "殴り込み"
+  },
+  "end_smashed": {
+   "text": [
+    "棒で打ち据えられて倒れた。{client}の店は跡形もなく壊され、{client}は翌朝、町を出ていった。制札だけが、風に鳴っていた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "end": "風に鳴る制札"
+  }
+ }
+}

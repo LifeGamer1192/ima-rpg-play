@@ -1,0 +1,119 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "hunt_tomb_curse",
+ "kind": "random",
+ "where": "folk",
+ "weight": 1,
+ "hook": "古い墓の辺りで、夜な夜な鬼火が出るんです",
+ "title": "鬼火の墓",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "墓守の娘"
+  },
+  "robber": {
+   "npc": "盗掘の頭",
+   "sex": "m"
+  },
+  "tomb": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "「{tomb}の古い墓で、夜になると青い火が揺れて、うめき声がするのです。父は祟りだと言って、もう墓へ行きません」"
+   ],
+   "choices": [
+    {
+     "label": "「夜に見に行こう」",
+     "next": "night"
+    }
+   ]
+  },
+  "night": {
+   "at": {
+    "place": "tomb"
+   },
+   "goal": "夜、{tomb}の古い墓を見張る",
+   "art": "ruins",
+   "text": [
+    "月のない夜。墓の横穴から、青い火……いや、硫黄を混ぜた松明の火が漏れていた。うめき声に聞こえたのは、土を掘る鋤の音だ。"
+   ],
+   "choices": [
+    {
+     "label": "横穴に踏み込む",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "caught",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "出てくるのを待ち、盗品ごと押さえる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "caught",
+      "lose": "night_ng"
+     }
+    }
+   ]
+  },
+  "night_ng": {
+   "speaker": "robber",
+   "text": [
+    "「見張りがいたか！」{robber}が鋤を振りかざした。"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "caught",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "caught": {
+   "speaker": "client",
+   "text": [
+    "縛り上げた盗掘者たちの袋から、古い青銅の器が出てきた。墓守は、娘と抱き合って泣いた。「祟りではなかったのか」"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": 5
+    },
+    {
+     "item": "bamboo",
+     "n": 2
+    }
+   ],
+   "end": "鬼火の正体"
+  },
+  "lost": {
+   "text": [
+    "盗掘者たちは墓の闇に消えた。"
+   ],
+   "end": "取り逃がした"
+  }
+ }
+}

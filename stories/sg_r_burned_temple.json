@@ -1,0 +1,272 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_burned_temple",
+ "kind": "random",
+ "where": "road",
+ "hook": "寺が焼かれました。この秘仏だけは守らねば",
+ "title": "焼けた寺の秘仏",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "焼け出された寺の者"
+  },
+  "chigo": {
+   "npc": "稚児",
+   "sex": "m"
+  },
+  "nun": {
+   "npc": "尼",
+   "sex": "f"
+  },
+  "captain": {
+   "npc": "寺狩りの足軽大将",
+   "sex": "m"
+  },
+  "priest": {
+   "npc": "末寺の住職",
+   "sex": "m"
+  },
+  "town": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "山の向こうに黒い煙が上がっていた。藪から転がり出てきた{client}は、煤けた経箱を背負い、稚児の{chigo}の手を引いていた。後ろでは、肩に矢傷を負った尼の{nun}が、木にすがって立っている。",
+    "「山の寺が、兵に焼かれました。この箱には寺の秘仏が。{town}の末寺まで届ければ、寺は再び立てられます。兵が生き残りを探して山を下りてきています」"
+   ],
+   "choices": [
+    {
+     "label": "まず{nun}の矢傷を手当てする",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "tended",
+      "lose": "tend_fail"
+     }
+    },
+    {
+     "label": "手当ては後だ。すぐに山を下りる",
+     "next": "checkpoint"
+    }
+   ]
+  },
+  "tended": {
+   "speaker": "nun",
+   "text": [
+    "鏃を抜き、酒で洗って布を巻いた。{nun}は青い顔のまま、自分の足で立ち上がった。「かたじけない。これで皆の足を引っぱらずに済みます」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_bt_nun"
+    }
+   ],
+   "next": "checkpoint"
+  },
+  "tend_fail": {
+   "speaker": "nun",
+   "text": [
+    "鏃が骨に食い込んで抜けない。{nun}は唇を噛んで声を殺したが、もう歩けそうにない。背負って下るしかなかった。足は遅く、やがて背後から馬の蹄の音が迫ってきた。"
+   ],
+   "next": "chase"
+  },
+  "checkpoint": {
+   "art": "tale",
+   "text": [
+    "麓の辻に、急ごしらえの番所ができていた。足軽たちが旅人を一人ずつ止め、荷を改めている。坊主らしい者は、片っ端から縄をかけられていた。"
+   ],
+   "choices": [
+    {
+     "label": "「巡礼の一行だ」と言い繕う",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "road_on",
+      "lose": "chase"
+     }
+    },
+    {
+     "label": "番所を避けて、沢沿いの道を行く",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "road_on",
+      "lose": "chase"
+     }
+    }
+   ]
+  },
+  "chase": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "足軽大将の{captain}が、手勢を連れて道を塞いだ。「寺の者だな。その箱を置いていけ。坊主どもは一人残らず引っ立てろとのお達しだ」",
+    "{chigo}が経箱にしがみつき、{client}がその前に立った。"
+   ],
+   "choices": [
+    {
+     "label": "皆を背にかばって戦う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "road_on",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "経箱を差し出し、命だけは見逃させる",
+     "next": "end_given"
+    }
+   ]
+  },
+  "road_on": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "寺の生き残りを連れて{town}の末寺へ行く",
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "数日かけて{town}にたどり着いた。末寺の住職{priest}は、経箱を見るなり手を合わせたが、すぐに顔を曇らせた。",
+    "「秘仏を匿えば、この寺も焼かれるかもしれぬ。檀家の者たちもおる。……わしには、決めかねる」"
+   ],
+   "choices": [
+    {
+     "label": "「仏を見捨てる寺に、何を祀る意味がある」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_sheltered",
+      "lose": "end_scattered"
+     }
+    },
+    {
+     "label": "{nun}とともに「秘仏は床下に埋め、私たちは寺男として仕えます」と頼む",
+     "if": {
+      "flag": "sg_bt_nun"
+     },
+     "next": "end_sheltered"
+    },
+    {
+     "label": "秘仏を堺の商人に売り、皆の身の立つ銭にする",
+     "next": "end_sold"
+    }
+   ]
+  },
+  "end_sheltered": {
+   "speaker": "priest",
+   "text": [
+    "{priest}は長く目を閉じ、やがて頷いた。秘仏は本堂の床下に納められ、{client}と{chigo}、{nun}は寺男として迎えられた。",
+    "「いつか、あの山にもう一度堂を建てます」{client}はそう言って、何度もこちらを拝んだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_bt_nun"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "焼けた寺の秘仏を末寺に届けた。"
+    }
+   ],
+   "end": "床下の秘仏"
+  },
+  "end_scattered": {
+   "speaker": "client",
+   "text": [
+    "{priest}は首を横に振り、秘仏も生き残りも受け入れなかった。{client}は経箱を背負い直し、もっと遠くの寺を目指すと言った。",
+    "{nun}と{chigo}は町の者に預けられた。別れ際、{client}は小さな数珠をこちらの手に握らせた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_bt_nun"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "end": "遠くの寺へ"
+  },
+  "end_sold": {
+   "speaker": "client",
+   "text": [
+    "{town}に来ていた堺の商人は、秘仏を見るなり目の色を変え、相当の銭を払った。銭は生き残りの三人と分けた。",
+    "{client}は銭を受け取ったが、一言も口をきかなかった。どこかの大名の茶室に、あの仏が飾られる日が来るのだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_bt_nun"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": -2
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "end": "売られた秘仏"
+  },
+  "end_given": {
+   "speaker": "captain",
+   "text": [
+    "{captain}は経箱を受け取ると、中身を確かめて満足げに頷いた。「坊主どもは見なかったことにしてやる。さっさと消えろ」",
+    "{client}は空の背中を丸めて歩き出した。寺は焼け、仏は奪われた。それでも、三人は生きている。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_bt_nun"
+    },
+    {
+     "fame": 1
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "end": "空の経箱"
+  },
+  "end_taken": {
+   "text": [
+    "多勢に打ち倒された。目を覚ますと、三人の姿も経箱もなかった。山の煙は、三日のあいだ消えなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_bt_nun"
+    },
+    {
+     "hp": -25
+    }
+   ],
+   "end": "消えない煙"
+  }
+ }
+}

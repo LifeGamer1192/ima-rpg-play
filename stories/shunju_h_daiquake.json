@@ -1,0 +1,696 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_daiquake",
+ "kind": "history",
+ "title": "地の裂け目",
+ "era": "shunju",
+ "event": "dai_quake",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s3relief",
+  "s3rl_ng",
+  "s4",
+  "s4rich",
+  "s4loot",
+  "s4loot_ng",
+  "s4no"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "jinyang"
+  },
+  "village": {
+   "place": "near:city"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "king": {
+   "person": "ruler:zhao"
+  },
+  "seer": {
+   "npc": "卜者",
+   "sex": "f"
+  },
+  "magistrate": {
+   "npc": "代の県令",
+   "sex": "m"
+  },
+  "dealer": {
+   "npc": "穀商",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で卜者の話を聞く",
+   "speaker": "seer",
+   "art": "faith",
+   "text": [
+    "{city}の客舎の土間で、亀甲を焼く老女がいた。北の代の地から来たという卜者、{seer}である。焼け目の走った甲を、誰にともなく掲げている。",
+    "「井戸の水が濁って泡を吹き、鼠が群れて北へ逃げ、夜には地の底で牛が唸るような音がする。この裂け目をごらん。土の気が怒っている。代の地は、遠からず揺れるよ」",
+    "客たちは笑ったが、{player}は甲の裂け目から目を離せなかった。"
+   ],
+   "choices": [
+    {
+     "label": "代の村々を見て回る",
+     "effects": [
+      {
+       "note": "卜者{seer}から、代の地が大きく揺れるという兆しを聞いた。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「迷信だ」と笑い、それでも念のため北へ向かう",
+     "effects": [
+      {
+       "note": "卜者{seer}から、代の地が大きく揺れるという兆しを聞いた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の村で兆しを確かめる",
+   "speaker": "seer",
+   "art": "disaster",
+   "text": [
+    "{village}の村は、確かに妙だった。井戸の水は白く濁り、つないだ犬が夜通し吠える。畑の畦には、髪の毛ほどの細い割れ目が東西にまっすぐ走っていた。",
+    "村の長老は肩をすくめた。「この土地は昔から時々揺れる。だが壁が倒れたことはない」その壁は、日干しの煉瓦を積んだだけのものだった。"
+   ],
+   "choices": [
+    {
+     "label": "長老を説き、夜は家の外で寝るよう触れを出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "割れ目の伸びる向きを書き留めて{city}へ戻る",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2ok": {
+   "text": [
+    "長老は渋い顔をしたが、触れを出した。「夏のあいだだけだぞ」村の者たちは庭に筵を敷いて寝るようになった。子どもたちは、星が近いと喜んだ。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dq_warned"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "{village}の村の者に、夜は家の外で寝るよう触れを出させた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "「よそ者が村を脅かす気か」長老は聞く耳を持たなかった。{player}は割れ目の向きだけを書き留めて村を出た。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "office"
+   },
+   "goal": "{city}の官府で{magistrate}に会う",
+   "speaker": "magistrate",
+   "art": "court",
+   "text": [
+    "{magistrate}は、秦との戦の兵糧の帳簿に埋もれていた。「地が揺れる？　揺れるなら揺れればよい。わしの仕事は、平陽と番吾で減った兵の代わりを集めて、邯鄲へ送ることだ」",
+    "官府の裏には、北へ送る穀を積んだ大きな倉が三つ並んでいる。どれも古い土壁で、梁には細い割れが入っていた。"
+   ],
+   "choices": [
+    {
+     "label": "倉の壁の割れを見せ、穀の積み方を変えるよう願い出る",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "官府を辞す",
+     "next": "s4"
+    },
+    {
+     "label": "{magistrate}と土地の豪族を説き、救いの穀と人手を前もって村々に配らせる",
+     "turn": true,
+     "check": {
+      "skill": "letters",
+      "dc": 37,
+      "win": "s3relief",
+      "lose": "s3rl_ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "{magistrate}はしぶしぶ、倉の穀の半ばを外の仮屋に移すことを許した。「兵糧を雨ざらしにして腐らせたら、そなたの首で償え」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dq_granary"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "text": [
+    "「下がれ。戦の最中に、地の機嫌など取っておられるか」{magistrate}は帳簿から顔も上げなかった。"
+   ],
+   "next": "s4"
+  },
+  "s3relief": {
+   "speaker": "magistrate",
+   "art": "court",
+   "text": [
+    "{player}は割れ目の向きを書いた図と、村ごとの人の数、倉の穀の数を、三日かけて一枚の竹簡にまとめた。どの村にどれだけの穀を置き、崩れた家を掘り起こす人手をどこから出すか。",
+    "{magistrate}は竹簡を二度読み、三度目に豪族たちを呼んだ。「地が揺れなければ、穀は兵糧に戻せばよい。揺れたなら、これがわしの手柄になる。よかろう、やれ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_quake_relief"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{magistrate}を説き、地震に備えて救いの穀と人手を村々に配らせた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3rl_ng": {
+   "text": [
+    "豪族たちは「穀を村へ出せば、兵糧の勘定が合わぬ」と口をそろえ、{magistrate}もそれに頷いた。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の市で{dealer}に会う",
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "市の穀商{dealer}が、{player}を店の奥へ招いた。卜者の噂を聞きつけたらしい。",
+    "「地が揺れて官府の倉が崩れたら、誰が穀の数を数える。役人どもは自分の家を掘り起こすので手一杯だ。崩れた倉から穀を運び出す手筈を、今のうちに整えておかんか。荷車と人足は、わしが出す」"
+   ],
+   "choices": [
+    {
+     "label": "断って店を出る",
+     "next": "s4no"
+    },
+    {
+     "label": "揺れる前に穀を安く買い集めておく",
+     "check": {
+      "skill": "trade",
+      "dc": 24,
+      "win": "s4rich",
+      "lose": "s4no"
+     }
+    },
+    {
+     "label": "{dealer}と手を組み、崩れる倉の穀を奪う手筈を整える",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s4loot",
+      "lose": "s4loot_ng"
+     }
+    }
+   ]
+  },
+  "s4rich": {
+   "speaker": "dealer",
+   "text": [
+    "{dealer}は呆れたように笑った。「盗まずに買うか。まあいい、揺れなければ、ただの兵糧の売り買いだ」倉の隅に、{player}の名の札が付いた俵が積まれた。"
+   ],
+   "effects": [
+    {
+     "money": -50
+    },
+    {
+     "flag": "h_dq_grain"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4loot": {
+   "speaker": "dealer",
+   "art": "backroom",
+   "text": [
+    "倉番には酒と銭を、夜回りには賭場の借金の棒引きを。{player}は十日のうちに、官府の倉の裏口の鍵の写しと、崩れたときに荷車を入れる道を手に入れた。",
+    "{dealer}は満足そうに算盤を弾いた。「あとは地が揺れるのを待つだけだ。卜者の婆さまに、礼をせねばな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_quake_loot"
+    },
+    {
+     "wanted": "zhao",
+     "n": 10
+    },
+    {
+     "note": "{dealer}と組み、地震で崩れる官府の倉の穀を奪う手筈を整えた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4loot_ng": {
+   "text": [
+    "倉番は銭を受け取ったその足で、官府に告げに走った。{player}は{dealer}を置いて裏口から逃げ出した。"
+   ],
+   "effects": [
+    {
+     "wanted": "zhao",
+     "n": 10
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4no": {
+   "text": [
+    "{dealer}は肩をすくめた。「気が変わったら来るといい。地が揺れてからでは遅いがな」"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の村で、地の揺れを待つ",
+   "wait": {
+    "settled": "dai_quake"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dq_relief"
+     },
+     "next": "relief"
+    },
+    {
+     "if": {
+      "branch": "dq_loot"
+     },
+     "next": "looted"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "relief": {
+   "speaker": "magistrate",
+   "art": "disaster",
+   "text": [
+    "揺れは夜明け前に来た。日干しの壁は砂のように崩れ、地は東西に裂けた。だが夜が明けると、村ごとに置かれた穀の蔵が開き、豪族の出した人足たちが鋤を担いで瓦礫に向かった。",
+    "{magistrate}は泥だらけの顔で{player}の手を握った。「わしの帳簿が、初めて人の命を数えた。崩れた家は数え切れぬ。だが、飢えて死ぬ者は出さずに済みそうだ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "unflag": "h_quake_relief"
+    },
+    {
+     "unflag": "h_dq_warned"
+    },
+    {
+     "unflag": "h_dq_granary"
+    },
+    {
+     "unflag": "h_dq_grain"
+    },
+    {
+     "note": "代の大地震に備えた穀と人手で、多くの民が救われた。"
+    }
+   ],
+   "end": "備えの蔵"
+  },
+  "looted": {
+   "speaker": "dealer",
+   "art": "disaster",
+   "text": [
+    "揺れが収まるより早く、{dealer}の荷車が官府の倉の裂け目に横付けされた。穀は夜のうちに運び出され、朝には倉は空だった。",
+    "三日後、飢えた村人たちが空の倉を見て、官府に石を投げはじめた。騒ぎは代の地じゅうに広がった。{dealer}は銭を数えながら言った。「地が揺れたのは天のせい、倉が空なのも天のせいさ」"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "fame": -5
+    },
+    {
+     "wanted": "zhao",
+     "n": 20
+    },
+    {
+     "unflag": "h_quake_loot"
+    },
+    {
+     "unflag": "h_dq_warned"
+    },
+    {
+     "unflag": "h_dq_granary"
+    },
+    {
+     "unflag": "h_dq_grain"
+    },
+    {
+     "note": "代の大地震で崩れた官府の倉を荒らし、民の騒ぎを招いた。"
+    }
+   ],
+   "end": "空の倉"
+  },
+  "s5": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の村で、地の揺れを待つ",
+   "wait": {
+    "settled": "dai_quake"
+   },
+   "speaker": "seer",
+   "art": "disaster",
+   "text": [
+    "揺れは夜明け前に来た。地の底から突き上げられるように家が跳ね、日干しの壁は砂のように崩れ落ちた。楽徐から西、北は平陰まで、立っている城壁はほとんどなかった。",
+    "朝の光の中に、畑を東西に貫く大きな裂け目が口を開けていた。百三十歩はあるだろう。{seer}が瓦礫の上に立ち、焼け焦げた亀甲を握りしめていた。「だから言ったんだよ」"
+   ],
+   "choices": [
+    {
+     "label": "外で寝ていた村の者たちと、崩れた家を掘り起こす",
+     "if": {
+      "flag": "h_dq_warned"
+     },
+     "next": "end_warned"
+    },
+    {
+     "label": "仮屋に移した穀を、村々に配って回る",
+     "if": {
+      "flag": "h_dq_granary"
+     },
+     "next": "end_granary"
+    },
+    {
+     "label": "買い集めた穀を、値を上げずに売る",
+     "if": {
+      "flag": "h_dq_grain"
+     },
+     "next": "end_fair"
+    },
+    {
+     "label": "瓦礫の下の声を探し、傷を手当てする",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "end_heal",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "裂け目を見届けて立ち去る",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_warned": {
+   "text": [
+    "{village}の村では、崩れた家の下に人はほとんどいなかった。庭に筵を敷いて寝ていたからだ。長老は崩れた自分の家の前で、長いこと黙って立っていた。",
+    "やがて長老は{player}のところへ来て、言った。「夏のあいだだけ、と言ったのはわしだ。夏でよかった」"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "rep": "zhao",
+     "n": 5
+    },
+    {
+     "unflag": "h_dq_warned"
+    },
+    {
+     "unflag": "h_dq_granary"
+    },
+    {
+     "unflag": "h_dq_grain"
+    },
+    {
+     "note": "代の大地震の前に、村の者を家の外で寝かせていた。"
+    }
+   ],
+   "end": "星の下の寝床"
+  },
+  "end_granary": {
+   "text": [
+    "官府の倉は三つとも潰れたが、外の仮屋に移した穀は無事だった。{magistrate}は雨ざらしの俵の山を見て、何も言わずに村々へ配る許しの札を書いた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "favor": 5
+    },
+    {
+     "unflag": "h_dq_warned"
+    },
+    {
+     "unflag": "h_dq_granary"
+    },
+    {
+     "unflag": "h_dq_grain"
+    },
+    {
+     "note": "代の大地震の後、救い出した倉の穀を村々に配った。"
+    }
+   ],
+   "end": "仮屋の俵"
+  },
+  "end_fair": {
+   "speaker": "dealer",
+   "text": [
+    "穀の値は一夜で五倍になった。{player}は揺れる前の値のまま、名の札の付いた俵を売った。{dealer}は「商いを知らぬ奴だ」と吐き捨てたが、その店の前を通る村人の目は冷たかった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "money": 60
+    },
+    {
+     "unflag": "h_dq_warned"
+    },
+    {
+     "unflag": "h_dq_granary"
+    },
+    {
+     "unflag": "h_dq_grain"
+    },
+    {
+     "note": "代の大地震の後、穀を値上げせずに売った。"
+    }
+   ],
+   "end": "揺れる前の値"
+  },
+  "end_heal": {
+   "text": [
+    "瓦礫の隙間から聞こえるかすかな声を頼りに、{player}は三日掘り続けた。助け出した者の骨を継ぎ、傷を洗った。裂け目の向こうの村からも、人が担がれてきた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "unflag": "h_dq_warned"
+    },
+    {
+     "unflag": "h_dq_granary"
+    },
+    {
+     "unflag": "h_dq_grain"
+    },
+    {
+     "note": "代の大地震の後、瓦礫の下の人々を手当てした。"
+    }
+   ],
+   "end": "瓦礫の声"
+  },
+  "end_plain": {
+   "text": [
+    "{player}は裂け目の縁に立ち、底の見えない闇をのぞき込んだ。「趙は泣き叫び、秦は笑う」という歌が流行りはじめたのは、この年の暮れのことである。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dq_warned"
+    },
+    {
+     "unflag": "h_dq_granary"
+    },
+    {
+     "unflag": "h_dq_grain"
+    },
+    {
+     "note": "代の大地震で地が裂けるのを見た。"
+    }
+   ],
+   "end": "百三十歩の裂け目"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dq_relief"
+     },
+     "next": "relief"
+    },
+    {
+     "if": {
+      "branch": "dq_loot"
+     },
+     "next": "looted"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。趙の代の地で大地震があり、城壁も家も大半が崩れ、地は東西百三十歩にわたって裂けたという。",
+    "「戦に負け、地に裂かれ」と、噂の主はため息をついた。「趙は天にも見放されたか」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dq_warned"
+    },
+    {
+     "unflag": "h_dq_granary"
+    },
+    {
+     "unflag": "h_dq_grain"
+    },
+    {
+     "note": "代の地の大地震を噂で聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "dq_relief",
+   "event": "dai_quake",
+   "order": 2,
+   "why": "主人公が救いの穀と人手を前もって配らせた",
+   "when": {
+    "flag": "h_quake_relief"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_zhao}の代の地で大地震があり、建物や城壁の大半が崩れ、地は東西百三十歩にわたって裂けた。だが前もって救いの穀と人手が村々に備えられており、民の乱れは小さかった。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "stability",
+      -0.03
+     ],
+     [
+      "add",
+      "zhao",
+      "treasury",
+      -30
+     ]
+    ],
+    "imp": 2,
+    "at": "jinyang"
+   }
+  },
+  {
+   "id": "dq_loot",
+   "event": "dai_quake",
+   "order": 1,
+   "why": "主人公が崩れた倉を荒らす手筈を整えた",
+   "when": {
+    "flag": "h_quake_loot"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_zhao}の代の地で大地震があり、建物や城壁の大半が崩れ、地は東西百三十歩にわたって裂けた。崩れた官府の倉は荒らされて空になり、飢えた民は騒いで官府を襲った。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "stability",
+      -0.2
+     ],
+     [
+      "add",
+      "zhao",
+      "treasury",
+      -50
+     ]
+    ],
+    "imp": 2,
+    "at": "jinyang"
+   }
+  }
+ ]
+}

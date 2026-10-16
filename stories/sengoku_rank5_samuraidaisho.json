@@ -1,0 +1,474 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_rank5_samuraidaisho",
+ "kind": "rank",
+ "rankTo": 5,
+ "title": "城攻めの軍議",
+ "era": "sengoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "enemy": {
+   "realm": "enemy:patron"
+  },
+  "castle": {
+   "place": "border:patron"
+  },
+  "rival": {
+   "npc": "譜代の侍大将",
+   "sex": "m"
+  },
+  "keeper": {
+   "npc": "城将",
+   "sex": "m"
+  },
+  "turn": {
+   "npc": "城内の侍",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城で昇進を願い出る",
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "軍議の座に絵図が広げられた。{castle}の城は川を背にした平山城で、{enemy}の城将{keeper}が三百の兵で籠もっている。{ruler}は言った。「侍大将の席が一つ空いておる。この城の落とし方を申せ。採った策の者に、攻め手を任せる」",
+    "譜代の{rival}が真っ先に口を開いた。「小城一つ、四方から攻め上れば三日で落ちまする。策など要りませぬ」何人かの侍大将が頷いた。"
+   ],
+   "choices": [
+    {
+     "label": "兵糧攻めを説く：付城で囲み、米の道を断つ",
+     "effects": [
+      {
+       "flag": "sg_r5_starve"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "s2",
+      "lose": "s1ng"
+     }
+    },
+    {
+     "label": "水攻めを説く：川を堰き止め、城を湖に沈める",
+     "effects": [
+      {
+       "flag": "sg_r5_flood"
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 46,
+      "win": "s2",
+      "lose": "s1ng"
+     }
+    },
+    {
+     "label": "調略を説く：城内の侍を寝返らせ、門を開けさせる",
+     "effects": [
+      {
+       "flag": "sg_r5_turn"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 46,
+      "win": "s2",
+      "lose": "s1ng"
+     }
+    },
+    {
+     "label": "検地と同じ手で米の流れを読み、城の蔵の残りを言い当てる",
+     "if": {
+      "realm": [
+       "北条",
+       "織田"
+      ]
+     },
+     "effects": [
+      {
+       "flag": "sg_r5_starve"
+      }
+     ],
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "s2",
+      "lose": "s1ng"
+     }
+    },
+    {
+     "label": "{rival}の力攻めに賛同し、自ら一番乗りを買って出る",
+     "effects": [
+      {
+       "flag": "sg_r5_storm"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s1ng": {
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "「悠長な策だ。その間に{enemy}の後詰が来たらどうする」{rival}の一声で座の流れは決まった。{ruler}は力攻めを命じ、{player}には一隊を率いて先手に加われと言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_r5_starve"
+    },
+    {
+     "unflag": "sg_r5_flood"
+    },
+    {
+     "unflag": "sg_r5_turn"
+    },
+    {
+     "flag": "sg_r5_storm"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "castle"
+   },
+   "goal": "{castle}へ出陣し、城を囲む",
+   "art": "war",
+   "text": [
+    "{castle}の城は、夏草の向こうに白い塀を巡らせていた。櫓の狭間から鉄砲の筒先がこちらを睨んでいる。陣を敷き終えると、{player}は策の手配りにかかった。"
+   ],
+   "choices": [
+    {
+     "label": "付城を築き、近在の米を買い占めて城へ入らぬようにする（500文）",
+     "if": {
+      "flag": "sg_r5_starve",
+      "money": 500
+     },
+     "effects": [
+      {
+       "money": -500
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "近在の商人と掛け合い、城へ米を売らぬよう約させる",
+     "if": {
+      "flag": "sg_r5_starve"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 44,
+      "win": "s3",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "百姓を雇って堤を築かせる。土俵一つに米一升",
+     "if": {
+      "flag": "sg_r5_flood"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 44,
+      "win": "s3",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "忍びを使って城内の{turn}に密書を届ける",
+     "if": {
+      "flag": "sg_r5_turn"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 44,
+      "win": "s3",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "夜陰に紛れ、自ら城内へ忍び入って{turn}に会う",
+     "if": {
+      "flag": "sg_r5_turn"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 48,
+      "win": "s3",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "竹束を押し立て、一番乗りで三の丸の塀に取りつく",
+     "if": {
+      "flag": "sg_r5_storm"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "s3",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ng": {
+   "speaker": "rival",
+   "art": "war",
+   "text": [
+    "策は思うように運ばなかった。城の櫓では、{enemy}の兵が槍を振って嘲っている。{rival}が馬を寄せてきた。「どうした、侍大将になりたい男の腕前は」"
+   ],
+   "choices": [
+    {
+     "label": "己の一隊を率いて塀に取りつく",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3",
+      "lose": "fail_siege"
+     }
+    },
+    {
+     "label": "囲みを解いて引き揚げる",
+     "next": "fail_siege"
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "castle"
+   },
+   "goal": "{castle}の城の開城を待つ",
+   "wait": {
+    "days": 4
+   },
+   "speaker": "keeper",
+   "art": "war",
+   "text": [
+    "城の本丸に白い旗が上がった。城将{keeper}の使いが降りてきて、口上を述べた。「城を明け渡す。この腹一つと引き換えに、城兵と城下の者の命は助けていただきたい」",
+    "陣中の侍たちが{player}を見た。城を落とした者が、城の始末を決める。"
+   ],
+   "choices": [
+    {
+     "label": "申し出を受け、{keeper}の切腹をもって城兵を助ける",
+     "next": "win_honor"
+    },
+    {
+     "label": "{keeper}の命も助け、城兵ごと味方に取り込む",
+     "check": {
+      "skill": "speech",
+      "dc": 46,
+      "win": "win_absorb",
+      "lose": "win_honor"
+     }
+    },
+    {
+     "label": "見せしめに城兵を撫で斬りにせよと命じる",
+     "next": "win_harsh"
+    }
+   ]
+  },
+  "win_honor": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城へ凱旋する",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{keeper}は見事に腹を切り、城兵は武器を置いて城を出た。{cap}に戻った{player}を、{ruler}は上座から見下ろした。「城を落とし、無駄に血を流さなかった。侍大将を申し付ける」",
+    "{rival}は黙って一礼し、軍議の座を立った。"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 6
+    },
+    {
+     "flag": "led_troops"
+    },
+    {
+     "unflag": "sg_r5_starve"
+    },
+    {
+     "unflag": "sg_r5_flood"
+    },
+    {
+     "unflag": "sg_r5_turn"
+    },
+    {
+     "unflag": "sg_r5_storm"
+    },
+    {
+     "note": "{castle}の城を落とし、侍大将となった。"
+    }
+   ],
+   "end": "開城"
+  },
+  "win_absorb": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城へ凱旋する",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "「死ぬより、この城を守る役を続けよ」{player}の言葉に、{keeper}は長く頭を垂れた。城兵三百は、そのまま{patron}の兵となった。",
+    "{ruler}は満足げに言った。「城を取り、兵まで取ったか。侍大将にふさわしい」"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 15
+    },
+    {
+     "fame": 7
+    },
+    {
+     "flag": "led_troops"
+    },
+    {
+     "flag": "sg_r5_keeper_owes"
+    },
+    {
+     "rep": "enemy",
+     "n": -5
+    },
+    {
+     "unflag": "sg_r5_starve"
+    },
+    {
+     "unflag": "sg_r5_flood"
+    },
+    {
+     "unflag": "sg_r5_turn"
+    },
+    {
+     "unflag": "sg_r5_storm"
+    },
+    {
+     "note": "{castle}の城を落とし、城将{keeper}ごと味方に取り込んで侍大将となった。"
+    }
+   ],
+   "end": "城も兵も"
+  },
+  "win_harsh": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城へ凱旋する",
+   "speaker": "minister",
+   "art": "disaster",
+   "text": [
+    "城兵は一人残らず斬られ、首は街道に並べられた。近隣の城は震え上がり、二つが戦わずに降った。",
+    "{ruler}は{player}を侍大将に任じた。だが{minister}は、目を合わせずに言った。「恐れで取った城は、恐れが消えれば離れる。覚えておけ」"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": -3
+    },
+    {
+     "flag": "led_troops"
+    },
+    {
+     "flag": "sg_r5_cruel"
+    },
+    {
+     "rep": "enemy",
+     "n": -10
+    },
+    {
+     "unflag": "sg_r5_starve"
+    },
+    {
+     "unflag": "sg_r5_flood"
+    },
+    {
+     "unflag": "sg_r5_turn"
+    },
+    {
+     "unflag": "sg_r5_storm"
+    },
+    {
+     "note": "{castle}の城兵を撫で斬りにし、侍大将となった。"
+    }
+   ],
+   "end": "撫で斬り"
+  },
+  "fail_siege": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城へ戻り、城攻めの不首尾を報じる",
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "{castle}の城は落ちなかった。軍議の座で{rival}が言った。「策を弄して兵を損じた。物頭の器でしかなかったということよ」{ruler}は何も言わずに座を立った。務めを重ね、覚えを取り戻すほかない。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "hp": -10
+    },
+    {
+     "unflag": "sg_r5_starve"
+    },
+    {
+     "unflag": "sg_r5_flood"
+    },
+    {
+     "unflag": "sg_r5_turn"
+    },
+    {
+     "unflag": "sg_r5_storm"
+    },
+    {
+     "note": "{castle}の城を落とせなかった。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "落ちぬ城"
+  }
+ }
+}

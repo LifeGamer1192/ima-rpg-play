@@ -1,0 +1,477 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_rank2_kumigashira",
+ "kind": "rank",
+ "rankTo": 2,
+ "title": "物見の組",
+ "era": "sengoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "enemy": {
+   "realm": "enemy:patron"
+  },
+  "front": {
+   "place": "border:patron"
+  },
+  "vet": {
+   "npc": "古参の足軽",
+   "sex": "m"
+  },
+  "farmer": {
+   "npc": "国境の百姓",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城で昇進を願い出る",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は願い出を聞くと、縁側から{front}の方角を顎で示した。「組頭になりたければ、組を一つ預けてやる。足軽五人を連れて{front}へ物見に出よ。{enemy}の勢がどれほど集まっているか、数を見てこい」",
+    "「首を取ってこいとは言わぬ。生きて帰って、見たままを申せ。それができる者が少ないのだ」"
+   ],
+   "choices": [
+    {
+     "label": "足軽五人を連れて{front}へ向かう",
+     "effects": [
+      {
+       "note": "足軽五人を連れ、{front}へ物見に出ることになった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "国境の{front}へ物見に出る",
+   "speaker": "vet",
+   "art": "war",
+   "text": [
+    "{front}の手前の村で、組の足軽たちは腰を下ろして草鞋を替えた。いちばん年嵩の{vet}が、{player}を横目で見て鼻を鳴らした。",
+    "「つい昨日まで同じ長屋で寝ておった者に、組頭面をされてもな。物見で死ぬのは、たいがい物見を急いだ組だ。わしらを無駄に死なすなよ」"
+   ],
+   "choices": [
+    {
+     "label": "村の百姓に、敵の様子をそれとなく尋ねる",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2info",
+      "lose": "s2cold"
+     }
+    },
+    {
+     "label": "{vet}に頭を下げ、山の抜け道を案内させる",
+     "effects": [
+      {
+       "flag": "sg_r2_vet"
+      }
+     ],
+     "next": "s2vet"
+    },
+    {
+     "label": "透破のやり方で、夜の尾根伝いに一人で先を探る",
+     "if": {
+      "realm": [
+       "武田",
+       "北条"
+      ]
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 20,
+      "win": "s2info",
+      "lose": "s2cold"
+     }
+    },
+    {
+     "label": "構わず、街道をまっすぐ進む",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2info": {
+   "speaker": "farmer",
+   "text": [
+    "畑の畦で鍬を止めた{farmer}が、声を落として言った。「谷向こうの寺に、三日前から旗がようけ立っております。夜になると、鉄砲の火縄の匂いが風に乗ってくるんで」",
+    "寺の裏手には、杉林を抜けて見下ろせる崖がある、とも教えてくれた。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r2_info"
+    },
+    {
+     "note": "{enemy}の勢が谷向こうの寺に集まっていると聞いた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2cold": {
+   "text": [
+    "村の者たちは戸を閉ざし、何も答えなかった。国境の百姓は、どちらの足軽にも口を開かない。それが生き延びる術なのだ。"
+   ],
+   "next": "s3"
+  },
+  "s2vet": {
+   "speaker": "vet",
+   "text": [
+    "{vet}は意外そうに目を瞬かせ、それから歯の欠けた口で笑った。「頭を下げる組頭は初めてだ。よかろう、この辺りの獣道なら目をつぶっても歩ける」"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "art": "war",
+   "text": [
+    "杉林を抜けた先、谷の向こうの寺に{enemy}の旗がひるがえっていた。境内には陣小屋が並び、炊ぎの煙が幾筋も立ちのぼっている。",
+    "そのとき、坂の下から足音がした。{enemy}の物見が三人、こちらへ登ってくる。"
+   ],
+   "choices": [
+    {
+     "label": "藪に伏せてやり過ごし、そのまま陣の数を数える",
+     "if": {
+      "notFlag": "sg_r2_info"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s4count",
+      "lose": "s3found"
+     }
+    },
+    {
+     "label": "聞いておいた崖へ回り、上から陣を見下ろして数える",
+     "if": {
+      "flag": "sg_r2_info"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 18,
+      "win": "s4count",
+      "lose": "s3found"
+     }
+    },
+    {
+     "label": "{vet}の獣道で物見の背後へ回り込み、討ち取る",
+     "if": {
+      "flag": "sg_r2_vet"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4head",
+      "lose": "s3rout"
+     }
+    },
+    {
+     "label": "槍を揃えて待ち伏せ、物見を討ち取る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4head",
+      "lose": "s3rout"
+     }
+    }
+   ]
+  },
+  "s3found": {
+   "art": "war",
+   "text": [
+    "枝が鳴った。「誰ぞおるか！」敵の物見が槍を構え、一人が陣へ知らせに駆け戻っていく。"
+   ],
+   "choices": [
+    {
+     "label": "残りを討って、すぐに退く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4head",
+      "lose": "s3rout"
+     }
+    },
+    {
+     "label": "組をまとめて山へ逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "fail_empty",
+      "lose": "s3rout"
+     }
+    }
+   ]
+  },
+  "s3rout": {
+   "art": "war",
+   "text": [
+    "敵の加勢が駆けつけ、組は散り散りになった。{player}は傷を負いながら、残った者を連れて山を越えた。五人のうち、戻れたのは三人だった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "fail_rout"
+  },
+  "s4count": {
+   "text": [
+    "{player}は陣小屋と旗の数を一つずつ数えた。小屋がおよそ六十、旗印は三つの家のもの。鉄砲を担いだ足軽が、寺の鐘楼の陰に固まっている。",
+    "組の誰も死なせずに、山を下りた。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r2_count"
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "next": "s5"
+  },
+  "s4head": {
+   "text": [
+    "敵の物見は倒れた。一人を生け捕りにして縄をかけると、震えながら口を割った。「総勢およそ二千。鉄砲は百挺ほど……」",
+    "{vet}が討ち取った物見の首を布に包みながら言った。「手柄の印に持っていけ。ただし、首より口の方が役に立つぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r2_head"
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城へ戻り、物見の結果を報じる",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は広間の上座で、{minister}と絵図を広げていた。「物見の組が戻ったか。申せ。{enemy}の勢、いかほどか」"
+   ],
+   "choices": [
+    {
+     "label": "数えたとおり、陣小屋の数と旗印、鉄砲の在り処を申し上げる",
+     "if": {
+      "flag": "sg_r2_count"
+     },
+     "next": "win_count"
+    },
+    {
+     "label": "生け捕りの口書きと物見の首を差し出す",
+     "if": {
+      "flag": "sg_r2_head"
+     },
+     "next": "win_head"
+    },
+    {
+     "label": "「案内した{vet}の働きあってのこと」と、手柄を組に分ける",
+     "if": {
+      "flag": "sg_r2_vet"
+     },
+     "next": "win_share"
+    }
+   ]
+  },
+  "win_count": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は絵図に印をつけながら、何度も頷いた。「旗印まで見てきたか。これで{enemy}の誰が出てきたかが分かる。物見とはこういうものだ」",
+    "{ruler}が扇で膝を叩いた。「組頭を申し付ける。組の者を一人も欠かさず連れ帰ったこと、それも手柄だ」"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "sg_r2_info"
+    },
+    {
+     "unflag": "sg_r2_vet"
+    },
+    {
+     "unflag": "sg_r2_count"
+    },
+    {
+     "unflag": "sg_r2_head"
+    },
+    {
+     "note": "{front}の物見で{enemy}の陣を見届け、組頭となった。"
+    }
+   ],
+   "end": "見たままを申す"
+  },
+  "win_head": {
+   "speaker": "ruler",
+   "text": [
+    "首を見た近習たちがざわめいた。{ruler}は生け捕りの口書きの方を手に取った。「首は手柄、口は宝だ。両方持ち帰る物見は珍しい」",
+    "{player}は組頭に取り立てられた。広間を出ると、{vet}たちが門の外で待っていた。"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 8
+    },
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "sg_r2_info"
+    },
+    {
+     "unflag": "sg_r2_vet"
+    },
+    {
+     "unflag": "sg_r2_count"
+    },
+    {
+     "unflag": "sg_r2_head"
+    },
+    {
+     "note": "{enemy}の物見を討ち、生け捕りの口を持ち帰って組頭となった。"
+    }
+   ],
+   "end": "首と口"
+  },
+  "win_share": {
+   "speaker": "vet",
+   "text": [
+    "{ruler}は{vet}にも褒美の銭を取らせた。城を出たところで、{vet}が照れくさそうに頭を掻いた。「手柄を下に分ける組頭なら、わしらは地獄の底までついていく」",
+    "{player}は組頭となった。組の足軽たちの目が、出立のときとはまるで違っていた。"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 6
+    },
+    {
+     "fame": 2
+    },
+    {
+     "flag": "sg_r2_loyal_squad"
+    },
+    {
+     "unflag": "sg_r2_info"
+    },
+    {
+     "unflag": "sg_r2_vet"
+    },
+    {
+     "unflag": "sg_r2_count"
+    },
+    {
+     "unflag": "sg_r2_head"
+    },
+    {
+     "note": "物見の手柄を組と分け合い、組頭となった。{vet}たちが慕ってくれる。"
+    }
+   ],
+   "end": "組の頭"
+  },
+  "fail_empty": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城へ戻り、物見の不首尾を報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "「見つかって逃げ帰った、か」{minister}は筆を置いた。「組を死なせなかったのはよい。だが何も見ずに戻る物見は、物見ではない。足軽として務めを重ねよ。また機会はやる」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sg_r2_info"
+    },
+    {
+     "unflag": "sg_r2_vet"
+    },
+    {
+     "unflag": "sg_r2_count"
+    },
+    {
+     "unflag": "sg_r2_head"
+    },
+    {
+     "note": "物見をしくじった。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "何も見ずに"
+  },
+  "fail_rout": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城へ戻り、物見の不首尾を報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は二人の欠けた組を一瞥し、短く言った。「物見で組を崩す者に、組は預けられぬ。傷を治し、足軽として出直せ。覚えが戻れば、また願い出るがよい」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sg_r2_info"
+    },
+    {
+     "unflag": "sg_r2_vet"
+    },
+    {
+     "unflag": "sg_r2_count"
+    },
+    {
+     "unflag": "sg_r2_head"
+    },
+    {
+     "note": "物見で組を崩した。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "崩れた組"
+  }
+ }
+}

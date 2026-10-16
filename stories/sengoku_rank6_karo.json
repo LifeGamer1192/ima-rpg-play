@@ -1,0 +1,528 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_rank6_karo",
+ "kind": "rank",
+ "rankTo": 6,
+ "title": "家督の争い",
+ "era": "sengoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "elder": {
+   "npc": "嫡男",
+   "sex": "m"
+  },
+  "younger": {
+   "npc": "次男",
+   "sex": "m"
+  },
+  "chief": {
+   "npc": "筆頭家老",
+   "sex": "m"
+  },
+  "lady": {
+   "npc": "奥方",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の城で昇進を願い出る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "病の床から、{ruler}はかすれた声で{player}を呼んだ。「家老の席に就けたいと思うておった。だが今は、それどころではない」",
+    "「嫡男の{elder}は勇ましいが短慮だ。次男の{younger}は賢いが、筆頭家老の{chief}に担がれておる。わしが倒れれば、家は二つに割れる。割らずに収めてみよ。それができる者こそ家老だ」"
+   ],
+   "effects": [
+    {
+     "note": "{ruler}が病に倒れた。家督を巡る争いを収めるよう命じられた。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "house"
+   },
+   "goal": "{cap}の{chief}の屋敷を訪ねる",
+   "speaker": "chief",
+   "art": "court",
+   "text": [
+    "{chief}の屋敷の奥座敷には、金の延べ板を積んだ三方が置かれていた。「侍大将どの。{younger}さまが家督を継がれれば、家老の席はおぬしのもの。これはその手付けよ」",
+    "床の間の違い棚に、封をした書状の束が見えた。宛名には、他家の名が混じっている。"
+   ],
+   "choices": [
+    {
+     "label": "受け取るふりをして、書状の束を盗み見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 48,
+      "win": "s2proof",
+      "lose": "s2caught"
+     }
+    },
+    {
+     "label": "金を受け取り、{younger}を推すと約す",
+     "effects": [
+      {
+       "money": 500
+      },
+      {
+       "flag": "sg_r6_bribed"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "「家老の席は、殿から賜るものにござる」と金を押し返す",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2proof": {
+   "text": [
+    "{chief}が席を外した隙に、{player}は書状を一通抜いて読んだ。隣国に宛てたもので、{younger}が家督を継いだ暁には国境の二郡を譲る、とある。{younger}の名はどこにもない。{chief}一人の企みだ。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r6_proof"
+    },
+    {
+     "note": "{chief}が隣国に国境の郡を譲る密約を結んでいると知った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2caught": {
+   "speaker": "chief",
+   "text": [
+    "「何を見ておられる」{chief}の目が細くなった。{player}は笑ってごまかし、屋敷を辞した。背中に、冷たい視線が刺さっていた。"
+   ],
+   "effects": [
+    {
+     "favor": -3
+    },
+    {
+     "note": "{chief}に、密約を探ったことを気取られた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "cap",
+    "building": "shrine"
+   },
+   "goal": "{cap}の社で{elder}の動きを確かめる",
+   "speaker": "elder",
+   "art": "war",
+   "text": [
+    "社の境内に、具足をつけた侍が二百ほど集まっていた。中央で{elder}が床几に座り、太刀を膝に立てている。「{chief}が弟を担いで家を盗もうとしておる。父上が息のあるうちに、{chief}の屋敷を焼き払う」",
+    "「{player}、おぬしは侍大将だ。おれにつくか、弟につくか、ここで決めよ」"
+   ],
+   "choices": [
+    {
+     "label": "「いま兵を動かせば、謀反の名を着るのは若殿です」と説いて兵を退かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "s3calm",
+      "lose": "s3hot"
+     }
+    },
+    {
+     "label": "{chief}の密約の書状を見せ、討つべきは一人だと説く",
+     "if": {
+      "flag": "sg_r6_proof"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s3calm",
+      "lose": "s3hot"
+     }
+    },
+    {
+     "label": "{elder}につくと誓い、太刀を並べる",
+     "effects": [
+      {
+       "flag": "sg_r6_side_elder"
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "黙って境内を出て、奥方の{lady}に会いに行く",
+     "next": "s3lady"
+    }
+   ]
+  },
+  "s3calm": {
+   "speaker": "elder",
+   "text": [
+    "{elder}は長いこと{player}を睨んでいたが、やがて太刀を鞘に納めた。「……おぬしの言葉を一度だけ信じる。評定の場で、決着をつけよう」兵たちは境内から散っていった。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r6_calm"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hot": {
+   "art": "war",
+   "text": [
+    "言葉は届かなかった。{elder}の手勢が鬨をあげ、{chief}の屋敷へ駆けだす。止めるには、先頭の者たちを力で押しとどめるしかない。"
+   ],
+   "choices": [
+    {
+     "label": "社の鳥居の前に立ちはだかり、先頭の侍を打ち据える",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "s3calm",
+      "lose": "s3burn"
+     }
+    },
+    {
+     "label": "止めずに見送る",
+     "next": "s3burn"
+    }
+   ]
+  },
+  "s3burn": {
+   "art": "disaster",
+   "text": [
+    "その夜、{chief}の屋敷の塀の外で斬り合いがあった。死者が出た。城下は一夜にして、二つの陣に分かれた。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r6_blood"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3lady": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "speaker": "lady",
+   "art": "court",
+   "text": [
+    "城の奥で、{lady}は数珠を手に{player}を迎えた。「二人とも、わたくしが産んだ子です。どちらが死んでも、わたくしは喪に服さねばなりませぬ」",
+    "「評定の席で、殿の御心を伝える役を、そなたに預けましょう。ただし、その言葉の重さに耐えられるなら」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_r6_lady"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "三日待ち、{cap}の城の評定に出る",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "chief",
+   "art": "court",
+   "text": [
+    "評定の間に、一門と重臣がそろった。上座の御簾の奥には、病の{ruler}が伏している。{chief}が進み出た。「家を保つには、器量ある{younger}さまこそ。嫡男どのの短慮は、皆も知るところ」",
+    "{elder}が膝を立てかけた。座の目が、侍大将の{player}に集まる。"
+   ],
+   "choices": [
+    {
+     "label": "{chief}の密約の書状を一門の前に出す",
+     "if": {
+      "flag": "sg_r6_proof"
+     },
+     "next": "win_purge"
+    },
+    {
+     "label": "長幼の序を説き、嫡男が継ぎ、次男が後見に立つ形を示す",
+     "if": {
+      "notFlag": "sg_r6_blood"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "win_unity",
+      "lose": "fail_split"
+     }
+    },
+    {
+     "label": "{lady}から預かった殿の御心として、兄弟の和を説く",
+     "if": {
+      "flag": "sg_r6_lady"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "win_unity",
+      "lose": "fail_split"
+     }
+    },
+    {
+     "label": "誓ったとおり{elder}を推し、{chief}を斬れと叫ぶ",
+     "if": {
+      "flag": "sg_r6_side_elder"
+     },
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "win_sword",
+      "lose": "fail_split"
+     }
+    },
+    {
+     "label": "金を受けた約束どおり{younger}を推す",
+     "if": {
+      "flag": "sg_r6_bribed"
+     },
+     "next": "win_bought"
+    },
+    {
+     "label": "血が流れた以上、首謀を裁かねば収まらぬと説く",
+     "if": {
+      "flag": "sg_r6_blood"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 54,
+      "win": "win_unity",
+      "lose": "fail_split"
+     }
+    }
+   ]
+  },
+  "win_purge": {
+   "speaker": "younger",
+   "text": [
+    "書状を読んだ{younger}の顔が蒼白になった。「わたしは、何も知らなかった」{younger}はその場で{chief}を指さし、一門が{chief}を取り押さえた。",
+    "家督は{elder}が継ぎ、{younger}がその後見に立った。御簾の奥から、{ruler}の細い声がした。「{player}を家老とせよ」"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 18
+    },
+    {
+     "fame": 6
+    },
+    {
+     "flag": "sg_r6_kingmaker"
+    },
+    {
+     "unflag": "sg_r6_bribed"
+    },
+    {
+     "unflag": "sg_r6_proof"
+    },
+    {
+     "unflag": "sg_r6_side_elder"
+    },
+    {
+     "unflag": "sg_r6_calm"
+    },
+    {
+     "unflag": "sg_r6_blood"
+    },
+    {
+     "unflag": "sg_r6_lady"
+    },
+    {
+     "note": "{chief}の密約を暴いて家督争いを収め、家老となった。"
+    }
+   ],
+   "end": "家を割らず"
+  },
+  "win_unity": {
+   "speaker": "ruler",
+   "text": [
+    "長い沈黙のあと、{elder}と{younger}が並んで御簾の前に手をついた。{chief}は口を開きかけ、閉じた。",
+    "御簾の奥から{ruler}が言った。「二人の手を結ばせた者に、家の舵を預ける。{player}を家老とする」"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 15
+    },
+    {
+     "fame": 5
+    },
+    {
+     "unflag": "sg_r6_bribed"
+    },
+    {
+     "unflag": "sg_r6_proof"
+    },
+    {
+     "unflag": "sg_r6_side_elder"
+    },
+    {
+     "unflag": "sg_r6_calm"
+    },
+    {
+     "unflag": "sg_r6_blood"
+    },
+    {
+     "unflag": "sg_r6_lady"
+    },
+    {
+     "note": "兄弟の手を結ばせて家督争いを収め、家老となった。"
+    }
+   ],
+   "end": "兄弟の和"
+  },
+  "win_sword": {
+   "speaker": "elder",
+   "art": "war",
+   "text": [
+    "評定の間が血に染まった。{chief}は斬られ、{younger}は寺へ入れられた。{elder}は返り血を拭いもせずに言った。「おぬしはおれの家老だ。誰にも文句は言わせぬ」",
+    "{player}は家老となった。だが一門の半ばは、その日から{player}を仇と呼ぶようになった。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 3
+    },
+    {
+     "flag": "sg_r6_feud"
+    },
+    {
+     "unflag": "sg_r6_bribed"
+    },
+    {
+     "unflag": "sg_r6_proof"
+    },
+    {
+     "unflag": "sg_r6_side_elder"
+    },
+    {
+     "unflag": "sg_r6_calm"
+    },
+    {
+     "unflag": "sg_r6_blood"
+    },
+    {
+     "unflag": "sg_r6_lady"
+    },
+    {
+     "note": "評定の間で{chief}を斬り、{elder}を当主に据えて家老となった。"
+    }
+   ],
+   "end": "血の評定"
+  },
+  "win_bought": {
+   "speaker": "chief",
+   "text": [
+    "{younger}が家督を継いだ。{chief}は満足げに{player}の肩を叩いた。「約束は守る。家老の席はおぬしのものだ。これからも、二人で若殿をお支えしようではないか」",
+    "{player}は家老となった。だが、その席が誰の手で与えられたのかを、{player}自身がいちばんよく知っていた。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 6
+    },
+    {
+     "fame": -3
+    },
+    {
+     "flag": "sg_r6_chief_bond"
+    },
+    {
+     "unflag": "sg_r6_bribed"
+    },
+    {
+     "unflag": "sg_r6_proof"
+    },
+    {
+     "unflag": "sg_r6_side_elder"
+    },
+    {
+     "unflag": "sg_r6_calm"
+    },
+    {
+     "unflag": "sg_r6_blood"
+    },
+    {
+     "unflag": "sg_r6_lady"
+    },
+    {
+     "note": "{chief}の金を受けて{younger}を推し、家老となった。"
+    }
+   ],
+   "end": "買われた席"
+  },
+  "fail_split": {
+   "speaker": "minister",
+   "text": [
+    "評定は罵り合いで終わった。{elder}と{younger}はそれぞれの屋敷に籠もり、城下に兵が満ちた。{minister}が{player}に言った。「収めきれなんだな。家老の話は、家が鎮まってからだ」",
+    "覚えを取り戻し、務めを重ねれば、また機会は巡ってこよう。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sg_r6_bribed"
+    },
+    {
+     "unflag": "sg_r6_proof"
+    },
+    {
+     "unflag": "sg_r6_side_elder"
+    },
+    {
+     "unflag": "sg_r6_calm"
+    },
+    {
+     "unflag": "sg_r6_blood"
+    },
+    {
+     "unflag": "sg_r6_lady"
+    },
+    {
+     "note": "家督争いを収められなかった。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "割れた家"
+  }
+ }
+}

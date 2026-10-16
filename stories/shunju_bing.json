@@ -1,0 +1,558 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_bing",
+ "kind": "school",
+ "title": "兵書十三篇",
+ "era": "shunju",
+ "school": "bing",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "師",
+   "sex": "m"
+  },
+  "senior": {
+   "npc": "兄弟子",
+   "sex": "m"
+  },
+  "road": {
+   "place": "near:here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "powercap": {
+   "place": "capital:power"
+  },
+  "foe": {
+   "realm": "enemy:power"
+  },
+  "foecap": {
+   "place": "capital:foe"
+  },
+  "foelord": {
+   "person": "ruler:foe"
+  },
+  "front": {
+   "place": "border:power"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の兵家の講堂で師に会う",
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "講堂の壁には古びた地図が掛けられ、床には砂で山河をかたどった盤が据えてあった。片目に傷のある老人が、杖で砂の川をなぞっている。かつて幾度も戦場に立った将、{master}である。",
+    "「兵は国の大事、死生の地、存亡の道なり。察せざるべからず」{master}は庭の的を杖で指した。「まずは射てみよ。理を説くのは、それからだ」"
+   ],
+   "choices": [
+    {
+     "label": "弓を引く",
+     "check": {
+      "skill": "bow",
+      "dc": 8,
+      "win": "s1hit",
+      "lose": "s1miss"
+     }
+    }
+   ]
+  },
+  "s1hit": {
+   "speaker": "senior",
+   "text": [
+    "矢は的の端に立った。背後で拍手が起きる。振り向くと、涼しげな目をした若者が立っていた。兄弟子の{senior}だという。",
+    "「筋はいい」{senior}は自分の弓を取り、的の真ん中を三本続けて射抜いてみせた。「だが、兵法は射の腕で決まるものではないよ」"
+   ],
+   "effects": [
+    {
+     "xp": "bow",
+     "n": 2
+    }
+   ],
+   "next": "c2"
+  },
+  "s1miss": {
+   "speaker": "senior",
+   "text": [
+    "矢は的を大きく外れ、塀に突き立った。くすりと笑う声がした。涼しげな目をした若者、兄弟子の{senior}だという。",
+    "{senior}は自分の弓を取り、的の真ん中を三本続けて射抜いてみせた。「まあ、気にするな。兵法は射の腕で決まるものではないよ」"
+   ],
+   "effects": [
+    {
+     "xp": "bow",
+     "n": 1
+    },
+    {
+     "xp": "blade",
+     "n": 1
+    }
+   ],
+   "next": "c2"
+  },
+  "c2": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "弓術を15まで鍛え、{here}の講堂に戻る",
+   "wait": {
+    "skill": {
+     "bow": 15
+    },
+    "days": 15
+   },
+   "speaker": "master",
+   "art": "war",
+   "text": [
+    "{master}は{player}と{senior}を庭に立たせ、木剣を一本ずつ渡した。「砂盤の戦は終わった。次は身で知れ。将が剣を知らねば、兵の恐れが分からぬ」",
+    "{senior}が構えた。笑みは消えていた。"
+   ],
+   "choices": [
+    {
+     "label": "{senior}と打ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "c2win",
+      "lose": "c2lose"
+     }
+    }
+   ]
+  },
+  "c2win": {
+   "speaker": "master",
+   "text": [
+    "{player}の木剣が{senior}の手首を打った。{senior}は剣を拾い、黙って一礼した。その目の奥に、見たことのない色が浮かんでいた。",
+    "{master}は頷いた。「今日からお前を弟子とし、わが家に伝わる兵書を読むことを許す。十三篇と、わしが四十年かけて書き足した注だ。天下にこの一部しかない」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "flag": "bing_beat"
+    },
+    {
+     "note": "{master}の弟子となり、兵書を読むことを許された。"
+    }
+   ],
+   "next": "c3"
+  },
+  "c2lose": {
+   "speaker": "master",
+   "text": [
+    "{player}は三度打ち倒された。{senior}は手を差し伸べ、「気にするな」と笑った。",
+    "ところが{master}は、勝った{senior}ではなく{player}を呼んだ。「倒れても目を閉じなかったな。今日からお前を弟子とし、わが家に伝わる兵書を読むことを許す。十三篇と、わしが四十年かけて書き足した注だ。天下にこの一部しかない」{senior}の笑みが、凍りついた。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{master}の弟子となり、兵書を読むことを許された。"
+    }
+   ],
+   "next": "c3"
+  },
+  "c3": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "20日ほど兵書を学んだのち、{here}の講堂に戻る",
+   "wait": {
+    "days": 20
+   },
+   "speaker": "master",
+   "art": "disaster",
+   "text": [
+    "夜明け前、講堂から火の手が上がった。駆けつけると、書庫の棚は空になり、{master}が額から血を流して倒れていた。",
+    "「{senior}だ……兵書を持って、{power}へ向かった。あやつは才がある。だが才のある者ほど、才のある者を憎む」{master}は{player}の袖を掴んだ。「追え。あの書は、使う者を選ぶ」"
+   ],
+   "next": "c3chase"
+  },
+  "c3chase": {
+   "at": {
+    "place": "road"
+   },
+   "goal": "{senior}を追って{road}へ急ぐ",
+   "art": "war",
+   "text": [
+    "{road}の外れで、荷車を囲む男たちに追いついた。{senior}の姿はない。金で雇われた{bandit}どもが、竹簡の包みを馬に積み替えているところだった。"
+   ],
+   "choices": [
+    {
+     "label": "弓を引き絞って奪い返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "c3win",
+      "lose": "c3lose"
+     }
+    }
+   ]
+  },
+  "c3win": {
+   "text": [
+    "{bandit}どもは包みの半分を捨てて逃げ散った。取り戻せたのは、{master}の注を記した竹簡だけだった。十三篇の本文は、すでに{senior}の手の中にある。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "bow",
+     "n": 3
+    },
+    {
+     "flag": "bing_notes"
+    }
+   ],
+   "next": "c4"
+  },
+  "c3lose": {
+   "text": [
+    "多勢に無勢だった。馬は駆け去り、{player}は土埃の中に取り残された。兵書は、まるごと{senior}の手に渡った。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "xp": "bow",
+     "n": 2
+    }
+   ],
+   "next": "c4"
+  },
+  "c4": {
+   "at": {
+    "place": "powercap",
+    "building": "palace"
+   },
+   "goal": "名声を12まで上げ、{power}の都{powercap}の宮城へ乗り込む",
+   "wait": {
+    "fame": 12,
+    "days": 20
+   },
+   "speaker": "senior",
+   "art": "court",
+   "text": [
+    "{senior}は、早くも{power}の将軍となっていた。兵書の策で国境の戦に二度勝ち、王の信を得たのだという。",
+    "宮城の一室で、{senior}は昔と変わらぬ涼しい目で{player}を迎えた。「よく来た。師の書は、埃をかぶらせておくには惜しかった。お前も{power}に仕えぬか。わたしの副将の座を空けてある」"
+   ],
+   "choices": [
+    {
+     "label": "誘いに乗るふりをして、兵書のありかを探る",
+     "next": "c4trap"
+    },
+    {
+     "label": "「書を返せ」と剣を抜く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "c4escape",
+      "lose": "c4scar"
+     }
+    }
+   ]
+  },
+  "c4trap": {
+   "art": "disaster",
+   "text": [
+    "夜、宴の酒に薬が仕込まれていた。目を覚ますと、{player}は獄の中にいた。「{player}は{foe}の間者」という罪状が、すでに書き上げられていた。{senior}は、師の書を読んだ者が自分の他にいることを許せないのだ。"
+   ],
+   "choices": [
+    {
+     "label": "狂人を装い、獄吏を油断させる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "c4escape",
+      "lose": "c4scar"
+     }
+    },
+    {
+     "label": "夜を待って獄を抜ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "c4escape",
+      "lose": "c4scar"
+     }
+    }
+   ]
+  },
+  "c4scar": {
+   "text": [
+    "逃げきれなかった。棒で打たれ、膝を砕かれかけたところを、{foe}の使節の車に匿われ、辛くも都を抜け出した。一生残る傷を負った。だが、生きている。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "flag": "bing_scar"
+    }
+   ],
+   "next": "c5"
+  },
+  "c4escape": {
+   "text": [
+    "{player}は夜陰にまぎれて城壁を越えた。追手の松明が遠ざかっていく。行くあては一つしかない。{power}と争う国、{foe}だ。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "c5"
+  },
+  "c5": {
+   "at": {
+    "place": "foecap",
+    "building": "palace"
+   },
+   "goal": "{foe}の都{foecap}の宮城へ逃れる",
+   "speaker": "foelord",
+   "art": "court",
+   "text": [
+    "{foelord}は、{power}から逃げてきた若者の話に耳を傾けた。「{power}の新しい将軍が、我が軍を二度破った。その将の師の弟子が、そなたか」",
+    "「書は奪われましたが、中身はここにあります」{player}が胸を叩くと、{foelord}は笑った。「ならば、我が軍の師となれ。車の中に座って策を立てよ」"
+   ],
+   "effects": [
+    {
+     "enlist": "foe"
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "rank": 2
+    },
+    {
+     "note": "{foe}の軍師となった。{master}から高弟と認める書状が届いた。"
+    }
+   ],
+   "next": "c6"
+  },
+  "c6": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "弓術を35まで鍛え、国境の{front}へ出陣する",
+   "wait": {
+    "skill": {
+     "bow": 35
+    },
+    "days": 30
+   },
+   "speaker": "{foe}の将",
+   "art": "war",
+   "text": [
+    "{senior}の率いる{power}の軍が、{front}の野に押し寄せた。{foe}の将たちは浮き足立っている。「正面からぶつかれば、ひとたまりもない」",
+    "{player}は兵書の一節を思い出していた。善く戦う者は、人を致して人に致されず。――{senior}は賢い。賢い者は、自分の読みを疑わない。"
+   ],
+   "choices": [
+    {
+     "label": "退きながら、野営の竈を日ごとに減らしていく",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "c6ambush",
+      "lose": "c6lose"
+     }
+    },
+    {
+     "label": "精兵を率いて、正面から一当てする",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "c6ambush",
+      "lose": "c6lose"
+     }
+    }
+   ]
+  },
+  "c6lose": {
+   "text": [
+    "{senior}は乗ってこなかった。{foe}の軍は押され、{player}自身も矢傷を負った。それでも退き続けるうち、{power}の陣から声が聞こえてきた。「{foe}の兵は臆して逃げ散っている。追え」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "c6ambush"
+  },
+  "c6ambush": {
+   "art": "war",
+   "text": [
+    "初日は十万の竈、翌日は五万、三日目には三万。{senior}は笑ったという。「{foe}の兵は三日で半ばが逃げたぞ」歩兵を置き去りにし、軽騎だけで追ってきた。",
+    "道は狭い谷に入る。日暮れ。{player}は谷の大樹の皮を剥ぎ、白い木肌に大書した。「{senior}、この樹の下に死す」そして弩を持った兵を両の崖に伏せた。「火が灯ったら、射よ」"
+   ],
+   "choices": [
+    {
+     "label": "自ら弓を取り、崖の上で待つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "c7win",
+      "lose": "c7escape"
+     }
+    }
+   ]
+  },
+  "c7win": {
+   "speaker": "senior",
+   "text": [
+    "谷底で松明が灯った。樹の文字を読もうとした{senior}の上に、矢が雨のように降った。{power}の騎兵は総崩れとなった。",
+    "樹の根元で、{senior}は血を吐きながら笑った。「遂に豎子の名を成さしむるか」その懐から、血に濡れた竹簡の包みが転がり出た。十三篇である。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "xp": "bow",
+     "n": 5
+    },
+    {
+     "favor": 30
+    }
+   ],
+   "choices": [
+    {
+     "label": "兵書を{here}の{master}のもとへ返す",
+     "next": "endMaster"
+    },
+    {
+     "label": "兵書を{foelord}に献じ、{foe}の将となる",
+     "next": "endGeneral"
+    }
+   ]
+  },
+  "c7escape": {
+   "text": [
+    "火が灯るのが早すぎた。矢の雨の中、{senior}は馬首を返し、わずかな騎兵とともに谷を駆け抜けた。兵書は、{senior}とともに闇の向こうへ消えた。",
+    "戦には勝った。{power}の軍は退き、{player}の名は天下に知られた。だが、取り返したかった書はない。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "bow",
+     "n": 3
+    }
+   ],
+   "next": "endMemory"
+  },
+  "endMaster": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "兵書を携えて{here}の講堂へ帰る",
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "{master}は、血のしみた竹簡を一枚ずつ撫でた。それから、意外なことを言った。「この書は、もう焼こう」",
+    "「兵書は、書物の中にあるうちは人を殺さぬ。読んだ者の中に入って、初めて人を殺す。お前の中にはもう入っておる。だから、お前が教えよ。百戦百勝は善の善なる者に非ず。戦わずして人の兵を屈するは善の善なる者なり――そこを読み違えぬ者にだけな」その日から、{player}は講堂で弟子たちに兵を説く師となった。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "兵家の師となった。"
+    }
+   ],
+   "end": "戦わずして勝つ"
+  },
+  "endGeneral": {
+   "speaker": "foelord",
+   "text": [
+    "{foelord}は兵書を押し頂き、{player}を将軍に任じた。{player}は兵書に{master}の注と自らの戦いの記録を書き加え、{foe}の将たちに授けた。",
+    "{foe}の軍は強くなり、{power}もうかつには攻めてこなくなった。ただ、夜ごと夢に谷の大樹が出てくる。白い木肌の文字は、ときおり{player}自身の名に変わっていた。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "rank": 4
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 30
+    },
+    {
+     "note": "{foe}の将軍となった。"
+    }
+   ],
+   "end": "一国の将"
+  },
+  "endMemory": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の講堂へ帰り、{master}に報告する",
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "{player}の報告を聞いても、{master}は責めなかった。「書は奪えても、お前が読んだものは奪えぬ。書け。覚えている限りを」",
+    "{player}は一年をかけて、十三篇と{master}の注を竹簡に書き起こした。書き損じた箇所には、谷の戦の記録を書き添えた。こうして天下に、もう一部の兵書が生まれた。それを書いた者を、弟子たちは師と呼んだ。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "兵書を書き起こし、兵家の師となった。"
+    }
+   ],
+   "end": "心に刻む兵書"
+  }
+ }
+}

@@ -1,0 +1,781 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_zhengguo",
+ "kind": "history",
+ "era": "shunju",
+ "title": "鄭国渠",
+ "event": "zheng_guo_canal",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s3",
+  "s3drain",
+  "s3drain_ng",
+  "s3proof",
+  "s3proof_ng",
+  "s4",
+  "s4exp",
+  "s4exp_ng",
+  "s4help",
+  "s4help_ng",
+  "s5"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "xianyang"
+  },
+  "works": {
+   "place": "near:city"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "han": {
+   "scnRealm": "han"
+  },
+  "king": {
+   "person": "ruler:qin"
+  },
+  "lv": {
+   "scnPerson": "呂不韋"
+  },
+  "agent": {
+   "npc": "韓の商人",
+   "sex": "m"
+  },
+  "foreman": {
+   "npc": "人夫頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で噂を聞く",
+   "speaker": "foreman",
+   "art": "tale",
+   "text": [
+    "{city}の客舎は、北から来た人夫の群れでごった返していた。韓から来た水工の鄭国という男が、涇水を堰き止めて東の洛水まで、三百里の渠を掘ると言い出したのだという。",
+    "人夫を束ねる{foreman}は、泥のこびりついた手で椀を抱えていた。「関中の北は塩を吹いた痩せ地だ。水が通れば、一畝で一鍾の麦がとれると鄭国さまは言う。本当なら、わしらの孫の代は飢えずにすむ」",
+    "「だが、なぜ韓の男が秦のために渠を掘る。それを訝る者も多い」"
+   ],
+   "choices": [
+    {
+     "label": "渠の口へ行き、鄭国に会う",
+     "effects": [
+      {
+       "note": "韓の水工鄭国が、涇水から洛水へ三百里の渠を掘ろうとしている。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "works"
+   },
+   "goal": "{works}の渠の口で鄭国に会う",
+   "speaker": "鄭国",
+   "art": "disaster",
+   "text": [
+    "涇水が山から平野へ出る口に、何千という人夫が蟻のように群がっていた。その真ん中で、日に焼けた痩せた男が縄を張り、杭を打たせている。それが鄭国だった。",
+    "「水は低きに流れる。だが三百里先の低さを、目で見ることはできぬ」鄭国は水準器の木筒を覗きながら言った。「一里に一寸の傾き。それを三百里、狂わずに通す。一つ間違えれば、水は止まるか、溢れて村を呑む」"
+   ],
+   "choices": [
+    {
+     "label": "測量を手伝い、縄と杭の位置を確かめる",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "{foreman}の下で人夫を差配する",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "鄭国",
+   "text": [
+    "三日かけて、二十里分の杭の高さを測り直した。一本だけ、二寸ずれている杭があった。鄭国はそれを抜かせ、{player}を見て初めて笑った。「目の利く者がいると、夜よく眠れる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_zg_survey"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "鄭国の測量を手伝った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "縄を張るたびに、どこかがずれた。鄭国は何も言わずにやり直させた。{player}は人夫に交じって土を運ぶほうに回った。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の市で、渠の噂を探る",
+   "speaker": "agent",
+   "art": "trade",
+   "text": [
+    "{city}の市で、{agent}という韓の商人が{player}に酒をおごった。人夫の飯の米を一手に納めているという男だ。",
+    "酔いが回ると、{agent}は声を落とした。「渠が早くできては困る人間がいる。秦の人夫が一人でも多く土を掘っていれば、そのぶん東へ攻めてくる兵は減る。……わかるな。堤の土を少し緩めるだけでいい。銭は、言い値で払う」"
+   ],
+   "choices": [
+    {
+     "label": "誘いに乗り、夜ごと堤の土を緩める手筈を引き受ける",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s3drain",
+      "lose": "s3drain_ng"
+     }
+    },
+    {
+     "label": "乗ったふりをして{agent}の宿へ忍び込み、韓の密書を探す",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s3proof",
+      "lose": "s3proof_ng"
+     }
+    },
+    {
+     "label": "笑って聞き流し、宮へ向かう",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3drain": {
+   "speaker": "agent",
+   "art": "disaster",
+   "text": [
+    "{player}は人夫に紛れて夜の堤に入り、固めたばかりの土の根を鋤で崩して回った。秋の雨が来るたびに、堤は崩れ、また築き直された。",
+    "{agent}は銭袋を投げてよこした。「上出来だ。この調子なら、渠は十年かかっても終わるまい。そのぶん、韓は十年生きのびる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_zg_drain"
+    },
+    {
+     "money": 300
+    },
+    {
+     "rep": "han",
+     "n": 15
+    },
+    {
+     "rep": "qin",
+     "n": -10
+    },
+    {
+     "note": "韓の間者に頼まれ、渠の堤を崩して工事を長引かせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3drain_ng": {
+   "text": [
+    "堤の上で見回りの松明に照らされ、{player}は鋤を捨てて逃げた。翌日から見張りが倍になり、{agent}は{player}と目を合わせなくなった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s4"
+  },
+  "s3proof": {
+   "text": [
+    "{agent}が酔い潰れた夜、宿の行李の底から油紙に包んだ竹簡を見つけた。新鄭の韓王の印。「鄭国をして秦に渠を開かしめ、その力を疲らしめ、東伐を緩めしむ」",
+    "{player}は簡を一本だけ抜き取り、懐に入れた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_zg_letter"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "韓王が渠で秦を疲れさせようとしている証の簡を手に入れた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3proof_ng": {
+   "text": [
+    "行李に手をかけたところで{agent}が寝返りを打ち、目を開けた。{player}は酔ったふりをして部屋を出た。それきり{agent}の宿は鍵がかかるようになった。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮で、渠をめぐる朝議を見る",
+   "speaker": "lv",
+   "art": "court",
+   "text": [
+    "{king}はまだ少年で、玉座の上で退屈そうに足を揺らしていた。政を執るのは相国の{lv}である。",
+    "宗室の老臣が声を荒らげていた。「韓の者に秦の財を掘らせて、何の得がある。人夫が十万、糧は日に千石。これが韓の企みでなくて何だ」{lv}は帳簿を開いたまま、顔も上げなかった。「得か損かは、帳簿が決める。渠ができれば、関中の麦は倍になる」"
+   ],
+   "choices": [
+    {
+     "label": "韓王の簡を{lv}に差し出し、渠が韓の策であることを暴く",
+     "turn": true,
+     "if": {
+      "flag": "h_zg_letter"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s4exp",
+      "lose": "s4exp_ng"
+     }
+    },
+    {
+     "label": "鄭国を弁護し、「渠が成れば秦の万世の利」と説いて人夫と銭を増やさせる",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s4help",
+      "lose": "s4help_ng"
+     }
+    },
+    {
+     "label": "朝議を見守って退く",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4exp": {
+   "speaker": "lv",
+   "art": "court",
+   "text": [
+    "{lv}は簡を読み、初めて帳簿から顔を上げた。宗室の老臣たちが勝ち誇ったように声を上げる。「それ見たことか」",
+    "相国はしばらく黙っていたが、やがて書記に命じた。「工事を止めよ。鄭国を捕らえよ。人夫は郷里へ帰せ。浮いた糧は、東の兵に回す」{player}の前には、褒美の銭が積まれた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_zg_exposed"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "qin",
+     "n": 15
+    },
+    {
+     "rep": "han",
+     "n": -20
+    },
+    {
+     "note": "韓の策を暴き、鄭国の渠を止めさせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4exp_ng": {
+   "speaker": "lv",
+   "text": [
+    "「簡一本で十万の人夫を止めろというのか」{lv}は簡を脇へ放った。「偽物かもしれぬ。本物でも、渠が役に立つなら構わぬ」老臣たちは{player}をにらみ、相国は帳簿に目を戻した。"
+   ],
+   "next": "s5"
+  },
+  "s4help": {
+   "speaker": "lv",
+   "art": "court",
+   "text": [
+    "{player}は渠の口で見た測量の正しさを語り、一里一寸の傾きを、三百里の先の沃野を語った。「韓の企みであろうと、水は秦の田を潤します。韓は秦の寿命を数年縮めようとして、秦の寿命を万世のばすのです」",
+    "{lv}は帳簿を閉じ、珍しく声を上げて笑った。「よい商いだ。人夫を五万増やせ。銭も出す。どうせ掘るなら早く掘れ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_zg_helped"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "鄭国を弁護し、渠の工事を早めさせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4help_ng": {
+   "text": [
+    "{player}の言葉は、老臣たちの怒号にかき消された。{lv}は何も言わず、朝議はそのまま次の話に移った。"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "works"
+   },
+   "goal": "{works}の渠へ戻る",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "鄭国",
+   "art": "disaster",
+   "text": [
+    "渠は、十里、二十里と東へ延びていた。鄭国は相変わらず縄を張り、杭を打たせている。朝廷で何が言われているか、知っているのかいないのか。",
+    "「わしは韓の者だ」鄭国は不意に言った。「韓の王に命じられて、ここへ来た。だが掘りはじめたら、それはもうどうでもよくなった。水が通るかどうか。わしにはそれしかない」"
+   ],
+   "choices": [
+    {
+     "label": "人夫に交じって堤を築く",
+     "next": "aftergo"
+    },
+    {
+     "label": "夜、鄭国と酒を酌み交わす",
+     "effects": [
+      {
+       "flag": "h_zg_friend"
+      }
+     ],
+     "next": "aftergo"
+    }
+   ]
+  },
+  "aftergo": {
+   "at": {
+    "place": "works"
+   },
+   "goal": "{works}の渠で成り行きを見届ける",
+   "wait": {
+    "settled": "zheng_guo_canal"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "zg_exposed"
+     },
+     "next": "exposed"
+    },
+    {
+     "if": {
+      "branch": "zg_drain"
+     },
+     "next": "drained"
+    },
+    {
+     "if": {
+      "branch": "zg_helped"
+     },
+     "next": "helped"
+    },
+    {
+     "next": "after"
+    }
+   ]
+  },
+  "exposed": {
+   "speaker": "foreman",
+   "art": "tale",
+   "text": [
+    "渠の口には、もう誰もいなかった。打ちかけの杭が並び、掘りかけの溝に雨水が溜まっている。鄭国は捕らえられ、刑を受けたと聞いた。",
+    "{foreman}は溝の縁にしゃがみこんでいた。「韓の企みだったのはわかった。だが、わしらの孫の麦はどうなる」{player}には、答える言葉がなかった。秦の蔵には糧が戻り、その糧は東へ向かう兵の腹に入っていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zg_exposed"
+    },
+    {
+     "unflag": "h_zg_helped"
+    },
+    {
+     "unflag": "h_zg_drain"
+    },
+    {
+     "unflag": "h_zg_letter"
+    },
+    {
+     "unflag": "h_zg_survey"
+    },
+    {
+     "unflag": "h_zg_friend"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "鄭国の渠は止められ、鄭国は罰せられた。"
+    }
+   ],
+   "end": "掘りかけの溝"
+  },
+  "drained": {
+   "speaker": "agent",
+   "art": "disaster",
+   "text": [
+    "渠は崩れては築かれ、築かれては崩れた。人夫は疲れ、秦の蔵は底を見せはじめた。それでも鄭国は、黙って杭を打ち続けていた。",
+    "{agent}は{city}を去る前に、{player}に最後の銭を渡した。「韓は何年かの命を買った。おぬしは銭を得た。損をしたのは秦と、あの水工だけだ」その言い方が、妙に耳に残った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zg_exposed"
+    },
+    {
+     "unflag": "h_zg_helped"
+    },
+    {
+     "unflag": "h_zg_drain"
+    },
+    {
+     "unflag": "h_zg_letter"
+    },
+    {
+     "unflag": "h_zg_survey"
+    },
+    {
+     "unflag": "h_zg_friend"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": -2
+    },
+    {
+     "note": "鄭国の渠は崩れ続け、秦の蔵を大いに損じた。"
+    }
+   ],
+   "end": "崩れる堤"
+  },
+  "helped": {
+   "speaker": "鄭国",
+   "art": "disaster",
+   "text": [
+    "人夫が増え、銭が出た。渠は見る間に東へ延び、翌年の春には最初の水が洛水へ届いた。塩を吹いた白い野に、水の筋が光った。",
+    "鄭国は渠の口に立ち、流れてゆく水をずっと見ていた。「わしは韓の間者だ。それは死ぬまで変わらぬ。だが、この水は、もう誰のものでもない」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zg_exposed"
+    },
+    {
+     "unflag": "h_zg_helped"
+    },
+    {
+     "unflag": "h_zg_drain"
+    },
+    {
+     "unflag": "h_zg_letter"
+    },
+    {
+     "unflag": "h_zg_survey"
+    },
+    {
+     "unflag": "h_zg_friend"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "note": "鄭国の渠は早く進み、関中に水が通った。"
+    }
+   ],
+   "end": "早く通った水"
+  },
+  "after": {
+   "at": {
+    "place": "works"
+   },
+   "goal": "{works}の渠で、事の終わりを見届ける",
+   "wait": {
+    "settled": "zheng_guo_canal"
+   },
+   "speaker": "鄭国",
+   "art": "disaster",
+   "text": [
+    "やがて朝廷に、渠が韓の企みだという訴えが届いた。鄭国は捕らえられ、{lv}の前に引き出された。水工は言った。「臣は初め、韓のために来ました。ですが、渠が成れば秦の万世の利になります。臣は韓の寿命を数年延ばし、秦のために万世の功を立てるのです」",
+    "工事は続けられた。何年かののち、関中の塩の野は沃野に変わり、人はその渠を鄭国渠と呼んだ。秦はますます富み、その富が東の六国へ向かうことになる。"
+   ],
+   "choices": [
+    {
+     "label": "鄭国と、通った水を見に行く",
+     "if": {
+      "flag": "h_zg_friend"
+     },
+     "next": "end_friend"
+    },
+    {
+     "label": "{foreman}らと、最初の麦の刈り入れを祝う",
+     "next": "end_harvest"
+    },
+    {
+     "label": "渠の行く末を見ずに{city}を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_friend": {
+   "speaker": "鄭国",
+   "text": [
+    "渠の口で、鄭国は濡れた石に腰を下ろした。「秦は強くなる。韓はいずれ秦に呑まれる。わしの掘った水で育った麦が、わしの国を滅ぼす兵を養う」",
+    "水工は笑った。泣いているのか笑っているのか、分からない顔だった。「それでも、水が通ってよかったと思う。……おかしいかね」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zg_exposed"
+    },
+    {
+     "unflag": "h_zg_helped"
+    },
+    {
+     "unflag": "h_zg_drain"
+    },
+    {
+     "unflag": "h_zg_letter"
+    },
+    {
+     "unflag": "h_zg_survey"
+    },
+    {
+     "unflag": "h_zg_friend"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "鄭国の渠が通った。鄭国と友になった。"
+    }
+   ],
+   "end": "水工の友"
+  },
+  "end_harvest": {
+   "speaker": "foreman",
+   "text": [
+    "白かった野が、一面の麦の穂で黄金色に揺れていた。{foreman}は穂を一本折って噛み、泣き笑いの顔をした。「孫の代どころか、わしの代で食えた」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zg_exposed"
+    },
+    {
+     "unflag": "h_zg_helped"
+    },
+    {
+     "unflag": "h_zg_drain"
+    },
+    {
+     "unflag": "h_zg_letter"
+    },
+    {
+     "unflag": "h_zg_survey"
+    },
+    {
+     "unflag": "h_zg_friend"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "money": 80
+    },
+    {
+     "note": "鄭国の渠が通り、関中は沃野となった。"
+    }
+   ],
+   "end": "関中の麦"
+  },
+  "end_left": {
+   "text": [
+    "{player}は渠に背を向け、東へ歩いた。秦が富めば、いずれ東の国々が呑まれる。水の筋は、まるで秦の伸ばす腕のように見えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zg_exposed"
+    },
+    {
+     "unflag": "h_zg_helped"
+    },
+    {
+     "unflag": "h_zg_drain"
+    },
+    {
+     "unflag": "h_zg_letter"
+    },
+    {
+     "unflag": "h_zg_survey"
+    },
+    {
+     "unflag": "h_zg_friend"
+    },
+    {
+     "note": "鄭国の渠は続けられた。"
+    }
+   ],
+   "end": "鄭国渠"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の途中で噂を聞いた。秦が韓の水工鄭国に、涇水から洛水へ三百里の渠を掘らせているという。韓の企みと露見したが、鄭国は「秦のためにもなる」と言い張り、工事は続いたとも。",
+    "「秦は、敵の策まで飲み込んで肥える国だ」と、隣の卓の男が言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_zg_exposed"
+    },
+    {
+     "unflag": "h_zg_helped"
+    },
+    {
+     "unflag": "h_zg_drain"
+    },
+    {
+     "unflag": "h_zg_letter"
+    },
+    {
+     "unflag": "h_zg_survey"
+    },
+    {
+     "unflag": "h_zg_friend"
+    },
+    {
+     "note": "鄭国の渠のことを聞いた。"
+    }
+   ],
+   "end": "遠い渠の話"
+  }
+ },
+ "branches": [
+  {
+   "id": "zg_exposed",
+   "why": "主人公が韓王の密書で策を暴いた",
+   "event": "zheng_guo_canal",
+   "order": 3,
+   "when": {
+    "flag": "h_zg_exposed"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}は韓の水工鄭国に渠を掘らせていたが、それが秦の力を土木に費やさせる韓の策であることが露わになり、工事は止められ、鄭国は罰せられた。浮いた糧は東を攻める兵に回された。",
+    "do": [
+     [
+      "add",
+      "qin",
+      "treasury",
+      30
+     ]
+    ],
+    "imp": 2,
+    "at": "xianyang"
+   }
+  },
+  {
+   "id": "zg_drain",
+   "why": "主人公が韓の間者と堤を崩した",
+   "event": "zheng_guo_canal",
+   "order": 2,
+   "when": {
+    "flag": "h_zg_drain"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}は韓の水工鄭国に渠を掘らせたが、堤は韓の間者の手でたびたび崩され、年を重ねても工事は終わらず、秦の国庫を大いに損じた。",
+    "do": [
+     [
+      "add",
+      "qin",
+      "treasury",
+      -100
+     ],
+     [
+      "add",
+      "qin",
+      "stability",
+      -0.05
+     ]
+    ],
+    "imp": 2,
+    "at": "xianyang"
+   }
+  },
+  {
+   "id": "zg_helped",
+   "why": "主人公が朝議で鄭国を弁護した",
+   "event": "zheng_guo_canal",
+   "order": 1,
+   "when": {
+    "flag": "h_zg_helped"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}は韓の水工鄭国に、涇水から洛水へ三百余里の渠を掘らせた。韓の策と疑う声もあったが、鄭国を弁護する者があって人夫と銭が増され、渠は早く通って関中は沃野となった (鄭国渠)。",
+    "do": [
+     [
+      "add",
+      "qin",
+      "treasury",
+      -40
+     ],
+     [
+      "add",
+      "qin",
+      "stability",
+      0.05
+     ]
+    ],
+    "imp": 2,
+    "at": "xianyang"
+   }
+  }
+ ]
+}

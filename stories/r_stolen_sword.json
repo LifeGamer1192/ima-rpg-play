@@ -1,0 +1,261 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_stolen_sword",
+ "kind": "random",
+ "where": "folk",
+ "hook": "家に伝わる剣が盗まれたのだ。先祖に顔向けができぬ",
+ "title": "盗まれた宝剣",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "没落した旧家の主"
+  },
+  "nephew": {
+   "npc": "甥",
+   "sex": "m"
+  },
+  "dealer": {
+   "npc": "古物商",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}の家は、かつて大夫を出した家柄だという。今は門も傾き、残る宝は祖父が君主から賜った一振りの剣だけだった。それが三日前、消えた。",
+    "「疑わしいのは、近ごろ雇った下男か、甥の{nephew}か。いや、身内を疑いたくはないが……」"
+   ],
+   "choices": [
+    {
+     "label": "家の者の出入りを調べる",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "truth",
+      "lose": "market"
+     }
+    },
+    {
+     "label": "市で古物の噂を聞いて回る",
+     "next": "market"
+    }
+   ]
+  },
+  "truth": {
+   "text": [
+    "夜、{nephew}がこっそり家を出て、賭場に入っていくのを見た。賭場の主に聞けば、{nephew}は大きな負けを抱え、三日前に「家の剣」を古物商の{dealer}に売ったという。"
+   ],
+   "effects": [
+    {
+     "flag": "sword_nephew"
+    }
+   ],
+   "next": "market"
+  },
+  "market": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で古物商を探す",
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "{dealer}の店先に、それはあった。古びた鞘に、{client}の家の紋が刻まれている。",
+    "「良い剣でしょう。正しく買ったものです。三百銭なら譲りますよ」用心棒らしい男が二人、奥からこちらを見ている。"
+   ],
+   "choices": [
+    {
+     "label": "買い取る（300銭）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "back"
+    },
+    {
+     "label": "値を下げさせる",
+     "check": {
+      "skill": "trade",
+      "dc": 35,
+      "win": "cheap",
+      "lose": "market_ng"
+     }
+    },
+    {
+     "label": "「盗品だ。返してもらう」",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "back",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "cheap": {
+   "speaker": "dealer",
+   "text": [
+    "「盗品と知れれば、官府に持っていかれるのはそちらの方だぞ」そう言うと、{dealer}は渋い顔で百銭まで下げた。"
+   ],
+   "effects": [
+    {
+     "money": -100
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "next": "back"
+  },
+  "market_ng": {
+   "speaker": "dealer",
+   "text": [
+    "「冷やかしなら帰っておくれ」{dealer}は剣を奥にしまった。用心棒が一歩前に出る。"
+   ],
+   "choices": [
+    {
+     "label": "言い値で買う（300銭）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "back"
+    },
+    {
+     "label": "力ずくで取り返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "back",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "back": {
+   "speaker": "client",
+   "text": [
+    "屋敷に剣を持ち帰ると、{client}は鞘を何度も撫でた。「それで、誰が盗んだのか分かったか」"
+   ],
+   "choices": [
+    {
+     "label": "「{nephew}どのが賭けの負けに売ったのです」",
+     "if": {
+      "flag": "sword_nephew"
+     },
+     "next": "end_told"
+    },
+    {
+     "label": "「流れ者の仕業でしょう」と伏せる",
+     "if": {
+      "flag": "sword_nephew"
+     },
+     "next": "end_hidden"
+    },
+    {
+     "label": "「盗人までは分かりませんでした」",
+     "if": {
+      "notFlag": "sword_nephew"
+     },
+     "next": "end_plain"
+    }
+   ]
+  },
+  "end_told": {
+   "speaker": "client",
+   "text": [
+    "{client}は長いあいだ黙っていた。やがて{nephew}を呼びつけ、家の者すべての前で打ち据えた。{nephew}は家を追われ、二度と戻らなかった。",
+    "「よく言ってくれた。身内の腐れは、早く切るに限る」そう言う{client}の背は、ひどく小さく見えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sword_nephew"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "家法の裁き"
+  },
+  "end_hidden": {
+   "text": [
+    "後で{nephew}に、剣の行方を知っていると耳打ちした。{nephew}は青ざめ、二度と賭場には行かぬと誓った。",
+    "{client}は何も知らぬまま、甥と並んで先祖の廟に剣を供えた。それがよかったのかどうかは、分からない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sword_nephew"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "伏せた罪"
+  },
+  "end_plain": {
+   "speaker": "client",
+   "text": [
+    "「それでも、剣が戻っただけで十分だ」{client}は礼の銭を包んだ。盗人は今もこの家のどこかで、同じ飯を食っているのかもしれない。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "戻った剣"
+  },
+  "end_lost": {
+   "text": [
+    "用心棒に打ち倒され、気づけば店は閉まっていた。翌日、{dealer}の店は剣ごと消えていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sword_nephew"
+    },
+    {
+     "hp": -15
+    }
+   ],
+   "end": "剣は戻らず"
+  }
+ }
+}

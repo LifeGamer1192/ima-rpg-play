@@ -1,0 +1,797 @@
+{
+ "format": "ima-rpg-stories",
+ "version": 1,
+ "stories": [
+  {
+   "id": "shunju_main",
+   "file": "shunju_main.json",
+   "kind": "main",
+   "era": "shunju",
+   "title": "乱世の食客"
+  },
+  {
+   "id": "shunju_ru",
+   "file": "shunju_ru.json",
+   "kind": "school",
+   "era": "shunju",
+   "title": "仁を問う旅"
+  },
+  {
+   "id": "shunju_mo",
+   "file": "shunju_mo.json",
+   "kind": "school",
+   "era": "shunju",
+   "title": "非攻の城"
+  },
+  {
+   "id": "shunju_bing",
+   "file": "shunju_bing.json",
+   "kind": "school",
+   "era": "shunju",
+   "title": "兵書十三篇"
+  },
+  {
+   "id": "shunju_fa",
+   "file": "shunju_fa.json",
+   "kind": "school",
+   "era": "shunju",
+   "title": "変法の代償"
+  },
+  {
+   "id": "shunju_zong",
+   "file": "shunju_zong.json",
+   "kind": "school",
+   "era": "shunju",
+   "title": "合従連衡"
+  },
+  {
+   "id": "shunju_dao",
+   "file": "shunju_dao.json",
+   "kind": "school",
+   "era": "shunju",
+   "title": "泥中に尾を曳く"
+  },
+  {
+   "id": "hunt_common",
+   "file": "hunt_common.json",
+   "kind": "random",
+   "era": "*",
+   "title": "盗賊討伐"
+  },
+  {
+   "id": "hunt_corrupt_official",
+   "file": "hunt_corrupt_official.json",
+   "kind": "random",
+   "era": "*",
+   "title": "盗賊討伐"
+  },
+  {
+   "id": "hunt_gang_underling",
+   "file": "hunt_gang_underling.json",
+   "kind": "random",
+   "era": "*",
+   "title": "盗賊討伐"
+  },
+  {
+   "id": "hunt_righteous",
+   "file": "hunt_righteous.json",
+   "kind": "random",
+   "era": "*",
+   "title": "盗賊討伐"
+  },
+  {
+   "id": "hunt_desperate",
+   "file": "hunt_desperate.json",
+   "kind": "random",
+   "era": "*",
+   "title": "盗賊討伐"
+  },
+  {
+   "id": "hunt_disguised_general",
+   "file": "hunt_disguised_general.json",
+   "kind": "random",
+   "era": "*",
+   "title": "盗賊討伐"
+  },
+  {
+   "id": "hunt_tiger",
+   "file": "hunt_tiger.json",
+   "kind": "random",
+   "era": "*",
+   "title": "虎退治"
+  },
+  {
+   "id": "hunt_deserters",
+   "file": "hunt_deserters.json",
+   "kind": "random",
+   "era": "*",
+   "title": "脱走兵の鎮定"
+  },
+  {
+   "id": "hunt_tomb_curse",
+   "file": "hunt_tomb_curse.json",
+   "kind": "random",
+   "era": "*",
+   "title": "鬼火の墓"
+  },
+  {
+   "id": "hunt_rebels",
+   "file": "hunt_rebels.json",
+   "kind": "random",
+   "era": "*",
+   "title": "残党狩り"
+  },
+  {
+   "id": "r_innocent_merchant",
+   "file": "r_innocent_merchant.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "冤罪の商人"
+  },
+  {
+   "id": "r_ouye_blade",
+   "file": "r_ouye_blade.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "龍淵の剣"
+  },
+  {
+   "id": "r_mountain_lair",
+   "file": "r_mountain_lair.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "山寨の娘"
+  },
+  {
+   "id": "r_stolen_sword",
+   "file": "r_stolen_sword.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "盗まれた宝剣"
+  },
+  {
+   "id": "r_assassin_job",
+   "file": "r_assassin_job.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "刺客の依頼"
+  },
+  {
+   "id": "r_plague_village",
+   "file": "r_plague_village.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "疫病の村"
+  },
+  {
+   "id": "r_routed_soldier",
+   "file": "r_routed_soldier.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "敗残兵の行方"
+  },
+  {
+   "id": "r_secret_envoy",
+   "file": "r_secret_envoy.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "密約の使者"
+  },
+  {
+   "id": "r_famous_horse",
+   "file": "r_famous_horse.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "名馬を巡る争い"
+  },
+  {
+   "id": "r_master_revenge",
+   "file": "r_master_revenge.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "師の仇討ち"
+  },
+  {
+   "id": "r_false_prince",
+   "file": "r_false_prince.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "偽の王子"
+  },
+  {
+   "id": "r_salt_smuggling",
+   "file": "r_salt_smuggling.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "塩の密売"
+  },
+  {
+   "id": "r_sworn_brothers",
+   "file": "r_sworn_brothers.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "遊侠の義兄弟"
+  },
+  {
+   "id": "r_tomb_robbers",
+   "file": "r_tomb_robbers.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "墓荒らし"
+  },
+  {
+   "id": "r_famine_granary",
+   "file": "r_famine_granary.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "飢饉の倉"
+  },
+  {
+   "id": "r_gate_graffiti",
+   "file": "r_gate_graffiti.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "城門の落書き"
+  },
+  {
+   "id": "r_bandit_hostage",
+   "file": "r_bandit_hostage.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "盗賊団の人質"
+  },
+  {
+   "id": "shunju_rank2_shi",
+   "file": "shunju_rank2_shi.json",
+   "kind": "rank",
+   "era": "shunju",
+   "title": "一芸の試し"
+  },
+  {
+   "id": "shunju_rank3_xiadafu",
+   "file": "shunju_rank3_xiadafu.json",
+   "kind": "rank",
+   "era": "shunju",
+   "title": "小城の検分"
+  },
+  {
+   "id": "shunju_rank4_zhongdafu",
+   "file": "shunju_rank4_zhongdafu.json",
+   "kind": "rank",
+   "era": "shunju",
+   "title": "田土の訟え"
+  },
+  {
+   "id": "shunju_rank5_shangdafu",
+   "file": "shunju_rank5_shangdafu.json",
+   "kind": "rank",
+   "era": "shunju",
+   "title": "敵国への使い"
+  },
+  {
+   "id": "shunju_rank6_qing",
+   "file": "shunju_rank6_qing.json",
+   "kind": "rank",
+   "era": "shunju",
+   "title": "虎符を帯びて"
+  },
+  {
+   "id": "shunju_rank7_xiang",
+   "file": "shunju_rank7_xiang.json",
+   "kind": "rank",
+   "era": "shunju",
+   "title": "相印"
+  },
+  {
+   "id": "shunju_guild1",
+   "file": "shunju_guild1.json",
+   "kind": "rank",
+   "era": "shunju",
+   "title": "初仕事"
+  },
+  {
+   "id": "shunju_guild2",
+   "file": "shunju_guild2.json",
+   "kind": "rank",
+   "era": "shunju",
+   "title": "縄張り争い"
+  },
+  {
+   "id": "shunju_guild3",
+   "file": "shunju_guild3.json",
+   "kind": "rank",
+   "era": "shunju",
+   "title": "義と外道"
+  },
+  {
+   "id": "shunju_guild4",
+   "file": "shunju_guild4.json",
+   "kind": "rank",
+   "era": "shunju",
+   "title": "大仕事"
+  },
+  {
+   "id": "shunju_h_handan",
+   "file": "shunju_h_handan.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "邯鄲の囲み"
+  },
+  {
+   "id": "shunju_h_jiuding",
+   "file": "shunju_h_jiuding.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "九鼎西へ"
+  },
+  {
+   "id": "shunju_h_lvbuwei",
+   "file": "shunju_h_lvbuwei.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "奇貨居くべし"
+  },
+  {
+   "id": "shunju_h_laoai",
+   "file": "shunju_h_laoai.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "雍の冠礼"
+  },
+  {
+   "id": "shunju_h_hanfei",
+   "file": "shunju_h_hanfei.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "孤憤"
+  },
+  {
+   "id": "shunju_h_limu",
+   "file": "shunju_h_limu.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "讒言の金"
+  },
+  {
+   "id": "shunju_h_jingke",
+   "file": "shunju_h_jingke.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "易水寒し"
+  },
+  {
+   "id": "shunju_h_daliang",
+   "file": "shunju_h_daliang.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "大梁の水"
+  },
+  {
+   "id": "shunju_h_lixin",
+   "file": "shunju_h_lixin.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "二十万と六十万"
+  },
+  {
+   "id": "shunju_h_linzi",
+   "file": "shunju_h_linzi.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "松か柏か"
+  },
+  {
+   "id": "shunju_h_hao",
+   "file": "shunju_h_hao.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "鄗の役"
+  },
+  {
+   "id": "shunju_h_chulu",
+   "file": "shunju_h_chulu.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "魯の祀り"
+  },
+  {
+   "id": "shunju_h_dongzhou",
+   "file": "shunju_h_dongzhou.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "東周君の合従"
+  },
+  {
+   "id": "shunju_h_taiyuan",
+   "file": "shunju_h_taiyuan.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "晋陽の守り"
+  },
+  {
+   "id": "shunju_h_xinling",
+   "file": "shunju_h_xinling.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "五国の兵"
+  },
+  {
+   "id": "shunju_h_zhengguo",
+   "file": "shunju_h_zhengguo.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "鄭国渠"
+  },
+  {
+   "id": "shunju_h_yanmen",
+   "file": "shunju_h_yanmen.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "雁門の烽火"
+  },
+  {
+   "id": "shunju_h_lianpo",
+   "file": "shunju_h_lianpo.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "老将の出奔"
+  },
+  {
+   "id": "shunju_h_dongjun",
+   "file": "shunju_h_dongjun.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "東郡"
+  },
+  {
+   "id": "shunju_h_zui",
+   "file": "shunju_h_zui.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "最後の合従"
+  },
+  {
+   "id": "shunju_h_zhuke",
+   "file": "shunju_h_zhuke.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "逐客令"
+  },
+  {
+   "id": "shunju_h_wenxin",
+   "file": "shunju_h_wenxin.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "文信侯"
+  },
+  {
+   "id": "shunju_h_zhangshui",
+   "file": "shunju_h_zhangshui.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "漳水の陣"
+  },
+  {
+   "id": "shunju_h_henan",
+   "file": "shunju_h_henan.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "河南の客"
+  },
+  {
+   "id": "shunju_h_pingyang",
+   "file": "shunju_h_pingyang.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "平陽の十万"
+  },
+  {
+   "id": "shunju_h_feili",
+   "file": "shunju_h_feili.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "肥のほとり"
+  },
+  {
+   "id": "shunju_h_daiquake",
+   "file": "shunju_h_daiquake.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "地の裂け目"
+  },
+  {
+   "id": "shunju_h_xinzheng",
+   "file": "shunju_h_xinzheng.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "新鄭の門"
+  },
+  {
+   "id": "shunju_h_zhaofamine",
+   "file": "shunju_h_zhaofamine.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "泣き叫ぶ趙"
+  },
+  {
+   "id": "shunju_h_handanfall",
+   "file": "shunju_h_handanfall.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "邯鄲落つ"
+  },
+  {
+   "id": "shunju_h_yishui",
+   "file": "shunju_h_yishui.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "易水の西"
+  },
+  {
+   "id": "shunju_h_sanhu",
+   "file": "shunju_h_sanhu.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "三戸の楚"
+  },
+  {
+   "id": "shunju_h_liaodong",
+   "file": "shunju_h_liaodong.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "遼東"
+  },
+  {
+   "id": "shunju_h_emperor",
+   "file": "shunju_h_emperor.json",
+   "kind": "history",
+   "era": "shunju",
+   "title": "始皇帝"
+  },
+  {
+   "id": "sengoku_main",
+   "file": "sengoku_main.json",
+   "kind": "main",
+   "era": "sengoku",
+   "title": "槍一本の夢"
+  },
+  {
+   "id": "sengoku_kenjutsu",
+   "file": "sengoku_kenjutsu.json",
+   "kind": "school",
+   "era": "sengoku",
+   "title": "活人の剣"
+  },
+  {
+   "id": "sengoku_tera",
+   "file": "sengoku_tera.json",
+   "kind": "school",
+   "era": "sengoku",
+   "title": "焼け残る経"
+  },
+  {
+   "id": "sengoku_za",
+   "file": "sengoku_za.json",
+   "kind": "school",
+   "era": "sengoku",
+   "title": "座の掟、市の風"
+  },
+  {
+   "id": "sengoku_shinobi",
+   "file": "sengoku_shinobi.json",
+   "kind": "school",
+   "era": "sengoku",
+   "title": "影の掟"
+  },
+  {
+   "id": "sengoku_cha",
+   "file": "sengoku_cha.json",
+   "kind": "school",
+   "era": "sengoku",
+   "title": "一期一会"
+  },
+  {
+   "id": "sengoku_teppo",
+   "file": "sengoku_teppo.json",
+   "kind": "school",
+   "era": "sengoku",
+   "title": "火縄の音"
+  },
+  {
+   "id": "sengoku_rank2_kumigashira",
+   "file": "sengoku_rank2_kumigashira.json",
+   "kind": "rank",
+   "era": "sengoku",
+   "title": "物見の組"
+  },
+  {
+   "id": "sengoku_rank3_samurai",
+   "file": "sengoku_rank3_samurai.json",
+   "kind": "rank",
+   "era": "sengoku",
+   "title": "首実検"
+  },
+  {
+   "id": "sengoku_rank4_monogashira",
+   "file": "sengoku_rank4_monogashira.json",
+   "kind": "rank",
+   "era": "sengoku",
+   "title": "雨の砦"
+  },
+  {
+   "id": "sengoku_rank5_samuraidaisho",
+   "file": "sengoku_rank5_samuraidaisho.json",
+   "kind": "rank",
+   "era": "sengoku",
+   "title": "城攻めの軍議"
+  },
+  {
+   "id": "sengoku_rank6_karo",
+   "file": "sengoku_rank6_karo.json",
+   "kind": "rank",
+   "era": "sengoku",
+   "title": "家督の争い"
+  },
+  {
+   "id": "sengoku_rank7_shukuro",
+   "file": "sengoku_rank7_shukuro.json",
+   "kind": "rank",
+   "era": "sengoku",
+   "title": "天下人への使者"
+  },
+  {
+   "id": "sengoku_guild1",
+   "file": "sengoku_guild1.json",
+   "kind": "rank",
+   "era": "sengoku",
+   "title": "関所破り"
+  },
+  {
+   "id": "sengoku_guild2",
+   "file": "sengoku_guild2.json",
+   "kind": "rank",
+   "era": "sengoku",
+   "title": "水軍崩れ"
+  },
+  {
+   "id": "sengoku_guild3",
+   "file": "sengoku_guild3.json",
+   "kind": "rank",
+   "era": "sengoku",
+   "title": "一揆の夜"
+  },
+  {
+   "id": "sengoku_guild4",
+   "file": "sengoku_guild4.json",
+   "kind": "rank",
+   "era": "sengoku",
+   "title": "蔵破り"
+  },
+  {
+   "id": "sg_r_ikko_village",
+   "file": "sg_r_ikko_village.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "一揆と村"
+  },
+  {
+   "id": "sg_r_nanban_guns",
+   "file": "sg_r_nanban_guns.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "南蛮の鉄砲"
+  },
+  {
+   "id": "sg_r_ochimusha",
+   "file": "sg_r_ochimusha.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "落ち武者狩り"
+  },
+  {
+   "id": "sg_r_forged_kanjo",
+   "file": "sg_r_forged_kanjo.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "書き換えられた感状"
+  },
+  {
+   "id": "sg_r_sekisho",
+   "file": "sg_r_sekisho.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "関所の抜け荷"
+  },
+  {
+   "id": "sg_r_meibutsu",
+   "file": "sg_r_meibutsu.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "名物「初雪」"
+  },
+  {
+   "id": "sg_r_shinobi_spy",
+   "file": "sg_r_shinobi_spy.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "城下の忍び"
+  },
+  {
+   "id": "sg_r_rakuichi",
+   "file": "sg_r_rakuichi.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "楽市の制札"
+  },
+  {
+   "id": "sg_r_katanagari",
+   "file": "sg_r_katanagari.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "刀狩りの書付"
+  },
+  {
+   "id": "sg_r_suigun",
+   "file": "sg_r_suigun.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "海賊衆の帆別銭"
+  },
+  {
+   "id": "sg_r_hitokai",
+   "file": "sg_r_hitokai.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "人買いの列"
+  },
+  {
+   "id": "sg_r_burned_temple",
+   "file": "sg_r_burned_temple.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "焼けた寺の秘仏"
+  },
+  {
+   "id": "sg_r_muramasa",
+   "file": "sg_r_muramasa.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "祟りの刀"
+  },
+  {
+   "id": "sg_r_kosenjo",
+   "file": "sg_r_kosenjo.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "古戦場の形見"
+  },
+  {
+   "id": "job_office_bandits",
+   "file": "job_office_bandits.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の{bandit}討伐"
+  },
+  {
+   "id": "job_patron_war",
+   "file": "job_patron_war.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{realm}との戦"
+  },
+  {
+   "id": "job_patron_peace",
+   "file": "job_patron_peace.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{realm}への遊説"
+  },
+  {
+   "id": "job_patron_friendship",
+   "file": "job_patron_friendship.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{realm}への遊説"
+  }
+ ]
+}

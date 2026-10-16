@@ -1,0 +1,265 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_sekisho",
+ "kind": "random",
+ "where": "road",
+ "hook": "この先の関所、関銭が高すぎて商いになりません",
+ "title": "関所の抜け荷",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "馬借"
+  },
+  "guard": {
+   "npc": "関守",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "峠の茶屋で、{client}が三頭の馬の手綱を握ったまま嘆いていた。この先の関所が、近頃一駄あたりの関銭を倍に上げたという。",
+    "「塩を三駄、向こうの国へ運ぶだけでございます。関銭を払えば儲けは消える。山の抜け道を知っているなら、案内してはくださらぬか」馬の背の俵は、塩にしてはやけに重そうに見えた。"
+   ],
+   "choices": [
+    {
+     "label": "山の抜け道を案内する",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "through",
+      "lose": "patrol"
+     }
+    },
+    {
+     "label": "関守を言いくるめて通してもらう",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "through",
+      "lose": "inspect"
+     }
+    },
+    {
+     "label": "関銭を立て替えてやる（100文）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "inspect"
+    },
+    {
+     "label": "「その俵、開けて見せろ」",
+     "next": "iron"
+    }
+   ]
+  },
+  "iron": {
+   "speaker": "client",
+   "text": [
+    "俵の口をほどくと、塩の下から鉄の延べ板が出てきた。向こうの国との鉄の商いは、殿の命で固く差し止められている。荷留を破れば首が飛ぶ。",
+    "{client}は地面に手をついた。「向こうの鍛冶に、前金をもらってしまったのです。届けねば、家の者がどうなるか」"
+   ],
+   "choices": [
+    {
+     "label": "関所に突き出す",
+     "next": "end_turned_in"
+    },
+    {
+     "label": "黙って抜け道へ案内する",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "through",
+      "lose": "patrol"
+     }
+    },
+    {
+     "label": "鉄を二枚もらって、目をつぶる",
+     "effects": [
+      {
+       "item": "iron",
+       "n": 2
+      }
+     ],
+     "next": "through"
+    }
+   ]
+  },
+  "inspect": {
+   "speaker": "guard",
+   "art": "court",
+   "text": [
+    "関所の木戸で、関守の{guard}が槍の石突で俵を突いた。がちん、と鉄の音がした。",
+    "「塩が鳴るか。抜け荷だな」番所から足軽が二人、槍を構えて出てきた。"
+   ],
+   "choices": [
+    {
+     "label": "「知らなかった」と言い逃れる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_turned_in",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "袖の下を渡す（200文）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "through"
+    },
+    {
+     "label": "木戸を破って駆け抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "end_broke",
+      "lose": "end_caught"
+     }
+    }
+   ]
+  },
+  "patrol": {
+   "speaker": "guard",
+   "art": "war",
+   "text": [
+    "獣道を半ばまで来たところで、藪の向こうから声がかかった。関所の見回りだ。{guard}が足軽を連れて、行く手を塞いだ。「抜け道を使う者は、それだけで罪だ」"
+   ],
+   "choices": [
+    {
+     "label": "押し通る",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "talk": true,
+      "win": "through",
+      "lose": "end_caught"
+     }
+    }
+   ]
+  },
+  "through": {
+   "speaker": "client",
+   "text": [
+    "関所を背に、尾根を越えた。{client}は馬の首を叩き、何度もこちらを拝んだ。「これで家の者も救われます」"
+   ],
+   "next": "end_smuggled"
+  },
+  "end_turned_in": {
+   "speaker": "guard",
+   "text": [
+    "{guard}は延べ板を取り上げ、{client}を縄にかけた。「よく知らせてくれた。荷留破りを捕らえた者には褒美が出る」",
+    "{client}は引かれていきながら、一度だけこちらを振り返った。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "here",
+     "n": 5
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "鉄の抜け荷を関所に知らせた。"
+    }
+   ],
+   "end": "荷留の掟"
+  },
+  "end_smuggled": {
+   "text": [
+    "峠の向こうの村で、{client}は約束の礼を払った。関所の者たちは、何も気づいていないはずだ。……たぶん。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "end": "尾根越えの荷"
+  },
+  "end_broke": {
+   "text": [
+    "足軽を打ち倒し、木戸を押し破って駆け抜けた。{client}と馬は向こうの国へ逃げ込んだが、関所の破りは重罪だ。",
+    "数日のうちに、関所という関所に人相書きが回るだろう。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 2
+    },
+    {
+     "wanted": "here",
+     "n": 25
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "関所を破った。"
+    }
+   ],
+   "end": "破られた木戸"
+  },
+  "end_caught": {
+   "text": [
+    "捕らえられ、関所の牢で三日を過ごした。罰銭を払ってようやく放されたが、{client}の荷はすべて取り上げられた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "money": -100
+    },
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "pass": 4320
+    }
+   ],
+   "end": "関所の牢"
+  }
+ }
+}

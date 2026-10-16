@@ -1,0 +1,687 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_h_pingyang",
+ "kind": "history",
+ "title": "平陽の十万",
+ "era": "shunju",
+ "event": "pingyang_234",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s2run",
+  "s3",
+  "s3warn",
+  "s3retreat",
+  "s3ng",
+  "s4",
+  "s4ok",
+  "s4hurt",
+  "s4heal"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "handan"
+  },
+  "camp": {
+   "place": "near:city"
+  },
+  "zhao": {
+   "scnRealm": "zhao"
+  },
+  "qin": {
+   "scnRealm": "qin"
+  },
+  "king": {
+   "person": "ruler:zhao"
+  },
+  "huanyi": {
+   "scnPerson": "桓齮"
+  },
+  "lianpo": {
+   "scnPerson": "廉頗"
+  },
+  "aide": {
+   "npc": "扈輒の幕僚",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の客舎で扈輒の幕僚に会う",
+   "speaker": "aide",
+   "art": "tale",
+   "text": [
+    "漳水の向こうから、秦の軍旗が南へ流れてくるという噂で、{city}の客舎は持ちきりだった。率いるのは{huanyi}、鄴を抜き、九つの城を呑んだ将である。",
+    "帳場の隅で、鎧の紐をほどきかけた男が{player}に声をかけた。趙の将扈輒の幕僚、{aide}と名乗った。「将軍は平陽に十万を集め、野で{huanyi}と決するおつもりだ。物見の手が足りぬ。足の速い者を探している」"
+   ],
+   "choices": [
+    {
+     "label": "物見の役を引き受ける",
+     "effects": [
+      {
+       "note": "扈輒の幕僚{aide}に頼まれ、平陽の陣の物見に加わった。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「十万で野戦とは、勝つ見込みがあってのことか」と問う",
+     "effects": [
+      {
+       "note": "扈輒の幕僚{aide}に頼まれ、平陽の陣の物見に加わった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の平陽の陣へ行く",
+   "speaker": "aide",
+   "art": "war",
+   "text": [
+    "平陽の野は、見渡すかぎり趙の兵の天幕だった。北辺から呼び寄せた騎兵、邯鄲の市から駆り出された若者、白髪の混じった長平の生き残り。数だけは十万に届いている。",
+    "{aide}が西の丘を指した。「あの向こうに秦の陣がある。どれほどの兵が、どこに伏せているのか。それが分からねば、将軍は目を閉じて剣を振るうことになる」"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れて秦の陣へ忍び寄る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "村の猟師に銭を握らせ、丘の裏道を聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ng": {
+   "text": [
+    "丘の中腹で、秦の斥候と鉢合わせた。相手も驚いたが、槍を構えるのは向こうが早かった。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2run"
+     }
+    }
+   ]
+  },
+  "s2run": {
+   "text": [
+    "藪を転がり落ちるようにして逃げ帰った。見たものは少ない。ただ、丘の裏の谷に、妙に静かな一角があったことだけは覚えている。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ok": {
+   "text": [
+    "丘の上から見下ろすと、秦の陣は思ったより小さかった。だが谷の両側の林には、煮炊きの煙ひとつ上げずに兵が伏せている。正面の陣は餌で、林が顎だ。",
+    "{player}は伏兵の数をおおよそ数え、夜明け前に平陽の陣へ戻った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_py_seen"
+    },
+    {
+     "note": "秦の{huanyi}が平陽の西の谷の両側に兵を伏せているのを見た。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の陣で扈輒の軍議に出る",
+   "speaker": "扈輒",
+   "art": "war",
+   "text": [
+    "軍議の幕舎で、扈輒は地図の上に拳を置いた。肩幅の広い、声の大きな将である。「秦の陣は小さい。明日、十万で押し包めば、{huanyi}の首は我らのものだ」",
+    "居並ぶ部将たちは頷いたが、{aide}だけは目を伏せていた。邯鄲の{king}からは「速やかに秦を破れ」という督促の使いが、もう三度来ている。"
+   ],
+   "choices": [
+    {
+     "label": "黙って陣立てに従う",
+     "next": "s4"
+    },
+    {
+     "label": "丘の裏の伏兵のことを告げ、陣の向きを変えるよう進言する",
+     "if": {
+      "flag": "h_py_seen"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s3warn",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "「平陽を捨て、邯鄲まで退いて城で迎え撃つべし」と扈輒に説く",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s3retreat",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3warn": {
+   "speaker": "扈輒",
+   "text": [
+    "扈輒は不機嫌に唸ったが、左翼の兵を二千ほど谷の口へ回すことだけは許した。「物見の言うことも、一つくらいは聞いておこう」",
+    "{aide}がそっと{player}の袖を引いた。「よく言ってくれた。二千でも、無いよりはましだ」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "flag": "h_py_warned"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3retreat": {
+   "speaker": "扈輒",
+   "art": "war",
+   "text": [
+    "{player}は谷の伏兵を地図に書き入れ、邯鄲の城壁の高さと、平陽の野の広さを並べて見せた。「秦は野で戦いたがっている。ならば野を与えぬことです。十万を城に入れれば、{huanyi}は一兵も損なわずには近づけませぬ」",
+    "扈輒は長いあいだ地図を睨んでいた。やがて拳を開き、平陽の上に置いた手を、邯鄲の上へ滑らせた。「王の督促には、わしが首を差し出して詫びよう。兵を退け。夜のうちにだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_py_retreat"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "note": "扈輒に説き、平陽の十万を邯鄲へ退かせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3ng": {
+   "speaker": "扈輒",
+   "text": [
+    "「臆病風に吹かれた物見の言など聞かぬ」扈輒は{player}を幕舎の外へ追い出した。背中で、部将たちの笑い声がした。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "{camp}の陣で決戦の時を待つ",
+   "wait": {
+    "days": 6
+   },
+   "speaker": "aide",
+   "art": "camp",
+   "text": [
+    "決戦の前夜、陣のあちこちで兵が故郷の歌をうたっていた。{aide}は焚き火に枯れ枝をくべながら言った。「明日、この火のまわりにいる者のうち、何人が帰れるだろうな」",
+    "西の丘の向こうは、不気味なほど静かだった。"
+   ],
+   "choices": [
+    {
+     "label": "先陣の兵に加わる",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4ok",
+      "lose": "s4hurt"
+     }
+    },
+    {
+     "label": "後陣に残り、傷を負った兵の手当ての支度をする",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "s4heal",
+      "lose": "s4hurt"
+     }
+    }
+   ]
+  },
+  "s4ok": {
+   "text": [
+    "夜明けの小競り合いで、{player}は秦の斥候を二人斬った。それが本当の戦の始まりにすぎないことは、誰もが分かっていた。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4heal": {
+   "text": [
+    "煮た布と薬草、添え木を荷車一台分そろえた。使わずに済めばいい、と{aide}は言った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_py_healer"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4hurt": {
+   "text": [
+    "流れ矢が腿をかすめた。歩けぬほどではないが、陣の後ろへ下げられた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "{camp}で、平陽の戦の成り行きを見届ける",
+   "wait": {
+    "settled": "pingyang_234"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "py_retreat"
+     },
+     "next": "retreated"
+    },
+    {
+     "if": {
+      "branch": "py_lianpo"
+     },
+     "next": "lianpo"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "retreated": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "aide",
+   "art": "war",
+   "text": [
+    "{huanyi}は空になった平陽の野に陣を進め、城を一つ抜いただけで、邯鄲の城壁を遠く眺めて止まった。十万の兵は城の内にいる。谷の伏兵は、誰も来ない谷で冬を迎えることになった。",
+    "扈輒は王の前で冠を脱いで詫び、許された。{aide}は{player}の杯に酒を満たした。「十万の首が、十万の兵のまま帰ってきた。おぬしの一言の重さだ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 10
+    },
+    {
+     "unflag": "h_py_retreat"
+    },
+    {
+     "unflag": "h_py_seen"
+    },
+    {
+     "unflag": "h_py_warned"
+    },
+    {
+     "unflag": "h_py_healer"
+    },
+    {
+     "note": "扈輒は平陽を捨てて邯鄲へ退き、十万の兵は生きて帰った。"
+    }
+   ],
+   "end": "退いた十万"
+  },
+  "lianpo": {
+   "speaker": "lianpo",
+   "art": "war",
+   "text": [
+    "平陽の陣の総大将に、老いた{lianpo}が立った。白い髭の将は野戦の陣を三日で畳み、兵を城と砦に分けて籠もらせた。{huanyi}は小さな城を一つ抜いたが、その先へは一歩も進めなかった。",
+    "「若い者は野で勝ちたがる」{lianpo}は斗に盛った飯をかきこみながら言った。「わしは長平を見た。野で負ければ、十万が一夜で土になる。城で負けても、千で済む」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "unflag": "h_py_seen"
+    },
+    {
+     "unflag": "h_py_warned"
+    },
+    {
+     "unflag": "h_py_healer"
+    },
+    {
+     "note": "老将{lianpo}が平陽を守り、秦は城を一つ抜いただけで兵を返した。"
+    }
+   ],
+   "end": "老将の盾"
+  },
+  "s5": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "{camp}で、平陽の戦の成り行きを見届ける",
+   "wait": {
+    "settled": "pingyang_234"
+   },
+   "speaker": "aide",
+   "art": "war",
+   "text": [
+    "戦は半日で終わった。正面の小さな陣に十万が雪崩れ込んだとき、谷の両側の林が一斉に動いた。扈輒は乱戦の中で討たれ、趙の兵は漳水へ追い落とされた。秦は斬った首を十万と数えたという。",
+    "夕暮れの野に、{aide}が膝をついていた。鎧は血で黒い。「将軍は最後まで、前へ出よと叫んでおられた。……{player}、生きている者を連れて帰らねば」"
+   ],
+   "choices": [
+    {
+     "label": "用意した荷車で、傷ついた兵を邯鄲へ運ぶ",
+     "if": {
+      "flag": "h_py_healer"
+     },
+     "next": "end_carts"
+    },
+    {
+     "label": "谷の口を守っていた二千の兵をまとめ、落ちる道を切り開く",
+     "if": {
+      "flag": "h_py_warned"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_two",
+      "lose": "end_scatter"
+     }
+    },
+    {
+     "label": "散った兵を呼び集め、夜の間道を北へ逃れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "end_led",
+      "lose": "end_scatter"
+     }
+    },
+    {
+     "label": "{aide}を背負い、黙って野を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_carts": {
+   "text": [
+    "荷車は三日のあいだ平陽と邯鄲を往き来した。運んだのは三百に足りない。十万の中の三百である。",
+    "それでも邯鄲の門で、母親たちは荷車の一台一台をのぞき込み、名を呼んだ。呼ばれて応える声があるたびに、門のあたりがどよめいた。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "unflag": "h_py_seen"
+    },
+    {
+     "unflag": "h_py_warned"
+    },
+    {
+     "unflag": "h_py_healer"
+    },
+    {
+     "note": "平陽で趙の十万が討たれた。傷ついた兵を荷車で邯鄲へ運んだ。"
+    }
+   ],
+   "end": "平陽の荷車"
+  },
+  "end_two": {
+   "speaker": "aide",
+   "text": [
+    "谷の口にいた二千は、伏兵の顎の外にいたおかげで崩れずに残っていた。{player}はそれをまとめて秦の追手を斬り払い、夜の河原を北へ抜けた。",
+    "「おぬしの物見が二千を生かした」{aide}は言った。「十万のうちの二千だ。だが、二千の家に父と子が帰る」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 8
+    },
+    {
+     "unflag": "h_py_seen"
+    },
+    {
+     "unflag": "h_py_warned"
+    },
+    {
+     "unflag": "h_py_healer"
+    },
+    {
+     "note": "平陽で趙の十万が討たれた。谷の口の二千を率いて逃れた。"
+    }
+   ],
+   "end": "谷の口の二千"
+  },
+  "end_led": {
+   "text": [
+    "松明を消し、星だけを頼りに間道を進んだ。夜明けに数えると、後ろについてきた兵は百を少し超えていた。皆、泥と血にまみれ、誰も口をきかなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_py_seen"
+    },
+    {
+     "unflag": "h_py_warned"
+    },
+    {
+     "unflag": "h_py_healer"
+    },
+    {
+     "note": "平陽で趙の十万が討たれた。散った兵を連れて逃れた。"
+    }
+   ],
+   "end": "星の間道"
+  },
+  "end_scatter": {
+   "text": [
+    "追手の騎兵に追いつかれ、兵たちは散り散りになった。{player}も傷を負い、葦の茂みに潜んで一夜を明かした。朝、漳水の流れは赤かった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_py_seen"
+    },
+    {
+     "unflag": "h_py_warned"
+    },
+    {
+     "unflag": "h_py_healer"
+    },
+    {
+     "note": "平陽で趙の十万が討たれ、軍は散った。"
+    }
+   ],
+   "end": "赤い漳水"
+  },
+  "end_left": {
+   "text": [
+    "{aide}の重さを背に感じながら、{player}は野を後にした。振り返ると、秦の兵が首を数えていた。十万という数は、のちに史書に書かれる。名は一つも書かれない。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_py_seen"
+    },
+    {
+     "unflag": "h_py_warned"
+    },
+    {
+     "unflag": "h_py_healer"
+    },
+    {
+     "note": "平陽で趙の十万が討たれるのを見届けた。"
+    }
+   ],
+   "end": "十万の首"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "py_retreat"
+     },
+     "next": "retreated"
+    },
+    {
+     "if": {
+      "branch": "py_lianpo"
+     },
+     "next": "lianpo"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。趙の将扈輒が平陽で秦の{huanyi}に討たれ、十万の首が斬られたという。",
+    "「長平の次は平陽か」と、宿の主は言った。「趙の野は、もう骨で白い」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_py_seen"
+    },
+    {
+     "unflag": "h_py_warned"
+    },
+    {
+     "unflag": "h_py_healer"
+    },
+    {
+     "note": "平陽で趙の十万が討たれたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "py_retreat",
+   "event": "pingyang_234",
+   "order": 2,
+   "why": "主人公が扈輒に邯鄲まで退くよう説いた",
+   "when": {
+    "flag": "h_py_retreat"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}の[[p:桓齮]]が平陽に迫ると、趙の将扈輒は野戦を避けて十万の兵を邯鄲へ退いた。秦は平陽の城を抜いたが、趙の兵の損じは少なかった。",
+    "do": [
+     [
+      "army",
+      "zhao",
+      0.95
+     ],
+     [
+      "add",
+      "zhao",
+      "prestige",
+      -4
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   }
+  },
+  {
+   "id": "py_lianpo",
+   "event": "pingyang_234",
+   "order": 1,
+   "why": "廉頗が趙に戻って平陽を守った",
+   "when": {
+    "anyTaken": [
+     "lianpo_back",
+     "lianpo_guokai"
+    ],
+    "alive": [
+     "廉頗"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_qin}の[[p:桓齮]]が平陽を攻めたが、趙に戻った老将[[p:廉頗]]が城と砦に兵を籠もらせて野戦に応じず、秦は城を一つ抜いただけで兵を返した。",
+    "do": [
+     [
+      "add",
+      "zhao",
+      "prestige",
+      -2
+     ]
+    ],
+    "imp": 2,
+    "at": "handan"
+   }
+  }
+ ]
+}

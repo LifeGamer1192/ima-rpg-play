@@ -1,0 +1,189 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "r_gate_graffiti",
+ "kind": "random",
+ "where": "office",
+ "hook": "城門に令を誹る詩を書いた者を捕らえよ。賞を与える",
+ "title": "城門の落書き",
+ "era": "shunju",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "門吏"
+  },
+  "teacher": {
+   "npc": "村塾の師",
+   "sex": "m"
+  },
+  "magistrate": {
+   "npc": "県令",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "城門の柱に、炭で詩が書きつけられていた。「大きな鼠よ、わが黍を食らうな。三年なんじに仕えたが、われを顧みることもない」古い歌になぞらえて、県令の重い税を誹ったものだ。",
+    "{client}が言った。「県令さまはひどくお怒りだ。書いた者を突き止めれば、二百銭。消しても消しても、翌朝にはまた書かれている」町の者は、門の前を通るたびに笑いをこらえている。"
+   ],
+   "choices": [
+    {
+     "label": "筆跡を手がかりに探る",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "found",
+      "lose": "watch"
+     }
+    },
+    {
+     "label": "夜の城門で張り込む",
+     "next": "watch"
+    }
+   ]
+  },
+  "watch": {
+   "text": [
+    "夜更け、門の陰に人影が立った。炭を持つ手は細い。捕まえてみれば、十を過ぎたばかりの子どもだった。問い詰めると、村塾の{teacher}に習った歌を書いたのだと白状した。"
+   ],
+   "next": "found"
+  },
+  "found": {
+   "speaker": "teacher",
+   "art": "tale",
+   "text": [
+    "町外れの村塾を訪ねた。{teacher}は、子らに字を教える貧しい老人だった。筆跡を見せると、あっさり認めた。",
+    "「書いたのはわしだ。去年から税が倍になり、塾の子のうち三人が、親に売られて町を出た。黙っていれば、明日は四人目が出る」老人は手首を差し出した。「縛るがいい。ただ、子らには手を出さんでくれ」"
+   ],
+   "choices": [
+    {
+     "label": "{teacher}を官府に突き出す",
+     "next": "end_turned"
+    },
+    {
+     "label": "見なかったことにする",
+     "next": "end_shielded"
+    },
+    {
+     "label": "詩の訴えを、県令に直に説く",
+     "next": "plea"
+    }
+   ]
+  },
+  "plea": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の官府で県令に会う",
+   "speaker": "magistrate",
+   "art": "court",
+   "text": [
+    "{magistrate}は苛立たしげに言った。「書いた者を連れてきたのではないのか。税は都が決めたことだ。わしにどうせよと言う」"
+   ],
+   "choices": [
+    {
+     "label": "民の声を聞かぬ令は、やがて民を失うと説く",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_heard",
+      "lose": "end_angered"
+     }
+    }
+   ]
+  },
+  "end_turned": {
+   "speaker": "client",
+   "text": [
+    "{teacher}は縄を打たれ、鞭打ちのうえ町を追われた。{client}は約束の銭を払った。",
+    "城門の詩は消された。だが半月後、別の門に、同じ詩がもっと大きな字で書かれていた。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "end": "縄目の師"
+  },
+  "end_shielded": {
+   "text": [
+    "{client}には「流れ者の仕業でしょう。もう町を出たようです」とだけ告げた。賞は出なかった。",
+    "翌朝、城門の詩は消えていた。代わりに、門の脇にいつの間にか小さく「謝」と一字書かれていた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "消えた詩"
+  },
+  "end_heard": {
+   "speaker": "magistrate",
+   "text": [
+    "長い沈黙のあと、{magistrate}は詩を写した竹簡を手に取った。「三年仕えて、顧みられず、か」",
+    "翌月、県の税は改められ、売られた子らを買い戻す銭が出された。{teacher}の名は、最後まで表に出なかった。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "城門の詩の訴えを県令に届けた。"
+    }
+   ],
+   "end": "届いた詩"
+  },
+  "end_angered": {
+   "speaker": "magistrate",
+   "text": [
+    "「詩を書いた者を庇うか。ならばお前も同じだ」{magistrate}は衛士に命じて追い出させた。打たれた背が痛む。城門の詩は、その夜も書かれた。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "favor": -5
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "閉ざされた耳"
+  }
+ }
+}
