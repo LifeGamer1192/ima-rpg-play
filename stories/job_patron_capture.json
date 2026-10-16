@@ -1,0 +1,20 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_capture",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "capture",
+ "target": "front",
+ "title": "{place}の{placeKind}を攻め取れ",
+ "desc": "{realm}の{place}の{placeKind}を攻め落とし、我が手に収めよ。期限までに落とせなければ、責めは重いぞ。",
+ "reward": {
+  "base": 600
+ },
+ "favor": 70,
+ "fame": 14,
+ "deadline": {
+  "base": 60
+ }
+}

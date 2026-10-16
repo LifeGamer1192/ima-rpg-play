@@ -801,6 +801,13 @@
    "title": "{realm}との戦"
   },
   {
+   "id": "job_patron_capture",
+   "file": "job_patron_capture.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の{placeKind}を攻め取れ"
+  },
+  {
    "id": "job_patron_peace",
    "file": "job_patron_peace.json",
    "kind": "job",
