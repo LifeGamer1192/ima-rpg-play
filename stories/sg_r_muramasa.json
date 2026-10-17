@@ -381,8 +381,8 @@
      }
     },
     {
-     "label": "黙って引き下がり、刀は売る",
-     "next": "merchant"
+     "label": "黙って引き下がり、刀は売って代金を後家に渡す",
+     "next": "end_sold_widow"
     }
    ]
   },

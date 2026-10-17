@@ -140,6 +140,14 @@
       "patron": true
      },
      "next": "c2later"
+    },
+    {
+     "label": "「仕えたい国はほかにあります」と、推挙状だけ預けて辞す",
+     "if": {
+      "free": true
+     },
+     "guide": "{power}へ移らないかぎり、この物語は先へ進まない",
+     "next": "c2later"
     }
    ]
   },
@@ -148,9 +156,10 @@
     "place": "capital",
     "building": "palace"
    },
-   "goal": "仕官先を離れたら、{capital}の宮城の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
+   "goal": "どこにも仕えていない身で、ひと月ののちに{capital}の宮城の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
    "wait": {
-    "free": true
+    "free": true,
+    "days": 30
    },
    "speaker": "lord",
    "text": [
@@ -183,6 +192,11 @@
       "win": "c2ok",
       "lose": "c2ng"
      }
+    },
+    {
+     "label": "「まだ決めかねております」と辞す",
+     "guide": "{power}へ移らないかぎり、この物語は先へ進まない",
+     "next": "c2later"
     }
    ]
   },
@@ -229,19 +243,29 @@
    "text": [
     "「噂は聞いておる」{lord}は今度は自ら出てきた。「前の非礼は詫びよう。わしの客となれ」"
    ],
-   "effects": [
+   "choices": [
     {
-     "item": "letter",
-     "n": -1
+     "label": "客となる",
+     "effects": [
+      {
+       "item": "letter",
+       "n": -1
+      },
+      {
+       "enlist": "power"
+      },
+      {
+       "note": "{lord}の食客となった。"
+      }
+     ],
+     "next": "c3"
     },
     {
-     "enlist": "power"
-    },
-    {
-     "note": "{lord}の食客となった。"
+     "label": "「仕えたい国はほかにあります」と辞す",
+     "guide": "{power}へ移らないかぎり、この物語は先へ進まない",
+     "next": "c2later"
     }
-   ],
-   "next": "c3"
+   ]
   },
   "c3": {
    "at": {

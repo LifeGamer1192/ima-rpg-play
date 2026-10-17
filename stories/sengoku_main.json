@@ -151,6 +151,14 @@
       "patron": true
      },
      "next": "c2later"
+    },
+    {
+     "label": "「仕えたい家はほかにござる」と、書状だけ預けて辞す",
+     "if": {
+      "free": true
+     },
+     "guide": "{power}へ移らないかぎり、この物語は先へ進まない",
+     "next": "c2later"
     }
    ]
   },
@@ -159,9 +167,10 @@
     "place": "castle",
     "building": "palace"
    },
-   "goal": "仕官先を離れたら、{castle}の城の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
+   "goal": "どこにも仕えていない身で、ひと月ののちに{castle}の城の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
    "wait": {
-    "free": true
+    "free": true,
+    "days": 30
    },
    "speaker": "lord",
    "text": [
@@ -194,6 +203,11 @@
       "win": "c2ok",
       "lose": "c2ng"
      }
+    },
+    {
+     "label": "「いましばらく考えとうござる」と辞す",
+     "guide": "{power}へ移らないかぎり、この物語は先へ進まない",
+     "next": "c2later"
     }
    ]
   },
@@ -240,19 +254,29 @@
    "text": [
     "「噂は聞いておるぞ」今度は{lord}のほうから縁先へ出てきた。「先日は見る目がなかった。わしの組に入れ」"
    ],
-   "effects": [
+   "choices": [
     {
-     "item": "letter",
-     "n": -1
+     "label": "組に入る",
+     "effects": [
+      {
+       "item": "letter",
+       "n": -1
+      },
+      {
+       "enlist": "power"
+      },
+      {
+       "note": "{lord}の組の足軽となった。"
+      }
+     ],
+     "next": "c3"
     },
     {
-     "enlist": "power"
-    },
-    {
-     "note": "{lord}の組の足軽となった。"
+     "label": "「仕えたい家はほかにござる」と辞す",
+     "guide": "{power}へ移らないかぎり、この物語は先へ進まない",
+     "next": "c2later"
     }
-   ],
-   "next": "c3"
+   ]
   },
   "c3": {
    "at": {

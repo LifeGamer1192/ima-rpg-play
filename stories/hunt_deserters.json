@@ -82,6 +82,37 @@
     }
    ]
   },
+  "front": {
+   "at": {
+    "place": "village"
+   },
+   "speaker": "sergeant",
+   "text": [
+    "祠に戻ると、{sergeant}がまた槍を構えた。「まだいたのか」"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "won",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "国へ帰る道を示し、罪を軽くすると説く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "surrender",
+      "lose": "village_ng"
+     }
+    }
+   ]
+  },
   "village_ng": {
    "speaker": "sergeant",
    "text": [
@@ -129,7 +160,7 @@
     },
     {
      "label": "やはり正面から祠へ向かう",
-     "next": "village"
+     "next": "front"
     }
    ]
   },
