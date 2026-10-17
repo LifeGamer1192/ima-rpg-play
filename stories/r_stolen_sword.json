@@ -46,8 +46,35 @@
      }
     },
     {
+     "label": "下男を呼んで問いただす",
+     "next": "servant"
+    },
+    {
      "label": "市で古物の噂を聞いて回る",
      "next": "market"
+    }
+   ]
+  },
+  "servant": {
+   "speaker": "下男",
+   "text": [
+    "下男は膝をついて震えた。「わたしではございません。……申し上げにくいことですが、三日前の晩、{nephew}さまが布に包んだ長いものを抱えて、裏木戸から出ていかれるのを見ました」",
+    "{client}は苦い顔をした。「雇ったばかりの者が、身内を売るようなことを言う。こやつが盗んで、罪をなすりつけておるのではないか」"
+   ],
+   "choices": [
+    {
+     "label": "下男の話を信じ、{nephew}の足取りを追う",
+     "effects": [
+      {
+       "flag": "sword_nephew"
+      }
+     ],
+     "next": "market"
+    },
+    {
+     "label": "「下男が怪しい」と{client}に突き出す",
+     "next": "end_scapegoat",
+     "guide": "ここで下男を罪人とすれば、剣の行方は追えなくなる"
     }
    ]
   },
@@ -101,6 +128,112 @@
      "fight": {
       "foes": "bandit",
       "n": 2,
+      "level": 0,
+      "win": "back",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "盗品として官府に訴え出る",
+     "next": "office"
+    },
+    {
+     "label": "夜を待ち、店の蔵から剣を盗み返す",
+     "check": {
+      "skill": "theft",
+      "dc": 35,
+      "win": "back",
+      "lose": "night_caught"
+     },
+     "guide": "しくじれば用心棒が三人がかりで来る。盗みの腕が要る"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の官府に剣のことを訴える",
+   "speaker": "官府の吏",
+   "art": "court",
+   "text": [
+    "官府の吏は面倒そうに竹簡をめくった。「古物商は買ったと言う。そちらは盗まれたと言う。どちらの剣か、証はあるのか。売った者が分かれば話は早いがな」"
+   ],
+   "choices": [
+    {
+     "label": "「売ったのは{nephew}です」と申し立てる",
+     "if": {
+      "flag": "sword_nephew"
+     },
+     "next": "end_official"
+    },
+    {
+     "label": "剣の由来と家の紋を書き付けにして示す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "office_ok",
+      "lose": "office_ng"
+     },
+     "guide": "売り手が分からぬままでは証が乏しい。文の腕が要る"
+    }
+   ]
+  },
+  "office_ok": {
+   "speaker": "官府の吏",
+   "text": [
+    "書き付けに記された君主からの下賜の日付と、鞘の紋が合った。吏は{dealer}を呼びつけ、剣を差し出させた。「盗品と知らずに買ったなら、損はそちらでかぶれ」{dealer}は恨めしげにこちらを睨んだ。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "back"
+  },
+  "office_ng": {
+   "speaker": "dealer",
+   "text": [
+    "吏は「証のない訴えは受けられぬ」と竹簡を閉じた。市に戻ると、訴えを聞きつけた{dealer}が待ち構えていた。「官府まで持ち出すとは。もう値は下げませんよ」用心棒が二人、腕を組んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "言い値で買う（300銭）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "back"
+    },
+    {
+     "label": "力ずくで取り返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "back",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "night_caught": {
+   "art": "war",
+   "text": [
+    "蔵の錠をこじ開けたところで、寝ずの番をしていた用心棒に見つかった。「やはり来たか」三人が棒を手に、出口をふさぐ。"
+   ],
+   "choices": [
+    {
+     "label": "剣をつかんで斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
       "level": 0,
       "win": "back",
       "lose": "end_lost"
@@ -175,11 +308,39 @@
      "next": "end_hidden"
     },
     {
+     "label": "答える前に{nephew}と二人で話し、自ら名乗り出るよう説く",
+     "if": {
+      "flag": "sword_nephew"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_confessed",
+      "lose": "nephew_ng"
+     }
+    },
+    {
      "label": "「盗人までは分かりませんでした」",
      "if": {
       "notFlag": "sword_nephew"
      },
      "next": "end_plain"
+    }
+   ]
+  },
+  "nephew_ng": {
+   "speaker": "nephew",
+   "text": [
+    "{nephew}は顔を背けた。「叔父上に知れたら、家を追われる。名乗り出るくらいなら、黙って出ていく」どうやら、こちらが答えるしかなさそうだ。"
+   ],
+   "choices": [
+    {
+     "label": "{client}にありのままを告げる",
+     "next": "end_told"
+    },
+    {
+     "label": "「流れ者の仕業でしょう」と伏せる",
+     "next": "end_hidden"
     }
    ]
   },
@@ -227,6 +388,77 @@
     }
    ],
    "end": "伏せた罪"
+  },
+  "end_confessed": {
+   "speaker": "client",
+   "text": [
+    "{nephew}は叔父の前に手をついて、すべてを打ち明けた。{client}は杖を振り上げたが、やがて下ろした。「自ら言いに来たのなら、まだ腐りきってはおらぬ」",
+    "{nephew}は賭場の借りを畑仕事で返すことになった。{client}は先祖の廟に剣を供え、甥と並んで長く頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sword_nephew"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{client}の甥に罪を名乗り出させ、宝剣を家に戻した。"
+    }
+   ],
+   "end": "名乗り出た甥"
+  },
+  "end_official": {
+   "speaker": "官府の吏",
+   "text": [
+    "吏は{nephew}を呼び出し、{dealer}への売り渡しを認めさせた。剣は{client}の家に戻されたが、甥の盗みは官府の簿に記され、町じゅうに知れ渡った。",
+    "{client}は礼の銭を包みながら、「家の恥が、表に出てしまったな」と力なく笑った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sword_nephew"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "盗まれた宝剣を官府の裁きで取り戻した。"
+    }
+   ],
+   "end": "官府の裁き"
+  },
+  "end_scapegoat": {
+   "speaker": "client",
+   "text": [
+    "{client}は下男を打ち据えて追い出した。「これで、少しは胸のつかえが下りた」そう言って、少しばかりの銭を包んでくれた。",
+    "剣は戻らなかった。{nephew}はその晩も、賭場へ出かけていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sword_nephew"
+    },
+    {
+     "money": 50
+    }
+   ],
+   "end": "追われた下男"
   },
   "end_plain": {
    "speaker": "client",

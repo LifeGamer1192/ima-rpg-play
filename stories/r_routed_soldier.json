@@ -55,10 +55,37 @@
      }
     },
     {
+     "label": "先に腿の傷を縛り、血の跡を消してから隠す",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "tended",
+      "lose": "found"
+     },
+     "guide": "手当てに手間取れば、隠す前に追手が着いてしまう"
+    },
+    {
      "label": "追手に引き渡す",
      "next": "end_handed"
     }
    ]
+  },
+  "tended": {
+   "speaker": "officer",
+   "text": [
+    "布を裂いて腿を縛り、道の血に土をかぶせて、男を葦の奥に沈めた。ほどなく馬を止めた{officer}が、じろりとこちらを見た。「このあたりで{foe}の兵を見なかったか」",
+    "首を振ると、{officer}は血の跡を探して道を見回したが、何も見つけられずに駆け去った。"
+   ],
+   "effects": [
+    {
+     "flag": "rs_tended"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "choice"
   },
   "hidden": {
    "speaker": "officer",
@@ -79,12 +106,44 @@
      "next": "end_handed"
     },
     {
+     "label": "「{land}の兵の骸です。弔ってやるところで」と言い張る",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "hidden",
+      "lose": "found_ng"
+     },
+     "guide": "見破られれば、もう言い逃れはきかない"
+    },
+    {
      "label": "追手と斬り結ぶ",
      "fight": {
       "foes": "soldier",
       "n": 2,
       "level": 0,
       "talk": true,
+      "win": "choice",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "found_ng": {
+   "speaker": "officer",
+   "text": [
+    "{officer}は馬を降り、茂みをかき分けた。骸が呻き声を上げる。「骸がものを言うか」{officer}は剣を抜き、手下に顎をしゃくった。"
+   ],
+   "choices": [
+    {
+     "label": "男を引き渡す",
+     "next": "end_handed"
+    },
+    {
+     "label": "追手と斬り結ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
       "win": "choice",
       "lose": "end_lost"
      }
@@ -102,6 +161,11 @@
      "next": "escort"
     },
     {
+     "label": "{here}の宿に匿い、傷が癒えるのを待つ",
+     "next": "shelter",
+     "guide": "日をかければ、追捕の詮議が宿まで及ぶ"
+    },
+    {
      "label": "乾し飯を渡して別れる",
      "if": {
       "item": "rations"
@@ -117,6 +181,66 @@
     {
      "label": "「ここまでだ」と言って別れる",
      "next": "end_parted"
+    }
+   ]
+  },
+  "shelter": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿で敗残兵の傷が癒えるのを待つ",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "officer",
+   "art": "inn",
+   "text": [
+    "宿の裏の納屋で三日、男に粥を運んだ。熱が下がりかけた朝、表が騒がしくなった。{officer}が手下を連れ、一部屋ずつ戸を開けて回っている。",
+    "「{foe}の兵が、このあたりに潜んでいるという訴えがあった。宿の者はみな出てこい」"
+   ],
+   "choices": [
+    {
+     "label": "男を納屋の藁の下に隠し、素知らぬ顔で出ていく",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "shelter_ok",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "{officer}に銭を握らせる（100銭）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "shelter_ok"
+    }
+   ]
+  },
+  "shelter_ok": {
+   "speaker": "client",
+   "text": [
+    "{officer}が去って五日の後、男は杖なしで歩けるようになった。「これなら、峠も越えられる。……あんたには、何から何まで世話になった」"
+   ],
+   "effects": [
+    {
+     "flag": "rs_tended"
+    }
+   ],
+   "choices": [
+    {
+     "label": "念のため{border}まで送る",
+     "next": "escort"
+    },
+    {
+     "label": "宿の前で見送る",
+     "next": "end_healed"
     }
    ]
   },
@@ -142,6 +266,19 @@
       "win": "end_home",
       "lose": "end_lost"
      }
+    },
+    {
+     "label": "傷の癒えた男と背中を合わせ、二人で迎え撃つ",
+     "if": {
+      "flag": "rs_tended"
+     },
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 0,
+      "win": "end_home",
+      "lose": "end_lost"
+     }
     }
    ]
   },
@@ -152,6 +289,9 @@
     "「ご協力に感謝する」{officer}は褒美の銭を投げてよこした。"
    ],
    "effects": [
+    {
+     "unflag": "rs_tended"
+    },
     {
      "money": 100
     },
@@ -171,6 +311,9 @@
    ],
    "effects": [
     {
+     "unflag": "rs_tended"
+    },
+    {
      "fame": 1
     },
     {
@@ -180,6 +323,56 @@
    ],
    "end": "森へ消えた背"
   },
+  "end_healed": {
+   "speaker": "client",
+   "text": [
+    "男は宿の前で深々と頭を下げ、朝霧の街道を{foe}の方へ歩いていった。もう足は引きずっていない。",
+    "別れぎわ、男は鎧の札を一枚よこした。「国に帰ったら、あんたのことを村の者に話す」"
+   ],
+   "effects": [
+    {
+     "unflag": "rs_tended"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "rep": "foe",
+     "n": 3
+    },
+    {
+     "note": "{foe}の敗残兵を宿に匿い、傷を癒やして送り出した。"
+    }
+   ],
+   "end": "癒えた足"
+  },
+  "end_caught": {
+   "speaker": "officer",
+   "text": [
+    "藁の山から、男の足がのぞいていた。{officer}は男に縄をかけ、こちらを冷たく見た。「敵の兵を匿うとは。本来なら同罪だが、旅の者ゆえ罰金で許してやる」",
+    "引かれていく男は、一度だけこちらを振り返った。"
+   ],
+   "effects": [
+    {
+     "unflag": "rs_tended"
+    },
+    {
+     "money": -100
+    },
+    {
+     "favor": -5
+    },
+    {
+     "rep": "land",
+     "n": -3
+    }
+   ],
+   "end": "藁の下の兵"
+  },
   "end_home": {
    "speaker": "client",
    "text": [
@@ -187,6 +380,9 @@
     "敵の兵を逃がしたことは、誰にも言えない。だが、胸の奥は不思議と軽かった。"
    ],
    "effects": [
+    {
+     "unflag": "rs_tended"
+    },
     {
      "money": 50
     },
@@ -212,6 +408,9 @@
     "多勢に押され、傷を負って倒れた。目を覚ましたとき、男の姿はどこにもなかった。"
    ],
    "effects": [
+    {
+     "unflag": "rs_tended"
+    },
     {
      "hp": -20
     }

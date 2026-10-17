@@ -24,6 +24,10 @@
   },
   "port": {
    "place": "near:here"
+  },
+  "bugyo": {
+   "npc": "町奉行",
+   "sex": "m"
   }
  },
  "start": "s1",
@@ -113,6 +117,16 @@
     {
      "label": "{tsuji}を脇へ呼び、口止め料を出させる",
      "next": "end_cut"
+    },
+    {
+     "label": "素知らぬ顔で{tsuji}を泳がせ、抜いた上物の行方を追う",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "cache",
+      "lose": "ambush"
+     },
+     "guide": "気づかれれば牢人に囲まれる。忍びの腕が要る"
     }
    ]
   },
@@ -131,6 +145,47 @@
       "talk": true,
       "win": "delivered",
       "lose": "end_robbed"
+     }
+    },
+    {
+     "label": "「主を持たぬなら、この荷の用心棒に雇われぬか」と持ちかける",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "delivered",
+      "lose": "end_robbed"
+     },
+     "guide": "刀を抜かずに賭ける。しくじれば荷を奪われる"
+    }
+   ]
+  },
+  "cache": {
+   "at": {
+    "place": "port"
+   },
+   "art": "hideout",
+   "text": [
+    "日暮れ、{tsuji}は湊外れの網小屋へ入った。藁の下から、油紙に包んだ上物の筒が八挺。見張りに立っているのは、牢人頭の{ronin}とその手下だ。",
+    "「明日、これを別の買い手に流す。南蛮人には割れた筒の方を……」{tsuji}の声が、板壁越しに聞こえた。"
+   ],
+   "choices": [
+    {
+     "label": "踏みこんで、上物を取り返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_recovered",
+      "lose": "end_robbed"
+     }
+    },
+    {
+     "label": "倉へ戻り、南蛮人と{client}を連れてくる",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "end_fair",
+      "lose": "ambush"
      }
     }
    ]
@@ -175,6 +230,65 @@
       "win": "end_sunk",
       "lose": "end_paid"
      }
+    },
+    {
+     "label": "門徒衆への売り渡しを、{here}の奉行所に告げる",
+     "if": {
+      "flag": "sg_gun_buyer"
+     },
+     "next": "informant",
+     "guide": "{client}を敵に回す。証を示せねば報酬も危うい"
+    }
+   ]
+  },
+  "informant": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の奉行所で{bugyo}に告げる",
+   "speaker": "bugyo",
+   "art": "court",
+   "text": [
+    "{bugyo}は話を聞き、眉を寄せた。「門徒に鉄砲となれば一大事。だが相手は堺の商人、証もなく倉を改めれば、こちらが恥をかく」"
+   ],
+   "choices": [
+    {
+     "label": "湊の倉の帳面と荷札を書き写して示す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_seized",
+      "lose": "leaked"
+     }
+    },
+    {
+     "label": "「今夜、荷が出る。押さえればわかる」と押し切る",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_seized",
+      "lose": "leaked"
+     }
+    }
+   ]
+  },
+  "leaked": {
+   "speaker": "ronin",
+   "art": "war",
+   "text": [
+    "奉行所を出た夜道で、待ち伏せに遭った。先頭にいるのは、湊で見た牢人頭の{ronin}だ。「堺の旦那が、口の軽い用心棒を始末しろとさ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜けて、そのまま倉を押さえに走る",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_seized",
+      "lose": "end_robbed"
+     }
     }
    ]
   },
@@ -207,6 +321,71 @@
     }
    ],
    "end": "割れた筒"
+  },
+  "end_recovered": {
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "縛り上げた{tsuji}と八挺の上物を倉へ運ぶと、南蛮人は手を打って喜び、割れた筒を引き取った。",
+    "{client}は二十挺すべてを上物で受け取り、「あんたは目も腕も一流だ」と、約束の倍に近い銭を差し出した。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_gun_buyer"
+    },
+    {
+     "money": 350
+    },
+    {
+     "fame": 4
+    },
+    {
+     "item": "teppo",
+     "n": 1
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "通詞が隠した南蛮の上物の鉄砲を取り返した。"
+    }
+   ],
+   "end": "網小屋の筒"
+  },
+  "end_seized": {
+   "speaker": "bugyo",
+   "art": "court",
+   "text": [
+    "夜明け前、奉行所の手勢が{client}の倉を囲んだ。二十挺の鉄砲は殿の蔵に納められ、{client}は国を追われた。",
+    "{bugyo}は褒美の銭を渡しながら言った。「一揆に鉄砲が渡っておれば、次の戦で撃たれたのはわが足軽だ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_gun_buyer"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 15
+    },
+    {
+     "rep": "here",
+     "n": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "一揆に流れる鉄砲を奉行所に押さえさせた。"
+    }
+   ],
+   "end": "殿の蔵の鉄砲"
   },
   "end_cut": {
    "speaker": "tsuji",

@@ -39,8 +39,61 @@
     {
      "label": "刀匠に会いに行く",
      "next": "smith"
+    },
+    {
+     "label": "先に{rival}という剣客の噂を集める",
+     "next": "scout"
     }
    ]
+  },
+  "scout": {
+   "speaker": "client",
+   "text": [
+    "「{rival}は、市の外れの宿に泊まっています。昼は賭場、夜は酒肆。負けた相手の刀を集めるのが楽しみだそうです」",
+    "あの男の剣を見た者は少なくない。聞いて回れば、癖のひとつも分かるかもしれない。"
+   ],
+   "choices": [
+    {
+     "label": "賭場で{rival}に負けた者を探して話を聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "scout_ok",
+      "lose": "scout_ng"
+     }
+    },
+    {
+     "label": "宿の窓から{rival}の稽古をのぞく",
+     "check": {
+      "skill": "stealth",
+      "dc": 32,
+      "win": "scout_ok",
+      "lose": "scout_ng"
+     }
+    }
+   ]
+  },
+  "scout_ok": {
+   "text": [
+    "{rival}は左の膝に古傷を抱えている。若いころ、斉の剣士に割られたのだという。長く立ち合うと、踏み込みが一拍遅れる。",
+    "知っていれば、勝ち筋は見える。"
+   ],
+   "effects": [
+    {
+     "flag": "ouye_weak"
+    },
+    {
+     "xp": "stealth",
+     "n": 1
+    }
+   ],
+   "next": "smith"
+  },
+  "scout_ng": {
+   "text": [
+    "嗅ぎ回っていることは、すぐ{rival}の耳に入ったらしい。宿の前を通ると、二階の窓から{rival}がこちらを見下ろして笑った。何も分からぬまま、鍛冶場へ向かうしかない。"
+   ],
+   "next": "smith"
   },
   "smith": {
    "at": {
@@ -126,7 +179,19 @@
       "n": 1,
       "level": 0,
       "win": "won",
-      "lose": "lost"
+      "lose": "beaten"
+     }
+    },
+    {
+     "label": "長く打ち合い、古傷の左膝が鈍るのを待つ",
+     "if": {
+      "flag": "ouye_weak"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 25,
+      "win": "won",
+      "lose": "lost_talk"
      }
     },
     {
@@ -136,7 +201,8 @@
       "dc": 45,
       "win": "won_talk",
       "lose": "lost_talk"
-     }
+     },
+     "guide": "弁で退かせるのは難しい。しくじれば斬り合いになる"
     }
    ]
   },
@@ -153,7 +219,7 @@
       "n": 1,
       "level": 0,
       "win": "won",
-      "lose": "lost"
+      "lose": "beaten"
      }
     }
    ]
@@ -253,9 +319,83 @@
     }
    ]
   },
+  "beaten": {
+   "text": [
+    "打ち倒された。目を覚ますと、{rival}の姿も剣もなかった。{client}が泣きながら{smith}の背をさすっていた。「剣は……あの男の宿へ」"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "choices": [
+    {
+     "label": "傷をおして{rival}を追う",
+     "next": "chase",
+     "guide": "深手のまま追う。もう一度敗れれば剣は戻らない"
+    },
+    {
+     "label": "追う力は残っていない",
+     "next": "lost"
+    }
+   ]
+  },
+  "chase": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿で{rival}を探す",
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "宿の二階から、{rival}の高笑いが聞こえる。龍淵を肴に、夜更けまで飲むつもりらしい。{client}が袖を引いた。「眠ったところを狙えば……」"
+   ],
+   "choices": [
+    {
+     "label": "夜更けに忍び込み、枕元の剣を取り返す",
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "end_retaken",
+      "lose": "chase_fight"
+     },
+     "guide": "{rival}は眠りが浅い。見つかれば寝間で斬り合いになる"
+    },
+    {
+     "label": "「もう一度立ち合え」と階下から呼ばわる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "end_retaken",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "chase_fight": {
+   "speaker": "rival",
+   "art": "duel",
+   "text": [
+    "剣に手を伸ばした瞬間、{rival}の目が開いた。「懲りぬ奴だ」狭い寝間で、二人の刃が交わる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り結ぶ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "end_retaken",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
   "lost": {
    "text": [
-    "打ち倒された。目を覚ますと、{rival}の姿も剣もなかった。{client}が泣きながら{smith}の背をさすっていた。"
+    "{rival}は翌朝、龍淵を背負って町を出ていった。{client}は{smith}の枕元で、炉の火の消えた鍛冶場を見つめていた。"
    ],
    "effects": [
     {
@@ -265,15 +405,52 @@
      "unflag": "ouye_buy"
     },
     {
-     "hp": -15
+     "unflag": "ouye_weak"
     }
    ],
    "end": "奪われた剣"
+  },
+  "end_retaken": {
+   "speaker": "smith",
+   "text": [
+    "取り返した剣を膝に置くと、{smith}は長いこと黙っていた。「一度奪われ、なお取り返しに行く。剣を持つ者に要るのは、それよ」",
+    "{smith}は剣を布に包み直し、こちらへ押しやった。「龍淵は、そなたのものだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "ouye_trust"
+    },
+    {
+     "unflag": "ouye_buy"
+    },
+    {
+     "unflag": "ouye_weak"
+    },
+    {
+     "item": "t_longyuan"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "剣客に奪われた名剣「龍淵」を取り返し、老刀匠から託された。"
+    }
+   ],
+   "end": "取り返した龍淵"
   },
   "end_keep": {
    "speaker": "client",
    "text": [
     "{client}は深く頭を下げた。「師も安心したでしょう。雨の日には、どうか師を思い出してください」"
+   ],
+   "effects": [
+    {
+     "unflag": "ouye_weak"
+    }
    ],
    "end": "託された龍淵"
   },
@@ -281,6 +458,11 @@
    "speaker": "client",
    "text": [
     "剣は、{here}の豪族が高値で買い取った。{smith}の薬代は足り、{client}は鍛冶場を継ぐと言った。「いつか、あなたのための剣を打ちます」"
+   ],
+   "effects": [
+    {
+     "unflag": "ouye_weak"
+    }
    ],
    "end": "薬代になった剣"
   }

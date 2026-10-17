@@ -22,6 +22,10 @@
    "npc": "手代",
    "sex": "m"
   },
+  "potter": {
+   "npc": "陶工",
+   "sex": "m"
+  },
   "land": {
    "realm": "home"
   },
@@ -76,6 +80,70 @@
      "flag": "sg_cha_copy"
     }
    ],
+   "choices": [
+    {
+     "label": "写しを焼いた陶工を訪ねる",
+     "next": "potter"
+    },
+    {
+     "label": "これで十分。茶会を待つ",
+     "next": "chakai"
+    }
+   ]
+  },
+  "potter": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の町外れの窯で陶工{potter}に会う",
+   "speaker": "potter",
+   "art": "trade",
+   "text": [
+    "窯の煙の向こうで、{potter}は土をこねていた。「たしかに焼いた。だが、わしは頼まれた物を焼いただけだ。豪商さまに睨まれたら、この窯は終わりよ」"
+   ],
+   "choices": [
+    {
+     "label": "「名物を盗む片棒を担いだと噂になる方が、窯には毒だ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "potter_yes",
+      "lose": "chakai"
+     }
+    },
+    {
+     "label": "窯の薪代を出す（100文）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "potter_yes"
+    },
+    {
+     "label": "無理強いはせず、茶会を待つ",
+     "next": "chakai"
+    }
+   ]
+  },
+  "potter_yes": {
+   "speaker": "potter",
+   "text": [
+    "{potter}は手を拭い、ため息をついた。「……茶会の日、勝手口で待っていよう。呼ばれたら、写しを焼いたのはわしだと申し上げる」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_cha_potter"
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
    "next": "chakai"
   },
   "caught": {
@@ -106,7 +174,7 @@
    "choices": [
     {
      "label": "本物と写しをすり替えて持ち帰る",
-     "next": "end_swapped"
+     "next": "slip"
     },
     {
      "label": "何も触らず、茶会の席で暴く",
@@ -116,6 +184,52 @@
       }
      ],
      "next": "chakai"
+    }
+   ]
+  },
+  "slip": {
+   "art": "tale",
+   "text": [
+    "本物を懐に収め、土蔵を出た。塀まであと十歩というところで、庭の犬が低く唸りはじめた。"
+   ],
+   "choices": [
+    {
+     "label": "犬が吠える前に、塀を越える",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_swapped",
+      "lose": "slip_caught"
+     }
+    }
+   ]
+  },
+  "slip_caught": {
+   "speaker": "tedai",
+   "art": "war",
+   "text": [
+    "犬の声に、提灯が集まってきた。{tedai}が用心棒を従えて前に出る。「懐のものを出せ。……やはり初雪か。盗人め、番所で首を打たれるがいい」"
+   ],
+   "choices": [
+    {
+     "label": "茶入を抱えたまま斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_swapped",
+      "lose": "end_beaten"
+     },
+     "guide": "茶入をかばいながら多勢と戦う。剣術が足りなければ取り返される"
+    },
+    {
+     "label": "「盗んだのは主の方だ。番所で困るのはお主だぞ」と{tedai}に迫る",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_tedai",
+      "lose": "end_beaten"
+     }
     }
    ]
   },
@@ -157,13 +271,21 @@
      }
     },
     {
+     "label": "勝手口の{potter}を呼び入れていただく",
+     "if": {
+      "flag": "sg_cha_potter"
+     },
+     "next": "end_exposed"
+    },
+    {
      "label": "茶入を拝見し、釉の景色から見極める",
      "check": {
       "skill": "trade",
       "dc": 40,
       "win": "end_exposed",
       "lose": "end_disgraced"
-     }
+     },
+     "guide": "証のないまま目利きで挑む。商いの腕が足りねば座を追われる"
     },
     {
      "label": "黙って茶を飲み、後で{gosho}と話をつける",
@@ -183,6 +305,9 @@
     },
     {
      "unflag": "sg_cha_proof"
+    },
+    {
+     "unflag": "sg_cha_potter"
     },
     {
      "money": 200
@@ -218,6 +343,9 @@
      "unflag": "sg_cha_proof"
     },
     {
+     "unflag": "sg_cha_potter"
+    },
+    {
      "money": 250
     },
     {
@@ -233,6 +361,39 @@
    ],
    "end": "雪の行方"
   },
+  "end_tedai": {
+   "speaker": "tedai",
+   "art": "court",
+   "text": [
+    "{tedai}の手から提灯が落ちた。「……写しを作らせたのは、主の言いつけだ。わしは使い走りにすぎぬ」用心棒たちが顔を見合わせ、刀を下ろした。",
+    "翌朝、{tedai}は{client}のもとへ詫びに来て、すべてを書付に残した。茶会は取りやめとなり、{gosho}は町の年寄の座を退いたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cha_copy"
+    },
+    {
+     "unflag": "sg_cha_proof"
+    },
+    {
+     "unflag": "sg_cha_potter"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{gosho}の手代を説き伏せ、名物「初雪」のすり替えを白状させた。"
+    }
+   ],
+   "end": "手代の白状"
+  },
   "end_disgraced": {
    "speaker": "gosho",
    "text": [
@@ -244,6 +405,9 @@
     },
     {
      "unflag": "sg_cha_proof"
+    },
+    {
+     "unflag": "sg_cha_potter"
     },
     {
      "fame": -2
@@ -267,6 +431,9 @@
     },
     {
      "unflag": "sg_cha_proof"
+    },
+    {
+     "unflag": "sg_cha_potter"
     },
     {
      "money": 300
@@ -295,6 +462,9 @@
     },
     {
      "unflag": "sg_cha_proof"
+    },
+    {
+     "unflag": "sg_cha_potter"
     },
     {
      "hp": -20

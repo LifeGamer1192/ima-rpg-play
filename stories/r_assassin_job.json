@@ -54,6 +54,69 @@
     {
      "label": "受けたふりをして、{target}に知らせに行く",
      "next": "warn"
+    },
+    {
+     "label": "「考えさせてくれ」と言い、夜に{client}の後をつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "shadow_ok",
+      "lose": "shadow_ng"
+     },
+     "guide": "気づかれれば、{client}の手下と路地で斬り合いになる"
+    }
+   ]
+  },
+  "shadow_ok": {
+   "art": "backroom",
+   "text": [
+    "{client}は宿を出ると、裏通りの塩蔵に入っていった。戸の隙間から、塩俵を数える男たちと、帳面をめくる{client}の姿が見えた。",
+    "「県令さえ消えれば、関の塩はまた我らのものだ」――{client}は抜け荷の元締めだったのだ。"
+   ],
+   "effects": [
+    {
+     "flag": "assassin_know"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "{target}に知らせに行く",
+     "next": "warn"
+    },
+    {
+     "label": "何も見なかったことにして、前金を受け取る",
+     "effects": [
+      {
+       "money": 100
+      },
+      {
+       "flag": "assassin_paid"
+      }
+     ],
+     "next": "meet"
+    }
+   ]
+  },
+  "shadow_ng": {
+   "speaker": "client",
+   "art": "war",
+   "text": [
+    "路地の角を曲がったところで、前を行く{client}が足を止めた。「鼠がついてきたか」暗がりから、棍を持った男が二人現れる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り払う",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "shadow_ok",
+      "lose": "end_wounded"
+     }
     }
    ]
   },
@@ -85,8 +148,42 @@
      "next": "warn"
     },
     {
+     "label": "{target}と組み、「事は成った」と偽って{client}をおびき出す",
+     "next": "double"
+    },
+    {
      "label": "何もせず、前金を持って町を去る",
      "next": "end_walked"
+    }
+   ]
+  },
+  "double": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿に戻り、{client}に「事は成った」と告げる",
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{town}では、{target}が死んだという噂がもう流れていた。{target}自らが流させたものだ。宿の奥で、{client}は満足げに残りの銭袋を卓に置いた。「見事だ。約束の三百だ」",
+    "戸の外には、{target}が伏せた兵が待っている。合図をすれば踏み込むはずだ。"
+   ],
+   "choices": [
+    {
+     "label": "銭袋を受け取ると同時に、合図を送る",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_trapped",
+      "lose": "end_wounded"
+     }
+    },
+    {
+     "label": "銭袋だけ受け取り、合図をせずに姿を消す",
+     "next": "end_double",
+     "guide": "{target}を裏切ることになる。{client}の手の者にも追われる"
     }
    ]
   },
@@ -104,14 +201,51 @@
    ],
    "choices": [
     {
+     "label": "塩蔵のことを告げてあった。伏せた兵とともに刺客を囲む",
+     "if": {
+      "flag": "assassin_know"
+     },
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "catch",
+      "lose": "end_wounded"
+     }
+    },
+    {
      "label": "刺客を迎え撃つ",
      "fight": {
       "foes": "duelist",
       "n": 2,
       "level": 0,
-      "win": "end_warned",
+      "win": "catch",
       "lose": "end_wounded"
      }
+    }
+   ]
+  },
+  "catch": {
+   "speaker": "target",
+   "text": [
+    "刺客の二人は倒れ、残る一人が塀を越えて逃げた。「あれは元締めのもとへ戻るはずだ」{target}は肩で息をしながら言った。",
+    "捕らえた刺客は、まだ口を割っていない。"
+   ],
+   "choices": [
+    {
+     "label": "捕らえた刺客を{target}に預け、吟味を待つ",
+     "next": "end_warned"
+    },
+    {
+     "label": "逃げた刺客を追い、{client}の隠れ家へ踏み込む",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_rooted",
+      "lose": "end_wounded"
+     },
+     "guide": "夜通しの戦いになる。傷が深ければ倒れる"
     }
    ]
   },
@@ -123,6 +257,9 @@
    "effects": [
     {
      "unflag": "assassin_paid"
+    },
+    {
+     "unflag": "assassin_know"
     },
     {
      "money": 300
@@ -154,6 +291,9 @@
      "unflag": "assassin_paid"
     },
     {
+     "unflag": "assassin_know"
+    },
+    {
      "money": 200
     },
     {
@@ -172,6 +312,101 @@
    ],
    "end": "刺客を返り討ち"
   },
+  "end_rooted": {
+   "speaker": "target",
+   "text": [
+    "逃げた刺客の後を追うと、町はずれの塩蔵に行き着いた。踏み込んで用心棒を斬り伏せると、帳面を抱えて逃げようとする{client}がいた。",
+    "帳面には、抜け荷に関わった役人の名までが記されていた。{target}はそれを手に、しばらく言葉もなかった。「これで、この県の塩は民の手に戻る」"
+   ],
+   "effects": [
+    {
+     "unflag": "assassin_paid"
+    },
+    {
+     "unflag": "assassin_know"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 18
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "note": "{target}を狙った抜け荷の元締め{client}を、隠れ家で捕らえた。"
+    }
+   ],
+   "end": "塩蔵の夜明け"
+  },
+  "end_trapped": {
+   "speaker": "target",
+   "text": [
+    "合図とともに兵がなだれ込み、{client}と用心棒は取り押さえられた。銭袋は、そのまま罪の証となった。",
+    "「死んだはずの県令が礼を言うのも妙なものだな」{target}は笑い、証の銭の半ばをこちらに渡した。"
+   ],
+   "effects": [
+    {
+     "unflag": "assassin_paid"
+    },
+    {
+     "unflag": "assassin_know"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 15
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{target}と組み、刺客を雇った{client}を罠にかけた。"
+    }
+   ],
+   "end": "死んだはずの県令"
+  },
+  "end_double": {
+   "text": [
+    "銭袋を懐に、裏口から宿を抜け出した。{target}の兵は朝まで合図を待ち、{client}は昼には{target}が生きていると知るだろう。",
+    "前金と合わせて四百。だが、これからしばらくは、道で振り返る癖がつきそうだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "assassin_paid"
+    },
+    {
+     "unflag": "assassin_know"
+    },
+    {
+     "money": 300
+    },
+    {
+     "favor": -5
+    },
+    {
+     "hunted": 15
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "刺客の依頼の報酬だけを取って姿を消した。"
+    }
+   ],
+   "end": "二股の銭"
+  },
   "end_walked": {
    "text": [
     "前金を懐に、黙って{town}を出た。後で、{target}が別の刺客に襲われたと噂に聞いた。生きているのか死んだのか、噂はどちらとも言っていた。"
@@ -179,6 +414,9 @@
    "effects": [
     {
      "unflag": "assassin_paid"
+    },
+    {
+     "unflag": "assassin_know"
     },
     {
      "xp": "stealth",
@@ -206,6 +444,9 @@
    "effects": [
     {
      "unflag": "assassin_paid"
+    },
+    {
+     "unflag": "assassin_know"
     },
     {
      "hp": -25

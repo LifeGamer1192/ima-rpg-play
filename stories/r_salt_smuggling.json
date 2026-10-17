@@ -44,6 +44,10 @@
      "next": "report"
     },
     {
+     "label": "引き受けるふりをして、官府と通じる",
+     "next": "double"
+    },
+    {
      "label": "断る",
      "next": "end_refused"
     }
@@ -77,7 +81,15 @@
       "dc": 35,
       "win": "passed",
       "lose": "gate_ng"
-     }
+     },
+     "guide": "獣道は荷車には険しい。隠密が足りねば見つかって捕り物になる"
+    },
+    {
+     "label": "松明を振り、待ち伏せの兵に合図を送る",
+     "if": {
+      "flag": "ss_double"
+     },
+     "next": "ambush"
     },
     {
      "label": "{guard}に銭を握らせる（100銭）",
@@ -130,6 +142,84 @@
     {
      "label": "「村には安く売ってやれ」",
      "next": "end_cheap"
+    },
+    {
+     "label": "「村まで一緒に行き、売り値はこの目で決める」",
+     "next": "village"
+    }
+   ]
+  },
+  "village": {
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "山の村の入り口で、棍棒を持った男たちが道を塞いでいた。村の塩は、この辺りの豪族が官の倍の値で一手に売っているのだという。",
+    "「よそ者の塩を村に入れるなら、荷の半分を置いていけ」{client}が小声で言った。「ここで揉めれば、村の者が後で痛い目を見るぞ」"
+   ],
+   "choices": [
+    {
+     "label": "豪族の手下を追い払う",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "talk": true,
+      "win": "end_village",
+      "lose": "end_robbed"
+     },
+     "guide": "手下は四人。負ければ塩も約束の銭も失う"
+    },
+    {
+     "label": "豪族に少し塩を渡して、話をつける",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "end_cheap",
+      "lose": "end_robbed"
+     }
+    }
+   ]
+  },
+  "double": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の官府に、密かに話を通す",
+   "speaker": "官府の役人",
+   "art": "court",
+   "text": [
+    "役人は目を細めた。「一味を宿で捕らえても、運び屋の下っ端が一人二人よ。荷を押さえ、関で一網打尽にしたい」",
+    "「お前は用心棒として付いていけ。関の手前で松明を三度振れば、兵が出る」"
+   ],
+   "effects": [
+    {
+     "flag": "ss_double"
+    }
+   ],
+   "next": "gate"
+  },
+  "ambush": {
+   "speaker": "client",
+   "art": "war",
+   "text": [
+    "松明を三度振ると、関の両脇の藪から兵が湧き出た。{client}はすべてを悟ったように、こちらを見た。",
+    "「……そうか、お前か。わしはいい。だが荷の塩は、山の村の冬の分だ。せめてそれだけは村へやってくれ」"
+   ],
+   "choices": [
+    {
+     "label": "{client}を兵に引き渡す",
+     "next": "end_trap"
+    },
+    {
+     "label": "兵が来る前に、{client}を林へ逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "end_let_go",
+      "lose": "end_trap"
+     },
+     "guide": "官府との約束を破る。覚えは下がり、報奨も出ない"
     }
    ]
   },
@@ -146,12 +236,111 @@
    ],
    "next": "end_reported"
   },
+  "end_trap": {
+   "speaker": "官府の役人",
+   "text": [
+    "荷車ごと一味は押さえられた。役人は「これで浜の元締めまで手繰れる」と満足げに報奨を払った。",
+    "塩は官の倉に納められた。縄を打たれた{client}は、最後まで山の村の方を見ていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "ss_double"
+    },
+    {
+     "money": 200
+    },
+    {
+     "favor": 20
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "関の罠"
+  },
+  "end_let_go": {
+   "speaker": "client",
+   "text": [
+    "兵の目が荷車に向いた隙に、{client}の背を林へ押しやった。{client}は一度だけ振り返り、闇に消えた。",
+    "塩は押さえられたが、元締めにつながる者は逃げた。役人は「取り逃がしたか」と冷たい目を向け、報奨の話はそれきりになった。山の村から、礼の干し肉が届いたのはひと月後だった。"
+   ],
+   "effects": [
+    {
+     "unflag": "ss_double"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "林へ逃げた運び屋"
+  },
+  "end_village": {
+   "speaker": "client",
+   "text": [
+    "手下どもを追い散らすと、村の者が戸口からぞろぞろと出てきた。塩は官の値の半分で、またたく間に売り切れた。",
+    "「豪族に睨まれるのはわしらだが、それでも今年の冬は越せる」村長が手を握ってきた。{client}は約束の銭に、いくらか上乗せしてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "ss_double"
+    },
+    {
+     "money": 180
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "山の村に、豪族の手下を追い払って安い塩を届けた。"
+    }
+   ],
+   "end": "山の村の冬"
+  },
+  "end_robbed": {
+   "text": [
+    "手下どもに打ち据えられ、荷車は豪族の蔵へ引かれていった。{client}は「浜でまた買えばいい」と強がったが、約束の銭は出なかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "ss_double"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "xp": "trade",
+     "n": 1
+    }
+   ],
+   "end": "豪族の蔵"
+  },
   "end_profit": {
    "speaker": "client",
    "text": [
     "塩は町の商人に高値で売れた。{client}は約束より多く銭を分けてくれた。山の村では、今年も塩の足りぬ冬になるだろう。"
    ],
    "effects": [
+    {
+     "unflag": "ss_double"
+    },
     {
      "money": 300
     },
@@ -177,6 +366,9 @@
    ],
    "effects": [
     {
+     "unflag": "ss_double"
+    },
+    {
      "money": 150
     },
     {
@@ -198,6 +390,9 @@
    ],
    "effects": [
     {
+     "unflag": "ss_double"
+    },
+    {
      "money": 150
     },
     {
@@ -216,6 +411,9 @@
    ],
    "effects": [
     {
+     "unflag": "ss_double"
+    },
+    {
      "hp": -20
     },
     {
@@ -230,6 +428,9 @@
    ],
    "effects": [
     {
+     "unflag": "ss_double"
+    },
+    {
      "xp": "stealth",
      "n": 1
     }
@@ -242,6 +443,9 @@
     "「そうか。ならば、この話は忘れてくれ」{client}は酒代を置いて出ていった。山の村に塩が届いたかどうか、知る由もない。"
    ],
    "effects": [
+    {
+     "unflag": "ss_double"
+    },
     {
      "fame": 1
     }

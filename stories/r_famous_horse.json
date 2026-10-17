@@ -47,6 +47,51 @@
     {
      "label": "{young}を待ち受けて話をつける",
      "next": "meet"
+    },
+    {
+     "label": "夜のうちに、栗毛を山の牧へ隠す",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "hidden",
+      "lose": "meet"
+     },
+     "guide": "隠しても{young}は諦めない。揉め事はかえって大きくなる"
+    }
+   ]
+  },
+  "hidden": {
+   "speaker": "young",
+   "art": "court",
+   "text": [
+    "翌朝、空の厩を見た{young}は、鞭で柱を打った。「馬を隠したな。ならば馬盗人として官府に訴えるまでだ。爺も、手を貸した者もな」",
+    "{client}が青い顔でこちらを見た。山の牧へ通じる道は一本しかない。家来がそれを嗅ぎつけるのも、時の問題だろう。"
+   ],
+   "choices": [
+    {
+     "label": "先に官府へ出て、白黒をつける",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_court",
+      "lose": "end_taken"
+     },
+     "guide": "生まれの記録が無いままでは、豪族の言い分が通りやすい"
+    },
+    {
+     "label": "牧への山道で、{young}の家来を待ち伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_kept",
+      "lose": "end_taken"
+     },
+     "guide": "山道で三人を相手にする。負ければ栗毛の居場所も知られる"
+    },
+    {
+     "label": "栗毛を連れ戻し、{young}と話をつける",
+     "next": "meet"
     }
    ]
   },
@@ -129,10 +174,102 @@
      }
     },
     {
+     "label": "{young}本人に一騎打ちを申し込む",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "duel_won",
+      "lose": "end_taken"
+     },
+     "guide": "若殿は剣の心得がある。腕が足りねば馬も身も失う"
+    },
+    {
      "label": "黙って見送る",
      "next": "end_taken"
     }
    ]
+  },
+  "duel_won": {
+   "speaker": "young",
+   "art": "duel",
+   "text": [
+    "打ち合うこと十余合、{young}の剣が土に落ちた。家来たちが息を呑む。{young}は肩で息をしながら、悔しげにこちらを睨んだ。",
+    "「……斬れ。だが、この馬が畑で老いるのは惜しいと、今も思っている」"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "「馬は老人のものだ」と家来の前で認めさせる",
+     "next": "end_kept"
+    },
+    {
+     "label": "戦の間だけ栗毛を{land}の軍に貸す形で、手を打たせる",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "end_lent",
+      "lose": "end_kept"
+     }
+    }
+   ]
+  },
+  "end_court": {
+   "speaker": "client",
+   "text": [
+    "官府で、厩の帳と近在の馬飼いの証言を一つずつ並べた。{young}の家の牝馬は、その年に仔を産んでいなかった。役人は{young}の訴えを退けた。",
+    "「豪族に法で勝つとは」{client}は信じられぬという顔で、山の牧から栗毛を連れ戻した。"
+   ],
+   "effects": [
+    {
+     "unflag": "horse_record"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "{client}の馬を巡る訴えで、豪族の{young}に勝った。"
+    }
+   ],
+   "end": "官府の裁き"
+  },
+  "end_lent": {
+   "speaker": "young",
+   "text": [
+    "間に立って取り決めを書かせた。栗毛は戦の間だけ{young}の戦車を引き、戦が終われば{client}の厩へ返す。借り賃は先に払う。",
+    "{young}は書き付けに名を記し、「勝ち戦なら、この馬の手柄はお前にも分けよう」と笑った。{client}は「生きて帰ってこいよ」と栗毛の首を撫でた。"
+   ],
+   "effects": [
+    {
+     "unflag": "horse_record"
+    },
+    {
+     "money": 180
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 8
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "end": "貸された栗毛"
   },
   "end_kept": {
    "speaker": "client",

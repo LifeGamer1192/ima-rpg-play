@@ -24,6 +24,10 @@
   "girl": {
    "npc": "攫われた娘",
    "sex": "f"
+  },
+  "official": {
+   "npc": "宿場の役人",
+   "sex": "m"
   }
  },
  "start": "s1",
@@ -51,6 +55,10 @@
       "win": "scout",
       "lose": "caravan"
      }
+    },
+    {
+     "label": "宿場の役人に訴え出る",
+     "next": "official"
     }
    ]
   },
@@ -61,6 +69,56 @@
    "effects": [
     {
      "flag": "sg_hk_law"
+    }
+   ],
+   "next": "caravan"
+  },
+  "official": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の役所で{official}に訴える",
+   "speaker": "official",
+   "art": "court",
+   "text": [
+    "{official}は書付から目も上げなかった。「乱取りは戦の習い。人買いも、殿の掟が出たばかりで……まあ、手が回らぬのよ」",
+    "掟は出ている。だが役人は動く気がない。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_hk_law"
+    }
+   ],
+   "choices": [
+    {
+     "label": "「掟を見逃したと知れれば、お咎めはそちらに及ぶ」と迫る",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "escort",
+      "lose": "caravan"
+     }
+    },
+    {
+     "label": "見切りをつけて、列を追う",
+     "next": "caravan"
+    }
+   ]
+  },
+  "escort": {
+   "speaker": "official",
+   "art": "court",
+   "text": [
+    "{official}は渋い顔で筆を置いた。「……捕り手を三人つける。ただし斬り合いになったら、わしは知らぬぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_hk_guard"
+    },
+    {
+     "xp": "speech",
+     "n": 1
     }
    ],
    "next": "caravan"
@@ -98,8 +156,66 @@
      }
     },
     {
+     "label": "捕り手とともに「御法度の商い、改める」と列を押さえる",
+     "if": {
+      "flag": "sg_hk_guard"
+     },
+     "next": "end_released"
+    },
+    {
      "label": "「その縄、全部切らせてもらう」",
      "next": "fight"
+    },
+    {
+     "label": "いったん退き、夜を待って縄を切りに忍びこむ",
+     "next": "night"
+    }
+   ]
+  },
+  "night": {
+   "art": "camp",
+   "text": [
+    "宿場外れの納屋に、子どもたちが押しこめられていた。戸口には見張りが二人、焚き火に当たりながら舟をこいでいる。",
+    "{client}が後ろで息を殺している。"
+   ],
+   "choices": [
+    {
+     "label": "裏の板壁を外して、縄を切ってまわる",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "night_free",
+      "lose": "fight"
+     },
+     "guide": "見つかれば見張りが総出で来る。忍びが要る"
+    },
+    {
+     "label": "見張りを一人ずつ黙らせる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "night_free",
+      "lose": "end_failed"
+     }
+    }
+   ]
+  },
+  "night_free": {
+   "speaker": "girl",
+   "art": "camp",
+   "text": [
+    "{girl}と、そのまわりの七、八人の縄を切ったところで、母屋で犬が吠えた。灯がともる。残りの子らは、まだ奥でつながれたままだ。"
+   ],
+   "choices": [
+    {
+     "label": "{girl}たちを連れて、このまま闇に逃げる",
+     "next": "end_night"
+    },
+    {
+     "label": "奥の子らも見捨てられぬ。引き返す",
+     "next": "fight",
+     "guide": "起きた人買いたちと斬り合いになる。剣術が足りねば誰も帰れぬ"
     }
    ]
   },
@@ -150,6 +266,9 @@
      "unflag": "sg_hk_law"
     },
     {
+     "unflag": "sg_hk_guard"
+    },
+    {
      "fame": 2
     },
     {
@@ -168,6 +287,9 @@
    "effects": [
     {
      "unflag": "sg_hk_law"
+    },
+    {
+     "unflag": "sg_hk_guard"
     },
     {
      "money": 50
@@ -199,6 +321,9 @@
      "unflag": "sg_hk_law"
     },
     {
+     "unflag": "sg_hk_guard"
+    },
+    {
      "fame": 7
     },
     {
@@ -224,6 +349,9 @@
      "unflag": "sg_hk_law"
     },
     {
+     "unflag": "sg_hk_guard"
+    },
+    {
      "money": 300
     },
     {
@@ -245,10 +373,43 @@
      "unflag": "sg_hk_law"
     },
     {
+     "unflag": "sg_hk_guard"
+    },
+    {
      "hp": -20
     }
    ],
    "end": "峠の向こうへ"
+  },
+  "end_night": {
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "夜通し山道を歩き、明け方に焼け跡の村へ着いた。{client}は{girl}を抱いたまま眠りこんだ。",
+    "連れ出した子らは、近くの村々へ帰っていった。納屋に残された子らのことは、誰も口にしなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hk_law"
+    },
+    {
+     "unflag": "sg_hk_guard"
+    },
+    {
+     "unflag": "sg_hk_guard"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "人買いの納屋から{girl}たちを夜陰に連れ出した。"
+    }
+   ],
+   "end": "夜陰の縄抜け"
   }
  }
 }

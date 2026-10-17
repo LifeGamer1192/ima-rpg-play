@@ -64,7 +64,45 @@
     "若者は宮中の礼を何ひとつ知らなかった。夜、{broker}の部屋を探ると、各地の遺臣の名と、取り立てた銭の額を記した帳面があった。",
     "{prince}本人は、どこかの戦災孤児らしい。{broker}に拾われ、言われるままに公子を演じている。逃げれば殺すと脅されているようだった。"
    ],
-   "next": "decide"
+   "choices": [
+    {
+     "label": "{prince}と二人きりで話す",
+     "next": "confide"
+    },
+    {
+     "label": "このまま{client}のもとへ戻る",
+     "next": "decide"
+    }
+   ]
+  },
+  "confide": {
+   "speaker": "prince",
+   "art": "inn",
+   "text": [
+    "厠へ立った{prince}を、裏庭で呼び止めた。若者は震えながら、すべてを打ち明けた。村を焼かれ、{broker}に拾われたこと。公子の名も、宮中の言葉も、ひと月で覚えさせられたこと。",
+    "「あの人たちの涙を見るのが、もう辛いのです。逃がしてくれるなら、何でもします」"
+   ],
+   "choices": [
+    {
+     "label": "「皆の前で、自分の口で本当のことを言え」",
+     "effects": [
+      {
+       "flag": "fp_witness"
+      }
+     ],
+     "next": "decide"
+    },
+    {
+     "label": "今夜のうちに、黙って逃がしてやる",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "end_slipped",
+      "lose": "brawl"
+     },
+     "guide": "{broker}の見張りは厳しい。しくじれば乱闘になり、遺臣の銭も守れぬ"
+    }
+   ]
   },
   "unsure": {
    "text": [
@@ -79,13 +117,25 @@
    ],
    "choices": [
     {
+     "label": "{prince}に、自ら本当の名を名乗らせる",
+     "if": {
+      "flag": "fp_witness"
+     },
+     "next": "end_exposed"
+    },
+    {
      "label": "皆の前で{broker}の偽りを暴く",
      "check": {
       "skill": "speech",
       "dc": 35,
       "win": "end_exposed",
       "lose": "brawl"
-     }
+     },
+     "guide": "証人がいなければ、夢を見たい遺臣たちは信じたがらない"
+    },
+    {
+     "label": "{broker}を泳がせ、{office}に知らせる",
+     "next": "report"
     },
     {
      "label": "{prince}を連れて逃がしてやる",
@@ -94,6 +144,39 @@
     {
      "label": "「本物でしょう」と告げ、{broker}から口止め料を取る",
      "next": "end_propped"
+    }
+   ]
+  },
+  "report": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}に、{broker}のことを知らせる",
+   "speaker": "{office}の役人",
+   "art": "court",
+   "text": [
+    "役人は話を聞くと、腕を組んだ。「公子の遺児を騙る者か。事が事だけに、証が無ければ手は出せぬ。下手に動いて本物であったら、こちらの首が飛ぶ」"
+   ],
+   "choices": [
+    {
+     "label": "夜、{broker}の部屋から帳面を盗み出して差し出す",
+     "check": {
+      "skill": "theft",
+      "dc": 35,
+      "win": "end_arrested",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "見聞きしたことを、言葉を尽くして訴える",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_arrested",
+      "lose": "end_unheeded"
+     },
+     "guide": "証拠が無ければ役人は動きにくい。帳面があれば話は早い"
     }
    ]
   },
@@ -124,6 +207,9 @@
    ],
    "effects": [
     {
+     "unflag": "fp_witness"
+    },
+    {
      "money": 200
     },
     {
@@ -136,6 +222,77 @@
    ],
    "end": "偽りを暴く"
   },
+  "end_slipped": {
+   "speaker": "prince",
+   "text": [
+    "夜更け、見張りが居眠りをしている隙に、{prince}を裏の塀から逃がした。若者は一度だけ振り返り、深く頭を下げて闇に消えた。",
+    "翌朝、担ぐ公子を失った{broker}は、遺臣たちの前で言い繕いきれずに姿をくらました。{client}は蓄えを抱きしめて、礼の銭を包んでくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "fp_witness"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "end": "夜の塀越え"
+  },
+  "end_arrested": {
+   "speaker": "{office}の役人",
+   "text": [
+    "帳面を見た役人は、すぐに兵を出した。{broker}は離れで銭を数えているところを縄を打たれ、取り立てた銭は遺臣たちに返された。",
+    "{prince}は罪に問われず、{office}の下働きとして引き取られた。「あの若者を責めても、何も戻らぬからな」と役人は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "fp_witness"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "theft",
+     "n": 2
+    },
+    {
+     "note": "公子の遺児を騙って銭を集めた{broker}を{office}に突き出した。"
+    }
+   ],
+   "end": "縄を打たれた後見人"
+  },
+  "end_unheeded": {
+   "text": [
+    "役人は「よく調べておこう」と言ったきり、動かなかった。三日後、離れは空になっていた。{broker}は噂を聞きつけ、集めた銭を抱えて{prince}ともども消えたのだ。",
+    "{client}は、まだ蓄えを渡していなかったことだけを、せめてもの救いだと言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "fp_witness"
+    },
+    {
+     "fame": 1
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "end": "動かぬ役所"
+  },
   "end_freed": {
    "speaker": "prince",
    "text": [
@@ -143,6 +300,9 @@
     "「田を耕して生きます。もう誰の子でもない」{broker}は混乱の中で銭袋を残して逃げ、{client}はそれを遺臣たちに分け戻した。"
    ],
    "effects": [
+    {
+     "unflag": "fp_witness"
+    },
     {
      "money": 150
     },
@@ -164,6 +324,9 @@
    ],
    "effects": [
     {
+     "unflag": "fp_witness"
+    },
+    {
      "money": 350
     },
     {
@@ -184,6 +347,9 @@
     "多勢に打ち倒され、宿の外へ放り出された。翌朝、離れは空になっていた。{broker}も{prince}も、遺臣たちの銭も、消えていた。"
    ],
    "effects": [
+    {
+     "unflag": "fp_witness"
+    },
     {
      "hp": -20
     }

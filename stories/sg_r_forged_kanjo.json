@@ -94,6 +94,11 @@
     {
      "label": "{captain}に直に会う",
      "next": "captain"
+    },
+    {
+     "label": "「今夜のうちに国を出ろ」と{claimant}を見逃す",
+     "next": "end_escaped",
+     "guide": "当人を逃がせば、首を取ったのが誰かは闇に消える"
     }
    ]
   },
@@ -171,8 +176,99 @@
     {
      "label": "「どちらも罰すべきだ」",
      "next": "end_strict"
+    },
+    {
+     "label": "削り跡と証言を並べ、{captain}を白洲に呼び出させる",
+     "if": {
+      "flag": "sg_kanjo_scraped"
+     },
+     "next": "confront"
     }
    ]
+  },
+  "confront": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "speaker": "captain",
+   "art": "court",
+   "text": [
+    "呼び出された{captain}は、白洲に座るなり{witness}を睨みつけた。「足の悪い小者が、銭欲しさに口を合わせただけのこと。花押は殿のもの、それが何よりの証だ」",
+    "{client}が削られた宛名を灯にかざし、こちらを見た。"
+   ],
+   "choices": [
+    {
+     "label": "紙の薄さと墨の新旧を、ひとつずつ説き明かす",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_confess",
+      "lose": "counter"
+     }
+    },
+    {
+     "label": "「手柄は{claimant}に」と落としどころを申し出る",
+     "next": "end_justice"
+    }
+   ]
+  },
+  "counter": {
+   "speaker": "captain",
+   "art": "court",
+   "text": [
+    "{captain}は鼻で笑った。「紙が薄いのは右筆の扱いが悪いからよ」奉行の目が泳いだ。どうやら{captain}は、すでに奥へ手を回しているらしい。"
+   ],
+   "choices": [
+    {
+     "label": "なおも食い下がり、戦場での首の傷の向きを問う",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_confess",
+      "lose": "end_strict"
+     },
+     "guide": "奉行は{captain}寄り。弁舌が足りなければ二人とも罰される"
+    },
+    {
+     "label": "引いて、「手柄は{claimant}に」と頼む",
+     "next": "end_justice"
+    }
+   ]
+  },
+  "end_confess": {
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "「首の傷は右から。{captain}どのは左利きではなかったか」その一言で、{captain}は口をつぐんだ。やがて、首を取り上げたことを白状した。",
+    "{captain}は所領を召し上げられ、{claimant}は手柄を認められたうえで、偽造の罪は軽い叱りで済んだ。{client}は「見事な詮議であった」と、奉行からの礼を取り次いだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kanjo_scraped"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 12
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "白洲で物頭{captain}に首の横取りを白状させた。"
+    }
+   ],
+   "end": "白洲の白状"
   },
   "captain": {
    "speaker": "captain",
@@ -198,7 +294,8 @@
       "level": 0,
       "win": "end_duel",
       "lose": "end_silenced"
-     }
+     },
+     "guide": "物頭は場数を踏んだ侍。負ければ証人の命も危うい"
     },
     {
      "label": "紙包みを返し、証人を探しに行く",
@@ -319,6 +416,29 @@
     }
    ],
    "end": "川に流れた証"
+  },
+  "end_escaped": {
+   "speaker": "client",
+   "text": [
+    "翌朝、番所はもぬけの殻だった。{client}は空の土間を見て、こちらに何も問わなかった。",
+    "感状は偽物として焼かれ、{captain}の手柄はそのまま残った。{claimant}がどこへ行ったのか、知る者はいない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kanjo_scraped"
+    },
+    {
+     "fame": -1
+    },
+    {
+     "favor": -3
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "end": "焼かれた感状"
   }
  }
 }

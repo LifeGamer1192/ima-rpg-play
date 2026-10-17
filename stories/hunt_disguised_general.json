@@ -70,7 +70,17 @@
      "next": "talk"
     },
     {
+     "label": "小屋を離れ、遠巻きに一行を見張る",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "watch",
+      "lose": "watch_ng"
+     }
+    },
+    {
      "label": "斬りかかる",
+     "guide": "相手は名将とその近習。並の腕では勝てない。逃げれば追ってこない",
      "fight": {
       "foes": "person",
       "who": "general",
@@ -107,14 +117,15 @@
      "if": {
       "patron": true
      },
-     "next": "warn"
+     "next": "doubt"
     },
     {
      "label": "密偵を捕らえる",
+     "guide": "宿のどの男が密偵かは分からない。隠密が高くないと見失う",
      "check": {
       "skill": "stealth",
       "dc": 55,
-      "win": "caught_spy",
+      "win": "spy_held",
       "lose": "missed_spy"
      }
     },
@@ -134,6 +145,139 @@
      }
     }
    ]
+  },
+  "watch_ng": {
+   "speaker": "general",
+   "text": [
+    "藪の陰に伏せたところで、背後から肩を叩かれた。{general}の近習だ。小屋に引き出されると、{general}は面白そうに笑った。「覗き見とは行儀が悪い。まあ座れ」"
+   ],
+   "next": "talk"
+  },
+  "watch": {
+   "art": "camp",
+   "text": [
+    "夜、小屋の窓の下で耳を澄ませた。{general}が近習に言う。「明晩、宿の裏の井戸端で密偵と会う。{target}の砦の図を受け取ったら、すぐ峠を越える」"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "flag": "overheard"
+    },
+    {
+     "note": "{spy}の将{general}が{target}を狙っていると盗み聞いた。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "先回りして、宿の井戸端で密偵を待ち伏せる",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "spy_held",
+      "lose": "missed_spy"
+     }
+    },
+    {
+     "label": "何食わぬ顔で小屋を訪ね、問いただす",
+     "next": "talk"
+    },
+    {
+     "label": "このまま{court}の宮廷へ走る",
+     "if": {
+      "patron": true
+     },
+     "next": "doubt"
+    }
+   ]
+  },
+  "spy_held": {
+   "speaker": "密偵",
+   "art": "backroom",
+   "text": [
+    "押さえた男の懐から、{local}の砦の図が出てきた。男は青ざめて口走る。「命だけは……。言われたとおりに何でもする」"
+   ],
+   "choices": [
+    {
+     "label": "{office}に突き出す",
+     "next": "caught_spy"
+    },
+    {
+     "label": "偽の砦の図を持たせ、{general}のもとへ帰す",
+     "guide": "密偵を言いくるめるのは難しい。弁舌が低いと寝返りを見抜かれる",
+     "check": {
+      "skill": "speech",
+      "dc": 55,
+      "win": "false_map",
+      "lose": "missed_spy"
+     }
+    }
+   ]
+  },
+  "false_map": {
+   "text": [
+    "密偵は偽の図を懐に、峠へ向かった。{spy}の軍は、ありもしない抜け道を探して山中をさまようだろう。{office}は話を聞くと、声を殺して笑った。"
+   ],
+   "effects": [
+    {
+     "favor": 14
+    },
+    {
+     "fame": 6
+    },
+    {
+     "money": 220
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "end": "偽りの図を握らせた"
+  },
+  "doubt": {
+   "at": {
+    "place": "court",
+    "building": "palace"
+   },
+   "goal": "{court}の宮廷に、{spy}が{target}を攻めると知らせる",
+   "speaker": "{local}の重臣",
+   "art": "court",
+   "text": [
+    "重臣は眉をひそめた。「{spy}の将が、{bandit}に化けて峠に？　法螺ではないと、どう示す」"
+   ],
+   "choices": [
+    {
+     "label": "盗み聞いた手筈を、日取りまで細かく語る",
+     "if": {
+      "flag": "overheard"
+     },
+     "next": "warn"
+    },
+    {
+     "label": "小屋で見た地図の墨の入れ方を説く",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "warn",
+      "lose": "scoffed"
+     }
+    }
+   ]
+  },
+  "scoffed": {
+   "text": [
+    "重臣は鼻で笑い、下がれと手を振った。数か月後、{target}に{spy}の軍が押し寄せたと聞いた。"
+   ],
+   "effects": [
+    {
+     "favor": -2
+    }
+   ],
+   "end": "信じてもらえなかった"
   },
   "let_go": {
    "speaker": "general",
@@ -155,7 +299,6 @@
     "place": "court",
     "building": "palace"
    },
-   "goal": "{court}の宮廷に、{spy}が{target}を攻めると知らせる",
    "art": "court",
    "text": [
     "宮廷の重臣は、地図に墨を入れていた将の名を聞くと顔色を変えた。「{general}が自ら……。{target}の守りを固めよ」"

@@ -45,7 +45,7 @@
    "goal": "{lair}の峠で{bandit}を討つ",
    "art": "hideout",
    "text": [
-    "峠の岩陰に、焚き火の跡と盗品の山があった。見張りの口笛が鳴り、刃物を手にした男たちが出てくる。"
+    "峠の岩陰に、焚き火の跡と盗品の山があった。奥には見張りの影も見える。"
    ],
    "choices": [
     {
@@ -54,24 +54,33 @@
       "foes": "bandit",
       "n": 3,
       "level": 0,
-      "win": "won",
+      "win": "after",
       "lose": "lost"
      }
     },
     {
-     "label": "頭目を説いて散らせる",
+     "label": "頭目を呼び出し、説いて散らせる",
      "check": {
       "skill": "speech",
       "dc": 45,
       "win": "talked",
       "lose": "lair_ng"
      }
+    },
+    {
+     "label": "岩陰に身を伏せ、根城の様子を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "scout",
+      "lose": "scout_seen"
+     }
     }
    ]
   },
   "lair_ng": {
    "text": [
-    "「口の達者な奴だ」頭目は笑い、手下に顎をしゃくった。"
+    "「口の達者な奴だ」頭目は笑い、手下に顎をしゃくった。刃物を手にした男たちが出てくる。"
    ],
    "choices": [
     {
@@ -80,15 +89,163 @@
       "foes": "bandit",
       "n": 3,
       "level": 0,
-      "win": "won",
+      "win": "after",
       "lose": "lost"
      }
     }
    ]
   },
+  "scout_seen": {
+   "text": [
+    "見張りの口笛が鳴った。寝ていた者まで飛び起きて、四方から刃物が迫ってくる。"
+   ],
+   "choices": [
+    {
+     "label": "囲みを破る",
+     "guide": "寝ていた手下まで起きて四人。剣の腕に自信がないと危うい",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "after",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "頭目に向かって声を張り上げ、説く",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "talked",
+      "lose": "lair_ng"
+     }
+    }
+   ]
+  },
+  "scout": {
+   "art": "hideout",
+   "text": [
+    "日が落ちるまで岩陰で待った。{bandit}は七、八人。頭目は酒甕を抱えて焚き火のそばにいる。",
+    "奥の洞には、縄で縛られた旅の商人が二人転がされていた。身代金を取るつもりらしい。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "酔いの回った夜更けに襲う",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "after",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "頭目に一騎打ちを申し入れる",
+     "guide": "頭目は手練れ。剣術が高くないと危うい。勝てば手下は戦わない",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "chief_down",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "先に洞へ忍び込み、商人を解き放つ",
+     "guide": "見つかれば商人をかばって戦うことになる。隠密が要る",
+     "check": {
+      "skill": "stealth",
+      "dc": 50,
+      "win": "freed",
+      "lose": "freed_ng"
+     }
+    }
+   ]
+  },
+  "freed_ng": {
+   "text": [
+    "縄を切ったところで、商人の一人が声を上げてしまった。焚き火の男たちが振り向く。"
+   ],
+   "choices": [
+    {
+     "label": "商人をかばって戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "after",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "freed": {
+   "text": [
+    "縄を切ると、商人たちは声を殺して泣いた。「この恩は忘れません」懐の銭を押しつけてくる。",
+    "焚き火の{bandit}はまだ気づいていない。"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "このまま夜襲をかける",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "after",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "商人を連れて峠を下りる",
+     "guide": "{bandit}は残る。報酬はもらえない",
+     "next": "rescued_only"
+    }
+   ]
+  },
+  "chief_down": {
+   "text": [
+    "頭目が膝をつくと、手下たちは刃物を投げ捨てた。「親分がやられちゃ、かなわねえ」"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "next": "after"
+  },
+  "after": {
+   "text": [
+    "{bandit}は散り散りに逃げ、逃げ遅れた二人が地にひれ伏した。盗品の山には、絹の反物や銭の束も混じっている。"
+   ],
+   "choices": [
+    {
+     "label": "二人を縛り、盗品ごと{here}へ運ぶ",
+     "next": "won"
+    },
+    {
+     "label": "銭の束を少し懐に入れ、二人は見逃す",
+     "next": "pocket"
+    }
+   ]
+  },
   "won": {
    "text": [
-    "{bandit}は散り散りに逃げた。盗品を荷車に積んで{here}へ戻ると、{clerk}が約束の銭を数えた。"
+    "盗品を荷車に積んで{here}へ戻ると、{clerk}が約束の銭を数えた。"
    ],
    "effects": [
     {
@@ -106,6 +263,38 @@
     }
    ],
    "end": "峠は静かになった"
+  },
+  "pocket": {
+   "text": [
+    "懐は重くなった。{clerk}は盗品の目録と荷を見比べて首をかしげたが、何も言わずに報酬を払った。"
+   ],
+   "effects": [
+    {
+     "money": 220
+    },
+    {
+     "fame": 1
+    },
+    {
+     "favor": -3
+    }
+   ],
+   "end": "盗品をくすねた"
+  },
+  "rescued_only": {
+   "text": [
+    "商人たちを{here}まで送り届けた。峠にはまだ{bandit}がいるが、二人の家族は泣いて喜んだ。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "人だけは救った"
   },
   "talked": {
    "text": [

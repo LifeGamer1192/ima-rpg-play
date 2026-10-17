@@ -91,6 +91,190 @@
       }
      ],
      "next": "spared"
+    },
+    {
+     "label": "いったん葦に身を隠し、砦の様子を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "scout",
+      "lose": "scout_seen"
+     }
+    }
+   ]
+  },
+  "scout_seen": {
+   "speaker": "leader",
+   "text": [
+    "葦を踏む音に、見張りが叫んだ。{leader}が砦から出てくる。「{office}の犬が嗅ぎ回っていたか」"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "それでも、首領ひとりが縛につけば民は許されると説く",
+     "guide": "覗き見の後では耳を貸しにくい。弁舌が高くないと通らない",
+     "check": {
+      "skill": "speech",
+      "dc": 55,
+      "win": "yielded",
+      "lose": "marsh_ng"
+     }
+    }
+   ]
+  },
+  "scout": {
+   "art": "camp",
+   "text": [
+    "葦の陰から一晩見張った。民兵の多くは鍬を槍に替えただけの百姓で、腹を空かせて震えている。{leader}は砦の奥の小屋で、ひとり眠っている。小屋の裏は、ぬかるんだ沼に面していた。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "沼を渡って小屋に忍び込み、首領だけを攫う",
+     "guide": "足場の悪い沼を渡る。見つかれば民兵が総出で来る",
+     "check": {
+      "skill": "stealth",
+      "dc": 50,
+      "win": "snatched",
+      "lose": "alarm"
+     }
+    },
+    {
+     "label": "砦の外に食い物を置き、民兵に降るよう呼びかける",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "deserted",
+      "lose": "marsh_ng"
+     }
+    }
+   ]
+  },
+  "alarm": {
+   "text": [
+    "ぬかるみに足を取られた水音で、砦じゅうに鉦が鳴った。竹槍を手にした民兵が、葦をかき分けて押し寄せてくる。"
+   ],
+   "choices": [
+    {
+     "label": "泥の中で戦う",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "snatched": {
+   "speaker": "leader",
+   "text": [
+    "口をふさいで沼の向こうへ担ぎ出した。縄をかけられた{leader}は、暴れもせずに言った。「わしを引き渡せば、民兵は許されるのか。それだけ聞かせてくれ」"
+   ],
+   "choices": [
+    {
+     "label": "{office}に引き渡す",
+     "next": "taken"
+    },
+    {
+     "label": "話を聞き、縄を解いて逃がす",
+     "effects": [
+      {
+       "rep": "realm",
+       "n": -3
+      },
+      {
+       "fame": 2
+      }
+     ],
+     "next": "spared"
+    }
+   ]
+  },
+  "taken": {
+   "text": [
+    "首領を失った砦は、翌朝には空になった。民兵たちは誰ひとり血を流さずに村へ散った。{clerk}は「見事な手際だ」と賞金を数えた。"
+   ],
+   "effects": [
+    {
+     "money": 230
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 9
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    }
+   ],
+   "end": "首領を攫った"
+  },
+  "deserted": {
+   "speaker": "leader",
+   "text": [
+    "夜のうちに、民兵たちは一人、また一人と食い物を抱えて葦の外へ消えた。朝、砦に残っていたのは{leader}ひとりだった。「……皆、それでよい」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "「ひとりになったなら、縄を受けよ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "yielded",
+      "lose": "last_stand"
+     }
+    },
+    {
+     "label": "一騎打ちで決着をつける",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "last_stand": {
+   "speaker": "leader",
+   "text": [
+    "「生き恥はさらさぬ」{leader}は錆びた剣を抜いた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
     }
    ]
   },

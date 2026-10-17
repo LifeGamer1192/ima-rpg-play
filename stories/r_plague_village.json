@@ -77,6 +77,16 @@
       "dc": 40,
       "win": "end_healed",
       "lose": "heal_ng"
+     },
+     "guide": "熱病は手強い。病のもとを知らねば医術が要る"
+    },
+    {
+     "label": "最初に倒れた家を訪ね、病のもとを探る",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "source_found",
+      "lose": "source_ng"
      }
     },
     {
@@ -98,6 +108,81 @@
     {
      "label": "{captain}に手を貸し、柵を守る",
      "next": "end_sealed"
+    }
+   ]
+  },
+  "source_found": {
+   "speaker": "chief",
+   "text": [
+    "最初に倒れたのは、社の裏の井戸を使う家ばかりだった。のぞき込むと、底に死んだ豚が沈んでいる。先月の大水で流れ込んだのだろう。",
+    "「井戸の水だと……」{chief}は膝をついた。「村の半分が、あの水を汲んでおりました」"
+   ],
+   "choices": [
+    {
+     "label": "{captain}に井戸を見せ、柵を解かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_well",
+      "lose": "captain_ng"
+     }
+    },
+    {
+     "label": "井戸を埋め、水を煮て飲ませ、病人を診る",
+     "check": {
+      "skill": "medicine",
+      "dc": 28,
+      "win": "end_healed",
+      "lose": "heal_ng"
+     }
+    }
+   ]
+  },
+  "captain_ng": {
+   "speaker": "captain",
+   "text": [
+    "「井戸だろうと鬼神の祟りだろうと、病は病だ。柵は解かぬ」{captain}は取り合わなかった。その夜、若者たちが柵の破れ目に集まりはじめた。"
+   ],
+   "choices": [
+    {
+     "label": "井戸を埋め、自ら病人を診る",
+     "check": {
+      "skill": "medicine",
+      "dc": 28,
+      "win": "end_healed",
+      "lose": "heal_ng"
+     }
+    },
+    {
+     "label": "逃げる若者たちを守る",
+     "next": "flee"
+    }
+   ]
+  },
+  "source_ng": {
+   "text": [
+    "家々を回り、病人の息を嗅ぎ、吐いたものを調べるうちに、自分の額も燃えるように熱くなってきた。うつったのだ。",
+    "{chief}が水を運んでくれたが、足元がおぼつかない。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "choices": [
+    {
+     "label": "熱をおして病人を診つづける",
+     "check": {
+      "skill": "medicine",
+      "dc": 45,
+      "win": "end_healed",
+      "lose": "heal_ng"
+     },
+     "guide": "熱で手元が狂う。医術がよほど高くなければ救えない"
+    },
+    {
+     "label": "{captain}に頼み、柵の外へ運び出してもらう",
+     "next": "end_sick"
     }
    ]
   },
@@ -131,6 +216,15 @@
      }
     },
     {
+     "label": "「咳のない者だけを山の小屋に移し、日を置いて見る」と申し出る",
+     "check": {
+      "skill": "medicine",
+      "dc": 35,
+      "win": "end_apart",
+      "lose": "flee_fight"
+     }
+    },
+    {
      "label": "兵の前に立ちはだかる",
      "fight": {
       "foes": "soldier",
@@ -138,7 +232,8 @@
       "level": 0,
       "win": "end_fled",
       "lose": "end_broken"
-     }
+     },
+     "guide": "県の兵に刃を向ければ、覚えが下がる"
     }
    ]
   },
@@ -185,6 +280,84 @@
     }
    ],
    "end": "疫を鎮めた者"
+  },
+  "end_well": {
+   "speaker": "captain",
+   "text": [
+    "井戸の底の骸を見せ、汲んだ家と倒れた家を一つずつ数えて示すと、{captain}は長く唸った。「病が井戸から来るなら、柵より先に塞ぐべきはこちらか」",
+    "井戸は埋められ、兵は水を煮る薪を運んだ。半月ののち、柵は取り払われた。{captain}は町の官府にこのことを書き送り、{chief}は涙を流して手を取った。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 15
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{village}の疫病のもとを突き止め、封じられた村を開かせた。"
+    }
+   ],
+   "end": "埋められた井戸"
+  },
+  "end_apart": {
+   "speaker": "captain",
+   "text": [
+    "咳のない若者たちを山の炭焼き小屋に移し、十日のあいだ見張った。倒れた者は一人だけだった。{captain}は渋い顔のまま、残りの者を町へ通した。",
+    "「こんなやり方は律にない。だが、射るよりはましだったな」{client}の兄も、その中にいた。"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "note": "{village}から逃れようとした若者たちを、山の小屋に隔てて救った。"
+    }
+   ],
+   "end": "山の小屋の十日"
+  },
+  "end_sick": {
+   "text": [
+    "戸板に乗せられて柵の外へ出され、町はずれの小屋で三日うなされた。熱が引いたとき、柵の中がどうなったのかは、外からはうかがい知れなかった。",
+    "{client}が一度だけ、粥を運んできてくれた。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "fame": 1
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "pass": 4320
+    }
+   ],
+   "end": "熱に倒れて"
   },
   "end_medicine": {
    "speaker": "chief",

@@ -75,6 +75,10 @@
       "win": "surrender",
       "lose": "village_ng"
      }
+    },
+    {
+     "label": "いったん退き、村人から兵の様子を聞く",
+     "next": "rumor"
     }
    ]
   },
@@ -95,6 +99,180 @@
      }
     }
    ]
+  },
+  "rumor": {
+   "speaker": "村の老人",
+   "art": "ruins",
+   "text": [
+    "納屋の陰で、老人が声をひそめた。「あの兵たちのうち三人は、傷が膿んで起き上がれん。什長は、その者たちを見捨てられずに居座っておるのだ」",
+    "「夜になると見張りは一人きりで、槍はみな祠の軒下に立てかけてある」"
+   ],
+   "choices": [
+    {
+     "label": "薬を持って祠を訪ね、傷兵の手当てを申し出る",
+     "check": {
+      "skill": "medicine",
+      "dc": 35,
+      "win": "healed",
+      "lose": "heal_ng"
+     }
+    },
+    {
+     "label": "夜更けに忍び寄り、槍を奪う",
+     "guide": "見つかれば兵がそろって槍を取る。隠密が低いと大勢を相手にする",
+     "check": {
+      "skill": "stealth",
+      "dc": 50,
+      "win": "disarmed",
+      "lose": "alarm"
+     }
+    },
+    {
+     "label": "やはり正面から祠へ向かう",
+     "next": "village"
+    }
+   ]
+  },
+  "heal_ng": {
+   "speaker": "sergeant",
+   "text": [
+    "手当ての手つきがおぼつかず、傷兵がうめいた。{sergeant}が槍を突きつける。「仲間をいじくり回して、何のつもりだ」"
+   ],
+   "choices": [
+    {
+     "label": "「罪を軽くするよう取り計らう」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "surrender",
+      "lose": "village_ng"
+     }
+    },
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "won",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "alarm": {
+   "text": [
+    "軒下の槍に手をかけたところで、見張りが叫んだ。寝ていた兵たちが跳ね起き、槍を取る。"
+   ],
+   "choices": [
+    {
+     "label": "囲みの中で戦う",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "disarmed": {
+   "speaker": "sergeant",
+   "text": [
+    "朝、槍を失った兵たちは、祠の前で立ち尽くしていた。{sergeant}はこちらを睨み、やがて肩を落とした。「好きにしろ」"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "縛って{office}へ引き渡す",
+     "next": "handed"
+    },
+    {
+     "label": "槍は返さず、国へ帰る道だけ教えて逃がす",
+     "next": "sent_home"
+    }
+   ]
+  },
+  "handed": {
+   "text": [
+    "兵たちは数珠つなぎにされて{here}へ送られた。{clerk}は「一人も死なせずに済んだか」と報酬をはずんだ。"
+   ],
+   "effects": [
+    {
+     "money": 160
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 5
+    }
+   ],
+   "end": "兵を引き渡した"
+  },
+  "sent_home": {
+   "speaker": "sergeant",
+   "text": [
+    "「この恩は、国で語り継ぐ」兵たちは傷兵を背負い、夜明けの道を去っていった。{clerk}には「逃げられた」と告げた。"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "fame": 4
+    }
+   ],
+   "end": "兵を国へ帰した"
+  },
+  "healed": {
+   "speaker": "sergeant",
+   "text": [
+    "膿を出し、傷を洗って布を巻くと、傷兵の熱が引いた。{sergeant}は槍を置き、深々と頭を下げた。「あんたの言うことなら聞こう」"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "{office}に話をつけ、屯田へ送る",
+     "next": "surrender"
+    },
+    {
+     "label": "{patron}の軍に兵として推す",
+     "if": {
+      "patron": true
+     },
+     "next": "enlisted"
+    }
+   ]
+  },
+  "enlisted": {
+   "text": [
+    "戦慣れした兵が十人、{patron}の陣に加わった。{sergeant}は「今度は逃げぬ」と誓った。上役はあなたの手回しを褒めた。"
+   ],
+   "effects": [
+    {
+     "money": 80
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 8
+    }
+   ],
+   "end": "兵を軍へ戻した"
   },
   "surrender": {
    "text": [

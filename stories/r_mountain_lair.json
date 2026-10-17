@@ -77,8 +77,317 @@
      "next": "lair"
     },
     {
+     "label": "山に詳しい者を探し、様子を聞く",
+     "next": "woodcutter"
+    },
+    {
      "label": "断る",
      "next": "end_refuse"
+    }
+   ]
+  },
+  "woodcutter": {
+   "speaker": "木こり",
+   "art": "road",
+   "text": [
+    "村はずれの炭焼き小屋で、年寄りの木こりが斧を研いでいた。「あの山寨なら、裏の沢を伝えば柵の切れ目に出る。見張りは表の門にしか立っておらん」",
+    "「それと、{chief}は人買いと通じとる。娘は次の市の日に売られるだろう。銭で片をつけたいなら、話の通じん男ではないがな」"
+   ],
+   "choices": [
+    {
+     "label": "裏の沢から忍び込み、娘だけを連れ出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "sneak_out",
+      "lose": "sneak_caught"
+     },
+     "guide": "見つかれば山寨の{bandit}三人に囲まれる。忍びの腕が要る"
+    },
+    {
+     "label": "{chief}に使いを送り、身代金で話をつける",
+     "next": "ransom"
+    },
+    {
+     "label": "正面から山寨へ向かう",
+     "effects": [
+      {
+       "site": {
+        "kind": "lair_mountain",
+        "place": "here",
+        "name": "{chief}の山寨",
+        "foes": [
+         {
+          "type": "bandit",
+          "n": 2,
+          "level": 0,
+          "name": "見張り"
+         },
+         {
+          "type": "bandit",
+          "n": 3,
+          "level": 0
+         },
+         {
+          "type": "bandit",
+          "n": 1,
+          "level": 0,
+          "name": "{chief}"
+         }
+        ],
+        "people": [
+         {
+          "role": "woodcutter"
+         }
+        ]
+       }
+      }
+     ],
+     "next": "lair"
+    }
+   ]
+  },
+  "sneak_out": {
+   "speaker": "girl",
+   "art": "hideout",
+   "text": [
+    "沢の冷たい水に膝まで浸かって登り、柵の切れ目から山寨に入った。物置小屋の柱に、{girl}が縛られていた。縄を切ると、{girl}は声を殺して泣いた。",
+    "沢を下りきったところで、{girl}が振り返った。「あそこには、まだほかの村の娘たちも……」"
+   ],
+   "choices": [
+    {
+     "label": "このまま{girl}を連れて村へ帰る",
+     "next": "end_quiet"
+    },
+    {
+     "label": "{girl}を木こりに預け、山寨を討ちに引き返す",
+     "effects": [
+      {
+       "site": {
+        "kind": "lair_mountain",
+        "place": "here",
+        "name": "{chief}の山寨",
+        "foes": [
+         {
+          "type": "bandit",
+          "n": 2,
+          "level": 0,
+          "name": "見張り"
+         },
+         {
+          "type": "bandit",
+          "n": 3,
+          "level": 0
+         },
+         {
+          "type": "bandit",
+          "n": 1,
+          "level": 0,
+          "name": "{chief}"
+         }
+        ],
+        "people": [
+         {
+          "role": "woodcutter"
+         }
+        ]
+       }
+      }
+     ],
+     "next": "lair_raid",
+     "guide": "山寨の{bandit}を残らず相手にする。傷を負っていれば危うい"
+    }
+   ]
+  },
+  "sneak_caught": {
+   "art": "war",
+   "text": [
+    "柵の切れ目をくぐったところで、犬が吠えた。松明を手にした{bandit}が三人、沢の上から駆け下りてくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜けて物置小屋へ走る",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "sneak_out",
+      "lose": "end_captive"
+     }
+    }
+   ]
+  },
+  "ransom": {
+   "speaker": "chief",
+   "art": "hideout",
+   "text": [
+    "木こりに使いを頼むと、翌日、{chief}自らが沢の下まで降りてきた。「人買いに売れば三百にはなる娘だ。同じだけ出すなら返してやろう」"
+   ],
+   "choices": [
+    {
+     "label": "言い値を払う（300銭）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "end_ransom"
+    },
+    {
+     "label": "「骨と皮の娘に三百もつくものか」と値切る",
+     "check": {
+      "skill": "trade",
+      "dc": 35,
+      "win": "ransom_cheap",
+      "lose": "ransom_ng"
+     },
+     "guide": "しくじれば{chief}は話を打ち切り、山寨を攻めるほかなくなる"
+    },
+    {
+     "label": "話にならぬ。山寨を攻める",
+     "effects": [
+      {
+       "site": {
+        "kind": "lair_mountain",
+        "place": "here",
+        "name": "{chief}の山寨",
+        "foes": [
+         {
+          "type": "bandit",
+          "n": 2,
+          "level": 0,
+          "name": "見張り"
+         },
+         {
+          "type": "bandit",
+          "n": 3,
+          "level": 0
+         },
+         {
+          "type": "bandit",
+          "n": 1,
+          "level": 0,
+          "name": "{chief}"
+         }
+        ],
+        "people": [
+         {
+          "role": "woodcutter"
+         }
+        ]
+       }
+      }
+     ],
+     "next": "lair"
+    }
+   ]
+  },
+  "ransom_cheap": {
+   "speaker": "chief",
+   "text": [
+    "{chief}は鼻を鳴らしたが、人買いの値切りよりはましだと思ったらしい。「百五十だ。それ以上はまけん」"
+   ],
+   "choices": [
+    {
+     "label": "百五十を払う",
+     "if": {
+      "money": 150
+     },
+     "effects": [
+      {
+       "money": -150
+      },
+      {
+       "xp": "trade",
+       "n": 2
+      }
+     ],
+     "next": "end_ransom"
+    },
+    {
+     "label": "銭が足りぬ。山寨を攻める",
+     "effects": [
+      {
+       "site": {
+        "kind": "lair_mountain",
+        "place": "here",
+        "name": "{chief}の山寨",
+        "foes": [
+         {
+          "type": "bandit",
+          "n": 2,
+          "level": 0,
+          "name": "見張り"
+         },
+         {
+          "type": "bandit",
+          "n": 3,
+          "level": 0
+         },
+         {
+          "type": "bandit",
+          "n": 1,
+          "level": 0,
+          "name": "{chief}"
+         }
+        ],
+        "people": [
+         {
+          "role": "woodcutter"
+         }
+        ]
+       }
+      }
+     ],
+     "next": "lair"
+    }
+   ]
+  },
+  "ransom_ng": {
+   "speaker": "chief",
+   "text": [
+    "「冷やかしか」{chief}は唾を吐き、山へ戻っていった。こうなっては、力で取り返すしかない。"
+   ],
+   "choices": [
+    {
+     "label": "山寨へ向かう",
+     "effects": [
+      {
+       "site": {
+        "kind": "lair_mountain",
+        "place": "here",
+        "name": "{chief}の山寨",
+        "foes": [
+         {
+          "type": "bandit",
+          "n": 2,
+          "level": 0,
+          "name": "見張り"
+         },
+         {
+          "type": "bandit",
+          "n": 3,
+          "level": 0
+         },
+         {
+          "type": "bandit",
+          "n": 1,
+          "level": 0,
+          "name": "{chief}"
+         }
+        ],
+        "people": [
+         {
+          "role": "woodcutter"
+         }
+        ]
+       }
+      }
+     ],
+     "next": "lair"
     }
    ]
   },
@@ -97,6 +406,24 @@
     {
      "label": "縄を解いて村へ連れ帰る",
      "next": "end_home"
+    }
+   ]
+  },
+  "lair_raid": {
+   "at": {
+    "place": "here",
+    "site": "cleared"
+   },
+   "goal": "{chief}の山寨へ引き返し、{bandit}を退ける",
+   "art": "hideout",
+   "text": [
+    "{chief}が倒れると、残りの{bandit}は散り散りに逃げた。物置小屋には、ほかの村からさらわれた娘が二人、身を寄せ合っていた。",
+    "小屋の奥には、奪われた穀物と銭が積まれている。"
+   ],
+   "choices": [
+    {
+     "label": "娘たちと蓄えを連れ、村へ戻る",
+     "next": "end_rooted"
     }
    ]
   },
@@ -124,6 +451,94 @@
     }
    ],
    "end": "救われた娘"
+  },
+  "end_rooted": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "text": [
+    "{client}は{girl}を抱きしめ、ほかの娘たちの村にも使いを走らせた。取り返した穀物は村々に分けられ、山寨の跡には火が放たれた。",
+    "「山の{bandit}がいなくなった。これで、娘たちも安心して薪を拾いに行ける」"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "{chief}の山寨を討ち、{girl}とさらわれた娘たちを救い出した。"
+    }
+   ],
+   "end": "焼けた山寨"
+  },
+  "end_quiet": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "text": [
+    "{client}は{girl}を抱きしめ、何度も礼を言った。夜のうちに連れ出したので、山寨はまだ娘がいなくなったことに気づいていないだろう。",
+    "ただ、尾根の上の柵は今もそこにある。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "{chief}の山寨から{girl}をひそかに連れ出した。"
+    }
+   ],
+   "end": "沢を下りた夜"
+  },
+  "end_ransom": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "text": [
+    "身代金と引き換えに、{girl}は沢の下で返された。{client}は泣いて喜んだが、{chief}の懐は肥え、また誰かがさらわれるかもしれない。"
+   ],
+   "effects": [
+    {
+     "money": 50
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "身代金を払い、{chief}から{girl}を取り戻した。"
+    }
+   ],
+   "end": "銭で戻った娘"
+  },
+  "end_captive": {
+   "text": [
+    "多勢に押されて沢へ転げ落ち、気がつくと村はずれの炭焼き小屋で寝かされていた。木こりが首を振った。「娘は、もう人買いに渡されたそうだ」"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "end": "沢の底"
   },
   "end_refuse": {
    "speaker": "client",

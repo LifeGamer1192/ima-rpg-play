@@ -17,6 +17,14 @@
   "husband": {
    "npc": "亡き夫",
    "sex": "m"
+  },
+  "comrade": {
+   "npc": "足軽",
+   "sex": "m"
+  },
+  "kashira": {
+   "npc": "屍あさりの頭",
+   "sex": "m"
   }
  },
  "start": "s1",
@@ -29,7 +37,8 @@
    "art": "tale",
    "text": [
     "{client}の夫{husband}は、先の戦で討ち死にした。首は届いたが、刀は戻らなかった。",
-    "「戦のあった野には、今も屍あさりがうろついているそうです。夫の刀には、家の紋を刻んだ鍔がついております」"
+    "「戦のあった野には、今も屍あさりがうろついているそうです。夫の刀には、家の紋を刻んだ鍔がついております」",
+    "「夫と同じ組にいた{comrade}さまが、まだ{inn}に逗留しておられます」"
    ],
    "choices": [
     {
@@ -58,8 +67,61 @@
      "next": "field"
     },
     {
+     "label": "先に{comrade}を訪ね、最期の様子を聞く",
+     "next": "comrade"
+    },
+    {
      "label": "断る",
      "next": "end_refuse"
+    }
+   ]
+  },
+  "comrade": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で{comrade}を訪ねる",
+   "speaker": "comrade",
+   "art": "inn",
+   "text": [
+    "{comrade}は盃を置いて目を伏せた。「{husband}どのは、川べりの一本松の下で槍を受けた。おれは担いで退くこともできなんだ」",
+    "「あそこには首のない亡骸が幾つも転がっておった。今ごろは屍あさりの頭、{kashira}という男が荷を漁っておろう。あれは手下を連れて歩く」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_ks_known"
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "choices": [
+    {
+     "label": "礼を言って古戦場へ向かう",
+     "effects": [
+      {
+       "site": {
+        "kind": "battlefield",
+        "place": "here",
+        "foes": [
+         {
+          "type": "robber",
+          "n": 3,
+          "level": 0,
+          "name": "屍あさり"
+         }
+        ],
+        "people": [
+         {
+          "role": "priest"
+         }
+        ]
+       }
+      }
+     ],
+     "next": "field"
     }
    ]
   },
@@ -76,9 +138,120 @@
    "choices": [
     {
      "label": "刀を持ち帰る",
-     "next": "end_back"
+     "next": "road"
+    },
+    {
+     "label": "一本松の根元を探し、{husband}の亡骸を弔う",
+     "if": {
+      "flag": "sg_ks_known"
+     },
+     "effects": [
+      {
+       "pass": 180
+      }
+     ],
+     "next": "bones"
     }
    ]
+  },
+  "bones": {
+   "art": "ruins",
+   "text": [
+    "川べりの一本松の根元に、朽ちた具足をまとった骸が伏していた。胴には{client}の家と同じ紋。",
+    "居合わせた旅の僧が経を上げてくれた。骨を拾って布に包むうち、日が傾いてきた。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_ks_bones"
+    },
+    {
+     "xp": "medicine",
+     "n": 1
+    }
+   ],
+   "choices": [
+    {
+     "label": "骨と刀を抱えて野を出る",
+     "next": "road"
+    }
+   ]
+  },
+  "road": {
+   "speaker": "kashira",
+   "art": "road",
+   "text": [
+    "野の出口で、髭面の男が道をふさいだ。後ろに手下が三人。屍あさりの頭、{kashira}だ。",
+    "「その刀はおれたちの縄張りの荷だ。置いていけば、命までは取らん」"
+   ],
+   "choices": [
+    {
+     "label": "刀を抜いて押し通る",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "home",
+      "lose": "end_robbed"
+     }
+    },
+    {
+     "label": "「後家の形見だ。見逃せ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "home",
+      "lose": "scuffle"
+     }
+    },
+    {
+     "label": "刀を渡して通してもらう",
+     "next": "end_robbed",
+     "guide": "刀を渡せば形見は戻らず、後家への約束も果たせない"
+    }
+   ]
+  },
+  "scuffle": {
+   "speaker": "kashira",
+   "art": "road",
+   "text": [
+    "{kashira}は鼻で笑った。「形見で腹はふくれん」手下が左右に回りこみ、囲みが狭まる。"
+   ],
+   "choices": [
+    {
+     "label": "囲まれたまま斬り結ぶ",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "home",
+      "lose": "end_robbed"
+     },
+     "guide": "囲まれて敵が増えた。剣術が足りなければ刀を奪われる"
+    },
+    {
+     "label": "刀を渡して引き下がる",
+     "next": "end_robbed"
+    }
+   ]
+  },
+  "home": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "{here}の{client}のもとへ形見を届ける",
+   "goto": [
+    {
+     "if": {
+      "flag": "sg_ks_bones"
+     },
+     "next": "end_buried"
+    }
+   ],
+   "speaker": "client",
+   "text": [
+    "{client}は戸口で待っていた。差し出した刀の鍔を、指でなぞっている。"
+   ],
+   "next": "end_back"
   },
   "end_back": {
    "at": {
@@ -90,6 +263,12 @@
    ],
    "effects": [
     {
+     "unflag": "sg_ks_known"
+    },
+    {
+     "unflag": "sg_ks_bones"
+    },
+    {
      "money": 120
     },
     {
@@ -100,6 +279,52 @@
     }
    ],
    "end": "戻った形見"
+  },
+  "end_buried": {
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "布に包んだ骨を見るなり、{client}は膝をついて泣き崩れた。「首だけでは、あの人が帰った気がしなかったのです」",
+    "刀と骨は菩提寺に納められた。弔いの席で、{comrade}も深く頭を下げていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_ks_known"
+    },
+    {
+     "unflag": "sg_ks_bones"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 6
+    },
+    {
+     "note": "古戦場から{husband}の刀と遺骨を持ち帰り、弔いを見届けた。"
+    }
+   ],
+   "end": "帰ってきた人"
+  },
+  "end_robbed": {
+   "speaker": "kashira",
+   "art": "road",
+   "text": [
+    "{kashira}は刀を肩に担ぎ、手下とともに野へ消えていった。",
+    "{client}に事の次第を告げると、「命あっての物種です」と力なく笑った。その笑みが、かえって胸に刺さった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_ks_known"
+    },
+    {
+     "unflag": "sg_ks_bones"
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "奪われた形見"
   },
   "end_refuse": {
    "speaker": "client",

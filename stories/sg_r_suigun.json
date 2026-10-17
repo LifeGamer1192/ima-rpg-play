@@ -83,7 +83,68 @@
      }
     },
     {
+     "label": "小屋の裏の柵を外し、気づかれぬよう{son}を連れ出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "getaway",
+      "lose": "caught"
+     }
+    },
+    {
      "label": "舟だけ持ち帰り、{son}は談判で取り戻す",
+     "next": "island"
+    }
+   ]
+  },
+  "getaway": {
+   "speaker": "son",
+   "art": "voyage",
+   "text": [
+    "{son}を舟底に伏せさせ、櫓を押した。入江を出たところで、背後に松明がともった。海賊衆の小早が三艘、波を切って追ってくる。",
+    "「この先の岩場は、潮が引くと浅瀬になります」{son}が震える声で言った。"
+   ],
+   "choices": [
+    {
+     "label": "岩場の浅瀬へ逃げこむ",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_rescued",
+      "lose": "boarded"
+     }
+    },
+    {
+     "label": "先頭の小早の漕ぎ手を射る",
+     "check": {
+      "skill": "bow",
+      "dc": 45,
+      "win": "end_rescued",
+      "lose": "boarded"
+     }
+    }
+   ]
+  },
+  "boarded": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "小早が舷を寄せ、銛を手にした男たちが乗り移ってきた。舟が大きく傾く。"
+   ],
+   "choices": [
+    {
+     "label": "揺れる舟の上で斬り結ぶ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "end_retaken"
+     },
+     "guide": "足場の悪い舟の上で多勢と戦う。負ければ倅は連れ戻される"
+    },
+    {
+     "label": "刀を捨てて降り、島で談判する",
      "next": "island"
     }
    ]
@@ -158,6 +219,15 @@
     {
      "label": "海賊衆の客分となって、しばらく船に乗る",
      "next": "end_guest"
+    },
+    {
+     "label": "「旗より、不漁の年は帆別銭を半分に」と願い出る",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_halved",
+      "lose": "end_flag"
+     }
     }
    ]
   },
@@ -272,6 +342,51 @@
     }
    ],
    "end": "夜の入江"
+  },
+  "end_halved": {
+   "speaker": "captain",
+   "text": [
+    "{captain}は大杯を置き、しばらくこちらを睨んでいたが、やがて腹を抱えて笑った。「旗をいらぬと抜かした陸者は、お主が初めてだ。……よかろう、不漁の年は半分。浦々にもそう触れを回す」",
+    "浦の漁師たちは、その話を聞いて浜で酒盛りをした。{client}は倅と並んで、何度も頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_suigun_paid"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "海賊衆に、不漁の年の帆別銭を半分にさせた。"
+    }
+   ],
+   "end": "半分の帆別銭"
+  },
+  "end_retaken": {
+   "speaker": "captain",
+   "text": [
+    "海に叩き落とされ、気がつくと浜の流木にしがみついていた。{son}は小早に引き上げられ、島へ連れ戻されたという。",
+    "{client}は、舟だけでも戻ったことを礼に言ったが、その目は沖の島から離れなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_suigun_paid"
+    },
+    {
+     "money": 30
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "連れ戻された倅"
   },
   "end_thrown": {
    "speaker": "captain",

@@ -51,7 +51,82 @@
    "text": [
     "{lair}の村では、痩せた子どもたちが粟の粥をすすっていた。「夜のうちに、誰かが米を戸口に置いていくんです」と老婆が言う。豪族の蔵から消えた米と、同じ袋だった。"
    ],
+   "choices": [
+    {
+     "label": "山へ向かい、{bandit}の頭に会う",
+     "next": "meet"
+    },
+    {
+     "label": "先に、夜の豪族の屋敷を探る",
+     "guide": "屋敷は私兵が固い。見つかれば斬り合いになる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "gentry",
+      "lose": "gentry_caught"
+     }
+    }
+   ]
+  },
+  "gentry": {
+   "art": "backroom",
+   "text": [
+    "屋敷の奥に、帳面にない蔵がもう一つあった。米俵が天井まで積まれ、{office}の役人あての礼物の目録まで添えてある。飢饉のあいだ、豪族は米を隠して値を吊り上げていたのだ。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "flag": "hidden_rice"
+    },
+    {
+     "note": "豪族の隠し蔵と、役人への礼物の目録を見つけた。"
+    }
+   ],
    "next": "meet"
+  },
+  "gentry_caught": {
+   "speaker": "豪族の私兵",
+   "text": [
+    "塀を越えたところで、松明に照らされた。「蔵破りの仲間か！」私兵たちが棒と刃物を手に囲んでくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜けて山へ逃れる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "meet",
+      "lose": "gentry_beaten"
+     }
+    },
+    {
+     "label": "「{office}の頼みで来た」と言い張る",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "meet",
+      "lose": "gentry_beaten"
+     }
+    }
+   ]
+  },
+  "gentry_beaten": {
+   "text": [
+    "棒で散々に打ち据えられ、屋敷の外へ放り出された。翌日、{clerk}のもとには豪族から「雇った者が屋敷を荒らした」と苦情が届いていた。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "favor": -3
+    }
+   ],
+   "end": "豪族の屋敷で捕まった"
   },
   "meet": {
    "speaker": "chief",
@@ -67,9 +142,28 @@
       "n": 3,
       "level": 0,
       "talk": true,
-      "win": "beaten",
+      "win": "bound",
       "lose": "lost"
      }
+    },
+    {
+     "label": "豪族の隠し蔵の証を突きつけると約束し、一味を解かせる",
+     "if": {
+      "flag": "hidden_rice"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "settled",
+      "lose": "meet_ng"
+     }
+    },
+    {
+     "label": "一味と組み、豪族の隠し蔵を{office}に訴え出る",
+     "if": {
+      "flag": "hidden_rice"
+     },
+     "next": "expose"
     },
     {
      "label": "見逃し、{office}には「逃げられた」と言う",
@@ -119,7 +213,7 @@
       "n": 3,
       "level": 0,
       "talk": true,
-      "win": "beaten",
+      "win": "bound",
       "lose": "lost"
      }
     },
@@ -133,6 +227,104 @@
      "next": "spared"
     }
    ]
+  },
+  "expose": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}に、豪族の隠し蔵を訴え出る",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "礼物の目録を見せると、{clerk}は顔をしかめた。「わしの名もここにある……」しばらく黙ったあと、彼は言った。「この目録をわしに預けるなら、隠し蔵は{office}が封じよう。{bandit}の件は、それで終わりだ」"
+   ],
+   "choices": [
+    {
+     "label": "目録を預け、手を打つ",
+     "next": "exposed"
+    },
+    {
+     "label": "目録を返さず、上役へ直に訴える",
+     "guide": "{clerk}を敵に回す。{office}の覚えは下がり、報酬も減る",
+     "next": "exposed_hard"
+    }
+   ]
+  },
+  "exposed": {
+   "text": [
+    "隠し蔵は封じられ、米は村々に安く払い下げられた。{chief}の一味は山を下り、{clerk}は何事もなかったように報酬を払った。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 3
+    }
+   ],
+   "end": "隠し蔵を開かせた"
+  },
+  "exposed_hard": {
+   "text": [
+    "上役は目録を受け取り、豪族と{clerk}を呼び出した。米は村へ戻ったが、{office}の廊下ではあなたに目を合わせる者がいなくなった。"
+   ],
+   "effects": [
+    {
+     "money": 80
+    },
+    {
+     "fame": 9
+    },
+    {
+     "favor": -4
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "end": "豪族も役人も裁かれた"
+  },
+  "bound": {
+   "speaker": "chief",
+   "text": [
+    "{chief}は縄を打たれたまま言った。「わしの首はくれてやる。だが、村の戸口の米だけは取り上げないでくれ」"
+   ],
+   "choices": [
+    {
+     "label": "そのまま{office}へ引き渡す",
+     "next": "beaten"
+    },
+    {
+     "label": "山を下りる途中で縄をゆるめ、逃がす",
+     "guide": "報酬は半分になり、{office}の覚えも下がる",
+     "next": "loosed"
+    }
+   ]
+  },
+  "loosed": {
+   "text": [
+    "谷川を渡るとき、縄がほどけた。振り返ったときには、{chief}の姿は木立に消えていた。{clerk}は舌打ちして、報酬の半分だけを払った。"
+   ],
+   "effects": [
+    {
+     "money": 70
+    },
+    {
+     "favor": -2
+    },
+    {
+     "fame": 2
+    },
+    {
+     "guildPath": "righteous"
+    }
+   ],
+   "end": "縄がほどけた"
   },
   "beaten": {
    "text": [

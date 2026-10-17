@@ -106,12 +106,148 @@
      "n": 4
     }
    ],
-   "next": "proof"
+   "choices": [
+    {
+     "label": "夜を待って倉に忍び込み、帳面を持ち出す",
+     "check": {
+      "skill": "theft",
+      "dc": 40,
+      "win": "proof",
+      "lose": "store_caught"
+     }
+    },
+    {
+     "label": "倉に踏み込み、{official}をその場で押さえる",
+     "guide": "倉には手下が四人いる。剣の腕に自信がないと危うい",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "seized",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "store_caught": {
+   "text": [
+    "棚に手を伸ばしたとき、倉番の灯りがこちらを照らした。「誰だ！」奥から剣を抜く音がする。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜けて帳面を奪う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "proof",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "何も持たずに逃げる",
+     "guide": "逃げれば証は手に入らず、依頼もしくじる",
+     "next": "empty_handed"
+    }
+   ]
+  },
+  "empty_handed": {
+   "text": [
+    "夜の町を走って逃げた。翌朝、倉の帳面はすべて焼かれたと聞いた。{clerk}は「証がなければ、どうにもならぬ」とため息をついた。"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    }
+   ],
+   "end": "証を掴めなかった"
+  },
+  "seized": {
+   "speaker": "official",
+   "art": "backroom",
+   "text": [
+    "手下が倒れると、{official}は帳面を抱えて床にへたりこんだ。「わ、わしひとりの考えではない。上の方の言いつけで……」"
+   ],
+   "choices": [
+    {
+     "label": "縛って{clerk}の前へ引き出す",
+     "next": "seized_end"
+    },
+    {
+     "label": "上の者の名を吐かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "named",
+      "lose": "mute"
+     }
+    }
+   ]
+  },
+  "mute": {
+   "speaker": "official",
+   "text": [
+    "{official}は青ざめて口を閉ざした。「言えば、わしの家族が消される」それ以上は何も言わなかった。"
+   ],
+   "next": "seized_end"
+  },
+  "seized_end": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{official}を{here}の{office}へ引き出す",
+   "speaker": "clerk",
+   "text": [
+    "縛られた{official}と帳面を前に、{clerk}は言葉を失った。やがて「これは言い逃れできぬ」と、上役へ使いを走らせた。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 2
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    }
+   ],
+   "end": "倉の役人を捕らえた"
+  },
+  "named": {
+   "speaker": "official",
+   "text": [
+    "{official}は震える声で、{realm}の都にいるある高官の名を挙げた。年貢の荷の一部は、そこへ流れていたのだ。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "倉の役人の後ろに、都の高官がいると知った。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "帳面と{official}を{clerk}に任せる",
+     "next": "report"
+    },
+    {
+     "label": "帳面を携え、都の{realm}の宮廷へ訴え出る",
+     "guide": "都への道で口封じに狙われる。腕か隠密に自信がないと危うい",
+     "next": "road"
+    }
+   ]
   },
   "proof": {
    "art": "backroom",
    "text": [
-    "倒れた男の懐から、年貢の割符と{official}の印のある帳面が出てきた。{bandit}は、倉の役人の手下だったのだ。",
+    "手に入れたのは、年貢の割符と{official}の印のある帳面だった。{bandit}は、倉の役人の手下だったのだ。",
     "{official}の使いが来て、銀の包みを差し出した。「見なかったことにしてくれれば、これを」"
    ],
    "choices": [
@@ -137,7 +273,8 @@
     },
     {
      "label": "都の{realm}の宮廷へ直に訴える",
-     "next": "appeal"
+     "guide": "都への道で口封じに狙われる。腕か隠密に自信がないと危うい",
+     "next": "road"
     }
    ]
   },
@@ -173,6 +310,68 @@
     "銀は重かった。年貢の荷はこれからも消え続けるだろう。"
    ],
    "end": "口止め料"
+  },
+  "road": {
+   "at": {
+    "place": "court"
+   },
+   "goal": "帳面を守って{court}へ向かう",
+   "art": "road",
+   "text": [
+    "{court}の城門が見えたところで、街道の両脇から覆面の男たちが現れた。「帳面を置いていけ。命までは取らん」"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "appeal",
+      "lose": "ambushed"
+     }
+    },
+    {
+     "label": "帳面を懐深く隠し、人ごみに紛れて門をくぐる",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "appeal",
+      "lose": "road_ng"
+     }
+    }
+   ]
+  },
+  "road_ng": {
+   "text": [
+    "人ごみを抜けかけたところで、袖をつかまれた。路地へ引きずり込まれる。"
+   ],
+   "choices": [
+    {
+     "label": "振りほどいて戦う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "appeal",
+      "lose": "ambushed"
+     }
+    }
+   ]
+  },
+  "ambushed": {
+   "text": [
+    "気がつくと、懐の帳面は消えていた。{official}の悪事を示すものは、もう何もない。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "帳面を奪われた"
   },
   "appeal": {
    "at": {

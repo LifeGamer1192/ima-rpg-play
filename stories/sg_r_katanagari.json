@@ -116,6 +116,28 @@
      }
     },
     {
+     "label": "良い刀は床下に隠させ、錆び槍と古鍬だけを積ませる",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "ambush",
+      "lose": "raid"
+     }
+    },
+    {
+     "label": "わざと武具を積ませ、荷車の後をつける",
+     "if": {
+      "flag": "sg_kg_forged"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "hideout",
+      "lose": "raid"
+     },
+     "guide": "村の武具を手放す。つけ損なえば丸裸で襲われる"
+    },
+    {
      "label": "大人しく差し出させる",
      "next": "raid"
     }
@@ -137,6 +159,77 @@
       "win": "end_caught_gang",
       "lose": "raid"
      }
+    }
+   ]
+  },
+  "ambush": {
+   "speaker": "client",
+   "art": "war",
+   "text": [
+    "{fake}たちは錆びた槍の束を見て舌打ちしたが、数がそろっているのを見て車を出した。",
+    "その夜、思ったとおり{bandit}が山から下りてきた。丸腰の村と思いこんで、松明も隠さずに。床下から出した刀を、村の男たちが握っている。"
+   ],
+   "choices": [
+    {
+     "label": "辻で待ち伏せ、不意を突く",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_repelled_late",
+      "lose": "end_ruined"
+     }
+    }
+   ]
+  },
+  "hideout": {
+   "art": "hideout",
+   "text": [
+    "荷車は山の炭焼き小屋に入っていった。中では{fake}たちが羽織を脱ぎ捨て、奪った槍を手に笑っている。数はおよそ十人。今夜、村を襲う相談をしている。"
+   ],
+   "choices": [
+    {
+     "label": "酒盛りの隙に、ひとりで斬りこむ",
+     "fight": {
+      "foes": "bandit",
+      "n": 5,
+      "level": 0,
+      "win": "end_lair",
+      "lose": "raid"
+     },
+     "guide": "多勢の巣に独りで挑む。剣術が足りなければ村も危うい"
+    },
+    {
+     "label": "山を駆け下り、奉行所に知らせる",
+     "next": "warn"
+    }
+   ]
+  },
+  "warn": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の奉行所へ{bandit}の巣を知らせに走る",
+   "speaker": "daikan",
+   "art": "court",
+   "text": [
+    "{daikan}は話を聞くと膝を打った。「巣が分かっておるなら話は早い。足軽はわずかだが、道案内を頼めるか」"
+   ],
+   "choices": [
+    {
+     "label": "足軽を率いて炭焼き小屋を囲む",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_caught_gang",
+      "lose": "raid"
+     }
+    },
+    {
+     "label": "「村の守りが先だ」と足軽を村へ回させる",
+     "next": "end_repelled_late"
     }
    ]
   },
@@ -201,6 +294,33 @@
     }
    ],
    "end": "偽の刀狩り"
+  },
+  "end_lair": {
+   "speaker": "client",
+   "art": "hideout",
+   "text": [
+    "炭焼き小屋の土間に、{fake}たちが転がっていた。積み上げた槍や刀のほかに、よその村から奪ったらしい銭袋まで出てきた。",
+    "武具を荷車に積んで村へ戻ると、{client}たちは松明を掲げて迎えた。銭袋の一つは、礼として渡された。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kg_forged"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "note": "刀狩りを騙る{bandit}の巣を、ひとりで打ち破った。"
+    }
+   ],
+   "end": "炭焼き小屋の夜討ち"
   },
   "end_repelled": {
    "speaker": "client",

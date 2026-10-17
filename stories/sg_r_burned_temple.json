@@ -104,6 +104,20 @@
       "win": "road_on",
       "lose": "chase"
      }
+    },
+    {
+     "label": "番所の足軽に銭を握らせる",
+     "check": {
+      "skill": "trade",
+      "dc": 35,
+      "win": "road_on",
+      "lose": "chase"
+     },
+     "effects": [
+      {
+       "money": -30
+      }
+     ]
     }
    ]
   },
@@ -126,8 +140,65 @@
      }
     },
     {
+     "label": "自分が囮になって兵を引きつけ、皆を先に逃がす",
+     "next": "decoy",
+     "guide": "一人で兵を引きつける。忍びか剣術が足りなければ捕らわれる"
+    },
+    {
      "label": "経箱を差し出し、命だけは見逃させる",
      "next": "end_given"
+    }
+   ]
+  },
+  "decoy": {
+   "art": "road",
+   "text": [
+    "経箱を包んだ風呂敷に見せかけた荷を抱え、わざと藪を鳴らして走った。「いたぞ、箱を持っている」足軽たちが一斉にこちらへ向かってくる。",
+    "振り返ると、{client}たちが反対の谷へ消えていくのが見えた。"
+   ],
+   "choices": [
+    {
+     "label": "沢へ飛びこみ、流れに紛れて撒く",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "road_on",
+      "lose": "cornered"
+     }
+    },
+    {
+     "label": "振り返って先頭の二人を斬り伏せる",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "road_on",
+      "lose": "end_taken"
+     }
+    }
+   ]
+  },
+  "cornered": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "足を滑らせた先は崖だった。{captain}が槍を構えた足軽を左右に並べる。「荷を解け。……なんだ、ただの石ではないか。小賢しい」"
+   ],
+   "choices": [
+    {
+     "label": "崖を背に斬り結ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "road_on",
+      "lose": "end_taken"
+     },
+     "guide": "崖を背に多勢を相手取る。剣術が足りなければ深手を負う"
+    },
+    {
+     "label": "刀を捨て、縄を受ける",
+     "next": "end_decoy_caught"
     }
    ]
   },
@@ -149,7 +220,7 @@
       "skill": "speech",
       "dc": 30,
       "win": "end_sheltered",
-      "lose": "end_scattered"
+      "lose": "doubt"
      }
     },
     {
@@ -162,6 +233,33 @@
     {
      "label": "秘仏を堺の商人に売り、皆の身の立つ銭にする",
      "next": "end_sold"
+    }
+   ]
+  },
+  "doubt": {
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "{priest}は数珠を握りしめたまま、首を縦に振らなかった。「理はわかる。だが、檀家の命を賭ける理まではない」",
+    "本堂の隅で、檀家総代の商人が腕を組んでこちらを見ていた。"
+   ],
+   "choices": [
+    {
+     "label": "檀家総代に「寺を立て直す寄進を募れば、この町の誉れになる」と持ちかける",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_sheltered",
+      "lose": "end_scattered"
+     }
+    },
+    {
+     "label": "「山に堂が建つまで、秘仏は自分が預かる」と申し出る",
+     "next": "end_entrusted"
+    },
+    {
+     "label": "あきらめて、遠くの寺を勧める",
+     "next": "end_scattered"
     }
    ]
   },
@@ -267,6 +365,60 @@
     }
    ],
    "end": "消えない煙"
+  },
+  "end_decoy_caught": {
+   "speaker": "captain",
+   "art": "jail",
+   "text": [
+    "番所の柱に三日縛りつけられ、{captain}の詮議を受けた。秘仏も坊主も知らぬ、で押し通した。",
+    "四日目の朝、縄を解かれて放り出された。噂では、焼けた寺の生き残りが{town}の方へ抜けたという。誰も捕まってはいないらしい。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_bt_nun"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "pass": 4320
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "焼けた寺の生き残りを逃がすため、囮になって捕らわれた。"
+    }
+   ],
+   "end": "囮の縄目"
+  },
+  "end_entrusted": {
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{client}は経箱を両手で差し出した。「あなたさまなら、兵も坊主の荷とは思いますまい。堂が建ったら、必ずお迎えにあがります」",
+    "{priest}は安堵の息をつき、{nun}と{chigo}だけは寺で預かると言った。背の経箱は、思いのほか軽かった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_bt_nun"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "焼けた寺の秘仏を、堂が建つまで預かることになった。"
+    }
+   ],
+   "end": "預かった秘仏"
   }
  }
 }

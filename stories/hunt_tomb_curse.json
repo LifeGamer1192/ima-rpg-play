@@ -57,7 +57,7 @@
       "foes": "bandit",
       "n": 3,
       "level": 0,
-      "win": "caught",
+      "win": "bound",
       "lose": "lost"
      }
     },
@@ -67,6 +67,15 @@
       "skill": "stealth",
       "dc": 40,
       "win": "caught",
+      "lose": "night_ng"
+     }
+    },
+    {
+     "label": "横穴に忍び寄り、中を覗く",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "peek",
       "lose": "night_ng"
      }
     }
@@ -80,6 +89,123 @@
    "choices": [
     {
      "label": "迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "bound",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "peek": {
+   "art": "ruins",
+   "text": [
+    "横穴の奥で、男が三人、棺の蓋をこじ開けていた。{robber}が青銅の器を袋に放り込みながら笑う。「祟りが怖くて誰も来ねえ。いい稼ぎ場だ」",
+    "入口の土留めの柱は、腐りかけている。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "穴の外から亡者の声を真似て脅かす",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "scared",
+      "lose": "night_ng"
+     }
+    },
+    {
+     "label": "柱を倒して入口をふさぎ、閉じ込める",
+     "check": {
+      "skill": "blade",
+      "dc": 30,
+      "win": "sealed",
+      "lose": "night_ng"
+     }
+    }
+   ]
+  },
+  "scared": {
+   "speaker": "client",
+   "text": [
+    "低いうめき声を穴に吹き込むと、男たちは悲鳴を上げ、袋を放り出して逃げていった。散らばった青銅の器を拾い集めて墓に戻すと、墓守は「本物の鬼より、あんたのほうが怖い」と笑った。"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "end": "亡者の声で追い払った"
+  },
+  "sealed": {
+   "speaker": "robber",
+   "text": [
+    "柱が倒れ、土が崩れて入口がふさがった。中から{robber}の声がする。「出してくれ！　袋の中身は山分けでいい！」"
+   ],
+   "choices": [
+    {
+     "label": "村へ走り、人を呼んで掘り出させる",
+     "next": "caught"
+    },
+    {
+     "label": "中身の半分と引き換えに、出してやる",
+     "guide": "墓を荒らす者の仲間になる。名は落ちる",
+     "next": "split"
+    }
+   ]
+  },
+  "split": {
+   "text": [
+    "掘り出してやると、{robber}は約束どおり器の半分を寄こし、仲間と闇に消えた。墓守には「何もいなかった」と告げた。重い袋が、なぜか冷たい。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": -3
+    }
+   ],
+   "end": "盗掘の分け前"
+  },
+  "bound": {
+   "speaker": "robber",
+   "text": [
+    "縛り上げた{robber}が、薄笑いを浮かべた。「見逃してくれりゃ、墓の奥の玄室に案内してやる。まだ手をつけてねえ宝がある」"
+   ],
+   "choices": [
+    {
+     "label": "耳を貸さず、盗品ごと墓守に引き渡す",
+     "next": "caught"
+    },
+    {
+     "label": "頭を先に立たせて、奥へ進む",
+     "guide": "頭の言葉は罠かもしれない。奥に仲間が潜んでいると危うい",
+     "next": "deeper"
+    }
+   ]
+  },
+  "deeper": {
+   "text": [
+    "玄室の手前で、{robber}がわざと転んだ。闇の中から、鋤を持った男たちが飛び出してくる。"
+   ],
+   "choices": [
+    {
+     "label": "闇の中で戦う",
      "fight": {
       "foes": "bandit",
       "n": 3,

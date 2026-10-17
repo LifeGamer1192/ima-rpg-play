@@ -54,8 +54,84 @@
      "next": "plead"
     },
     {
+     "label": "「訴えの証人は誰だ」と詳しく聞く",
+     "next": "witness"
+    },
+    {
      "label": "「ならば牢から出すしかない」",
-     "next": "breakout"
+     "next": "breakout",
+     "guide": "牢を破れば冤罪は晴れず、夫婦はこの町に戻れなくなる"
+    }
+   ]
+  },
+  "witness": {
+   "speaker": "client",
+   "text": [
+    "「盗みを見たと申し立てたのは、{rival}さまの家の下男です。夫が蔵の裏で絹を受け取るのを見た、と」{client}は唇を噛んだ。「受け取ったのは本当です。代も払いました。見たのなら、それも見たはずなのに」",
+    "下男は毎夕、市の酒肆で安酒をあおっているという。"
+   ],
+   "choices": [
+    {
+     "label": "酒肆で下男を問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "witness_turned",
+      "lose": "witness_fled"
+     }
+    },
+    {
+     "label": "下男より、{rival}の蔵を探る方が早い",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "proof",
+      "lose": "caught"
+     }
+    }
+   ]
+  },
+  "witness_turned": {
+   "speaker": "下男",
+   "text": [
+    "杯を三つ重ねたところで、下男は泣き出した。「旦那さまに言われたのです。言うとおりに申し立てねば、暇を出すと。わたしにも年寄りの母が……」",
+    "{rival}は盗品と知りながら絹を流し、罪を{merchant}にかぶせたのだ。下男は、官府で本当のことを言ってもよいと言った。ただし、震えている。"
+   ],
+   "effects": [
+    {
+     "flag": "im_witness"
+    }
+   ],
+   "choices": [
+    {
+     "label": "下男を連れて官府の{jailer}のもとへ",
+     "next": "plead"
+    },
+    {
+     "label": "下男に蔵の鍵を開けさせ、帳面を手に入れる",
+     "next": "proof"
+    }
+   ]
+  },
+  "witness_fled": {
+   "text": [
+    "問い詰めると、下男は顔色を変えて杯を投げ出し、人混みに逃げ込んだ。行き先は{rival}の屋敷に決まっている。",
+    "今夜から、{rival}の蔵には見張りが増えるだろう。"
+   ],
+   "choices": [
+    {
+     "label": "それでも今夜、蔵に忍び込む",
+     "check": {
+      "skill": "stealth",
+      "dc": 42,
+      "win": "proof",
+      "lose": "caught"
+     },
+     "guide": "蔵の見張りが増えた。忍びの腕がなければ見つかる"
+    },
+    {
+     "label": "官府で{jailer}に事情を説く",
+     "next": "plead"
     }
    ]
   },
@@ -72,6 +148,35 @@
     {
      "label": "{rival}を強請り、訴えを取り下げさせる",
      "next": "end_bought"
+    },
+    {
+     "label": "{rival}に帳面を突きつけ、自ら罪を名乗り出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_owned",
+      "lose": "ambush"
+     },
+     "guide": "{rival}は狡猾。しくじれば手下が帳面を奪いに来る"
+    }
+   ]
+  },
+  "ambush": {
+   "speaker": "rival",
+   "art": "war",
+   "text": [
+    "{rival}は笑って手を叩いた。屏風の陰から、棒を持った無頼の者が三人現れる。「帳面ごと、ここで消えてもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "帳面を守って斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_cleared",
+      "lose": "end_failed"
+     }
     }
    ]
   },
@@ -106,6 +211,13 @@
    ],
    "choices": [
     {
+     "label": "翻った証人の下男を{jailer}の前に立たせる",
+     "if": {
+      "flag": "im_witness"
+     },
+     "next": "end_confession"
+    },
+    {
      "label": "証言の食い違いを突く",
      "check": {
       "skill": "speech",
@@ -124,7 +236,8 @@
        "money": -200
       }
      ],
-     "next": "end_bribe"
+     "next": "end_bribe",
+     "guide": "刑は軽くなるが、盗人の汚名は晴れない"
     },
     {
      "label": "話にならぬ。牢を破る",
@@ -157,7 +270,8 @@
    "speaker": "client",
    "art": "war",
    "text": [
-    "月のない夜、{client}が用意した縄梯子を手に、牢の裏手に回った。見張りは二人。片づければ{merchant}を連れて城外へ出られる。だが、二度とこの町には戻れまい。"
+    "月のない夜、{client}が用意した縄梯子を手に、牢の裏手に回った。見張りは二人。片づければ{merchant}を連れて城外へ出られる。だが、二度とこの町には戻れまい。",
+    "牢の石垣の下には、汚水を流す溝の口が黒く開いている。"
    ],
    "choices": [
     {
@@ -165,6 +279,34 @@
      "fight": {
       "foes": "soldier",
       "n": 2,
+      "level": 0,
+      "win": "end_fled",
+      "lose": "end_failed"
+     }
+    },
+    {
+     "label": "溝の口から忍び込み、声を立てずに連れ出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "end_slipped",
+      "lose": "breakout_alarm"
+     },
+     "guide": "見つかれば鐘が鳴り、駆けつけた衛士三人を相手にする"
+    }
+   ]
+  },
+  "breakout_alarm": {
+   "art": "war",
+   "text": [
+    "牢の格子に手をかけたとき、桶を蹴った。鐘が鳴り、詰所から衛士が三人、戈を手に駆けてくる。{merchant}が格子の奥で青ざめた。"
+   ],
+   "choices": [
+    {
+     "label": "格子を破り、{merchant}を連れて斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
       "level": 0,
       "win": "end_fled",
       "lose": "end_failed"
@@ -179,6 +321,9 @@
     "「この恩は、一生忘れません」夫婦はなけなしの銭を包んでくれた。"
    ],
    "effects": [
+    {
+     "unflag": "im_witness"
+    },
     {
      "money": 150
     },
@@ -198,6 +343,64 @@
    ],
    "end": "晴れた冤罪"
   },
+  "end_owned": {
+   "speaker": "rival",
+   "text": [
+    "帳面の一行一行を読み上げると、{rival}の額に汗が浮いた。「……分かった。官府へは自分で行く。帳面だけは、人前に出さんでくれ」",
+    "{rival}は罪を認めて罰金を納め、{merchant}に絹の代を倍にして返した。{client}は、夫の手を握ったまま、何度もこちらに頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "im_witness"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{rival}に罪を認めさせ、{merchant}の冤罪を晴らした。"
+    }
+   ],
+   "end": "名乗り出た問屋"
+  },
+  "end_confession": {
+   "speaker": "jailer",
+   "text": [
+    "下男は震えながらも、{rival}に言わされたことをすべて申し立てた。{jailer}は長いあいだ黙っていたが、やがて筆を置いた。「偽りの証言で人の足を断つところだった。これは、わしの落ち度でもある」",
+    "{rival}は捕らえられ、{merchant}は牢を出た。下男は{merchant}の店で雇われることになった。"
+   ],
+   "effects": [
+    {
+     "unflag": "im_witness"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 12
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "偽りの証人を翻らせ、{merchant}の冤罪を晴らした。"
+    }
+   ],
+   "end": "翻った証言"
+  },
   "end_bought": {
    "speaker": "rival",
    "text": [
@@ -205,6 +408,9 @@
     "{rival}は罰を受けずに済み、また誰かに罪をかぶせるかもしれない。{client}は何も知らずに礼を言った。"
    ],
    "effects": [
+    {
+     "unflag": "im_witness"
+    },
     {
      "money": 350
     },
@@ -227,6 +433,9 @@
     "証人の言うことが日ごとに違うと指摘すると、{jailer}は黙り込み、やがて裁きのやり直しを命じた。半月後、{merchant}は無罪とされた。「お前のような者がいると、仕事が増えて困る」{jailer}はそう言って、少し笑った。"
    ],
    "effects": [
+    {
+     "unflag": "im_witness"
+    },
     {
      "money": 100
     },
@@ -253,6 +462,9 @@
    ],
    "effects": [
     {
+     "unflag": "im_witness"
+    },
+    {
      "money": 60
     },
     {
@@ -270,6 +482,9 @@
     "見張りを倒し、{merchant}を連れて城壁を越えた。夫婦は闇の中、南へ去っていった。翌朝、町には牢破りの手配書が貼られたが、顔を知る者はいない。遊侠の徒のあいだでは、少しだけ名が知られた。"
    ],
    "effects": [
+    {
+     "unflag": "im_witness"
+    },
     {
      "money": 80
     },
@@ -289,11 +504,42 @@
    ],
    "end": "闇夜の牢破り"
   },
+  "end_slipped": {
+   "text": [
+    "汚水に腰まで浸かって石垣の下をくぐり、眠る見張りの脇を抜けて{merchant}の縄を切った。夜明けには、夫婦はもう渡し舟の上にいた。",
+    "牢は朝まで、誰もいなくなったことに気づかなかった。血は一滴も流れていない。だが{merchant}の汚名もまた、この町に残ったままだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "im_witness"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "note": "{merchant}をひそかに牢から連れ出した。"
+    }
+   ],
+   "end": "溝をくぐる夜"
+  },
   "end_failed": {
    "text": [
     "多勢に押され、傷を負って逃げるのがやっとだった。{merchant}がどうなったかは、もう知るすべもない。"
    ],
    "effects": [
+    {
+     "unflag": "im_witness"
+    },
     {
      "hp": -20
     }

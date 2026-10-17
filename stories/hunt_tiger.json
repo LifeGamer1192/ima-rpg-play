@@ -88,8 +88,133 @@
       "win": "killed",
       "lose": "mauled"
      }
+    },
+    {
+     "label": "{hunter}と足跡をたどり、ねぐらを探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "den",
+      "lose": "charge"
+     }
     }
    ]
+  },
+  "den": {
+   "speaker": "hunter",
+   "art": "road",
+   "text": [
+    "岩棚の下の洞に、骨と毛皮の切れ端が散らばっていた。奥で、子虎が二匹じゃれ合っている。{hunter}が息をのんだ。「子連れか。だから人里まで下りて来たんだ」",
+    "親虎は狩りに出ているらしい。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "洞の上の岩に登り、親虎の帰りを射る",
+     "check": {
+      "skill": "bow",
+      "dc": 35,
+      "win": "shot",
+      "lose": "charge"
+     }
+    },
+    {
+     "label": "洞の前に罠を張って待つ",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "trapped",
+      "lose": "charge"
+     }
+    },
+    {
+     "label": "子虎を連れ出し、親を山の奥へ誘い出す",
+     "guide": "子を奪えば親虎は怒り狂う。しくじれば傷を負い、怒り狂った虎と組み合う",
+     "check": {
+      "skill": "stealth",
+      "dc": 50,
+      "win": "cubs_taken",
+      "lose": "enraged"
+     }
+    }
+   ]
+  },
+  "enraged": {
+   "text": [
+    "子虎が鳴いた。次の瞬間、岩棚の上から咆哮が降ってきた。怒り狂った親虎の爪が肩を裂く。その目は、もう人を恐れていない。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "choices": [
+    {
+     "label": "傷を押さえて迎え撃つ",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 0,
+      "win": "killed",
+      "lose": "mauled"
+     }
+    }
+   ]
+  },
+  "cubs_taken": {
+   "speaker": "hunter",
+   "text": [
+    "子虎を籠に入れて谷を三つ越え、深い山の奥に放つと、親虎の咆哮があとを追ってきた。もう人里へは下りて来るまい。籠の底には、遅れた一匹がまだ残っている。",
+    "{hunter}が言う。「その一匹、どうする。{market}に持っていけば、高く買う者もいるぞ」"
+   ],
+   "choices": [
+    {
+     "label": "{hunter}に預けて、育ててもらう",
+     "next": "driven_off"
+    },
+    {
+     "label": "{market}で売る",
+     "next": "sold_cub"
+    }
+   ]
+  },
+  "driven_off": {
+   "speaker": "client",
+   "text": [
+    "山から虎の気配が消えた。{client}は話を聞くと、しばらく黙ってから頭を下げた。「夫の仇は討てなかったけれど、もう誰も食われずに済みます」"
+   ],
+   "effects": [
+    {
+     "money": 80
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "end": "虎を山の奥へ帰した"
+  },
+  "sold_cub": {
+   "text": [
+    "子虎は{market}の金持ちに高く売れた。{hunter}は銭を受け取らず、黙って山へ帰っていった。"
+   ],
+   "effects": [
+    {
+     "money": 220
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "子虎を売った"
   },
   "charge": {
    "text": [
@@ -105,8 +230,24 @@
       "win": "killed",
       "lose": "mauled"
      }
+    },
+    {
+     "label": "木に駆け上がってやり過ごす",
+     "guide": "逃げれば虎は残り、依頼は果たせない",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "escaped",
+      "lose": "mauled"
+     }
     }
    ]
+  },
+  "escaped": {
+   "text": [
+    "枝にしがみついて夜を明かした。虎は木の根元を何度も回り、やがて藪へ消えた。山を下りると、{client}は何も言わずに戸を閉めた。"
+   ],
+   "end": "虎から逃げのびた"
   },
   "shot": {
    "text": [

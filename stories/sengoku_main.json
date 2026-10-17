@@ -122,6 +122,59 @@
       "dc": 22,
       "win": "c2ok",
       "lose": "c2ng"
+     },
+     "guide": "ほかの家中に仕えている身なら、その主を去って{power}へ移ることになる"
+    },
+    {
+     "label": "「読み書き算用なら任せていただきたい」",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     },
+     "guide": "ほかの家中に仕えている身なら、その主を去って{power}へ移ることになる"
+    },
+    {
+     "label": "「槍を取れば誰にも負けませぬ」",
+     "check": {
+      "skill": "blade",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     },
+     "guide": "ほかの家中に仕えている身なら、その主を去って{power}へ移ることになる"
+    },
+    {
+     "label": "「いまは別の主に仕える身にござる」と、書状だけ預けて辞す",
+     "if": {
+      "patron": true
+     },
+     "next": "c2later"
+    }
+   ]
+  },
+  "c2later": {
+   "at": {
+    "place": "castle",
+    "building": "palace"
+   },
+   "goal": "仕官先を離れたら、{castle}の城の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
+   "wait": {
+    "free": true
+   },
+   "speaker": "lord",
+   "text": [
+    "「主家を離れたと聞いたぞ」{lord}は預けた書状を手に、縁先へ出てきた。「さて、改めて問う。お前に何ができる」"
+   ],
+   "choices": [
+    {
+     "label": "「戦の駆け引きを申し上げましょう」",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
      }
     },
     {
@@ -178,9 +231,10 @@
     "place": "castle",
     "building": "palace"
    },
-   "goal": "名声を10まで上げて、{castle}の城の{lord}を再び訪ねる",
+   "goal": "名声を10まで上げて、{castle}の城の{lord}を再び訪ねる（ほかの家中に仕えている間は待つ）",
    "wait": {
-    "fame": 10
+    "fame": 10,
+    "free": true
    },
    "speaker": "lord",
    "text": [

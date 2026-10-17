@@ -55,7 +55,61 @@
    "text": [
     "夜更け、門の陰に人影が立った。炭を持つ手は細い。捕まえてみれば、十を過ぎたばかりの子どもだった。問い詰めると、村塾の{teacher}に習った歌を書いたのだと白状した。"
    ],
-   "next": "found"
+   "choices": [
+    {
+     "label": "子どもを案内に立て、{teacher}を訪ねる",
+     "next": "found"
+    },
+    {
+     "label": "このまま子どもを{client}に引き渡す",
+     "next": "end_child",
+     "guide": "師の訴えを聞く道は閉ざされる"
+    }
+   ]
+  },
+  "petition": {
+   "speaker": "teacher",
+   "text": [
+    "「詩ひとつでは、県令は戯れ言と笑うだけだろう」{teacher}は筆を取りながら言った。「子を売った親たちの爪印を添えれば、あるいは」",
+    "親たちは役人を恐れている。一軒ずつ回って、口説かねばならない。"
+   ],
+   "choices": [
+    {
+     "label": "子らの親を一軒ずつ回り、爪印を集める（二日）",
+     "effects": [
+      {
+       "pass": 2880
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "signed",
+      "lose": "plea"
+     }
+    },
+    {
+     "label": "詩を清書した竹簡だけを持って官府へ行く",
+     "next": "plea",
+     "guide": "民の声の証が無く、県令を説くのは難しいまま"
+    }
+   ]
+  },
+  "signed": {
+   "speaker": "teacher",
+   "text": [
+    "二日かけて、十七の爪印が集まった。字の書けぬ親は、竹簡の端に墨のついた指を押し、黙って頭を下げた。{teacher}はそれを丁寧に紐で綴じた。"
+   ],
+   "effects": [
+    {
+     "flag": "graffiti_signed"
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "next": "plea"
   },
   "found": {
    "speaker": "teacher",
@@ -76,6 +130,10 @@
     {
      "label": "詩の訴えを、県令に直に説く",
      "next": "plea"
+    },
+    {
+     "label": "{teacher}と共に、県令に差し出す訴状を作る",
+     "next": "petition"
     }
    ]
   },
@@ -92,13 +150,36 @@
    ],
    "choices": [
     {
+     "label": "爪印の束を差し出し、民の声を示す",
+     "if": {
+      "flag": "graffiti_signed"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "end_heard",
+      "lose": "end_angered"
+     }
+    },
+    {
      "label": "民の声を聞かぬ令は、やがて民を失うと説く",
      "check": {
       "skill": "speech",
       "dc": 40,
       "win": "end_heard",
       "lose": "end_angered"
-     }
+     },
+     "guide": "県令は苛立っている。証なく説けば追い出されやすい"
+    },
+    {
+     "label": "その税が都の命か、県令の上乗せかを問いただす",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "end_skimmed",
+      "lose": "end_angered"
+     },
+     "guide": "県令を咎める道。律に通じていなければ怒りを買う"
     }
    ]
   },
@@ -109,6 +190,9 @@
     "城門の詩は消された。だが半月後、別の門に、同じ詩がもっと大きな字で書かれていた。"
    ],
    "effects": [
+    {
+     "unflag": "graffiti_signed"
+    },
     {
      "money": 200
     },
@@ -132,6 +216,9 @@
    ],
    "effects": [
     {
+     "unflag": "graffiti_signed"
+    },
+    {
      "fame": 3
     },
     {
@@ -148,6 +235,9 @@
     "翌月、県の税は改められ、売られた子らを買い戻す銭が出された。{teacher}の名は、最後まで表に出なかった。"
    ],
    "effects": [
+    {
+     "unflag": "graffiti_signed"
+    },
     {
      "money": 100
     },
@@ -167,12 +257,63 @@
    ],
    "end": "届いた詩"
   },
+  "end_child": {
+   "speaker": "client",
+   "text": [
+    "{client}は子どもの襟首をつかんで連れていった。「餓鬼に書けるものか。教えた者がいるはずだ」賞の銭は半分だけ払われた。",
+    "翌日、村塾の戸は閉ざされていた。{teacher}は子らを連れて、どこかへ去ったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "graffiti_signed"
+    },
+    {
+     "money": 100
+    },
+    {
+     "favor": 5
+    },
+    {
+     "fame": -3
+    }
+   ],
+   "end": "襟首の子"
+  },
+  "end_skimmed": {
+   "speaker": "magistrate",
+   "text": [
+    "都から下った令の写しを示させると、税は十に一つ。県令はそれを倍にして、差分を己の倉に入れていた。{magistrate}は顔を赤黒くし、しばらく口をきかなかった。",
+    "「……都の令のとおりに改める。それでよかろう」税は戻ったが、県令がこちらを見る目は冷たかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "graffiti_signed"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "県令が税を上乗せしていたことを、都の令の写しで示した。"
+    }
+   ],
+   "end": "令の写し"
+  },
   "end_angered": {
    "speaker": "magistrate",
    "text": [
     "「詩を書いた者を庇うか。ならばお前も同じだ」{magistrate}は衛士に命じて追い出させた。打たれた背が痛む。城門の詩は、その夜も書かれた。"
    ],
    "effects": [
+    {
+     "unflag": "graffiti_signed"
+    },
     {
      "hp": -10
     },

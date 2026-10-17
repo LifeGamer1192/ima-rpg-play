@@ -12,6 +12,9 @@
   "here": {
    "place": "here"
   },
+  "realm": {
+   "realm": "here"
+  },
   "clerk": {
    "npc": "役人",
    "sex": "m"
@@ -64,8 +67,87 @@
       "win": "won",
       "lose": "lost"
      }
+    },
+    {
+     "label": "水汲みに出た一人を、物陰で捕らえる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "captive",
+      "lose": "lair_alarm"
+     }
     }
    ]
+  },
+  "lair_alarm": {
+   "text": [
+    "捕らえ損ねた男が叫び、小屋から刺青の男たちが飛び出してきた。"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "captive": {
+   "speaker": "刺青の男",
+   "text": [
+    "口をふさいで藪へ引きずり込むと、男は震えだした。「親分には逆らえねえんだ。逆らえば、家族ごと消される」"
+   ],
+   "choices": [
+    {
+     "label": "{boss}の根城の抜け道を吐かせ、それから小屋を攻める",
+     "effects": [
+      {
+       "flag": "back_way"
+      },
+      {
+       "note": "{den}の砦の抜け道を聞き出した。"
+      }
+     ],
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "won",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "縄を解き、「仲間を連れて谷を去れ」と伝えさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "withdrew",
+      "lose": "lair_alarm"
+     }
+    }
+   ]
+  },
+  "withdrew": {
+   "text": [
+    "翌朝、谷の小屋は空になっていた。刺青の男たちは、自分たちが追われたとは言わずに谷を捨てたらしい。{clerk}は「血を流さずに済んだか」と報酬を払った。"
+   ],
+   "effects": [
+    {
+     "money": 110
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "end": "谷から引き上げさせた"
   },
   "won": {
    "text": [
@@ -115,11 +197,25 @@
    "choices": [
     {
      "label": "{boss}に挑む",
+     "guide": "砦には手下が大勢いる。正面からは手強い。抜け道を知っていれば楽になる",
      "fight": {
       "foes": "bandit",
       "n": 4,
       "level": 0,
-      "win": "den_won",
+      "win": "den_fall",
+      "lose": "den_lost"
+     }
+    },
+    {
+     "label": "聞き出した抜け道から、{boss}の寝所を突く",
+     "if": {
+      "flag": "back_way"
+     },
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "den_fall",
       "lose": "den_lost"
      }
     },
@@ -139,6 +235,84 @@
      "next": "peace"
     }
    ]
+  },
+  "den_fall": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は大刀を取り落とし、膝をついた。手下たちは遠巻きに、親分と自分を見比べている。「……斬れ。それが掟だ」"
+   ],
+   "choices": [
+    {
+     "label": "{boss}を討ち、砦を焼く",
+     "next": "den_won"
+    },
+    {
+     "label": "命は取らず、一味を解かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "disband",
+      "lose": "den_won"
+     }
+    },
+    {
+     "label": "「今日からこの砦はおれが仕切る」と名乗る",
+     "guide": "{office}の覚えは地に落ち、手配される",
+     "next": "heir"
+    }
+   ]
+  },
+  "disband": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は長いこと黙っていたが、やがて蛇の旗を自ら引き下ろした。「好きにしろ。わしはもう山を下りる」手下たちは散っていった。"
+   ],
+   "effects": [
+    {
+     "money": 350
+    },
+    {
+     "fame": 8
+    },
+    {
+     "hunted": 0
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "end": "蛇の一味は散った"
+  },
+  "heir": {
+   "text": [
+    "手下たちは顔を見合わせ、やがて一人、また一人と膝をついた。砦の蔵の鍵が手渡される。街道の{bandit}は、もうあなたを狙わない。あなたが狙う側になったのだ。"
+   ],
+   "effects": [
+    {
+     "joinGuild": true
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "money": 400
+    },
+    {
+     "hunted": 0
+    },
+    {
+     "favor": -10
+    },
+    {
+     "wanted": "realm",
+     "n": 10
+    }
+   ],
+   "end": "蛇の砦を乗っ取った"
   },
   "den_won": {
    "text": [

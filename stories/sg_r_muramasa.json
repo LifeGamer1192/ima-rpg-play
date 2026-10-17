@@ -21,6 +21,14 @@
   "gosho": {
    "npc": "豪商",
    "sex": "m"
+  },
+  "ronin": {
+   "npc": "牢人",
+   "sex": "m"
+  },
+  "togishi": {
+   "npc": "研ぎ師",
+   "sex": "m"
   }
  },
  "start": "s1",
@@ -39,6 +47,127 @@
     {
      "label": "刀を見せてもらう",
      "next": "look"
+    },
+    {
+     "label": "刀が鳴るという夜を、家で見張る",
+     "effects": [
+      {
+       "pass": 480
+      }
+     ],
+     "next": "night"
+    }
+   ]
+  },
+  "night": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}の{client}の家で夜を待つ",
+   "art": "backroom",
+   "text": [
+    "夜更け、板戸の外で、かちり、かちりと鉄を打ち合わせる音がした。刀が鳴るのではない。誰かが鳴らしているのだ。",
+    "庭先に、頬かむりの男の影。腰の刀の構えに隙がない。"
+   ],
+   "choices": [
+    {
+     "label": "飛び出して取り押さえる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "night_win",
+      "lose": "night_lose"
+     },
+     "guide": "相手は腕の立つ牢人。剣術が足りなければ深手を負う"
+    },
+    {
+     "label": "気づかれぬよう跡をつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "tail",
+      "lose": "night_lose"
+     }
+    },
+    {
+     "label": "放っておいて夜明けを待つ",
+     "next": "look"
+    }
+   ]
+  },
+  "night_win": {
+   "speaker": "ronin",
+   "art": "backroom",
+   "text": [
+    "組み伏せた男は{ronin}と名のった。「……頼まれたのだ。祟りの噂を立てて、後家に刀を手放させろと」",
+    "「頼んだのは市の豪商、{gosho}だ。安く買いたたいて、さる殿さまに高く売る腹よ」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_mm_plot"
+    },
+    {
+     "flag": "sg_mm_witness"
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "{ronin}を引き立てて、{client}に刀を見せてもらう",
+     "next": "look"
+    }
+   ]
+  },
+  "night_lose": {
+   "art": "backroom",
+   "text": [
+    "影は身をひるがえし、塀を越えて闇に消えた。腕に浅い傷が残った。少なくとも、刀を鳴らしていたのは人だった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "choices": [
+    {
+     "label": "朝を待って、刀を見せてもらう",
+     "next": "look"
+    }
+   ]
+  },
+  "tail": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "art": "trade",
+   "text": [
+    "男は市の裏手の蔵へ入っていった。戸の隙間から、豪商{gosho}の声がする。",
+    "「あと幾晩か鳴らせば、後家は捨て値で手放す。殿さまには三千文で売れる」男は銭を受け取って出ていった。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_mm_plot"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "このまま蔵に踏みこみ、{gosho}を問い詰める",
+     "next": "expose",
+     "guide": "証人を押さえていない。弁舌で勝たねば言い逃れされる"
+    },
+    {
+     "label": "{client}の家へ戻り、刀を見せてもらう",
+     "next": "look"
     }
    ]
   },
@@ -54,11 +183,18 @@
     },
     {
      "label": "寺で供養してもらう",
-     "next": "temple"
+     "next": "temple_gate"
     },
     {
      "label": "刀を欲しがる者を探す",
      "next": "merchant"
+    },
+    {
+     "label": "{gosho}の企みを暴きに市へ行く",
+     "if": {
+      "flag": "sg_mm_plot"
+     },
+     "next": "expose"
     }
    ]
   },
@@ -69,6 +205,12 @@
    ],
    "effects": [
     {
+     "unflag": "sg_mm_plot"
+    },
+    {
+     "unflag": "sg_mm_witness"
+    },
+    {
      "item": "t_muramasa"
     },
     {
@@ -76,6 +218,29 @@
     }
    ],
    "end": "村正を佩く"
+  },
+  "temple_gate": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の寺で住職に頼む",
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "{priest}は刀をしばらく眺め、茎を指でなでた。「供養はいたしましょう。ただ、この銘の彫りは刃より新しく見える」",
+    "「町の研ぎ師{togishi}に見せてはいかがか。祟りの正体が分かるかもしれませぬ」"
+   ],
+   "choices": [
+    {
+     "label": "このまま供養を頼む",
+     "next": "temple"
+    },
+    {
+     "label": "研ぎ師に見せに行く",
+     "next": "smith"
+    }
+   ]
   },
   "temple": {
    "at": {
@@ -90,6 +255,12 @@
    ],
    "effects": [
     {
+     "unflag": "sg_mm_plot"
+    },
+    {
+     "unflag": "sg_mm_witness"
+    },
+    {
      "fame": 3
     },
     {
@@ -101,6 +272,38 @@
     }
    ],
    "end": "供養された刀"
+  },
+  "smith": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "{here}の研ぎ場で{togishi}に刀を見せる",
+   "speaker": "togishi",
+   "art": "trade",
+   "text": [
+    "{togishi}は刃を光にかざし、茎を水で洗った。「銘は後から刻んだもの。だが刃は確かに伊勢の一門の作、よく鍛えてある」",
+    "「村正の名を騙らせて値をつり上げる手口よ。祟りの噂まで流れておるなら、なおさら誰かが得をする」"
+   ],
+   "choices": [
+    {
+     "label": "真相を{client}に告げ、まっとうな値で売る段取りをつける",
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "end_fake",
+      "lose": "temple"
+     }
+    },
+    {
+     "label": "銘はどうあれ良い刀だ。自分が引き取る",
+     "next": "keep"
+    },
+    {
+     "label": "寺に戻って供養を頼む",
+     "next": "temple"
+    }
+   ]
   },
   "merchant": {
    "at": {
@@ -137,10 +340,134 @@
      }
     },
     {
+     "label": "「刀を鳴らさせたのはお主だな」と切り出す",
+     "if": {
+      "flag": "sg_mm_plot"
+     },
+     "next": "expose"
+    },
+    {
      "label": "やはり自分で持つ",
      "next": "keep"
     }
    ]
+  },
+  "expose": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で{gosho}を問い詰める",
+   "speaker": "gosho",
+   "art": "trade",
+   "text": [
+    "{gosho}は扇を開いて笑った。「祟りの刀を、わしが鳴らしたと？　何の証がおありかな」"
+   ],
+   "choices": [
+    {
+     "label": "{ronin}を前に引き出す",
+     "if": {
+      "flag": "sg_mm_witness"
+     },
+     "next": "end_exposed"
+    },
+    {
+     "label": "蔵で聞いた言葉を並べて詰め寄る",
+     "check": {
+      "skill": "speech",
+      "dc": 55,
+      "win": "end_exposed",
+      "lose": "end_denied"
+     }
+    },
+    {
+     "label": "黙って引き下がり、刀は売る",
+     "next": "merchant"
+    }
+   ]
+  },
+  "end_exposed": {
+   "speaker": "gosho",
+   "art": "trade",
+   "text": [
+    "{gosho}の顔から笑みが消えた。市の者たちが遠巻きに見ている。「……分かった。騒ぎにはせんでくれ」",
+    "{gosho}は詫びとして、刀の代に色をつけて{client}へ払った。後家は涙ながらに頭を下げ、夜の音はそれきり止んだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_mm_plot"
+    },
+    {
+     "unflag": "sg_mm_witness"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "村正の祟りが豪商{gosho}の企みだったと暴いた。"
+    }
+   ],
+   "end": "鳴りやんだ刀"
+  },
+  "end_denied": {
+   "speaker": "gosho",
+   "art": "trade",
+   "text": [
+    "「言いがかりも大概になされよ」{gosho}は手代を呼び、店先から追い立てた。",
+    "刀は{client}の手元に戻ったが、市では「祟りの刀を持ち歩く物狂い」と陰口を言われるようになった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_mm_plot"
+    },
+    {
+     "unflag": "sg_mm_witness"
+    },
+    {
+     "fame": -2
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "end": "言い逃れた豪商"
+  },
+  "end_fake": {
+   "speaker": "client",
+   "text": [
+    "{togishi}の書付を添えて、刀は銘を伏せたまま武家に売れた。祟りの刀ではない、ただの良い刀として。",
+    "{client}は「夫は、騙されて高く買わされたのですね」と、少し笑った。礼にと、代金の一部を差し出した。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_mm_plot"
+    },
+    {
+     "unflag": "sg_mm_witness"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "村正の銘が偽物と見抜き、後家の刀をまっとうに売った。"
+    }
+   ],
+   "end": "偽りの銘"
   },
   "end_sold_widow": {
    "speaker": "client",
@@ -148,6 +475,12 @@
     "{client}は代金を受け取り、泣きながら礼を言った。「これで里へ帰れます」礼にと、少しの銭を差し出した。"
    ],
    "effects": [
+    {
+     "unflag": "sg_mm_plot"
+    },
+    {
+     "unflag": "sg_mm_witness"
+    },
     {
      "money": 200
     }
@@ -160,6 +493,12 @@
     "「……三千文。それ以上は出せぬ」{gosho}は苦笑した。後家に二千文を渡し、残りは手間賃としてもらっておいた。"
    ],
    "effects": [
+    {
+     "unflag": "sg_mm_plot"
+    },
+    {
+     "unflag": "sg_mm_witness"
+    },
     {
      "money": 1000
     },

@@ -45,6 +45,10 @@
     {
      "label": "「祠へ行こう」",
      "next": "shrine"
+    },
+    {
+     "label": "祠へ向かう前に、山の様子を探る",
+     "next": "scout"
     }
    ]
   },
@@ -77,7 +81,7 @@
      "check": {
       "skill": "speech",
       "dc": 40,
-      "win": "end_talked",
+      "win": "deal",
       "lose": "shrine_ng"
      }
     },
@@ -91,6 +95,19 @@
      }
     },
     {
+     "label": "見張りの抜けた側から、手薄な囲みを破る",
+     "if": {
+      "flag": "hostage_thinned"
+     },
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "end_wounded"
+     }
+    },
+    {
      "label": "頭目に斬りかかる",
      "fight": {
       "foes": "bandit",
@@ -98,7 +115,94 @@
       "level": 0,
       "win": "end_rescued",
       "lose": "end_wounded"
+     },
+     "guide": "頭目と手下が三人。剣術が足りなければ崖下へ落とされる"
+    }
+   ]
+  },
+  "scout": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "{lair}の山で、{bandit}の様子を探る",
+   "art": "road",
+   "text": [
+    "祠へ続く尾根道を外れ、藪の中を登った。祠の裏手の岩の上に、見張りが一人、弓を抱えて居眠りしている。祠の前には焚き火が見えた。"
+   ],
+   "choices": [
+    {
+     "label": "見張りに忍び寄って片付ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 0,
+      "win": "thinned",
+      "lose": "end_wounded"
      }
+    },
+    {
+     "label": "様子だけ見届けて、祠へ向かう",
+     "next": "shrine"
+    }
+   ]
+  },
+  "thinned": {
+   "text": [
+    "見張りを縛り上げ、口に布を噛ませて藪に転がした。これで祠の裏手は空いた。"
+   ],
+   "effects": [
+    {
+     "flag": "hostage_thinned"
+    },
+    {
+     "xp": "stealth",
+     "n": 1
+    }
+   ],
+   "next": "shrine"
+  },
+  "deal": {
+   "speaker": "boss",
+   "text": [
+    "「お前も兵だったのだろう。食えなくなって山に入った。だが子どもを売り物にする兵が、どこの軍にいた」",
+    "{boss}は長いあいだ黙っていたが、やがて低い声で言った。「……子は返す。その代わり、ひとつ頼みがある。手下どもは皆、戦に負けて国へ帰れなくなった兵だ。官府が罪を問わぬなら、山を下りて兵に戻りたい者もいる」"
+   ],
+   "choices": [
+    {
+     "label": "引き受け、{here}の{office}に掛け合う",
+     "next": "amnesty"
+    },
+    {
+     "label": "「そこまでは請け負えぬ」と、{son}を連れて山を下りる",
+     "next": "end_talked"
+    }
+   ]
+  },
+  "amnesty": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、山の{bandit}の赦しを願う",
+   "speaker": "県の役人",
+   "art": "court",
+   "text": [
+    "{son}を母に返したあと、{office}を訪ねた。役人は鼻で笑った。「子を攫った{bandit}を赦せと？　首を持ってくるなら話は分かるが」"
+   ],
+   "choices": [
+    {
+     "label": "「討てば兵を失い、赦せば兵を得る」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "end_amnesty",
+      "lose": "end_broken"
+     },
+     "guide": "官府は{bandit}を憎む。弁舌が足りねば約束を破ることになる"
+    },
+    {
+     "label": "掛け合うのを諦める",
+     "next": "end_broken"
     }
    ]
   },
@@ -129,6 +233,16 @@
       }
      ],
      "next": "end_paid"
+    },
+    {
+     "label": "{son}の縄を切って先に逃がし、自分が囮になる",
+     "check": {
+      "skill": "stealth",
+      "dc": 32,
+      "win": "end_decoy",
+      "lose": "end_wounded"
+     },
+     "guide": "囲まれたまま引きつける。隠密が足りなければ深手を負う"
     }
    ]
   },
@@ -139,6 +253,9 @@
     "「この銭は、一生かかっても返します」{client}はまず手元の銭を差し出した。{bandit}は、これに味をしめてまた誰かを攫うだろう。"
    ],
    "effects": [
+    {
+     "unflag": "hostage_thinned"
+    },
     {
      "money": 100
     },
@@ -155,10 +272,12 @@
   "end_talked": {
    "speaker": "boss",
    "text": [
-    "「お前も兵だったのだろう。食えなくなって山に入った。だが子どもを売り物にする兵が、どこの軍にいた」",
-    "{boss}は長いあいだ黙っていたが、やがて{son}の縄を自ら切った。「……行け。二度とこの山には来るな」手下たちは不満げだったが、頭目の目を見て口をつぐんだ。"
+    "{boss}は舌打ちし、{son}の縄を自ら切った。「……ならば行け。二度とこの山には来るな」手下たちは不満げだったが、頭目の目を見て口をつぐんだ。"
    ],
    "effects": [
+    {
+     "unflag": "hostage_thinned"
+    },
     {
      "money": 80
     },
@@ -183,6 +302,9 @@
    ],
    "effects": [
     {
+     "unflag": "hostage_thinned"
+    },
+    {
      "money": 150
     },
     {
@@ -198,12 +320,91 @@
    ],
    "end": "救い出した子"
   },
+  "end_amnesty": {
+   "speaker": "client",
+   "text": [
+    "長い押し問答のすえ、役人は、山を下りて名を届け出た者は罪を問わず、辺りの守りの兵に加えると約した。{boss}は七人の手下を連れて山を下りてきた。",
+    "{client}は{son}の手を引いて、{boss}に深く頭を下げた。「攫われたことは忘れません。でも、これで山から人が来ることはなくなります」"
+   ],
+   "effects": [
+    {
+     "unflag": "hostage_thinned"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "人質を取った{bandit}の頭目を説き、手下と共に山を下ろさせた。"
+    }
+   ],
+   "end": "山を下りた兵"
+  },
+  "end_broken": {
+   "text": [
+    "{son}は母のもとへ帰ったが、山へ届けるはずの返事は届けられなかった。半月後、街道で見覚えのある顔の男たちに睨まれた。",
+    "「約束を破った奴だ」{boss}の手下たちが、こちらを探しているらしい。"
+   ],
+   "effects": [
+    {
+     "unflag": "hostage_thinned"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 2
+    },
+    {
+     "hunted": 20
+    }
+   ],
+   "end": "破れた約束"
+  },
+  "end_decoy": {
+   "speaker": "client",
+   "text": [
+    "縄を切られた{son}が藪へ駆け込むのを見届けてから、反対の尾根へ{bandit}どもを引きつけて走った。転び、枝で顔を裂かれながら、夜通し逃げ回った。",
+    "明け方、町に戻ると、{son}はもう母の腕の中にいた。「この子が、あなたの言った道を一人で下りてきたのです」"
+   ],
+   "effects": [
+    {
+     "unflag": "hostage_thinned"
+    },
+    {
+     "hp": -10
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "end": "囮の夜"
+  },
   "end_wounded": {
    "text": [
     "斬られて崖下に転げ落ちた。どうにか町へ戻ると、{client}が泣きながら待っていた。村の者が銭を出し合い、{son}は身代金で戻ってきたという。",
     "「あなたが戦ってくれたから、あいつらも値を下げたのです」{client}はそう言ったが、慰めにはならなかった。"
    ],
    "effects": [
+    {
+     "unflag": "hostage_thinned"
+    },
     {
      "hp": -25
     },

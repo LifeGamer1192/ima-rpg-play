@@ -117,6 +117,48 @@
       "win": "end_ruled",
       "lose": "bugyo_ng"
      }
+    },
+    {
+     "label": "夜、座の会所に忍びこみ、付け届けの帳を探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "ledger_found",
+      "lose": "brawl2"
+     },
+     "guide": "見つかれば会所の男たちと斬り合いになる"
+    }
+   ]
+  },
+  "ledger_found": {
+   "art": "backroom",
+   "text": [
+    "会所の帳場の奥、鍵のかかった小箱に、薄い帳面が一冊。「市奉行{bugyo}様へ　盆暮れ　銭五貫」——付け届けの日付と額が、きちんと書き留められていた。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "帳面を{bugyo}に突きつける",
+     "next": "end_ruled"
+    },
+    {
+     "label": "奉行の頭越しに、殿の重臣へ直に訴え出る",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_lord",
+      "lose": "bugyo_ng"
+     },
+     "guide": "直訴の文が拙ければ、奉行を敵に回すだけで終わる"
+    },
+    {
+     "label": "帳面を手に{zato}を脅し、手打ちを呑ませる",
+     "next": "end_compromise"
     }
    ]
   },
@@ -150,11 +192,44 @@
     },
     {
      "label": "座の用心棒を引き受ける",
-     "next": "end_switched"
+     "next": "switched"
     },
     {
      "label": "「座の時代は終わった」と言い放つ",
      "next": "brawl2"
+    }
+   ]
+  },
+  "switched": {
+   "speaker": "zato",
+   "art": "trade",
+   "text": [
+    "用心棒としての最初の仕事は、{client}の店を壊すことだった。{zato}が棒を渡してよこす。「見せしめよ。二度と座の外で油を売る気にならぬようにな」",
+    "市の真ん中で、{client}が油壺を抱えてこちらを見ている。"
+   ],
+   "choices": [
+    {
+     "label": "命じられたとおり、店を叩き壊す",
+     "next": "end_switched"
+    },
+    {
+     "label": "棒を捨て、座の男たちに向き直る",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_free",
+      "lose": "end_smashed"
+     }
+    },
+    {
+     "label": "用心棒のまま、会所の帳場から付け届けの帳を抜き取る",
+     "check": {
+      "skill": "theft",
+      "dc": 45,
+      "win": "ledger_found",
+      "lose": "end_switched"
+     }
     }
    ]
   },
@@ -202,6 +277,33 @@
     }
    ],
    "end": "二枚目の札"
+  },
+  "end_lord": {
+   "speaker": "bugyo",
+   "art": "court",
+   "text": [
+    "帳面は殿の重臣の目に留まった。{bugyo}は市奉行の役を解かれ、油座には楽市での狼藉を禁ずる厳しい触れが下った。",
+    "新しい市奉行の前で、{client}は一番に店を出す許しを得た。重臣からも、こちらの名を尋ねる使いが来た。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 15
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "油座と市奉行の癒着を暴き、楽市を守った。"
+    }
+   ],
+   "end": "帳面の直訴"
   },
   "end_compromise": {
    "speaker": "zato",

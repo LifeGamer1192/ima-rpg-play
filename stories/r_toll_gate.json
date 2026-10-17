@@ -92,7 +92,8 @@
       "talk": true,
       "win": "end_fought",
       "lose": "end_lost"
-     }
+     },
+     "guide": "関を破れば、この国で追われる。訴え出る道も閉ざされる"
     },
     {
      "label": "詫びて引き下がる",
@@ -118,11 +119,109 @@
       "dc": 32,
       "win": "end_reported",
       "lose": "end_slipped"
-     }
+     },
+     "guide": "証人がいなければ、役人同士のかばい合いに負けやすい"
+    },
+    {
+     "label": "訴える前に、同じ関で取られた者を探して証人にする",
+     "next": "witness"
     },
     {
      "label": "老人を送り届けて、黙って去る",
      "next": "end_slipped"
+    }
+   ]
+  },
+  "witness": {
+   "at": {
+    "place": "town",
+    "building": "market"
+   },
+   "goal": "{town}の{market}で、関で荷を取られた者を探す",
+   "speaker": "車引きの男",
+   "art": "trade",
+   "text": [
+    "{market}で聞いて回ると、あの関で荷の半分を取られたという車引きと、布売りの女が見つかった。だが二人とも首を振る。",
+    "「訴えたところで、関吏さまに睨まれるのはこっちだ。次に峠を越えるとき、荷を全部取られる」"
+   ],
+   "choices": [
+    {
+     "label": "「訴えが通れば、あの関吏はもう関にいない」と説き伏せる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "sworn",
+      "lose": "hearing"
+     }
+    },
+    {
+     "label": "二人にそれぞれ銭を渡して、口添えを頼む（40）",
+     "if": {
+      "money": 40
+     },
+     "effects": [
+      {
+       "money": -40
+      }
+     ],
+     "next": "sworn"
+    },
+    {
+     "label": "証人は諦め、役所へ向かう",
+     "next": "hearing"
+    }
+   ]
+  },
+  "sworn": {
+   "speaker": "布売りの女",
+   "text": [
+    "「……分かりました。孫を連れたお年寄りまで取られたのなら、黙ってはいられない」車引きも渋々うなずいた。二人は役所までついてくると言った。"
+   ],
+   "effects": [
+    {
+     "flag": "toll_witness"
+    }
+   ],
+   "next": "hearing"
+  },
+  "hearing": {
+   "at": {
+    "place": "town",
+    "building": "office"
+   },
+   "goal": "{town}の{office}で、関吏のことを訴える",
+   "speaker": "県の役人",
+   "art": "court",
+   "text": [
+    "{office}の役人は話を聞くと、人払いをしてから声を落とした。「{clerk}は、わしの妻の弟でな。……これで、この話は無かったことにしてくれぬか」",
+    "机の上に、銭の包みが置かれた。"
+   ],
+   "choices": [
+    {
+     "label": "証人を呼び入れ、包みの前で取り立てを語らせる",
+     "if": {
+      "flag": "toll_witness"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 18,
+      "win": "end_witnessed",
+      "lose": "end_slipped"
+     }
+    },
+    {
+     "label": "包みを押し返し、書き付けだけで訴えを続ける",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_witnessed",
+      "lose": "end_slipped"
+     },
+     "guide": "相手は関吏の身内。証人がいなければ握りつぶされやすい"
+    },
+    {
+     "label": "包みを受け取り、引き下がる",
+     "next": "end_hush"
     }
    ]
   },
@@ -177,6 +276,9 @@
    ],
    "effects": [
     {
+     "unflag": "toll_witness"
+    },
+    {
      "fame": 4
     },
     {
@@ -202,6 +304,9 @@
    ],
    "effects": [
     {
+     "unflag": "toll_witness"
+    },
+    {
      "fame": 1
     },
     {
@@ -210,6 +315,53 @@
     }
    ],
    "end": "獣道の夜"
+  },
+  "end_witnessed": {
+   "text": [
+    "車引きと布売りの女が、取られた荷の数を一つずつ語った。役人の顔から血の気が引いた。声を聞きつけた県丞が奥から出てきて、包みと役人を見比べた。",
+    "数日後、{clerk}は職を解かれ、身内をかばった役人も退けられたという。峠の関では、十に一つの税が戻った。"
+   ],
+   "effects": [
+    {
+     "unflag": "toll_witness"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "land",
+     "n": 6
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "峠の関吏と、それをかばう役人の不正を、証人と共に訴えた。"
+    }
+   ],
+   "end": "証人の声"
+  },
+  "end_hush": {
+   "text": [
+    "包みは思ったより重かった。役所を出ると、老人が待っていて「どうでした」と尋ねた。「もう少し時がかかるそうだ」とだけ答えた。",
+    "峠の関は、明日も同じように開いているだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "toll_witness"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "口止めの包み"
   },
   "end_ignored": {
    "text": [

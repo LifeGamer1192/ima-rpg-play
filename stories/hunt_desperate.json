@@ -75,13 +75,17 @@
      "next": "reformed"
     },
     {
+     "label": "「田を取り上げた次第を確かめる。待っていろ」",
+     "next": "records"
+    },
+    {
      "label": "盗みは盗み。討つ",
      "fight": {
       "foes": "bandit",
       "n": 3,
       "level": 0,
       "talk": true,
-      "win": "beaten",
+      "win": "subdued",
       "lose": "lost"
      }
     }
@@ -100,7 +104,7 @@
       "n": 3,
       "level": 0,
       "talk": true,
-      "win": "beaten",
+      "win": "subdued",
       "lose": "lost"
      }
     },
@@ -117,6 +121,219 @@
      "next": "reformed"
     }
    ]
+  },
+  "records": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、{lair}の田の帳簿を調べる",
+   "art": "backroom",
+   "text": [
+    "{office}の書庫には、{lair}の田の帳簿が埃をかぶって積まれていた。取り上げられた田の行き先を追うには、細かな字を丹念に読むほかない。"
+   ],
+   "choices": [
+    {
+     "label": "帳簿を読み解く",
+     "guide": "学問が低いと読み解けず、書庫を荒らしたと睨まれる",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "ledger",
+      "lose": "ledger_ng"
+     }
+    },
+    {
+     "label": "何も分からぬまま林へ戻る",
+     "next": "back"
+    }
+   ]
+  },
+  "ledger_ng": {
+   "text": [
+    "字を追ううちに日が暮れた。書庫番に追い出され、{clerk}にも「余計なことを」と嫌な顔をされた。"
+   ],
+   "effects": [
+    {
+     "favor": -2
+    }
+   ],
+   "next": "back"
+  },
+  "ledger": {
+   "speaker": "clerk",
+   "text": [
+    "取り上げた田は、どれも{clerk}の縁者の名に書き換えられていた。帳簿を突きつけると、{clerk}の顔から血の気が引いた。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "「田を村へ返せ。そうすれば黙っていよう」と迫る",
+     "guide": "弁舌が低いと帳簿を焼かれ、手ぶらで林へ戻ることになる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "restored",
+      "lose": "ledger_deny"
+     }
+    },
+    {
+     "label": "帳簿の写しを村の男たちに渡し、山を下りさせる",
+     "next": "copy"
+    }
+   ]
+  },
+  "ledger_deny": {
+   "speaker": "clerk",
+   "text": [
+    "「帳簿の書き違いだ」{clerk}は写しを奪って火にくべた。「さっさと{bandit}を片づけてこい」"
+   ],
+   "next": "back"
+  },
+  "back": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "{lair}の林へ戻る",
+   "speaker": "elder",
+   "art": "hideout",
+   "text": [
+    "林へ戻ると、男たちは疑わしげにこちらを囲んだ。「で、{office}は何と言った」"
+   ],
+   "choices": [
+    {
+     "label": "「今は退け。悪いようにはしない」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "reformed",
+      "lose": "lair_ng"
+     }
+    },
+    {
+     "label": "有り金を分けて、山を下りさせる（200銭）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "reformed"
+    },
+    {
+     "label": "刃を使わずに押さえる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "subdued",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "copy": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "帳簿の写しを{lair}の林へ届ける",
+   "speaker": "elder",
+   "text": [
+    "写しを読み上げると、{elder}は目を閉じた。「これがあれば、上へ訴え出られる。山にいる理由はもうない」"
+   ],
+   "next": "reformed"
+  },
+  "restored": {
+   "at": {
+    "place": "lair"
+   },
+   "goal": "田を返す書付を{lair}の林へ届ける",
+   "speaker": "elder",
+   "text": [
+    "{clerk}は苦い顔で、田を村へ返す書付に印を押した。林でそれを読み上げると、男たちは鍬を放り出して泣いた。"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "flag": "helped_village"
+    }
+   ],
+   "choices": [
+    {
+     "label": "村の暮らしが立つのを見届ける",
+     "next": "thanks"
+    },
+    {
+     "label": "「田は戻った」と見届けてすぐ発つ",
+     "next": "restored_end"
+    }
+   ]
+  },
+  "restored_end": {
+   "text": [
+    "男たちが田へ駆けていくのを見送って、林を後にした。"
+   ],
+   "effects": [
+    {
+     "money": 40
+    }
+   ],
+   "end": "田は村に戻った"
+  },
+  "subdued": {
+   "speaker": "elder",
+   "text": [
+    "男たちは鍬を捨てて地に伏した。{elder}がこちらを見上げる。「縄を打つなら、わしひとりにしてくれ。皆、わしについて来ただけだ」"
+   ],
+   "choices": [
+    {
+     "label": "皆を縛って{office}へ引き渡す",
+     "next": "beaten"
+    },
+    {
+     "label": "{elder}だけを引き渡し、ほかは村へ帰す",
+     "next": "elder_only"
+    },
+    {
+     "label": "誰も縛らず、村へ帰す",
+     "next": "reformed"
+    }
+   ]
+  },
+  "elder_only": {
+   "speaker": "elder",
+   "text": [
+    "{elder}は縄を受けながら、男たちに「田を頼む」と言った。{clerk}は「頭を捕らえたなら、まあよい」と報酬を払った。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": 1
+    },
+    {
+     "favor": 3
+    }
+   ],
+   "end": "村長ひとりが縛についた"
   },
   "reformed": {
    "speaker": "clerk",
@@ -170,7 +387,7 @@
   },
   "beaten": {
    "text": [
-    "男たちは鍬を捨てて地に伏した。{office}に引き渡すと、{clerk}は満足げに報酬を払った。村には、もう働き手が残っていない。"
+    "男たちを{office}に引き渡すと、{clerk}は満足げに報酬を払った。村には、もう働き手が残っていない。"
    ],
    "effects": [
     {

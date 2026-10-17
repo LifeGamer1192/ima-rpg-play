@@ -134,7 +134,73 @@
       "level": 0,
       "win": "freed",
       "lose": "end_fallen"
+     },
+     "guide": "待ち伏せの兵は三人。剣術が足りねば{client}を失う"
+    },
+    {
+     "label": "剣を下ろし、{chief}に取引を持ちかける",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "bargain",
+      "lose": "cornered"
      }
+    }
+   ]
+  },
+  "bargain": {
+   "speaker": "chief",
+   "art": "backroom",
+   "text": [
+    "{chief}は顎を撫でた。「話の分かる者もいるらしい。手下を斬られた詫びに銭を積むなら、あの男は牢の鍵をかけ忘れたことにしてやる」",
+    "そう言いながら、{chief}の目は落ち着かない。町の者から巻き上げた銭のことを、上の役所に知られるのを恐れているのだろう。"
+   ],
+   "choices": [
+    {
+     "label": "詫びの銭を払う（200）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "freed"
+    },
+    {
+     "label": "「お前の取り立てを県に訴えるぞ」と脅す",
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "end_exposed",
+      "lose": "cornered"
+     },
+     "guide": "亭長の悪事を書き付けにできねば、脅しは通じず囲まれる"
+    }
+   ]
+  },
+  "cornered": {
+   "speaker": "chief",
+   "art": "war",
+   "text": [
+    "{chief}は鼻で笑い、指を鳴らした。物陰から、さらに兵が出てくる。「遊侠の言うことなど、誰が聞くものか」"
+   ],
+   "choices": [
+    {
+     "label": "囲みを破る",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "freed",
+      "lose": "end_fallen"
+     },
+     "guide": "兵は四人に増えた。勝ち目は薄い"
+    },
+    {
+     "label": "{client}に背を押され、退く",
+     "next": "end_fallen"
     }
    ]
   },
@@ -152,10 +218,109 @@
      "next": "end_returned"
     },
     {
+     "label": "契りの弟として、{elder}に寡婦の銭を返せと迫る",
+     "if": {
+      "flag": "sworn_oath",
+      "notFlag": "sworn_return"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_returned",
+      "lose": "split"
+     }
+    },
+    {
      "label": "黙って立ち去る",
      "next": "end_brothers"
     }
    ]
+  },
+  "split": {
+   "speaker": "elder",
+   "art": "duel",
+   "text": [
+    "{elder}の顔から笑みが消えた。「助けてもらった恩はある。だが、弟分に説教される覚えはない」{elder}は牢番から奪った剣に手をかけた。",
+    "{client}が二人の間で、どちらにも付けずに立ち尽くしている。"
+   ],
+   "choices": [
+    {
+     "label": "{elder}を打ち負かし、銭を取り上げる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "end_returned",
+      "lose": "end_broken"
+     },
+     "guide": "{elder}は剛の者。負ければ契りも銭も失う"
+    },
+    {
+     "label": "「それなら契りはここまでだ」と背を向ける",
+     "next": "end_broken"
+    }
+   ]
+  },
+  "end_exposed": {
+   "speaker": "chief",
+   "text": [
+    "その場で、{chief}が誰からいくら取り立てたかを書き連ねてみせた。{chief}の顔がみるみる青くなる。「わ、分かった。その男は連れていけ」",
+    "{elder}は牢を出され、書き付けは県の役所へ送られた。ほどなく{chief}は亭長を解かれ、{widow}の銭も官府を通して返されたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sworn_oath"
+    },
+    {
+     "unflag": "sworn_return"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{town}の亭長{chief}の取り立てを暴き、遊侠の{elder}を牢から出した。"
+    }
+   ],
+   "end": "解かれた亭長"
+  },
+  "end_broken": {
+   "speaker": "client",
+   "text": [
+    "{elder}は銭袋を抱えて街道を去った。{client}は長いこと黙っていたが、やがて酒の甕を割った。",
+    "「杯を交わしたのは、間違いではなかった。ただ、兄が兄でなかっただけだ」{client}は自分の取り分を押しつけ、{elder}とは別の道を行った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sworn_oath"
+    },
+    {
+     "unflag": "sworn_return"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "割れた甕"
   },
   "end_returned": {
    "speaker": "widow",

@@ -111,6 +111,59 @@
       "dc": 22,
       "win": "c2ok",
       "lose": "c2ng"
+     },
+     "guide": "ほかの国に仕えている身なら、その主を去って{power}へ移ることになる"
+    },
+    {
+     "label": "「書を読み、法を知っております」",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     },
+     "guide": "ほかの国に仕えている身なら、その主を去って{power}へ移ることになる"
+    },
+    {
+     "label": "「剣なら誰にも負けません」",
+     "check": {
+      "skill": "blade",
+      "dc": 25,
+      "win": "c2ok",
+      "lose": "c2ng"
+     },
+     "guide": "ほかの国に仕えている身なら、その主を去って{power}へ移ることになる"
+    },
+    {
+     "label": "「いまは別の主に仕える身です」と、推挙状だけ預けて辞す",
+     "if": {
+      "patron": true
+     },
+     "next": "c2later"
+    }
+   ]
+  },
+  "c2later": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "仕官先を離れたら、{capital}の宮城の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
+   "wait": {
+    "free": true
+   },
+   "speaker": "lord",
+   "text": [
+    "「主を離れたと聞いた」{lord}は推挙状を手に、静かに言った。「さて、改めて聞こう。お前は何ができる」"
+   ],
+   "choices": [
+    {
+     "label": "「天下の形勢を論じましょう」",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
      }
     },
     {
@@ -167,9 +220,10 @@
     "place": "capital",
     "building": "palace"
    },
-   "goal": "名声を10まで上げて、{capital}の宮城の{lord}を再び訪ねる",
+   "goal": "名声を10まで上げて、{capital}の宮城の{lord}を再び訪ねる（ほかの国に仕えている間は待つ）",
    "wait": {
-    "fame": 10
+    "fame": 10,
+    "free": true
    },
    "speaker": "lord",
    "text": [

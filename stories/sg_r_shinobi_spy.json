@@ -79,7 +79,54 @@
      "flag": "sg_shinobi_page"
     }
    ],
-   "next": "tail"
+   "choices": [
+    {
+     "label": "{page}に何も変わらぬふりをさせ、巫女に城の噂を渡させる",
+     "effects": [
+      {
+       "flag": "sg_shinobi_bait"
+      }
+     ],
+     "next": "tail"
+    },
+    {
+     "label": "{page}は目付に預け、自分で巫女を探る",
+     "next": "tail"
+    }
+   ]
+  },
+  "pickup": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "art": "tale",
+   "text": [
+    "{page}が手渡した紙片を、{spy}は灯籠に差し入れて去った。夜半、旅の山伏が一人、灯籠の前で足を止め、紙片を笈にしまった。",
+    "これが{foe}への繋ぎ役だ。"
+   ],
+   "choices": [
+    {
+     "label": "山伏を押さえ、巫女の宿も一気に囲む",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "captured",
+      "lose": "end_escaped"
+     }
+    },
+    {
+     "label": "山伏を泳がせ、行き先をつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "end_nest",
+      "lose": "end_escaped"
+     },
+     "guide": "繋ぎ役を泳がせる。見失えば巫女ともども逃げられる"
+    }
+   ]
   },
   "tail": {
    "at": {
@@ -116,6 +163,13 @@
     {
      "label": "「話を聞こう」と刀から手を離す",
      "next": "offer"
+    },
+    {
+     "label": "今夜は見逃し、{page}の渡す紙片を取りに来る者を待つ",
+     "if": {
+      "flag": "sg_shinobi_bait"
+     },
+     "next": "pickup"
     }
    ]
   },
@@ -148,6 +202,16 @@
     {
      "label": "銀を受け取る",
      "next": "end_double"
+    },
+    {
+     "label": "寝返ったふりで銀を受け取り、聞いた噂は目付に流す",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_turned",
+      "lose": "spotted"
+     },
+     "guide": "巫女を欺き通すのは至難。見抜かれれば囲まれる"
     },
     {
      "label": "銀を蹴散らし、刀を抜く",
@@ -197,6 +261,9 @@
      "unflag": "sg_shinobi_page"
     },
     {
+     "unflag": "sg_shinobi_bait"
+    },
+    {
      "money": 200
     },
     {
@@ -226,6 +293,9 @@
      "unflag": "sg_shinobi_page"
     },
     {
+     "unflag": "sg_shinobi_bait"
+    },
+    {
      "money": 250
     },
     {
@@ -248,6 +318,75 @@
    ],
    "end": "偽りの陣触れ"
   },
+  "end_nest": {
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "山伏は三日かけて国境の荒れ寺に入った。そこには{foe}の忍びが七人、城下の絵図を広げていた。知らせを受けた{client}は足軽を出し、一夜で荒れ寺を囲んだ。",
+    "{spy}も城下の宿で捕らえられた。「巫女一人ではない、巣ごと根こそぎとは」{client}はしばらく言葉もなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_shinobi_page"
+    },
+    {
+     "unflag": "sg_shinobi_bait"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 25
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "note": "{foe}の忍びの巣を突きとめた。"
+    }
+   ],
+   "end": "荒れ寺の巣"
+  },
+  "end_turned": {
+   "speaker": "client",
+   "text": [
+    "銀を懐に、城の噂を少しずつ巫女へ渡した。どれも目付と打ち合わせた、当たり障りのない話だ。代わりに巫女の漏らす{foe}の陣の噂は、すべて{client}のもとへ届いた。",
+    "{client}は銀を見て言った。「それは取っておけ。敵の銀で敵を探るのも、また一興」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_shinobi_page"
+    },
+    {
+     "unflag": "sg_shinobi_bait"
+    },
+    {
+     "money": 350
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": 20
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{foe}の忍びに寝返ったふりをして、敵の噂を探った。"
+    }
+   ],
+   "end": "二重の糸"
+  },
   "end_double": {
    "speaker": "spy",
    "text": [
@@ -257,6 +396,9 @@
    "effects": [
     {
      "unflag": "sg_shinobi_page"
+    },
+    {
+     "unflag": "sg_shinobi_bait"
     },
     {
      "money": 400
@@ -285,6 +427,9 @@
    "effects": [
     {
      "unflag": "sg_shinobi_page"
+    },
+    {
+     "unflag": "sg_shinobi_bait"
     },
     {
      "hp": -15

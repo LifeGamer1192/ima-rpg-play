@@ -84,6 +84,15 @@
      }
     },
     {
+     "label": "{elder}と話し、穀を少しだけ分けて帰ってもらう",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "share",
+      "lose": "riot"
+     }
+    },
+    {
      "label": "隠し穀のことを上役に訴えると約束する",
      "if": {
       "flag": "granary_hoard"
@@ -116,6 +125,83 @@
       "win": "end_exposed",
       "lose": "end_dismissed"
      }
+    },
+    {
+     "label": "倉の俵を、役人の前で数え直させてほしいと願う",
+     "effects": [
+      {
+       "pass": 240
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "count",
+      "lose": "end_dismissed"
+     },
+     "guide": "数え直す間に俵を移されるおそれ。学問が足りねば訴えは退けられる"
+    }
+   ]
+  },
+  "share": {
+   "speaker": "elder",
+   "text": [
+    "「一家に一斗ずつ。それで春まで食いつなぐ」{elder}は若い者たちを制し、俵を三つだけ担がせた。村人たちは頭を下げて闇に消えていった。",
+    "夜が明けると、{client}が倉の前で減った俵を数えていた。「番を頼んだはずだ。誰が穀を出してよいと言った」"
+   ],
+   "choices": [
+    {
+     "label": "「隠し穀のことを黙っていてやる。これで手打ちにしろ」と迫る",
+     "if": {
+      "flag": "granary_hoard"
+     },
+     "next": "end_bargain"
+    },
+    {
+     "label": "「飢えた者を打てば、倉ごと焼かれていた」と正直に話す",
+     "next": "end_shared"
+    }
+   ]
+  },
+  "riot": {
+   "speaker": "elder",
+   "art": "war",
+   "text": [
+    "{elder}が何か言いかけたとき、後ろの若い衆が「話など無駄だ」と叫び、倉の戸に鍬を打ちつけはじめた。人の波が押し寄せる。"
+   ],
+   "choices": [
+    {
+     "label": "戸の前に立ちはだかり、押し返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "talk": true,
+      "win": "end_guarded",
+      "lose": "end_overrun"
+     },
+     "guide": "怒った若い衆は数が多い。剣術が足りなければ押し倒される"
+    },
+    {
+     "label": "もう止められぬ。自ら閂を外す",
+     "next": "end_opened"
+    }
+   ]
+  },
+  "count": {
+   "speaker": "client",
+   "text": [
+    "長官の下役と共に俵を数え直すと、上に届けた数より四十俵多かった。{client}は青い顔で寄ってきて、袖の中に重い包みを押しつけた。",
+    "「数え違いだったと申し上げてくれ。この包みは、お前のものだ」"
+   ],
+   "choices": [
+    {
+     "label": "包みを突き返し、数えた数を長官に示す",
+     "next": "end_exposed"
+    },
+    {
+     "label": "包みを受け取り、数え違いだったと告げる",
+     "next": "end_bribed"
     }
    ]
   },
@@ -209,6 +295,73 @@
     }
    ],
    "end": "閉じられた帳簿"
+  },
+  "end_bargain": {
+   "speaker": "client",
+   "text": [
+    "{client}は唇を噛み、やがて銭を数えて差し出した。「三俵は、鼠に食われたことにしておく。お前も何も見なかった」",
+    "村の方からは、その冬、粥を炊く煙が絶えなかったという。隠し穀は、春にはどこかへ売られていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "granary_hoard"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "end": "鼠の食った三俵"
+  },
+  "end_shared": {
+   "speaker": "client",
+   "text": [
+    "{client}は怒鳴ったが、倉が焼かれていたらと聞くと黙った。銭は半分しか払われず、官府の覚えも悪くなった。",
+    "それでも、春になって{elder}が村の若い者を連れ、麦の種をまく手伝いを申し出てきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "granary_hoard"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "一斗ずつの冬"
+  },
+  "end_bribed": {
+   "speaker": "県の長官",
+   "text": [
+    "「やはり数え違いか」長官は興を失ったように席を立った。包みの中の銭は重かったが、町の外の道端に並ぶ小さな墓の前を通るたびに、それはもっと重くなった。"
+   ],
+   "effects": [
+    {
+     "unflag": "granary_hoard"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": -3
+    }
+   ],
+   "end": "重い包み"
   },
   "end_overrun": {
    "text": [

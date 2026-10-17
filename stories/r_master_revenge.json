@@ -51,8 +51,34 @@
       "win": "end_stayed",
       "lose": "face"
      }
+    },
+    {
+     "label": "発つ前に、{master}と{foe}の因縁を調べる",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "inquiry",
+      "lose": "face"
+     }
     }
    ]
+  },
+  "inquiry": {
+   "art": "tale",
+   "text": [
+    "道場の古い門人を訪ね歩くと、重い口がようやく開いた。十年前、{master}は果たし合いを避けて、ある剣客を夜道で斬ったことがある。その剣客には、{foe}という弟がいた。",
+    "{client}はまだ何も知らない。この話を胸にしまったまま、{town}へ向かうことになる。"
+   ],
+   "effects": [
+    {
+     "flag": "mr_truth"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "face"
   },
   "face": {
    "at": {
@@ -77,13 +103,29 @@
      }
     },
     {
+     "label": "門人から聞いた十年前の夜のことを明かし、二人を説く",
+     "if": {
+      "flag": "mr_truth"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "end_peace",
+      "lose": "face_ng"
+     }
+    },
+    {
      "label": "仇討ちの連鎖を断てと二人を説く",
+     "if": {
+      "notFlag": "mr_truth"
+     },
      "check": {
       "skill": "speech",
       "dc": 40,
       "win": "end_peace",
       "lose": "face_ng"
-     }
+     },
+     "guide": "因縁を知らずに説くのは難しい。先に調べていれば説きやすい"
     },
     {
      "label": "官府に訴え、裁きを求める",
@@ -93,8 +135,108 @@
       "win": "end_law",
       "lose": "face_ng"
      }
+    },
+    {
+     "label": "{client}自身に立ち合わせ、陰で見守る",
+     "next": "duel",
+     "guide": "{client}の腕では分が悪い。いつ割って入るかが肝になる"
     }
    ]
+  },
+  "duel": {
+   "art": "duel",
+   "text": [
+    "酒楼の裏の空き地で、{client}と{foe}が向き合った。{client}の踏み込みは鋭かったが、{foe}は半歩引いてそれをいなし、三合目で{client}の肩を浅く裂いた。",
+    "{client}は歯を食いしばって構え直す。次は浅くでは済むまい。"
+   ],
+   "choices": [
+    {
+     "label": "割って入り、{foe}と斬り結ぶ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "end_avenged",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "「これは{client}の立ち合いだ」と、手を出さずに見届ける",
+     "next": "client_falls",
+     "guide": "{client}は深手を負う。医術が無ければ命も危うい"
+    }
+   ]
+  },
+  "client_falls": {
+   "speaker": "foe",
+   "art": "duel",
+   "text": [
+    "{foe}の剣が{client}の脇腹を割った。{client}は膝から崩れ、それでも剣を離さなかった。",
+    "{foe}は剣を収め、しばらく{client}を見下ろしていた。「よい弟子だ。{master}には過ぎた弟子だった」そう言って、背を向けた。"
+   ],
+   "choices": [
+    {
+     "label": "すぐに傷を縛り、血を止める",
+     "check": {
+      "skill": "medicine",
+      "dc": 35,
+      "win": "end_survived",
+      "lose": "end_mourned"
+     }
+    },
+    {
+     "label": "医者を呼びに走る",
+     "check": {
+      "skill": "medicine",
+      "dc": 50,
+      "win": "end_survived",
+      "lose": "end_mourned"
+     },
+     "guide": "医者を探す間に血が流れる。助かる見込みは薄い"
+    }
+   ]
+  },
+  "end_survived": {
+   "speaker": "client",
+   "text": [
+    "布を裂いて傷を固く縛り、薬を練って塗った。三日三晩うなされたのち、{client}は目を開けた。",
+    "「負けました。でも、あの人の剣を真正面から受けて、ようやく分かった気がします。師の剣も、あの人の剣も、同じところから出ている」{client}は二度と仇の名を口にしなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "mr_truth"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    }
+   ],
+   "end": "受けた一太刀"
+  },
+  "end_mourned": {
+   "text": [
+    "血は止まらなかった。{client}は師の剣を握ったまま、夜明けを待たずに息を引き取った。",
+    "{foe}はその日のうちに豪族の家を辞し、どこかへ去ったという。{client}の亡骸は、師の墓の隣に葬られた。"
+   ],
+   "effects": [
+    {
+     "unflag": "mr_truth"
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "medicine",
+     "n": 1
+    }
+   ],
+   "end": "師の隣に"
   },
   "face_ng": {
    "speaker": "client",
@@ -122,6 +264,9 @@
    ],
    "effects": [
     {
+     "unflag": "mr_truth"
+    },
+    {
      "money": 100
     },
     {
@@ -148,6 +293,9 @@
    ],
    "effects": [
     {
+     "unflag": "mr_truth"
+    },
+    {
      "money": 80
     },
     {
@@ -170,6 +318,9 @@
    ],
    "effects": [
     {
+     "unflag": "mr_truth"
+    },
+    {
      "money": 120
     },
     {
@@ -191,6 +342,9 @@
    ],
    "effects": [
     {
+     "unflag": "mr_truth"
+    },
+    {
      "hp": -25
     }
    ],
@@ -202,6 +356,9 @@
     "{client}は長いあいだうつむいていたが、やがて師の剣を地に置いた。「この剣で人を斬るより、人を守れるようになります」そう言って、道場を継ぐと決めた。"
    ],
    "effects": [
+    {
+     "unflag": "mr_truth"
+    },
     {
      "fame": 2
     },

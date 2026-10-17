@@ -106,6 +106,14 @@
     {
      "label": "刀を収め、裏の獣道を教えてやる",
      "next": "escape"
+    },
+    {
+     "label": "いったん退き、{headman}たちと明朝の山狩りを待つ",
+     "if": {
+      "flag": "sg_ochi_lead"
+     },
+     "next": "dawn",
+     "guide": "待てば百姓たちが先に囲む。生かして連れ帰る道は閉ざされる"
     }
    ]
   },
@@ -140,6 +148,63 @@
     {
      "label": "首は取らず、郎党に主を連れ帰らせる",
      "next": "end_mercy"
+    },
+    {
+     "label": "{roto}を使いに立て、{foe}の陣から身代金を取る",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_ransom",
+      "lose": "betrayed"
+     },
+     "guide": "敵と内々に通じる。文が拙ければ敵の手勢が取り返しに来る"
+    }
+   ]
+  },
+  "betrayed": {
+   "speaker": "roto",
+   "art": "war",
+   "text": [
+    "約束の刻限に峠へ現れたのは、銭箱ではなく{foe}の足軽だった。{roto}がうなだれている。「若殿を取り返せと、陣の者が聞き入れなんだ……」"
+   ],
+   "choices": [
+    {
+     "label": "{musha}を背にして迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_captive",
+      "lose": "end_wounded"
+     }
+    },
+    {
+     "label": "{musha}を引き渡し、黙って峠を下りる",
+     "next": "end_mercy"
+    }
+   ]
+  },
+  "dawn": {
+   "speaker": "headman",
+   "art": "war",
+   "text": [
+    "夜明けとともに、{headman}の率いる百姓三十人が小屋を囲んだ。火矢が屋根に刺さり、煙の中から{roto}が刀を振りかざして飛び出してきた。若い{musha}も続く。",
+    "「さあ、お侍。首はくれてやる約束じゃ。ただし具足はわしらのもの」"
+   ],
+   "choices": [
+    {
+     "label": "百姓たちとともに斬りかかる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "end_head_shared",
+      "lose": "end_wounded"
+     }
+    },
+    {
+     "label": "「待て、降る者を討つな」と割って入る",
+     "next": "mob"
     }
    ]
   },
@@ -148,7 +213,39 @@
    "text": [
     "長い沈黙ののち、{musha}は刀を地に置いた。「……爺を死なせたくはない」二人を縄にかけず、並んで山を下りた。"
    ],
-   "next": "end_captive"
+   "next": "descent"
+  },
+  "descent": {
+   "speaker": "headman",
+   "art": "tale",
+   "text": [
+    "麓の辻で、{headman}と鎌を持った百姓たちが道をふさいだ。「生け捕りとは結構なこと。だが具足と刀は置いていってもらおう。山狩りの取り分じゃ」",
+    "{musha}が唇を噛んだ。家に伝わる具足なのだろう。"
+   ],
+   "choices": [
+    {
+     "label": "「奉行所の預かり人だ。手出しすれば咎めを受けるぞ」と退かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_captive",
+      "lose": "mob"
+     }
+    },
+    {
+     "label": "具足と刀を渡して通してもらう",
+     "effects": [
+      {
+       "fame": -1
+      }
+     ],
+     "next": "end_captive"
+    },
+    {
+     "label": "ここで縄を解き、二人を獣道へ逃がす",
+     "next": "escape"
+    }
+   ]
   },
   "escape": {
    "speaker": "headman",
@@ -278,6 +375,61 @@
     }
    ],
    "end": "生け捕り"
+  },
+  "end_head_shared": {
+   "speaker": "client",
+   "text": [
+    "{musha}の首は奉行所へ、具足と刀は百姓たちのものになった。{roto}は主をかばって先に果てていた。",
+    "{client}は首実検を終えると、「百姓と分け合うたか」と鼻を鳴らし、高札どおりの銭だけを払った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_ochi_lead"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 1
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "end": "分け取りの首"
+  },
+  "end_ransom": {
+   "speaker": "roto",
+   "text": [
+    "三日後、峠の地蔵の前で、{roto}が銭箱を抱えて待っていた。{foe}の陣が、若殿のために出したものだという。",
+    "{musha}は{roto}の肩を借りて峠を越えていった。奉行所には何も告げなかった。銭は重く、口は固く閉ざしておくしかない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_ochi_lead"
+    },
+    {
+     "money": 500
+    },
+    {
+     "fame": 1
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{foe}の若武者{musha}を、身代金と引き換えに帰した。"
+    }
+   ],
+   "end": "峠の身代金"
   },
   "end_escaped": {
    "speaker": "musha",
