@@ -1,0 +1,375 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "kingmaker",
+ "kind": "random",
+ "where": "inn",
+ "weight": 3,
+ "again": 400,
+ "most": 2,
+ "hook": "人目を忍ぶ使いが、ある貴人の密書を持ってきた",
+ "title": "擁立",
+ "era": "shunju",
+ "trigger": {
+  "patron": true,
+  "rank": 4,
+  "realmMin": 11,
+  "king": false
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "minister": {
+   "person": "minister:power"
+  },
+  "prince": {
+   "npc": "王弟",
+   "sex": "m"
+  },
+  "go": {
+   "npc": "密使",
+   "sex": "m"
+  }
+ },
+ "start": "k1",
+ "scenes": {
+  "k1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿で、密使の話を聞く",
+   "speaker": "go",
+   "art": "backroom",
+   "text": [
+    "宿の奥の小部屋で、{go}は封泥の付いた竹簡を差し出した。「{ruler}様の弟君、{prince}様からでございます」",
+    "「兄君は酒色に溺れ、政は佞臣の思うまま。このままでは{power}は傾く。心ある方のお力を借りたい……と」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}で{prince}に会う",
+     "guide": "王をすげかえる企て。しくじれば失脚か牢",
+     "next": "k2"
+    },
+    {
+     "label": "密書を{ruler}に差し出す（密告）",
+     "next": "kbetray"
+    },
+    {
+     "label": "何も聞かなかったことにする",
+     "next": "kno"
+    }
+   ]
+  },
+  "k2": {
+   "at": {
+    "place": "capital",
+    "building": "house"
+   },
+   "goal": "{capital}の屋敷で、{prince}に会う",
+   "speaker": "prince",
+   "art": "backroom",
+   "text": [
+    "{prince}は灯の下で地図を広げていた。「兄は国を滅ぼす。わたしが立てば、{power}はもう一度天下を窺える」",
+    "「兵を動かせる将たちの心を掴み、宰相の{minister}の目を逸らし、ひと晩で宮城を押さえる。成った暁には、そなたを国の柱としよう」"
+   ],
+   "choices": [
+    {
+     "label": "与する",
+     "next": "k3"
+    },
+    {
+     "label": "やはり手を引く",
+     "next": "kno"
+    }
+   ]
+  },
+  "k3": {
+   "at": {
+    "place": "capital",
+    "building": "barracks"
+   },
+   "goal": "{capital}の兵営で、将たちを味方につける",
+   "art": "camp",
+   "text": [
+    "兵営の奥で、将たちが顔を寄せ合っている。誰が{prince}に付き、誰が王に忠を尽くすのか。言葉ひとつで首が飛ぶ。"
+   ],
+   "choices": [
+    {
+     "label": "王の失政を数え上げ、将たちを説く",
+     "check": {
+      "skill": "speech",
+      "dc": 62,
+      "scale": "power",
+      "win": "k4",
+      "lose": "k3leak"
+     }
+    },
+    {
+     "label": "銭で将たちの口と兵を買う（20000）",
+     "if": {
+      "money": 20000
+     },
+     "effects": [
+      {
+       "money": -20000
+      }
+     ],
+     "next": "k4"
+    }
+   ]
+  },
+  "k3leak": {
+   "art": "camp",
+   "text": [
+    "一人の将が、黙って席を立った。……宰相の耳に入るのは時間の問題だ。"
+   ],
+   "effects": [
+    {
+     "flag": "km_leak"
+    }
+   ],
+   "next": "k4"
+  },
+  "k4": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の宮城で、宰相{minister}の目を逸らす",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "朝議のあと、{minister}が{player}を呼び止めた。「近ごろ、夜に兵営へ通う者がいると聞く。そなた、何か知らぬか」"
+   ],
+   "choices": [
+    {
+     "label": "平然と受け流す",
+     "check": {
+      "skill": "speech",
+      "dc": 66,
+      "scale": "power",
+      "win": "k5",
+      "lose": "kcaught"
+     }
+    },
+    {
+     "label": "別の企ての噂を流して、宰相の目をそちらへ向ける",
+     "check": {
+      "skill": "letters",
+      "dc": 68,
+      "scale": "power",
+      "win": "k5",
+      "lose": "kcaught"
+     }
+    },
+    {
+     "label": "（漏れていると察して）今夜のうちに決行する",
+     "if": {
+      "flag": "km_leak"
+     },
+     "next": "k5rush"
+    }
+   ]
+  },
+  "k5rush": {
+   "art": "war",
+   "text": [
+    "手筈の整わぬまま、松明が上がった。宮城の守りは、思ったより固い。"
+   ],
+   "choices": [
+    {
+     "label": "宮城へ斬り込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 64,
+      "scale": "power",
+      "win": "k6",
+      "lose": "kfail_jail"
+     }
+    }
+   ]
+  },
+  "k5": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "夜、{capital}の宮城を押さえる",
+   "art": "war",
+   "text": [
+    "新月の夜。{prince}の合図とともに、味方の兵が宮城の門を開いた。奥の院の前に、近衛が立ちはだかる。"
+   ],
+   "choices": [
+    {
+     "label": "近衛を斬り払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 58,
+      "scale": "power",
+      "win": "k6",
+      "lose": "kfail_jail"
+     }
+    },
+    {
+     "label": "近衛の長に、勝ち目のないことを説く",
+     "check": {
+      "skill": "speech",
+      "dc": 64,
+      "scale": "power",
+      "win": "k6",
+      "lose": "k5fight"
+     }
+    }
+   ]
+  },
+  "k5fight": {
+   "art": "war",
+   "text": [
+    "近衛の長は槍を構えた。「主を売る口など持たぬ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 58,
+      "scale": "power",
+      "win": "k6",
+      "lose": "kfail_jail"
+     }
+    }
+   ]
+  },
+  "k6": {
+   "speaker": "prince",
+   "art": "court",
+   "text": [
+    "夜明け。{ruler}は離宮へ移され、玉座には{prince}が座っていた。新しい王は、居並ぶ百官の前で{player}の手を取った。",
+    "「この者なくして、今日はなかった。今日より国の柱とする」"
+   ],
+   "effects": [
+    {
+     "crown": "power",
+     "who": "prince"
+    },
+    {
+     "promote": 2
+    },
+    {
+     "favor": 200
+    },
+    {
+     "fame": 15
+    }
+   ],
+   "end": "擁立"
+  },
+  "kbetray": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の宮城で、{ruler}に密書を差し出す",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は密書を読み、長いあいだ黙っていた。「……弟が、な」",
+    "「そなたの忠、忘れぬ」{prince}はその夜のうちに捕らえられ、遠い地へ流された。"
+   ],
+   "effects": [
+    {
+     "favor": 80
+    },
+    {
+     "promote": 1
+    },
+    {
+     "rel": 15
+    }
+   ],
+   "end": "密告"
+  },
+  "kno": {
+   "art": "inn",
+   "text": [
+    "竹簡は灯にくべた。この話は、聞かなかったことにする。"
+   ],
+   "end": "聞かなかった話"
+  },
+  "kcaught": {
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}の目が細くなった。「……そうか。下がってよい」その日の夕刻、{player}の屋敷を兵が囲んだ。企ては露見した。"
+   ],
+   "choices": [
+    {
+     "label": "縛につく",
+     "next": "kfail_jail"
+    },
+    {
+     "label": "官を捨てて都を落ち延びる",
+     "check": {
+      "skill": "stealth",
+      "dc": 55,
+      "win": "kfail_fall",
+      "lose": "kfail_jail"
+     }
+    }
+   ]
+  },
+  "kfail_jail": {
+   "art": "jail",
+   "text": [
+    "{prince}は捕らえられ、企てに与した者は次々と獄に下された。{player}も官を剥がれ、牢へ送られた。"
+   ],
+   "effects": [
+    {
+     "fall": true
+    },
+    {
+     "wanted": "power",
+     "n": 20
+    },
+    {
+     "jail": 60
+    }
+   ],
+   "end": "投獄"
+  },
+  "kfail_fall": {
+   "art": "road",
+   "text": [
+    "夜陰に紛れて都を抜けた。官も位も、すべて失った。{power}では、もう二度と浮かび上がれまい。"
+   ],
+   "effects": [
+    {
+     "fall": true
+    },
+    {
+     "wanted": "power",
+     "n": 35
+    },
+    {
+     "rep": "power",
+     "n": -30
+    }
+   ],
+   "end": "失脚"
+  }
+ }
+}

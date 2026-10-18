@@ -52,6 +52,13 @@
    "title": "泥中に尾を曳く"
   },
   {
+   "id": "kingmaker",
+   "file": "kingmaker.json",
+   "kind": "random",
+   "era": "shunju",
+   "title": "擁立"
+  },
+  {
    "id": "hunt_common",
    "file": "hunt_common.json",
    "kind": "random",
