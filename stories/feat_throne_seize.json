@@ -1,0 +1,271 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "feat_throne_seize",
+ "kind": "feat",
+ "feat": "career",
+ "title": "簒奪",
+ "era": "shunju",
+ "trigger": {
+  "patron": true,
+  "bySize": {
+   "realm": "patron",
+   "rank": [
+    2,
+    5,
+    7
+   ],
+   "men": [
+    0,
+    100,
+    300
+   ]
+  },
+  "king": false,
+  "notFeat": "career"
+ },
+ "cast": {
+  "power": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "captain": {
+   "npc": "近衛の長",
+   "sex": "m"
+  },
+  "aide": {
+   "npc": "腹心の部将",
+   "sex": "m"
+  }
+ },
+ "start": "u1",
+ "scenes": {
+  "u1": {
+   "at": {
+    "place": "capital",
+    "building": "barracks"
+   },
+   "goal": "{capital}の兵営で、腹心と事を謀る",
+   "speaker": "aide",
+   "art": "camp",
+   "text": [
+    "{aide}は声を潜めた。「兵はあなたに付いてきます。{ruler}の政は乱れ、民は飢えている。いま起てば、天下はあなたを王と呼ぶでしょう」",
+    "「ただし、事が漏れれば、我らは一族ことごとく首を刎ねられます」"
+   ],
+   "choices": [
+    {
+     "label": "起つ",
+     "guide": "後戻りはできない。しくじれば謀反人として追われる",
+     "next": "u2"
+    },
+    {
+     "label": "まだ早い",
+     "next": "udecline"
+    }
+   ]
+  },
+  "u2": {
+   "art": "hideout",
+   "text": [
+    "決行までの十日、密議を重ねる。宮中の耳は多い。"
+   ],
+   "choices": [
+    {
+     "label": "夜ごと場所を変え、密かに手筈を整える",
+     "check": {
+      "skill": "stealth",
+      "dc": 70,
+      "scale": "power",
+      "win": "u3",
+      "lose": "u2leak"
+     }
+    },
+    {
+     "label": "宮中の宦官を買収して、目と耳を塞ぐ（20000）",
+     "if": {
+      "money": 20000
+     },
+     "effects": [
+      {
+       "money": -20000
+      }
+     ],
+     "next": "u3"
+    }
+   ]
+  },
+  "u2leak": {
+   "art": "war",
+   "text": [
+    "密議が漏れた。夜明け前、{ruler}の兵が兵営を囲んだ。もはや、待つことはできない。"
+   ],
+   "choices": [
+    {
+     "label": "囲みを破って宮城へ向かう",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 68,
+      "scale": "power",
+      "win": "u3",
+      "lose": "ufail"
+     }
+    }
+   ]
+  },
+  "u3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の宮城の門を破る",
+   "art": "war",
+   "text": [
+    "松明の列が宮城を取り巻いた。門の上から矢が降り注ぐ。"
+   ],
+   "choices": [
+    {
+     "label": "先頭に立って門を破る",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 70,
+      "scale": "power",
+      "win": "u4",
+      "lose": "ufail"
+     }
+    },
+    {
+     "label": "門番に呼びかけ、門を開かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 78,
+      "scale": "power",
+      "win": "u4",
+      "lose": "u3fight"
+     }
+    }
+   ]
+  },
+  "u3fight": {
+   "art": "war",
+   "text": [
+    "門番は応えず、矢で返事をした。"
+   ],
+   "choices": [
+    {
+     "label": "門を破る",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 70,
+      "scale": "power",
+      "win": "u4",
+      "lose": "ufail"
+     }
+    }
+   ]
+  },
+  "u4": {
+   "speaker": "captain",
+   "art": "duel",
+   "text": [
+    "玉座の間の前に、{captain}がただ一人立ちはだかった。「先王から預かったこの門、通りたくば我を斬れ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り結ぶ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 78,
+      "scale": "power",
+      "win": "u5",
+      "lose": "ufail"
+     }
+    }
+   ]
+  },
+  "u5": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "玉座の上で、{ruler}が震えていた。「……好きにするがよい」"
+   ],
+   "choices": [
+    {
+     "label": "命は助け、遠い離宮に移す",
+     "effects": [
+      {
+       "fame": 10
+      }
+     ],
+     "next": "uwin"
+    },
+    {
+     "label": "後の禍根を断つ",
+     "effects": [
+      {
+       "fame": -10
+      },
+      {
+       "flag": "feat_seize_blood"
+      }
+     ],
+     "next": "uwin"
+    }
+   ]
+  },
+  "uwin": {
+   "art": "court",
+   "text": [
+    "夜が明けると、宮城の楼に新しい旗が翻っていた。百官は恐る恐る参内し、新しい王の前に伏した。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "throne": "power",
+     "how": "簒奪"
+    },
+    {
+     "feat": "career"
+    }
+   ],
+   "end": "簒奪"
+  },
+  "udecline": {
+   "speaker": "aide",
+   "art": "camp",
+   "text": [
+    "{aide}は黙って頭を下げた。「お心が決まったら、いつでも」"
+   ],
+   "end": "いまだ時ならず"
+  },
+  "ufail": {
+   "art": "war",
+   "text": [
+    "兵は散り、{player}は血に濡れて都を落ち延びた。{power}は謀反人の名で手配書を出した。……生き延びて、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -50
+    },
+    {
+     "favor": -200
+    },
+    {
+     "wanted": "power",
+     "n": 60
+    }
+   ],
+   "end": "謀反ならず"
+  }
+ }
+}

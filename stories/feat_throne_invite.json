@@ -1,0 +1,243 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "feat_throne_invite",
+ "kind": "feat",
+ "feat": "career",
+ "title": "招聘",
+ "era": "shunju",
+ "trigger": {
+  "patron": true,
+  "bySize": {
+   "realm": "weakestOther",
+   "rank": [
+    3,
+    6,
+    7
+   ],
+   "fame": [
+    60,
+    100,
+    150
+   ]
+  },
+  "king": false,
+  "notFeat": "career"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "small": {
+   "realm": "weakestOther"
+  },
+  "smallcap": {
+   "place": "capital:small"
+  },
+  "envoy": {
+   "npc": "使者",
+   "sex": "m"
+  },
+  "noble": {
+   "npc": "大夫の筆頭",
+   "sex": "m"
+  },
+  "nephew": {
+   "npc": "先王の甥",
+   "sex": "m"
+  }
+ },
+ "start": "i1",
+ "scenes": {
+  "i1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿で、{small}からの使者に会う",
+   "speaker": "envoy",
+   "art": "road",
+   "text": [
+    "旅装の{envoy}が、地に額をつけた。「{small}の王が世継ぎなく身罷られました。国は乱れ、隣国は牙を研いでおります」",
+    "「大夫たちは、天下に名高い{player}様をお迎えして、王に戴きたいと申しております。小さな国ではございますが……」"
+   ],
+   "choices": [
+    {
+     "label": "{smallcap}へ向かう",
+     "guide": "王になれば、いま仕える国を去ることになる",
+     "next": "i2"
+    },
+    {
+     "label": "断る",
+     "next": "idecline"
+    }
+   ]
+  },
+  "i2": {
+   "at": {
+    "place": "smallcap",
+    "building": "palace"
+   },
+   "goal": "{smallcap}の宮城で、{small}の大夫たちに会う",
+   "speaker": "noble",
+   "art": "court",
+   "text": [
+    "{noble}は値踏みするようにこちらを見た。「名声は聞いております。だが、この小国をどう守り、どう富ませるおつもりか。それを聞かせていただきたい」"
+   ],
+   "choices": [
+    {
+     "label": "小国が生き延びる策を説く",
+     "check": {
+      "skill": "letters",
+      "dc": 60,
+      "scale": "small",
+      "win": "i3",
+      "lose": "i2b"
+     }
+    },
+    {
+     "label": "大夫たちの家を一つずつ訪ね、心を掴む",
+     "check": {
+      "skill": "speech",
+      "dc": 62,
+      "scale": "small",
+      "win": "i3",
+      "lose": "i2b"
+     }
+    }
+   ]
+  },
+  "i2b": {
+   "speaker": "noble",
+   "art": "court",
+   "text": [
+    "大夫たちの半ばは首をかしげている。もう一押しが要る。"
+   ],
+   "choices": [
+    {
+     "label": "国庫に私財を献じる（10000）",
+     "if": {
+      "money": 10000
+     },
+     "effects": [
+      {
+       "money": -10000
+      }
+     ],
+     "next": "i3"
+    },
+    {
+     "label": "言葉を尽くしてもう一度説く",
+     "check": {
+      "skill": "speech",
+      "dc": 66,
+      "scale": "small",
+      "win": "i3",
+      "lose": "ifail"
+     }
+    }
+   ]
+  },
+  "i3": {
+   "at": {
+    "place": "smallcap",
+    "building": "barracks"
+   },
+   "goal": "{smallcap}の兵営で、王位を狙う{nephew}と対する",
+   "speaker": "nephew",
+   "art": "duel",
+   "text": [
+    "兵営の前で、{nephew}が剣を抜いた。「よそ者に国を渡してなるものか。この国の王は、血を引くこのわたしだ」兵たちが成り行きを見守っている。"
+   ],
+   "choices": [
+    {
+     "label": "一騎打ちに応じる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 60,
+      "scale": "small",
+      "win": "i4",
+      "lose": "ifail"
+     }
+    },
+    {
+     "label": "兵たちに向かって、どちらが国を守れるかを説く",
+     "check": {
+      "skill": "speech",
+      "dc": 66,
+      "scale": "small",
+      "win": "i4talk",
+      "lose": "i3fight"
+     }
+    }
+   ]
+  },
+  "i3fight": {
+   "speaker": "nephew",
+   "art": "duel",
+   "text": [
+    "兵たちは迷っている。{nephew}は斬りかかってきた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 60,
+      "scale": "small",
+      "win": "i4",
+      "lose": "ifail"
+     }
+    }
+   ]
+  },
+  "i4talk": {
+   "art": "camp",
+   "text": [
+    "兵たちの間から歓声が上がった。{nephew}は剣を落とし、うなだれて去った。"
+   ],
+   "next": "i4"
+  },
+  "i4": {
+   "at": {
+    "place": "smallcap",
+    "building": "palace"
+   },
+   "goal": "{smallcap}の宮城で、即位の儀に臨む",
+   "art": "court",
+   "text": [
+    "小さな宮城の、小さな玉座。だが、そこに並ぶ大夫たちの目は真剣だった。{player}は冠を受け、玉座に就いた。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "throne": "small",
+     "how": "招聘"
+    },
+    {
+     "feat": "career"
+    }
+   ],
+   "end": "招聘"
+  },
+  "idecline": {
+   "speaker": "envoy",
+   "art": "road",
+   "text": [
+    "{envoy}は肩を落として帰っていった。"
+   ],
+   "end": "いまだ時ならず"
+  },
+  "ifail": {
+   "art": "court",
+   "text": [
+    "大夫たちは別の者を立てることにした。{player}は{smallcap}を後にした。……ひと月ほどして、また使いが来るかもしれない。"
+   ],
+   "end": "いまだ時ならず"
+  }
+ }
+}

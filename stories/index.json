@@ -570,6 +570,62 @@
    "title": "始皇帝"
   },
   {
+   "id": "feat_main",
+   "file": "feat_main.json",
+   "kind": "feat",
+   "era": "shunju",
+   "title": "天命"
+  },
+  {
+   "id": "feat_throne_cede",
+   "file": "feat_throne_cede.json",
+   "kind": "feat",
+   "era": "shunju",
+   "title": "禅譲"
+  },
+  {
+   "id": "feat_throne_seize",
+   "file": "feat_throne_seize.json",
+   "kind": "feat",
+   "era": "shunju",
+   "title": "簒奪"
+  },
+  {
+   "id": "feat_throne_invite",
+   "file": "feat_throne_invite.json",
+   "kind": "feat",
+   "era": "shunju",
+   "title": "招聘"
+  },
+  {
+   "id": "feat_trade",
+   "file": "feat_trade.json",
+   "kind": "feat",
+   "era": "shunju",
+   "title": "天下の富"
+  },
+  {
+   "id": "feat_bandit",
+   "file": "feat_bandit.json",
+   "kind": "feat",
+   "era": "shunju",
+   "title": "天下の大盗"
+  },
+  {
+   "id": "feat_study",
+   "file": "feat_study.json",
+   "kind": "feat",
+   "era": "shunju",
+   "title": "百家の論"
+  },
+  {
+   "id": "feat_sword",
+   "file": "feat_sword.json",
+   "kind": "feat",
+   "era": "shunju",
+   "title": "剣の頂"
+  },
+  {
    "id": "sengoku_main",
    "file": "sengoku_main.json",
    "kind": "main",

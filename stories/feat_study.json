@@ -1,0 +1,194 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "feat_study",
+ "kind": "feat",
+ "feat": "study",
+ "title": "百家の論",
+ "era": "shunju",
+ "trigger": {
+  "schoolRank": 3,
+  "notFeat": "study"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "master": {
+   "npc": "老いた師",
+   "sex": "m"
+  },
+  "champ": {
+   "npc": "他派の論客",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の学舎で、老いた師の言葉を聞く",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は床に伏したまま、{player}の手を取った。「{ruler}が{capital}に百家の師を集め、天下の道を論じさせるという。わしは行けぬ。そなたが行け」",
+    "「勝てば、我らの道が天下の道となる。負ければ、百年は埋もれよう」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ向かう",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "capital",
+    "building": "school"
+   },
+   "goal": "{capital}の学舎で、百家の論の第一席に臨む",
+   "art": "lecture",
+   "text": [
+    "学舎の広間に、百家の師が並ぶ。第一席の題は「人の性は善か悪か」。どの答えにも、すぐさま反駁が飛んでくる。"
+   ],
+   "choices": [
+    {
+     "label": "古典を縦横に引いて論じる",
+     "check": {
+      "skill": "letters",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "相手の言葉尻を捕らえて切り返す",
+     "check": {
+      "skill": "speech",
+      "dc": 78,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の宮城で、{champ}と論を戦わせる",
+   "speaker": "champ",
+   "art": "court",
+   "text": [
+    "勝ち残ったのは二人。{champ}は扇を閉じた。「そなたの道は美しい。だが、美しいだけでは国は治まらぬ」宮中の者たちが息を呑んで見守る。"
+   ],
+   "choices": [
+    {
+     "label": "理で押し切る",
+     "check": {
+      "skill": "speech",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "史書の実例で、道の力を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    }
+   ]
+  },
+  "s3b": {
+   "speaker": "champ",
+   "art": "court",
+   "text": [
+    "{champ}の反駁が鋭く刺さった。宮中がざわめく。もう一度だけ、言葉を返す機会がある。"
+   ],
+   "choices": [
+    {
+     "label": "相手の論の根を突く",
+     "check": {
+      "skill": "letters",
+      "dc": 86,
+      "win": "s4",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}が身を乗り出した。「では問う。乱れたこの天下を、そなたの道はどう救う。一言で答えよ」"
+   ],
+   "choices": [
+    {
+     "label": "学んだすべてを一言に込める",
+     "check": {
+      "skill": "letters",
+      "dc": 80,
+      "win": "swin",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "王の目を見て、己の言葉で答える",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "swin",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "swin": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "長い沈黙のあと、{ruler}は立ち上がり、{player}に向かって拱手した。「師よ」",
+    "その一言で、百家の論は決した。{capital}の学舎には、{player}の名を慕う若者たちが列をなした。"
+   ],
+   "effects": [
+    {
+     "fame": 25
+    },
+    {
+     "feat": "study"
+    }
+   ],
+   "end": "宗師"
+  },
+  "sfail": {
+   "art": "lecture",
+   "text": [
+    "論は破れた。{player}は黙って席を立った。……学び直して、また次の論に。"
+   ],
+   "effects": [
+    {
+     "fame": -5
+    }
+   ],
+   "end": "論いまだ至らず"
+  }
+ }
+}

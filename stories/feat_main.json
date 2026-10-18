@@ -1,0 +1,279 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "feat_main",
+ "kind": "feat",
+ "feat": "main",
+ "title": "天命",
+ "era": "shunju",
+ "trigger": {
+  "storyDone": "shunju_main",
+  "notFeat": "main"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "schemer": {
+   "npc": "讒臣",
+   "sex": "m"
+  },
+  "champ": {
+   "npc": "死士の頭",
+   "sex": "m"
+  },
+  "old": {
+   "npc": "老師の旧友",
+   "sex": "m"
+  }
+ },
+ "start": "m1",
+ "scenes": {
+  "m1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿で、老師の旧友の便りを受け取る",
+   "speaker": "old",
+   "art": "inn",
+   "text": [
+    "{old}は、震える手で竹簡を差し出した。「あの{schemer}が生きておる。国を追われたあと、死士を養い、{capital}に潜り込んだらしい」",
+    "「狙いは{ruler}の命。乱世を見届けたそなたにしか頼めぬ。これが、最後の務めとなろう」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ向かう",
+     "next": "m2"
+    }
+   ]
+  },
+  "m2": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の市で、{schemer}の一味の動きを探る",
+   "art": "trade",
+   "text": [
+    "市の喧噪の陰に、見慣れぬ男たちが刃物を買い集めている。宮城の門番の交代の刻を、しきりに尋ねる者もいる。"
+   ],
+   "choices": [
+    {
+     "label": "男たちの後をつけ、決行の夜を突き止める",
+     "check": {
+      "skill": "stealth",
+      "dc": 72,
+      "win": "m3know",
+      "lose": "m3blind"
+     }
+    },
+    {
+     "label": "顔見知りの商人たちに銭を握らせて聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 75,
+      "win": "m3know",
+      "lose": "m3blind"
+     }
+    }
+   ]
+  },
+  "m3know": {
+   "art": "hideout",
+   "text": [
+    "決行は三日後の新月の夜。北の掖門から、二十人の死士が入る手筈だと分かった。"
+   ],
+   "effects": [
+    {
+     "flag": "fm_know"
+    }
+   ],
+   "next": "m4"
+  },
+  "m3blind": {
+   "art": "hideout",
+   "text": [
+    "男たちは路地で姿を消した。いつ来るのかは分からない。宮城に泊まり込み、夜ごと見張るしかない。"
+   ],
+   "next": "m4"
+  },
+  "m4": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の宮城で、死士を迎え撃つ",
+   "art": "war",
+   "text": [
+    "新月の夜。闇の中から、黒い影が次々と塀を越えてきた。"
+   ],
+   "choices": [
+    {
+     "label": "待ち伏せた兵とともに、掖門で迎え撃つ",
+     "if": {
+      "flag": "fm_know"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 62,
+      "win": "m5",
+      "lose": "mfail"
+     }
+    },
+    {
+     "label": "寝所の前に立ちはだかる",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 70,
+      "win": "m5",
+      "lose": "mfail"
+     }
+    }
+   ]
+  },
+  "m5": {
+   "art": "duel",
+   "speaker": "champ",
+   "text": [
+    "死士たちが倒れ伏すと、最後に一人、大柄な男が剣を抜いた。「{schemer}様に拾われた命だ。ここで返す」"
+   ],
+   "choices": [
+    {
+     "label": "一騎打ちに応じる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 80,
+      "win": "m6",
+      "lose": "mfail"
+     }
+    },
+    {
+     "label": "「主は、そなたを捨て駒にしたのだ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 82,
+      "win": "m6talk",
+      "lose": "m5fight"
+     }
+    }
+   ]
+  },
+  "m5fight": {
+   "art": "duel",
+   "text": [
+    "男は耳を貸さず、踏み込んできた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 80,
+      "win": "m6",
+      "lose": "mfail"
+     }
+    }
+   ]
+  },
+  "m6talk": {
+   "art": "duel",
+   "text": [
+    "男の剣先が揺れた。「……あの方は、宮城の外の馬車で待っている。逃げるつもりだ」男は剣を捨て、膝をついた。"
+   ],
+   "next": "m6"
+  },
+  "m6": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "捕らえられた{schemer}が、{ruler}の前に引き据えられた。{ruler}は{player}を見た。「この者の処分、そなたに任せる。乱世を見てきたそなたの目で、裁いてみよ」"
+   ],
+   "choices": [
+    {
+     "label": "法に従って裁くよう説く",
+     "check": {
+      "skill": "letters",
+      "dc": 78,
+      "win": "mwin_law",
+      "lose": "mfail_court"
+     }
+    },
+    {
+     "label": "命だけは助け、遠い辺境に流すよう説く",
+     "check": {
+      "skill": "speech",
+      "dc": 78,
+      "win": "mwin_mercy",
+      "lose": "mfail_court"
+     }
+    }
+   ]
+  },
+  "mwin_law": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は深くうなずいた。「法は、王のためにあるのではない。天下のためにある。……そなたの言うとおりだ」その夜、乱世の最後の火種が消えた。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "天命"
+  },
+  "mwin_mercy": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は長く黙っていたが、やがて笑った。「血で始まった乱世を、赦しで閉じるか。そなたらしい」{schemer}は辺境へ送られ、二度と都の土を踏まなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "天命"
+  },
+  "mfail": {
+   "art": "war",
+   "text": [
+    "{player}は深手を負って倒れた。{ruler}は辛うじて逃れたが、{schemer}は闇に消えた。……傷が癒えたら、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -40
+    }
+   ],
+   "end": "天命いまだ至らず"
+  },
+  "mfail_court": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は首を振った。「そなたの言葉には、まだ重みが足りぬ」裁きは重臣たちに委ねられた。……いつか、もう一度。"
+   ],
+   "end": "天命いまだ至らず"
+  }
+ }
+}
