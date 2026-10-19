@@ -1,0 +1,418 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_kozoku",
+ "kind": "random",
+ "where": "road",
+ "hook": "塩を積んだ舟を江賊に取られました。舟子たちも捕まったままです",
+ "title": "江賊の舟",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "ford": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "塩商人"
+  },
+  "fisher": {
+   "npc": "老いた漁師",
+   "sex": "m"
+  },
+  "chief": {
+   "npc": "江賊の頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "voyage",
+   "text": [
+    "江沿いの道で、{client}が土手に座り込んでいた。{ford}の渡しで、塩を積んだ舟を江賊に襲われたという。帯に鈴を下げた男たちが葦の間から漕ぎ寄せ、舟ごと舟子を連れ去った。",
+    "「塩は惜しい。だが舟子たちには妻も子もおります。どうか取り戻してはいただけませんか。礼は、残った銭を全部はたいてでも」"
+   ],
+   "choices": [
+    {
+     "label": "すぐ{ford}の渡しへ向かう",
+     "next": "ford"
+    },
+    {
+     "label": "先に{here}の{market}で、江賊のことを知る者を探す",
+     "next": "market"
+    }
+   ]
+  },
+  "market": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で江賊のことを聞く",
+   "speaker": "fisher",
+   "art": "trade",
+   "text": [
+    "魚を並べていた{fisher}が、声をひそめた。「あの鈴の連中は、もとは郡府の舟兵よ。去年から俸禄が途絶え、頭の{chief}が手下を連れて葦の中へ入った」",
+    "「根は悪い男ではない。舟子を殺しはせんだろう。だが郡府の者には、死んでも頭を下げんと言うておる」"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_kz_known"
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "choices": [
+    {
+     "label": "礼を言い、{ford}へ向かう",
+     "next": "ford"
+    }
+   ]
+  },
+  "ford": {
+   "at": {
+    "place": "ford"
+   },
+   "goal": "{ford}の渡しで江賊の根城を探す",
+   "art": "voyage",
+   "text": [
+    "{ford}の渡しの下手は、人の背より高い葦が一面に茂っていた。夕暮れ、葦の奥から鈴の音と、炊ぎの煙が上がる。杭を打った見張り台に、男がひとり弓を抱えて座っている。"
+   ],
+   "choices": [
+    {
+     "label": "夜を待ち、葦の間を忍んで舟に近づく",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "reeds",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "見張り台の男を射落として斬り込む",
+     "check": {
+      "skill": "bow",
+      "dc": 40,
+      "win": "raid",
+      "lose": "caught"
+     },
+     "guide": "射損じれば囲まれる"
+    },
+    {
+     "label": "岸から声を張り、頭の{chief}に話をしたいと呼ばわる",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "parley",
+      "lose": "caught"
+     }
+    }
+   ]
+  },
+  "reeds": {
+   "art": "voyage",
+   "text": [
+    "水に腰まで浸かって葦をかき分けると、杭に舫った塩の舟が見えた。舟子たちは縛られて船底に転がされている。焚き火のそばでは、江賊が三人、酒をあおっていた。"
+   ],
+   "choices": [
+    {
+     "label": "縄を切り、舟を音もなく押し出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "escape",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "焚き火の三人に斬りかかる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "raid": {
+   "art": "war",
+   "text": [
+    "矢は見張りの肩を射抜き、男は水音を立てて落ちた。鈴が一斉に鳴りだし、葦の奥から銛と環首刀を持った男たちが飛び出してくる。"
+   ],
+   "choices": [
+    {
+     "label": "舟を背にして迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "escape": {
+   "art": "voyage",
+   "text": [
+    "舟が流れに乗った、そのとき背後で鈴が鳴った。軽舟が二艘、櫂を揃えて追ってくる。舳先の男が火のついた矢をつがえた。"
+   ],
+   "choices": [
+    {
+     "label": "舳先の射手を先に射る",
+     "check": {
+      "skill": "bow",
+      "dc": 40,
+      "win": "end_rescued",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "舟を寄せさせて斬り結ぶ",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "caught": {
+   "speaker": "chief",
+   "art": "hideout",
+   "text": [
+    "鈴の音に囲まれ、葦の中の小屋へ引き立てられた。頭の{chief}は、色の褪せた兵の袍を着ていた。「郡府の犬か。それとも塩の持ち主に雇われたか」"
+   ],
+   "next": "parley"
+  },
+  "parley": {
+   "speaker": "chief",
+   "art": "hideout",
+   "text": [
+    "{chief}は焚き火に枝をくべた。「おれたちは江を守る舟兵だった。賊を追い、溺れた者を引き上げた。それが俸禄を止められ、追い出された。食うために塩舟を襲って何が悪い」",
+    "「舟と舟子を返せと言うなら、それなりのものを見せてもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "塩商人に代わって贖い銭を払う（200銭）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      },
+      {
+       "flag": "sgk_kz_paid"
+      }
+     ],
+     "next": "end_ransom"
+    },
+    {
+     "label": "「舟兵に戻れるよう、郡府に掛け合おう」",
+     "if": {
+      "flag": "sgk_kz_known"
+     },
+     "next": "petition"
+    },
+    {
+     "label": "頭と一騎打ちを申し込む",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "end_beaten"
+     },
+     "guide": "頭は江で鍛えた腕だ。負ければ身ぐるみ剥がれる"
+    }
+   ]
+  },
+  "petition": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、江賊の帰順を掛け合う",
+   "speaker": "郡府の功曹",
+   "art": "court",
+   "text": [
+    "{chief}は舟と舟子を人質のまま、三日だけ待つと言った。{here}の{office}で、功曹は帳簿をめくりながら眉をひそめた。",
+    "「舟兵の俸禄は、上の命で削った。賊に落ちた者を戻せば、郡府の非を認めることになる」"
+   ],
+   "choices": [
+    {
+     "label": "江の治安と塩の税の損を数字で示して説く",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_patrol",
+      "lose": "end_refused"
+     }
+    },
+    {
+     "label": "「捕らえるより、戻すほうが安くつく」と弁じる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_patrol",
+      "lose": "end_refused"
+     }
+    }
+   ]
+  },
+  "end_ransom": {
+   "speaker": "client",
+   "text": [
+    "{chief}は銭を数えると、黙って縄を解かせた。塩は半分に減っていたが、舟子たちはみな無事だった。",
+    "{client}は何度も頭を下げ、立て替えた銭に色をつけて返してくれた。「江賊も、銭を払う者には悪さをしないものですな」"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_kz_known"
+    },
+    {
+     "unflag": "sgk_kz_paid"
+    },
+    {
+     "money": 260
+    },
+    {
+     "fame": 1
+    },
+    {
+     "item": "salt",
+     "n": 1
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "買い戻した塩舟"
+  },
+  "end_rescued": {
+   "speaker": "client",
+   "text": [
+    "舟子たちを乗せて岸へ漕ぎ戻ると、{client}が泣きながら走ってきた。塩も大半は無事だった。",
+    "鈴の江賊はまだ葦の奥にいる。しばらくは、この渡しで夜に舟を出す者はいないだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_kz_known"
+    },
+    {
+     "unflag": "sgk_kz_paid"
+    },
+    {
+     "money": 180
+    },
+    {
+     "fame": 4
+    },
+    {
+     "item": "salt",
+     "n": 2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{ford}の渡しで、江賊から塩舟を取り戻した。"
+    }
+   ],
+   "end": "取り戻した塩舟"
+  },
+  "end_patrol": {
+   "speaker": "chief",
+   "text": [
+    "功曹は長いこと算木を並べていたが、やがて筆を取った。舟兵の俸禄は半分だけ戻り、{chief}たちは郡府の巡り舟として江に戻ることになった。",
+    "{chief}は塩の舟を自ら漕いで返しに来た。「借りができた。江で困ったら、鈴を三度鳴らせ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_kz_known"
+    },
+    {
+     "unflag": "sgk_kz_paid"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "鈴の江賊を、郡府の巡り舟として帰順させた。"
+    }
+   ],
+   "end": "江の巡り舟"
+  },
+  "end_refused": {
+   "speaker": "chief",
+   "text": [
+    "功曹は首を縦に振らなかった。葦の小屋に戻ってそう告げると、{chief}はしばらく黙り、それから舟子の縄を解かせた。",
+    "「お前が嘘をつかなかったのは分かった。舟は返す。だが塩はもらう。おれたちも食わねばならん」"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_kz_known"
+    },
+    {
+     "unflag": "sgk_kz_paid"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "聞き入れられぬ訴え"
+  },
+  "end_beaten": {
+   "text": [
+    "打ち倒され、気がつくと下流の砂州に打ち上げられていた。持っていた銭の一部が消えている。舟と舟子は、まだ葦の奥だ。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_kz_known"
+    },
+    {
+     "unflag": "sgk_kz_paid"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "money": -30
+    }
+   ],
+   "end": "葦の中に倒れて"
+  }
+ }
+}

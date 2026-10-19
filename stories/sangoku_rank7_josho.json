@@ -1,0 +1,465 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_rank7_josho",
+ "kind": "rank",
+ "rankTo": 7,
+ "title": "丞相府",
+ "era": "sangoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "chamberlain": {
+   "npc": "天子の侍中",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "漢の老いた公卿",
+   "sex": "m"
+  },
+  "hawk": {
+   "npc": "主公の腹心の将",
+   "sex": "m"
+  },
+  "maid": {
+   "npc": "侍中の家の下女",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府で昇進を願い出る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は人払いをして言った。「漢の朝廷は、洛陽が焼かれてより名ばかりだ。だが、名には力がある。三公を廃して丞相を置き、丞相府から天下を治める。その詔を、天子から賜りたい」",
+    "「丞相の座には、そなたを据えるつもりだ。詔を持って天子の侍中{chamberlain}が{cap}に来る。朝廷の公卿どもを黙らせ、詔をつつがなく受けよ。それが最後の試しだ」"
+   ],
+   "effects": [
+    {
+     "note": "丞相府を開く詔を受け、丞相に就く試しを命じられた。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "house"
+   },
+   "goal": "{cap}の客館で、漢の公卿{elder}を訪ねる",
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "侍中に付き従ってきた公卿たちの長は、白い鬚の{elder}だった。四百年の漢に仕えた家の出だという。",
+    "「丞相府、か。前漢の初めには蕭何どのがその座にあった。だが今それを開けば、天子は丞相の膝の上に座る人形になる。わしは、それに判をつく気にはなれぬ」"
+   ],
+   "choices": [
+    {
+     "label": "「丞相府は天子を守る楯にもなります」と、漢の制度を引いて説く",
+     "check": {
+      "skill": "letters",
+      "dc": 52,
+      "win": "s2won",
+      "lose": "s2cold"
+     }
+    },
+    {
+     "label": "{elder}の家の荒れた墓所と廟を、州の銭で修めると約す（800銭）",
+     "if": {
+      "money": 800
+     },
+     "effects": [
+      {
+       "money": -800
+      }
+     ],
+     "next": "s2won"
+    },
+    {
+     "label": "熹平石経の拓本を贈り、学問の話から入る",
+     "if": {
+      "item": "classics"
+     },
+     "effects": [
+      {
+       "item": "classics",
+       "n": -1
+      }
+     ],
+     "next": "s2won"
+    },
+    {
+     "label": "「判をつかずとも、詔は出る」と言い捨てる",
+     "next": "s2cold"
+    }
+   ]
+  },
+  "s2won": {
+   "speaker": "elder",
+   "text": [
+    "{elder}はしばらく黙り、やがて声を落とした。「……あなたなら話してもよかろう。侍中の{chamberlain}は、天子から別の詔を預かっておる。わしには中身は言わなんだ。だが、あの男の目は、詔を運ぶ者の目ではない」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r7_elder"
+    },
+    {
+     "note": "{elder}から、侍中{chamberlain}が別の詔を預かっていると聞いた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2cold": {
+   "speaker": "elder",
+   "text": [
+    "{elder}は袖を払って奥へ下がった。公卿たちは、口を閉ざしたまま{player}を見送った。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "cap",
+    "building": "inn"
+   },
+   "goal": "{cap}の客舎で、侍中{chamberlain}の動きを探る",
+   "speaker": "maid",
+   "art": "inn",
+   "text": [
+    "侍中{chamberlain}の一行は、{cap}の客舎を借り切っていた。夜ごと、武官の身なりをした者が裏口から出入りしているという。",
+    "水を汲みに出てきた下女の{maid}が、{player}の顔を見て桶を取り落としそうになった。"
+   ],
+   "choices": [
+    {
+     "label": "{maid}に銭を握らせ、侍中の部屋で見たものを聞く（200銭）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "s3sash"
+    },
+    {
+     "label": "夜、屋根伝いに侍中の部屋へ忍び、衣を改める",
+     "check": {
+      "skill": "stealth",
+      "dc": 52,
+      "win": "s3sash",
+      "lose": "s3seen"
+     }
+    },
+    {
+     "label": "{elder}の口添えで、侍中と二人きりで会う",
+     "if": {
+      "flag": "sk_r7_elder"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 48,
+      "win": "s3sash",
+      "lose": "s3seen"
+     }
+    },
+    {
+     "label": "探らずに、詔を受ける日を待つ",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3sash": {
+   "art": "tale",
+   "text": [
+    "侍中の衣帯の縫い目を解くと、絹に血で書かれた文字が現れた。天子の密詔だった。「{ruler}は朕を欺き、国を盗む。忠義の臣は、これを誅せよ」末尾には、すでに六人の名が連なっていた。{ruler}の腹心の将、{hawk}の名もある。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r7_edict"
+    },
+    {
+     "note": "侍中{chamberlain}の衣帯から、{ruler}を誅せよという天子の密詔を見つけた。{hawk}も名を連ねている。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3seen": {
+   "text": [
+    "廊下の灯がこちらへ向いた。{player}はその場を離れたが、翌朝、客舎の警固の兵が倍になっていた。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r7_alert"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "三日待ち、{cap}の州府で詔を受ける儀に臨む",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "chamberlain",
+   "art": "court",
+   "text": [
+    "詔を受ける儀の朝、州府の堂には香が焚かれ、{ruler}が南を向いて座した。侍中{chamberlain}が詔を捧げ持って進み出る。その背後で、警固の将{hawk}が剣の柄に手をかけているのが見えた。"
+   ],
+   "choices": [
+    {
+     "label": "儀の前に{ruler}へ密詔を示し、{hawk}を取り押さえさせる",
+     "if": {
+      "flag": "sk_r7_edict"
+     },
+     "next": "s5"
+    },
+    {
+     "label": "儀の列から進み出て、{hawk}の剣を押さえる",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4wound"
+     }
+    },
+    {
+     "label": "{hawk}の動きを、{ruler}にだけ分かるよう目で知らせる",
+     "if": {
+      "notFlag": "sk_r7_edict"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 50,
+      "win": "s5",
+      "lose": "s4wound"
+     }
+    }
+   ]
+  },
+  "s4wound": {
+   "art": "war",
+   "text": [
+    "{hawk}の剣が抜かれた。{player}は身を挺して{ruler}の前に出た。肩に熱いものが走る。衛兵が{hawk}を組み伏せたとき、堂の床には血が広がっていた。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "flag": "sk_r7_blood"
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{hawk}は縄をかけられ、侍中{chamberlain}は青ざめて立ち尽くしていた。{ruler}の声は低かった。「密詔の名に連なった者は六人。天子の侍中もおる。丞相の座に就く者が、これを裁け」",
+    "{minister}が{player}を見た。この裁きが、丞相の最初の仕事になる。"
+   ],
+   "choices": [
+    {
+     "label": "名を連ねた者を一族ごと誅し、二度と企てが起きぬようにする",
+     "next": "win_purge"
+    },
+    {
+     "label": "{hawk}らは斬るが、侍中と天子には咎を及ぼさず、漢の朝廷を立てる",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "win_han",
+      "lose": "win_purge"
+     }
+    },
+    {
+     "label": "密詔を焼き、「詔など初めから無かった」ことにして皆を赦す",
+     "if": {
+      "notFlag": "sk_r7_blood"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 56,
+      "win": "win_burn",
+      "lose": "fail_doubt"
+     }
+    },
+    {
+     "label": "密詔の真偽を論じ、偽詔として侍中ひとりの罪とする",
+     "if": {
+      "flag": "sk_r7_elder"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "win_han",
+      "lose": "fail_doubt"
+     }
+    }
+   ]
+  },
+  "win_purge": {
+   "speaker": "minister",
+   "art": "disaster",
+   "text": [
+    "{hawk}と名を連ねた者たちは、一族とともに市で斬られた。天子は宮に閉じ込められ、侍中の座は空になった。",
+    "丞相府の門が開いた日、門をくぐる者たちは誰も{player}の目を見なかった。{minister}が言った。「恐れで動く府は、早く動く。長くは動かぬがな」"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 18
+    },
+    {
+     "fame": 6
+    },
+    {
+     "flag": "sk_r7_dread"
+    },
+    {
+     "unflag": "sk_r7_elder"
+    },
+    {
+     "unflag": "sk_r7_edict"
+    },
+    {
+     "unflag": "sk_r7_alert"
+    },
+    {
+     "unflag": "sk_r7_blood"
+    },
+    {
+     "note": "密詔の企てを一族ごと誅し、丞相となった。"
+    }
+   ],
+   "end": "血の丞相府"
+  },
+  "win_han": {
+   "speaker": "elder",
+   "text": [
+    "{hawk}らは罪に服したが、天子と侍中には咎が及ばなかった。{elder}が丞相府を開く詔に判をつき、{player}に深く一礼した。「主を守り、漢も立てた。蕭何どのの座にふさわしい」",
+    "{ruler}は{player}を丞相とした。天子の名と{patron}の兵とが、一つの府の下にそろった。"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 22
+    },
+    {
+     "fame": 12
+    },
+    {
+     "flag": "sk_r7_han_friend"
+    },
+    {
+     "unflag": "sk_r7_elder"
+    },
+    {
+     "unflag": "sk_r7_edict"
+    },
+    {
+     "unflag": "sk_r7_alert"
+    },
+    {
+     "unflag": "sk_r7_blood"
+    },
+    {
+     "note": "密詔の企てを収め、漢の朝廷を立てたまま丞相となった。"
+    }
+   ],
+   "end": "漢と主公のあいだ"
+  },
+  "win_burn": {
+   "speaker": "ruler",
+   "text": [
+    "密詔は火鉢の中で灰になった。名を連ねた者たちは、何が起きたのかも分からぬまま赦された。{ruler}はしばらく灰を見つめ、それから笑った。「恩で縛るか。恐れより強い縄だ」",
+    "{player}は丞相となった。{hawk}は、その日から誰よりも忠実な{player}の剣となった。"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 20
+    },
+    {
+     "fame": 10
+    },
+    {
+     "flag": "sk_r7_mercy"
+    },
+    {
+     "unflag": "sk_r7_elder"
+    },
+    {
+     "unflag": "sk_r7_edict"
+    },
+    {
+     "unflag": "sk_r7_alert"
+    },
+    {
+     "unflag": "sk_r7_blood"
+    },
+    {
+     "note": "天子の密詔を焼いて企てた者を赦し、丞相となった。"
+    }
+   ],
+   "end": "灰になった密詔"
+  },
+  "fail_doubt": {
+   "speaker": "minister",
+   "text": [
+    "裁きの言葉は、誰の心にも届かなかった。{ruler}の目に、疑いの色が浮かんだ。「密詔を庇う者を、丞相には置けぬ」丞相府の話は先へ送られた。州牧として務めを重ね、疑いを晴らすほかない。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sk_r7_elder"
+    },
+    {
+     "unflag": "sk_r7_edict"
+    },
+    {
+     "unflag": "sk_r7_alert"
+    },
+    {
+     "unflag": "sk_r7_blood"
+    },
+    {
+     "note": "密詔の裁きで主公の疑いを招いた。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "疑われた裁き"
+  }
+ }
+}

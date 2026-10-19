@@ -1,0 +1,1152 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_main",
+ "kind": "main",
+ "title": "鼎の行方",
+ "era": "sangoku",
+ "cast": {
+  "home": {
+   "place": "home"
+  },
+  "mentor": {
+   "npc": "老書生",
+   "sex": "m"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "seat": {
+   "place": "capital:power"
+  },
+  "lord": {
+   "person": "general:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "farm": {
+   "place": "near:seat"
+  },
+  "gouzu": {
+   "npc": "豪族",
+   "sex": "m"
+  },
+  "rival": {
+   "realm": "enemy:power"
+  },
+  "rivalgen": {
+   "person": "general:rival"
+  },
+  "front": {
+   "place": "border:power"
+  },
+  "defector": {
+   "npc": "敵の謀士",
+   "sex": "m"
+  },
+  "plotter": {
+   "npc": "侍中",
+   "sex": "m"
+  },
+  "third": {
+   "realm": "weakestOther"
+  },
+  "thirdcap": {
+   "place": "capital:third"
+  },
+  "sage": {
+   "npc": "名士",
+   "sex": "m"
+  },
+  "river": {
+   "place": "near:front"
+  }
+ },
+ "start": "c1",
+ "scenes": {
+  "c1": {
+   "at": {
+    "place": "home",
+    "building": "inn"
+   },
+   "goal": "{home}の{inn}で人に会う",
+   "speaker": "mentor",
+   "art": "tale",
+   "text": [
+    "{inn}の土間の隅で、痩せた老人が手招きした。若い頃は都の太学で学び、党錮の禁で官への道を断たれたという{mentor}だ。いまは村の子らに字を教えて暮らしている。",
+    "「{player}よ。家柄で官が決まる世は、黄巾の乱とともに終わった。いま天下で最も勢いがあるのは{power}だ。{power}の{lord}殿は、才さえあれば生まれを問わずに取り立てるという」",
+    "老人は竹簡の束の中から、一通の書簡を抜き出した。「昔、{lord}殿と同じ師の門で机を並べた。これを持って{seat}の{palace}へ行け」"
+   ],
+   "choices": [
+    {
+     "label": "書簡を受け取る",
+     "effects": [
+      {
+       "item": "letter"
+      },
+      {
+       "note": "{mentor}から{lord}への書簡を託された。"
+      }
+     ],
+     "next": "c2"
+    },
+    {
+     "label": "「乱世に仕えるなど御免です」と断る",
+     "next": "c1b"
+    }
+   ]
+  },
+  "c1b": {
+   "speaker": "mentor",
+   "text": [
+    "「みなそう言う。だが鋤を握っていても、乱は向こうから村へやって来る。黄巾の時がそうだった」{mentor}は書簡を卓に置いた。「気が変わったら{seat}へ行け」"
+   ],
+   "effects": [
+    {
+     "item": "letter"
+    }
+   ],
+   "next": "c2"
+  },
+  "c2": {
+   "at": {
+    "place": "seat",
+    "building": "palace"
+   },
+   "goal": "{seat}の{palace}で{lord}に書簡を渡す",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "門衛に三度追い返され、四度目にようやく堂の下まで通された。{lord}は書簡を読み終えると、{player}の擦り切れた草履を眺めた。",
+    "「{mentor}どのは息災か。……だがな、この門には毎日、才があると称する者が百人は来る。お前には何ができる」"
+   ],
+   "choices": [
+    {
+     "label": "「天下の形勢を論じてみせましょう」",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     },
+     "guide": "ほかの国に仕えている身なら、その主公を去って{power}へ移ることになる"
+    },
+    {
+     "label": "「文書と算用なら誰にも劣りませぬ」",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     },
+     "guide": "ほかの国に仕えている身なら、その主公を去って{power}へ移ることになる"
+    },
+    {
+     "label": "「剣を取れば、門衛の十人など物の数ではありませぬ」",
+     "check": {
+      "skill": "blade",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     },
+     "guide": "ほかの国に仕えている身なら、その主公を去って{power}へ移ることになる"
+    },
+    {
+     "label": "「いまは別の主公に仕える身です」と、書簡だけ預けて辞す",
+     "if": {
+      "patron": true
+     },
+     "next": "c2later"
+    },
+    {
+     "label": "「仕えたい主はほかにおります」と、書簡だけ預けて辞す",
+     "if": {
+      "free": true
+     },
+     "guide": "{power}へ移らないかぎり、この物語は先へ進まない",
+     "next": "c2later"
+    }
+   ]
+  },
+  "c2later": {
+   "at": {
+    "place": "seat",
+    "building": "palace"
+   },
+   "goal": "どこにも仕えていない身で、ひと月ののちに{seat}の{palace}の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
+   "wait": {
+    "free": true,
+    "days": 30
+   },
+   "speaker": "lord",
+   "text": [
+    "「主を離れたそうだな」{lord}は預かっていた書簡を手に、堂から降りてきた。「では改めて問おう。お前には何ができる」"
+   ],
+   "choices": [
+    {
+     "label": "「天下の形勢を論じてみせましょう」",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     }
+    },
+    {
+     "label": "「文書と算用なら誰にも劣りませぬ」",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     }
+    },
+    {
+     "label": "「剣を取れば、門衛の十人など物の数ではありませぬ」",
+     "check": {
+      "skill": "blade",
+      "dc": 22,
+      "win": "c2ok",
+      "lose": "c2ng"
+     }
+    },
+    {
+     "label": "「いましばらく考えさせてください」と辞す",
+     "guide": "{power}へ移らないかぎり、この物語は先へ進まない",
+     "next": "c2later"
+    }
+   ]
+  },
+  "c2ok": {
+   "speaker": "lord",
+   "text": [
+    "{lord}は膝を打って笑った。「よかろう。今日からわしの幕下の食客とする。食い扶持の分は働け。働けば、いくらでも上に引き上げてやる」"
+   ],
+   "effects": [
+    {
+     "item": "letter",
+     "n": -1
+    },
+    {
+     "enlist": "power"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{lord}の幕下に食客として迎えられた。"
+    }
+   ],
+   "next": "c3"
+  },
+  "c2ng": {
+   "speaker": "lord",
+   "text": [
+    "「口だけは達者だな」{lord}は書簡を突き返した。「名も無い者を養う余裕はない。お前の名が世に聞こえるようになったら、また来い」"
+   ],
+   "next": "c2retry"
+  },
+  "c2retry": {
+   "at": {
+    "place": "seat",
+    "building": "palace"
+   },
+   "goal": "名声を10まで上げて、{seat}の{palace}の{lord}を再び訪ねる（ほかの国に仕えている間は待つ）",
+   "wait": {
+    "fame": 10,
+    "free": true
+   },
+   "speaker": "lord",
+   "text": [
+    "「噂は聞いているぞ」今度は{lord}のほうから堂の下へ降りてきた。「先日はわしの目が曇っていた。幕下に入れ」"
+   ],
+   "choices": [
+    {
+     "label": "幕下に入る",
+     "effects": [
+      {
+       "item": "letter",
+       "n": -1
+      },
+      {
+       "enlist": "power"
+      },
+      {
+       "note": "{lord}の幕下に食客として迎えられた。"
+      }
+     ],
+     "next": "c3"
+    },
+    {
+     "label": "「仕えたい主はほかにおります」と辞す",
+     "guide": "{power}へ移らないかぎり、この物語は先へ進まない",
+     "next": "c2later"
+    }
+   ]
+  },
+  "c3": {
+   "at": {
+    "place": "seat",
+    "building": "palace"
+   },
+   "goal": "{power}の務めを3つ果たし、{seat}の{palace}の{lord}に報告する（{office}の布告や主公の命）",
+   "wait": {
+    "jobs": 3,
+    "patron": "power"
+   },
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "「三つの務め、どれも抜かりがなかったと聞いた」{lord}は竹簡を置いて頷いた。",
+    "「乱世の戦は、兵の数より兵糧で決まる。流民を集めて田を開かせ、その実りで兵を養う――屯田だ。算段のできる者が要る。お前を従事に取り立てよう」"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 20
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "c4"
+  },
+  "c4": {
+   "at": {
+    "place": "farm",
+    "building": "office"
+   },
+   "goal": "{lord}の命で、{farm}の{office}へ屯田の兵糧を確かめに行く",
+   "speaker": "gouzu",
+   "art": "trade",
+   "text": [
+    "{farm}の屯田は、帳簿の上では豊作のはずだった。だが倉は半分も埋まっていない。流民たちは痩せ、疫病に倒れる者も出ている。",
+    "土地の豪族{gouzu}は、絹の袖を揺らして笑った。「今年は蝗が出ましてな。穀物などどこにもございません。……まあ、わしの蔵を除けば、ですが。値は、そちら次第で」"
+   ],
+   "choices": [
+    {
+     "label": "帳簿を洗い、横流しの跡を突きつける",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "c4ok",
+      "lose": "c4dear"
+     }
+    },
+    {
+     "label": "値を競り、来年の塩の商いと抱き合わせて買い叩く",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "c4ok",
+      "lose": "c4dear"
+     }
+    },
+    {
+     "label": "病に倒れた流民を診て回り、隠し蔵のありかを聞き出す",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "c4ok",
+      "lose": "c4dear"
+     }
+    },
+    {
+     "label": "手付けに自腹を切る（300銭）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "c4ok"
+    }
+   ]
+  },
+  "c4ok": {
+   "speaker": "gouzu",
+   "text": [
+    "{gouzu}はしばらく黙っていたが、やがて肩をすくめた。「参りましたな。{power}さまに逆らう気はございません。蔵を開けましょう」",
+    "帰り際、{gouzu}は錦の包みを差し出した。「これは、わしからの心ばかりの品。いずれ人と人を結ぶ席で、役に立ちましょう」"
+   ],
+   "effects": [
+    {
+     "item": "brocade"
+    },
+    {
+     "favor": 15
+    },
+    {
+     "flag": "sgkm_grain"
+    },
+    {
+     "note": "{gouzu}から蜀錦を贈られた。"
+    }
+   ],
+   "next": "c4road"
+  },
+  "c4dear": {
+   "speaker": "gouzu",
+   "text": [
+    "結局、言い値に近い銭を払って穀物を出させるしかなかった。{gouzu}は銭を数えながら言った。「毎度ありがとうございます。また来年も、ぜひ」"
+   ],
+   "effects": [
+    {
+     "favor": 5
+    }
+   ],
+   "next": "c4road"
+  },
+  "c4road": {
+   "art": "war",
+   "text": [
+    "兵糧の車を連ねて{farm}を出たところで、黄色い布を腕に巻いた十人ほどの{bandit}が道を塞いだ。「蒼天すでに死す。その穀物は、飢えた我らのものだ」"
+   ],
+   "choices": [
+    {
+     "label": "車を守って戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "c4safe",
+      "lose": "c4lost"
+     }
+    }
+   ]
+  },
+  "c4safe": {
+   "text": [
+    "{bandit}は散り散りに逃げていった。車は一台も欠けていない。逃げ遅れた若者は、屯田の民に加わることを願い出た。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    }
+   ],
+   "next": "c4home"
+  },
+  "c4lost": {
+   "text": [
+    "手傷を負い、車を二台奪われた。それでも残りは守り抜いた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "c4home"
+  },
+  "c4home": {
+   "at": {
+    "place": "seat",
+    "building": "palace"
+   },
+   "goal": "兵糧を{seat}の{palace}へ届ける",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "{lord}は倉に積まれた俵を見上げ、満足げに頷いた。「これで{rival}と一年は睨み合える」",
+    "「{player}、お前はもう食客ではない。校尉として兵を預ける。次の戦は、河を挟んだ根比べになるぞ」"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 20
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "c5"
+  },
+  "c5": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "境の{front}で、{rival}と対陣する{power}の陣に加わる",
+   "wait": {
+    "days": 5
+   },
+   "speaker": "lord",
+   "art": "war",
+   "text": [
+    "{front}の渡しを挟んで、{power}と{rival}の大軍が向かい合った。睨み合いは三月に及び、こちらの兵糧も底が見えてきた。数では{rival}が勝っている。",
+    "その夜、{rival}の陣から一人の男が逃げてきた。謀士の{defector}と名乗った。「主に献策を退けられた。{rival}の兵糧は、陣の北の倉にすべて積まれている。守りは手薄だ」",
+    "{lord}は{player}を見た。「罠かもしれぬ。だが、本当なら一夜で勝てる。お前ならどうする」"
+   ],
+   "choices": [
+    {
+     "label": "{defector}の言を信じ、軽騎を率いて倉を焼きに行く",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "c5win",
+      "lose": "c5lose"
+     }
+    },
+    {
+     "label": "先に一人で敵陣へ忍び込み、倉を確かめて火を放つ",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "c5win",
+      "lose": "c5lose"
+     }
+    },
+    {
+     "label": "{defector}を問い詰め、言葉の真偽を見極める",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "c5true",
+      "lose": "c5lose"
+     }
+    }
+   ]
+  },
+  "c5true": {
+   "speaker": "defector",
+   "text": [
+    "{defector}は少しも目を逸らさずに、倉の見張りの交代の刻限から合言葉まで答えた。偽りではない。{player}は五百の騎兵を選び、{rival}の旗を掲げて夜道を駆けた。"
+   ],
+   "choices": [
+    {
+     "label": "倉に火を放つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "c5win",
+      "lose": "c5lose"
+     }
+    }
+   ]
+  },
+  "c5win": {
+   "text": [
+    "北の空が赤く染まった。兵糧を焼かれた{rival}の大軍は、翌朝から櫛の歯が欠けるように崩れていった。{power}の陣中で、{player}の名を知らぬ者はいなくなった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 40
+    },
+    {
+     "flag": "sgkm_ford"
+    }
+   ],
+   "next": "c6"
+  },
+  "c5lose": {
+   "text": [
+    "夜襲は見破られ、多くの兵を失った。対陣はさらに長引き、{rival}が兵を退いたのは冬になってからだった。{player}の働きを覚えている者は少ない。"
+   ],
+   "effects": [
+    {
+     "favor": 10
+    },
+    {
+     "hp": -10
+    }
+   ],
+   "next": "c6"
+  },
+  "c6": {
+   "at": {
+    "place": "seat",
+    "building": "palace"
+   },
+   "goal": "{seat}の{palace}へ戻る",
+   "wait": {
+    "days": 15
+   },
+   "speaker": "plotter",
+   "art": "court",
+   "text": [
+    "凱旋の宴の夜、侍中の{plotter}が{player}を回廊の陰へ呼んだ。{plotter}は衣の帯を解き、縫い込まれた絹の切れを広げてみせた。",
+    "「天子の御名で書かれた密詔だ。{ruler}は天子を擁して天下に号令しているが、その実は簒奪の時を待っているだけだ。……河の戦で名を上げたお前が加われば、兵が動く。事が成れば、お前は将軍だ」"
+   ],
+   "choices": [
+    {
+     "label": "その足で{lord}に知らせる",
+     "next": "c6warn"
+    },
+    {
+     "label": "密詔に名を連ねる",
+     "effects": [
+      {
+       "flag": "sgkm_rebel"
+      }
+     ],
+     "next": "c6rebel"
+    },
+    {
+     "label": "聞かなかったことにする",
+     "next": "c6silent"
+    }
+   ]
+  },
+  "c6warn": {
+   "speaker": "lord",
+   "art": "war",
+   "text": [
+    "{lord}は顔色を変え、すぐに手勢を集めた。夜明け前、{ruler}の寝所へ向かう{plotter}の私兵と、回廊で鉢合わせた。",
+    "「{player}、主公をお守りせよ！」"
+   ],
+   "choices": [
+    {
+     "label": "寝所の扉の前に立つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "c6saved",
+      "lose": "c6hurt"
+     }
+    }
+   ]
+  },
+  "c6saved": {
+   "speaker": "ruler",
+   "text": [
+    "企みは一夜で潰えた。{ruler}は血の跡の残る回廊で{player}を見下ろした。「お前の名は覚えた。今日より中郎将とせよ」"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 50
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "power",
+     "n": 15
+    },
+    {
+     "flag": "sgkm_loyal"
+    }
+   ],
+   "next": "c7"
+  },
+  "c6hurt": {
+   "text": [
+    "深手を負い、気がつけば戸板の上だった。主公は無事だったという。手柄の多くは{lord}のものになったが、{player}の働きを見ていた者もいた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "favor": 25
+    },
+    {
+     "flag": "sgkm_loyal"
+    }
+   ],
+   "next": "c7"
+  },
+  "c6silent": {
+   "text": [
+    "{player}は口を閉ざした。企みは別の者の密告で露見し、{plotter}の一族は市に引き出された。誰も{player}を咎めなかったが、{lord}の目は前ほど温かくはなかった。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    }
+   ],
+   "next": "c7"
+  },
+  "c6rebel": {
+   "art": "war",
+   "text": [
+    "夜明け前、{player}は{plotter}の私兵とともに寝所を囲んだ。だが寝所はもぬけの殻だった。企みは、とうに漏れていたのだ。",
+    "名を連ねた者は次々に捕らえられた。{player}は闇に紛れて城を逃れた。"
+   ],
+   "effects": [
+    {
+     "favor": -50
+    },
+    {
+     "flag": "sgkm_exiled"
+    }
+   ],
+   "next": "c6home"
+  },
+  "c6home": {
+   "at": {
+    "place": "home",
+    "building": "inn"
+   },
+   "goal": "故郷の{home}へ落ち延びる",
+   "speaker": "mentor",
+   "art": "tale",
+   "text": [
+    "{mentor}は黙って濁り酒を注いだ。「わしも若い頃、宦官を除こうという清流の士の誓いに名を連ねた。誓った者の多くは獄で死んだ。生き残ったのは、わしのように役に立たぬ者だけだ」",
+    "「だが、お前はまだ役に立つ。{lord}殿は、使える者を捨てるほど愚かではない。働きで返せ」"
+   ],
+   "next": "c6recall"
+  },
+  "c6recall": {
+   "at": {
+    "place": "seat",
+    "building": "palace"
+   },
+   "goal": "30日ほど身を慎んだのち、{seat}の{palace}へ詫びに行く",
+   "wait": {
+    "days": 30
+   },
+   "speaker": "lord",
+   "text": [
+    "{lord}は長いあいだ{player}を睨んでいた。「……斬れと申す者もおる。だが、これから大事な使いがある。口の立つ者が要るのだ。死ぬ気で務めよ。それで帳消しにしてやる」"
+   ],
+   "effects": [
+    {
+     "unflag": "sgkm_exiled"
+    },
+    {
+     "favor": 20
+    }
+   ],
+   "next": "c7"
+  },
+  "c7": {
+   "at": {
+    "place": "thirdcap",
+    "building": "palace"
+   },
+   "goal": "{lord}の使者として{thirdcap}の{palace}へ行き、{third}の名士{sage}に会う",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "sage",
+   "art": "court",
+   "text": [
+    "{thirdcap}の{palace}の広間には、{third}の文官が居並んでいた。{power}につくべしと言う者、{rival}につくべしと言う者。どの顔も、{power}の使者がどれほどの者かを値踏みしている。",
+    "上座の脇から、名士の{sage}が静かに言った。「{power}は天下の半ばを平らげ、いずれ{rival}と雌雄を決する。小さな{third}は、どちらと手を結ぶべきか。使者どの、ひとつ我らを説いてみられよ」"
+   ],
+   "choices": [
+    {
+     "label": "蜀錦を{sage}に贈り、まず礼を尽くす",
+     "if": {
+      "item": "brocade"
+     },
+     "effects": [
+      {
+       "item": "brocade",
+       "n": -1
+      }
+     ],
+     "next": "c7ok"
+    },
+    {
+     "label": "居並ぶ文官と、天下の利害を論じ合う",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "c7ok",
+      "lose": "c7ng"
+     }
+    },
+    {
+     "label": "経書と故事を引き、和の理を説く",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "c7ok",
+      "lose": "c7ng"
+     }
+    }
+   ]
+  },
+  "c7ok": {
+   "speaker": "sage",
+   "text": [
+    "広間が静まった。やがて{sage}が扇を置いた。「……{power}の使者が、これほど理を解するとは。主にはそのように申し上げよう。{third}は{rival}にはつかぬ」",
+    "宿へ戻る道すがら、{sage}がひとりで追ってきた。「よい論でした。天下は一つになるか、三つに分かれて鼎のように立つか。小さな{third}にも、まだ目はある。いずれまた、お会いすることになりましょう」"
+   ],
+   "effects": [
+    {
+     "flag": "sgkm_allied"
+    },
+    {
+     "favor": 30
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "next": "c8"
+  },
+  "c7ng": {
+   "speaker": "sage",
+   "text": [
+    "論は、居並ぶ文官の嘲りに呑まれた。{sage}は礼だけ述べて席を立った。翌朝、{third}の使者が{rival}の陣へ向かったと聞いた。{third}は{rival}と手を結んだのだ。"
+   ],
+   "effects": [
+    {
+     "flag": "sgkm_noally"
+    },
+    {
+     "favor": 5
+    }
+   ],
+   "next": "c8"
+  },
+  "c8": {
+   "at": {
+    "place": "river"
+   },
+   "goal": "大江のほとりの{river}で、{power}の船団に加わる",
+   "wait": {
+    "days": 15
+   },
+   "goto": [
+    {
+     "if": {
+      "flag": "sgkm_allied"
+     },
+     "next": "c8ally"
+    }
+   ],
+   "speaker": "lord",
+   "art": "war",
+   "text": [
+    "{river}の江上に、{power}の船団が連なった。{power}の兵の多くは船に慣れず、揺れを抑えるために船と船を鎖で繋いでいる。陣中には疫病が広がり、咳の音が絶えない。",
+    "対岸には{rival}の旗。その脇に、{third}の小さな船団も見える。冬の風はこちらから向こうへ吹いている。「火を使われても、燃えるのは向こうの船だ」{lord}はそう言って笑ったが、{player}の胸騒ぎは消えなかった。"
+   ],
+   "choices": [
+    {
+     "label": "病んだ兵を診て回り、陣を立て直す",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "c8cure",
+      "lose": "c8fire"
+     }
+    },
+    {
+     "label": "「鎖を解き、船を散らすべきです」と{lord}に説く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "c8scatter",
+      "lose": "c8fire"
+     }
+    },
+    {
+     "label": "古い暦と雲を読み、東南の風が吹く日を割り出す",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "c8scatter",
+      "lose": "c8fire"
+     }
+    }
+   ]
+  },
+  "c8ally": {
+   "speaker": "sage",
+   "art": "war",
+   "text": [
+    "{river}の江上で、{power}の船団の脇に{third}の水軍が並んでいた。舳先に立つ{sage}が、{player}に向かって手を挙げた。「約束どおり参りました」",
+    "対岸には{rival}の旗。夜半、風が東南に変わった。闇の中から、枯れ草を積んだ船が十艘、炎を上げてこちらへ流れてくる。"
+   ],
+   "choices": [
+    {
+     "label": "弓兵を率い、火船の漕ぎ手を射る",
+     "check": {
+      "skill": "bow",
+      "dc": 30,
+      "win": "c8hold",
+      "lose": "c8fire"
+     }
+    },
+    {
+     "label": "{third}の水軍と息を合わせ、火船を岸へ押しやる",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "c8hold",
+      "lose": "c8fire"
+     }
+    }
+   ]
+  },
+  "c8cure": {
+   "text": [
+    "薬草を煎じ、病んだ兵を岸の陣へ移した。兵の顔に血の気が戻った。だがその夜、風が東南に変わった。降伏を申し出ていた敵の船が、炎を上げてこちらへ突っ込んでくる。"
+   ],
+   "choices": [
+    {
+     "label": "弓兵を率い、火船の漕ぎ手を射る",
+     "check": {
+      "skill": "bow",
+      "dc": 40,
+      "win": "c8hold",
+      "lose": "c8fire"
+     }
+    }
+   ]
+  },
+  "c8scatter": {
+   "text": [
+    "{lord}は渋々ながら鎖を解かせた。その夜、風が東南に変わり、敵の火船が流れてきた。だが散らばった船の間を火船は虚しく抜けていき、燃えたのは数艘で済んだ。"
+   ],
+   "next": "c8hold"
+  },
+  "c8hold": {
+   "text": [
+    "夜が明けると、江上の火は消えていた。{power}の船団はなお大江に浮かんでいる。「お前がいなければ、今ごろ{power}の兵は魚の餌だった」{lord}は{player}の肩を叩いた。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 40
+    },
+    {
+     "flag": "sgkm_river"
+    }
+   ],
+   "next": "c9"
+  },
+  "c8fire": {
+   "art": "war",
+   "text": [
+    "火は鎖で繋がれた船から船へと燃え移り、江面が昼のように明るくなった。{power}の兵は燃える船から岸へ逃れ、ぬかるんだ道を敗走した。",
+    "細い山道の出口に、{rival}の将{rivalgen}が兵を伏せて待っていた。背後には、命からがら逃れてきた{lord}と主公の一行がいる。"
+   ],
+   "choices": [
+    {
+     "label": "道を塞ぐ{rivalgen}に斬りかかる",
+     "fight": {
+      "foes": "person",
+      "who": "rivalgen",
+      "n": 3,
+      "level": 0,
+      "confirm": "{rivalgen}は名の聞こえた将だ。まともに打ち合えば、ただでは済まない。",
+      "cancel": "c8fire",
+      "free": true,
+      "fled": "c8flee",
+      "win": "c8escape",
+      "lose": "c8flee"
+     }
+    },
+    {
+     "label": "{rivalgen}に、かつて命を助けた恩を説いて道を開けさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "c8escape",
+      "lose": "c8flee"
+     }
+    },
+    {
+     "label": "伏兵を避け、間道へ一行を導く",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "c8escape",
+      "lose": "c8flee"
+     }
+    }
+   ]
+  },
+  "c8escape": {
+   "text": [
+    "伏兵の囲みが解け、{lord}と主公の一行は落ち延びた。大敗ではあったが、{player}が命を救ったことは誰もが知っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 40
+    },
+    {
+     "flag": "sgkm_river"
+    }
+   ],
+   "next": "c9"
+  },
+  "c8flee": {
+   "text": [
+    "泥にまみれ、矢傷を負いながら、{player}はようやく味方の陣へたどり着いた。従っていた兵の半ばは戻らなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 15
+    }
+   ],
+   "next": "c9"
+  },
+  "c9": {
+   "at": {
+    "place": "seat",
+    "building": "palace"
+   },
+   "goal": "{seat}の{palace}で{ruler}に目通りする",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は天下の地図を広げていた。{power}の色に塗られた地は、もう天下の半ばに近い。だが{rival}はなお侮れず、小さな{third}では名士の{sage}が「天下を三つに分け、鼎の足のように立たせる」と説いて人を集めているという。",
+    "「天下は一つになるべきか。それとも、三つに分かれたまま民を休ませるべきか。{player}、お前はどう見る」"
+   ],
+   "choices": [
+    {
+     "label": "「主公の下で天下を一つにし、乱世を終わらせるべきです」",
+     "effects": [
+      {
+       "flag": "sgkm_unify"
+      },
+      {
+       "favor": 20
+      }
+     ],
+     "next": "c10"
+    },
+    {
+     "label": "{third}に身を寄せ、{sage}とともに天下三分の一足を築く",
+     "if": {
+      "stands": "third"
+     },
+     "effects": [
+      {
+       "flag": "sgkm_third"
+      },
+      {
+       "enlist": "third"
+      },
+      {
+       "rep": "third",
+       "n": 20
+      }
+     ],
+     "next": "c10"
+    },
+    {
+     "label": "「私は官を辞し、{home}で田を耕し、書を読みとうございます」",
+     "effects": [
+      {
+       "flag": "sgkm_hermit"
+      }
+     ],
+     "next": "c10"
+    }
+   ]
+  },
+  "c10": {
+   "text": [
+    "……それから幾年かが過ぎた。"
+   ],
+   "choices": [
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "sgkm_hermit"
+     },
+     "next": "endHermit"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "sgkm_third",
+      "stands": "third"
+     },
+     "next": "endThird"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "sgkm_unify",
+      "stands": "power"
+     },
+     "next": "endUnify"
+    },
+    {
+     "label": "つづき",
+     "next": "endFall"
+    }
+   ]
+  },
+  "endHermit": {
+   "speaker": "mentor",
+   "art": "tale",
+   "text": [
+    "{home}の外れの草廬で、{player}は晴れた日には田を耕し、雨の日には書を読んだ。天下の行方を尋ねて訪ねてくる者は絶えなかった。三度目に訪ねてきた若者に、{player}はようやく重い口を開いたという。{mentor}は「わしより先に、臥した龍になりおった」と笑った。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    }
+   ],
+   "end": "晴耕雨読"
+  },
+  "endThird": {
+   "speaker": "sage",
+   "text": [
+    "{power}を去った{player}を、恩知らずと罵る者もいた。だが{third}の地で、{player}は{sage}とともに国の礎を築いた。小国だった{third}は兵を養い、土地を広げ、やがて{power}と{rival}に並ぶ鼎の一足となった。鼎の足はまだ揺れているが、民はしばし戦を忘れて田に戻った。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    }
+   ],
+   "end": "天下三分"
+  },
+  "endUnify": {
+   "speaker": "ruler",
+   "text": [
+    "{power}の旗が、天下の隅々にまで翻った。剣は鋤に打ち直され、屯田の畑が荒れ野を埋めていった。将軍の印綬を帯びた{player}は、ときおり{mentor}の書簡の写しを読み返しながら、もう誰も剣一本で名を上げることのない世を思った。それでよいのだ、と。"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "fame": 10
+    }
+   ],
+   "end": "天下一統"
+  },
+  "endFall": {
+   "text": [
+    "{player}が仕えた国は、乱世の波に呑まれた。{player}は再び名も無い流れ者に戻った。手元に残ったのは、{mentor}の書簡の写しと、いくつかの刀傷だけだった。だが剣は、まだ折れていない。"
+   ],
+   "end": "流浪"
+  }
+ }
+}

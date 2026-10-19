@@ -1,0 +1,424 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_meiba",
+ "kind": "random",
+ "where": "folk",
+ "hook": "千里を駆けるはずの仔馬が、北の原へ逃げたのです",
+ "title": "北の原の駿馬",
+ "era": "sangoku",
+ "most": 2,
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "馬飼い"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "steppe": {
+   "place": "border:here"
+  },
+  "herder": {
+   "npc": "牧人",
+   "sex": "f"
+  },
+  "rival": {
+   "npc": "豪族の家人",
+   "sex": "m"
+  },
+  "buyer": {
+   "npc": "将の使い",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}は空の厩を指さした。「西涼の種馬に付けて生まれた仔でな、一歳で大人の馬を抜き去った。汗が赤く見えるほど駆ける。それが柵を跳び越えて、北の{steppe}の方へ逃げおった」",
+    "「この辺りの豪族も、あの仔を狙っておる。将軍への献上品にするとな。先に見つけて連れ戻してくれたら、礼ははずむ」"
+   ],
+   "choices": [
+    {
+     "label": "{steppe}へ馬を追う",
+     "next": "steppe"
+    }
+   ]
+  },
+  "steppe": {
+   "at": {
+    "place": "steppe"
+   },
+   "goal": "{steppe}の原で逃げた仔馬を探す",
+   "art": "road",
+   "text": [
+    "{steppe}の北は、膝まで草の伸びた原が地平まで続いていた。野馬の群れが遠くを横切り、風が草を波のように倒していく。",
+    "蹄の跡は幾筋にも分かれている。一頭だけ、ひときわ歩幅の大きい跡があった。"
+   ],
+   "choices": [
+    {
+     "label": "歩幅の大きな蹄の跡を追う",
+     "check": {
+      "skill": "bow",
+      "dc": 36,
+      "win": "herd",
+      "lose": "lost"
+     },
+     "guide": "原を読み、馬上で追う腕が要る"
+    },
+    {
+     "label": "原で羊を追う牧人に話を聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "herder",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "herder": {
+   "speaker": "herder",
+   "art": "tale",
+   "text": [
+    "羊の群れを追う{herder}は、片言の漢語で笑った。「あの赤い汗の仔か。三日前から野馬の群れの頭と張り合っている。明け方、泉に水を飲みに来る」",
+    "「豪族の男たちも来た。縄と鞭で捕まえるつもりだ。あれでは馬の心が折れる」"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_mb_herder"
+    }
+   ],
+   "next": "herd"
+  },
+  "lost": {
+   "art": "road",
+   "text": [
+    "跡は川原の石の上で消えた。日が傾き、原の風が冷たくなる。遠くで蹄の音と、男たちの掛け声が聞こえた。"
+   ],
+   "choices": [
+    {
+     "label": "掛け声の方へ急ぐ",
+     "next": "rival"
+    },
+    {
+     "label": "今日は諦めて戻る",
+     "next": "end_lost"
+    }
+   ]
+  },
+  "herd": {
+   "art": "road",
+   "text": [
+    "明け方の泉に、栗毛の若駒がいた。首筋に浮いた汗が朝日に赤く光る。野馬の群れの頭に噛みつかれても退かず、逆に追い返した。",
+    "そこへ、背後の丘から縄を持った騎馬の男たちが現れた。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_mb_found"
+    }
+   ],
+   "next": "rival"
+  },
+  "rival": {
+   "speaker": "rival",
+   "art": "war",
+   "text": [
+    "先頭の男が馬を寄せてきた。豪族の家人{rival}だ。「その馬は主の献上品になる。持ち主には十分な銭を払うと伝えてある。退け」",
+    "{client}は銭など受け取っていない。"
+   ],
+   "choices": [
+    {
+     "label": "「持ち主は売っておらぬ」と言い返し、筋を通す",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "catch",
+      "lose": "clash"
+     }
+    },
+    {
+     "label": "男たちより先に駆け寄り、若駒を捕える",
+     "check": {
+      "skill": "bow",
+      "dc": 38,
+      "win": "catch",
+      "lose": "clash"
+     }
+    },
+    {
+     "label": "刀を抜いて追い払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "catch",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "clash": {
+   "speaker": "rival",
+   "art": "war",
+   "text": [
+    "男たちの投げた縄が若駒の首にかかった。若駒は棹立ちになり、狂ったように暴れる。このままでは脚を折る。"
+   ],
+   "choices": [
+    {
+     "label": "縄を断ち切り、若駒を放す",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "catch",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "暴れる若駒をなだめる",
+     "check": {
+      "skill": "medicine",
+      "dc": 38,
+      "win": "catch",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "catch": {
+   "art": "road",
+   "text": [
+    "若駒はしばらく荒い息をついていたが、やがて鼻面をこちらの肩に押しつけてきた。手綱をつけると、驚くほどおとなしく従う。",
+    "跨がって少し駆けさせただけで、原の風が耳を切った。これが千里の馬か。"
+   ],
+   "choices": [
+    {
+     "label": "約束どおり{client}のもとへ連れ帰る",
+     "next": "return"
+    },
+    {
+     "label": "{here}の{market}で、高く買う者を探す",
+     "next": "market"
+    },
+    {
+     "label": "自分の馬にして、このまま旅に出る",
+     "next": "end_keep",
+     "guide": "持ち主を裏切ることになる"
+    },
+    {
+     "label": "原に放してやる",
+     "if": {
+      "flag": "sgk_mb_herder"
+     },
+     "next": "end_free"
+    }
+   ]
+  },
+  "market": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で若駒の買い手を探す",
+   "speaker": "buyer",
+   "art": "trade",
+   "text": [
+    "{market}に若駒を曳いて入ると、人垣ができた。ある将の使いだという{buyer}が、袖の中で指を立てた。「三千銭。持ち主には黙っておけばよい」"
+   ],
+   "choices": [
+    {
+     "label": "値を吊り上げて売る",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_sold",
+      "lose": "threat"
+     }
+    },
+    {
+     "label": "やはり{client}に返す",
+     "next": "return"
+    }
+   ]
+  },
+  "threat": {
+   "speaker": "buyer",
+   "art": "trade",
+   "text": [
+    "値を吊り上げようとすると、{buyer}は薄く笑った。「欲をかくな。持ち主に、盗人がここにおると知らせてもよいのだぞ」"
+   ],
+   "choices": [
+    {
+     "label": "若駒を{client}に返しに行く",
+     "next": "return"
+    },
+    {
+     "label": "若駒に跨がり、{market}から駆け去る",
+     "next": "end_keep"
+    }
+   ]
+  },
+  "return": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "{here}の{client}に若駒を返す",
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}は若駒の首を抱いて涙ぐんだ。「よう戻った、よう戻った」",
+    "「豪族の家人に追われたか。あの男、わしが銭を受け取ったなどと言い張っておったのだな」"
+   ],
+   "next": "end_return"
+  },
+  "end_return": {
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}は約束の礼に加え、牧の名で書いた証文をくれた。「この仔が名を上げたら、取り戻したのはあんただと言い触らしてやる」",
+    "豪族の家人は、それきり牧に近づかなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_mb_found"
+    },
+    {
+     "unflag": "sgk_mb_herder"
+    },
+    {
+     "money": 400
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "bow",
+     "n": 2
+    },
+    {
+     "note": "{steppe}の原へ逃げた名馬の仔を、持ち主に連れ戻した。"
+    }
+   ],
+   "end": "帰ってきた仔馬"
+  },
+  "end_sold": {
+   "speaker": "buyer",
+   "art": "trade",
+   "text": [
+    "{buyer}は渋い顔で五千銭を数えた。若駒は将の陣へ曳かれていった。",
+    "{client}が泣き寝入りしたのか、豪族と揉めたのかは知らない。ただ、{market}ではしばらく、あの若駒を売った者の噂が立った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_mb_found"
+    },
+    {
+     "unflag": "sgk_mb_herder"
+    },
+    {
+     "money": 1500
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "land",
+     "n": -3
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "売られた駿馬"
+  },
+  "end_keep": {
+   "art": "road",
+   "text": [
+    "若駒に跨がり、{here}とは逆の方へ駆けた。原の風が背を押す。",
+    "後になって、{client}が「恩知らずに名馬を盗まれた」と触れ回っていると聞いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_mb_found"
+    },
+    {
+     "unflag": "sgk_mb_herder"
+    },
+    {
+     "item": "war_horse"
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "land",
+     "n": -5
+    },
+    {
+     "wanted": "land",
+     "n": 10
+    }
+   ],
+   "end": "盗んだ駿馬"
+  },
+  "end_free": {
+   "speaker": "herder",
+   "art": "road",
+   "text": [
+    "手綱を外すと、若駒は一度だけ振り返り、野馬の群れの方へ駆け去った。いずれあの群れの頭になるだろう。",
+    "{herder}が羊の乳酒を差し出した。「馬の心を知る漢人もいるのだな」{client}には詫びるほかなかったが、原の民はこの話を長く語り継いだという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_mb_found"
+    },
+    {
+     "unflag": "sgk_mb_herder"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "item": "wine",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "原へ還る"
+  },
+  "end_lost": {
+   "art": "road",
+   "text": [
+    "若駒は豪族の家人たちに縄をかけられ、どこかへ曳かれていった。{client}は肩を落とし、空の厩の前に座り込んだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_mb_found"
+    },
+    {
+     "unflag": "sgk_mb_herder"
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "空の厩"
+  }
+ }
+}

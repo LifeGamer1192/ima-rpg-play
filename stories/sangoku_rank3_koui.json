@@ -1,0 +1,653 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_rank3_koui",
+ "kind": "rank",
+ "rankTo": 3,
+ "title": "校尉の軍令",
+ "era": "sangoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "enemy": {
+   "realm": "enemy:patron"
+  },
+  "front": {
+   "place": "border:patron"
+  },
+  "sergeant": {
+   "npc": "古参の屯長",
+   "sex": "m"
+  },
+  "nephew": {
+   "npc": "豪族の甥",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "里の三老",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府で昇進を願い出る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は地図の上に手を置いた。「{enemy}の騎兵が{front}から境を越えて、こちらの麦を刈り取っていく。新しく募った兵を五百預ける。校尉として率い、{front}の手前の麦畑を守れ」",
+    "{minister}が言い添えた。「従事は筆で働く。校尉は兵の命で働く。五百の命を、どう扱うかを見せてもらう」"
+   ],
+   "effects": [
+    {
+     "note": "新兵五百を預かり、{front}に面した麦畑を守ることになった。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "barracks"
+   },
+   "goal": "{cap}の兵営で新兵を鍛える",
+   "speaker": "sergeant",
+   "art": "camp",
+   "text": [
+    "兵営に並んだ新兵は、鍬しか握ったことのない者ばかりだった。戟の持ち方もばらばらで、太鼓が鳴っても右と左を取り違える。",
+    "古参の屯長{sergeant}が唾を吐いた。「十日では兵になりませぬ。せめて、太鼓と旗で進み退きができるようにせねば、敵の騎兵を見ただけで逃げ散ります」"
+   ],
+   "choices": [
+    {
+     "label": "兵法の書に倣い、五人を伍、十人を什として組を作る",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "s2drill",
+      "lose": "s2poor"
+     }
+    },
+    {
+     "label": "自ら戟を取り、先頭に立って稽古をつける",
+     "check": {
+      "skill": "blade",
+      "dc": 28,
+      "win": "s2drill",
+      "lose": "s2poor"
+     }
+    },
+    {
+     "label": "弩の撃ち方だけを徹底して教え込む",
+     "check": {
+      "skill": "bow",
+      "dc": 26,
+      "win": "s2drill",
+      "lose": "s2poor"
+     }
+    },
+    {
+     "label": "{sergeant}に任せ、自分は兵糧の手配に回る",
+     "effects": [
+      {
+       "flag": "sk_r3_food"
+      }
+     ],
+     "next": "s2poor"
+    }
+   ]
+  },
+  "s2drill": {
+   "speaker": "sergeant",
+   "text": [
+    "十日目、太鼓が三つ鳴ると、五百の兵が一斉に戟を前に倒した。{sergeant}がにやりとした。「これなら、逃げずに一度はぶつかれます」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r3_drilled"
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "s3"
+  },
+  "s2poor": {
+   "text": [
+    "兵は少しは並べるようになったが、旗の合図はまだ怪しい。それでも出陣の日は来る。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "{front}に面した境へ兵を進める",
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "境へ向かう途中の里で、泣き叫ぶ声がした。里の三老{elder}が、裂けた衣の娘を連れて陣に駆け込んでくる。「校尉さまの兵が、里の鶏と麦を奪い、娘に手を出しました」",
+    "捕らえてみると、兵を率いていたのは{nephew}、州でも名の知れた豪族の甥だった。{nephew}は縄をかけられても笑っている。「叔父上に知れたら、校尉どのの首が飛びますぞ」"
+   ],
+   "choices": [
+    {
+     "label": "軍令どおり、全軍の前で{nephew}を斬る",
+     "next": "s3law"
+    },
+    {
+     "label": "棒打ち五十に処し、奪った物を倍にして里へ返させる",
+     "next": "s3mercy"
+    },
+    {
+     "label": "「兵を律せなかったのは己の罪」と、自らの髪を切って首に代える",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s3hair",
+      "lose": "s3mercy"
+     }
+    },
+    {
+     "label": "{nephew}を放し、里には銭で詫びる（100銭）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      },
+      {
+       "flag": "sk_r3_soft"
+      }
+     ],
+     "next": "s4"
+    }
+   ]
+  },
+  "s3law": {
+   "art": "war",
+   "text": [
+    "{nephew}の首は陣門に掛けられた。新兵たちは青い顔で黙り込んだが、その夜、里から盗んだ物は一つ残らず陣の前に積まれていた。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r3_law"
+    },
+    {
+     "note": "軍令に背いた豪族の甥{nephew}を斬った。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3mercy": {
+   "speaker": "elder",
+   "text": [
+    "{nephew}は打たれて歩けなくなり、後方へ送られた。{elder}は返された麦の俵を見て、何度も頭を下げた。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r3_mercy"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hair": {
+   "speaker": "sergeant",
+   "text": [
+    "{player}が剣で己の髷を断ち、陣の前に置いた。「兵の罪は将の罪。首の代わりにこれを掛けよ」昔、ある将が麦畑を荒らした己の馬の罪に髪を切った故事を、兵たちも聞いたことがあった。",
+    "{sergeant}が小声で言った。「これで、この陣で里を荒らす者はもう出ませぬ。{nephew}も、叔父に泣きつく顔がない」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r3_law"
+    },
+    {
+     "flag": "sk_r3_mercy"
+    },
+    {
+     "flag": "sk_r3_hair"
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "{front}に面した境で{enemy}の騎兵を待ち受ける",
+   "wait": {
+    "days": 2
+   },
+   "art": "war",
+   "text": [
+    "二日目の夕方、麦畑の向こうに土煙が上がった。{enemy}の騎兵がおよそ二百、刈り入れ前の麦を踏み荒らしながら迫ってくる。",
+    "新兵たちの戟の穂先が震えている。"
+   ],
+   "choices": [
+    {
+     "label": "鍛えた兵に戟を並べさせ、騎兵の突撃を正面で受け止める",
+     "if": {
+      "flag": "sk_r3_drilled"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 30,
+      "win": "s5",
+      "lose": "s4break"
+     }
+    },
+    {
+     "label": "麦畑の畦に弩兵を伏せ、馬の脚を狙わせる",
+     "check": {
+      "skill": "bow",
+      "dc": 34,
+      "win": "s5",
+      "lose": "s4break"
+     }
+    },
+    {
+     "label": "屯田の兵に倣い、荷車を並べて柵とし、その内から迎え撃つ",
+     "if": {
+      "realm": [
+       "曹"
+      ]
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s5",
+      "lose": "s4break"
+     }
+    },
+    {
+     "label": "自ら騎兵を率いて敵の横腹へ回り込む",
+     "if": {
+      "realm": [
+       "涼",
+       "公孫"
+      ]
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4break"
+     }
+    },
+    {
+     "label": "先頭に立って斬り込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4break"
+     }
+    }
+   ]
+  },
+  "s4break": {
+   "art": "war",
+   "text": [
+    "騎兵が戟の列を割った。新兵は旗を捨てて逃げ出す。{player}は残った者を呼び集め、里の土壁の内へ退いた。"
+   ],
+   "choices": [
+    {
+     "label": "土壁を楯に、もう一度押し返す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4fall"
+     }
+    },
+    {
+     "label": "里を捨てて退く",
+     "next": "s4fall"
+    }
+   ]
+  },
+  "s4fall": {
+   "art": "disaster",
+   "text": [
+    "{enemy}の騎兵は麦を焼き払って去った。五百の兵のうち、戻ったのは三百あまりだった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "fail_rout"
+  },
+  "s5": {
+   "art": "war",
+   "text": [
+    "馬のいななきが遠ざかった。{enemy}の騎兵は二十あまりの屍を残して退き、麦畑の半ばが守られた。新兵たちが、自分の手を信じられないという顔で見つめている。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "bow",
+     "n": 3
+    }
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府に戻り、境の守りを報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "州府の堂には、{nephew}の叔父である豪族からの訴えが届いていた。「州の従事が、わが甥を辱めた」と。{minister}が竹簡を指で叩いた。「さて、申し開きを聞こう」"
+   ],
+   "choices": [
+    {
+     "label": "「軍令は誰にも曲げられませぬ」と、斬った次第をそのまま申す",
+     "if": {
+      "flag": "sk_r3_law",
+      "notFlag": "sk_r3_mercy"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "win_law",
+      "lose": "fail_feud"
+     }
+    },
+    {
+     "label": "髪を切って首に代えた次第を申す",
+     "if": {
+      "flag": "sk_r3_hair"
+     },
+     "next": "win_hair"
+    },
+    {
+     "label": "罰しつつ命は取らず、里にも償わせた次第を申す",
+     "if": {
+      "flag": "sk_r3_mercy",
+      "notFlag": "sk_r3_law"
+     },
+     "next": "win_mercy"
+    },
+    {
+     "label": "麦畑を守った功だけを申し上げる",
+     "if": {
+      "flag": "sk_r3_soft"
+     },
+     "next": "win_soft"
+    }
+   ]
+  },
+  "win_law": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}が奥から出てきて言った。「法を曲げぬ者に、兵を預ける。豪族の訴えは、わしが退けておく」",
+    "{player}は校尉となった。兵営では、新兵たちが{player}の通るたびに背筋を伸ばすようになった。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 3
+    },
+    {
+     "flag": "led_troops"
+    },
+    {
+     "flag": "sk_r3_magnate_enemy"
+    },
+    {
+     "unflag": "sk_r3_drilled"
+    },
+    {
+     "unflag": "sk_r3_food"
+    },
+    {
+     "unflag": "sk_r3_law"
+    },
+    {
+     "unflag": "sk_r3_mercy"
+    },
+    {
+     "unflag": "sk_r3_soft"
+    },
+    {
+     "unflag": "sk_r3_hair"
+    },
+    {
+     "note": "軍令を守って豪族の甥を斬り、{front}に面した境を守って校尉となった。豪族の恨みを買った。"
+    }
+   ],
+   "end": "軍令は曲げず"
+  },
+  "win_hair": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は思わず笑った。「髪を首に代えたか。兵は律し、豪族の面目も潰しきらぬ。うまいやり方だ」",
+    "{ruler}は{player}を校尉に任じた。短くなった髪を、{player}はしばらく冠で隠さねばならなかった。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 4
+    },
+    {
+     "flag": "led_troops"
+    },
+    {
+     "unflag": "sk_r3_drilled"
+    },
+    {
+     "unflag": "sk_r3_food"
+    },
+    {
+     "unflag": "sk_r3_law"
+    },
+    {
+     "unflag": "sk_r3_mercy"
+    },
+    {
+     "unflag": "sk_r3_soft"
+    },
+    {
+     "unflag": "sk_r3_hair"
+    },
+    {
+     "note": "己の髪を切って兵を律し、{front}に面した境を守って校尉となった。"
+    }
+   ],
+   "end": "髪を首に代える"
+  },
+  "win_mercy": {
+   "speaker": "ruler",
+   "text": [
+    "「罰は与え、命は残した。豪族もそれ以上は言えまい」{ruler}は訴えの竹簡を脇に置き、{player}を校尉に任じた。",
+    "{elder}の里からは、礼にと新しい麦の酒が届いた。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 3
+    },
+    {
+     "flag": "led_troops"
+    },
+    {
+     "unflag": "sk_r3_drilled"
+    },
+    {
+     "unflag": "sk_r3_food"
+    },
+    {
+     "unflag": "sk_r3_law"
+    },
+    {
+     "unflag": "sk_r3_mercy"
+    },
+    {
+     "unflag": "sk_r3_soft"
+    },
+    {
+     "unflag": "sk_r3_hair"
+    },
+    {
+     "note": "豪族の甥を罰して里に償わせ、{front}に面した境を守って校尉となった。"
+    }
+   ],
+   "end": "棒打ちと償い"
+  },
+  "win_soft": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は訴えの竹簡を引っ込めた。豪族は甥が放されたことに満足しているらしい。「麦畑を守った功で、校尉に任じる。ただし、{elder}の里がそなたをどう語っておるかは、知っておけ」"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 6
+    },
+    {
+     "fame": -2
+    },
+    {
+     "flag": "led_troops"
+    },
+    {
+     "unflag": "sk_r3_drilled"
+    },
+    {
+     "unflag": "sk_r3_food"
+    },
+    {
+     "unflag": "sk_r3_law"
+    },
+    {
+     "unflag": "sk_r3_mercy"
+    },
+    {
+     "unflag": "sk_r3_soft"
+    },
+    {
+     "unflag": "sk_r3_hair"
+    },
+    {
+     "note": "豪族の甥を見逃し、{front}に面した境を守って校尉となった。"
+    }
+   ],
+   "end": "見逃された甥"
+  },
+  "fail_feud": {
+   "speaker": "minister",
+   "text": [
+    "豪族の一門が州府の門に押しかけ、{ruler}は騒ぎを収めるために{player}の任官を見送った。{minister}が言った。「正しいだけでは、乱世の州は治まらぬ。従事として務めを重ねよ」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sk_r3_drilled"
+    },
+    {
+     "unflag": "sk_r3_food"
+    },
+    {
+     "unflag": "sk_r3_law"
+    },
+    {
+     "unflag": "sk_r3_mercy"
+    },
+    {
+     "unflag": "sk_r3_soft"
+    },
+    {
+     "unflag": "sk_r3_hair"
+    },
+    {
+     "note": "豪族の訴えに押され、校尉になれなかった。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "豪族の訴え"
+  },
+  "fail_rout": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府に戻り、敗れたことを報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は欠けた兵の名簿を読み上げさせ、ため息をついた。「兵を二百失う校尉は、校尉ではない。従事として務めを重ね、また願い出るがよい」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sk_r3_drilled"
+    },
+    {
+     "unflag": "sk_r3_food"
+    },
+    {
+     "unflag": "sk_r3_law"
+    },
+    {
+     "unflag": "sk_r3_mercy"
+    },
+    {
+     "unflag": "sk_r3_soft"
+    },
+    {
+     "unflag": "sk_r3_hair"
+    },
+    {
+     "note": "{front}で{enemy}の騎兵に敗れた。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "踏まれた麦"
+  }
+ }
+}

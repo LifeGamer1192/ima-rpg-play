@@ -1,0 +1,433 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_ekibyo",
+ "kind": "random",
+ "where": "road",
+ "hook": "旅の方、この先の邑には入りなさるな。疫が出ておる",
+ "title": "疫の邑",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "逃げてきた百姓"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "jijiu": {
+   "npc": "五斗米道の祭酒",
+   "sex": "f"
+  },
+  "girl": {
+   "npc": "病の娘",
+   "sex": "f"
+  },
+  "captain": {
+   "npc": "郡の都尉",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "街道の脇に、荷車に家財を積んだ{client}がへたり込んでいた。「{village}の邑で熱病が出ました。高い熱、腹下し、三日で死ぬ者もおる」",
+    "「{office}は街道を塞ぎ、邑を焼くつもりだと聞きました。まだ寝ておる者が、何十人もおるのに」"
+   ],
+   "choices": [
+    {
+     "label": "{village}の邑へ向かう",
+     "next": "village"
+    },
+    {
+     "label": "先に{market}で薬草を買い集める",
+     "next": "market"
+    }
+   ]
+  },
+  "market": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で薬草を集める",
+   "speaker": "薬売り",
+   "art": "trade",
+   "text": [
+    "薬売りは、疫の噂を聞いて値を三倍に吊り上げていた。「黄連に葛根、柴胡。疫に効く草は、どこでも取り合いでね」"
+   ],
+   "choices": [
+    {
+     "label": "言い値で買い占める",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      },
+      {
+       "flag": "sgk_eb_herbs"
+      }
+     ],
+     "next": "village"
+    },
+    {
+     "label": "疫の邑を救うためだと説き、値を下げさせる",
+     "check": {
+      "skill": "trade",
+      "dc": 34,
+      "win": "haggled",
+      "lose": "village"
+     }
+    }
+   ]
+  },
+  "haggled": {
+   "speaker": "薬売り",
+   "art": "trade",
+   "text": [
+    "薬売りは渋い顔で、袋に草を詰め直した。「邑が全部死んだら、来年の客がいなくなる。……持っていきな」"
+   ],
+   "effects": [
+    {
+     "money": -80
+    },
+    {
+     "flag": "sgk_eb_herbs"
+    },
+    {
+     "xp": "trade",
+     "n": 1
+    }
+   ],
+   "next": "village"
+  },
+  "village": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の疫の邑に入る",
+   "speaker": "jijiu",
+   "art": "faith",
+   "text": [
+    "邑の広場に筵が並び、病人が横たわっていた。その間を、黄色い衣の女が歩いている。五斗米道の祭酒{jijiu}だ。病人に過ちを書かせた紙を、山と川と地に捧げ、符水を飲ませている。",
+    "「病は罪の報い。悔い改めれば治る」{jijiu}はこちらを見て言った。「手伝う気があるなら、水を汲んでおくれ」"
+   ],
+   "choices": [
+    {
+     "label": "病人を一人ずつ診て、病の元を探る",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "well",
+      "lose": "girl"
+     }
+    },
+    {
+     "label": "{jijiu}に従い、水汲みと看病を手伝う",
+     "effects": [
+      {
+       "flag": "sgk_eb_jijiu"
+      }
+     ],
+     "next": "girl"
+    },
+    {
+     "label": "邑の者が水を汲む井戸を見て回る",
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "well",
+      "lose": "girl"
+     }
+    }
+   ]
+  },
+  "well": {
+   "art": "disaster",
+   "text": [
+    "病人は、みな東の井戸の水を飲んでいた。西の井戸を使う家からは、一人も出ていない。東の井戸を覗くと、底に死んだ鼠と、腐った獣の骸が沈んでいた。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_eb_well"
+    },
+    {
+     "xp": "medicine",
+     "n": 1
+    }
+   ],
+   "next": "girl"
+  },
+  "girl": {
+   "speaker": "girl",
+   "art": "disaster",
+   "text": [
+    "筵の端で、まだ十ばかりの{girl}が熱にうなされていた。唇はひび割れ、目は落ちくぼんでいる。符水を何杯飲んでも、熱は引かないという。"
+   ],
+   "choices": [
+    {
+     "label": "集めた薬草を煎じて飲ませる",
+     "if": {
+      "flag": "sgk_eb_herbs"
+     },
+     "next": "jijiu"
+    },
+    {
+     "label": "湯を沸かし、塩と糖を溶いて少しずつ飲ませる",
+     "check": {
+      "skill": "medicine",
+      "dc": 38,
+      "win": "jijiu",
+      "lose": "fire"
+     }
+    },
+    {
+     "label": "祭酒の符水に任せる",
+     "next": "fire"
+    }
+   ]
+  },
+  "jijiu": {
+   "speaker": "jijiu",
+   "art": "faith",
+   "text": [
+    "翌朝、{girl}の熱が下がった。{jijiu}はしばらく黙って見ていたが、やがて言った。「符水では引かなかった熱が、あなたの草で引いた。……私の道は、間違っていたのか」"
+   ],
+   "choices": [
+    {
+     "label": "「心を鎮めるのは道の力。体を治すのは薬。両方要る」と説く",
+     "effects": [
+      {
+       "flag": "sgk_eb_jijiu"
+      },
+      {
+       "xp": "speech",
+       "n": 1
+      }
+     ],
+     "next": "fire"
+    },
+    {
+     "label": "「東の井戸を塞げと、邑の者に命じてくれ」と頼む",
+     "if": {
+      "flag": "sgk_eb_well"
+     },
+     "effects": [
+      {
+       "flag": "sgk_eb_jijiu"
+      }
+     ],
+     "next": "fire"
+    },
+    {
+     "label": "何も言わず、次の病人を診る",
+     "next": "fire"
+    }
+   ]
+  },
+  "fire": {
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "昼過ぎ、邑の入口に{soldier}が並んだ。都尉の{captain}が、松明を手に馬上から叫ぶ。「疫が{here}に入れば、城中が死ぬ。邑を焼け。逃げ出す者は射よ」",
+    "筵の病人たちが、怯えた目でこちらを見ている。"
+   ],
+   "choices": [
+    {
+     "label": "「病の元は井戸だ。焼かずとも止まる」と証を示す",
+     "if": {
+      "flag": "sgk_eb_well"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "end_cured",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "{jijiu}と並んで立ち、邑の者を代わって守ると誓う",
+     "if": {
+      "flag": "sgk_eb_jijiu"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "end_together",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "松明を持つ兵に斬りかかる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_defied",
+      "lose": "end_burned"
+     },
+     "guide": "郡の兵に刃を向けることになる"
+    },
+    {
+     "label": "動ける者だけを連れて、裏の山道から逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_defied",
+      "lose": "end_burned"
+     }
+    }
+   ]
+  },
+  "end_cured": {
+   "speaker": "captain",
+   "art": "court",
+   "text": [
+    "{captain}は東の井戸の骸を見て、松明を下ろした。井戸は埋められ、新しい井戸が掘られた。十日もすると、新しく倒れる者はいなくなった。",
+    "{girl}は粥を食べられるまでに治った。{client}も荷車を引いて邑へ戻ってきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_eb_well"
+    },
+    {
+     "unflag": "sgk_eb_herbs"
+    },
+    {
+     "unflag": "sgk_eb_jijiu"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "note": "{village}の疫の元を井戸に見つけ、邑を焼かせなかった。"
+    }
+   ],
+   "end": "埋められた井戸"
+  },
+  "end_together": {
+   "speaker": "jijiu",
+   "art": "faith",
+   "text": [
+    "{captain}は「疫が城に入れば、そなたらの首で償え」と言い捨てて、兵を引いた。",
+    "{jijiu}は符水の代わりに煎じ薬を配り、悔い改めの紙の代わりに、病人の名と熱の具合を書き留めるようになった。「道は、もう少し広いものだったのですね」"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_eb_well"
+    },
+    {
+     "unflag": "sgk_eb_herbs"
+    },
+    {
+     "unflag": "sgk_eb_jijiu"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "item": "herbs",
+     "n": 2
+    },
+    {
+     "note": "五斗米道の祭酒{jijiu}とともに、{village}の疫と闘った。"
+    }
+   ],
+   "end": "符水と薬"
+  },
+  "end_defied": {
+   "art": "road",
+   "text": [
+    "病人を荷車に乗せ、山道を越えて隣の谷へ逃がした。燃える邑の煙が、背後の空を黒く染めていた。",
+    "助けた者たちは手を合わせたが、{office}は郡の兵に逆らった者を探しているという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_eb_well"
+    },
+    {
+     "unflag": "sgk_eb_herbs"
+    },
+    {
+     "unflag": "sgk_eb_jijiu"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": -10
+    },
+    {
+     "wanted": "land",
+     "n": 15
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "山道の病人"
+  },
+  "end_burned": {
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "邑は焼かれた。筵の病人たちも、{jijiu}も、炎の向こうに消えた。",
+    "{client}は焼け跡の前に膝をつき、声も出さずに泣いていた。疫は止まったと{office}は布告した。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_eb_well"
+    },
+    {
+     "unflag": "sgk_eb_herbs"
+    },
+    {
+     "unflag": "sgk_eb_jijiu"
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "焼かれた邑"
+  }
+ }
+}

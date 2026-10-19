@@ -1,0 +1,331 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_gettanhyo",
+ "kind": "random",
+ "where": "inn",
+ "hook": "月旦の評を受けたいのですが、紹介してくれる人がおりません",
+ "title": "月旦の評",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "hall": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "寒門の書生"
+  },
+  "critic": {
+   "npc": "人物評の名士",
+   "sex": "m"
+  },
+  "disciple": {
+   "npc": "名士の門弟",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "豪族の子",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{inn}の隅で、擦り切れた袍の{client}が竹簡を抱えていた。{hall}に住む名士{critic}が、月の初めに人を評する会を開くという。かつて汝南の許劭が従兄と開いた月旦の会にならったものだ。",
+    "「あの方にひと言褒められれば、孝廉に挙げられる道も開けます。けれど、名のある方の紹介がなければ門もくぐれません。……あなたが行かれるなら、せめて従者として連れて行っていただけませんか」"
+   ],
+   "choices": [
+    {
+     "label": "{client}を連れて{hall}へ行く",
+     "effects": [
+      {
+       "flag": "sgk_gt_scholar"
+      }
+     ],
+     "next": "gate"
+    },
+    {
+     "label": "ひとりで{hall}へ行き、評を受けてみる",
+     "next": "gate"
+    }
+   ]
+  },
+  "gate": {
+   "at": {
+    "place": "hall",
+    "building": "house"
+   },
+   "goal": "{hall}の{critic}の館を訪ねる",
+   "speaker": "disciple",
+   "art": "court",
+   "text": [
+    "{critic}の館の門前には、車と馬がずらりと並んでいた。門を守る{disciple}が、名刺の木札を一枚ずつ改めている。",
+    "「紹介のない方はお通しできません。先生のお目は限られておりますので」"
+   ],
+   "choices": [
+    {
+     "label": "その場で論を一篇書き、先生にお目通しを願う",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "salon",
+      "lose": "turned"
+     }
+    },
+    {
+     "label": "袖の下に銭を忍ばせる（100銭）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "salon"
+    },
+    {
+     "label": "「名のない者を見抜いてこその月旦でしょう」と門弟に説く",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "salon",
+      "lose": "turned"
+     }
+    }
+   ]
+  },
+  "turned": {
+   "speaker": "disciple",
+   "art": "court",
+   "text": [
+    "{disciple}は鼻で笑い、門を閉ざした。塀の内から、笑い声と琴の音が漏れてくる。",
+    "裏手に回ると、塀のそばに古い槐が枝を張っていた。"
+   ],
+   "choices": [
+    {
+     "label": "槐を伝って塀の内へ忍び込む",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "overhear",
+      "lose": "end_shamed"
+     },
+     "guide": "見つかれば名士の館を荒らした者と言われる"
+    },
+    {
+     "label": "翌朝、散歩に出る{critic}を道で待ち、直に話しかける",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "salon",
+      "lose": "end_shamed"
+     }
+    }
+   ]
+  },
+  "overhear": {
+   "speaker": "rival",
+   "art": "backroom",
+   "text": [
+    "庭の植え込みに身を伏せると、廊の陰で{rival}が{disciple}に銭袋を押しつけていた。「先生にはよしなに。わしの名には、清く高い評をな」",
+    "{disciple}は袋を袖にしまい、何事もなかったように客間へ戻っていった。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_gt_plot"
+    },
+    {
+     "xp": "stealth",
+     "n": 1
+    }
+   ],
+   "choices": [
+    {
+     "label": "下働きに紛れて客間へ入る",
+     "next": "salon"
+    }
+   ]
+  },
+  "salon": {
+   "speaker": "critic",
+   "art": "feast",
+   "text": [
+    "客間の上座で、{critic}は白い羽扇を手にしていた。居並ぶ客の評をひとりずつ短く告げ、そのたびに座がどよめく。やがて羽扇がこちらを指した。",
+    "「見ぬ顔だな。乱れた世に、お主は何を為すつもりか」横から{rival}が口を挟んだ。「先生、そやつは素性も知れぬ流れ者でございます」"
+   ],
+   "choices": [
+    {
+     "label": "経書を引き、治める道を説く",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_praised",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "流れ者と言われたことを逆手に、見てきた世を語る",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_praised",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "「その方こそ、門で銭を渡して評を買われた」と暴く",
+     "if": {
+      "flag": "sgk_gt_plot"
+     },
+     "next": "end_exposed"
+    },
+    {
+     "label": "「私より、この書生をご覧ください」と順を譲る",
+     "if": {
+      "flag": "sgk_gt_scholar"
+     },
+     "next": "end_yield"
+    }
+   ]
+  },
+  "end_praised": {
+   "speaker": "critic",
+   "text": [
+    "{critic}は羽扇を止め、しばらくこちらを見つめた。「刀を帯びた書生、筆を執る侠客。治まった世では埋もれ、乱れた世でこそ名を挙げよう」",
+    "座が大きくどよめいた。その評は、ひと月もせぬうちに近くの郡まで伝わった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gt_scholar"
+    },
+    {
+     "unflag": "sgk_gt_plot"
+    },
+    {
+     "fame": 10
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "名士{critic}の月旦の評で「乱世に名を挙げる」と評された。"
+    }
+   ],
+   "end": "乱世に名を挙げる者"
+  },
+  "end_plain": {
+   "speaker": "critic",
+   "text": [
+    "{critic}は小さく首を振った。「言葉は借り物、志はまだ形を持たぬ。三年のちにまた来い」",
+    "辛い評だったが、座の誰も笑わなかった。名士がわざわざ「また来い」と言うのは珍しいことだと、帰りぎわに客のひとりが教えてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gt_scholar"
+    },
+    {
+     "unflag": "sgk_gt_plot"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "end": "三年のちにまた来い"
+  },
+  "end_exposed": {
+   "speaker": "critic",
+   "text": [
+    "座が凍りついた。{critic}は{disciple}を呼び、袖を改めさせた。銭袋が床に転がり出る。",
+    "「評を銭で買う者と、売る者。どちらも月旦の座には要らぬ」{rival}と{disciple}は館を追われた。{critic}はこちらに向き直った。「曲がったものを曲がっていると言える者は、乱世には少ない」",
+    "{rival}の家は郡の豪族だ。この恨みは、どこかで返ってくるかもしれない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gt_scholar"
+    },
+    {
+     "unflag": "sgk_gt_plot"
+    },
+    {
+     "fame": 7
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "hunted": 20
+    },
+    {
+     "note": "月旦の座で、評を銭で買おうとした豪族の子を暴いた。"
+    }
+   ],
+   "end": "買われた評"
+  },
+  "end_yield": {
+   "speaker": "client",
+   "text": [
+    "{client}は震える手で竹簡を差し出した。{critic}はそれを読み終えると、静かに言った。「寒門より出でて、清き玉のごとし。郡に推そう」",
+    "半年ののち、{client}が孝廉に挙げられたという知らせが届いた。添えられた書簡には、「あの日の順番を、生涯忘れません」とあった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gt_scholar"
+    },
+    {
+     "unflag": "sgk_gt_plot"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "money": 100
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "月旦の座で寒門の書生{client}に順を譲った。書生は孝廉に挙げられた。"
+    }
+   ],
+   "end": "譲られた順番"
+  },
+  "end_shamed": {
+   "speaker": "disciple",
+   "text": [
+    "「無礼者め」{disciple}の声で下僕たちが集まり、門の外へ叩き出された。",
+    "「名士の館を荒らした男」という噂が、その日のうちに{hall}の町に広まった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gt_scholar"
+    },
+    {
+     "unflag": "sgk_gt_plot"
+    },
+    {
+     "fame": -3
+    },
+    {
+     "hp": -5
+    }
+   ],
+   "end": "門前払い"
+  }
+ }
+}

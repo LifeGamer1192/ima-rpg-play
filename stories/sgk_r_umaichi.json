@@ -1,0 +1,303 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_umaichi",
+ "kind": "random",
+ "where": "inn",
+ "hook": "馬市で騎馬の民と商人がもめています。このままでは血が流れます",
+ "title": "塞外の馬市",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "fair": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "胡語の通事"
+  },
+  "chief": {
+   "npc": "騎馬の民の若い大人",
+   "sex": "m"
+  },
+  "merchant": {
+   "npc": "馬買いの豪商",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{inn}で、毛皮の帽子を膝に置いた{client}が溜め息をついていた。{fair}の外れで開かれる馬市に、塞外から騎馬の民が馬を連ねて来ている。",
+    "「若い大人の{chief}が、馬買いの{merchant}に騙されたと怒っているのです。払いの絹が、どれも一尺ずつ短いと。手下の若者たちは、夜のうちに市を襲うと息巻いています。烏桓が漢の村を焼いた話は、どなたもご存じでしょう」"
+   ],
+   "choices": [
+    {
+     "label": "{client}と{fair}の馬市へ行く",
+     "next": "fair"
+    }
+   ]
+  },
+  "fair": {
+   "at": {
+    "place": "fair",
+    "building": "market"
+   },
+   "goal": "{fair}の馬市へ行く",
+   "speaker": "chief",
+   "art": "trade",
+   "text": [
+    "柵の中で、たてがみの長い馬が何十頭も鼻を鳴らしていた。弓を背負った騎馬の民が{merchant}の天幕を取り巻き、{chief}が絹の反物を地面に叩きつけた。",
+    "{merchant}は青い顔で叫んだ。「言いがかりだ。漢の尺で測れば、きちんと四丈ある」"
+   ],
+   "choices": [
+    {
+     "label": "絹を自分の手で測り直す",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "proof",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "両者の間に立ち、{client}の通辞で話をまとめる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "camp",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "{chief}に「馬上の弓で勝負して、勝ったほうの言い分を通そう」と持ちかける",
+     "next": "contest"
+    }
+   ]
+  },
+  "proof": {
+   "speaker": "merchant",
+   "art": "trade",
+   "text": [
+    "測ってみると、確かにどの反物も一尺ずつ短かった。しかも{merchant}が手にしていた物差しは、市の官の尺より目盛りが詰めてある。",
+    "{merchant}はこちらの袖を引き、声をひそめた。「見なかったことにしてくれれば、百銭出す。どうせ胡の者だ。漢の役人は、こちらの味方さ」"
+   ],
+   "choices": [
+    {
+     "label": "偽りの物差しを掲げ、{merchant}に絹を払い直させる",
+     "next": "end_fair"
+    },
+    {
+     "label": "銭を受け取り、黙っている",
+     "effects": [
+      {
+       "money": 100
+      }
+     ],
+     "next": "raid",
+     "guide": "騎馬の民は黙っていない"
+    }
+   ]
+  },
+  "brawl": {
+   "art": "war",
+   "text": [
+    "{merchant}の雇った用心棒が棍棒を振り上げ、騎馬の民の若者が刀を抜いた。止めに入ったこちらにも、棍棒が飛んでくる。"
+   ],
+   "choices": [
+    {
+     "label": "用心棒どもを叩き伏せて場を収める",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "camp",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "contest": {
+   "speaker": "chief",
+   "art": "duel",
+   "text": [
+    "{chief}は面白そうに目を細めた。「漢の者が、馬の上で弓を引くか」草原の端に槍が立てられ、その先に小さな的が吊るされた。駆け抜けながら三本射て、多く当てた者の勝ちだ。"
+   ],
+   "choices": [
+    {
+     "label": "馬を駆り、弓を引く",
+     "check": {
+      "skill": "bow",
+      "dc": 45,
+      "win": "camp",
+      "lose": "lost_contest"
+     }
+    }
+   ]
+  },
+  "lost_contest": {
+   "speaker": "chief",
+   "art": "duel",
+   "text": [
+    "{chief}の矢は三本とも的を射抜き、こちらの矢は一本しか当たらなかった。騎馬の民がどっと笑う。{chief}はそれでも、手を差し出した。",
+    "「下手だが、逃げなかった。話くらいは聞いてやる。だが、あの商人はわしらの流儀で裁く」"
+   ],
+   "choices": [
+    {
+     "label": "「裁きは市の官に任せてくれ」と食い下がる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_fair",
+      "lose": "raid"
+     }
+    },
+    {
+     "label": "黙って身を引く",
+     "next": "raid"
+    }
+   ]
+  },
+  "camp": {
+   "at": {
+    "place": "fair"
+   },
+   "speaker": "chief",
+   "art": "feast",
+   "text": [
+    "その夜、{chief}の穹廬に招かれた。羊を丸ごと焼き、馬乳の酒が回る。{merchant}は渋々、絹を払い直すと約した。",
+    "{chief}は杯を掲げた。「漢の者にも、まっすぐな者がいる。わしらの馬の中から、一頭選んでいけ」"
+   ],
+   "choices": [
+    {
+     "label": "礼を言い、よく走る馬を一頭選ぶ",
+     "next": "end_bond"
+    },
+    {
+     "label": "馬は辞し、「次の市も、この馬市で」と約させる",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_fair",
+      "lose": "end_bond"
+     }
+    }
+   ]
+  },
+  "raid": {
+   "art": "war",
+   "text": [
+    "夜半、馬市の柵が倒される音で目が覚めた。騎馬の民が火矢を放ち、{merchant}の天幕が燃え上がる。逃げ惑う人々の中で、若者の一団がこちらへ馬首を向けた。"
+   ],
+   "choices": [
+    {
+     "label": "踏みとどまって迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_raid",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "人々を物陰へ逃がしながら退く",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_raid",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "end_fair": {
+   "speaker": "client",
+   "text": [
+    "{merchant}は市の官の前で、詰めた物差しを折られ、足りない絹を払い直した。{chief}は馬上から手を挙げ、草原の方へ去っていった。",
+    "{client}が笑った。「次の春も、あの者たちは馬を連れて来るでしょう。この市が続けば、辺境の村も焼かれずに済みます」"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 3
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "{fair}の馬市で、騎馬の民と漢の商人の争いを収めた。"
+    }
+   ],
+   "end": "続いた馬市"
+  },
+  "end_bond": {
+   "speaker": "chief",
+   "text": [
+    "選んだのは、脚の太い栗毛の馬だった。{chief}は馬の首を叩き、「戦に慣らしてある。お主を落としはせん」と言った。",
+    "別れ際、{chief}は自分の矢を一本折って半分をこちらに渡した。塞外では、それが友の印だという。"
+   ],
+   "effects": [
+    {
+     "item": "war_horse",
+     "n": 1
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "bow",
+     "n": 2
+    },
+    {
+     "note": "騎馬の民の大人{chief}と友の契りを結び、軍馬を贈られた。"
+    }
+   ],
+   "end": "折った矢の半分"
+  },
+  "end_raid": {
+   "text": [
+    "夜明けには、騎馬の民は草原へ消えていた。焼け落ちた天幕の前で、{merchant}が煤だらけの顔で座り込んでいる。",
+    "死人は出なかった。だが、次の春にこの馬市が開かれることは、もうないだろう。"
+   ],
+   "effects": [
+    {
+     "money": 50
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "end": "焼けた馬市"
+  },
+  "end_beaten": {
+   "text": [
+    "馬の蹄にかけられ、地面に叩きつけられた。気がつくと、{client}が水を口に含ませてくれていた。",
+    "馬市はめちゃくちゃになり、騎馬の民も商人も、互いを罵りながら散っていった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "end": "蹄の跡"
+  }
+ }
+}

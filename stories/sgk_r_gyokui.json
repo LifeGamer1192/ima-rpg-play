@@ -1,0 +1,371 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_gyokui",
+ "kind": "random",
+ "where": "folk",
+ "hook": "王さまの陵が掘られております。玉の衣が盗られてしまう",
+ "title": "玉衣の陵",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "mound": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "陵戸の老人"
+  },
+  "fence": {
+   "npc": "故買屋",
+   "sex": "m"
+  },
+  "leader": {
+   "npc": "盗掘の頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は、代々{mound}の王侯の陵を守ってきた陵戸だという。ここ数日、夜になると封土の裏から鍬の音がする。",
+    "「あの陵には、玉の札を金の糸で綴った玉衣を着せた王さまが眠っておられます。掘り出されれば、骨は野に捨てられ、玉はばらばらに売られる。わしひとりでは、どうにもなりません」"
+   ],
+   "choices": [
+    {
+     "label": "すぐに{mound}の陵へ向かう",
+     "effects": [
+      {
+       "site": {
+        "kind": "tomb",
+        "place": "mound",
+        "name": "王侯の陵",
+        "foes": [
+         {
+          "type": "robber",
+          "n": 3,
+          "level": 0,
+          "name": "盗掘の一味"
+         }
+        ]
+       }
+      }
+     ],
+     "next": "tomb"
+    },
+    {
+     "label": "先に{inn}で、玉を買い漁っている者を探す",
+     "next": "inn"
+    }
+   ]
+  },
+  "inn": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で、玉を買う故買屋を探す",
+   "speaker": "fence",
+   "art": "backroom",
+   "text": [
+    "{inn}の奥で、{fence}が卓に古い玉の欠片を並べていた。「旦那も玉をお探しで。近いうちに、もっと良い品がまとめて入りますよ」"
+   ],
+   "choices": [
+    {
+     "label": "買い手を装い、誰が掘っているのか聞き出す",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "inn_told",
+      "lose": "inn_warned"
+     }
+    },
+    {
+     "label": "胸ぐらをつかんで吐かせる",
+     "check": {
+      "skill": "blade",
+      "dc": 35,
+      "win": "inn_told",
+      "lose": "inn_warned"
+     }
+    }
+   ]
+  },
+  "inn_told": {
+   "speaker": "fence",
+   "art": "backroom",
+   "text": [
+    "{fence}は声を落とした。「掘っているのは{leader}の一味です。ただの盗人じゃない。さる将軍の発丘中郎将とかいう役から、軍資金を掘り出せと命じられているそうで」",
+    "「陵の入口は封土の北。一味は羨道に油の灯を並べています。石の天井が脆いから、奥では火を振り回さないことだと、頭が言っていました」"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_gy_known"
+    },
+    {
+     "xp": "trade",
+     "n": 1
+    },
+    {
+     "site": {
+      "kind": "tomb",
+      "place": "mound",
+      "name": "王侯の陵",
+      "foes": [
+       {
+        "type": "robber",
+        "n": 3,
+        "level": 0,
+        "name": "盗掘の一味"
+       }
+      ]
+     }
+    }
+   ],
+   "next": "tomb"
+  },
+  "inn_warned": {
+   "art": "backroom",
+   "text": [
+    "{fence}はとぼけ通し、裏口からそそくさと出ていった。一味に知らせに走ったのだろう。急がねばならない。"
+   ],
+   "effects": [
+    {
+     "site": {
+      "kind": "tomb",
+      "place": "mound",
+      "name": "王侯の陵",
+      "foes": [
+       {
+        "type": "robber",
+        "n": 3,
+        "level": 0,
+        "name": "盗掘の一味"
+       }
+      ]
+     }
+    }
+   ],
+   "next": "tomb"
+  },
+  "tomb": {
+   "at": {
+    "place": "mound",
+    "site": "cleared"
+   },
+   "goal": "{mound}の陵で、盗掘の一味を追い払う",
+   "speaker": "leader",
+   "art": "ruins",
+   "text": [
+    "一味を打ち倒すと、羨道の奥から傷を負った{leader}が這い出してきた。「待ってくれ。わしらは好きで掘っているのではない。掘らねば、軍に引かれて殺される」",
+    "石室の奥では、灯りの中に玉衣が横たわっていた。金の糸はところどころ切られ、白い玉の札が床に散らばっている。"
+   ],
+   "choices": [
+    {
+     "label": "散らばった玉の札を集め、綴り直す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_restored",
+      "lose": "collapse"
+     }
+    },
+    {
+     "label": "石室の天井を確かめてから、静かに札を拾う",
+     "if": {
+      "flag": "sgk_gy_known"
+     },
+     "next": "end_restored"
+    },
+    {
+     "label": "{leader}を縛り、{office}へ引いていく",
+     "next": "office"
+    },
+    {
+     "label": "玉の札をいくつか懐に入れる",
+     "next": "end_sold",
+     "guide": "陵戸の老人を裏切ることになる"
+    }
+   ]
+  },
+  "collapse": {
+   "art": "disaster",
+   "text": [
+    "札を拾おうと灯りを近づけた拍子に、天井の石がずれた。砂が降り、低い唸りとともに羨道が崩れはじめる。"
+   ],
+   "choices": [
+    {
+     "label": "玉衣を背負って駆け出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_restored",
+      "lose": "end_buried"
+     }
+    },
+    {
+     "label": "玉衣は置いて、身ひとつで逃げる",
+     "next": "end_buried"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ盗掘の頭を引き渡す",
+   "speaker": "郡府の賊曹",
+   "art": "court",
+   "text": [
+    "賊曹は{leader}を見下ろし、渋い顔をした。「将軍の発丘の役の者となれば、郡府も手出ししにくい。……だが王侯の陵を荒らしたのは事実だ」"
+   ],
+   "choices": [
+    {
+     "label": "「軍の名で墓を暴く者を許せば、民の心は離れる」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_captured",
+      "lose": "end_keeper"
+     }
+    },
+    {
+     "label": "{leader}の命乞いを取り次ぎ、陵の番人として働かせるよう願う",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_keeper",
+      "lose": "end_captured"
+     }
+    }
+   ]
+  },
+  "end_restored": {
+   "speaker": "client",
+   "text": [
+    "玉衣を棺に戻し、崩れた入口を土で塞いだ。{client}は封土の前に香を焚き、長いこと額を地につけていた。",
+    "「王さまも、これでまた眠れましょう」翌月、{client}の村から米と干し肉が届いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gy_known"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "{mound}の王侯の陵を盗掘から守り、玉衣を棺に戻した。"
+    }
+   ],
+   "end": "眠りに戻った王"
+  },
+  "end_sold": {
+   "speaker": "fence",
+   "text": [
+    "懐の玉の札は、{here}の{fence}が目を輝かせて買い取った。王侯の玉はいい値がついた。",
+    "数日後、{client}が陵の前で泣いていたと聞いた。陵はその月のうちに、すっかり掘り返されたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gy_known"
+    },
+    {
+     "money": 400
+    },
+    {
+     "fame": -5
+    },
+    {
+     "xp": "trade",
+     "n": 1
+    }
+   ],
+   "end": "売られた玉の札"
+  },
+  "end_captured": {
+   "speaker": "郡府の賊曹",
+   "text": [
+    "賊曹は筆を取った。「王侯の陵を荒らした罪は重い」{leader}は獄に下され、一味の残りも追われることになった。",
+    "{client}は陵の前に新しく柵を巡らせた。郡府からも、陵を守る兵が二人つけられた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gy_known"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "獄に下った盗掘の頭"
+  },
+  "end_keeper": {
+   "speaker": "leader",
+   "text": [
+    "賊曹は、将軍の名を出されては獄にも下せぬと苦笑し、代わりに陵の番をさせることにした。{leader}は陵戸の{client}の下で、鍬を置いて暮らすことになった。",
+    "「掘る者のやり口は、掘ってきたわしがいちばん知っている」{leader}がそう言うと、{client}は呆れたように笑った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gy_known"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "盗掘の頭{leader}を、陵の番人にした。"
+    }
+   ],
+   "end": "墓守になった盗人"
+  },
+  "end_buried": {
+   "text": [
+    "崩れる羨道を転がるように抜け出した。背中で石室が潰れる音がした。玉衣は、王とともに土の下に埋もれた。",
+    "二度と誰にも掘り出せはしない。それがよかったのかどうか、{client}にも分からなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gy_known"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "end": "崩れた石室"
+  }
+ }
+}

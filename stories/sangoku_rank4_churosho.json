@@ -1,0 +1,581 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_rank4_churosho",
+ "kind": "rank",
+ "rankTo": 4,
+ "title": "屯田の令",
+ "era": "sangoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "enemy": {
+   "realm": "enemy:patron"
+  },
+  "land": {
+   "place": "near:cap"
+  },
+  "refugee": {
+   "npc": "流民の長",
+   "sex": "f"
+  },
+  "squire": {
+   "npc": "隠し田を持つ豪族",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "典農の書佐",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府で昇進を願い出る",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は算木を並べた盤を{player}の前に押しやった。「兵は十万いても、腹が減れば三日で散る。{land}の辺りは戦で里が空になり、田が荒れたままだ。そこに流民を集めて屯田を開け」",
+    "{ruler}が言った。「秋に一万斛の穀を兵糧の蔵に積めたなら、中郎将に任じる。兵を養える者こそ、兵を率いる資格がある」"
+   ],
+   "effects": [
+    {
+     "note": "{land}に屯田を開き、秋までに一万斛の穀を積むよう命じられた。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "land"
+   },
+   "goal": "{land}へ行き、流民を集める",
+   "speaker": "refugee",
+   "art": "disaster",
+   "text": [
+    "{land}の荒れた田のあいだに、筵の小屋が並んでいた。戦や飢えで故郷を追われた流民たちだ。長の{refugee}は、痩せた子を背負ったまま{player}をにらんだ。",
+    "「屯田の兵になれ、と？　前の役人もそう言って、穫れた穀を八割持っていった。わたしらは牛も種籾も持っておりません」"
+   ],
+   "choices": [
+    {
+     "label": "官の牛を使う者は六分、自前の牛なら五分を納める、と定めを示す",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s2ok",
+      "lose": "s2half"
+     }
+    },
+    {
+     "label": "粥を炊いて配り、まず食わせてから話す（200銭）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      },
+      {
+       "fame": 2
+      }
+     ],
+     "next": "s2ok"
+    },
+    {
+     "label": "「来ぬ者は賊として扱う」と兵で囲み、田へ追い立てる",
+     "effects": [
+      {
+       "flag": "sk_r4_forced"
+      },
+      {
+       "fame": -2
+      }
+     ],
+     "next": "s2half"
+    },
+    {
+     "label": "自ら鍬を取り、流民と並んで畦を起こす",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s2ok",
+      "lose": "s2half"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "refugee",
+   "text": [
+    "{refugee}は背の子を揺すり上げ、小屋の者たちを振り返った。「この人の言うことなら、一年だけ信じてみよう」その日のうちに、千の家が屯田の籍に入った。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r4_willing"
+    },
+    {
+     "note": "{refugee}ら流民が進んで屯田に加わった。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2half": {
+   "text": [
+    "流民の半ばは屯田の籍に入ったが、残りは夜のうちに姿を消した。集まった者たちの顔も暗い。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "land",
+    "building": "office"
+   },
+   "goal": "{land}の郡府で田の帳簿を改める",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "郡府の書佐{clerk}が、虫の食った田籍を広げた。「荒れ田だと届けられた田のうち、三分の一には、どうも麦が植わっております。豪族の{squire}どのが、部曲に耕させているようで」",
+    "隠し田の穀は、税にも屯田にも入らない。"
+   ],
+   "choices": [
+    {
+     "label": "田を一枚ずつ測り直し、隠し田を帳簿に載せる",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "s3found",
+      "lose": "s3miss"
+     }
+    },
+    {
+     "label": "{squire}の塢を訪ね、隠し田を屯田に差し出せと掛け合う",
+     "check": {
+      "skill": "trade",
+      "dc": 36,
+      "win": "s3deal",
+      "lose": "s3miss"
+     }
+    },
+    {
+     "label": "兵を率いて{squire}の部曲を追い出し、田を取り上げる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3seized",
+      "lose": "s3miss"
+     }
+    },
+    {
+     "label": "見なかったことにする",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3found": {
+   "speaker": "clerk",
+   "text": [
+    "縄と竿で測り直すと、隠し田は二百頃にのぼった。{clerk}は帳簿に朱を入れながら震えた。「これを州府に出せば、{squire}どのは黙っておりますまい」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r4_land"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "next": "s4"
+  },
+  "s3deal": {
+   "speaker": "squire",
+   "art": "trade",
+   "text": [
+    "{squire}は苦い顔で酒を干した。「隠し田の半ばは屯田に出そう。そのかわり、残りは見逃せ。それと、わしの次男を郡の役人に推してもらう」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r4_land"
+    },
+    {
+     "flag": "sk_r4_deal"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3seized": {
+   "art": "war",
+   "text": [
+    "部曲は散り、{squire}の隠し田は屯田の籍に入った。{squire}は州府へ訴えると言い残して塢に籠もった。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r4_land"
+    },
+    {
+     "flag": "sk_r4_feud"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3miss": {
+   "text": [
+    "隠し田の話は、結局うやむやになった。屯田に入る田は、思ったより少ない。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "land"
+   },
+   "goal": "麦の穂が出るのを待ち、{land}の屯田の蔵を守る",
+   "wait": {
+    "days": 5
+   },
+   "art": "war",
+   "text": [
+    "麦の穂が黄ばみ始めたころ、夜番の兵が駆け込んできた。「{enemy}の兵が川を渡りました！　松明を持っております。蔵と麦を焼く気です」"
+   ],
+   "choices": [
+    {
+     "label": "屯田の民を兵として集め、川辺で迎え撃つ",
+     "if": {
+      "flag": "sk_r4_willing"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 36,
+      "win": "s5",
+      "lose": "s4burn"
+     }
+    },
+    {
+     "label": "刈り入れ前の麦を急ぎ刈らせ、蔵の穀を城の内へ運ばせる",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "s5",
+      "lose": "s4burn"
+     }
+    },
+    {
+     "label": "畦の陰に弩兵を伏せ、松明を目当てに射させる",
+     "check": {
+      "skill": "bow",
+      "dc": 38,
+      "win": "s5",
+      "lose": "s4burn"
+     }
+    },
+    {
+     "label": "自ら手勢を率いて川辺へ斬り込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4burn"
+     }
+    }
+   ]
+  },
+  "s4burn": {
+   "art": "disaster",
+   "text": [
+    "蔵の一つが燃え上がり、麦畑に火が走った。{player}は民を連れて火を叩き、夜明けまでかかって半ばを救った。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "flag": "sk_r4_burned"
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "land"
+   },
+   "goal": "秋の刈り入れを待ち、{land}の屯田の穀を数える",
+   "wait": {
+    "days": 5
+   },
+   "speaker": "refugee",
+   "art": "trade",
+   "text": [
+    "秋が来た。{refugee}たちが刈り入れた穀が、蔵の前に山を作っていく。{clerk}が算盤を弾いた。"
+   ],
+   "choices": [
+    {
+     "label": "隠し田まで含めた穀を数え、州府へ送る",
+     "if": {
+      "flag": "sk_r4_land",
+      "notFlag": "sk_r4_burned"
+     },
+     "next": "s6full"
+    },
+    {
+     "label": "残った穀を数え、州府へ送る",
+     "next": "s6part"
+    }
+   ]
+  },
+  "s6full": {
+   "speaker": "clerk",
+   "text": [
+    "「一万二千斛」{clerk}の声が上ずった。「命じられた数を超えました」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r4_full"
+    }
+   ],
+   "next": "s7"
+  },
+  "s6part": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は算盤を何度も弾き直した。「……八千斛。命じられた数には足りませぬ」"
+   ],
+   "next": "s7"
+  },
+  "s7": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府に戻り、屯田の穀を報じる",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "州府の堂で、{ruler}は{land}から届いた穀の目録を読んだ。{minister}が傍らで、もう一通の竹簡を手にしている。豪族{squire}の名が見えた。"
+   ],
+   "choices": [
+    {
+     "label": "一万二千斛を積んだことを申し上げる",
+     "if": {
+      "flag": "sk_r4_full"
+     },
+     "next": "win_full"
+    },
+    {
+     "label": "穀は足りぬが、流民が進んで残ったこと、来年の見込みを説く",
+     "if": {
+      "flag": "sk_r4_willing",
+      "notFlag": "sk_r4_full"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "win_people",
+      "lose": "fail_short"
+     }
+    },
+    {
+     "label": "穀の足りぬ分を、{squire}との取り決めで補ったと申し上げる",
+     "if": {
+      "flag": "sk_r4_deal",
+      "notFlag": "sk_r4_full"
+     },
+     "next": "win_deal"
+    },
+    {
+     "label": "足りぬまま、ただ目録を差し出す",
+     "if": {
+      "notFlag": "sk_r4_full"
+     },
+     "next": "fail_short"
+    }
+   ]
+  },
+  "win_full": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は目録を二度読み、{squire}の訴えの竹簡を火鉢にくべた。「隠し田を暴いて一万二千斛。訴えなど、穀の山の前では灰だ」",
+    "{ruler}は{player}を中郎将に任じた。{land}の屯田は、そのまま{player}の下に置かれた。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 15
+    },
+    {
+     "fame": 4
+    },
+    {
+     "item": "rations",
+     "n": 5
+    },
+    {
+     "unflag": "sk_r4_forced"
+    },
+    {
+     "unflag": "sk_r4_willing"
+    },
+    {
+     "unflag": "sk_r4_land"
+    },
+    {
+     "unflag": "sk_r4_deal"
+    },
+    {
+     "unflag": "sk_r4_feud"
+    },
+    {
+     "unflag": "sk_r4_burned"
+    },
+    {
+     "unflag": "sk_r4_full"
+    },
+    {
+     "note": "{land}の屯田で一万二千斛の穀を積み、中郎将となった。"
+    }
+   ],
+   "end": "一万二千斛"
+  },
+  "win_people": {
+   "speaker": "ruler",
+   "text": [
+    "「穀は足りぬ。だが、民が逃げずに残った屯田は、来年もっと穫れる」{ruler}は目録を置いた。「それが分かる者を、中郎将にしておく」",
+    "{refugee}たちは、来年の種籾を自分たちの手で蔵に納めたという。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "sk_r4_forced"
+    },
+    {
+     "unflag": "sk_r4_willing"
+    },
+    {
+     "unflag": "sk_r4_land"
+    },
+    {
+     "unflag": "sk_r4_deal"
+    },
+    {
+     "unflag": "sk_r4_feud"
+    },
+    {
+     "unflag": "sk_r4_burned"
+    },
+    {
+     "unflag": "sk_r4_full"
+    },
+    {
+     "note": "{land}の屯田に流民を根づかせ、中郎将となった。"
+    }
+   ],
+   "end": "根づく屯田"
+  },
+  "win_deal": {
+   "speaker": "minister",
+   "text": [
+    "{squire}の家から、足りぬ分の穀が車で届いていた。{minister}は薄く笑った。「豪族と手を握って帳尻を合わせたか。きれいではないが、兵は腹が膨れる」",
+    "{player}は中郎将となった。{squire}の次男が郡の役人に推されたのは、その月のうちだった。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 8
+    },
+    {
+     "fame": 1
+    },
+    {
+     "flag": "sk_r4_squire_bond"
+    },
+    {
+     "unflag": "sk_r4_forced"
+    },
+    {
+     "unflag": "sk_r4_willing"
+    },
+    {
+     "unflag": "sk_r4_land"
+    },
+    {
+     "unflag": "sk_r4_deal"
+    },
+    {
+     "unflag": "sk_r4_feud"
+    },
+    {
+     "unflag": "sk_r4_burned"
+    },
+    {
+     "unflag": "sk_r4_full"
+    },
+    {
+     "note": "豪族{squire}と取り決めて屯田の穀をそろえ、中郎将となった。"
+    }
+   ],
+   "end": "豪族の穀"
+  },
+  "fail_short": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}は目録を閉じた。「一万斛と申した。八千は一万ではない」任官の話は流れた。{minister}が言った。「屯田は続けよ。来年の秋にまた数えればよい」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sk_r4_forced"
+    },
+    {
+     "unflag": "sk_r4_willing"
+    },
+    {
+     "unflag": "sk_r4_land"
+    },
+    {
+     "unflag": "sk_r4_deal"
+    },
+    {
+     "unflag": "sk_r4_feud"
+    },
+    {
+     "unflag": "sk_r4_burned"
+    },
+    {
+     "unflag": "sk_r4_full"
+    },
+    {
+     "note": "屯田の穀が命じられた数に届かなかった。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "足りぬ穀"
+  }
+ }
+}

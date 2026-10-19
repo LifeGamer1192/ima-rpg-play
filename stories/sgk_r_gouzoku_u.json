@@ -1,0 +1,381 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_gouzoku_u",
+ "kind": "random",
+ "where": "folk",
+ "hook": "夫が豪族の塢に入ったきり、出してもらえぬのです",
+ "title": "塢壁の内",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "流民の女"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "u": {
+   "place": "near:here"
+  },
+  "lord": {
+   "npc": "塢主",
+   "sex": "m"
+  },
+  "husband": {
+   "npc": "夫",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "郡府の戸曹",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は赤子を背負い、裸足だった。「戦で村を焼かれ、夫の{husband}と流れてまいりました。{u}の豪族{lord}さまの塢に入れば、飯と寝床をくださると」",
+    "「夫は塢に入り、私は女子供の数が多すぎると門前で追い返されました。それから半年、夫は出てこられませぬ。借りた飯の分を働いて返すまでは出さぬ、と」"
+   ],
+   "choices": [
+    {
+     "label": "{u}の塢を訪ねる",
+     "next": "gate"
+    },
+    {
+     "label": "{office}で、塢の者が戸籍に載っているか調べる",
+     "next": "office"
+    }
+   ]
+  },
+  "gate": {
+   "at": {
+    "place": "u"
+   },
+   "goal": "{u}の{lord}の塢を訪ねる",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "版築の高い土壁が四方を囲み、角には望楼が立っていた。門の内には田と倉と鍛冶場があり、数百の男女が働いている。小さな城だ。",
+    "塢主の{lord}は、絹の衣で客を迎えた。「{husband}か。あれは我が部曲よ。乱世に飯と壁を与えてやった。その恩を返すまでは、一歩も出さぬ」"
+   ],
+   "choices": [
+    {
+     "label": "{husband}の借りを銭で肩代わりする",
+     "check": {
+      "skill": "trade",
+      "dc": 38,
+      "win": "buy",
+      "lose": "wall"
+     }
+    },
+    {
+     "label": "「妻子を引き裂く主に、人はついてこぬ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "end_release",
+      "lose": "wall"
+     }
+    },
+    {
+     "label": "客として一晩泊まり、塢の中を探る",
+     "effects": [
+      {
+       "flag": "sgk_gu_inside"
+      }
+     ],
+     "next": "night"
+    }
+   ]
+  },
+  "buy": {
+   "speaker": "lord",
+   "art": "trade",
+   "text": [
+    "{lord}は算木を並べ、帳を繰った。「飯が半年、衣が二枚、病の薬……しめて五百銭。それで手を打とう」",
+    "帳の数字は、どう見ても水増しされている。"
+   ],
+   "choices": [
+    {
+     "label": "五百銭を払う",
+     "if": {
+      "money": 500
+     },
+     "effects": [
+      {
+       "money": -500
+      }
+     ],
+     "next": "end_bought"
+    },
+    {
+     "label": "帳の水増しを指摘する",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "end_bought",
+      "lose": "wall"
+     }
+    }
+   ]
+  },
+  "night": {
+   "art": "hideout",
+   "text": [
+    "夜更け、長屋を抜け出して部曲の小屋を回った。{husband}は藁の上で、痩せた背を丸めていた。「妻は無事か……」",
+    "小屋の奥には、戸籍に載らぬ者が数百いると{husband}は囁いた。郡府に税も兵役も出さずに、{lord}が抱え込んでいるのだ。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_gu_hidden"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{husband}を連れて、夜のうちに壁を越える",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_escape",
+      "lose": "wall"
+     },
+     "guide": "見つかれば塢の私兵に囲まれる"
+    },
+    {
+     "label": "塢を出て、{office}に隠し戸を知らせる",
+     "next": "office"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で塢の者の戸籍を調べる",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "戸曹の{clerk}は戸籍の竹簡を繰った。「{u}の{lord}の塢か……届けは百戸。だが、実はその三倍はおろうな。皆知っておるが、誰も手を出せぬ。私兵を五百も抱えておる」"
+   ],
+   "choices": [
+    {
+     "label": "塢の中で見た隠し戸の数を申し立てる",
+     "if": {
+      "flag": "sgk_gu_hidden"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "end_census",
+      "lose": "wall"
+     }
+    },
+    {
+     "label": "{clerk}を説き、塢に戸籍改めの使いを出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "end_census",
+      "lose": "gate"
+     }
+    }
+   ]
+  },
+  "wall": {
+   "at": {
+    "place": "u"
+   },
+   "speaker": "lord",
+   "art": "war",
+   "text": [
+    "{lord}の私兵に取り押さえられかけたとき、望楼で銅鑼が鳴った。「{bandit}だ！ 北の林から百は来る！」",
+    "{lord}の顔が蒼ざめた。「……客人、腕に覚えはあるか。塢を守り抜いたら、望みを聞いてやろう」"
+   ],
+   "choices": [
+    {
+     "label": "壁に上がり、{bandit}を迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "end_release",
+      "lose": "end_held"
+     }
+    },
+    {
+     "label": "壁の上から弓で{bandit}の頭目を狙う",
+     "check": {
+      "skill": "bow",
+      "dc": 42,
+      "win": "end_release",
+      "lose": "end_held"
+     }
+    },
+    {
+     "label": "騒ぎに紛れて{husband}を連れ出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "end_escape",
+      "lose": "end_held"
+     }
+    }
+   ]
+  },
+  "end_release": {
+   "speaker": "lord",
+   "art": "feast",
+   "text": [
+    "{lord}は苦い顔で、{husband}の名を帳から消した。「口の立つ、腕の立つ客人よ。……妻子ともども、塢の外へ行くがいい」",
+    "門の外で、{client}は{husband}にすがりついて泣いた。赤子が、父の顔を見て笑った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gu_inside"
+    },
+    {
+     "unflag": "sgk_gu_hidden"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    },
+    {
+     "xp": "blade",
+     "n": 1
+    },
+    {
+     "note": "{u}の塢主{lord}に、部曲の{husband}を解き放たせた。"
+    }
+   ],
+   "end": "開いた門"
+  },
+  "end_bought": {
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "帳の上で{husband}の借りは消え、{lord}は門を開けた。{client}と{husband}は、塢の外の荒れ地で抱き合った。",
+    "「この御恩は、いつか必ず」そう言って二人は、{here}の町外れに小さな畑を借りた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gu_inside"
+    },
+    {
+     "unflag": "sgk_gu_hidden"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "end": "買い戻した夫"
+  },
+  "end_escape": {
+   "speaker": "husband",
+   "art": "road",
+   "text": [
+    "土壁の崩れ目から外へ出た。{husband}を背に負って夜道を走り、明け方には{here}の町に着いた。",
+    "{client}と{husband}は抱き合った。だが{lord}は、逃げた部曲と、それを盗んだ者に追手をかけたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gu_inside"
+    },
+    {
+     "unflag": "sgk_gu_hidden"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 3
+    },
+    {
+     "hunted": 15
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "壁を越えて"
+  },
+  "end_census": {
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}が兵を連れて塢に乗り込み、戸籍改めが行われた。隠されていた二百戸が戸籍に載り、{husband}を含む部曲の多くが、郡の民として解き放たれた。",
+    "{lord}はこちらを睨んでいたが、郡府の兵の前では何も言えなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gu_inside"
+    },
+    {
+     "unflag": "sgk_gu_hidden"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 15
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "{u}の塢の隠し戸を{office}に申し立て、戸籍に載せさせた。"
+    }
+   ],
+   "end": "戸籍改め"
+  },
+  "end_held": {
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "傷を負い、塢から放り出された。{husband}は今も、あの土壁の内にいる。",
+    "{client}は赤子を抱き直し、「それでも、生きていると分かっただけで」と、無理に笑った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gu_inside"
+    },
+    {
+     "unflag": "sgk_gu_hidden"
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "閉ざされた塢"
+  }
+ }
+}

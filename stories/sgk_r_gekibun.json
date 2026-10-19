@@ -1,0 +1,359 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_gekibun",
+ "kind": "random",
+ "where": "office",
+ "hook": "檄文を遠方の太守へ届ける者を求む。道中には敵の目がある",
+ "title": "檄を飛ばす",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "stage": {
+   "place": "near:here"
+  },
+  "far": {
+   "place": "far:here"
+  },
+  "client": {
+   "client": "郡府の主簿"
+  },
+  "spy": {
+   "npc": "愛想のよい旅商人",
+   "sex": "m"
+  },
+  "governor": {
+   "npc": "日和見の太守",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{office}の門に、「檄を{far}へ届ける者を求む」と貼り出されていた。{client}は封をした絹の巻物を見せた。",
+    "「都を牛耳る逆臣を討つため、諸郡に兵を挙げよと呼びかける檄だ。{far}の太守{governor}はまだ旗色を決めておらぬ。これが届かねば、あちらは逆臣に付くやもしれん。道には向こうの間者が出ておる」"
+   ],
+   "choices": [
+    {
+     "label": "檄を預かり、{far}へ発つ",
+     "effects": [
+      {
+       "xp": "letters",
+       "n": 1
+      }
+     ],
+     "next": "inn"
+    },
+    {
+     "label": "檄の文を一度読み、頭に刻んでから発つ",
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "inn_learned",
+      "lose": "inn"
+     }
+    }
+   ]
+  },
+  "inn_learned": {
+   "text": [
+    "逆臣の罪を十挙げ、漢の恩を説き、義兵を募る文だ。筆の勢いのある、よい檄だった。二度読み返し、要の句を胸に刻んだ。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_gb_copy"
+    }
+   ],
+   "next": "inn"
+  },
+  "inn": {
+   "at": {
+    "place": "stage",
+    "building": "inn"
+   },
+   "goal": "{stage}の{inn}で旅の宿を取る",
+   "speaker": "spy",
+   "art": "inn",
+   "text": [
+    "{stage}の{inn}で、{spy}が人懐こく隣に座った。「長旅ですな。わしのおごりだ、一杯どうです」差し出された杯からは、酒にしては妙に甘い匂いがした。",
+    "土間の向こうでは、目つきの悪い男が三人、こちらを見ないようにして飯をかき込んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "酒の匂いを確かめ、薬を見破る",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "spy",
+      "lose": "robbed"
+     }
+    },
+    {
+     "label": "礼を言って断り、夜のうちにそっと宿を出る",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "dest",
+      "lose": "ambush"
+     }
+    },
+    {
+     "label": "飲んだふりをして、相手の出方を待つ",
+     "next": "ambush"
+    }
+   ]
+  },
+  "ambush": {
+   "art": "war",
+   "text": [
+    "夜更け、戸が蹴破られた。飯をかき込んでいた三人が、刀を抜いて踏み込んでくる。{spy}の姿はもうない。"
+   ],
+   "choices": [
+    {
+     "label": "三人を斬り伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "dest",
+      "lose": "robbed"
+     }
+    }
+   ]
+  },
+  "spy": {
+   "speaker": "spy",
+   "art": "backroom",
+   "text": [
+    "杯の底に、白い粉が沈んでいた。腕をつかんで捻り上げると、{spy}は青ざめて膝をついた。土間の三人は、仲間が捕まったと見るや戸口から逃げ出していった。"
+   ],
+   "choices": [
+    {
+     "label": "誰に頼まれたのか問いただす",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "confess",
+      "lose": "dest"
+     }
+    },
+    {
+     "label": "縛り上げて土地の役人に渡し、先を急ぐ",
+     "next": "dest"
+    }
+   ]
+  },
+  "confess": {
+   "speaker": "spy",
+   "art": "backroom",
+   "text": [
+    "{spy}はとうとう口を割った。逆臣の側は、{governor}に「檄に応じぬなら州を与える」と密かに約していた。檄を奪い、その間に返事を取りつける手はずだったという。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_gb_intel"
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "next": "dest"
+  },
+  "robbed": {
+   "art": "disaster",
+   "text": [
+    "頭が重い。目が覚めると夜が明けていた。荷は切り裂かれ、檄の巻物は消えている。"
+   ],
+   "choices": [
+    {
+     "label": "覚えている文で檄を書き直す",
+     "if": {
+      "flag": "sgk_gb_copy"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "dest",
+      "lose": "end_failed"
+     }
+    },
+    {
+     "label": "街道を追い、足跡をたどる",
+     "check": {
+      "skill": "bow",
+      "dc": 45,
+      "win": "dest",
+      "lose": "end_failed"
+     },
+     "guide": "逃げる男を遠矢で止めるしかない"
+    },
+    {
+     "label": "諦めて{here}へ戻る",
+     "next": "end_failed"
+    }
+   ]
+  },
+  "dest": {
+   "at": {
+    "place": "far",
+    "building": "palace"
+   },
+   "goal": "{far}の{palace}で、太守{governor}に檄を届ける",
+   "speaker": "governor",
+   "art": "court",
+   "text": [
+    "{far}の{palace}で、{governor}は檄を読み終えても、しばらく何も言わなかった。「義は分かる。だが兵を挙げれば、まずこの郡が狙われる。わしの民はどうなる」"
+   ],
+   "choices": [
+    {
+     "label": "「逆臣は、あなたにも何か約したのでしょう」と密約を突きつける",
+     "if": {
+      "flag": "sgk_gb_intel"
+     },
+     "next": "end_intel"
+    },
+    {
+     "label": "天下の大勢を説き、いま立つ利を示す",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_joined",
+      "lose": "end_wavering"
+     }
+    },
+    {
+     "label": "檄の義を一句ずつ読み上げ、座の将たちの心を動かす",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_joined",
+      "lose": "end_wavering"
+     }
+    }
+   ]
+  },
+  "end_joined": {
+   "speaker": "governor",
+   "text": [
+    "{governor}は長い息をつき、やがて立ち上がった。「よかろう。檄に応じる」その日のうちに、{far}の城門に兵を募る札が立った。",
+    "戻ると{client}は手を打って喜び、約束の賞に色をつけてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gb_intel"
+    },
+    {
+     "unflag": "sgk_gb_copy"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "檄を{far}へ届け、太守{governor}に兵を挙げさせた。"
+    }
+   ],
+   "end": "集まった義兵"
+  },
+  "end_intel": {
+   "speaker": "governor",
+   "text": [
+    "{governor}の顔色が変わった。座の将たちがざわめく。「……逆臣は、わしを州で釣り、檄を奪って口を塞ぐつもりだったか」",
+    "{governor}は卓を叩いた。「欺く者に付く道理はない。檄に応じる」密約のことは、その日のうちに諸郡へ知らされた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gb_intel"
+    },
+    {
+     "unflag": "sgk_gb_copy"
+    },
+    {
+     "money": 400
+    },
+    {
+     "fame": 9
+    },
+    {
+     "favor": 8
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "檄を届け、逆臣と太守{governor}の密約を暴いた。"
+    }
+   ],
+   "end": "暴かれた密約"
+  },
+  "end_wavering": {
+   "speaker": "governor",
+   "text": [
+    "{governor}は檄を丁寧に巻き直した。「よく届けてくれた。返事は、もう少し様子を見てからにしよう」",
+    "{client}は苦い顔をしたが、届けた手間賃だけは払ってくれた。{far}が兵を挙げたという話は、ついに聞こえてこなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gb_intel"
+    },
+    {
+     "unflag": "sgk_gb_copy"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "end": "日和見の太守"
+  },
+  "end_failed": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ戻り、檄を失ったことを告げる",
+   "speaker": "client",
+   "text": [
+    "{client}は、檄を失ったと聞くと目を閉じた。「……書き直して別の者に持たせる。だが、遅れは取り返せまい」",
+    "賞はもらえなかった。数日後、{far}が逆臣に付いたという噂が流れてきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gb_intel"
+    },
+    {
+     "unflag": "sgk_gb_copy"
+    },
+    {
+     "fame": -2
+    },
+    {
+     "favor": -3
+    }
+   ],
+   "end": "奪われた檄"
+  }
+ }
+}

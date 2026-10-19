@@ -1,0 +1,391 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_kenja",
+ "kind": "random",
+ "where": "inn",
+ "hook": "山に隠れた賢者を、太守の前に連れて来いと言われまして",
+ "title": "草廬の客",
+ "era": "sangoku",
+ "most": 2,
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "郡府の書佐"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "hills": {
+   "place": "near:here"
+  },
+  "sage": {
+   "npc": "隠士",
+   "sex": "m"
+  },
+  "boy": {
+   "npc": "童子",
+   "sex": "m"
+  },
+  "captain": {
+   "npc": "督郵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "若い書佐の{client}が、{inn}で頭を抱えていた。「{hills}の山に、{sage}という隠士が畑を耕して暮らしております。経書にも兵法にも通じ、天下の形勢を掌を指すように語るとか」",
+    "「太守が召し出せと仰せなのですが、二度使いを出して二度とも門前払い。三度目にしくじれば、私の首が飛びます。一緒に来ていただけませぬか」"
+   ],
+   "choices": [
+    {
+     "label": "{hills}の草廬を訪ねる",
+     "next": "visit1"
+    }
+   ]
+  },
+  "visit1": {
+   "at": {
+    "place": "hills"
+   },
+   "goal": "{hills}の山の草廬を訪ねる",
+   "speaker": "boy",
+   "art": "tale",
+   "text": [
+    "竹林を抜けた先に、茅葺きの小さな庵があった。柴の戸を叩くと、童子の{boy}が顔を出した。「先生は今朝、友を訪ねて出かけました。いつお帰りかは存じません」",
+    "庭の畑には鍬が立てかけてある。机の上には、書きかけの竹簡が広げられたままだ。"
+   ],
+   "choices": [
+    {
+     "label": "名を書き置いて、日を改めて出直す",
+     "next": "visit2"
+    },
+    {
+     "label": "机の竹簡を盗み見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "scroll",
+      "lose": "scolded"
+     }
+    },
+    {
+     "label": "「居留守であろう」と踏み込む",
+     "next": "scolded"
+    }
+   ]
+  },
+  "scroll": {
+   "art": "tale",
+   "text": [
+    "竹簡には、この州の山と川、穀倉と関の位置が細かく書き込まれていた。余白に一句。「大夢誰か先に覚む、平生我自ら知る」",
+    "童子が戻る前に、そっと竹簡を元に戻した。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_kj_poem"
+    },
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "next": "visit2"
+  },
+  "scolded": {
+   "speaker": "boy",
+   "art": "tale",
+   "text": [
+    "{boy}は小さな体で戸口に立ちふさがった。「先生の留守に、無礼でございましょう」{client}が慌ててこちらの袖を引いた。"
+   ],
+   "choices": [
+    {
+     "label": "童子に詫び、出直す",
+     "next": "visit2"
+    },
+    {
+     "label": "{captain}の兵に任せると{client}に言う",
+     "next": "soldiers"
+    }
+   ]
+  },
+  "visit2": {
+   "at": {
+    "place": "hills"
+   },
+   "wait": {
+    "days": 3
+   },
+   "goal": "日を改め、雪の中をもう一度{sage}の庵へ",
+   "speaker": "boy",
+   "art": "road",
+   "text": [
+    "二度目に訪ねた日は雪だった。凍えた手で柴の戸を叩くと、また{boy}が出てきた。「先生はまだお戻りになりません」",
+    "{client}が震えながら言う。「太守は待ちきれず、督郵の{captain}に兵を付けて、力ずくで連れて来させると仰せです」"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_kj_twice"
+    }
+   ],
+   "choices": [
+    {
+     "label": "「もう一度だけ待ってくれ」と{client}に頼み、三度目を待つ",
+     "next": "visit3"
+    },
+    {
+     "label": "兵が来る前に、{sage}に知らせる手立てを探す",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "visit3",
+      "lose": "soldiers"
+     }
+    }
+   ]
+  },
+  "visit3": {
+   "at": {
+    "place": "hills"
+   },
+   "wait": {
+    "days": 2
+   },
+   "goal": "三たび{sage}の庵を訪ねる",
+   "speaker": "sage",
+   "art": "lecture",
+   "text": [
+    "三度目、{sage}は庵にいた。昼寝をしているという。戸口の外で、日が傾くまで黙って待った。",
+    "やがて身を起こした{sage}は、こちらを見て笑った。「三度も来る物好きは久しぶりだ。座られよ。そなたは、この乱世をどう見る」"
+   ],
+   "choices": [
+    {
+     "label": "州の山川と穀倉を挙げ、天下の形勢を論じる",
+     "check": {
+      "skill": "letters",
+      "dc": 42,
+      "win": "debate",
+      "lose": "refuse"
+     }
+    },
+    {
+     "label": "余白の句を口ずさみ、志を問う",
+     "if": {
+      "flag": "sgk_kj_poem"
+     },
+     "next": "debate"
+    },
+    {
+     "label": "飾らず、民の暮らしの苦しさを語る",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "debate",
+      "lose": "refuse"
+     }
+    }
+   ]
+  },
+  "debate": {
+   "speaker": "sage",
+   "art": "lecture",
+   "text": [
+    "{sage}は膝を打った。「北は兵多く、南は川険しく、西は山深い。この地はそのはざまにある。人を得れば保ち、人を失えば滅ぶ」",
+    "「よかろう。だが、わしが仕えるかどうかは別の話だ。あの太守に、わしの言を用いる器があるか」"
+   ],
+   "choices": [
+    {
+     "label": "「器がなければ、器にしてみせるのが先生の才」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_serve",
+      "lose": "end_pupil"
+     }
+    },
+    {
+     "label": "「ならば、私に教えを」と弟子入りを願う",
+     "next": "end_pupil"
+    }
+   ]
+  },
+  "refuse": {
+   "speaker": "sage",
+   "art": "tale",
+   "text": [
+    "{sage}は茶を啜って言った。「書を読んだ者の言葉だが、まだ借り物だな。太守殿によろしく伝えてくれ」",
+    "庵を出ると、竹林の向こうに松明の列が見えた。{captain}の兵だ。"
+   ],
+   "next": "soldiers"
+  },
+  "soldiers": {
+   "at": {
+    "place": "hills"
+   },
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "督郵の{captain}が、十人ほどの{soldier}を連れて庵を囲んだ。「太守のお召しを三度も拒むとは不遜の極み。縄をかけて引き立てよ。逆らえば庵ごと焼け」",
+    "{boy}が泣き叫び、{sage}は静かに立ち上がった。"
+   ],
+   "choices": [
+    {
+     "label": "{captain}の前に立ちはだかり、兵を退ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_flee",
+      "lose": "end_burned"
+     },
+     "guide": "太守の兵に刃を向けることになる"
+    },
+    {
+     "label": "「庵を焼けば、太守の名が地に落ちる」と{captain}を説く",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_flee",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "黙って見ている",
+     "next": "end_burned"
+    }
+   ]
+  },
+  "end_serve": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{sage}は鍬を置き、{boy}に畑を託して山を下りた。{office}に入るとき、{sage}は振り返って言った。「三度来たのはそなただ。太守ではない。それを忘れるな」",
+    "{client}は首がつながったと涙を流し、太守は大いに喜んで褒美を下された。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_kj_twice"
+    },
+    {
+     "unflag": "sgk_kj_poem"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 15
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{hills}の隠士{sage}を三度訪ね、山から下ろした。"
+    }
+   ],
+   "end": "出廬"
+  },
+  "end_pupil": {
+   "speaker": "sage",
+   "art": "lecture",
+   "text": [
+    "{sage}は山を下りなかった。代わりに、幾晩も灯火の下で経書と兵法と、人を見る目を語ってくれた。",
+    "「わしの名は太守に告げるな。告げるなら、そなたが学んだことを用いて、太守を諫めよ」{client}は肩を落としたが、首は飛ばずに済んだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_kj_twice"
+    },
+    {
+     "unflag": "sgk_kj_poem"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{hills}の隠士{sage}に教えを受けた。"
+    }
+   ],
+   "end": "庵の灯"
+  },
+  "end_flee": {
+   "speaker": "sage",
+   "art": "road",
+   "text": [
+    "兵が退くと、{sage}は{boy}の手を引き、竹林の奥へ姿を消した。「この恩は忘れぬ。いつか乱世のどこかで会おう」",
+    "{captain}は太守に「隠士はすでに去っていた」と報じたが、こちらを見る目は冷たかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_kj_twice"
+    },
+    {
+     "unflag": "sgk_kj_poem"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": -8
+    },
+    {
+     "rep": "land",
+     "n": -3
+    },
+    {
+     "xp": "blade",
+     "n": 1
+    }
+   ],
+   "end": "竹林の奥へ"
+  },
+  "end_burned": {
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "庵は焼け落ち、{sage}は縄をかけられて引き立てられた。だが太守の前で一言も発せず、その夜のうちに獄で舌を噛んだという。",
+    "{client}は「こんなことのために三度も……」とつぶやき、書佐の印を返上した。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_kj_twice"
+    },
+    {
+     "unflag": "sgk_kj_poem"
+    },
+    {
+     "fame": -3
+    }
+   ],
+   "end": "焼けた草廬"
+  }
+ }
+}

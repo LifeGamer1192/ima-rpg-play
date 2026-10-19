@@ -1,0 +1,617 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_guild3",
+ "kind": "rank",
+ "guildTo": 3,
+ "title": "黄天の残り火",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "老いた渠帥",
+   "sex": "m"
+  },
+  "brute": {
+   "npc": "荒くれの頭目",
+   "sex": "m"
+  },
+  "priest": {
+   "npc": "符水を配る女祭酒",
+   "sex": "f"
+  },
+  "squire": {
+   "npc": "部曲を買う豪族",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で渠帥に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は咳き込みながら、色の褪せた黄色の頭巾を膝に置いた。「中平の年に、わしはこれを巻いて郡の役所を焼いた。大賢良師は死に、天は黄色くならなんだ。残ったのは、山に逃げた二千の流民だけだ」",
+    "「郡府が義倉を閉じた。冬を越せぬ者が出る。わしの跡は、おまえか{brute}が継げ。この冬をどう越すか、それを見て決める。一党の行く道も、そこで決まる」"
+   ],
+   "choices": [
+    {
+     "label": "山の流民の様子を見に行く",
+     "next": "s2"
+    },
+    {
+     "label": "まず{brute}の腹を確かめる",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の荒れた祠で、流民たちの集まりをのぞく",
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "夜の祠に、痩せた流民たちが身を寄せ合っていた。女祭酒の{priest}が、病人に符水を飲ませ、己の罪を紙に書かせては川に流させている。",
+    "{priest}が{player}に気づいた。「一党の方ですね。この冬、粥の米が尽きます。子らに食べさせてくれるなら、この水を飲んで、わたしらと同じ道に立ってください」"
+   ],
+   "choices": [
+    {
+     "label": "符水を飲み、流民を飢えさせぬと誓う",
+     "effects": [
+      {
+       "flag": "sk_g3_oath"
+      },
+      {
+       "note": "{priest}の前で符水を飲み、流民を飢えさせぬと誓った。"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "「考えておく」とだけ言って祠を出る",
+     "next": "s3"
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で一党の寄り合いに出る",
+   "speaker": "brute",
+   "art": "backroom",
+   "text": [
+    "寄り合いの座で、{brute}が膝を打った。「郡府の義倉を襲うのはいい。だがその前に、山の流民のうち働ける男を二百、豪族の{squire}に部曲として売る。一人につき銭五百だ。残りの口が減れば、冬も越しやすかろう」",
+    "一党の者たちの目が、{player}に集まった。"
+   ],
+   "choices": [
+    {
+     "label": "「義倉は破る。だが流民は売らぬ。流民と一緒に倉を開く」と座を説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s4r",
+      "lose": "s3split"
+     }
+    },
+    {
+     "label": "「それでいこう。取れるものは全部取る」",
+     "next": "s4w"
+    },
+    {
+     "label": "{brute}に刃を向け、力で黙らせる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s4r",
+      "lose": "fail_ousted"
+     }
+    }
+   ]
+  },
+  "s3split": {
+   "speaker": "brute",
+   "art": "war",
+   "text": [
+    "{brute}が笑った。「流民と一緒に倉を開く？　足手まといを二千も連れて、郡の兵に追われたら一党ごと終わりだ」座の半分が{brute}の側に寄った。"
+   ],
+   "choices": [
+    {
+     "label": "{brute}と刃で決着をつける",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s4r",
+      "lose": "fail_ousted"
+     }
+    },
+    {
+     "label": "折れて、{brute}のやり方に従う",
+     "next": "s4w"
+    },
+    {
+     "label": "座を立つ",
+     "next": "fail_ousted"
+    }
+   ]
+  },
+  "s4r": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "雪の夜、流民とともに{here}の郡府の義倉へ押し寄せる",
+   "art": "war",
+   "text": [
+    "雪の夜、黄色の布を腕に巻いた流民たちが、松明を掲げて郡府へ迫った。郡府の門では、兵たちが弩を構えている。",
+    "一党の者たちは、{player}の合図を待っている。"
+   ],
+   "choices": [
+    {
+     "label": "流民より先に裏の塀を越え、義倉の門の閂を外す",
+     "check": {
+      "skill": "theft",
+      "dc": 30,
+      "win": "s5r",
+      "lose": "s4r_alarm"
+     }
+    },
+    {
+     "label": "流民の先頭に立ち、郡府の門へ斬り込む",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 10
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5r",
+      "lose": "fail_raid"
+     }
+    },
+    {
+     "label": "{priest}の流民に戸板の楯を担がせ、弩の矢を防ぎながら押し寄せる",
+     "if": {
+      "flag": "sk_g3_oath"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "s5r",
+      "lose": "s4r_alarm"
+     }
+    }
+   ]
+  },
+  "s4r_alarm": {
+   "art": "war",
+   "text": [
+    "弩の弦が鳴った。先頭の流民が雪の中に倒れ、松明の列が乱れる。"
+   ],
+   "choices": [
+    {
+     "label": "倒れた者を跨いで斬り込む",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 10
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s5r",
+      "lose": "fail_raid"
+     }
+    },
+    {
+     "label": "流民をまとめて山へ引かせる",
+     "next": "fail_raid"
+    }
+   ]
+  },
+  "s5r": {
+   "art": "hideout",
+   "text": [
+    "義倉の扉が開くと、粟の俵が天井まで積まれていた。郡府の帳場には、流民の名を書いた戸籍と、未納の税の簿が束になっている。縛り上げられた郡の吏が喚いた。「義倉の粟は、州の兵糧に回すことになっておるのだ！」"
+   ],
+   "choices": [
+    {
+     "label": "粟を流民に分け、山へ担いで帰らせる",
+     "effects": [
+      {
+       "money": 80
+      },
+      {
+       "fame": 6
+      },
+      {
+       "wanted": "here",
+       "n": 10
+      }
+     ],
+     "next": "win_r"
+    },
+    {
+     "label": "未納の税の簿と戸籍を焼き、流民を役所の帳から消す",
+     "effects": [
+      {
+       "fame": 8
+      },
+      {
+       "wanted": "here",
+       "n": 14
+      }
+     ],
+     "next": "win_r_burn"
+    },
+    {
+     "label": "{priest}とともに流民を率い、追手の届かぬ奥の山へ移す",
+     "if": {
+      "flag": "sk_g3_oath"
+     },
+     "effects": [
+      {
+       "money": 40
+      },
+      {
+       "fame": 9
+      },
+      {
+       "wanted": "here",
+       "n": 8
+      }
+     ],
+     "next": "win_r_oath"
+    }
+   ]
+  },
+  "s4w": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "雪の夜、{here}の郡府の義倉の裏へ回る",
+   "art": "war",
+   "text": [
+    "表門の方で、何も知らされずに押し寄せた流民たちの叫びがあがった。郡府の兵がそちらへ引きつけられているあいだに、一党は裏手の義倉へ回る。{brute}が嬉しげに斧を振った。"
+   ],
+   "choices": [
+    {
+     "label": "一人で倉の錠を外し、手下を呼び込む",
+     "check": {
+      "skill": "theft",
+      "dc": 30,
+      "win": "s5w",
+      "lose": "s4w_alarm"
+     }
+    },
+    {
+     "label": "倉番を斬り伏せる",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s5w",
+      "lose": "fail_raid"
+     }
+    }
+   ]
+  },
+  "s4w_alarm": {
+   "art": "war",
+   "text": [
+    "錠が鳴り、倉番が銅鑼を打った。表から兵が駆け戻ってくる。{brute}が叫ぶ。「構わん、斬れ！」"
+   ],
+   "choices": [
+    {
+     "label": "斬り込む",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5w",
+      "lose": "fail_raid"
+     }
+    },
+    {
+     "label": "引く",
+     "next": "fail_raid"
+    }
+   ]
+  },
+  "s5w": {
+   "art": "war",
+   "text": [
+    "粟の俵は一党の背に移った。表門では、流民たちがまだ郡府の兵と揉み合っている。{brute}が懐から木札の束を出した。豪族{squire}に売る男たちの名だ。「明日の朝、{squire}の塢の前に並べれば、銭が手に入る」"
+   ],
+   "choices": [
+    {
+     "label": "男たちを売る",
+     "if": {
+      "notFlag": "sk_g3_oath"
+     },
+     "effects": [
+      {
+       "money": 260
+      },
+      {
+       "fame": -8
+      },
+      {
+       "wanted": "here",
+       "n": -5
+      }
+     ],
+     "next": "win_w"
+    },
+    {
+     "label": "符水の誓いを踏みにじり、男たちを売る",
+     "if": {
+      "flag": "sk_g3_oath"
+     },
+     "effects": [
+      {
+       "money": 260
+      },
+      {
+       "fame": -12
+      },
+      {
+       "wanted": "here",
+       "n": -5
+      }
+     ],
+     "next": "win_w"
+    },
+    {
+     "label": "「人は売るな。粟だけで十分だ」",
+     "effects": [
+      {
+       "money": 160
+      },
+      {
+       "fame": -2
+      },
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "next": "win_w_spare"
+    }
+   ]
+  },
+  "win_r": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "雪の山道を、粟を担いだ流民の列が登っていった。{here}の市では、「黄巾がまた出て、義倉を開いた」という噂でもちきりになった。",
+    "{boss}は床の上で、黄色の頭巾を{player}の手に握らせた。「郡には追われ、流民には匿われる。それがおまえの選んだ道だ。一党を頼む、渠帥」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "xp": "theft",
+     "n": 6
+    },
+    {
+     "unflag": "sk_g3_oath"
+    },
+    {
+     "note": "流民とともに郡府の義倉を破り、義賊の道を選んで渠帥となった。"
+    }
+   ],
+   "end": "雪の義倉"
+  },
+  "win_r_burn": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "戸籍と税の簿は、郡府の庭で夜明けまで燃えた。帳に名の無い者からは、税も取れず、兵にも取れぬ。郡の役人たちは、焼け跡の灰を前に途方に暮れたという。",
+    "{boss}は目を細めた。「粟を取るだけでなく、帳を焼いたか。役人の一番の急所を知っておる。渠帥は、おまえだ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "money": 40
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "unflag": "sk_g3_oath"
+    },
+    {
+     "note": "郡府の戸籍と税の簿を焼いて流民を救い、義賊の渠帥となった。"
+    }
+   ],
+   "end": "燃える戸籍"
+  },
+  "win_r_oath": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で{boss}に報告する",
+   "speaker": "priest",
+   "art": "backroom",
+   "text": [
+    "郡の兵が山に着いたとき、流民の小屋はもう空だった。奥の山の新しい里で、{priest}は{player}の手を両手で握った。「符水を飲んだ者は、死ぬまで同じ道の者です。この里の者は、決してあなたを売りませぬ」",
+    "{boss}は話を聞き、黙って黄色の頭巾を{player}に渡した。"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "flag": "sk_g3_village_friend"
+    },
+    {
+     "unflag": "sk_g3_oath"
+    },
+    {
+     "note": "流民を奥の山へ移して郡の追手から守り、義賊の渠帥となった。山の里が一党を匿う。"
+    }
+   ],
+   "end": "奥の山の里"
+  },
+  "win_w": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で{boss}に報告する",
+   "speaker": "brute",
+   "art": "disaster",
+   "text": [
+    "男たちは縄につながれて{squire}の塢へ引かれていった。残された女と子らは、粟の配られぬ山で冬を越さねばならなかった。誰が名を売ったのかという囁きだけが、山に残った。",
+    "{boss}は何も言わずに目を閉じていた。代わりに{brute}が杯を掲げた。「渠帥に。これで{here}の裏で、一党に逆らう者はいなくなる」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "unflag": "sk_g3_oath"
+    },
+    {
+     "note": "流民の男たちを豪族に売り、外道の道を選んで渠帥となった。"
+    }
+   ],
+   "end": "縄の列"
+  },
+  "win_w_spare": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で{boss}に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{brute}は不満げだったが、{player}の言葉には逆らわなかった。だが流民を囮にして義倉を抜いたことは、山の者たちの耳にも届いていた。",
+    "{boss}は溜息をついた。「人を売らずとも、流民を楯にした道は戻らん。おまえが渠帥だ。手綱を放すなよ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "xp": "theft",
+     "n": 3
+    },
+    {
+     "unflag": "sk_g3_oath"
+    },
+    {
+     "note": "流民を囮に郡府の義倉を抜き、外道の道で渠帥となった。人だけは売らなかった。"
+    }
+   ],
+   "end": "囮にした流民"
+  },
+  "fail_raid": {
+   "art": "war",
+   "text": [
+    "郡府の弩は思ったより多かった。流民は雪の中に崩れ、一党も手下を何人か失って散り散りに逃げた。{boss}は目を閉じたまま言った。「渠帥を決めるのは、まだ早かったようだ」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "unflag": "sk_g3_oath"
+    },
+    {
+     "note": "郡府の義倉を破り損ねた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "雪に崩れる"
+  },
+  "fail_ousted": {
+   "art": "hideout",
+   "text": [
+    "{brute}が一党の半分を連れて郡府へ向かった。{player}は座に残され、頭目のままだった。{boss}は「まだその時ではない」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    },
+    {
+     "unflag": "sk_g3_oath"
+    },
+    {
+     "note": "{brute}に座を奪われた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "座を追われる"
+  }
+ }
+}

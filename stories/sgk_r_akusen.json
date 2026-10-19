@@ -1,0 +1,380 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_akusen",
+ "kind": "random",
+ "where": "folk",
+ "hook": "悪銭ばかり回ってきて、粟一升も買えなくなりました",
+ "title": "悪銭の鋳型",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "hills": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "粟売りの女"
+  },
+  "smith": {
+   "npc": "鍛冶",
+   "sex": "m"
+  },
+  "steward": {
+   "npc": "豪族の家宰",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "郡府の掾",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}が、手のひらの銭を見せた。五銖の字は潰れ、縁は欠け、指でつまむと曲がりそうなほど薄い。",
+    "「この月になって、こんな銭ばかり回ってくるのです。粟の値は三倍になりました。誰かがどこかで鋳ているに違いないのに、{office}は何もしてくれません」"
+   ],
+   "choices": [
+    {
+     "label": "銭を割って、地金を確かめる",
+     "check": {
+      "skill": "trade",
+      "dc": 35,
+      "win": "clue",
+      "lose": "smith"
+     }
+    },
+    {
+     "label": "{here}の{smithy}で、鋳物のことを聞いて回る",
+     "next": "smith"
+    }
+   ]
+  },
+  "clue": {
+   "text": [
+    "割った銭の断面は、銅より鉛と錫のほうが多かった。表面には細かい砂の跡。粘土の鋳型ではなく、川砂を固めた型で、一度に何十枚も鋳たものだ。",
+    "これだけの鉛を仕入れられるのは、町では{smithy}くらいしかない。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_ak_clue"
+    },
+    {
+     "xp": "trade",
+     "n": 1
+    }
+   ],
+   "next": "smith"
+  },
+  "smith": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "{here}の{smithy}を訪ねる",
+   "speaker": "smith",
+   "art": "trade",
+   "text": [
+    "{smith}は炉の前で、こちらを見ずに鎚を振り続けた。「悪銭だと。知らん。わしは鍬と鎌を打つだけだ」",
+    "店の奥には、農具に使うには多すぎる鉛の延べ棒が積んであった。"
+   ],
+   "choices": [
+    {
+     "label": "鉛の山を指さし、問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "confess",
+      "lose": "night"
+     }
+    },
+    {
+     "label": "口止め料の倍を払うと持ちかける（80銭）",
+     "if": {
+      "money": 80
+     },
+     "effects": [
+      {
+       "money": -80
+      }
+     ],
+     "next": "confess"
+    },
+    {
+     "label": "何も言わずに去り、夜を待って見張る",
+     "next": "night"
+    }
+   ]
+  },
+  "night": {
+   "art": "road",
+   "text": [
+    "夜更け、{smith}が鉛を背負って裏口から出てきた。月明かりの下、{hills}の方へ山道を登っていく。"
+   ],
+   "choices": [
+    {
+     "label": "気づかれぬよう後をつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "mint",
+      "lose": "end_beaten"
+     },
+     "guide": "見つかれば鋳銭場の者たちに囲まれる"
+    }
+   ]
+  },
+  "confess": {
+   "speaker": "smith",
+   "art": "backroom",
+   "text": [
+    "{smith}は鎚を置き、肩を落とした。「{hills}の炭焼き小屋の奥で、郷の豪族の家宰{steward}さまが銭を鋳させておられる。わしは鉛を運ばされているだけだ。断れば店を潰される」"
+   ],
+   "next": "mint"
+  },
+  "mint": {
+   "at": {
+    "place": "hills"
+   },
+   "goal": "{hills}の山中で、隠れた鋳銭場を探す",
+   "speaker": "steward",
+   "art": "hideout",
+   "text": [
+    "炭焼き小屋の奥の洞に、炉が三つ並んでいた。裸の男たちが溶けた鉛を砂の型に流し込み、籠には悪銭が山と積まれている。絹の袍を着た{steward}が、帳簿をつけながら男たちを急かしていた。"
+   ],
+   "choices": [
+    {
+     "label": "踏み込んで炉を叩き壊す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "seized",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "{steward}に「分け前をくれれば黙っている」と持ちかける",
+     "next": "end_share",
+     "guide": "町の者を裏切ることになる"
+    },
+    {
+     "label": "鋳型をひとつ盗み出し、{office}へ持ち込む",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "office",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "seized": {
+   "art": "ruins",
+   "text": [
+    "男たちは山へ逃げ散り、{steward}は帳簿を抱えたまま腰を抜かしていた。砂の鋳型と、まだ温かい悪銭の籠が残っている。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_ak_molds"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{steward}と帳簿、鋳型を{office}へ突き出す",
+     "next": "office"
+    },
+    {
+     "label": "鋳型を砕き、悪銭を鋳つぶして地金を町の者に返す",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_market",
+      "lose": "office"
+     }
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ鋳銭の証を持ち込む",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "掾の{clerk}は鋳型を手に取り、顔をしかめた。「あの家は太守さまの縁者だ。めったなことは言えん。悪銭など、董卓の小銭以来どこにでもある。どこで鋳たか、確かな証があるのか」"
+   ],
+   "choices": [
+    {
+     "label": "銭の地金と鋳型の砂が一致することを示す",
+     "if": {
+      "flag": "sgk_ak_clue"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "縛った家宰に、帳簿の数字を一つずつ認めさせる",
+     "if": {
+      "flag": "sgk_ak_molds"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_justice",
+      "lose": "end_hushed"
+     }
+    },
+    {
+     "label": "鋳型と帳簿を並べ、律令の条を引いて迫る",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_justice",
+      "lose": "end_hushed"
+     }
+    }
+   ]
+  },
+  "end_justice": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}はしばらく黙っていたが、とうとう印を取った。「……これでは揉み消せぬ」豪族の家宰は捕らえられ、鋳銭場は兵に打ち壊された。",
+    "市では悪銭を集めて改める触れが出た。粟の値はすぐには下がらなかったが、{client}は少しだけ明るい顔になった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ak_clue"
+    },
+    {
+     "unflag": "sgk_ak_molds"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "{hills}の山中の悪銭の鋳銭場を暴いた。"
+    }
+   ],
+   "end": "暴かれた鋳銭場"
+  },
+  "end_hushed": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は鋳型を袖に収めた。「預かっておく。あとはこちらで調べる」それきり、何の沙汰もなかった。",
+    "ただ、山の鋳銭場の煙は消えた。豪族の家が場所を移しただけかもしれない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ak_clue"
+    },
+    {
+     "unflag": "sgk_ak_molds"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "end": "揉み消された訴え"
+  },
+  "end_market": {
+   "speaker": "client",
+   "text": [
+    "炉を借りて悪銭を鋳つぶし、地金の重さで町の者に分けた。銭としては使えなくとも、鉛と銅なら鍛冶が買い取る。",
+    "{client}は地金の包みを抱いて笑った。「銭よりも、こっちのほうがよほど信用できますね」悪銭の出所が潰れたことは、市でしばらく語り草になった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ak_clue"
+    },
+    {
+     "unflag": "sgk_ak_molds"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 7
+    },
+    {
+     "item": "iron",
+     "n": 1
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "note": "悪銭を鋳つぶし、地金を町の者に返した。"
+    }
+   ],
+   "end": "鋳つぶされた悪銭"
+  },
+  "end_share": {
+   "speaker": "steward",
+   "text": [
+    "{steward}は薄く笑い、悪銭ではない本物の五銖銭の袋をこちらに放った。「物分かりのよい方だ。月ごとに同じだけ届けよう」",
+    "町の粟の値は、その後も下がらなかった。{client}とは、もう目を合わせられない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ak_clue"
+    },
+    {
+     "unflag": "sgk_ak_molds"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": -5
+    },
+    {
+     "xp": "trade",
+     "n": 1
+    }
+   ],
+   "end": "鋳銭場の分け前"
+  },
+  "end_beaten": {
+   "text": [
+    "洞から出てきた男たちに囲まれ、炉の鉄棒で打ち据えられた。気がつくと山道の下に転がされていた。",
+    "翌日には鋳銭場はもぬけの殻だった。悪銭は、相変わらず市に回っている。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ak_clue"
+    },
+    {
+     "unflag": "sgk_ak_molds"
+    },
+    {
+     "hp": -20
+    }
+   ],
+   "end": "山道に転がされて"
+  }
+ }
+}

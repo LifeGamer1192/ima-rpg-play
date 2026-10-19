@@ -1,0 +1,420 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_tonden",
+ "kind": "random",
+ "where": "folk",
+ "hook": "屯田の者どもに、堰の水を盗られております",
+ "title": "堰の水",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "村の三老"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "fields": {
+   "place": "near:here"
+  },
+  "chief": {
+   "npc": "屯田の田長",
+   "sex": "m"
+  },
+  "steward": {
+   "npc": "豪族の家宰",
+   "sex": "m"
+  },
+  "tennou": {
+   "npc": "典農都尉",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "村の三老の{client}は、ひび割れた手で杖を握りしめた。「{fields}の上手に、官が流民を集めて屯田を開いた。それからというもの、堰の水が下へ回ってこぬ」",
+    "「昨夜は堰の水門が壊された。村の若い者は屯田の仕業だと言い張り、鍬を研いでおる。屯田の者どもも同じことを言うておるそうだ」"
+   ],
+   "choices": [
+    {
+     "label": "{fields}の堰を見に行く",
+     "next": "weir"
+    }
+   ]
+  },
+  "weir": {
+   "at": {
+    "place": "fields"
+   },
+   "goal": "{fields}の堰を調べる",
+   "speaker": "chief",
+   "art": "disaster",
+   "text": [
+    "堰の水門は、斧で叩き割られていた。上手には屯田の新しい田が、下手には村の古い田が、どちらも干上がりかけている。",
+    "屯田の田長{chief}が、腕を組んで言った。「我らは戸籍もない流民だった。この田を失えば、また飢えて流れるしかない。水門を割ったのは村の者に決まっておる」"
+   ],
+   "choices": [
+    {
+     "label": "割られた水門と足跡を、夜を待って調べる",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "steward",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "両方の田の広さと要る水の量を見積もる",
+     "check": {
+      "skill": "trade",
+      "dc": 36,
+      "win": "measure",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "{here}の{office}へ、堰の古い記録を調べに行く",
+     "next": "office"
+    }
+   ]
+  },
+  "steward": {
+   "speaker": "steward",
+   "art": "hideout",
+   "text": [
+    "夜半、堰に忍び寄る影があった。松明に浮かんだのは、この辺りの豪族の家宰{steward}だ。直したばかりの水門に、また斧を振り上げている。",
+    "問い詰めると、{steward}は悪びれずに言った。「屯田と村が殺し合えば、どちらの田も荒れる。荒れ田は、主が安く買い取ってやるのよ」"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_td_steward"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{steward}を捕らえて{office}へ突き出す",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "office",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "{steward}を連れて、屯田と村の両方の前に引き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "gather",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "{steward}の差し出す口止めの銭を受け取る",
+     "effects": [
+      {
+       "money": 300
+      }
+     ],
+     "next": "end_bribe",
+     "guide": "争いは止まらない"
+    }
+   ]
+  },
+  "measure": {
+   "speaker": "chief",
+   "art": "trade",
+   "text": [
+    "縄を張って田を測り、水路の深さを竿で測った。堰一つで両方の田を潤すのは無理がある。だが上の沢にもう一つ堰を築けば、足りる勘定だ。",
+    "{chief}は唸った。「堰を築く銭など、屯田にはない」"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_td_calm"
+    }
+   ],
+   "choices": [
+    {
+     "label": "堰を築く銭を出してやる",
+     "if": {
+      "money": 600
+     },
+     "effects": [
+      {
+       "money": -600
+      }
+     ],
+     "next": "end_weir"
+    },
+    {
+     "label": "水を日ごとに分ける取り決めを、両方に呑ませる",
+     "next": "gather"
+    },
+    {
+     "label": "{office}に新しい堰を築くよう願い出る",
+     "next": "office"
+    }
+   ]
+  },
+  "gather": {
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "堰のほとりに、屯田の者と村の者が鍬を手に向かい合った。{client}と{chief}が、互いを睨みつけている。"
+   ],
+   "choices": [
+    {
+     "label": "{steward}の企みを皆の前で明かす",
+     "if": {
+      "flag": "sgk_td_steward"
+     },
+     "next": "end_share"
+    },
+    {
+     "label": "「奇数の日は上、偶数の日は下」と水分けを説く",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_share",
+      "lose": "brawl"
+     }
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で堰のことを訴える",
+   "speaker": "tennou",
+   "art": "court",
+   "text": [
+    "屯田を司る典農都尉の{tennou}が、面倒くさそうに竹簡を広げた。「屯田は主公の御大事。軍の糧はあそこから出る。村の水が減るのは、我慢してもらうほかない」",
+    "書庫には、前漢の頃からの水利の記録が埃をかぶっている。"
+   ],
+   "choices": [
+    {
+     "label": "古い水利の記録を繰り、村の水の権利を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_share",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "豪族の家宰が水門を割ったと訴える",
+     "if": {
+      "flag": "sgk_td_steward"
+     },
+     "next": "end_steward"
+    },
+    {
+     "label": "「屯田の糧のためにも新しい堰を」と算盤を弾いて説く",
+     "if": {
+      "flag": "sgk_td_calm"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 34,
+      "win": "end_weir",
+      "lose": "brawl"
+     }
+    }
+   ]
+  },
+  "brawl": {
+   "at": {
+    "place": "fields"
+   },
+   "speaker": "chief",
+   "art": "war",
+   "text": [
+    "止める間もなく、堰のほとりで鍬と棒が振り上げられた。屯田の男たちと村の若者が泥の中で揉み合う。誰かが倒れ、血が水路に流れた。"
+   ],
+   "choices": [
+    {
+     "label": "間に割って入り、両方を叩き伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "gather",
+      "lose": "end_blood"
+     }
+    },
+    {
+     "label": "倒れた者の手当てに走る",
+     "check": {
+      "skill": "medicine",
+      "dc": 34,
+      "win": "gather",
+      "lose": "end_blood"
+     }
+    }
+   ]
+  },
+  "end_share": {
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "日を分けて水を回す取り決めが、石に刻まれて堰のほとりに立てられた。{client}と{chief}は、渋々ながら同じ甕の酒を酌み交わした。",
+    "秋、上の田にも下の田にも、粟の穂が重く垂れた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_td_steward"
+    },
+    {
+     "unflag": "sgk_td_calm"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "land",
+     "n": 4
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{fields}の屯田と村の水争いを、水分けの取り決めで収めた。"
+    }
+   ],
+   "end": "石の取り決め"
+  },
+  "end_steward": {
+   "speaker": "tennou",
+   "art": "court",
+   "text": [
+    "{tennou}は顔色を変えた。屯田を荒らす者は、軍の糧を損なう者だ。豪族の家宰{steward}は捕らえられ、主の豪族も重い罰銭を課された。",
+    "屯田と村は、互いに疑ったことを詫び合った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_td_steward"
+    },
+    {
+     "unflag": "sgk_td_calm"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 12
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "屯田の堰を割った豪族の家宰を暴いた。"
+    }
+   ],
+   "end": "割られた水門"
+  },
+  "end_weir": {
+   "speaker": "chief",
+   "art": "tale",
+   "text": [
+    "上の沢に新しい堰が築かれた。屯田の者と村の者が、並んで石を運んだ。",
+    "{chief}と{client}は、新しい堰に「二つの里の堰」と名を付けた。その名とともに、言い出した者の名も語られるだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_td_steward"
+    },
+    {
+     "unflag": "sgk_td_calm"
+    },
+    {
+     "fame": 7
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "land",
+     "n": 6
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "{fields}に新しい堰を築かせ、屯田と村の水争いを収めた。"
+    }
+   ],
+   "end": "二つの里の堰"
+  },
+  "end_bribe": {
+   "speaker": "steward",
+   "art": "backroom",
+   "text": [
+    "{steward}は闇に消えた。数日後、堰のほとりで屯田と村が殴り合い、死人が出たと聞いた。荒れた田は、豪族が安く買い叩いたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_td_steward"
+    },
+    {
+     "unflag": "sgk_td_calm"
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "land",
+     "n": -3
+    }
+   ],
+   "end": "濁った水"
+  },
+  "end_blood": {
+   "art": "disaster",
+   "text": [
+    "水路は赤く濁った。屯田の者が二人、村の若者が一人死んだ。{office}の兵が来て双方を縛り上げたが、水は相変わらず足りない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_td_steward"
+    },
+    {
+     "unflag": "sgk_td_calm"
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "赤い水路"
+  }
+ }
+}

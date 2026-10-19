@@ -1,0 +1,601 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_rank6_shuboku",
+ "kind": "rank",
+ "rankTo": 6,
+ "title": "州を治める",
+ "era": "sangoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "seat": {
+   "place": "near:cap"
+  },
+  "gentry": {
+   "npc": "州の豪族の長",
+   "sex": "m"
+  },
+  "healer": {
+   "npc": "道の祭酒",
+   "sex": "f"
+  },
+  "hillchief": {
+   "npc": "山の民の渠帥",
+   "sex": "m"
+  },
+  "critic": {
+   "npc": "人物評で名高い名士",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府で昇進を願い出る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は一巻の竹簡を{player}に渡した。「{seat}を治める州の役所は、前の刺史が逃げてから一年、主がおらぬ。豪族は戸籍から小作を隠して税を出さず、町には疫病、山からは山の民が下りてくる」",
+    "「刺史の代わりとして行け。一年で州をまとめたなら、州牧に任じ、兵と民と税のすべてを預ける」"
+   ],
+   "effects": [
+    {
+     "note": "{seat}の州を預かり、一年でまとめれば州牧に任じられる。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "seat",
+    "building": "office"
+   },
+   "goal": "{seat}の郡府に入り、州の豪族たちと会う",
+   "speaker": "gentry",
+   "art": "court",
+   "text": [
+    "着任の宴に、州の豪族たちが顔をそろえた。上座の{gentry}が杯を掲げた。「新しい刺史どのに。前の方は戸籍を改めると言い出して、半年で逃げ帰られた。どうか長くおいでくだされ」",
+    "笑い声が起きた。豪族の塢には、戸籍に載らない小作と部曲が何千といる。"
+   ],
+   "choices": [
+    {
+     "label": "戸籍を改め、隠した戸を出した家には罪を問わぬと布告する",
+     "check": {
+      "skill": "letters",
+      "dc": 46,
+      "win": "s2census",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "豪族の子弟を州の役人に取り立て、その代わりに戸を出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "s2bargain",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "いちばん大きな{gentry}の塢を兵で囲み、見せしめにする",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "s2force",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "屯田の例に倣い、豪族の手の届かぬ荒れ地に新しく民を入れる",
+     "if": {
+      "realm": [
+       "曹"
+      ]
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "s2census",
+      "lose": "s2fail"
+     }
+    }
+   ]
+  },
+  "s2census": {
+   "speaker": "gentry",
+   "text": [
+    "布告から三月、塢の門から小作たちが列をなして郡府に戸を届けに来た。{gentry}は苦笑いした。「罪を問わぬと言われては、隠しておく方が損ですな」州の戸は二割増えた。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r6_census"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "next": "s3"
+  },
+  "s2bargain": {
+   "speaker": "gentry",
+   "text": [
+    "{gentry}の長子が州の功曹に、ほかの家の子らも郡の吏に取り立てられた。戸は少しずつ戸籍に戻ってきたが、州の役所は豪族の子でいっぱいになった。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r6_census"
+    },
+    {
+     "flag": "sk_r6_gentry_bond"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2force": {
+   "art": "war",
+   "text": [
+    "{gentry}の塢の門が破られた。隠していた戸は三千を超えた。ほかの豪族は震え上がって戸を出したが、宴に顔を出す者はいなくなった。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r6_census"
+    },
+    {
+     "flag": "sk_r6_gentry_enemy"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fail": {
+   "text": [
+    "豪族たちは頭を下げてみせただけだった。戸籍は少しも増えない。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "seat",
+    "building": "shrine"
+   },
+   "goal": "{seat}の祠で、疫病の手立てを探る",
+   "speaker": "healer",
+   "art": "faith",
+   "text": [
+    "町の東の里では、熱を出して倒れる者が日に十人を超えていた。祠の前で、道の祭酒だという{healer}が、病人に符水を飲ませ、義舎で粥を配っていた。",
+    "「役人さまは、わたしらを黄巾の仲間と疑っておいででしょう。けれど病は、役人も民も選びませぬ」"
+   ],
+   "choices": [
+    {
+     "label": "自ら病人を診て、薬と隔てる小屋を手配する",
+     "check": {
+      "skill": "medicine",
+      "dc": 44,
+      "win": "s3cured",
+      "lose": "s3spread"
+     }
+    },
+    {
+     "label": "州の蔵から薬草と穀を出し、{healer}の義舎に任せる（300銭）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      },
+      {
+       "flag": "sk_r6_dao"
+      }
+     ],
+     "next": "s3cured"
+    },
+    {
+     "label": "{healer}を妖しげな教えで民を惑わす者として捕らえる",
+     "effects": [
+      {
+       "fame": -3
+      }
+     ],
+     "next": "s3spread"
+    },
+    {
+     "label": "病の里を兵で囲み、出入りを止める",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "s3cured",
+      "lose": "s3spread"
+     }
+    }
+   ]
+  },
+  "s3cured": {
+   "speaker": "healer",
+   "text": [
+    "ひと月のうちに、倒れる者は日に一人、二人と減っていった。{healer}は義舎の戸口で{player}に頭を下げた。「州の役人が、病人の小屋まで来たのは初めてです」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r6_plague"
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "s4"
+  },
+  "s3spread": {
+   "art": "disaster",
+   "text": [
+    "疫病は町の西にまで広がった。冬までに、千を超える者が死んだ。墓穴を掘る人手が足りない。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "seat"
+   },
+   "goal": "数日待ち、{seat}の山あいの谷で山の民の渠帥と会う",
+   "wait": {
+    "days": 4
+   },
+   "speaker": "hillchief",
+   "art": "war",
+   "text": [
+    "谷の入り口で、山の民の渠帥{hillchief}が百の弓手を従えて待っていた。顔に刺青を入れ、毛皮をまとっている。「谷の下の田は、祖父の代までわしらが焼き畑をした山だった。漢の役人が来て、それを取った」",
+    "「塩と鉄が手に入るなら、山を下りて奪うことはない。手に入らぬなら、奪うまでだ」"
+   ],
+   "choices": [
+    {
+     "label": "谷の口に市を開き、塩と鉄を毛皮や薬草と換えると約す",
+     "check": {
+      "skill": "trade",
+      "dc": 44,
+      "win": "s4peace",
+      "lose": "s4raid"
+     }
+    },
+    {
+     "label": "「州の民として戸籍に入れば、田を分ける」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 48,
+      "win": "s4peace",
+      "lose": "s4raid"
+     }
+    },
+    {
+     "label": "{hillchief}に一騎の勝負を挑み、勝って従わせる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s4peace",
+      "lose": "s4raid"
+     }
+    },
+    {
+     "label": "弩兵を並べ、谷から追い払う",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "s4driven",
+      "lose": "s4raid"
+     }
+    }
+   ]
+  },
+  "s4peace": {
+   "speaker": "hillchief",
+   "text": [
+    "{hillchief}は腰の小刀を抜き、自分の掌を浅く切った。「血で約す。この谷から下で、わしの者が奪うことはない」翌月、谷の口の市には、山の民が毛皮を担いで下りてきた。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r6_hills"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4driven": {
+   "art": "war",
+   "text": [
+    "山の民は矢を浴びて谷の奥へ退いた。谷の田は守られたが、山の上ではまだ煙が上がっている。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r6_hills"
+    },
+    {
+     "flag": "sk_r6_hills_feud"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4raid": {
+   "art": "disaster",
+   "text": [
+    "山の民は谷の里を三つ焼き、穀と女を奪って山へ戻った。州の兵は追いつけなかった。"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "seat",
+    "building": "house"
+   },
+   "goal": "{seat}の名士の館で、州の評判を聞く",
+   "speaker": "critic",
+   "art": "feast",
+   "text": [
+    "人物評で知られる名士{critic}が、館の宴に{player}を招いた。{critic}の一言で、ある者は名士の列に加わり、ある者は世に出る道を失うという。",
+    "{critic}は杯を置いた。「刺史どの。この一年のあなたを、ひと言で評してさしあげよう。ただし、評は都にも届きますぞ」"
+   ],
+   "choices": [
+    {
+     "label": "「評は民に聞いてください」とだけ答える",
+     "if": {
+      "flag": "sk_r6_plague"
+     },
+     "effects": [
+      {
+       "flag": "sk_r6_praised"
+      }
+     ],
+     "next": "s6"
+    },
+    {
+     "label": "清談に応じ、治めの理を論じ合う",
+     "check": {
+      "skill": "speech",
+      "dc": 46,
+      "win": "s5good",
+      "lose": "s6"
+     }
+    },
+    {
+     "label": "評など要らぬと、杯を返して席を立つ",
+     "next": "s6"
+    }
+   ]
+  },
+  "s5good": {
+   "speaker": "critic",
+   "text": [
+    "夜更けまで論じ合ったあと、{critic}は筆を取った。「治世の能吏、乱世にあっては州の柱」その評は、半月で{cap}にまで届いた。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r6_praised"
+    }
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "一年の任を終え、{cap}の州府で州の治めを報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{cap}の堂には、{seat}の戸籍と税の帳簿が積まれていた。{minister}がそれをめくり、{ruler}が上座で聞いている。「さて、州はまとまったか」"
+   ],
+   "choices": [
+    {
+     "label": "戸籍を改め、疫病を鎮め、山の民と約したと申し上げる",
+     "if": {
+      "flag": "sk_r6_census",
+      "notFlag": "sk_r6_gentry_enemy"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "win_whole",
+      "lose": "win_half"
+     }
+    },
+    {
+     "label": "豪族を力で抑え、州の税を倍にしたと申し上げる",
+     "if": {
+      "flag": "sk_r6_gentry_enemy"
+     },
+     "next": "win_iron"
+    },
+    {
+     "label": "名士の評をもって、州の人心を得たと申し上げる",
+     "if": {
+      "flag": "sk_r6_praised"
+     },
+     "next": "win_whole"
+    },
+    {
+     "label": "山の民を退け、谷を守ったと申し上げる",
+     "if": {
+      "flag": "sk_r6_hills",
+      "notFlag": "sk_r6_census"
+     },
+     "next": "win_half"
+    },
+    {
+     "label": "州はまだ治まりきらぬと、正直に申し上げる",
+     "next": "fail_unruly"
+    }
+   ]
+  },
+  "win_whole": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}は帳簿を閉じ、笑った。「戸は増え、病は去り、山の民は市に下りてくる。そのうえ名士まで褒めるとは。州牧に任じる。{seat}の州は、そなたのものと思って治めよ」"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 18
+    },
+    {
+     "fame": 8
+    },
+    {
+     "unflag": "sk_r6_census"
+    },
+    {
+     "unflag": "sk_r6_gentry_enemy"
+    },
+    {
+     "unflag": "sk_r6_dao"
+    },
+    {
+     "unflag": "sk_r6_plague"
+    },
+    {
+     "unflag": "sk_r6_hills"
+    },
+    {
+     "unflag": "sk_r6_praised"
+    },
+    {
+     "note": "{seat}の州をまとめ上げ、州牧となった。"
+    }
+   ],
+   "end": "州の柱"
+  },
+  "win_half": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は帳簿の数字を指でなぞった。「治まりきってはおらぬ。だが前の刺史のように逃げ帰りもしなかった。いまの乱世、州をつなぎ止めるだけでも難しい」",
+    "{ruler}は{player}を州牧に任じた。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "sk_r6_census"
+    },
+    {
+     "unflag": "sk_r6_gentry_enemy"
+    },
+    {
+     "unflag": "sk_r6_dao"
+    },
+    {
+     "unflag": "sk_r6_plague"
+    },
+    {
+     "unflag": "sk_r6_hills"
+    },
+    {
+     "unflag": "sk_r6_praised"
+    },
+    {
+     "note": "{seat}の州をどうにかつなぎ止め、州牧となった。"
+    }
+   ],
+   "end": "つなぎ止めた州"
+  },
+  "win_iron": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}は倍になった税の目録を見て頷いた。「豪族を抑えられぬ州牧は、豪族の州牧になる。そなたは違うようだ」",
+    "{player}は州牧となった。{seat}の豪族たちは、{player}の名を口にするとき声を低くするという。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 15
+    },
+    {
+     "fame": 3
+    },
+    {
+     "flag": "sk_r6_iron"
+    },
+    {
+     "unflag": "sk_r6_census"
+    },
+    {
+     "unflag": "sk_r6_gentry_enemy"
+    },
+    {
+     "unflag": "sk_r6_dao"
+    },
+    {
+     "unflag": "sk_r6_plague"
+    },
+    {
+     "unflag": "sk_r6_hills"
+    },
+    {
+     "unflag": "sk_r6_praised"
+    },
+    {
+     "note": "{seat}の豪族を力で抑え、州牧となった。"
+    }
+   ],
+   "end": "鉄の州牧"
+  },
+  "fail_unruly": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は首を振った。「正直なのはよい。だが、治まらぬ州を預かったままの州牧はおかしかろう」刺史代わりの任は解かれ、{seat}には別の者が送られた。また機は来る。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sk_r6_census"
+    },
+    {
+     "unflag": "sk_r6_gentry_enemy"
+    },
+    {
+     "unflag": "sk_r6_dao"
+    },
+    {
+     "unflag": "sk_r6_plague"
+    },
+    {
+     "unflag": "sk_r6_hills"
+    },
+    {
+     "unflag": "sk_r6_praised"
+    },
+    {
+     "note": "{seat}の州をまとめきれなかった。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "治まらぬ州"
+  }
+ }
+}

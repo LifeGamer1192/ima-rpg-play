@@ -1,0 +1,400 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_gikyodai",
+ "kind": "random",
+ "where": "inn",
+ "hook": "あの大男、県吏を斬った咎で追われているそうだ",
+ "title": "祠の契り",
+ "era": "sangoku",
+ "most": 2,
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "客舎の亭主"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "town": {
+   "place": "near:here"
+  },
+  "kyou": {
+   "npc": "侠客",
+   "sex": "m"
+  },
+  "boss": {
+   "npc": "豪族",
+   "sex": "m"
+  },
+  "taishu": {
+   "npc": "郡の功曹",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{client}が声をひそめた。「隅で酒をあおっている髭の大男、{kyou}というのですがね。隣の県で、税の取り立てで寡婦を打ち殺した県吏を、一刀で斬ったそうで」",
+    "そのとき、戸口が乱暴に開いた。槍を持った{soldier}が四人、「{kyou}はおるか」と踏み込んでくる。大男は杯を置き、にやりと笑った。"
+   ],
+   "choices": [
+    {
+     "label": "{kyou}の隣に立ち、{soldier}を叩き出す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "escape",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "裏口から{kyou}を逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "escape",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "「人違いではないか」と兵をあしらう",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "escape",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "関わらずに杯を空ける",
+     "next": "end_taken"
+    }
+   ]
+  },
+  "escape": {
+   "speaker": "kyou",
+   "art": "road",
+   "text": [
+    "町外れの林まで逃れると、{kyou}は腹を抱えて笑った。「見ず知らずの俺のために、官に逆らうとはな。気に入った」",
+    "「俺が斬った県吏は、この辺りの豪族{boss}の甥だ。{boss}は賞金をかけて俺を追わせている。だが、あの県吏が寡婦を殺した証は、{town}の{office}の帳にあるはずなんだ」"
+   ],
+   "choices": [
+    {
+     "label": "「ならば、ともに{town}へ行こう」",
+     "next": "shrine"
+    },
+    {
+     "label": "「ここで別れよう。達者でな」",
+     "next": "end_part"
+    }
+   ]
+  },
+  "shrine": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の{shrine}で{kyou}と落ち合う",
+   "speaker": "kyou",
+   "art": "faith",
+   "text": [
+    "夜更けの{shrine}で、{kyou}は酒の甕と三本の線香を取り出した。「生まれた日は違えど、死ぬ日は同じと願う。……昔の豪傑は、そうして兄弟になったそうだ」",
+    "「どうだ。俺と義兄弟の契りを結ばんか」"
+   ],
+   "choices": [
+    {
+     "label": "杯を取り、天地に誓う",
+     "effects": [
+      {
+       "flag": "sgk_gk_oath"
+      },
+      {
+       "fame": 1
+      }
+     ],
+     "next": "road"
+    },
+    {
+     "label": "「契りは事が済んでからだ」とかわす",
+     "next": "road"
+    }
+   ]
+  },
+  "road": {
+   "art": "road",
+   "text": [
+    "{town}へ向かう街道の峠で、道を塞ぐように男たちが待ち構えていた。中央に、肥えた体を絹で包んだ{boss}がいる。",
+    "「そこの若いの。その男を渡せば、五百銭やろう。甥の仇に、命まで懸ける義理はあるまい」"
+   ],
+   "choices": [
+    {
+     "label": "{kyou}と背中を合わせて斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "office",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "{boss}に「甥の罪を知っているのか」と問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "office",
+      "lose": "betray"
+     }
+    },
+    {
+     "label": "五百銭を受け取り、{kyou}を引き渡す",
+     "next": "betray",
+     "guide": "義に背くことになる"
+    }
+   ]
+  },
+  "betray": {
+   "speaker": "kyou",
+   "art": "war",
+   "text": [
+    "{boss}の男たちが{kyou}を取り囲んだ。{kyou}はこちらを振り返り、低く言った。",
+    "「……そうか。それがお前の答えか」"
+   ],
+   "choices": [
+    {
+     "label": "思い直して、{kyou}の縄を断つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "office",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "銭の袋を受け取る",
+     "next": "end_sold"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "town",
+    "building": "office"
+   },
+   "goal": "{town}の{office}で県吏の罪の証を探す",
+   "speaker": "taishu",
+   "art": "court",
+   "text": [
+    "{town}の{office}で、功曹の{taishu}は眉をひそめた。「県吏殺しの下手人を連れて来るとは、いい度胸だ。だが証があるなら、話は聞こう」",
+    "奥の書庫には、去年の戸籍と税の帳が山と積まれている。"
+   ],
+   "choices": [
+    {
+     "label": "帳を繰り、寡婦の家から取り立てた額の改竄を探す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "proof",
+      "lose": "trial"
+     }
+    },
+    {
+     "label": "夜の書庫に忍び込み、{boss}の家との銭のやりとりを探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "proof",
+      "lose": "trial"
+     }
+    },
+    {
+     "label": "証がないまま、{taishu}に情を訴える",
+     "next": "trial"
+    }
+   ]
+  },
+  "proof": {
+   "art": "court",
+   "text": [
+    "見つけた。寡婦の家の税は帳の三倍取り立てられ、差額は{boss}の蔵に流れていた。県吏は、叔父の私腹を肥やすために寡婦を打ち殺したのだ。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_gk_proof"
+    }
+   ],
+   "next": "trial"
+  },
+  "trial": {
+   "speaker": "taishu",
+   "art": "court",
+   "text": [
+    "{taishu}は{kyou}を庭に引き据えた。「人を殺した罪は消えぬ。だが、殺された者にも罪があるなら、裁きは変わる」"
+   ],
+   "choices": [
+    {
+     "label": "帳の写しを差し出す",
+     "if": {
+      "flag": "sgk_gk_proof"
+     },
+     "next": "end_pardon"
+    },
+    {
+     "label": "義兄弟として、罪を半ば負うと申し出る",
+     "if": {
+      "flag": "sgk_gk_oath"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "end_pardon",
+      "lose": "end_exile"
+     }
+    },
+    {
+     "label": "{kyou}の義を説き、罪を減じるよう願う",
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "end_pardon",
+      "lose": "end_exile"
+     }
+    }
+   ]
+  },
+  "end_pardon": {
+   "speaker": "kyou",
+   "art": "feast",
+   "text": [
+    "{boss}の不正が明るみに出て、{kyou}の罪は義によるものとして許された。{boss}は蔵の銭を召し上げられた。",
+    "{kyou}は酒の甕を担いで現れた。「兄弟よ、いや兄者。この命、いつでもお前のために使う」"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gk_oath"
+    },
+    {
+     "unflag": "sgk_gk_proof"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "義侠{kyou}と義兄弟の契りを結び、その汚名を雪いだ。"
+    }
+   ],
+   "end": "雪がれた汚名"
+  },
+  "end_exile": {
+   "speaker": "kyou",
+   "art": "road",
+   "text": [
+    "{kyou}は死罪を免れたが、辺境の屯へ送られることになった。縄を打たれて引かれていくとき、{kyou}は振り返って笑った。",
+    "「生きてりゃ、また会える。酒の借りは、そのとき返す」"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gk_oath"
+    },
+    {
+     "unflag": "sgk_gk_proof"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "辺境への道"
+  },
+  "end_part": {
+   "speaker": "kyou",
+   "art": "road",
+   "text": [
+    "{kyou}は大きな手でこちらの肩を叩き、林の奥へ消えた。「この借りは忘れん。いつか、どこかの戦場で返す」"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gk_oath"
+    },
+    {
+     "unflag": "sgk_gk_proof"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "wanted": "land",
+     "n": 5
+    }
+   ],
+   "end": "林の別れ"
+  },
+  "end_sold": {
+   "speaker": "boss",
+   "art": "war",
+   "text": [
+    "{boss}は銭の袋を放ってよこした。{kyou}は縄をかけられて引かれていった。一度も振り返らなかった。",
+    "その後、「義兄弟を売った者」という噂が、街道の{inn}から{inn}へと伝わっていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gk_oath"
+    },
+    {
+     "unflag": "sgk_gk_proof"
+    },
+    {
+     "money": 500
+    },
+    {
+     "fame": -6
+    }
+   ],
+   "end": "売られた義"
+  },
+  "end_taken": {
+   "art": "disaster",
+   "text": [
+    "多勢に無勢だった。{kyou}は暴れに暴れたが、やがて縄をかけられて引かれていった。こちらは傷を負い、追ってくる者を振り切るのがやっとだった。",
+    "「惜しい男でしたなあ」後になって、{client}がそう言ってため息をついた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_gk_oath"
+    },
+    {
+     "unflag": "sgk_gk_proof"
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "縄の大男"
+  }
+ }
+}

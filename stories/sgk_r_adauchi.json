@@ -1,0 +1,377 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_adauchi",
+ "kind": "random",
+ "where": "folk",
+ "hook": "父の仇を討ちます。どうか、刀の握り方を教えてください",
+ "title": "孝子の仇討ち",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "manor": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "孝行息子"
+  },
+  "killer": {
+   "npc": "豪族の食客",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "郡府の決曹",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "痩せた若者が、こちらの腰の刀をじっと見ていた。{client}の父は、去年の秋、田の水争いで{manor}の豪族の食客{killer}に打ち殺された。郡府は{killer}を捕らえたが、ひと月もせずに放したという。",
+    "「豪族が決曹に銭を積んだのです。父の墓の前で誓いました。この手で仇を討つと。漢の律は人殺しを許しませんが、親の仇を討った孝子は赦された例もあると聞きます。どうか、刀の握り方を教えてください」"
+   ],
+   "choices": [
+    {
+     "label": "ひと月、刀を教える",
+     "effects": [
+      {
+       "pass": 43200
+      },
+      {
+       "xp": "blade",
+       "n": 1
+      }
+     ],
+     "next": "train"
+    },
+    {
+     "label": "「まず郡府の記録を調べよう」と止める",
+     "next": "office"
+    },
+    {
+     "label": "「お前が死ねば、誰が母を養う」と思いとどまらせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_forgo",
+      "lose": "train"
+     }
+    }
+   ]
+  },
+  "train": {
+   "speaker": "client",
+   "art": "duel",
+   "text": [
+    "夜明けから日暮れまで、{client}は木の刀を振り続けた。手の豆が潰れても、泣き言ひとつ言わない。",
+    "ひと月が過ぎるころ、その打ち込みは、並の兵なら受けきれぬほどになっていた。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_ad_trained"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{client}とともに{manor}へ向かう",
+     "next": "manor"
+    },
+    {
+     "label": "その前に郡府の記録を調べる",
+     "next": "office"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、{killer}の裁きの記録を調べる",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{office}の文書庫は、竹簡と紙の束が天井まで積まれていた。決曹の{clerk}は、こちらを見るなり迷惑そうな顔をした。「去年の件なら、証が足りずに放した。それだけのことだ」"
+   ],
+   "choices": [
+    {
+     "label": "夜、文書庫に忍び込んで裁きの記録を探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "record",
+      "lose": "jail"
+     }
+    },
+    {
+     "label": "律の条を引き、記録を見せるよう迫る",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "record",
+      "lose": "manor"
+     }
+    }
+   ]
+  },
+  "jail": {
+   "speaker": "clerk",
+   "art": "jail",
+   "text": [
+    "灯りを持った下役に見つかり、文書庫から引きずり出された。{clerk}は冷たく言った。「文書を盗もうとした罪で、三日ほど頭を冷やしてもらう」",
+    "牢を出ると、{client}が待っていた。「もう、待てません。今夜行きます」"
+   ],
+   "effects": [
+    {
+     "pass": 4320
+    },
+    {
+     "hp": -5
+    }
+   ],
+   "next": "manor"
+  },
+  "record": {
+   "art": "backroom",
+   "text": [
+    "記録の束の中に、{killer}の件があった。証人の名は三人。だが、その下に墨で消した跡がある。透かして読むと、「豪族より絹二十匹」とあった。",
+    "別の簡には、決曹{clerk}の名で、絹を受け取った日付が書き付けてあった。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_ad_record"
+    },
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "choices": [
+    {
+     "label": "記録を太守の前に差し出し、裁き直しを求める",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_law",
+      "lose": "manor"
+     }
+    },
+    {
+     "label": "記録を懐に、{client}と{manor}へ向かう",
+     "next": "manor"
+    }
+   ]
+  },
+  "manor": {
+   "at": {
+    "place": "manor"
+   },
+   "goal": "{manor}の豪族の塢へ行く",
+   "speaker": "killer",
+   "art": "camp",
+   "text": [
+    "{manor}の豪族の塢の門前で、{killer}が手下と博打を打っていた。{client}を見ると、にやりと笑った。「あの爺の倅か。親子そろって、わしの前に転がりに来たか」",
+    "{client}の肩が震えていた。"
+   ],
+   "choices": [
+    {
+     "label": "{client}に討たせる",
+     "if": {
+      "flag": "sgk_ad_trained"
+     },
+     "next": "duel"
+    },
+    {
+     "label": "自分が{killer}を斬る",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "end_proxy",
+      "lose": "end_fallen"
+     },
+     "guide": "仇を討ったのは自分になり、{land}で追われる"
+    },
+    {
+     "label": "盗み出した記録を突きつけ、{killer}を郡府へ引き立てる",
+     "if": {
+      "flag": "sgk_ad_record"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_law",
+      "lose": "duel"
+     }
+    }
+   ]
+  },
+  "duel": {
+   "speaker": "client",
+   "art": "duel",
+   "text": [
+    "{client}は刀を抜き、父の名を叫んで踏み込んだ。{killer}の手下が割って入ろうとする。"
+   ],
+   "choices": [
+    {
+     "label": "手下を引き受け、一対一にさせる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_pardoned",
+      "lose": "end_fallen"
+     }
+    }
+   ]
+  },
+  "end_pardoned": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{client}とともに{here}の{office}へ自首する",
+   "speaker": "client",
+   "text": [
+    "{killer}を討ったその足で、{client}は{office}へ行き、自ら縄を求めた。「父の仇を討ちました。律に従って裁いてください」",
+    "話は太守の耳に入った。太守は「孝は百行の本なり」と言って{client}を赦し、かえって孝の聞こえある者として郡の吏に取り立てた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ad_trained"
+    },
+    {
+     "unflag": "sgk_ad_record"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "money": 100
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "孝子{client}の仇討ちを助けた。若者は赦され、郡の吏となった。"
+    }
+   ],
+   "end": "赦された孝子"
+  },
+  "end_law": {
+   "speaker": "client",
+   "text": [
+    "裁きはやり直された。{killer}は捕らえられて刑に服し、絹を受け取った決曹{clerk}は職を追われた。",
+    "{client}は刀を返しに来た。「自分の手で討てなかったことは、少し悔しい。でも、父も母も、こちらのほうが喜ぶと思います」"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ad_trained"
+    },
+    {
+     "unflag": "sgk_ad_record"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 5
+    },
+    {
+     "money": 120
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "{killer}の裁きをやり直させ、賄賂を取った決曹を退けた。"
+    }
+   ],
+   "end": "やり直された裁き"
+  },
+  "end_proxy": {
+   "speaker": "client",
+   "text": [
+    "{killer}は地に倒れた。{client}はその亡骸を見下ろし、それからこちらに深く頭を下げた。",
+    "豪族は郡府に訴え出た。{land}の役人は、仇を討った流れ者を探している。{client}だけは、何も知らぬ者として母のもとへ帰された。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ad_trained"
+    },
+    {
+     "unflag": "sgk_ad_record"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "wanted": "land",
+     "n": 15
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "end": "代わりに討った仇"
+  },
+  "end_fallen": {
+   "text": [
+    "{killer}の刀は重く、手下は多かった。打ち倒され、{client}を担いで逃げるのが精一杯だった。",
+    "{client}は傷が癒えると、また木の刀を振りはじめたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ad_trained"
+    },
+    {
+     "unflag": "sgk_ad_record"
+    },
+    {
+     "hp": -25
+    }
+   ],
+   "end": "果たせぬ仇"
+  },
+  "end_forgo": {
+   "speaker": "client",
+   "text": [
+    "{client}は長いあいだ黙っていたが、やがて声を上げて泣いた。「……母を、ひとりにはできません」",
+    "刀の代わりに鍬を持つと言った若者に、旅の銭を少し分けてやった。村の者たちは、それもまた孝だと言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ad_trained"
+    },
+    {
+     "unflag": "sgk_ad_record"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "money": -30
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "母のための鍬"
+  }
+ }
+}

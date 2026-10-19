@@ -1,0 +1,423 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_shiomitsu",
+ "kind": "random",
+ "where": "inn",
+ "hook": "塩車の用心棒を探しておる。口の堅い者に限るがな",
+ "title": "夜の塩車",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "塩の運び屋"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "enkan": {
+   "npc": "塩官",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "山の邑の老婆",
+   "sex": "f"
+  },
+  "guard": {
+   "npc": "関の亭長",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "backroom",
+   "text": [
+    "{inn}の裏手で、{client}が麻袋の口を開けて見せた。白い粒が灯火に光る。「海の塩だ。官の塩は値が三倍、{village}の山の邑じゃ、塩が買えずに子が病む」",
+    "「今夜、関の脇道を通って運ぶ。用心棒を頼みたい。礼は三百{money}。……ただし、見つかれば首が飛ぶ」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "effects": [
+      {
+       "flag": "sgk_sm_run"
+      }
+     ],
+     "next": "road"
+    },
+    {
+     "label": "引き受けたふりをして、{office}の塩官に知らせる",
+     "next": "enkan"
+    }
+   ]
+  },
+  "enkan": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で塩官に密売を知らせる",
+   "speaker": "enkan",
+   "art": "court",
+   "text": [
+    "塩官の{enkan}は、肥えた指で髭をしごいた。「密売か。よう知らせた。今夜、関で待ち伏せさせよう。召し上げた塩は……まあ、官の蔵に入れる」",
+    "{enkan}の背後の棚に、封のない麻袋が山と積まれているのが見えた。"
+   ],
+   "choices": [
+    {
+     "label": "待ち伏せに加わる",
+     "next": "ambush"
+    },
+    {
+     "label": "棚の麻袋と帳簿を、こっそり確かめる",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "ledger",
+      "lose": "ambush"
+     }
+    }
+   ]
+  },
+  "ledger": {
+   "art": "backroom",
+   "text": [
+    "帳簿を繰ると、召し上げた塩の量と蔵に入れた量が合わない。差の分は、{enkan}の名で{market}の塩商に売られていた。密売人から召し上げた塩を、塩官自らが横流ししているのだ。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_sm_ledger"
+    },
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "choices": [
+    {
+     "label": "帳簿の写しを懐に、運び屋の側につく",
+     "next": "road"
+    },
+    {
+     "label": "帳簿の写しを持って、{palace}に訴え出る",
+     "next": "appeal"
+    }
+   ]
+  },
+  "road": {
+   "art": "road",
+   "text": [
+    "月のない夜、三台の塩車が脇道を軋みながら進んだ。関の灯が見えたところで、{client}が手を上げて車を止める。「亭長の{guard}は銭で転ぶ男だが、今夜は兵が多い」"
+   ],
+   "choices": [
+    {
+     "label": "{guard}に銭を握らせて通る",
+     "if": {
+      "money": 200
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 32,
+      "win": "village",
+      "lose": "ambush"
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ]
+    },
+    {
+     "label": "谷沿いの獣道へ車を回す",
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "village",
+      "lose": "ambush"
+     }
+    },
+    {
+     "label": "関の兵を引きつけ、その隙に車を通す",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "free": true,
+      "fled": "end_caught",
+      "win": "village",
+      "lose": "end_caught"
+     }
+    }
+   ]
+  },
+  "ambush": {
+   "speaker": "guard",
+   "art": "war",
+   "text": [
+    "松明が一斉に灯った。亭長{guard}と{soldier}が、塩車を取り囲む。{client}が叫んだ。「謀ったな！」"
+   ],
+   "choices": [
+    {
+     "label": "運び屋たちと斬り抜ける",
+     "if": {
+      "flag": "sgk_sm_run"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "village",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "兵の側について運び屋を捕らえる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_reward",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "{guard}に「塩官の横流しを知っているか」と問う",
+     "if": {
+      "flag": "sgk_sm_ledger"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "village",
+      "lose": "end_caught"
+     }
+    }
+   ]
+  },
+  "village": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の山の邑へ塩を届ける",
+   "speaker": "elder",
+   "art": "tale",
+   "text": [
+    "夜明け、山の邑に塩車が着いた。老婆の{elder}が、塩を一つまみ舐めて目を細めた。「これで冬の菜が漬けられる。子らの足のむくみも引こう」",
+    "{client}は塩を官値の半分で売り、銭を数えている。邑の者には、それでも重い値だ。"
+   ],
+   "choices": [
+    {
+     "label": "礼の銭を受け取り、{client}と別れる",
+     "next": "end_run"
+    },
+    {
+     "label": "「礼は要らぬ。その分、値を下げてやれ」と{client}に迫る",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "end_gift",
+      "lose": "end_run"
+     }
+    },
+    {
+     "label": "帳簿の写しを持って、{palace}に訴え出る",
+     "if": {
+      "flag": "sgk_sm_ledger"
+     },
+     "next": "appeal"
+    }
+   ]
+  },
+  "appeal": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "{here}の{palace}に塩官の横流しを訴える",
+   "speaker": "州府の従事",
+   "art": "court",
+   "text": [
+    "州府の従事は帳簿の写しを読み、長く黙っていた。「塩は主公の兵を養う銭の元。それを塩官が懐に入れていたとなれば、ただでは済まぬ」",
+    "「だが、そなたがどうやってこれを手に入れたかも、問わねばならぬ」"
+   ],
+   "choices": [
+    {
+     "label": "包み隠さず、密売の話も含めて申し述べる",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "end_expose",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "帳簿の数字だけで、横流しを論じ立てる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_expose",
+      "lose": "end_caught"
+     }
+    }
+   ]
+  },
+  "end_run": {
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は約束の銭を数えて渡した。「また頼むかもしれん。あんたなら、いい塩の運び屋になれる」",
+    "関では、塩車を逃がした者を探しているという噂が立った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_sm_ledger"
+    },
+    {
+     "unflag": "sgk_sm_run"
+    },
+    {
+     "money": 300
+    },
+    {
+     "wanted": "land",
+     "n": 10
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "関を越えた塩"
+  },
+  "end_gift": {
+   "speaker": "elder",
+   "art": "tale",
+   "text": [
+    "{client}は舌打ちしたが、塩を官値の四分の一で邑に分けた。{elder}は邑の者を集め、こちらの名を子らに覚えさせた。",
+    "帰り際、袋一つの塩を持たされた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_sm_ledger"
+    },
+    {
+     "unflag": "sgk_sm_run"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "item": "salt",
+     "n": 3
+    },
+    {
+     "wanted": "land",
+     "n": 8
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{village}の山の邑に安い塩を届けた。"
+    }
+   ],
+   "end": "山の邑の塩"
+  },
+  "end_reward": {
+   "speaker": "enkan",
+   "art": "court",
+   "text": [
+    "{client}たちは縛り上げられ、塩車は召し上げられた。{enkan}は上機嫌で褒美の銭を寄越した。",
+    "召し上げた塩がどこへ流れたのかは、誰も知らない。山の邑では、この冬も子らの足がむくむだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_sm_ledger"
+    },
+    {
+     "unflag": "sgk_sm_run"
+    },
+    {
+     "money": 250
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "召し上げられた塩"
+  },
+  "end_expose": {
+   "speaker": "州府の従事",
+   "art": "court",
+   "text": [
+    "{enkan}は職を解かれ、横流しで得た銭は召し上げられた。従事は「密売の件は、塩官の罪の重さに免じて問わぬ」と言った。",
+    "新しい塩官は、山の邑にも塩を官値で回すと約した。安くはないが、横流しよりはずっとましだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_sm_ledger"
+    },
+    {
+     "unflag": "sgk_sm_run"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 15
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "note": "塩官{enkan}の塩の横流しを{palace}に訴えた。"
+    }
+   ],
+   "end": "塩官の失脚"
+  },
+  "end_caught": {
+   "art": "jail",
+   "text": [
+    "塩の一件で、こちらは咎人として扱われた。罰銭を取り上げられ、関の{soldier}にも顔を覚えられた。",
+    "{client}は縄を打たれ、塩車は召し上げられたという。召し上げた塩がどこへ流れたのかは、誰も知らない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_sm_ledger"
+    },
+    {
+     "unflag": "sgk_sm_run"
+    },
+    {
+     "money": -100
+    },
+    {
+     "fame": -2
+    },
+    {
+     "wanted": "land",
+     "n": 15
+    }
+   ],
+   "end": "関の夜"
+  }
+ }
+}

@@ -1,0 +1,428 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_guild1",
+ "kind": "rank",
+ "guildTo": 1,
+ "title": "私塩の車",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "頭",
+   "sex": "m"
+  },
+  "senior": {
+   "npc": "古参の手下",
+   "sex": "m"
+  },
+  "boiler": {
+   "npc": "塩丁",
+   "sex": "m"
+  },
+  "officer": {
+   "npc": "塩官の吏",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で頭に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "客舎の裏の竈の脇で、{boss}は炒り豆をかじっていた。「塩は官が売る。官の塩は高い。だから、わしらの塩が売れる。分かるな」",
+    "「塩丁の{boiler}が、塩田から車一台ぶんの塩を出す。それを{here}の関を抜けて市の裏まで運べ。{senior}を付ける。一斗でも欠かしたら、手下の話はなしだ」"
+   ],
+   "choices": [
+    {
+     "label": "市へ行き、{boiler}と段取りをつける",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で塩丁の{boiler}に会う",
+   "speaker": "boiler",
+   "art": "trade",
+   "text": [
+    "{boiler}は、塩で白くなった手を何度も擦り合わせた。「近ごろ塩官の{officer}さまが、車の底板まで剝がして改めるんで。先月は仲間が捕まって、鼻を削がれた。もう嫌だ」",
+    "{senior}が退屈そうに欠伸をした。「見習い、どうする」"
+   ],
+   "choices": [
+    {
+     "label": "「捕まったら一味が身柄を買い戻す」と言いくるめる",
+     "check": {
+      "skill": "speech",
+      "dc": 16,
+      "win": "s2ok",
+      "lose": "s2bad"
+     }
+    },
+    {
+     "label": "前金を弾む（30銭）",
+     "if": {
+      "money": 30
+     },
+     "effects": [
+      {
+       "money": -30
+      }
+     ],
+     "next": "s2ok"
+    },
+    {
+     "label": "「断れば、おまえの塩田に火が付くかもな」と凄む",
+     "effects": [
+      {
+       "fame": -1
+      },
+      {
+       "flag": "sk_g1_threat"
+      }
+     ],
+     "next": "s2ok"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "boiler",
+   "text": [
+    "{boiler}は渋い顔で頷いた。「塩を麦の袋に詰めて、上に本物の麦をかぶせる。それと、{officer}さまは字の書けぬ者を見下す。通行の伝を見せるときは、すらすら読んでみせるといい」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_g1_wheat"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2bad": {
+   "text": [
+    "{boiler}は首を振って塩田へ帰っていった。結局、{senior}が塩の袋を荷車に積み、むしろをかぶせただけで出ることになった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here",
+    "building": "barracks"
+   },
+   "goal": "{here}の関を塩の車とともに抜ける",
+   "speaker": "officer",
+   "art": "hideout",
+   "text": [
+    "関の門の前には、車と荷を担いだ者が列を作っていた。塩官の{officer}が槍を持った兵を従え、一台ずつ荷をほどかせている。",
+    "{officer}の目が、こちらの車の轍の深さに止まった。麦にしては重すぎる。"
+   ],
+   "choices": [
+    {
+     "label": "麦の袋だと言い張り、通行の伝をすらすら読み上げる",
+     "if": {
+      "flag": "sk_g1_wheat",
+      "notFlag": "sk_g1_threat"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 16,
+      "win": "s4",
+      "lose": "s3caught"
+     }
+    },
+    {
+     "label": "怯えた{boiler}を後ろに隠し、麦の袋だと言い張る",
+     "if": {
+      "flag": "sk_g1_threat"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s4",
+      "lose": "s3caught"
+     }
+    },
+    {
+     "label": "酒を一甕差し出し、改めを手早く済ませてもらう",
+     "if": {
+      "item": "wine"
+     },
+     "effects": [
+      {
+       "item": "wine",
+       "n": -1
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "袖の下を渡す（40銭）",
+     "if": {
+      "money": 40
+     },
+     "effects": [
+      {
+       "money": -40
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "列を離れ、夜を待って河原の浅瀬を渡る",
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "s4",
+      "lose": "s3caught"
+     }
+    }
+   ]
+  },
+  "s3caught": {
+   "speaker": "officer",
+   "art": "war",
+   "text": [
+    "{officer}が麦の袋に槍を突き立てると、白い塩がこぼれ出た。「私塩だ！　捕らえよ」兵が二人、こちらへ駆けてくる。"
+   ],
+   "choices": [
+    {
+     "label": "兵を打ち倒し、車を走らせて関を破る",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 8
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4",
+      "lose": "fail_caught"
+     }
+    },
+    {
+     "label": "車を捨てて逃げる",
+     "next": "fail_lost"
+    }
+   ]
+  },
+  "s4": {
+   "art": "hideout",
+   "text": [
+    "関を背にして河原の道に出ると、{senior}が車を止めた。塩の袋の口を開け、河原の砂をひとつかみ混ぜてみせる。",
+    "「頭は袋の数しか数えん。一袋に砂を二升混ぜれば、塩が一袋余る。市の裏で売れば十日は飲める。おまえも半分取れ」"
+   ],
+   "choices": [
+    {
+     "label": "「塩は一斗も欠かさぬ約束だ」と断る",
+     "next": "win_straight"
+    },
+    {
+     "label": "話に乗り、余った一袋を隠す",
+     "check": {
+      "skill": "stealth",
+      "dc": 20,
+      "win": "win_skim",
+      "lose": "fail_skim"
+     }
+    },
+    {
+     "label": "{senior}の話を、そのまま頭に告げる",
+     "next": "win_tell"
+    }
+   ]
+  },
+  "win_straight": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は袋の一つを開け、塩を舐めた。「砂の味がせん。関も抜けた。それができる者は、案外少ないものだ」",
+    "「今日から手下だ。{senior}には後で、余計な知恵を回すなと言っておく」頭はすべて知っていた。"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "unflag": "sk_g1_wheat"
+    },
+    {
+     "unflag": "sk_g1_threat"
+    },
+    {
+     "note": "私塩の車で関を抜け、一味の手下となった。"
+    }
+   ],
+   "end": "砂の味のせぬ塩"
+  },
+  "win_skim": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は袋を数え終え、塩を一つまみ舐めて、何も言わなかった。気づかれなかったのか、気づいて黙っているのか、{player}には分からない。",
+    "「手下にしてやる」その声は、いつもより少しだけ冷たかった。"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "money": 60
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    },
+    {
+     "unflag": "sk_g1_wheat"
+    },
+    {
+     "unflag": "sk_g1_threat"
+    },
+    {
+     "note": "私塩に砂を混ぜて一袋を抜き、それでも一味の手下となった。"
+    }
+   ],
+   "end": "砂混じりの塩"
+  },
+  "win_tell": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "話を聞いた{boss}は、{senior}を竈の前に呼び、黙って炒り豆の鍋で頬を打った。{senior}は血の混じった唾を吐き、{player}を睨んだ。",
+    "「仲間を売る奴は嫌いだが、わしを売らん奴は好きだ。手下にしてやる。背中には気をつけろ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "flag": "sk_g1_senior_grudge"
+    },
+    {
+     "unflag": "sk_g1_wheat"
+    },
+    {
+     "unflag": "sk_g1_threat"
+    },
+    {
+     "note": "{senior}の企みを頭に告げ、一味の手下となった。{senior}の恨みを買った。"
+    }
+   ],
+   "end": "告げ口"
+  },
+  "fail_skim": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は塩を舐めるなり、袋を蹴り倒した。{senior}がとうに「見習いが砂を混ぜた」と告げていたのだ。「わしの塩に砂を混ぜる奴を、手下にはできん。しばらく使い走りに戻れ」"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    },
+    {
+     "unflag": "sk_g1_wheat"
+    },
+    {
+     "unflag": "sk_g1_threat"
+    },
+    {
+     "note": "塩に砂を混ぜたのを見抜かれた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "はめられた見習い"
+  },
+  "fail_lost": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "塩の車は関に取り上げられた。{boss}は炒り豆を噛みながら、「見習いからやり直せ」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sk_g1_wheat"
+    },
+    {
+     "unflag": "sk_g1_threat"
+    },
+    {
+     "note": "関で私塩の車を失った。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "車を捨てる"
+  },
+  "fail_caught": {
+   "art": "jail",
+   "text": [
+    "棒で打ち据えられ、関の獄に放り込まれた。{boss}が塩官の吏に銭を積んで、どうにか出してもらえたが、顔はすっかり覚えられた。「間抜けを手下にはできん」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "money": -30
+    },
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "unflag": "sk_g1_wheat"
+    },
+    {
+     "unflag": "sk_g1_threat"
+    },
+    {
+     "note": "関で私塩を見つかり捕らえられた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "関の獄"
+  }
+ }
+}

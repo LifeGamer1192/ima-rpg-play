@@ -1144,6 +1144,237 @@
    "title": "真田の赤備え"
   },
   {
+   "id": "sangoku_main",
+   "file": "sangoku_main.json",
+   "kind": "main",
+   "era": "sangoku",
+   "title": "鼎の行方"
+  },
+  {
+   "id": "sangoku_taixue",
+   "file": "sangoku_taixue.json",
+   "kind": "school",
+   "era": "sangoku",
+   "title": "清議の灯"
+  },
+  {
+   "id": "sangoku_fajia",
+   "file": "sangoku_fajia.json",
+   "kind": "school",
+   "era": "sangoku",
+   "title": "律と屯田"
+  },
+  {
+   "id": "sangoku_bingjia",
+   "file": "sangoku_bingjia.json",
+   "kind": "school",
+   "era": "sangoku",
+   "title": "孫呉の陣"
+  },
+  {
+   "id": "sangoku_wudoumi",
+   "file": "sangoku_wudoumi.json",
+   "kind": "school",
+   "era": "sangoku",
+   "title": "義舎の米"
+  },
+  {
+   "id": "sangoku_yimen",
+   "file": "sangoku_yimen.json",
+   "kind": "school",
+   "era": "sangoku",
+   "title": "青嚢の灯"
+  },
+  {
+   "id": "sangoku_qingtan",
+   "file": "sangoku_qingtan.json",
+   "kind": "school",
+   "era": "sangoku",
+   "title": "月旦の評"
+  },
+  {
+   "id": "sangoku_rank2_jushi",
+   "file": "sangoku_rank2_jushi.json",
+   "kind": "rank",
+   "era": "sangoku",
+   "title": "孝廉の推挙"
+  },
+  {
+   "id": "sangoku_rank3_koui",
+   "file": "sangoku_rank3_koui.json",
+   "kind": "rank",
+   "era": "sangoku",
+   "title": "校尉の軍令"
+  },
+  {
+   "id": "sangoku_rank4_churosho",
+   "file": "sangoku_rank4_churosho.json",
+   "kind": "rank",
+   "era": "sangoku",
+   "title": "屯田の令"
+  },
+  {
+   "id": "sangoku_rank5_shogun",
+   "file": "sangoku_rank5_shogun.json",
+   "kind": "rank",
+   "era": "sangoku",
+   "title": "降将を説く"
+  },
+  {
+   "id": "sangoku_rank6_shuboku",
+   "file": "sangoku_rank6_shuboku.json",
+   "kind": "rank",
+   "era": "sangoku",
+   "title": "州を治める"
+  },
+  {
+   "id": "sangoku_rank7_josho",
+   "file": "sangoku_rank7_josho.json",
+   "kind": "rank",
+   "era": "sangoku",
+   "title": "丞相府"
+  },
+  {
+   "id": "sangoku_guild1",
+   "file": "sangoku_guild1.json",
+   "kind": "rank",
+   "era": "sangoku",
+   "title": "私塩の車"
+  },
+  {
+   "id": "sangoku_guild2",
+   "file": "sangoku_guild2.json",
+   "kind": "rank",
+   "era": "sangoku",
+   "title": "錦の帆"
+  },
+  {
+   "id": "sangoku_guild3",
+   "file": "sangoku_guild3.json",
+   "kind": "rank",
+   "era": "sangoku",
+   "title": "黄天の残り火"
+  },
+  {
+   "id": "sangoku_guild4",
+   "file": "sangoku_guild4.json",
+   "kind": "rank",
+   "era": "sangoku",
+   "title": "塢を破る"
+  },
+  {
+   "id": "sgk_r_kozoku",
+   "file": "sgk_r_kozoku.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "江賊の舟"
+  },
+  {
+   "id": "sgk_r_gettanhyo",
+   "file": "sgk_r_gettanhyo.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "月旦の評"
+  },
+  {
+   "id": "sgk_r_gekibun",
+   "file": "sgk_r_gekibun.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "檄を飛ばす"
+  },
+  {
+   "id": "sgk_r_kosho",
+   "file": "sgk_r_kosho.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "降将の帰順"
+  },
+  {
+   "id": "sgk_r_akusen",
+   "file": "sgk_r_akusen.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "悪銭の鋳型"
+  },
+  {
+   "id": "sgk_r_umaichi",
+   "file": "sgk_r_umaichi.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "塞外の馬市"
+  },
+  {
+   "id": "sgk_r_gyokui",
+   "file": "sgk_r_gyokui.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "玉衣の陵"
+  },
+  {
+   "id": "sgk_r_adauchi",
+   "file": "sgk_r_adauchi.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "孝子の仇討ち"
+  },
+  {
+   "id": "sgk_r_huangjin_remnant",
+   "file": "sgk_r_huangjin_remnant.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "黄天の残り火"
+  },
+  {
+   "id": "sgk_r_meiba",
+   "file": "sgk_r_meiba.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "北の原の駿馬"
+  },
+  {
+   "id": "sgk_r_kenja",
+   "file": "sgk_r_kenja.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "草廬の客"
+  },
+  {
+   "id": "sgk_r_gikyodai",
+   "file": "sgk_r_gikyodai.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "祠の契り"
+  },
+  {
+   "id": "sgk_r_tonden",
+   "file": "sgk_r_tonden.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "堰の水"
+  },
+  {
+   "id": "sgk_r_shiomitsu",
+   "file": "sgk_r_shiomitsu.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "夜の塩車"
+  },
+  {
+   "id": "sgk_r_ekibyo",
+   "file": "sgk_r_ekibyo.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "疫の邑"
+  },
+  {
+   "id": "sgk_r_gouzoku_u",
+   "file": "sgk_r_gouzoku_u.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "塢壁の内"
+  },
+  {
    "id": "job_office_bandits",
    "file": "job_office_bandits.json",
    "kind": "job",

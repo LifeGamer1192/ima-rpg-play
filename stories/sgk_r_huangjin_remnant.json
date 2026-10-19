@@ -1,0 +1,443 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_huangjin_remnant",
+ "kind": "random",
+ "where": "inn",
+ "hook": "息子が、山の黄巾の残党に加わってしまったのです",
+ "title": "黄天の残り火",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "寡婦"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "hills": {
+   "place": "near:here"
+  },
+  "son": {
+   "npc": "息子",
+   "sex": "m"
+  },
+  "chief": {
+   "npc": "渠帥",
+   "sex": "m"
+  },
+  "cheng": {
+   "npc": "郡丞",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{inn}の隅で、痩せた{client}が粥の椀を握りしめていた。「せがれの{son}が、{hills}の奥の谷へ行ったきり戻りませぬ。あそこには、黄巾の乱の生き残りが隠れ住んでおるのです」",
+    "「腹を空かせた男たちが、秋の取り入れ前に倉を襲う相談をしていると聞きました。あの子が{bandit}として斬られる前に、どうか連れ戻してくだされ」"
+   ],
+   "choices": [
+    {
+     "label": "{hills}の谷へ向かう",
+     "next": "valley"
+    },
+    {
+     "label": "先に{office}へ行き、残党の扱いを聞いておく",
+     "next": "office"
+    }
+   ]
+  },
+  "valley": {
+   "at": {
+    "place": "hills"
+   },
+   "goal": "{hills}の奥の谷で黄巾の残党を探す",
+   "speaker": "chief",
+   "art": "hideout",
+   "text": [
+    "谷の奥、焼け残った邑の土壁の陰に、四十人ほどの男女が身を寄せていた。色褪せた黄色い布を額に巻いた老人が、杖をついて立ち上がる。渠帥の{chief}だ。",
+    "「蒼天すでに死す、黄天まさに立つべし。……そう唱えて十余年、天は立たず、腹は減るばかりよ。何の用だ、旅の者」小屋の奥では、熱にうなされる子らの咳が聞こえる。"
+   ],
+   "choices": [
+    {
+     "label": "「倉を襲えば皆殺しにされる。別の道がある」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "talk",
+      "lose": "angry"
+     }
+    },
+    {
+     "label": "病の子らを診させてくれと申し出る",
+     "check": {
+      "skill": "medicine",
+      "dc": 34,
+      "win": "heal",
+      "lose": "angry"
+     }
+    },
+    {
+     "label": "夜を待ち、小屋に忍び込んで{son}だけを連れ出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "son",
+      "lose": "caught"
+     },
+     "guide": "見つかれば谷の男たちに囲まれる"
+    }
+   ]
+  },
+  "heal": {
+   "speaker": "chief",
+   "art": "faith",
+   "text": [
+    "符水では熱は下がらなかった。薬草を煎じ、汗を拭き、三晩付き添うと、子らの咳はようやく静まった。",
+    "{chief}は黙って頭を下げた。「大賢良師の符水より、そなたの草の方が効いた。……聞こう。我らに何をせよと言う」"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_hj_trust"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "talk"
+  },
+  "talk": {
+   "speaker": "chief",
+   "art": "tale",
+   "text": [
+    "{chief}は焚き火に枝をくべた。「我らとて好んで刃を研いでおるのではない。耕す地も、戸籍もない。官に見つかれば{bandit}として首を刎ねられる。倉を襲うほかに、冬を越す手があるなら言うてみよ」",
+    "若い男たちの中に、{client}に面差しの似た顔がある。{son}だ。こちらをじっと見ている。"
+   ],
+   "choices": [
+    {
+     "label": "「{office}に掛け合い、屯田の民として受け入れさせる」と約す",
+     "next": "office"
+    },
+    {
+     "label": "持ち銭で粟を買い、この冬の分を渡す",
+     "if": {
+      "money": 400
+     },
+     "effects": [
+      {
+       "money": -400
+      }
+     ],
+     "next": "end_grain"
+    },
+    {
+     "label": "{son}だけを説き伏せて母のもとへ帰らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "son",
+      "lose": "raid"
+     }
+    }
+   ]
+  },
+  "angry": {
+   "speaker": "chief",
+   "art": "hideout",
+   "text": [
+    "{chief}の目が冷たくなった。「官の犬か。帰れ。次に来たら生かしては帰さぬ」",
+    "谷を追われる背に、男たちが鍬と錆びた刀を研ぐ音が聞こえた。倉が襲われるのは、もう幾日もあるまい。"
+   ],
+   "choices": [
+    {
+     "label": "{office}へ急ぎ、事を知らせる",
+     "next": "office"
+    },
+    {
+     "label": "倉へ先回りし、残党を待ち受ける",
+     "next": "raid"
+    }
+   ]
+  },
+  "caught": {
+   "art": "war",
+   "text": [
+    "小屋の筵をめくったところで、見張りの男が叫んだ。たちまち黄色い布を巻いた男たちが、鍬や竹槍を手に取り囲む。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "son",
+      "lose": "angry"
+     }
+    }
+   ]
+  },
+  "son": {
+   "speaker": "son",
+   "art": "road",
+   "text": [
+    "谷を下る道で、{son}はうつむいて歩いた。「母者に楽をさせたかった。黄天の世が来れば、誰も飢えぬと聞いたのです」",
+    "「でも、谷には飢えた子らが残っています。あの人たちを見捨てて、俺だけ帰るのですか」"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_hj_son"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{son}を母のもとへ送り届けて終わりにする",
+     "next": "end_son"
+    },
+    {
+     "label": "谷の者たちのためにも、{office}へ掛け合ってみる",
+     "next": "office"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で黄巾の残党のことを申し出る",
+   "speaker": "cheng",
+   "art": "court",
+   "text": [
+    "郡丞の{cheng}は竹簡から目を上げずに言った。「黄巾の残党か。首一つにつき二千銭の賞がある。隠れ場所を知っておるなら申せ」",
+    "「……屯田の民にせよ、だと？ 確かに田を耕す手は足りぬ。だが{bandit}を田に放つのは、主公のお許しが要る話だ」"
+   ],
+   "choices": [
+    {
+     "label": "戸籍に付け、屯田に送る策を書状にまとめて差し出す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_settle",
+      "lose": "raid"
+     }
+    },
+    {
+     "label": "谷の場所を教え、賞銭を受け取る",
+     "next": "end_bounty",
+     "guide": "谷の者たちは討たれる"
+    },
+    {
+     "label": "「信じていただけぬなら、倉で彼らを止めてみせる」",
+     "next": "raid"
+    }
+   ]
+  },
+  "raid": {
+   "at": {
+    "place": "hills",
+    "building": "market"
+   },
+   "goal": "{hills}の倉で残党を待つ",
+   "speaker": "chief",
+   "art": "war",
+   "text": [
+    "月のない夜、黄色い布を巻いた男たちが倉の土塀に梯子を掛けた。先頭に立つのは{chief}だ。",
+    "「どけ。子らを飢えさせて死なすくらいなら、我らが斬られた方がましだ」"
+   ],
+   "choices": [
+    {
+     "label": "{chief}の前に立ち、刀を下ろせと説く",
+     "if": {
+      "flag": "sgk_hj_trust"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "end_settle",
+      "lose": "end_crushed"
+     }
+    },
+    {
+     "label": "前に立ちはだかり、残党を斬り払う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_crushed",
+      "lose": "end_crushed"
+     }
+    },
+    {
+     "label": "見なかったことにして立ち去る",
+     "next": "end_crushed"
+    }
+   ]
+  },
+  "end_settle": {
+   "speaker": "cheng",
+   "art": "court",
+   "text": [
+    "谷の四十人は戸籍に付けられ、{hills}の荒れ地に屯田の民として送られた。黄色い布は焚き火にくべられ、男たちは鍬を握り直した。",
+    "{chief}は去り際に言った。「黄天は立たなんだが、粟は立つ。それで十分だ」{client}は{son}の手を引いて、何度も頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_hj_trust"
+    },
+    {
+     "unflag": "sgk_hj_son"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 12
+    },
+    {
+     "rep": "land",
+     "n": 4
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "{hills}の谷に隠れた黄巾の残党を、屯田の民として受け入れさせた。"
+    }
+   ],
+   "end": "黄天の鍬"
+  },
+  "end_grain": {
+   "speaker": "chief",
+   "art": "tale",
+   "text": [
+    "買い付けた粟を谷へ運び込むと、男たちは刃を置いて袋に群がった。{chief}は「この冬は越せる。春のことは春に考えよう」と苦く笑った。",
+    "{son}は「母者に顔を見せてきます」と谷を下りた。倉は襲われず、誰も斬られなかった。今のところは。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_hj_trust"
+    },
+    {
+     "unflag": "sgk_hj_son"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{hills}の黄巾の残党に冬の粟を渡した。"
+    }
+   ],
+   "end": "一冬の粟"
+  },
+  "end_son": {
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{client}は{son}を抱きしめ、声を上げて泣いた。礼にと差し出された銭は、ひと月の稼ぎほどだった。",
+    "谷の残党がその後どうなったか、{inn}の噂には上らなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_hj_trust"
+    },
+    {
+     "unflag": "sgk_hj_son"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 1
+    }
+   ],
+   "end": "母のもとへ"
+  },
+  "end_bounty": {
+   "speaker": "cheng",
+   "art": "war",
+   "text": [
+    "三日後、{soldier}二百が谷を囲んだ。焼け跡の土壁は再び焼かれ、{chief}の首は{office}の門に晒された。",
+    "賞銭の袋は重かった。{inn}で{client}の姿を見ることは、二度となかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_hj_trust"
+    },
+    {
+     "unflag": "sgk_hj_son"
+    },
+    {
+     "money": 600
+    },
+    {
+     "fame": -3
+    },
+    {
+     "favor": 15
+    },
+    {
+     "rep": "land",
+     "n": 3
+    },
+    {
+     "note": "黄巾の残党の隠れ場所を{office}に売った。"
+    }
+   ],
+   "end": "晒された首"
+  },
+  "end_crushed": {
+   "speaker": "cheng",
+   "art": "war",
+   "text": [
+    "倉の前の騒ぎに{soldier}が駆けつけ、残党は散り散りに追い立てられた。夜が明けると、{chief}は土塀の下で息絶えていた。",
+    "{cheng}は倉が無事だったことだけを喜んだ。{client}は息子の名を呼びながら、谷の方へ歩いていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_hj_trust"
+    },
+    {
+     "unflag": "sgk_hj_son"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": -1
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "blade",
+     "n": 1
+    }
+   ],
+   "end": "倉の夜"
+  }
+ }
+}

@@ -1,0 +1,557 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_rank2_jushi",
+ "kind": "rank",
+ "rankTo": 2,
+ "title": "孝廉の推挙",
+ "era": "sangoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "county": {
+   "place": "near:cap"
+  },
+  "magistrate": {
+   "npc": "県令",
+   "sex": "m"
+  },
+  "squire": {
+   "npc": "県の豪族",
+   "sex": "m"
+  },
+  "chief": {
+   "npc": "賊の頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府で仕官の道を願い出る",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は竹簡を巻き戻しながら言った。「孝廉に挙げてほしい、と。孝廉の推挙は、郡が年に一人か二人を朝廷に推す道だ。食客の口ぶりだけでは推せぬ」",
+    "「{county}の県に、黄巾の残りだという賊が出て、里を荒らしておる。従事として行き、賊を鎮めてこい。鎮め方も見る。それが推挙の証になる」"
+   ],
+   "choices": [
+    {
+     "label": "従事の印綬を預かり、{county}へ向かう",
+     "effects": [
+      {
+       "note": "{county}の県の賊を鎮めれば、孝廉に挙げられ従事となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "county",
+    "building": "office"
+   },
+   "goal": "{county}の郡府に入り、県令に会う",
+   "speaker": "magistrate",
+   "art": "court",
+   "text": [
+    "県の役所は門の扉が半分外れ、役人の姿もまばらだった。県令の{magistrate}は、印綬を見るなり両手をすり合わせた。「州の従事どのか。助かった。賊は三百とも五百とも言われ、県の兵は六十しかおらぬ」",
+    "「この辺りで頼れるのは、塢を構える豪族の{squire}どのくらいだ。あの家の部曲は、県の兵より強い」"
+   ],
+   "choices": [
+    {
+     "label": "県の戸籍と被害の帳簿を読み、賊の正体を探る",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "s2know",
+      "lose": "s2fog"
+     }
+    },
+    {
+     "label": "{squire}の塢を訪ね、部曲を借りる",
+     "next": "s2squire"
+    },
+    {
+     "label": "屯田の兵を呼び寄せ、県の兵に加える",
+     "if": {
+      "realm": [
+       "曹"
+      ]
+     },
+     "effects": [
+      {
+       "flag": "sk_r2_troops"
+      },
+      {
+       "note": "屯田の兵を借り、県の兵に加えた。"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "旅人に身をやつし、自ら賊の山へ探りに入る",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "s2know",
+      "lose": "s2fog"
+     }
+    }
+   ]
+  },
+  "s2know": {
+   "text": [
+    "帳簿の端に、去年の蝗と飢えで逃げた戸の数が書かれていた。三百あまり。賊の数と、ほぼ同じだ。",
+    "賊の大半は、黄巾の残党というより、田を捨てた里の者たちらしい。頭の{chief}だけが、昔、黄巾の小方にいたという。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r2_know"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "{county}の賊の多くは飢えて逃げた里の者だと知った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fog": {
+   "text": [
+    "分かったのは、賊が山の尾根に柵を巡らせていることと、里の者が何も話したがらないことだけだった。"
+   ],
+   "next": "s3"
+  },
+  "s2squire": {
+   "at": {
+    "place": "county",
+    "building": "house"
+   },
+   "speaker": "squire",
+   "art": "court",
+   "text": [
+    "{squire}の塢は土塁を二重に巡らせ、櫓には弩を構えた部曲が立っていた。{squire}は酒を勧めながら、目だけは笑っていなかった。",
+    "「部曲を貸すのは易い。ただ、賊を退けたあとで、空いた田はわが家が引き取る。県令どのにも、そう書き付けてもらいたい」"
+   ],
+   "choices": [
+    {
+     "label": "条件を呑み、部曲を借りる",
+     "effects": [
+      {
+       "flag": "sk_r2_troops"
+      },
+      {
+       "flag": "sk_r2_deal"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "「田は里の者に戻す。その代わり州府に名を伝える」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s2fair",
+      "lose": "s2no"
+     }
+    },
+    {
+     "label": "断って塢を辞す",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2fair": {
+   "speaker": "squire",
+   "text": [
+    "{squire}はしばらく杯を回していたが、やがて笑った。「州府に名が通るなら、田の二つ三つより安い。部曲を五十貸そう」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r2_troops"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2no": {
+   "text": [
+    "{squire}は「では、ご自分の手で」と言って席を立った。塢の門が、背中で重く閉まった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "county"
+   },
+   "goal": "{county}の山にある賊の山寨へ向かう",
+   "speaker": "chief",
+   "art": "war",
+   "text": [
+    "尾根の山寨は、丸太の柵に古い黄色の布を結びつけていた。柵の内から、痩せた男たちが竹槍を突き出している。",
+    "頭の{chief}が物見櫓から叫んだ。「州の役人か。里に戻っても税で殺され、ここにいれば討たれて死ぬ。どちらでも同じよ」"
+   ],
+   "choices": [
+    {
+     "label": "「田を返し、今年の税を免じる。山を下りよ」と説く",
+     "if": {
+      "flag": "sk_r2_know"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "s4talk",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "降れば罪を問わぬと、櫓の下から呼ばわる",
+     "if": {
+      "notFlag": "sk_r2_know"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "s4talk",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "兵を揃え、柵の正面から攻めかかる",
+     "if": {
+      "flag": "sk_r2_troops"
+     },
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "s4won",
+      "lose": "s3rout"
+     }
+    },
+    {
+     "label": "県の兵だけを率い、夜に裏の沢から攻め上る",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "s4won",
+      "lose": "s3rout"
+     }
+    }
+   ]
+  },
+  "s3fight": {
+   "speaker": "chief",
+   "art": "war",
+   "text": [
+    "「役人の約束など、黄巾の頃から一度も守られたためしがない」{chief}が手を振ると、柵の門が開いて男たちが駆け下りてきた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "s4won",
+      "lose": "s3rout"
+     }
+    },
+    {
+     "label": "兵をまとめて退く",
+     "next": "fail_retreat"
+    }
+   ]
+  },
+  "s3rout": {
+   "art": "war",
+   "text": [
+    "竹槍の群れに押し返され、県の兵は散り散りに逃げた。{player}も肩に傷を負い、県城まで下るのがやっとだった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "fail_rout"
+  },
+  "s4talk": {
+   "speaker": "chief",
+   "text": [
+    "長い沈黙のあと、{chief}は黄色の布を柵から外した。「……わしの首は取ってもいい。下の者たちには、田と種籾をやってくれ」",
+    "男たちは一人、また一人と竹槍を置いた。三百人が山を下りるのに、半日かかった。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r2_settled"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "s5"
+  },
+  "s4won": {
+   "art": "war",
+   "text": [
+    "柵が破れ、山寨は焼け落ちた。{chief}は斬られ、捕らえた者は縄をかけて県城へ引かれていった。",
+    "県令の{magistrate}は城門で手を叩いて喜んだ。「これで今年の税が取れる」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r2_crushed"
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府に戻り、賊を鎮めた次第を報じる",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "州府の堂で、{ruler}が{minister}と並んで報せを聞いた。「{county}の賊を鎮めたそうだな。どう鎮めたか、申せ」"
+   ],
+   "choices": [
+    {
+     "label": "降った者に田と種籾を与え、里に戻したと申し上げる",
+     "if": {
+      "flag": "sk_r2_settled"
+     },
+     "next": "win_settle"
+    },
+    {
+     "label": "山寨を焼き、賊の頭を斬ったと申し上げる",
+     "if": {
+      "flag": "sk_r2_crushed",
+      "notFlag": "sk_r2_deal"
+     },
+     "next": "win_crush"
+    },
+    {
+     "label": "{squire}の部曲の働きを挙げ、空いた田の始末も申し上げる",
+     "if": {
+      "flag": "sk_r2_deal",
+      "notFlag": "sk_r2_settled"
+     },
+     "next": "win_squire"
+    }
+   ]
+  },
+  "win_settle": {
+   "speaker": "minister",
+   "text": [
+    "{minister}が膝を打った。「賊を殺さずに、戸を三百増やしたか。税を出す民が増えるのは、首を三百取るより重い」",
+    "{ruler}は頷いた。「孝廉に挙げよう。郡の従事として仕えよ」"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "sk_r2_know"
+    },
+    {
+     "unflag": "sk_r2_troops"
+    },
+    {
+     "unflag": "sk_r2_deal"
+    },
+    {
+     "unflag": "sk_r2_settled"
+    },
+    {
+     "unflag": "sk_r2_crushed"
+    },
+    {
+     "note": "{county}の賊を降して里に戻し、孝廉に挙げられて従事となった。"
+    }
+   ],
+   "end": "田に帰る賊"
+  },
+  "win_crush": {
+   "speaker": "ruler",
+   "text": [
+    "「賊は賊だ。斬って示しをつけたのは正しい」{ruler}は短く言い、{player}を従事に任じた。",
+    "{county}の里では、山寨の焼け跡に烏が群れているという。"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 8
+    },
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "sk_r2_know"
+    },
+    {
+     "unflag": "sk_r2_troops"
+    },
+    {
+     "unflag": "sk_r2_deal"
+    },
+    {
+     "unflag": "sk_r2_settled"
+    },
+    {
+     "unflag": "sk_r2_crushed"
+    },
+    {
+     "note": "{county}の賊の山寨を焼き、孝廉に挙げられて従事となった。"
+    }
+   ],
+   "end": "焼けた山寨"
+  },
+  "win_squire": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は眉を寄せた。「豪族に田を渡したか。賊は消えたが、{squire}の塢がまた一回り大きくなる。乱世では、それも一つの治め方ではあるがな」",
+    "{player}は従事となった。{squire}からは、祝いの絹が届いた。"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 6
+    },
+    {
+     "fame": 2
+    },
+    {
+     "money": 120
+    },
+    {
+     "flag": "sk_r2_squire_bond"
+    },
+    {
+     "unflag": "sk_r2_know"
+    },
+    {
+     "unflag": "sk_r2_troops"
+    },
+    {
+     "unflag": "sk_r2_deal"
+    },
+    {
+     "unflag": "sk_r2_settled"
+    },
+    {
+     "unflag": "sk_r2_crushed"
+    },
+    {
+     "note": "豪族{squire}の部曲を借りて賊を討ち、従事となった。{squire}に借りができた。"
+    }
+   ],
+   "end": "塢の部曲"
+  },
+  "fail_retreat": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府に戻り、不首尾を報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "「話もまとまらず、戦いもせずに戻ったか」{minister}は竹簡を閉じた。「推挙は来年に回す。食客として務めを重ねよ」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sk_r2_know"
+    },
+    {
+     "unflag": "sk_r2_troops"
+    },
+    {
+     "unflag": "sk_r2_deal"
+    },
+    {
+     "unflag": "sk_r2_settled"
+    },
+    {
+     "unflag": "sk_r2_crushed"
+    },
+    {
+     "note": "{county}の賊を鎮められなかった。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "推挙は来年"
+  },
+  "fail_rout": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府に戻り、敗れたことを報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は包帯の巻かれた肩を一瞥した。「賊に負けた従事を、郡は朝廷に推せぬ。傷を治し、出直すがよい」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sk_r2_know"
+    },
+    {
+     "unflag": "sk_r2_troops"
+    },
+    {
+     "unflag": "sk_r2_deal"
+    },
+    {
+     "unflag": "sk_r2_settled"
+    },
+    {
+     "unflag": "sk_r2_crushed"
+    },
+    {
+     "note": "{county}の賊に敗れた。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "竹槍に敗れる"
+  }
+ }
+}

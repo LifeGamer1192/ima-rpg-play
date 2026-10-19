@@ -1,0 +1,308 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_kosho",
+ "kind": "random",
+ "where": "folk",
+ "hook": "旦那さまは、こちらに降りたいと申しております。けれど斬られるのが怖いのです",
+ "title": "降将の帰順",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "fort": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "老僕"
+  },
+  "officer": {
+   "npc": "敗れた校尉",
+   "sex": "m"
+  },
+  "second": {
+   "npc": "副将",
+   "sex": "m"
+  },
+  "judge": {
+   "npc": "郡府の都尉",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}が、人目をはばかるように袖を引いた。主人の{officer}は、先の戦で敗れた側の校尉だった。いまは{fort}の山の塢に、生き残りの兵百人あまりと籠もっているという。",
+    "「旦那さまは、もう戦う気はありません。{land}に降りたいのです。けれど、偽って降る者と疑われ、首を刎ねられるのが怖い。どなたか、間に立ってくださる方がいれば」"
+   ],
+   "choices": [
+    {
+     "label": "{fort}の塢へ行き、{officer}に会う",
+     "next": "fort"
+    },
+    {
+     "label": "先に{office}へ知らせ、賞金のことを聞く",
+     "next": "betray"
+    }
+   ]
+  },
+  "fort": {
+   "at": {
+    "place": "fort"
+   },
+   "goal": "{fort}の山の塢で{officer}に会う",
+   "speaker": "officer",
+   "art": "camp",
+   "text": [
+    "土塁で囲った塢の中では、痩せた兵たちが鍋の粥を分け合っていた。{officer}は傷の癒えぬ腕を吊ったまま、こちらに頭を下げた。",
+    "「わしの首ひとつで済むなら差し出す。だが兵たちには親も子もある。どうか、皆が生きて郷へ帰れるようにしてほしい」その後ろで、副将の{second}が腕を組んでこちらを睨んでいた。"
+   ],
+   "choices": [
+    {
+     "label": "「降るなら、まず武器を捨てよ」と兵たちに説く",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "disarm",
+      "lose": "mutiny"
+     }
+    },
+    {
+     "label": "傷ついた兵を手当てし、信を得る",
+     "check": {
+      "skill": "medicine",
+      "dc": 35,
+      "win": "disarm",
+      "lose": "mutiny"
+     }
+    }
+   ]
+  },
+  "mutiny": {
+   "speaker": "second",
+   "art": "war",
+   "text": [
+    "{second}が戟を振り上げて叫んだ。「降っても斬られるだけだ。こいつを人質にして、山を越えて逃げるぞ」何人かの兵がそれに続いた。"
+   ],
+   "choices": [
+    {
+     "label": "{second}と、それに従う兵を打ち倒す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "disarm",
+      "lose": "end_fled"
+     }
+    }
+   ]
+  },
+  "disarm": {
+   "speaker": "officer",
+   "art": "camp",
+   "text": [
+    "兵たちはひとり、またひとりと戟を地に置いた。{officer}は自分の印綬を外し、こちらの手に載せた。「これを{office}へ。わしらは山を下りて待つ」"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_ks_disarmed"
+    }
+   ],
+   "next": "office"
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、{officer}の帰順を取り次ぐ",
+   "speaker": "judge",
+   "art": "court",
+   "text": [
+    "都尉の{judge}は印綬を手に取り、冷ややかに言った。「偽って降り、内から城門を開いた例はいくらでもある。降将は、まず斬って憂いを断つのが上策だ」"
+   ],
+   "choices": [
+    {
+     "label": "兵たちが武器を捨てたこと、その数と名を書き上げて示す",
+     "if": {
+      "flag": "sgk_ks_disarmed"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_accepted",
+      "lose": "doubt"
+     }
+    },
+    {
+     "label": "「降る者を斬れば、二度と誰も降らぬ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_accepted",
+      "lose": "doubt"
+     }
+    }
+   ]
+  },
+  "doubt": {
+   "speaker": "judge",
+   "art": "court",
+   "text": [
+    "{judge}は首を振った。「言葉では信じられぬ。ちょうど北の谷に{bandit}が出ておる。降将の兵がそれを討てば、偽りでないと認めよう。お主も付いていけ」"
+   ],
+   "choices": [
+    {
+     "label": "{officer}の兵を率いて{bandit}を討つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "end_proven",
+      "lose": "end_fled"
+     },
+     "guide": "敗れれば降将の兵は逃げ散る"
+    }
+   ]
+  },
+  "betray": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ知らせる",
+   "speaker": "judge",
+   "art": "court",
+   "text": [
+    "{judge}は身を乗り出した。「敵の校尉が{fort}に潜んでおるだと。よく知らせた。兵を出す。お主が道案内をせよ。首を挙げれば賞金は三百銭だ」",
+    "{fort}の塢を兵が囲むと、{officer}はひとりで門を開けて出てきた。「……そうか。それも乱世だ。兵たちだけは見逃してくれ」"
+   ],
+   "choices": [
+    {
+     "label": "都尉に引き渡す",
+     "next": "end_betrayed"
+    },
+    {
+     "label": "囲みの手薄な沢を、そっと{officer}に教える",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_fled",
+      "lose": "end_betrayed"
+     }
+    }
+   ]
+  },
+  "end_accepted": {
+   "speaker": "officer",
+   "text": [
+    "{judge}はしばらく黙っていたが、やがて印綬を卓に置いた。「よかろう。降将{officer}とその兵を受け入れる。兵は屯田に回す」",
+    "山を下りた兵たちは、鍬を担いで田へ向かった。{officer}は{client}とともに、何度もこちらを振り返って頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ks_disarmed"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "敗将{officer}とその兵百人を、{land}に帰順させた。"
+    }
+   ],
+   "end": "鍬を担いだ兵"
+  },
+  "end_proven": {
+   "speaker": "judge",
+   "text": [
+    "降将の兵は、命を惜しまず谷の{bandit}に斬り込んだ。戻ってきた兵の数を数えて、{judge}はようやく頷いた。「偽りではなかったな。{officer}を軍候に取り立てる」",
+    "{officer}は血のついた戟を下ろし、こちらの手を握った。「この恩は、戦場で返す」"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ks_disarmed"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 7
+    },
+    {
+     "favor": 8
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "敗将{officer}の兵を率いて{bandit}を討ち、帰順を認めさせた。"
+    }
+   ],
+   "end": "血で示した帰順"
+  },
+  "end_betrayed": {
+   "speaker": "client",
+   "text": [
+    "{officer}は縄を打たれ、郡府へ引かれていった。賞金の銭袋は重かった。",
+    "帰り道、{client}が道端に座り込んで泣いていた。こちらに気づくと、黙って顔を背けた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ks_disarmed"
+    },
+    {
+     "money": 300
+    },
+    {
+     "favor": 5
+    },
+    {
+     "fame": -4
+    }
+   ],
+   "end": "売られた降将"
+  },
+  "end_fled": {
+   "speaker": "officer",
+   "text": [
+    "{officer}とその兵は、夜のうちに山を越えて姿を消した。行き場を失った兵がどうなるかは、誰にでも分かる。",
+    "ひと月ほどして、隣の郡に新しい{bandit}が出たという噂が流れてきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sgk_ks_disarmed"
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "stealth",
+     "n": 1
+    }
+   ],
+   "end": "山へ消えた兵"
+  }
+ }
+}

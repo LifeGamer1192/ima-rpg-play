@@ -1,0 +1,609 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_guild4",
+ "kind": "rank",
+ "guildTo": 4,
+ "title": "塢を破る",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "broker": {
+   "npc": "山寨の頭たちの使い",
+   "sex": "m"
+  },
+  "lord": {
+   "npc": "塢の主の豪族",
+   "sex": "m"
+  },
+  "retainer": {
+   "npc": "部曲の什長",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "隣の山寨の頭",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で山寨の頭たちの使いに会う",
+   "speaker": "broker",
+   "art": "backroom",
+   "text": [
+    "使いの{broker}は、いつになく声を潜めた。「この辺りの山寨の頭たちが、一つの約束を交わした。{lord}の塢を破った者を、大帥と仰いで、一帯の一党をまとめて従う、と」",
+    "「{lord}の塢は土塁を三重に巡らせ、部曲が千、倉には十年食える粟と、郡の役人に貸した銭の証文が眠っておる。これまで破れた者はいない」"
+   ],
+   "choices": [
+    {
+     "label": "塢の内を知る者を探す",
+     "next": "s2"
+    },
+    {
+     "label": "まず、ほかの山寨の頭たちを口説く",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で、塢の部曲に近づく",
+   "speaker": "retainer",
+   "art": "trade",
+   "text": [
+    "市の外れの酒肆で、塢の部曲の什長{retainer}が一人で飲んでいた。親の代から{lord}の家に縛られ、田も嫁も主が決めるという。",
+    "「部曲は奴婢と変わらん。逃げれば一族が罰を受ける。……だが、主が倒れれば話は別だ」"
+   ],
+   "choices": [
+    {
+     "label": "「塢が破れたら、部曲を自由の身にする」と約す",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "銭を積んで、門を開ける手引きを頼む（250銭）",
+     "if": {
+      "money": 250
+     },
+     "effects": [
+      {
+       "money": -250
+      }
+     ],
+     "next": "s2ok"
+    },
+    {
+     "label": "{retainer}の家族の住む小屋を知っていると囁く",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "effects": [
+      {
+       "fame": -2
+      }
+     ],
+     "next": "s2ok"
+    },
+    {
+     "label": "酔わせて、塢の見張りの順を聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "retainer",
+   "text": [
+    "{retainer}は杯を伏せた。「晦日の夜、子の刻。西の土塁の小門の番は、わしの什が受け持つ。わしは何も知らぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_g4_inside"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "{retainer}は顔を強張らせて席を立った。翌日、塢の櫓の見張りが倍になったという噂が流れた。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_g4_alert"
+    },
+    {
+     "wanted": "here",
+     "n": 6
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の荒れた祠で、山寨の頭たちと会う",
+   "speaker": "rival",
+   "art": "backroom",
+   "text": [
+    "荒れた祠に、山寨の頭たちが七人集まった。弓を背負った女の頭{rival}が、上座を譲らずに言った。「大帥を名乗りたいなら、塢を破る前に、まずわしらを従えてみせな。従わぬ者を連れて塢を攻めれば、背中から刺される」"
+   ],
+   "choices": [
+    {
+     "label": "「塢の粟は、従う山寨の里すべてに分ける」と説く",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "「従わぬ山寨は、塢の次に潰す」と脅す",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "{rival}に一騎の勝負を挑む",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "酒と銭をふるまい、頭たちの機嫌を取る（300銭）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "s3ok"
+    },
+    {
+     "label": "頭たちには頼らず、己の一党だけで行く",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "rival",
+   "text": [
+    "{rival}は弓を床に置いた。「いいだろう。塢を攻める夜、七つの山寨から三百を出す。だが塢が破れなかったら、大帥の話は無しだ」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_g4_allies"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "speaker": "rival",
+   "text": [
+    "頭たちは顔を見合わせ、一人、また一人と祠を出ていった。{rival}が振り返って言った。「塢を破ったら、そのときは考えてやる」"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "晦日の夜を待ち、{here}の客舎の裏に一党を集める",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "broker",
+   "art": "backroom",
+   "text": [
+    "裏の土間に、一党の腕利きが揃った。梯子も、油も、粟を運ぶ車も手配してある。{broker}が灯を吹き消した。「月のない晦日だ。あとは、あんたが塢の門を開けるだけだ」"
+   ],
+   "choices": [
+    {
+     "label": "{lord}の塢へ向かう",
+     "next": "s5"
+    }
+   ]
+  },
+  "s5": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "晦日の夜、{here}の{lord}の塢に攻め入る",
+   "art": "hideout",
+   "text": [
+    "子の刻。三重の土塁の上を、部曲の松明がゆっくりと巡っている。櫓の上では、弩を抱えた見張りが欠伸をしていた。"
+   ],
+   "choices": [
+    {
+     "label": "{retainer}の什が守る西の小門から入る",
+     "if": {
+      "flag": "sk_g4_inside"
+     },
+     "next": "s6"
+    },
+    {
+     "label": "山寨の三百に東の土塁を攻めさせ、その隙に西から乗り込む",
+     "if": {
+      "flag": "sk_g4_allies"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "s6",
+      "lose": "s5alarm"
+     }
+    },
+    {
+     "label": "土塁に梯子をかけ、見張りの目を盗んで登る",
+     "if": {
+      "notFlag": "sk_g4_alert"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 42,
+      "win": "s6",
+      "lose": "s5alarm"
+     }
+    },
+    {
+     "label": "増えた見張りの目を盗んで土塁を登る",
+     "if": {
+      "flag": "sk_g4_alert"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 48,
+      "win": "s6",
+      "lose": "s5alarm"
+     }
+    },
+    {
+     "label": "門を斬り破って押し通る",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 20
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "s6",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s5alarm": {
+   "art": "war",
+   "text": [
+    "櫓の太鼓が鳴り響いた。「賊だ！」土塁の四方から部曲の松明が集まってくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り伏せて塢の内へ押し入る",
+     "effects": [
+      {
+       "wanted": "here",
+       "n": 15
+      }
+     ],
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s7hot",
+      "lose": "fail_caught"
+     }
+    },
+    {
+     "label": "闇に紛れて退く",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "fail_abort",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s6": {
+   "speaker": "lord",
+   "art": "hideout",
+   "text": [
+    "塢の奥の堂で、{lord}は寝衣のまま剣を抜いていた。「部曲ども、何をしておる！」だが堂の外の部曲たちは、松明を持ったまま動かない。",
+    "倉には粟が山をなし、銭の緡が薪のように積まれ、奥の箱には郡の役人たちに貸した銭の証文が詰まっていた。"
+   ],
+   "choices": [
+    {
+     "label": "倉を開いて粟を近隣の里に分け、部曲の籍の簿を焼いて自由にする",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "effects": [
+      {
+       "money": 600
+      },
+      {
+       "fame": 15
+      },
+      {
+       "wanted": "here",
+       "n": 30
+      }
+     ],
+     "next": "win_r"
+    },
+    {
+     "label": "塢に火を放ち、{lord}の一族ごと焼いて残らず奪う",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "effects": [
+      {
+       "money": 1200
+      },
+      {
+       "fame": -6
+      },
+      {
+       "wanted": "here",
+       "n": 45
+      }
+     ],
+     "next": "win_w"
+    },
+    {
+     "label": "役人に貸した証文を押さえ、{lord}を生かしたまま一党に年貢を納めさせる",
+     "check": {
+      "skill": "trade",
+      "dc": 44,
+      "win": "win_plain",
+      "lose": "win_hot"
+     }
+    }
+   ]
+  },
+  "s7hot": {
+   "art": "war",
+   "text": [
+    "血の匂いの中で倉の扉を破った。だが部曲の加勢がもう土塁の上に迫っている。抱えられるだけの銭を背負い、一党は土塁を越えて山へ走った。"
+   ],
+   "effects": [
+    {
+     "money": 450
+    },
+    {
+     "wanted": "here",
+     "n": 15
+    }
+   ],
+   "choices": [
+    {
+     "label": "追手を振り切って山へ逃げる",
+     "next": "win_hot"
+    }
+   ]
+  },
+  "win_r": {
+   "speaker": "rival",
+   "art": "hideout",
+   "text": [
+    "夜明け、近隣の里という里に粟の俵が届けられ、塢の部曲たちは焼けた籍の簿の灰を踏んで、自分の足で家へ帰っていった。",
+    "七つの山寨の頭たちが、塢の門の前に並んで膝をついた。{rival}が弓を捧げて言った。「大帥。この一帯の山も江も、今日からあなたのものだ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "xp": "theft",
+     "n": 8
+    },
+    {
+     "unflag": "sk_g4_inside"
+    },
+    {
+     "unflag": "sk_g4_alert"
+    },
+    {
+     "unflag": "sk_g4_allies"
+    },
+    {
+     "note": "{lord}の塢を破って粟を里に分け、部曲を解き放ち、一帯の一党を束ねる大帥となった。"
+    }
+   ],
+   "end": "民に仰がれる大帥"
+  },
+  "win_w": {
+   "speaker": "broker",
+   "art": "disaster",
+   "text": [
+    "塢は一夜で焼け落ち、火は麓の里まで舐めた。焼け跡からは、逃げ遅れた{lord}の一族の骨が出たという。",
+    "{broker}は銭の山を前に、乾いた声で笑った。「頭たちは皆、明日には膝をつきに来る。恐れて、な。大帥に」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "xp": "theft",
+     "n": 8
+    },
+    {
+     "unflag": "sk_g4_inside"
+    },
+    {
+     "unflag": "sk_g4_alert"
+    },
+    {
+     "unflag": "sk_g4_allies"
+    },
+    {
+     "note": "{lord}の塢を一族ごと焼いて奪い、外道の大帥として一帯の一党を従えた。"
+    }
+   ],
+   "end": "焼け跡の大帥"
+  },
+  "win_plain": {
+   "speaker": "lord",
+   "art": "hideout",
+   "text": [
+    "{lord}は証文の束を見て、剣を取り落とした。役人たちに貸した銭が表に出れば、{lord}の家も役人たちの首も飛ぶ。「……年に粟千斛と銭百緡。それで黙っていてくれるなら」",
+    "{broker}が笑った。「塢を壊さずに、塢ごと手に入れたか。山寨の頭たちは、もうあんたを大帥としか呼ばん」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "money": 700
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "flag": "sk_g4_manor_tribute"
+    },
+    {
+     "unflag": "sk_g4_inside"
+    },
+    {
+     "unflag": "sk_g4_alert"
+    },
+    {
+     "unflag": "sk_g4_allies"
+    },
+    {
+     "note": "{lord}の弱みを握って塢ごと従わせ、一帯の一党を束ねる大帥となった。"
+    }
+   ],
+   "end": "塢ごと従える"
+  },
+  "win_hot": {
+   "speaker": "broker",
+   "art": "war",
+   "text": [
+    "山の砦に戻ったときには、夜が白んでいた。運び出せた銭は倉の一割にも満たない。それでも、あの塢を破って生きて帰った者はほかにいない。",
+    "{broker}は傷だらけの{player}の肩を叩いた。「荒い仕事だったが、塢を破ったのは事実だ。大帥の名は、あんたのものだ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "unflag": "sk_g4_inside"
+    },
+    {
+     "unflag": "sk_g4_alert"
+    },
+    {
+     "unflag": "sk_g4_allies"
+    },
+    {
+     "note": "斬り抜けて{lord}の塢を破り、大帥と呼ばれるようになった。"
+    }
+   ],
+   "end": "血路の大帥"
+  },
+  "fail_abort": {
+   "speaker": "broker",
+   "art": "hideout",
+   "text": [
+    "一党は手ぶらで隠れ家に戻った。{broker}は肩をすくめた。「塢は逃げん。見張りが緩むまで、名を上げ直しておけ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sk_g4_inside"
+    },
+    {
+     "unflag": "sk_g4_alert"
+    },
+    {
+     "unflag": "sk_g4_allies"
+    },
+    {
+     "note": "塢攻めを諦めて退いた。働きを重ねれば、また大仕事に挑める。"
+    }
+   ],
+   "end": "手ぶらの晦日"
+  },
+  "fail_caught": {
+   "art": "war",
+   "text": [
+    "戟に囲まれ、{player}は土塁の下に組み伏せられた。一党の者たちが騒ぎを起こした隙に縄を抜けて逃れたものの、顔も名も、{here:realm}の役人の帳面に刻まれた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "wanted": "here",
+     "n": 20
+    },
+    {
+     "unflag": "sk_g4_inside"
+    },
+    {
+     "unflag": "sk_g4_alert"
+    },
+    {
+     "unflag": "sk_g4_allies"
+    },
+    {
+     "note": "塢攻めにしくじり、{here:realm}のお尋ね者となった。働きを重ねれば、また大仕事に挑める。"
+    }
+   ],
+   "end": "土塁の下に倒れる"
+  }
+ }
+}

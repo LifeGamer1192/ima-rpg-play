@@ -1,0 +1,422 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_guild2",
+ "kind": "rank",
+ "guildTo": 2,
+ "title": "錦の帆",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "頭",
+   "sex": "m"
+  },
+  "captain": {
+   "npc": "鈴を下げた江賊の頭",
+   "sex": "m"
+  },
+  "merchant": {
+   "npc": "蜀錦の商人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で頭に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は酒を注ぎながら言った。「江を下ってきた江賊の一党が、{here}の渡し場に舟をつないでおる。腰に鈴を下げ、帆を錦で張る派手な連中だ。頭は{captain}という。鈴の音が聞こえたら、江の上の者は皆逃げるそうだ」",
+    "「三日後、{merchant}の荷舟が江を上る。蜀の錦を積んでおる。{captain}と組んで、その舟を取れ。手下を五人付ける。うまくやれば頭目だ」"
+   ],
+   "choices": [
+    {
+     "label": "渡し場へ{captain}を訪ねる",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の渡し場の市で{captain}に会う",
+   "speaker": "captain",
+   "art": "voyage",
+   "text": [
+    "渡し場の舟の上で、{captain}は錦の帆の綻びを繕わせていた。腰の鈴が、身じろぎするたびに鳴る。「陸の{bandit}と組めと？　わしらは江の掟で生きておる。通る舟から銭を取り、払わぬ舟だけを沈める。むやみに殺す連中とは違う」",
+    "舟の上の手下たちが、刀の柄に手をかけてこちらを見ている。"
+   ],
+   "choices": [
+    {
+     "label": "酒を酌み交わし、江の掟を聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "「腕で話そう」と、{captain}の手下と手合わせをする",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "手付けに銭を置く（60銭）",
+     "if": {
+      "money": 60
+     },
+     "effects": [
+      {
+       "money": -60
+      }
+     ],
+     "next": "s2ok"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "captain",
+   "text": [
+    "{captain}は針を置き、鈴を一つ外して{player}に放った。「舟の上では、わしの言うことを聞け。江の流れは、陸の者が思うより気まぐれだ」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_g2_captain"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "speaker": "captain",
+   "text": [
+    "{captain}は鼻で笑った。「陸の者は陸でやれ」それでも、古い小舟を一艘くらいは貸してやる、と言った。漕ぎ手は、一味の者がやるしかない。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "三日待ち、{here}の江で{merchant}の荷舟を待ち伏せる",
+   "wait": {
+    "days": 3
+   },
+   "art": "voyage",
+   "text": [
+    "朝霧の江を、{merchant}の荷舟がゆっくり上ってくる。舷に雇いの剣客が三人、刀を抱えて座っている。積荷は蜀の錦と、漆の器らしい。"
+   ],
+   "choices": [
+    {
+     "label": "鈴を鳴らし、錦の帆の舟で行く手を塞いで通行の銭を求める",
+     "if": {
+      "flag": "sk_g2_captain"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s4toll",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "葦の陰から泳ぎ寄り、夜のうちに舫い綱を切って舟を岸に寄せる",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s4board",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "舟の扱いに慣れた江東の者を選び、舳先を並べて取り囲む",
+     "if": {
+      "realm": [
+       "孫"
+      ]
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "s4board",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "舟を寄せて斬り込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4board",
+      "lose": "fail_sunk"
+     }
+    }
+   ]
+  },
+  "s3fight": {
+   "art": "war",
+   "text": [
+    "剣客の一人が気づいて叫んだ。刀が舷を薙ぐ。もう斬り合うしかない。"
+   ],
+   "choices": [
+    {
+     "label": "斬り結ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4board",
+      "lose": "fail_sunk"
+     }
+    },
+    {
+     "label": "舟を返して逃げる",
+     "next": "fail_ditch"
+    }
+   ]
+  },
+  "s4toll": {
+   "speaker": "merchant",
+   "art": "trade",
+   "text": [
+    "{merchant}は舷から身を乗り出し、袖で口元を隠した。「鈴の衆でございますな。通行の銭とあらば、払わぬとは申しませぬ。ただ、いかほどで」",
+    "{captain}が小声で言った。「ここで欲を張れば、ただの{bandit}だ。だが取れるものは取れ」"
+   ],
+   "choices": [
+    {
+     "label": "相応の銭を取り、鈴を一つ渡して通行の印とする",
+     "effects": [
+      {
+       "money": 120
+      }
+     ],
+     "next": "win_toll"
+    },
+    {
+     "label": "「この江を上り下りするたびに払え」と約定させる",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "win_contract",
+      "lose": "win_toll"
+     }
+    },
+    {
+     "label": "銭を受け取ったうえで、積荷も奪う",
+     "effects": [
+      {
+       "money": 200
+      },
+      {
+       "fame": -3
+      },
+      {
+       "wanted": "here",
+       "n": 6
+      }
+     ],
+     "next": "win_loot"
+    }
+   ]
+  },
+  "s4board": {
+   "speaker": "merchant",
+   "art": "war",
+   "text": [
+    "剣客たちは江へ落ち、舟は一味のものになった。{merchant}は帳面の箱を抱えて震えている。「積荷は差し上げます。命ばかりは。それに、この舟は州の役人にも納める品を積んでおります。取れば、ただでは済みませぬぞ」"
+   ],
+   "choices": [
+    {
+     "label": "積荷を根こそぎ奪い、{merchant}は岸に放り出す",
+     "effects": [
+      {
+       "money": 200
+      },
+      {
+       "wanted": "here",
+       "n": 8
+      }
+     ],
+     "next": "win_loot"
+    },
+    {
+     "label": "積荷の半ばで手を打ち、以後の通行の銭を約させる",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "win_contract",
+      "lose": "win_loot"
+     }
+    },
+    {
+     "label": "{merchant}を人質に取り、家から身代金を取る",
+     "effects": [
+      {
+       "money": 260
+      },
+      {
+       "fame": -4
+      },
+      {
+       "wanted": "here",
+       "n": 12
+      }
+     ],
+     "next": "win_loot"
+    }
+   ]
+  },
+  "win_toll": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "血を一滴も流さず、銭だけを取ってきた{player}を見て、{boss}は呆れたように笑った。「江賊の真似事か。だが、商人に恨まれん稼ぎは長続きする」",
+    "{captain}が戸口で鈴を鳴らした。「この男の下なら、わしらも働こう」{player}は頭目になった。"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "unflag": "sk_g2_captain"
+    },
+    {
+     "note": "{merchant}の荷舟から通行の銭を取り、一味の頭目となった。"
+    }
+   ],
+   "end": "鈴の通行"
+  },
+  "win_contract": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{merchant}の判を押した約定の木札を見て、{boss}は目を剝いた。「蜀錦の商人に、上り下りのたびの銭を約させたか。これは一度の荷より重いぞ」",
+    "{player}は頭目となり、江筋の銭の取り立てを任された。{captain}たち江賊も、その下に付いた。"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "flag": "sk_g2_river_toll"
+    },
+    {
+     "unflag": "sk_g2_captain"
+    },
+    {
+     "note": "{merchant}に通行の銭を約させ、江筋を預かる頭目となった。"
+    }
+   ],
+   "end": "江の関"
+  },
+  "win_loot": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の客舎の裏で頭に報告する",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は錦の反物と漆の器を前に上機嫌だった。「上々だ。今日から頭目と名乗れ」",
+    "ただ、{captain}は分け前を受け取ると、黙って渡し場へ帰っていった。江の掟は、陸の{bandit}には通じなかったらしい。"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "unflag": "sk_g2_captain"
+    },
+    {
+     "note": "{merchant}の荷舟を奪い、一味の頭目となった。"
+    }
+   ],
+   "end": "荷舟を奪う"
+  },
+  "fail_sunk": {
+   "art": "war",
+   "text": [
+    "舟が傾き、{player}は冷たい江に投げ出された。どうにか岸に這い上がったときには、荷舟はとうに上流へ消えていた。手下が二人、戻らなかった。{boss}は「頭目はまだ早い」と言った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "wanted": "here",
+     "n": 5
+    },
+    {
+     "unflag": "sk_g2_captain"
+    },
+    {
+     "note": "荷舟を襲い損ねた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "江に沈む"
+  },
+  "fail_ditch": {
+   "art": "voyage",
+   "text": [
+    "舟を返して葦の中に逃げ込んだ。荷舟は何事もなかったように江を上っていった。{boss}は「臆病な手下に、頭目は務まらん」と吐き捨てた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sk_g2_captain"
+    },
+    {
+     "note": "荷舟を前に退いた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "葦の中"
+  }
+ }
+}

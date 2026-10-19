@@ -1,0 +1,480 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_rank5_shogun",
+ "kind": "rank",
+ "rankTo": 5,
+ "title": "降将を説く",
+ "era": "sangoku",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "enemy": {
+   "realm": "enemy:patron"
+  },
+  "egen": {
+   "person": "general:enemy"
+  },
+  "town": {
+   "place": "border:patron"
+  },
+  "rival": {
+   "npc": "古参の将軍",
+   "sex": "m"
+  },
+  "mother": {
+   "npc": "守将の老母",
+   "sex": "f"
+  },
+  "envoy": {
+   "npc": "城から出てきた軍吏",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府で昇進を願い出る",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "軍議の席で、{ruler}が言った。「{town}の城に、{enemy}の{egen}が籠もって三月になる。城は小さいが、あの男が守ると落ちぬ。城だけを取っても、{egen}を逃せば同じことが別の城で起きる」",
+    "古参の{rival}が鼻を鳴らした。「中郎将どのに任せるより、わしが一気に攻め落としましょう」{ruler}は{player}を見た。「将軍の印を与えるかどうかは、そなたが{egen}をどうするかで決める」"
+   ],
+   "choices": [
+    {
+     "label": "「城より先に人を取ります」と、{egen}を降すと請け負う",
+     "next": "s2"
+    },
+    {
+     "label": "「まず城を締め上げ、そのうえで降伏を説きます」と献策する",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "s2",
+      "lose": "s1ng"
+     }
+    }
+   ]
+  },
+  "s1ng": {
+   "speaker": "rival",
+   "text": [
+    "「締め上げる間に{enemy}の援軍が来る」{rival}の声に何人かが頷いた。{ruler}は手を上げた。「十日だけやる。それで降らねば、{rival}に攻めさせる」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r5_hurry"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{town}へ出陣し、城を囲む",
+   "art": "war",
+   "text": [
+    "{town}の城壁は低いが、壁の上の兵の動きに乱れがない。夜も篝火が絶えず、弩の矢倉が四隅を睨んでいる。{egen}の旗は、城門の上で風を受けていた。",
+    "{egen}を降すには、何がこの男を城に縛っているのかを知らねばならない。"
+   ],
+   "choices": [
+    {
+     "label": "捕らえた城の兵から、{egen}の身の上を聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s2mother",
+      "lose": "s2none"
+     }
+    },
+    {
+     "label": "夜陰に紛れて城の水門に近づき、城内の様子を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 42,
+      "win": "s2men",
+      "lose": "s2none"
+     }
+    },
+    {
+     "label": "城の周りに長い塁を築き、糧道を断つ",
+     "check": {
+      "skill": "letters",
+      "dc": 42,
+      "win": "s2men",
+      "lose": "s2none"
+     }
+    },
+    {
+     "label": "江を封じる舟を並べ、城への舟の出入りを止める",
+     "if": {
+      "realm": [
+       "孫"
+      ]
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 36,
+      "win": "s2men",
+      "lose": "s2none"
+     }
+    }
+   ]
+  },
+  "s2mother": {
+   "at": {
+    "place": "town",
+    "building": "house"
+   },
+   "speaker": "mother",
+   "art": "tale",
+   "text": [
+    "捕らえた兵の話では、{egen}の老母が城外の里に住んでいるという。訪ねてみると、白髪の{mother}が機を織っていた。",
+    "「あの子は、恩を受けた主に背けぬだけの子です。けれど、城の兵が飢えて死ぬのを見るのは、恩よりつらいでしょう」{mother}は織りかけの布を切り、{player}に渡した。「これを見せてやってください」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r5_mother"
+    },
+    {
+     "note": "{egen}の老母{mother}から、織りかけの布を預かった。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2men": {
+   "text": [
+    "城の蔵は、もう半ば空らしい。兵は一日一食に減らされ、{egen}も兵と同じ粥をすすっているという。城の者たちは{egen}を慕っているが、その{egen}の心を重くしているのも、兵の命だ。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r5_men"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2none": {
+   "text": [
+    "城は固く、何も漏れてこない。手がかりのないまま、日が過ぎていく。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "数日待ち、{town}の城門の下で{egen}と言葉を交わす",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "egen",
+   "art": "war",
+   "text": [
+    "城門の上に、{egen}が姿を見せた。鎧は傷だらけだが、声はよく通った。「{patron}の将よ。降れと言いに来たのなら、無駄だ。わしは{enemy}の恩を受けた。恩に背いて生きるより、城と死ぬ」"
+   ],
+   "choices": [
+    {
+     "label": "老母から預かった布を掲げ、母の言葉を伝える",
+     "if": {
+      "flag": "sk_r5_mother"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s4yield",
+      "lose": "s3cold"
+     }
+    },
+    {
+     "label": "「城の兵を飢え死にさせるのが、恩に報いる道か」と説く",
+     "if": {
+      "flag": "sk_r5_men"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s4yield",
+      "lose": "s3cold"
+     }
+    },
+    {
+     "label": "「降れば兵も官も今のまま、そなたの手に残す」と約す",
+     "check": {
+      "skill": "speech",
+      "dc": 48,
+      "win": "s4yield",
+      "lose": "s3cold"
+     }
+    },
+    {
+     "label": "「ならば将と将、一騎で決めよう」と城門の前に誘い出す",
+     "fight": {
+      "foes": "person",
+      "who": "egen",
+      "n": 1,
+      "level": 0,
+      "confirm": "{egen}は名のある将だ。一騎打ちで敗れれば、命も危うい。",
+      "cancel": "s3",
+      "win": "s4duel",
+      "lose": "s3cold"
+     }
+    }
+   ]
+  },
+  "s3cold": {
+   "speaker": "rival",
+   "art": "war",
+   "text": [
+    "{egen}は城壁の上から姿を消した。陣に戻ると、{rival}が待っていた。「口では降らぬ男よ。明朝、わしの兵で攻めかかる。おぬしは見ておれ」"
+   ],
+   "choices": [
+    {
+     "label": "{rival}より先に、己の兵で城門を破る",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "s4storm",
+      "lose": "fail_siege"
+     }
+    },
+    {
+     "label": "{rival}に攻めを任せる",
+     "next": "fail_siege"
+    }
+   ]
+  },
+  "s4yield": {
+   "speaker": "envoy",
+   "art": "court",
+   "text": [
+    "翌朝、城門が細く開き、{egen}の軍吏{envoy}が出てきた。「将軍は城を開きます。ただ、二つだけお願いがある。兵を一人も斬らぬこと。そして将軍を、{enemy}と戦う先鋒には立てぬこと」"
+   ],
+   "choices": [
+    {
+     "label": "二つとも受け入れ、{egen}を客将として迎える",
+     "next": "s5trust"
+    },
+    {
+     "label": "受け入れつつ、{egen}の兵だけは分けて、己の下に置く",
+     "next": "s5watch"
+    }
+   ]
+  },
+  "s4duel": {
+   "speaker": "egen",
+   "art": "duel",
+   "text": [
+    "{egen}の戟が地に落ちた。{player}は切っ先を下ろした。{egen}は膝をついたまま笑った。「討たぬのか……。一騎で負けて城に戻るのは、将の恥だ。城を開こう。兵を頼む」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    }
+   ],
+   "next": "s5trust"
+  },
+  "s4storm": {
+   "art": "war",
+   "text": [
+    "城門が破れ、{patron}の兵がなだれ込んだ。{egen}は最後まで城門の楼に立って戦い、手傷を負って捕らえられた。縄を解けと言う{player}に、{rival}は不満げだった。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_r5_stormed"
+    }
+   ],
+   "next": "s5watch"
+  },
+  "s5trust": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{egen}を連れて{cap}の州府に凱旋する",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は自ら堂を下りて{egen}を迎え、その手を取った。「良き将は、敵にあっても惜しい。よく来た」",
+    "{rival}が苦い顔で言った。「降将を手厚く遇すれば、いずれ背かれまするぞ」"
+   ],
+   "choices": [
+    {
+     "label": "「背かせぬだけの恩を、わたしが返します」と請け負う",
+     "next": "win_trust"
+    },
+    {
+     "label": "{rival}の言にも理があると認め、{egen}に目付を付ける",
+     "next": "win_watch"
+    }
+   ]
+  },
+  "s5watch": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{egen}を連れて{cap}の州府に凱旋する",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は捕らえられた{egen}を見下ろし、それから{player}を見た。「城と将、両方を取ったか。この将をどうする」"
+   ],
+   "choices": [
+    {
+     "label": "{egen}の兵を分けて、{egen}を目付の下に置く",
+     "next": "win_watch"
+    },
+    {
+     "label": "{egen}の縄を解き、すべてを任せて客将とする",
+     "if": {
+      "notFlag": "sk_r5_stormed"
+     },
+     "next": "win_trust"
+    },
+    {
+     "label": "城を開かせた功を立て、{egen}の旧主への義理も重んじるよう説く",
+     "if": {
+      "flag": "sk_r5_stormed"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "win_trust",
+      "lose": "win_watch"
+     }
+    }
+   ]
+  },
+  "win_trust": {
+   "speaker": "egen",
+   "text": [
+    "{egen}は{player}の前に膝をついた。「この命は二度救われた。一度は母の、一度はあなたの手で。あなたの麾下で戦わせていただく」",
+    "{ruler}は{player}を将軍に任じた。{town}の兵たちは、{egen}とともにそのまま{player}の軍に加わった。"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 15
+    },
+    {
+     "fame": 6
+    },
+    {
+     "flag": "led_troops"
+    },
+    {
+     "flag": "sk_r5_egen_owes"
+    },
+    {
+     "rep": "enemy",
+     "n": -5
+    },
+    {
+     "unflag": "sk_r5_hurry"
+    },
+    {
+     "unflag": "sk_r5_mother"
+    },
+    {
+     "unflag": "sk_r5_men"
+    },
+    {
+     "unflag": "sk_r5_stormed"
+    },
+    {
+     "note": "{town}の守将{egen}を降して迎え入れ、将軍となった。"
+    }
+   ],
+   "end": "降将の誓い"
+  },
+  "win_watch": {
+   "speaker": "minister",
+   "text": [
+    "{egen}の兵は分けられ、{egen}には目付が付いた。{minister}は{player}に言った。「降将を信じすぎぬのも、将軍の器量だ。だが、信じられぬ者は、本気では戦わぬぞ」",
+    "{player}は将軍となった。"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 4
+    },
+    {
+     "flag": "led_troops"
+    },
+    {
+     "unflag": "sk_r5_hurry"
+    },
+    {
+     "unflag": "sk_r5_mother"
+    },
+    {
+     "unflag": "sk_r5_men"
+    },
+    {
+     "unflag": "sk_r5_stormed"
+    },
+    {
+     "note": "{town}の城を取り、守将{egen}を降して将軍となった。"
+    }
+   ],
+   "end": "目付の付いた降将"
+  },
+  "fail_siege": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の州府に戻り、城攻めの次第を報じる",
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "城は{rival}の力攻めで落ちたが、{egen}は乱戦の中で城を脱し、{enemy}へ逃げ帰った。{rival}が堂で言い放った。「口で城を取ると申した者がおったな」{ruler}は何も言わなかった。中郎将として務めを重ねるほかない。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "sk_r5_hurry"
+    },
+    {
+     "unflag": "sk_r5_mother"
+    },
+    {
+     "unflag": "sk_r5_men"
+    },
+    {
+     "unflag": "sk_r5_stormed"
+    },
+    {
+     "note": "{egen}を降せなかった。覚えを取り戻せば、また願い出られる。"
+    }
+   ],
+   "end": "逃げた将"
+  }
+ }
+}
