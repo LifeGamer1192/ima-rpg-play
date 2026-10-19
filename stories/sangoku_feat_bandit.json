@@ -1,0 +1,226 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_feat_bandit",
+ "kind": "feat",
+ "feat": "bandit",
+ "title": "天下の大盗",
+ "era": "sangoku",
+ "trigger": {
+  "guildRank": 4,
+  "notFeat": "bandit"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "elder": {
+   "npc": "一味の古老",
+   "sex": "m"
+  },
+  "keeper": {
+   "npc": "庫の番人",
+   "sex": "m"
+  }
+ },
+ "start": "b1",
+ "scenes": {
+  "b1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏部屋で、一味の古老に会う",
+   "speaker": "elder",
+   "art": "backroom",
+   "text": [
+    "{elder}は灯を細くした。「大帥よ。この世でまだ誰も盗んでおらぬ物が一つある。{power}の州府の庫の奥、天命を受けた者の印と噂される玉の璽だ」",
+    "「天子の印に並ぶと言われる玉よ。あれを抜いた者は、ただの盗人ではない。天下の大盗と呼ばれる」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "next": "b2"
+    }
+   ]
+  },
+  "b2": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の市で、州府の様子を探る",
+   "art": "trade",
+   "text": [
+    "州府の周りには、昼も夜も兵が見回っている。庫は正堂の奥、版築の厚い壁に囲まれた石の室だという。"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れて壁を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 75,
+      "win": "b3",
+      "lose": "b2ng"
+     }
+    },
+    {
+     "label": "{keeper}に近づき、酒で口を軽くする",
+     "check": {
+      "skill": "speech",
+      "dc": 75,
+      "win": "b3",
+      "lose": "b2ng"
+     }
+    }
+   ]
+  },
+  "b2ng": {
+   "art": "war",
+   "text": [
+    "見回りの兵に見咎められた。「何者か！」"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 66,
+      "win": "b3",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "b3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}の庫に忍び込む",
+   "art": "hideout",
+   "text": [
+    "月のない夜、庫の扉の前に立った。三重の錠、鈴を付けた糸、眠らぬ番犬。そのすべての奥に、玉の璽がある。"
+   ],
+   "choices": [
+    {
+     "label": "錠を外し、糸をくぐる",
+     "check": {
+      "skill": "theft",
+      "dc": 85,
+      "win": "b4",
+      "lose": "b3alarm"
+     }
+    }
+   ]
+  },
+  "b3alarm": {
+   "art": "war",
+   "text": [
+    "鈴が鳴った。州府じゅうに太鼓が響き渡る。璽はもう懐の中にある。あとは、生きて出るだけだ。"
+   ],
+   "choices": [
+    {
+     "label": "押し寄せる兵を斬り払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 74,
+      "win": "b4",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "b4": {
+   "art": "road",
+   "text": [
+    "城門は閉ざされ、街道には早馬が走った。{capital}から逃れねばならない。"
+   ],
+   "choices": [
+    {
+     "label": "濠の水門をくぐって城外へ",
+     "check": {
+      "skill": "stealth",
+      "dc": 78,
+      "win": "bwin",
+      "lose": "b4fight"
+     }
+    },
+    {
+     "label": "夜明けの城門を、行商に化けて抜ける",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "bwin",
+      "lose": "b4fight"
+     }
+    }
+   ]
+  },
+  "b4fight": {
+   "art": "war",
+   "text": [
+    "見つかった。追っ手が迫る。"
+   ],
+   "choices": [
+    {
+     "label": "追っ手を振り切る",
+     "fight": {
+      "foes": "soldier",
+      "n": 5,
+      "level": 76,
+      "win": "bwin",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "bwin": {
+   "art": "hideout",
+   "text": [
+    "朝日の中で、{player}は掌の璽を眺めた。刻まれた八つの文字の奥に、天下の欲がすべて映っているように見えた。",
+    "その日から、{power}の主は眠れぬ夜を過ごし、裏の世界は一つの名を畏れを込めて囁くようになった。"
+   ],
+   "effects": [
+    {
+     "money": 50000
+    },
+    {
+     "fame": 15
+    },
+    {
+     "wanted": "capital",
+     "n": 40
+    },
+    {
+     "feat": "bandit"
+    }
+   ],
+   "end": "天下の大盗"
+  },
+  "bfail": {
+   "art": "jail",
+   "text": [
+    "深手を負い、何も持たずに闇へ逃れた。{power}は州じゅうに触れを出した。……傷が癒えたら、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -50
+    },
+    {
+     "wanted": "capital",
+     "n": 50
+    }
+   ],
+   "end": "大盗ならず"
+  }
+ }
+}

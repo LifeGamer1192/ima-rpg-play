@@ -1,0 +1,720 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_xiapi",
+ "kind": "history",
+ "title": "白門楼",
+ "era": "sangoku",
+ "event": "xiapi",
+ "lead": 6,
+ "before": [
+  "s1",
+  "s2",
+  "s2b",
+  "s2go",
+  "s2no",
+  "s3",
+  "s3b",
+  "s3hold",
+  "s3ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "xiapi"
+  },
+  "camp": {
+   "scnPlace": "pengcheng"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "xu": {
+   "scnRealm": "taoqian"
+  },
+  "caocao": {
+   "person": "ruler:cao"
+  },
+  "lubu": {
+   "scnPerson": "呂布"
+  },
+  "chengong": {
+   "scnPerson": "陳宮"
+  },
+  "gaoshun": {
+   "scnPerson": "高順"
+  },
+  "zhangliao": {
+   "scnPerson": "張遼"
+  },
+  "liubei": {
+   "scnPerson": "劉備"
+  },
+  "guojia": {
+   "scnPerson": "郭嘉"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}で、城の噂を聞く",
+   "speaker": "泗水の塩商人",
+   "art": "inn",
+   "text": [
+    "{city}の{inn}では、塩商人たちが荷をまとめていた。「{caocao}の大軍が{camp}を落とした。次はここだ」",
+    "「{lubu}さまは毎晩酒を飲んで、奥方の言うことしか聞かない。参謀の{chengong}さまが何を献じても、首を縦に振らないそうだ。城では兵を集めているが、曹軍の陣でも人足を集めてる。……どっちに付くにしても、早く決めたほうがいい」"
+   ],
+   "choices": [
+    {
+     "label": "{city}の城に雇われる",
+     "effects": [
+      {
+       "flag": "h_xp_city"
+      },
+      {
+       "note": "{caocao}の軍が迫っている。{city}の城に雇われた。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "{camp}の曹操の陣へ行く",
+     "effects": [
+      {
+       "flag": "h_xp_cao"
+      },
+      {
+       "note": "{caocao}の軍が{city}に迫っている。{camp}の陣へ行くことにした。"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の{barracks}で、守りにつく",
+   "speaker": "gaoshun",
+   "art": "camp",
+   "text": [
+    "城の{barracks}を仕切っていたのは、{gaoshun}という寡黙な将だった。率いる七百の兵は「陥陣営」と呼ばれ、攻めて落とせぬ陣はないという。",
+    "「わしの兵は酒を飲まぬ」{gaoshun}は言った。「だが、殿は飲む。わしが禁酒を勧めると、殿はわしの兵を取り上げて{zhangliao}に預けた。……策を出すのは{chengong}どのだ。城を守る気があるなら、あの方に会え」"
+   ],
+   "next": "s2b"
+  },
+  "s2b": {
+   "at": {
+    "place": "city",
+    "building": "office"
+   },
+   "goal": "{city}の{office}で、{chengong}に会う",
+   "speaker": "chengong",
+   "art": "court",
+   "text": [
+    "{chengong}は痩せた中年の男で、机の上には城の絵図が何枚も広げられていた。",
+    "「策はある。殿が騎兵を率いて城の外に出て、曹軍の糧道を脅かす。わしが城を守る。曹操が城を攻めれば殿が背を突き、殿を攻めればわしが城から出る。掎角の勢というものだ」",
+    "「だが殿は、奥方に『陳宮を信じて城を任せれば、わたしはもう殿の顔を見られなくなる』と泣かれて、それきり動かぬ」{chengong}は苦く笑った。「奥方を説ける者がおれば、話は別なのだがな」"
+   ],
+   "choices": [
+    {
+     "label": "奥方に目通りを願い、策を通してもらうよう説く",
+     "turn": true,
+     "guide": "奥向きに口を出す。しくじれば殿の不興を買う",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s2go",
+      "lose": "s2no"
+     }
+    },
+    {
+     "label": "城壁の守りにつく",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s2go": {
+   "speaker": "lubu",
+   "art": "court",
+   "text": [
+    "奥方は長いあいだ黙っていたが、やがて{lubu}を呼び、「城の外におられれば、殿は誰にも負けませぬ」と言った。",
+    "{lubu}は赤い馬の鬣を撫でながら笑った。「女房に言われては仕方がない。{chengong}、城は任せた。わしは外で曹操の兵糧を焼いてくる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_xp_out"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{lubu}の奥方を説き、{chengong}の策を通した。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2no": {
+   "speaker": "lubu",
+   "text": [
+    "奥方は泣き出し、{lubu}は{player}を睨みつけた。「わしの家のことに口を出すな」{player}は城壁の守りに回された。"
+   ],
+   "next": "aftergo"
+  },
+  "s3": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の{barracks}で、曹軍の人足に雇われる",
+   "speaker": "guojia",
+   "art": "camp",
+   "text": [
+    "曹軍の陣では、兵が疲れた顔をしていた。冬の城攻めは三月に及び、引き上げようという声も出ていたという。",
+    "若い参謀の{guojia}が、酒臭い息で{player}に言った。「引き上げるなどもったいない。沂水と泗水を堰き止めて、城を水に沈めればよいのだ。{lubu}は勇ましいが、謀がない。水に浸かれば、部下のほうが先に音を上げる」",
+    "{player}は、ひと月のあいだ堤を築く土を運んだ。"
+   ],
+   "effects": [
+    {
+     "money": 80
+    }
+   ],
+   "next": "s3b"
+  },
+  "s3b": {
+   "at": {
+    "place": "camp",
+    "building": "palace"
+   },
+   "goal": "{camp}の本陣で、{liubei}に会う",
+   "speaker": "liubei",
+   "art": "court",
+   "text": [
+    "本陣の片隅に、客将の{liubei}がいた。{lubu}に徐州を奪われ、妻子まで捕らわれていた男である。耳が大きく、腕が長い。物静かだが、目だけは笑っていなかった。",
+    "「{lubu}が降れば、曹公は迷われるだろう。あの武勇は惜しい」{liubei}はつぶやいた。「だが、あの男は丁原を斬り、董卓を斬った。主を二度殺した男を、三度目の主が飼えるものか」"
+   ],
+   "choices": [
+    {
+     "label": "「かつて轅門で戟を射て、あなたを救ったのは{lubu}です」と、口を閉ざすよう説く",
+     "turn": true,
+     "guide": "劉備の恨みに口を挟む。説けねば曹操の陣にいづらくなる",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s3hold",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "黙って頭を下げ、辞する",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s3hold": {
+   "speaker": "liubei",
+   "text": [
+    "{liubei}は目を閉じた。紀霊の大軍に囲まれたとき、{lubu}が轅門に戟を立て、百五十歩の先からその小枝を射抜いて戦をやめさせたことがあった。",
+    "「……恩は恩だ」{liubei}は長い息をついた。「曹公が問われても、わしは何も言わぬ。あとは天が決めることだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_xp_word"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{liubei}に、{lubu}の命を断つ言葉を控えるよう説いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3ng": {
+   "speaker": "liubei",
+   "text": [
+    "「恩か」{liubei}は笑った。「わしの妻子を捕らえ、徐州を奪ったのも、あの男だ」それきり、{liubei}は{player}と目を合わせようとしなかった。"
+   ],
+   "effects": [
+    {
+     "rep": "cao",
+     "n": -3
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、城の行く末を見届ける",
+   "wait": {
+    "settled": "xiapi"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "xp_out"
+     },
+     "next": "out"
+    },
+    {
+     "if": {
+      "branch": "xp_spared"
+     },
+     "next": "spared"
+    },
+    {
+     "if": {
+      "flag": "h_xp_city"
+     },
+     "next": "inside"
+    },
+    {
+     "next": "tower"
+    }
+   ]
+  },
+  "out": {
+   "speaker": "chengong",
+   "art": "war",
+   "text": [
+    "水に浸かった{city}は、ついに落ちた。だが{lubu}は城の中にいなかった。赤い馬に乗った男は千騎を率いて曹軍の糧道を荒らし回り、城が落ちると聞くや、そのまま南の淮水へ駆け去った。",
+    "城を守りきれなかった{gaoshun}は斬られた。{chengong}は城の裏門から{player}とともに落ちのびた。「城は落ちた。だが、殿は生きている。策というものは、半分当たれば上出来だ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "cao",
+     "n": -10
+    },
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    },
+    {
+     "note": "{city}は落ちたが、{lubu}と{chengong}は南へ落ちのびた。"
+    }
+   ],
+   "end": "淮水へ駆ける赤い馬"
+  },
+  "spared": {
+   "speaker": "caocao",
+   "art": "court",
+   "text": [
+    "白門楼の上で、縄を打たれた{lubu}が「きつすぎる、少し緩めてくれ」と言った。{caocao}は笑った。「虎を縛るのだ、きつくせねばなるまい」",
+    "{caocao}は{liubei}を振り返った。{liubei}は目を伏せ、何も言わなかった。{caocao}はしばらく考え、それから縄を解かせた。「わしの騎兵を預ける。天下の騎将を斬るのは惜しい」",
+    "{chengong}は命乞いをせず、老母を頼むと言い残して斬られた。{gaoshun}も、一言も発さずに首を差し出した。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    },
+    {
+     "note": "{city}が落ち、{lubu}は{caocao}に降って許された。"
+    }
+   ],
+   "end": "解かれた縄"
+  },
+  "inside": {
+   "speaker": "zhangliao",
+   "art": "war",
+   "text": [
+    "水は城の中にまで入り込んだ。兵は飢え、将の侯成・宋憲・魏続が{chengong}を縛り、城門を開いた。白門楼に追い詰められた{lubu}は、自ら降った。",
+    "城壁の上で、{zhangliao}が{player}に言った。「わしは降る。高順どのは降らぬだろう。……おぬしはどうする」"
+   ],
+   "choices": [
+    {
+     "label": "{gaoshun}と共に最後まで戦う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_gao",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "{zhangliao}と共に降る",
+     "next": "end_zhang"
+    },
+    {
+     "label": "城壁を伝って水の中へ逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_flee",
+      "lose": "end_taken"
+     }
+    }
+   ]
+  },
+  "tower": {
+   "speaker": "caocao",
+   "art": "court",
+   "text": [
+    "白門楼の上で、縄を打たれた{lubu}が「きつすぎる、少し緩めてくれ」と言った。{caocao}は笑った。「虎を縛るのだ、きつくせねばなるまい」",
+    "{lubu}は{liubei}を見た。「玄徳、おぬしは上座の客、わしは縛られた囚人だ。一言、口添えしてくれぬか」{liubei}は静かに{caocao}に言った。「明公は、丁原と董卓のことをお忘れか」",
+    "{caocao}は頷いた。{lubu}は「大耳の小僧め、一番信用ならぬのは貴様だ」と叫びながら引き立てられていった。"
+   ],
+   "choices": [
+    {
+     "label": "{chengong}の老母と妻子を引き取る役を申し出る",
+     "next": "end_mother"
+    },
+    {
+     "label": "斬られる首を見届ける",
+     "next": "end_watch"
+    }
+   ]
+  },
+  "end_gao": {
+   "speaker": "gaoshun",
+   "text": [
+    "{gaoshun}と並んで城門の内を三度守ったが、四度目に門は破られた。{gaoshun}は「行け」と言い、{player}を濠へ突き落とした。",
+    "岸に這い上がったとき、白門楼の上に三つの首が並んでいた。{gaoshun}のものも、その中にあった。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    },
+    {
+     "note": "{city}が落ち、{lubu}・{chengong}・{gaoshun}が斬られた。最後まで城を守った。"
+    }
+   ],
+   "end": "陥陣営の最後"
+  },
+  "end_taken": {
+   "text": [
+    "{player}も縄を打たれた。だが名もない雇われ兵の首を、{caocao}は欲しがらなかった。三日後、{player}は縄を解かれ、城の外へ放り出された。白門楼には、三つの首が並んでいた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    },
+    {
+     "note": "{city}が落ち、{lubu}が斬られた。捕らえられたが放たれた。"
+    }
+   ],
+   "end": "名もない捕虜"
+  },
+  "end_zhang": {
+   "speaker": "zhangliao",
+   "text": [
+    "{zhangliao}は兵をまとめて城門を開き、{caocao}の前に膝をついた。{caocao}は{zhangliao}を見るなり、その縄を自ら解いた。",
+    "「おぬしも来い」{zhangliao}は{player}に言った。「生きていれば、またどこかで戟を振るえる」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    },
+    {
+     "note": "{city}が落ち、{lubu}が斬られた。{zhangliao}と共に曹操に降った。"
+    }
+   ],
+   "end": "降将の戟"
+  },
+  "end_flee": {
+   "text": [
+    "城壁の陰を伝い、水の中を泳いで囲みを抜けた。振り返ると、白門楼に曹の旗が上がっていた。{lubu}が斬られたと知ったのは、三日後のことだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    },
+    {
+     "note": "{city}が落ち、{lubu}が斬られた。水を泳いで城を逃れた。"
+    }
+   ],
+   "end": "水の中の城"
+  },
+  "end_mother": {
+   "speaker": "caocao",
+   "text": [
+    "{chengong}は命乞いをせず、「老母と妻子のことは明公にお任せする」とだけ言って刑場へ歩いていった。{caocao}は泣いて見送った。",
+    "{caocao}は{player}に、{chengong}の老母を許の屋敷まで送り届けるよう命じた。老母は道中、一度も泣かなかった。「あの子は、主を選び損ねただけです」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    },
+    {
+     "note": "{city}が落ち、{lubu}・{chengong}が斬られた。{chengong}の老母を送り届けた。"
+    }
+   ],
+   "end": "陳宮の老母"
+  },
+  "end_watch": {
+   "text": [
+    "白門楼の下に、{lubu}と{chengong}と{gaoshun}の首が並んだ。天下に並ぶ者なしと言われた男の首は、思っていたよりも小さかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    },
+    {
+     "note": "{city}が落ち、{lubu}が斬られるのを見届けた。"
+    }
+   ],
+   "end": "縄がきつい"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "xp_out"
+     },
+     "next": "late_out"
+    },
+    {
+     "if": {
+      "branch": "xp_spared"
+     },
+     "next": "late_spared"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_out": {
+   "text": [
+    "旅の途中で噂を聞いた。{city}は水攻めで落ちたが、{lubu}は城の外にいて、そのまま南へ落ちのびたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_spared": {
+   "text": [
+    "旅の途中で噂を聞いた。{city}で降った{lubu}を、{caocao}は斬らずに騎兵の将にしたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。{caocao}が{city}を水攻めにし、部下に縛られて降った{lubu}を、{liubei}の一言で斬ったという。",
+    "「人中の呂布、馬中の赤兎、か。人のほうが先に死んだな」と、宿の博労が言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xp_city"
+    },
+    {
+     "unflag": "h_xp_out"
+    },
+    {
+     "unflag": "h_xp_word"
+    },
+    {
+     "unflag": "h_xp_cao"
+    },
+    {
+     "note": "{city}が落ち、{lubu}が斬られたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "xp_out",
+   "event": "xiapi",
+   "order": 2,
+   "why": "主人公が呂布の奥方を説き、陳宮の策が通った",
+   "when": {
+    "flag": "h_xp_out"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_cao}は下邳を水攻めにした。だが[[p:呂布]]は[[p:陳宮]]の策に従って騎兵を率いて城の外にあり、曹軍の糧道を荒らした。城は落ちて[[p:高順]]は斬られたが、呂布と陳宮は南の淮水へ落ちのびた。",
+    "do": [
+     [
+      "dies",
+      "高順",
+      "executed"
+     ],
+     [
+      "annex",
+      "cao",
+      "taoqian"
+     ]
+    ],
+    "imp": 3,
+    "at": "xiapi"
+   },
+   "people": [
+    {
+     "spare": "陳宮",
+     "years": 4
+    }
+   ]
+  },
+  {
+   "id": "xp_spared",
+   "event": "xiapi",
+   "order": 1,
+   "why": "主人公が劉備に呂布の恩を思い出させた",
+   "when": {
+    "flag": "h_xp_word"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_cao}は下邳を水攻めにした。部下に縛り上げられて降った[[p:呂布]]を、[[p:曹操]]は斬らずに騎兵の将とした。[[p:劉備]]は口を閉ざしていた。[[p:陳宮]]と[[p:高順]]は斬られた。",
+    "do": [
+     [
+      "dies",
+      "陳宮",
+      "executed"
+     ],
+     [
+      "dies",
+      "高順",
+      "executed"
+     ],
+     [
+      "annex",
+      "cao",
+      "taoqian"
+     ]
+    ],
+    "imp": 3,
+    "at": "xiapi"
+   }
+  }
+ ]
+}

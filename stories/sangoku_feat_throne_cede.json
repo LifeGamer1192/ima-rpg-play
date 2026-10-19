@@ -1,0 +1,262 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_feat_throne_cede",
+ "kind": "feat",
+ "feat": "career",
+ "title": "禅譲",
+ "era": "sangoku",
+ "trigger": {
+  "patron": true,
+  "bySize": {
+   "realm": "patron",
+   "rank": [
+    4,
+    6,
+    7
+   ]
+  },
+  "king": false,
+  "notFeat": "career"
+ },
+ "cast": {
+  "power": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "elder": {
+   "npc": "宗族の長老",
+   "sex": "m"
+  },
+  "general": {
+   "person": "general:power"
+  }
+ },
+ "start": "c1",
+ "scenes": {
+  "c1": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、{ruler}の内意を聞く",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "人払いをした奥の堂で、{ruler}は疲れた声で言った。「わしの子らは、この乱世を背負うには器が足らぬ。堯は舜に位を譲った。血筋だけで天命は保てぬ」",
+    "「{player}、そなたに位を譲りたい。だが、宗族も将たちも、黙ってはおるまい」"
+   ],
+   "choices": [
+    {
+     "label": "三度辞したうえで、謹んでお受けする",
+     "next": "c2"
+    },
+    {
+     "label": "今はまだその時ではない、と辞する",
+     "next": "cdecline"
+    }
+   ]
+  },
+  "c2": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、宗族の者たちを説き伏せる",
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "{elder}は笏で床を打った。「姓の異なる者に、家の印綬を渡すと申すか。祖宗がお許しにならぬ」宗族の者たちが、一斉にこちらを睨んだ。"
+   ],
+   "choices": [
+    {
+     "label": "堯舜の禅譲の古例を引いて説く",
+     "check": {
+      "skill": "letters",
+      "dc": 68,
+      "scale": "power",
+      "win": "c3",
+      "lose": "c2ng"
+     }
+    },
+    {
+     "label": "宗族に封邑を約して、一人ずつ口説く",
+     "check": {
+      "skill": "speech",
+      "dc": 70,
+      "scale": "power",
+      "win": "c3",
+      "lose": "c2ng"
+     }
+    }
+   ]
+  },
+  "c2ng": {
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "宗族は首を縦に振らない。銭で黙らせる手もあるが、それは後々まで尾を引くだろう。"
+   ],
+   "choices": [
+    {
+     "label": "宗族に莫大な贈り物をする（30000）",
+     "if": {
+      "money": 30000
+     },
+     "effects": [
+      {
+       "money": -30000
+      },
+      {
+       "fame": -5
+      }
+     ],
+     "next": "c3"
+    },
+    {
+     "label": "今は退く",
+     "next": "cfail"
+    }
+   ]
+  },
+  "c3": {
+   "at": {
+    "place": "capital",
+    "building": "barracks"
+   },
+   "goal": "{capital}の{barracks}で、将軍{general}の心を掴む",
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "{general}は腕を組んだまま動かない。「兵は印綬に従うのではない。己を勝たせる将に従う。そなたにその器があるか、見せてもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "兵法を語り、次の戦の勝ち筋を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 72,
+      "scale": "power",
+      "win": "c4",
+      "lose": "c3fight"
+     }
+    },
+    {
+     "label": "練兵場で、将軍の選んだ猛者と立ち合う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 60,
+      "scale": "power",
+      "win": "c4",
+      "lose": "cfail"
+     }
+    }
+   ]
+  },
+  "c3fight": {
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "「口は達者だな。だが兵は口では動かぬ」{general}は顎で練兵場を示した。"
+   ],
+   "choices": [
+    {
+     "label": "猛者と立ち合う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 60,
+      "scale": "power",
+      "win": "c4",
+      "lose": "cfail"
+     }
+    }
+   ]
+  },
+  "c4": {
+   "at": {
+    "place": "capital",
+    "building": "shrine"
+   },
+   "goal": "{capital}の受禅の壇で、天に位を受けたことを告げる",
+   "art": "faith",
+   "text": [
+    "城外に築かれた壇の上で、{player}は天地に告げる文を読み上げる。一字でも誤れば、天が拒んだと言われる。将と属官と城の民が、固唾を呑んで見守っている。"
+   ],
+   "choices": [
+    {
+     "label": "告天の文を読み上げる",
+     "check": {
+      "skill": "letters",
+      "dc": 70,
+      "scale": "power",
+      "win": "cwin",
+      "lose": "cfail_rite"
+     }
+    }
+   ]
+  },
+  "cwin": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "読み終えると、雲が割れて日が射した。壇の下の人々がどよめいた。",
+    "{ruler}は自ら印綬を解いて{player}に手渡した。「{power}を頼む」居並ぶ百官が一斉に拝伏した。"
+   ],
+   "effects": [
+    {
+     "fame": 30
+    },
+    {
+     "throne": "power",
+     "how": "禅譲"
+    },
+    {
+     "feat": "career"
+    }
+   ],
+   "end": "禅譲"
+  },
+  "cdecline": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は寂しげに笑った。「急ぎはせぬ。心が決まったら、また来るがよい」"
+   ],
+   "end": "いまだ時ならず"
+  },
+  "cfail": {
+   "art": "court",
+   "text": [
+    "州府の風向きは変わらなかった。{ruler}は「いずれまた」とだけ言った。……ひと月ほどして、もう一度。"
+   ],
+   "effects": [
+    {
+     "favor": -30
+    }
+   ],
+   "end": "いまだ時ならず"
+  },
+  "cfail_rite": {
+   "art": "faith",
+   "text": [
+    "告天の文の一節で声が詰まった。「天が拒まれた」というささやきが広がり、儀は打ち切られた。……ひと月ほどして、もう一度。"
+   ],
+   "effects": [
+    {
+     "fame": -10
+    },
+    {
+     "favor": -40
+    }
+   ],
+   "end": "いまだ時ならず"
+  }
+ }
+}

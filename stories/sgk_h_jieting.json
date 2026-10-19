@@ -1,0 +1,727 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_jieting",
+ "kind": "history",
+ "title": "街亭の水",
+ "era": "sangoku",
+ "event": "jieting",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2fight",
+  "s3",
+  "s3map",
+  "s4",
+  "s4hold",
+  "s4hold_ng",
+  "s4wang",
+  "s5",
+  "s5win",
+  "s5hurt",
+  "s5well",
+  "s5well_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "camp": {
+   "scnPlace": "tianshui"
+  },
+  "city": {
+   "scnPlace": "jieting"
+  },
+  "shu": {
+   "scnRealm": "shu"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "liang": {
+   "scnPerson": "諸葛亮"
+  },
+  "masu": {
+   "scnPerson": "馬謖"
+  },
+  "zhanghe": {
+   "scnPerson": "張郃"
+  },
+  "jiangwei": {
+   "scnPerson": "姜維"
+  },
+  "wangping": {
+   "scnPerson": "王平"
+  },
+  "elder": {
+   "npc": "天水の古老",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "camp",
+    "building": "inn"
+   },
+   "goal": "{camp}の{inn}で、隴西の噂を聞く",
+   "speaker": "elder",
+   "art": "inn",
+   "text": [
+    "{camp}の{inn}は、羊の脂と酒の匂いで満ちていた。隣の卓の{elder}が、声をひそめて言う。",
+    "「漢中で蜀の丞相{liang}が兵を集めておるそうだ。帝に表を奉って、北を伐つと誓ったとか。祁山の道を越えて来れば、まず落ちるのはこの天水よ」",
+    "「郡府には{jiangwei}という若い将がおる。太守の馬遵どのは、あの男が蜀に通じておるのではと疑っておるらしい。疑われた者は、疑われたとおりに動くものだ」"
+   ],
+   "choices": [
+    {
+     "label": "郡府の{jiangwei}に会いに行く",
+     "effects": [
+      {
+       "note": "{camp}で、蜀の北伐の噂を聞いた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "camp",
+    "building": "office"
+   },
+   "goal": "{camp}の{office}で、{jiangwei}に会う",
+   "speaker": "jiangwei",
+   "art": "court",
+   "text": [
+    "{jiangwei}は二十六、七の、目の鋭い男だった。母と二人で冀の城に住み、郡の兵を預かっているという。",
+    "「太守は城を出るたびに、わたしを後ろに残していく。背中を見せたくないのでしょう」{jiangwei}は苦く笑った。「蜀が来れば、わたしは太守に捨てられる。そのとき、どこへ行けばよいのか」"
+   ],
+   "choices": [
+    {
+     "label": "「蜀の丞相は人を見る。行くなら蜀だ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s3"
+     }
+    },
+    {
+     "label": "城の門で、{jiangwei}を見張る太守の手の者を追い払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2fight",
+      "lose": "s3"
+     }
+    },
+    {
+     "label": "黙って郡府を辞す",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "jiangwei",
+   "text": [
+    "「蜀か」{jiangwei}は長いあいだ考え込んでいた。「……母を置いては行けぬ。だが、太守がわたしを捨てるなら、そのときは」言葉はそこで切れた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_jt_jiang"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "{jiangwei}に、蜀へ行く道を説いた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fight": {
+   "text": [
+    "路地に潜んでいた太守の手の者を二人、叩きのめした。{jiangwei}は何も言わず、ただ{player}に頭を下げた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_jt_jiang"
+    },
+    {
+     "xp": "blade",
+     "n": 1
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の{barracks}で、蜀の軍に加わる",
+   "speaker": "liang",
+   "art": "camp",
+   "text": [
+    "春、祁山に蜀の旗が立つと、天水・南安・安定の三郡は雪崩を打って魏に背いた。冀の城を出た{jiangwei}も、蜀の陣に降ったという。",
+    "{liang}の本営で、諸将が並んでいた。羽扇を手にした丞相は、地図の一点を指した。「街亭。隴の道の喉だ。ここを塞げば、魏の援軍は来られぬ。{masu}、そなたに任せる」",
+    "古い将たちがざわめいた。{masu}は戦の場数を踏んでいない。だが丞相は、この弁の立つ若い参謀を誰よりも買っていた。"
+   ],
+   "choices": [
+    {
+     "label": "{masu}の先鋒に加わる",
+     "next": "s4"
+    },
+    {
+     "label": "街亭の地図を写し、水場の位置を頭に入れておく",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "s3map",
+      "lose": "s4"
+     }
+    }
+   ]
+  },
+  "s3map": {
+   "text": [
+    "書記の幕で、隴の地図を写した。街亭の南に山が一つ。川は山の北を流れ、山の上に水はない。{player}はその一行に墨で印をつけた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_jt_map"
+    },
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の{barracks}で、{masu}の陣立てを見る",
+   "speaker": "masu",
+   "art": "war",
+   "text": [
+    "街亭は、谷の道が三つに分かれる平らな土地だった。道の脇を細い川が流れ、南には急な山がそびえている。",
+    "{masu}は山を見上げて言った。「兵法に曰く、高きに居りて下を視れば、勢いは破竹のごとし。山の上に陣を敷く。魏の兵が道を来れば、駆け下りて踏み潰す」",
+    "副将の{wangping}が顔をしかめた。「丞相のお言いつけは、道を塞いで陣を敷けということです。山の上には水がない。囲まれれば、三日で兵が渇きます」"
+   ],
+   "choices": [
+    {
+     "label": "道を塞ぎ、水のある道に陣を敷くよう{masu}を説き伏せる",
+     "turn": true,
+     "guide": "街亭を守り抜く。北伐の行方が変わる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s4hold",
+      "lose": "s4hold_ng"
+     }
+    },
+    {
+     "label": "{wangping}の千の兵に加わり、山の麓に残る",
+     "next": "s4wang"
+    },
+    {
+     "label": "山上の陣に付き従う",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4hold": {
+   "speaker": "masu",
+   "text": [
+    "{player}は地図を広げ、川から山頂までの道のりを指でなぞった。「山の上の兵は、水を汲みに一日に何度この道を下りますか。魏の将は{zhanghe}、老練な男です。下りてくる道を一つ断てば、それで終わる」",
+    "{masu}は顔を赤くして黙り込んだ。やがて、絞り出すように言った。「……丞相の命どおり、道に陣を敷く。柵を三重に。川を背にする」{wangping}が{player}の背を叩いた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_jt_hold"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "note": "{masu}を説き、街亭の道に陣を敷かせた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4hold_ng": {
+   "speaker": "masu",
+   "text": [
+    "「書も読まぬ者が兵法を語るか」{masu}は鼻で笑った。「わしは丞相と夜通し兵を論じてきた男だ」兵たちは山を登り始めた。"
+   ],
+   "next": "s5"
+  },
+  "s4wang": {
+   "speaker": "wangping",
+   "text": [
+    "{wangping}は字が読めぬ。だが、土地を見る目は確かだった。「山が囲まれたら、わしらが太鼓を叩いて、敵に伏兵がいると思わせる。それしかできん」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jt_wang"
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、魏の援軍を待ち受ける",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "zhanghe",
+   "art": "war",
+   "text": [
+    "東の道に土煙が上がった。魏の{zhanghe}の騎兵だ。先手の斥候が十騎ほど、川の水汲み場へ駆け寄ってくる。",
+    "水汲みの兵たちが悲鳴を上げて逃げ散った。この水場を取られれば、陣は干上がる。"
+   ],
+   "choices": [
+    {
+     "label": "水汲み場を守り、斥候を追い返す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5win",
+      "lose": "s5hurt"
+     }
+    },
+    {
+     "label": "山の裏の涸れ沢を掘り、陣の中に井戸を作らせる",
+     "turn": true,
+     "if": {
+      "notFlag": "h_jt_hold"
+     },
+     "guide": "山上の陣が水を保つ。街亭の敗れが遅れる",
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "s5well",
+      "lose": "s5well_ng"
+     }
+    }
+   ]
+  },
+  "s5win": {
+   "text": [
+    "斥候の頭を馬から叩き落とすと、残りは東へ逃げ帰った。だがその向こうには、{zhanghe}の本隊の旗が林のように立っている。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5hurt": {
+   "text": [
+    "騎兵の槍が肩をかすめた。水汲み場は魏の兵の手に落ち、{player}は這うようにして陣へ戻った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5well": {
+   "speaker": "wangping",
+   "text": [
+    "山の裏の沢は涸れていたが、苔が生きていた。{player}は兵を集め、苔の濃いところを三丈掘らせた。夕刻、泥の底から水が滲み出た。",
+    "{wangping}が泥だらけの手で水をすくい、飲んで笑った。「これで、ひと月は持つ。いや、ふた月は持つぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jt_well"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "shu",
+     "n": 8
+    },
+    {
+     "note": "街亭の山の裏に井戸を掘らせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5well_ng": {
+   "text": [
+    "三日掘っても、出てくるのは乾いた砂ばかりだった。兵たちは汗を流し、そのぶん渇いた。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "{camp}へ戻り、街亭の成り行きを見届ける",
+   "wait": {
+    "settled": "jieting"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "jieting_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "jieting_well"
+     },
+     "next": "welled"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "held": {
+   "speaker": "liang",
+   "art": "camp",
+   "text": [
+    "{zhanghe}は街亭の柵に三度ぶつかり、三度押し返された。川を背にした蜀の陣は崩れず、魏の援軍は隴の道に入れぬまま東へ退いた。天水も安定も、蜀の旗のまま夏を越した。",
+    "{liang}は本営で{player}を迎え、羽扇を置いた。「{masu}は良い将になる。人の言葉を聞くことを覚えたからな。礼を言う。そなたが、あの者の首をつないだ」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_jt_hold"
+    },
+    {
+     "unflag": "h_jt_map"
+    },
+    {
+     "unflag": "h_jt_wang"
+    },
+    {
+     "unflag": "h_jt_jiang"
+    },
+    {
+     "note": "街亭は破れず、隴西は蜀の手に残った。"
+    }
+   ],
+   "end": "水を断たれなかった陣"
+  },
+  "welled": {
+   "speaker": "wangping",
+   "art": "war",
+   "text": [
+    "井戸の水で、山上の陣は三月を持ちこたえた。だが秋、{zhanghe}は兵を倍に増やして山を幾重にも囲み、ついに井戸のある沢まで攻め上った。陣は崩れ、蜀の軍は漢中へ退いた。",
+    "{wangping}は退きながら言った。「三月だ。三月あれば、丞相は天水の民を連れて退ける。おぬしの井戸は、何千もの命を運んだ」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "unflag": "h_jt_well"
+    },
+    {
+     "unflag": "h_jt_map"
+    },
+    {
+     "unflag": "h_jt_wang"
+    },
+    {
+     "unflag": "h_jt_jiang"
+    },
+    {
+     "note": "井戸で街亭は三月持ちこたえたが、やがて落ちた。"
+    }
+   ],
+   "end": "三月の井戸"
+  },
+  "s6": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の{barracks}で、敗れの後を見届ける",
+   "wait": {
+    "fired": "jieting"
+   },
+   "speaker": "liang",
+   "art": "camp",
+   "text": [
+    "{zhanghe}は山を囲んで水を断った。三日目、渇いた兵は山を駆け下りて散り、{masu}も逃げた。ただ{wangping}の千人だけが太鼓を鳴らし続け、魏の兵は伏兵を恐れて近づかなかったという。",
+    "蜀の軍は天水を捨てて退くことになった。本営では、縛られた{masu}が{liang}の前に引き据えられていた。丞相の頬は濡れていた。「法を曲げれば、何をもって賊を討つのか」"
+   ],
+   "choices": [
+    {
+     "label": "{masu}の助命を{liang}に願い出る",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_plea",
+      "lose": "end_plea"
+     }
+    },
+    {
+     "label": "{wangping}と共に、退く軍の殿を務める",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_rear",
+      "lose": "end_scatter"
+     }
+    },
+    {
+     "label": "天水の民の荷車を押して、漢中へ向かう",
+     "next": "end_people"
+    }
+   ]
+  },
+  "end_plea": {
+   "speaker": "liang",
+   "text": [
+    "{liang}は{player}の言葉を最後まで聞いた。そして、静かに首を振った。「そなたの言うことは、すべて正しい。だが、正しいから許せるのではない」",
+    "{masu}は斬られた。三十九であった。丞相は自らの位を三等下げることを帝に願い出た。泣いて斬った、と兵たちは言った。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "unflag": "h_jt_map"
+    },
+    {
+     "unflag": "h_jt_wang"
+    },
+    {
+     "unflag": "h_jt_jiang"
+    },
+    {
+     "note": "街亭で蜀が敗れ、{masu}は斬られた。助命を願ったが届かなかった。"
+    }
+   ],
+   "end": "泣いて斬る"
+  },
+  "end_rear": {
+   "speaker": "wangping",
+   "text": [
+    "追ってきた魏の騎兵を谷の口で二度押し返し、軍の尻尾を漢中へ逃がした。{wangping}はこの働きで将軍に引き上げられた。「おぬしの名も上へ伝えておく」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_jt_map"
+    },
+    {
+     "unflag": "h_jt_wang"
+    },
+    {
+     "unflag": "h_jt_jiang"
+    },
+    {
+     "note": "街亭で蜀が敗れた。{wangping}と共に殿を務めた。"
+    }
+   ],
+   "end": "谷の口の殿"
+  },
+  "end_scatter": {
+   "text": [
+    "魏の騎兵に追いつかれ、谷の中で隊はばらばらになった。{player}が漢中にたどり着いたのは、ひと月も後のことだった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_jt_map"
+    },
+    {
+     "unflag": "h_jt_wang"
+    },
+    {
+     "unflag": "h_jt_jiang"
+    },
+    {
+     "note": "街亭で蜀が敗れ、退く道で散り散りになった。"
+    }
+   ],
+   "end": "散りゆく北伐"
+  },
+  "end_people": {
+   "text": [
+    "天水の民の多くが、蜀の軍について南へ逃げた。魏に戻れば、背いた罪を問われるからだ。{player}は老人の荷車を押し、子を背負った女の手を引いて、祁山の道を越えた。",
+    "列の中に{jiangwei}の姿があった。母は冀の城に残してきたという。若い将は一度も振り返らなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "rep": "shu",
+     "n": 3
+    },
+    {
+     "unflag": "h_jt_map"
+    },
+    {
+     "unflag": "h_jt_wang"
+    },
+    {
+     "unflag": "h_jt_jiang"
+    },
+    {
+     "note": "街亭で蜀が敗れた。天水の民と共に漢中へ退いた。"
+    }
+   ],
+   "end": "祁山の荷車"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "jieting_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "jieting_well"
+     },
+     "next": "welled"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。蜀の北伐は街亭で崩れたという。任された{masu}が命に背いて山に登り、{zhanghe}に水を断たれたのだと。丞相{liang}は泣いて{masu}を斬ったそうだ。",
+    "「水のない山に登る将がいるか」と噂の主は笑ったが、{player}には笑えなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_jt_map"
+    },
+    {
+     "unflag": "h_jt_wang"
+    },
+    {
+     "unflag": "h_jt_jiang"
+    },
+    {
+     "note": "街亭で蜀が敗れたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "jieting_hold",
+   "event": "jieting",
+   "order": 2,
+   "why": "主人公が馬謖に水のある道へ陣を敷かせた",
+   "when": {
+    "flag": "h_jt_hold"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "第一次北伐。街亭を任された[[p:馬謖]]は道を塞いで川を背に陣を敷き、[[p:張郃]]の攻めを三度退けた。魏の援軍は隴に入れず、天水・安定は{n_shu}に留まった。天水の[[p:姜維]]も蜀に降った。",
+    "do": [
+     [
+      "add",
+      "shu",
+      "prestige",
+      8
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      -8
+     ]
+    ],
+    "imp": 3,
+    "at": "jieting"
+   },
+   "people": [
+    {
+     "spare": "馬謖",
+     "years": 8
+    }
+   ]
+  },
+  {
+   "id": "jieting_well",
+   "event": "jieting",
+   "order": 1,
+   "why": "主人公が山上の陣に井戸を掘らせた",
+   "when": {
+    "flag": "h_jt_well"
+   },
+   "then": "delay",
+   "months": 3,
+   "note": "街亭の山上の陣は掘り当てた井戸で水を保ち、[[p:張郃]]の囲みになお三月持ちこたえた。",
+   "people": [
+    {
+     "spare": "馬謖",
+     "years": 1
+    }
+   ]
+  }
+ ]
+}

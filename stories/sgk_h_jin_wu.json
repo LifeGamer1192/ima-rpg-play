@@ -1,0 +1,623 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_jin_wu",
+ "kind": "history",
+ "title": "石頭の降旗",
+ "era": "sangoku",
+ "event": "jin_wu",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2stake",
+  "s2stake_ng",
+  "s2win",
+  "s2hurt",
+  "s3",
+  "s3terms",
+  "s3terms_ng",
+  "s3drink",
+  "s4",
+  "s4win",
+  "s4hurt"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "jianye"
+  },
+  "river": {
+   "scnPlace": "xiakou"
+  },
+  "wu": {
+   "scnRealm": "wu"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "emperor": {
+   "person": "ruler:wu"
+  },
+  "zhangti": {
+   "scnPerson": "張悌"
+  },
+  "wuyan": {
+   "scnPerson": "吾彦"
+  },
+  "wangjun": {
+   "scnPerson": "王濬"
+  },
+  "boatman": {
+   "npc": "江の船頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}で、江の噂を聞く",
+   "speaker": "boatman",
+   "art": "inn",
+   "text": [
+    "{city}の{inn}で、{boatman}が木の削り屑を卓に並べてみせた。白く新しい、船大工の鉋屑だ。",
+    "「上流から、こいつが江いっぱいに流れてくる。蜀の地で、晋の{wangjun}が途方もない楼船を造っておるのよ。一艘に二千人が乗れて、甲板の上を馬が走れるという」",
+    "「建平の{wuyan}将軍が、この屑を箱に詰めて都へ送った。だが帝{emperor}は見向きもせぬ。帝が気にかけるのは、宴の酒と、気に入らぬ臣の顔の皮を剥ぐことだけだ」"
+   ],
+   "choices": [
+    {
+     "label": "上流の{river}へ向かう",
+     "effects": [
+      {
+       "note": "{city}で、上流から晋の船大工の屑が流れてくると聞いた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "river",
+    "building": "barracks"
+   },
+   "goal": "{river}の{barracks}で、江の守りを見る",
+   "speaker": "wuyan",
+   "art": "war",
+   "text": [
+    "{river}の岸に、鉄の鎖が江を横切って張られていた。上流の西陵の峡にも、同じ鎖が幾筋も張ってあるという。都から来た{wuyan}が、苦い顔で鎖を見ていた。",
+    "「鎖だけでは足りぬ。晋の者は、麻と油を積んだ筏に火をつけて流してくる。鎖は焼ければ、ただの鉄だ。西陵の鎖が切れたら、残るはここだけになる」"
+   ],
+   "choices": [
+    {
+     "label": "鎖の上流に杭と沈船を並べ、火筏を食い止める",
+     "turn": true,
+     "guide": "晋の水軍を夏口で足止めする。呉の降伏が遅れる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "s2stake",
+      "lose": "s2stake_ng"
+     }
+    },
+    {
+     "label": "鎖の番に就き、晋の物見の舟を追い払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s2win",
+      "lose": "s2hurt"
+     }
+    }
+   ]
+  },
+  "s2stake": {
+   "speaker": "wuyan",
+   "text": [
+    "{player}は、江の流れの速いところと淀むところを、一日かけて測った。淀みに尖った杭を斜めに打ち込み、その間に石を積んだ古い船を沈める。流れてきた筏は杭に掛かり、鎖に届く前にそこで燃え尽きる。",
+    "{wuyan}は杭の列を見て、初めて笑った。「これなら、鎖が焼ける前に筏が焼ける。都の者がこれを思いつかなかったのが不思議なくらいだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jw_stake"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "note": "{river}の江に杭と沈船を並べ、火筏の備えをした。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2stake_ng": {
+   "text": [
+    "打ち込んだ杭は、三日目の増水で根こそぎ流された。沈めた船も、川底を転がって形を失った。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "s3"
+  },
+  "s2win": {
+   "text": [
+    "物見の舟を三艘、追い払った。舟の上の晋の兵は、こちらの鎖の太さを測っていたようだった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "rep": "wu",
+     "n": 5
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hurt": {
+   "text": [
+    "舟から放たれた弩の矢が、肩に刺さった。物見の舟は悠々と上流へ戻っていった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で、丞相{zhangti}に会う",
+   "speaker": "zhangti",
+   "art": "court",
+   "text": [
+    "年が明けると、晋の兵は六つの道から攻め下ってきた。上流からは{wangjun}の楼船が、火筏で鎖を焼き切って進んでいるという。",
+    "宮城の奥からは、宴の楽が聞こえていた。丞相の{zhangti}は、廊下で{player}を迎えた。「帝は、晋の兵が来れば江が守ってくれると信じておられる。わたしは、江を渡って戦うつもりだ。勝てるとは思わぬ。だが、誰も戦わずに国が滅ぶのは、恥だ」"
+   ],
+   "choices": [
+    {
+     "label": "城を開く前に、国を保つ約定を晋から取るよう{zhangti}を説く",
+     "turn": true,
+     "guide": "呉は晋に臣従する国として残る",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s3terms",
+      "lose": "s3terms_ng"
+     }
+    },
+    {
+     "label": "宴の席に紛れ込み、帝{emperor}の様子を見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s3drink",
+      "lose": "s4"
+     }
+    },
+    {
+     "label": "{zhangti}の軍に加わる",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3terms": {
+   "speaker": "zhangti",
+   "text": [
+    "{player}は言った。「死んで恥を雪ぐのは丞相お一人のこと。生きて約定を取れば、江東の民と孫氏の祀りが残ります。晋の帝は、蜀の帝を殺さなかった。呉の帝も殺しはしますまい。ならば、ただで降ることはない」",
+    "{zhangti}は長く黙り、やがて筆を取った。「晋の将に書を送る。城は開く。だが、江東は孫氏の国として残す。それが約定だ。容れぬなら、わたしは江を渡って死ぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_jw_terms"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "note": "{zhangti}を説き、降る前に国を保つ約定を晋に求めさせた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3terms_ng": {
+   "speaker": "zhangti",
+   "text": [
+    "「約定か。帝は、晋に頭を下げるくらいなら江に身を投げると言われるだろう。そして、身を投げはなさらぬ」{zhangti}は寂しく笑った。"
+   ],
+   "next": "s4"
+  },
+  "s3drink": {
+   "speaker": "emperor",
+   "text": [
+    "宴の席では、臣たちが無理に酒を注がれていた。七升を飲み干せぬ者は、引き出されて罰せられる。{emperor}は赤い顔で笑っていた。「晋の兵が江を渡れるものか。天は孫氏を見捨てぬ」",
+    "誰も、何も言わなかった。言えば、顔の皮を剥がれるからだ。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 1
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の{barracks}で、{zhangti}の軍に加わる",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "zhangti",
+   "art": "war",
+   "text": [
+    "{zhangti}は三万の兵を率いて江を渡った。北岸には、晋の王渾の軍が待ち構えている。兵の顔に、勝つという色はなかった。",
+    "渡し場で、晋の先手の騎兵が土煙を上げて迫ってきた。"
+   ],
+   "choices": [
+    {
+     "label": "{zhangti}を守って、騎兵を迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4win",
+      "lose": "s4hurt"
+     }
+    }
+   ]
+  },
+  "s4win": {
+   "speaker": "zhangti",
+   "text": [
+    "騎兵の先手を叩き返した。{zhangti}は{player}に、都へ戻るよう命じた。「おぬしまでここで死ぬことはない。都で、最後を見届けてくれ」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "rep": "wu",
+     "n": 5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4hurt": {
+   "text": [
+    "騎兵の波に呑まれ、{player}は江に落ちた。泳ぎ着いた南岸から見ると、北の野には呉の旗が一つずつ倒れていくところだった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}へ戻り、呉の行く末を見届ける",
+   "wait": {
+    "settled": "jin_wu"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "jinwu_terms"
+     },
+     "next": "terms"
+    },
+    {
+     "if": {
+      "branch": "jinwu_stake"
+     },
+     "next": "staked"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "terms": {
+   "speaker": "zhangti",
+   "art": "court",
+   "text": [
+    "晋の楼船が石頭城の下に並んだ日、{city}の門は開いた。だが、帝は縛られて出てはこなかった。{zhangti}の書を受けた晋の将たちは、江東を孫氏の国として残し、晋に臣従させることを容れたのだ。",
+    "{zhangti}は生きていた。「国の名は残った。中身は晋のものだがな」丞相は肩をすくめた。「それでも、孫氏の祀りは絶えずに済む。おぬしのおかげだ」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "unflag": "h_jw_terms"
+    },
+    {
+     "unflag": "h_jw_stake"
+    },
+    {
+     "note": "呉は約定によって晋に臣従し、国の名を残した。"
+    }
+   ],
+   "end": "残された国の名"
+  },
+  "staked": {
+   "speaker": "wuyan",
+   "art": "war",
+   "text": [
+    "{wangjun}の火筏は、{river}の杭に掛かって次々と燃え尽きた。鎖は切れず、晋の楼船は夏の終わりまで上流に留まった。だが、北からの陸の軍は止まらなかった。秋、{city}はついに囲まれ、帝は降った。",
+    "{wuyan}は最後まで城を守り、晋に降ったのは呉の城のうち最後だったという。「半年だ。半年、呉は呉でいられた」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wu",
+     "n": 8
+    },
+    {
+     "unflag": "h_jw_stake"
+    },
+    {
+     "unflag": "h_jw_terms"
+    },
+    {
+     "note": "{river}の杭で晋の水軍は半年足止めされたが、呉はやがて降った。"
+    }
+   ],
+   "end": "燃え尽きた火筏"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、呉の最後を見届ける",
+   "wait": {
+    "fired": "jin_wu"
+   },
+   "speaker": "boatman",
+   "art": "voyage",
+   "text": [
+    "{zhangti}は江の北で討ち死にした。そして春、{wangjun}の楼船が帆を連ねて江を下り、石頭城の下に着いた。旗が天を覆い、太鼓が江を揺らした。",
+    "帝{emperor}は自らを縛り、棺を車に載せて、晋の軍門に降った。{boatman}が江を見ながら言った。「孫堅さまが旗を揚げてから、九十年か。終わってみれば、あっけないものだ」"
+   ],
+   "choices": [
+    {
+     "label": "{boatman}の舟で、江東の民を逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_boat",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "石頭城の下で、晋の楼船を見上げる",
+     "next": "end_ships"
+    },
+    {
+     "label": "晋の軍門に出向き、名を書く",
+     "next": "end_jin"
+    }
+   ]
+  },
+  "end_boat": {
+   "text": [
+    "夜、{boatman}の舟に、晋の兵を恐れる女や子供を乗せ、会稽の方へ漕ぎ出した。江の上には、もう呉の旗は一つもなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "wu",
+     "n": 5
+    },
+    {
+     "unflag": "h_jw_stake"
+    },
+    {
+     "unflag": "h_jw_terms"
+    },
+    {
+     "note": "呉が晋に降った。江東の民を舟で逃がした。"
+    }
+   ],
+   "end": "夜の舟"
+  },
+  "end_caught": {
+   "text": [
+    "晋の見張りの舟に見つかった。{boatman}は舟を返して逃げ、{player}は江に飛び込んだ。岸に着いたとき、懐の銭はすべて江の底だった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "money": -50
+    },
+    {
+     "unflag": "h_jw_stake"
+    },
+    {
+     "unflag": "h_jw_terms"
+    },
+    {
+     "note": "呉が晋に降った。民を逃がそうとして晋の舟に追われた。"
+    }
+   ],
+   "end": "江の底の銭"
+  },
+  "end_ships": {
+   "text": [
+    "楼船は城の壁より高かった。甲板の上を、本当に馬が走っていた。{player}はそれを見上げながら、思った。百年近く、天下は三つに分かれていた。それが今日、一つになった。",
+    "だが、一つになった天下がいつまで一つでいられるのか。それは、誰にも分からなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "unflag": "h_jw_stake"
+    },
+    {
+     "unflag": "h_jw_terms"
+    },
+    {
+     "note": "呉が晋に降り、天下が一つになるのを見届けた。"
+    }
+   ],
+   "end": "一つになった天下"
+  },
+  "end_jin": {
+   "text": [
+    "晋の軍門では、降った呉の臣の名を一人ずつ書き取っていた。{player}も名を書いた。書記は顔も上げずに言った。「次」"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "unflag": "h_jw_stake"
+    },
+    {
+     "unflag": "h_jw_terms"
+    },
+    {
+     "note": "呉が晋に降った。晋の軍門に名を書いた。"
+    }
+   ],
+   "end": "晋の名簿"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "jinwu_terms"
+     },
+     "next": "terms"
+    },
+    {
+     "if": {
+      "branch": "jinwu_stake"
+     },
+     "next": "staked"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。晋の楼船が江を下って建業に入り、呉の帝{emperor}が自らを縛って降ったという。天下は、再び一つになった。",
+    "「黄巾が起こってから百年か」と噂の主は言った。「長い乱世だった。わしの爺さまの、そのまた爺さまの頃からだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_jw_stake"
+    },
+    {
+     "unflag": "h_jw_terms"
+    },
+    {
+     "note": "呉が晋に降り、天下が一つになったと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "jinwu_terms",
+   "event": "jin_wu",
+   "order": 2,
+   "why": "主人公が張悌に降る前の約定を求めさせた",
+   "when": {
+    "flag": "h_jw_terms"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "晋の大軍が長江を下って建業に迫ると、{r_wu}は城を開く前に約定を求めた。{n_cao}はこれを容れ、{n_wu}は晋に臣従する国として江東に残った。天下はひとまず晋のもとに一つとなった。",
+    "do": [
+     [
+      "vassal",
+      "cao",
+      "wu"
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      20
+     ],
+     [
+      "add",
+      "wu",
+      "prestige",
+      -20
+     ]
+    ],
+    "imp": 3,
+    "at": "jianye"
+   }
+  },
+  {
+   "id": "jinwu_stake",
+   "event": "jin_wu",
+   "order": 1,
+   "why": "主人公が夏口の江に杭と沈船を並べた",
+   "when": {
+    "flag": "h_jw_stake"
+   },
+   "then": "delay",
+   "months": 6,
+   "note": "晋の火筏は夏口の江に打たれた杭に掛かって燃え尽き、鉄の鎖は切れなかった。晋の楼船は半年のあいだ上流に留まった。"
+  }
+ ]
+}

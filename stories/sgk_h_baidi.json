@@ -1,0 +1,587 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_baidi",
+ "kind": "history",
+ "title": "白帝城の託孤",
+ "era": "sangoku",
+ "event": "baidi",
+ "lead": 8,
+ "before": [
+  "b1",
+  "b2",
+  "b3",
+  "b3guard",
+  "b3hurt",
+  "b3kill",
+  "b4",
+  "b4letter",
+  "b4ng",
+  "b5",
+  "b5herb"
+ ],
+ "onFired": "late",
+ "cast": {
+  "baidi": {
+   "scnPlace": "baidi"
+  },
+  "chengdu": {
+   "scnPlace": "chengdu"
+  },
+  "shu": {
+   "scnRealm": "shu"
+  },
+  "wu": {
+   "scnRealm": "wu"
+  },
+  "liubei": {
+   "scnPerson": "劉備"
+  },
+  "zhuge": {
+   "scnPerson": "諸葛亮"
+  },
+  "zhaoyun": {
+   "scnPerson": "趙雲"
+  },
+  "envoy": {
+   "npc": "呉の使者",
+   "sex": "m"
+  },
+  "hawk": {
+   "npc": "主戦の校尉",
+   "sex": "m"
+  }
+ },
+ "start": "b1",
+ "scenes": {
+  "b1": {
+   "at": {
+    "place": "baidi",
+    "building": "inn"
+   },
+   "goal": "{baidi}の{inn}で、永安宮の噂を聞く",
+   "speaker": "hawk",
+   "art": "inn",
+   "text": [
+    "{baidi}の{inn}は、夷陵から逃げ帰った兵で溢れていた。片腕を吊った校尉が、卓を叩いて怒鳴っている。{hawk}という男だった。",
+    "「陛下は永安宮で病の床だ。それなのに、呉の使いが和を乞いに来て、のうのうと城下に泊まっておる。関将軍を殺し、七百里の陣を焼いた呉とだぞ」",
+    "「あの使いを江に沈めてやれば、陛下も少しは気が晴れよう。……お前、腕は立つか」"
+   ],
+   "choices": [
+    {
+     "label": "答えずに、永安宮へ上る",
+     "effects": [
+      {
+       "note": "夷陵で敗れた{liubei}が、{baidi}の永安宮で病の床にあるという。"
+      }
+     ],
+     "next": "b2"
+    },
+    {
+     "label": "成都へ行き、{zhuge}の様子を見る",
+     "effects": [
+      {
+       "note": "夷陵で敗れた{liubei}が病の床にあるという。成都の{zhuge}のもとへ向かった。"
+      }
+     ],
+     "next": "b5"
+    }
+   ]
+  },
+  "b2": {
+   "at": {
+    "place": "baidi",
+    "building": "palace"
+   },
+   "goal": "{baidi}の永安宮で、{zhaoyun}に会う",
+   "speaker": "zhaoyun",
+   "art": "court",
+   "text": [
+    "永安宮の門を守っていたのは、白髪の混じった将だった。{zhaoyun}。長坂で幼い太子を懐に抱いて敵中を駆け抜けた、あの将である。",
+    "「陛下は、日に日に痩せておられる。成都の丞相には早馬を出した」{zhaoyun}は城下を見下ろした。「わしが心配なのは、呉の使いだ。若い校尉どもが、夜に何かしでかしそうでな。わしは陛下のそばを離れられぬ」"
+   ],
+   "next": "b3"
+  },
+  "b3": {
+   "at": {
+    "place": "baidi",
+    "building": "house"
+   },
+   "goal": "{baidi}の城下で、{envoy}の宿を訪ねる",
+   "speaker": "envoy",
+   "art": "backroom",
+   "text": [
+    "{envoy}は、城下の古い民家に泊められていた。四十がらみの、酒好きそうな男である。「呉王は、陛下と和を結び直したいと仰せだ。北の魏が、呉にも蜀にも帝の位を振りかざしてくる。仇同士が争えば、喜ぶのは魏だけよ」",
+    "その夜、宿の外の路地に、{hawk}と数人の兵が松明を持って集まってきた。"
+   ],
+   "choices": [
+    {
+     "label": "宿の戸口に立ち、使者を守る",
+     "turn": true,
+     "guide": "同じ蜀の兵と斬り合う。夜明けまで持ちこたえねばならない",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "b3guard",
+      "lose": "b3hurt"
+     }
+    },
+    {
+     "label": "{hawk}に手を貸し、使者を江へ連れ出す",
+     "turn": true,
+     "guide": "和を結ぶ使いを殺す。呉との和は消える",
+     "next": "b3kill"
+    },
+    {
+     "label": "関わらずに、永安宮へ戻る",
+     "next": "b4"
+    }
+   ]
+  },
+  "b3guard": {
+   "speaker": "envoy",
+   "text": [
+    "{player}は戸口で三人を打ち倒し、{hawk}は舌打ちをして引き上げた。騒ぎを聞いて駆けつけた{zhaoyun}の兵が、夜明けまで宿を囲んで守った。",
+    "{envoy}は震える手で酒をあおった。「呉の者を守るために、蜀の者と斬り合う蜀の者がいるとはな。……陛下に、呉王の書簡をじかにお渡ししたい。取り次いでもらえるか」"
+   ],
+   "effects": [
+    {
+     "flag": "h_bd_guard"
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "note": "{baidi}の城下で、呉の使い{envoy}を夜通し守った。"
+    }
+   ],
+   "next": "b4"
+  },
+  "b3hurt": {
+   "text": [
+    "多勢に無勢だった。{player}は路地に倒れ、{hawk}たちは使者の宿の戸を蹴破った。だが中はもぬけの殻だった。使者は裏口から逃げ、{zhaoyun}の陣に駆け込んでいた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "b4"
+  },
+  "b3kill": {
+   "speaker": "hawk",
+   "art": "road",
+   "text": [
+    "月のない夜だった。{envoy}を縛り上げて小舟に乗せ、江の真ん中まで漕ぎ出した。{hawk}が石を括りつけた縄を使者の足に結ぶ。「関将軍の分だ」",
+    "水音がひとつして、江はまた静かになった。翌朝、使者は「酒に酔って江に落ちた」と届けられた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_bd_envoy"
+    },
+    {
+     "wanted": "wu",
+     "n": 25
+    },
+    {
+     "rep": "wu",
+     "n": -20
+    },
+    {
+     "note": "{hawk}に手を貸し、呉の使い{envoy}を江に沈めた。"
+    }
+   ],
+   "next": "b4"
+  },
+  "b4": {
+   "at": {
+    "place": "baidi",
+    "building": "palace"
+   },
+   "goal": "{baidi}の永安宮で、{liubei}の枕元に侍る",
+   "speaker": "liubei",
+   "art": "court",
+   "text": [
+    "{liubei}は、昔の面影もないほど痩せていた。耳だけが、相変わらず大きい。皇帝は{player}を手招きした。",
+    "「若いころ、わしは草鞋を編んで売っていた。それが皇帝になり、七百里の陣を焼かれ、この城で死のうとしている。……人の一生とは、妙なものだ」",
+    "「人、五十なれば夭と称さず。わしは六十を越えた。何を恨むことがあろう。ただ、雲長と翼徳のところへ、手ぶらで行くのが恥ずかしい」"
+   ],
+   "choices": [
+    {
+     "label": "呉の使いの書簡を取り次ぎ、「呉王への返書を口述なさいませ」と勧める",
+     "turn": true,
+     "guide": "死の床の皇帝に、仇と和を結ばせる",
+     "if": {
+      "flag": "h_bd_guard"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "b4letter",
+      "lose": "b4ng"
+     }
+    },
+    {
+     "label": "黙って枕元を辞する",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "b4letter": {
+   "speaker": "liubei",
+   "text": [
+    "{liubei}は呉王の書簡を読み、長く目を閉じた。それから、かすれた声で口述を始めた。{player}は筆を取った。",
+    "「仇は、仇として忘れぬ。だが北に、われら二人を共に呑もうとする者がいる。孤は死ぬ。丞相が孤の代わりに盟を守るであろう。呉王もまた、これを守られよ」皇帝は書き上がった竹簡に、自ら印を押した。"
+   ],
+   "effects": [
+    {
+     "flag": "h_bd_letters"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "note": "{liubei}の呉王への返書を書き取った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "b4ng": {
+   "speaker": "liubei",
+   "text": [
+    "{liubei}は書簡を開きかけて、手を止めた。「……関羽の顔が浮かぶ。今日は、まだ読めぬ」書簡は枕元に置かれたまま、開かれなかった。"
+   ],
+   "next": "aftergo"
+  },
+  "b5": {
+   "at": {
+    "place": "chengdu",
+    "building": "palace"
+   },
+   "goal": "{chengdu}の{palace}で、{zhuge}に会う",
+   "speaker": "zhuge",
+   "art": "court",
+   "text": [
+    "{chengdu}の{palace}で、{zhuge}は太子の学問を見ていた。四十を過ぎた、背の高い、落ち着いた男である。手には白い羽扇を持っていた。",
+    "「陛下からの早馬が来た。白帝へ来いと」丞相は羽扇を置いた。「わたしが行けば、陛下は安心して逝かれるかもしれぬ。それが怖い」",
+    "「先に白帝へ行ってくれぬか。呉の使いが着いているはずだ。あれを死なせてはならぬ。魏と戦うには、呉と結ぶしかないのだ」"
+   ],
+   "choices": [
+    {
+     "label": "成都の市で薬を買い集め、白帝へ急ぐ",
+     "effects": [
+      {
+       "money": -50
+      }
+     ],
+     "next": "b5herb"
+    },
+    {
+     "label": "すぐに白帝へ向かう",
+     "next": "b2"
+    }
+   ]
+  },
+  "b5herb": {
+   "text": [
+    "{player}は市で人参と当帰を買い集め、江を下る舟に乗った。薬が効くかどうかは分からない。だが、手ぶらで行くよりはよかった。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 1
+    }
+   ],
+   "next": "b2"
+  },
+  "aftergo": {
+   "at": {
+    "place": "baidi",
+    "building": "palace"
+   },
+   "goal": "{baidi}の永安宮で、{liubei}の最期を見届ける",
+   "wait": {
+    "settled": "baidi"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "bd_letters"
+     },
+     "next": "allied"
+    },
+    {
+     "if": {
+      "branch": "bd_envoy"
+     },
+     "next": "lost"
+    },
+    {
+     "next": "rec"
+    }
+   ]
+  },
+  "allied": {
+   "speaker": "zhuge",
+   "art": "court",
+   "text": [
+    "{liubei}は{zhuge}の手を取り、「君の才は曹丕の十倍。必ず国を安んじ、大事を成し遂げよう。嗣子が補佐するに足れば補佐せよ。才がなければ、君が自ら取れ」と言い遺して、永安宮で世を去った。",
+    "皇帝の印の押された返書は、使者の手で呉へ渡った。呉王はそれを読んで泣き、蜀の新しい帝に弔いの使いを送ってきた。{zhuge}は{player}に言った。「陛下は、最後に一番難しいことをなさった。仇と手を結ぶことだ」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "shu",
+     "n": 15
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "unflag": "h_bd_letters"
+    },
+    {
+     "unflag": "h_bd_guard"
+    },
+    {
+     "note": "{liubei}が世を去った。死の床の返書で、呉との盟は固く結ばれた。"
+    }
+   ],
+   "end": "死の床の返書"
+  },
+  "lost": {
+   "speaker": "zhuge",
+   "art": "court",
+   "text": [
+    "{liubei}は{zhuge}に子を託して、永安宮で世を去った。成都から駆けつけた丞相は、呉との和を結び直そうとした。だが呉からの返事はなかった。「使いを江に沈める国と、何を約すことがあろう」",
+    "{zhuge}は{player}の顔をじっと見た。何も言わなかった。それが何より恐ろしかった。"
+   ],
+   "effects": [
+    {
+     "fame": -3
+    },
+    {
+     "rep": "shu",
+     "n": -10
+    },
+    {
+     "unflag": "h_bd_envoy"
+    },
+    {
+     "note": "{liubei}が世を去った。呉の使いが江に沈み、呉との和は結ばれなかった。"
+    }
+   ],
+   "end": "江に沈んだ使者"
+  },
+  "rec": {
+   "speaker": "zhuge",
+   "art": "court",
+   "text": [
+    "{liubei}は{zhuge}の手を取り、「嗣子が補佐するに足れば補佐せよ。才がなければ、君が自ら取れ」と言った。丞相は涙を流して床に額をつけた。「臣は股肱の力を尽くし、死ぬまで忠を貫きます」",
+    "皇帝は太子に遺詔を書き遺した。「悪小なるを以て為すなかれ。善小なるを以て為さざるなかれ」その夜、{liubei}は永安宮で世を去った。"
+   ],
+   "choices": [
+    {
+     "label": "柩を守って、成都まで江を上る",
+     "next": "end_coffin"
+    },
+    {
+     "label": "{zhaoyun}と共に、永安宮に残って呉に備える",
+     "check": {
+      "skill": "blade",
+      "dc": 28,
+      "win": "end_yongan",
+      "lose": "end_left"
+     }
+    },
+    {
+     "label": "喪の宮を出て、旅に戻る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_coffin": {
+   "speaker": "zhuge",
+   "text": [
+    "柩を載せた舟は、ひと月かけて江を上り、成都に入った。沿岸の村々では、人々が戸口に香を焚いていた。{zhuge}は舟の上で、一度も羽扇を手に取らなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_bd_guard"
+    },
+    {
+     "note": "{liubei}の柩を守って成都まで江を上った。"
+    }
+   ],
+   "end": "江を上る柩"
+  },
+  "end_yongan": {
+   "speaker": "zhaoyun",
+   "text": [
+    "{zhaoyun}は{player}を白帝の城壁に立たせた。「陛下は、ここで呉を睨んだまま逝かれた。わしらが睨み続けねば、陛下は振り向いてしまわれる」江の下流に、呉の舟の影は見えなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_bd_guard"
+    },
+    {
+     "note": "{liubei}の死後、{zhaoyun}と共に白帝城を守った。"
+    }
+   ],
+   "end": "白帝の城壁"
+  },
+  "end_left": {
+   "text": [
+    "{player}は喪の旗の立つ{baidi}を後にした。江を下る舟の上から振り返ると、白帝城は朝の霧の中に浮かんでいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_bd_guard"
+    },
+    {
+     "note": "{liubei}が{baidi}で世を去った。"
+    }
+   ],
+   "end": "霧の中の城"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "bd_envoy"
+     },
+     "next": "late_lost"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_lost": {
+   "text": [
+    "旅の途中で噂を聞いた。{liubei}が白帝城で世を去った。呉の使いは江に沈み、蜀と呉の和は結ばれなかったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_bd_envoy"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。{liubei}が白帝城で世を去った。死の床で{zhuge}に子を託し、「才がなければ、君が国を取れ」と言ったという。",
+    "「そんなことを言われて、本当に取る者はおらんわな」客舎の主はつぶやいた。「うまい頼み方じゃ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_bd_guard"
+    },
+    {
+     "unflag": "h_bd_letters"
+    },
+    {
+     "unflag": "h_bd_envoy"
+    },
+    {
+     "note": "{liubei}が白帝城で世を去ったと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "bd_letters",
+   "event": "baidi",
+   "order": 2,
+   "why": "主人公が劉備の呉王への返書を書き取った",
+   "when": {
+    "flag": "h_bd_letters"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:劉備]]は白帝城で世を去った。死に臨んで[[p:諸葛亮]]に子を託し、また自ら呉王に返書を口述して盟を守るよう求めた。呉王はこれを読んで泣き、蜀と呉の盟は固く結ばれた。",
+    "do": [
+     [
+      "ally",
+      "shu",
+      "wu"
+     ],
+     [
+      "add",
+      "shu",
+      "stability",
+      0.1
+     ],
+     [
+      "add",
+      "wu",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 3,
+    "at": "baidi"
+   }
+  },
+  {
+   "id": "bd_envoy",
+   "event": "baidi",
+   "order": 1,
+   "why": "主人公が呉の使者を江に沈めた",
+   "when": {
+    "flag": "h_bd_envoy"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:劉備]]は白帝城で世を去った。死に臨んで[[p:諸葛亮]]に子を託した。だが和を乞うて来た呉の使いが江に沈められ、諸葛亮が呉と和を結び直すことはできなかった。",
+    "do": [
+     [
+      "add",
+      "shu",
+      "stability",
+      -0.1
+     ],
+     [
+      "add",
+      "wu",
+      "prestige",
+      -3
+     ]
+    ],
+    "imp": 3,
+    "at": "baidi"
+   }
+  }
+ ]
+}

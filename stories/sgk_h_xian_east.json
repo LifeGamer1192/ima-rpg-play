@@ -1,0 +1,665 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_xian_east",
+ "kind": "history",
+ "title": "東へ還る車駕",
+ "era": "sangoku",
+ "event": "xian_east",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2guard",
+  "s2ng",
+  "s3",
+  "s4",
+  "s4boats",
+  "s4boats_ng",
+  "s4betray"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "changan"
+  },
+  "road": {
+   "scnPlace": "hongnong"
+  },
+  "luoyang": {
+   "scnPlace": "luoyang"
+  },
+  "han": {
+   "scnRealm": "han"
+  },
+  "emperor": {
+   "person": "ruler:han"
+  },
+  "dongcheng": {
+   "scnPerson": "董承"
+  },
+  "yangfeng": {
+   "scnPerson": "楊奉"
+  },
+  "lijue": {
+   "scnPerson": "李傕"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}で、宮中の小者の話を聞く",
+   "speaker": "宮中の小者",
+   "art": "inn",
+   "text": [
+    "{city}は半ば焼け落ちていた。{lijue}が天子を自分の陣に連れ去り、郭汜が公卿を人質に取って、二人は毎日のように町の中で矢を射かけ合っている。{inn}の屋根にも、折れた矢が何本も突き立っていた。",
+    "宮中の小者だという若い男が、{player}の袖を引いた。「車騎将軍の{dongcheng}さまが、天子を洛陽へお還しする手筈を整えておいでです。人手が要るのです。……それとも、{lijue}の陣で見張りの口を探しますか。あちらは給金を銭ではなく絹で払うそうですよ」"
+   ],
+   "choices": [
+    {
+     "label": "{dongcheng}の手伝いをする",
+     "effects": [
+      {
+       "note": "{dongcheng}が、天子を洛陽へ還す手筈を整えているという。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "{lijue}の陣で見張りに雇われる",
+     "effects": [
+      {
+       "note": "{lijue}の陣で、見張りに雇われることにした。"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮で、{dongcheng}に会う",
+   "speaker": "dongcheng",
+   "art": "court",
+   "text": [
+    "{dongcheng}は宮の裏手の、雨漏りのする部屋にいた。天子の外戚とはいえ、着ている袍は継ぎだらけだった。",
+    "「陛下は、もう一日も長安にいたくないと仰せだ。李傕と郭汜が和睦のふりをしている今しか、抜け出す折はない」{dongcheng}は声を落とした。「車が要る。馬も要る。それから、宮門を守る兵の目をそらす者が」"
+   ],
+   "choices": [
+    {
+     "label": "市で車と馬を買い揃える",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "宮門の兵を酒で手なずける",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "s2guard",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "text": [
+    "焼け残った厩をいくつも回り、痩せてはいるが脚の確かな馬を八頭、幌のかかった車を三両、揃えた。銭は足りなかったが、{dongcheng}の名を出すと、馬商人は黙って値を下げた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_xe_carts"
+    },
+    {
+     "flag": "h_xe_escort"
+    },
+    {
+     "note": "天子の車駕のために、車と馬を揃えた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s2guard": {
+   "text": [
+    "宮門の兵は、ひと月も給金をもらっていなかった。酒を三甕と干し肉を差し入れると、門の閂の番は「夜中に何が通っても、わしは寝ている」と笑った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_xe_escort"
+    },
+    {
+     "note": "宮門の兵を手なずけた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s2ng": {
+   "text": [
+    "手筈は思うようにいかなかった。{dongcheng}はため息をついた。「よい。あとは天に任せる。せめて東の道の様子を見てきてくれ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_xe_escort"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の{barracks}で、{lijue}に雇われる",
+   "speaker": "lijue",
+   "art": "camp",
+   "text": [
+    "{lijue}の陣の中では、巫女が太鼓を叩いて神降ろしをしていた。{lijue}は巫女の言うことなら何でも聞くという。",
+    "「天子が逃げるという噂がある」{lijue}は{player}に絹を一匹投げてよこした。「天子はわしの手にある限り天子だ。手を離れれば、郭汜の天子になるか、関東の誰かの天子になる。逃げる道を見つけたら、真っ先にわしに知らせろ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_xe_lijue"
+    },
+    {
+     "money": 60
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "road"
+   },
+   "goal": "{road}へ行き、東へ逃れる道を確かめる",
+   "speaker": "yangfeng",
+   "art": "road",
+   "text": [
+    "{road}の野は荒れ果てていた。白波の賊あがりの将、{yangfeng}が、わずかな兵を連れて道を見回っていた。天子を守ると申し出た者の一人である。",
+    "「東へ行くには、どこかで黄河を渡らねばならん」{yangfeng}は川の方を顎で指した。「だが渡しの舟は、とうに李傕と郭汜に焼かれた。追っ手に追いつかれれば、岸で皆殺しだ」"
+   ],
+   "choices": [
+    {
+     "label": "河の漁師たちを説き、渡しに舟を集めておく",
+     "turn": true,
+     "guide": "舟を集める。銭も手間もかかり、李傕に知られれば追われる",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "s4boats",
+      "lose": "s4boats_ng"
+     }
+    },
+    {
+     "label": "{lijue}に、車駕の通る道を売る",
+     "turn": true,
+     "guide": "天子を売る。漢の者から恨まれる",
+     "if": {
+      "flag": "h_xe_lijue"
+     },
+     "next": "s4betray"
+    },
+    {
+     "label": "道を確かめて引き返す",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s4boats": {
+   "speaker": "yangfeng",
+   "text": [
+    "{player}は河沿いの漁村を一つずつ回り、隠してあった小舟を出させた。前金を払い、残りは天子が渡ったあとに払うと約束した。舟は二十艘あまり、葦の陰に繋がれた。",
+    "{yangfeng}は目を丸くした。「これなら、夜のうちに車駕ごと渡れる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_xe_boats"
+    },
+    {
+     "money": -100
+    },
+    {
+     "rep": "han",
+     "n": 5
+    },
+    {
+     "note": "黄河の渡しに、天子のための舟を集めた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4boats_ng": {
+   "text": [
+    "漁師たちは首を振った。「舟を出したと知れたら、村ごと焼かれる」{player}が集められたのは、穴のあいた小舟が二艘だけだった。"
+   ],
+   "next": "aftergo"
+  },
+  "s4betray": {
+   "speaker": "lijue",
+   "text": [
+    "{player}は{lijue}の陣へ戻り、車駕が通るはずの道と、渡しの場所を告げた。{lijue}は満足げに頷き、絹を三匹積ませた。「天子はどこへも行かぬ。わしのそばが一番安全だからな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_xe_betray"
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "han",
+     "n": -15
+    },
+    {
+     "wanted": "han",
+     "n": 10
+    },
+    {
+     "note": "{lijue}に、天子の車駕の通る道を売った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "road"
+   },
+   "goal": "{road}で、天子の車駕を待つ",
+   "wait": {
+    "settled": "xian_east"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "xe_caught"
+     },
+     "next": "caught"
+    },
+    {
+     "if": {
+      "branch": "xe_swift"
+     },
+     "next": "swift"
+    },
+    {
+     "next": "flight"
+    }
+   ]
+  },
+  "swift": {
+   "speaker": "emperor",
+   "art": "voyage",
+   "text": [
+    "月のない夜、車駕は河岸に着いた。追っ手の松明が背後の丘に見えたが、葦の陰から二十艘の舟が漕ぎ出し、天子も后も公卿も、一人も欠けずに対岸へ渡った。",
+    "舟を降りるとき、まだ少年の面影を残す{emperor}が、{player}に向かって小さく頭を下げた。「舟を集めたのは、そなたか。朕は、そなたの名を忘れぬ」"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "rep": "han",
+     "n": 20
+    },
+    {
+     "unflag": "h_xe_carts"
+    },
+    {
+     "unflag": "h_xe_lijue"
+    },
+    {
+     "unflag": "h_xe_boats"
+    },
+    {
+     "unflag": "h_xe_betray"
+    },
+    {
+     "unflag": "h_xe_escort"
+    },
+    {
+     "note": "{emperor}の車駕は、用意した舟で黄河を渡った。"
+    }
+   ],
+   "end": "黄河の舟"
+  },
+  "caught": {
+   "speaker": "lijue",
+   "art": "camp",
+   "text": [
+    "車駕は{road}の手前で{lijue}の騎兵に囲まれ、そのまま長安へ連れ戻された。{dongcheng}は髪を振り乱して天子の車にしがみついていたという。",
+    "{lijue}は{player}の肩を叩いた。「おぬしのおかげだ」だが半年後、天子は再び抜け出した。こんどは、誰にも道を告げずに。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": -3
+    },
+    {
+     "unflag": "h_xe_carts"
+    },
+    {
+     "unflag": "h_xe_lijue"
+    },
+    {
+     "unflag": "h_xe_boats"
+    },
+    {
+     "unflag": "h_xe_betray"
+    },
+    {
+     "unflag": "h_xe_escort"
+    },
+    {
+     "note": "{emperor}の車駕は{lijue}に連れ戻された。"
+    }
+   ],
+   "end": "連れ戻された車駕"
+  },
+  "flight": {
+   "speaker": "yangfeng",
+   "art": "war",
+   "text": [
+    "車駕は{road}を過ぎ、曹陽で{lijue}と郭汜の追っ手に追いつかれた。公卿も宮女も、輜重も、次々と討たれて道に散った。黄河の岸では、わずかな舟に人々が殺到し、舟べりにしがみつく者の指を、兵が刀で払い落とした。",
+    "{yangfeng}が叫んだ。「天子を舟へ。ほかの者は、自分の足で逃げろ」"
+   ],
+   "choices": [
+    {
+     "label": "岸に残り、追っ手を食い止める",
+     "if": {
+      "flag": "h_xe_escort"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_rear",
+      "lose": "end_drown"
+     }
+    },
+    {
+     "label": "飢えた宮女や公卿に、手持ちの糧を分ける（100）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "end_grain"
+    },
+    {
+     "label": "一人で岸を離れる",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_rear": {
+   "text": [
+    "岸に残った数十人で、追っ手の騎兵を三度押し返した。最後の舟が岸を離れるのを見届けて、{player}は葦の中を泳いで逃げた。",
+    "翌年、天子は焼け野原の洛陽に帰り着いたという。宮殿は一つも残っておらず、公卿は自ら薪を拾い、野草を摘んで飢えをしのいだ。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "han",
+     "n": 15
+    },
+    {
+     "unflag": "h_xe_carts"
+    },
+    {
+     "unflag": "h_xe_lijue"
+    },
+    {
+     "unflag": "h_xe_boats"
+    },
+    {
+     "unflag": "h_xe_betray"
+    },
+    {
+     "unflag": "h_xe_escort"
+    },
+    {
+     "note": "{emperor}の東行で、黄河の岸に残って追っ手を防いだ。"
+    }
+   ],
+   "end": "岸の殿"
+  },
+  "end_drown": {
+   "text": [
+    "追っ手の槍に押され、{player}は河に落ちた。冷たい水に流され、気がついたのは下流の砂洲の上だった。車駕がどうなったのかは、ずっと後になって知った。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_xe_carts"
+    },
+    {
+     "unflag": "h_xe_lijue"
+    },
+    {
+     "unflag": "h_xe_boats"
+    },
+    {
+     "unflag": "h_xe_betray"
+    },
+    {
+     "unflag": "h_xe_escort"
+    },
+    {
+     "note": "{emperor}の東行で、黄河に落ちた。"
+    }
+   ],
+   "end": "冷たい河"
+  },
+  "end_grain": {
+   "text": [
+    "{player}が分けた干し飯と粟を、宮女たちは泣きながら受け取った。尚書の老人が、震える手で礼を言った。「天子の臣が、天子の民から施しを受けるとは」",
+    "翌年、天子は焼け野原の{luoyang}に帰り着いた。{player}の分けた糧が、どれほどの命をつないだかは分からない。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "han",
+     "n": 10
+    },
+    {
+     "unflag": "h_xe_carts"
+    },
+    {
+     "unflag": "h_xe_lijue"
+    },
+    {
+     "unflag": "h_xe_boats"
+    },
+    {
+     "unflag": "h_xe_betray"
+    },
+    {
+     "unflag": "h_xe_escort"
+    },
+    {
+     "note": "{emperor}の東行で、飢えた近臣に糧を分けた。"
+    }
+   ],
+   "end": "一袋の粟"
+  },
+  "end_left": {
+   "text": [
+    "{player}は河岸を背にした。翌年、天子は焼け野原の{luoyang}に帰り着いたという。天子を擁した者が天下を制する、と人々が囁き始めたのは、その頃からである。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xe_carts"
+    },
+    {
+     "unflag": "h_xe_lijue"
+    },
+    {
+     "unflag": "h_xe_boats"
+    },
+    {
+     "unflag": "h_xe_betray"
+    },
+    {
+     "unflag": "h_xe_escort"
+    },
+    {
+     "note": "{emperor}が長安を脱け出し、東へ逃れるのを見届けた。"
+    }
+   ],
+   "end": "東へ消えた車駕"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "xe_caught"
+     },
+     "next": "late_caught"
+    },
+    {
+     "if": {
+      "branch": "xe_swift"
+     },
+     "next": "late_swift"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_caught": {
+   "text": [
+    "旅の途中で噂を聞いた。長安を抜け出そうとした天子の車駕が、{lijue}の兵に連れ戻されたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xe_carts"
+    },
+    {
+     "unflag": "h_xe_lijue"
+    },
+    {
+     "unflag": "h_xe_boats"
+    },
+    {
+     "unflag": "h_xe_betray"
+    },
+    {
+     "unflag": "h_xe_escort"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_swift": {
+   "text": [
+    "旅の途中で噂を聞いた。長安を抜け出した天子の車駕が、黄河の渡しに用意されていた舟で無事に対岸へ渡ったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xe_carts"
+    },
+    {
+     "unflag": "h_xe_lijue"
+    },
+    {
+     "unflag": "h_xe_boats"
+    },
+    {
+     "unflag": "h_xe_betray"
+    },
+    {
+     "unflag": "h_xe_escort"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。天子がわずかな近臣と長安を脱け出し、追っ手に追われながら東へ逃れたという。黄河の岸で、多くの者が討たれ、溺れたとも。",
+    "「天子さまが、わしらと同じように逃げ惑うておられる」と、宿の老婆は手を合わせた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xe_carts"
+    },
+    {
+     "unflag": "h_xe_lijue"
+    },
+    {
+     "unflag": "h_xe_boats"
+    },
+    {
+     "unflag": "h_xe_betray"
+    },
+    {
+     "unflag": "h_xe_escort"
+    },
+    {
+     "note": "{emperor}が長安を脱け出し、東へ逃れたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "xe_caught",
+   "event": "xian_east",
+   "order": 2,
+   "why": "主人公が車駕の道を李傕に売った",
+   "when": {
+    "flag": "h_xe_betray"
+   },
+   "then": "delay",
+   "months": 6,
+   "note": "[[p:献帝]]は長安を脱け出そうとしたが、道を知っていた李傕の騎兵に囲まれて連れ戻された。東への脱出は半年遅れた。"
+  },
+  {
+   "id": "xe_swift",
+   "event": "xian_east",
+   "order": 1,
+   "why": "主人公が黄河の渡しに舟を集めておいた",
+   "when": {
+    "flag": "h_xe_boats"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "李傕と郭汜が長安で争うなか、[[p:献帝]]はわずかな近臣と長安を脱け出した。黄河の渡しには前もって舟が集められており、車駕は一人も欠けずに対岸へ渡って追っ手を振り切った。",
+    "do": [
+     [
+      "add",
+      "han",
+      "prestige",
+      -3
+     ]
+    ],
+    "imp": 2,
+    "at": "hongnong"
+   }
+  }
+ ]
+}

@@ -1,0 +1,769 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_xiaoyaojin",
+ "kind": "history",
+ "title": "逍遥津",
+ "era": "sangoku",
+ "event": "xiaoyaojin",
+ "lead": 7,
+ "before": [
+  "x1",
+  "x2",
+  "x3",
+  "x3found",
+  "x3found_ng",
+  "x3fight",
+  "x3wall",
+  "x2wu",
+  "x2w_ok",
+  "x3wu",
+  "x3bridge",
+  "x3bridge_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "hefei": {
+   "scnPlace": "hefei"
+  },
+  "ruxu": {
+   "scnPlace": "ruxu"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "wu": {
+   "scnRealm": "wu"
+  },
+  "sunquan": {
+   "person": "ruler:wu"
+  },
+  "zhangliao": {
+   "scnPerson": "張遼"
+  },
+  "yuejin": {
+   "scnPerson": "楽進"
+  },
+  "lingtong": {
+   "scnPerson": "凌統"
+  },
+  "ganning": {
+   "scnPerson": "甘寧"
+  },
+  "lumeng": {
+   "scnPerson": "呂蒙"
+  }
+ },
+ "start": "x1",
+ "scenes": {
+  "x1": {
+   "at": {
+    "place": "hefei",
+    "building": "inn"
+   },
+   "goal": "{hefei}の{inn}で、噂を聞く",
+   "speaker": "塩売り",
+   "art": "inn",
+   "text": [
+    "{hefei}の{inn}で、塩売りの男が荷を下ろしながら言った。「曹丞相は兵を連れて西の漢中へ行ってしまった。ここに残ったのは七千ばかりだ」",
+    "「江東の孫将軍が、それを知らぬはずがない。十万で来るって話だ。……丞相は出がけに、木の箱を一つ置いていったそうな。封の上に『賊至らば乃ち発け』と書いてあるんだと」"
+   ],
+   "choices": [
+    {
+     "label": "{hefei}の城の守りに加わる",
+     "effects": [
+      {
+       "note": "孫権の大軍が合肥に来る。城の守りに加わることにした。"
+      }
+     ],
+     "next": "x2"
+    },
+    {
+     "label": "{ruxu}へ行き、孫権の軍に加わる",
+     "effects": [
+      {
+       "note": "孫権の大軍が合肥に来る。孫権の軍に加わることにした。"
+      }
+     ],
+     "next": "x2wu"
+    }
+   ]
+  },
+  "x2": {
+   "at": {
+    "place": "hefei",
+    "building": "barracks"
+   },
+   "goal": "{hefei}の{barracks}で、{zhangliao}に会う",
+   "speaker": "zhangliao",
+   "art": "camp",
+   "text": [
+    "孫権の大軍が江を渡ったという報せが届いた日、{zhangliao}は箱の封を切った。中の書付は短かった。「孫権至らば、張・李の二将は出でて戦い、楽将軍は城を守れ。護軍は戦うなかれ」",
+    "{yuejin}も李典も、顔を見合わせた。七千で十万に打って出よというのか。{zhangliao}は書付を卓に置いた。「丞相は遠くにおられる。援軍を待てば、その前に城は落ちる。敵が集まりきらぬうちに一撃して、気勢を挫く。それが丞相のお考えだ」",
+    "「死士を八百募る。牛を潰して食わせる。夜明けに出る」"
+   ],
+   "choices": [
+    {
+     "label": "八百の死士に名を連ねる",
+     "effects": [
+      {
+       "flag": "h_xyj_800"
+      }
+     ],
+     "next": "x3"
+    },
+    {
+     "label": "城の守りに残る",
+     "next": "x3wall"
+    }
+   ]
+  },
+  "x3": {
+   "speaker": "zhangliao",
+   "art": "war",
+   "text": [
+    "牛の肉を食わされた夜、{zhangliao}が八百人の前に立った。「明朝、わしが先頭を駆ける。狙うは孫権の麾蓋ただ一つ。雑兵には目もくれるな」",
+    "{zhangliao}は{player}を手招きした。「十万の陣のどこに孫権がいるか。それが分からねば、八百は十万の中で溺れる。夜のうちに探れる者が要る」"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れ、孫権の麾蓋のありかを探り当てる",
+     "turn": true,
+     "guide": "孫権の居場所を突き止める。見つかれば、十万の陣の中で一人きりだ",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "x3found",
+      "lose": "x3found_ng"
+     }
+    },
+    {
+     "label": "槍を研いで夜明けを待つ",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "x3found": {
+   "text": [
+    "敵の陣の焚き火のあいだを這って進んだ。逍遥津の渡しの近く、小高い丘の上に、青い羅傘の下で地図を囲む一団があった。碧い目に紫の髯の男が、その真ん中にいた。",
+    "戻って告げると、{zhangliao}は地図の上の丘に、指で一本の線を引いた。「ここまで、まっすぐだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_xyj_charge"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "夜のうちに、孫権の麾蓋のありかを探り当てた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "x3found_ng": {
+   "text": [
+    "焚き火の明かりの中で、見張りの兵と目が合った。「曹の間者だ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜けて城へ戻る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "aftergo",
+      "lose": "x3fight"
+     }
+    }
+   ]
+  },
+  "x3fight": {
+   "text": [
+    "傷を負いながら、どうにか城の門にたどり着いた。孫権の居場所は、分からずじまいだった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "x3wall": {
+   "speaker": "yuejin",
+   "text": [
+    "{yuejin}は城壁の上で、{player}に弓を渡した。「張将軍が出たら、城の門は閉める。戻ってくる者のためにだけ開ける。戻ってこられればの話だがな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_xyj_wall"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "x2wu": {
+   "at": {
+    "place": "ruxu",
+    "building": "barracks"
+   },
+   "goal": "{ruxu}の{barracks}で、孫権の軍に加わる",
+   "speaker": "ganning",
+   "art": "camp",
+   "text": [
+    "{ruxu}の陣は、江を渡る支度で沸き立っていた。鈴を腰に下げた荒くれの将が、{player}の肩を叩いた。{ganning}である。もとは江賊の頭だったという。",
+    "「合肥の兵は七千、こっちは十万だ。戦にもならん」{ganning}は笑った。「ただ、合肥には張文遠がいる。あれは油断のならん男だ。……船の荷を積むのを手伝え」"
+   ],
+   "choices": [
+    {
+     "label": "兵糧の船の荷を手早く積む",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "x2w_ok",
+      "lose": "x3wu"
+     }
+    },
+    {
+     "label": "陣の見張りに立つ",
+     "next": "x3wu"
+    }
+   ]
+  },
+  "x2w_ok": {
+   "text": [
+    "二日かかるはずの荷積みが一日で済んだ。{ganning}は鈴を鳴らして喜んだ。「お前、江賊になれるぞ」"
+   ],
+   "effects": [
+    {
+     "money": 50
+    },
+    {
+     "rep": "wu",
+     "n": 5
+    }
+   ],
+   "next": "x3wu"
+  },
+  "x3wu": {
+   "at": {
+    "place": "hefei"
+   },
+   "goal": "{hefei}を囲む孫権の陣に入る",
+   "speaker": "lumeng",
+   "art": "war",
+   "text": [
+    "合肥の城は小さかったが、十日囲んでも落ちなかった。陣に疫病が出はじめ、{sunquan}は兵を退くことを決めた。",
+    "{lumeng}が地図を広げた。「退くときが危ない。大軍が先に退き、殿下が最後に残る形になる。逍遥津の橋を渡るまで、本陣の守りが薄くなる」"
+   ],
+   "choices": [
+    {
+     "label": "「本陣を先に渡し、逍遥津の橋に兵を残して固めるべきです」と{lumeng}に説く",
+     "turn": true,
+     "guide": "退き陣を固める。献策が通らねば、ただの臆病者と笑われる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "x3bridge",
+      "lose": "x3bridge_ng"
+     }
+    },
+    {
+     "label": "{lingtong}の兵と共に、本陣の守りにつく",
+     "next": "aftergo_wu"
+    }
+   ]
+  },
+  "x3bridge": {
+   "speaker": "lumeng",
+   "text": [
+    "{lumeng}は{player}の言葉を聞くと、すぐに{sunquan}の天幕へ入っていった。やがて出てきて言った。「殿は先に橋を渡られる。凌統の兵を橋のたもとに、甘寧の兵を橋の向こうに残す。お前も橋に残れ」",
+    "{player}は兵たちと、橋の板を一枚ずつ確かめて回った。外されていた板が三枚あった。誰が外したのかは分からない。"
+   ],
+   "effects": [
+    {
+     "flag": "h_xyj_bridge"
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "note": "{lumeng}に説いて、逍遥津の橋の守りを固めさせた。"
+    }
+   ],
+   "next": "aftergo_wu"
+  },
+  "x3bridge_ng": {
+   "speaker": "lumeng",
+   "text": [
+    "「七千の城兵が、十万の退き陣に打って出るものか」{lumeng}は笑った。「心配はもっともだが、殿を先に逃がしたとあっては、江東の兵の名折れだ」"
+   ],
+   "next": "aftergo_wu"
+  },
+  "aftergo": {
+   "at": {
+    "place": "hefei"
+   },
+   "goal": "{hefei}で、夜明けを待つ",
+   "wait": {
+    "settled": "xiaoyaojin"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "xyj_wound"
+     },
+     "next": "wound"
+    },
+    {
+     "if": {
+      "branch": "xyj_bridge"
+     },
+     "next": "repelled"
+    },
+    {
+     "next": "rec"
+    }
+   ]
+  },
+  "rec": {
+   "speaker": "zhangliao",
+   "art": "war",
+   "text": [
+    "夜明けに、{zhangliao}は八百を率いて城を出た。自ら名乗りを上げて敵陣に斬り込み、将を二人斬り、孫権の麾蓋の下まで迫った。{sunquan}は丘の上に逃れ、長い戟で身を守った。",
+    "昼まで戦い、{zhangliao}は囲みを破って城へ戻った。取り残された兵が叫ぶと、また引き返して彼らを救い出した。江東の十万の軍は、誰もそれを止められなかった。"
+   ],
+   "choices": [
+    {
+     "label": "取り残された兵を、{zhangliao}と共に救い出す",
+     "if": {
+      "flag": "h_xyj_800"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "end_back",
+      "lose": "end_wound"
+     }
+    },
+    {
+     "label": "城壁の上から、矢で退き道を援護する",
+     "check": {
+      "skill": "bow",
+      "dc": 28,
+      "win": "end_wall",
+      "lose": "end_watch"
+     }
+    },
+    {
+     "label": "城の門の内で、戻る兵を迎える",
+     "next": "end_watch"
+    }
+   ]
+  },
+  "end_back": {
+   "speaker": "zhangliao",
+   "text": [
+    "敵の囲みに、もう一度飛び込んだ。槍を振るって道を開くと、取り残された兵たちが泣きながら駆け寄ってきた。{zhangliao}は{player}の背中を叩いた。「八百のうち、置いてきた者は一人もない」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "cao",
+     "n": 15
+    },
+    {
+     "unflag": "h_xyj_800"
+    },
+    {
+     "note": "合肥の戦い。{zhangliao}の八百に加わり、十万の陣に斬り込んだ。"
+    }
+   ],
+   "end": "八百の死士"
+  },
+  "end_wound": {
+   "text": [
+    "二度目の斬り込みで、{player}は脇腹を突かれた。誰かに担がれて城へ戻ったことだけを覚えている。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "hp": -25
+    },
+    {
+     "unflag": "h_xyj_800"
+    },
+    {
+     "note": "合肥の戦い。{zhangliao}の八百に加わり、傷を負った。"
+    }
+   ],
+   "end": "八百の死士"
+  },
+  "end_wall": {
+   "text": [
+    "城壁の上から、追いすがる敵の騎兵を三騎、射落とした。{zhangliao}の兵が門に駆け込むたびに、城壁の上から歓声が上がった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "unflag": "h_xyj_800"
+    },
+    {
+     "unflag": "h_xyj_wall"
+    },
+    {
+     "note": "合肥の戦い。城壁の上から{zhangliao}の兵を援護した。"
+    }
+   ],
+   "end": "合肥の城壁"
+  },
+  "end_watch": {
+   "text": [
+    "戻ってきた兵の具足は、血で黒く固まっていた。十日後、孫権は囲みを解いて退きはじめた。江東では、泣く子も「張遼が来る」と聞けば泣きやむようになったという。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_xyj_800"
+    },
+    {
+     "unflag": "h_xyj_wall"
+    },
+    {
+     "note": "合肥の戦いを見届けた。"
+    }
+   ],
+   "end": "張遼が来る"
+  },
+  "wound": {
+   "speaker": "zhangliao",
+   "art": "war",
+   "text": [
+    "夜明けに城を出た八百は、{player}の探り当てた丘へ、まっすぐに駆けた。雑兵には目もくれなかった。青い羅傘が倒れ、{sunquan}の麾蓋が{zhangliao}の手に落ちた。",
+    "{sunquan}は肩に矢を受けて、馬にしがみついたまま逃れたという。{zhangliao}は奪った麾蓋を城の門に掲げた。「碧眼の小僧は逃がしたが、その傘はここにある」"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "cao",
+     "n": 20
+    },
+    {
+     "rep": "wu",
+     "n": -15
+    },
+    {
+     "unflag": "h_xyj_charge"
+    },
+    {
+     "unflag": "h_xyj_800"
+    },
+    {
+     "note": "合肥の戦い。{zhangliao}は孫権の麾蓋を奪い、孫権は矢傷を負って逃れた。"
+    }
+   ],
+   "end": "奪われた麾蓋"
+  },
+  "repelled": {
+   "speaker": "zhangliao",
+   "art": "war",
+   "text": [
+    "夜明けに城を出た八百は、孫権の本陣に迫ったが、そこにはもう孫権はいなかった。逍遥津の橋のたもとには凌統の兵が固く陣を敷き、八百はそれを破れずに城へ戻った。",
+    "{zhangliao}は兜を脱いで言った。「孫権め、退き方を覚えたか。……いや、誰かが教えたのだな」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_xyj_800"
+    },
+    {
+     "unflag": "h_xyj_wall"
+    },
+    {
+     "note": "合肥の戦い。{zhangliao}の斬り込みは、逍遥津の橋で食い止められた。"
+    }
+   ],
+   "end": "届かなかった八百"
+  },
+  "aftergo_wu": {
+   "at": {
+    "place": "ruxu"
+   },
+   "goal": "{ruxu}へ退き、成り行きを見届ける",
+   "wait": {
+    "settled": "xiaoyaojin"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "xyj_bridge"
+     },
+     "next": "bridge"
+    },
+    {
+     "if": {
+      "branch": "xyj_wound"
+     },
+     "next": "wu_wound"
+    },
+    {
+     "next": "wu_rec"
+    }
+   ]
+  },
+  "bridge": {
+   "speaker": "lingtong",
+   "art": "war",
+   "text": [
+    "夜明けに、合肥の城から八百の騎兵が飛び出してきた。先頭の将が名乗りを上げて本陣へ突き進んだが、本陣はもう橋の向こうにあった。{player}と{lingtong}の兵は、橋のたもとで槍を並べて八百を迎えた。",
+    "昼過ぎ、八百は城へ引き上げていった。{lingtong}は血まみれの顔で笑った。「張遼が来る、か。来たが、帰っていったぞ」{sunquan}は{ruxu}で{player}を呼び、手ずから杯を与えた。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "wu",
+     "n": 15
+    },
+    {
+     "unflag": "h_xyj_bridge"
+    },
+    {
+     "note": "合肥の戦い。逍遥津の橋を守り、{zhangliao}の斬り込みを食い止めた。"
+    }
+   ],
+   "end": "固めた橋"
+  },
+  "wu_rec": {
+   "speaker": "lingtong",
+   "art": "war",
+   "text": [
+    "夜明けに、合肥の城から八百の騎兵が飛び出してきた。{zhangliao}の斬り込みは、退く支度をしていた本陣を真っ二つに割った。{sunquan}は逍遥津の橋まで逃れたが、橋の板は外されていた。",
+    "{sunquan}は馬に鞭を当て、一丈あまりの切れ目を飛び越えた。{lingtong}の三百の兵は、主を逃がすために橋のたもとで死んだ。{lingtong}だけが、傷だらけで江を泳いで戻ってきた。"
+   ],
+   "choices": [
+    {
+     "label": "江に飛び込み、{lingtong}を助け上げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "end_ling",
+      "lose": "end_river"
+     }
+    },
+    {
+     "label": "{ruxu}の陣で、戻る兵を数える",
+     "next": "end_river"
+    }
+   ]
+  },
+  "end_ling": {
+   "speaker": "lingtong",
+   "text": [
+    "流れに呑まれかけた{lingtong}の帯をつかみ、岸へ引き上げた。若い将は泥の上で声を上げて泣いた。「三百人、一人も戻らなかった」{sunquan}は自分の袖で、その涙を拭ったという。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "note": "合肥の戦い。江から{lingtong}を助け上げた。"
+    }
+   ],
+   "end": "逍遥津の跳躍"
+  },
+  "end_river": {
+   "text": [
+    "{ruxu}の陣に戻ってきた兵は、出ていったときの半分もいなかった。江東では、泣く子も「張遼が来る」と聞けば泣きやむようになったという。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "note": "合肥の戦いで、孫権の軍が敗れるのを見た。"
+    }
+   ],
+   "end": "張遼が来る"
+  },
+  "wu_wound": {
+   "text": [
+    "八百の騎兵は、まるで本陣の場所を知っていたかのように、まっすぐ丘へ駆け上がってきた。麾蓋が倒れ、{sunquan}は肩に矢を受けて逃れた。{player}は崩れた陣の中を、{ruxu}まで逃げ帰った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "note": "合肥の戦い。孫権は麾蓋を奪われ、矢傷を負った。"
+    }
+   ],
+   "end": "奪われた麾蓋"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "xyj_wound"
+     },
+     "next": "late_wound"
+    },
+    {
+     "if": {
+      "branch": "xyj_bridge"
+     },
+     "next": "late_bridge"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_wound": {
+   "text": [
+    "旅の途中で噂を聞いた。合肥で張遼の八百が孫権の本陣に斬り込み、麾蓋を奪ったという。孫権は肩に矢を受けて、かろうじて逃れたとも。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xyj_charge"
+    },
+    {
+     "unflag": "h_xyj_800"
+    },
+    {
+     "unflag": "h_xyj_wall"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_bridge": {
+   "text": [
+    "旅の途中で噂を聞いた。合肥で張遼の八百が打って出たが、孫権の退き陣は固く、逍遥津の橋で食い止められたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xyj_bridge"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。合肥で、張遼がわずか八百で十万の孫権の軍に斬り込み、孫権は逍遥津の切れた橋を馬で飛び越えて逃れたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_xyj_800"
+    },
+    {
+     "unflag": "h_xyj_wall"
+    },
+    {
+     "note": "合肥の戦いの噂を聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "xyj_wound",
+   "event": "xiaoyaojin",
+   "order": 2,
+   "why": "主人公が孫権の麾蓋の在りかを探った",
+   "when": {
+    "flag": "h_xyj_charge"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "合肥の戦い。[[p:張遼]]はわずか八百の兵で十万の{n_wu}軍に斬り込み、まっすぐ本陣の丘へ駆け上がって[[p:孫権]]の麾蓋を奪った。孫権は肩に矢を受けて辛くも逃れ、{n_wu}軍は算を乱して退いた。",
+    "do": [
+     [
+      "battle",
+      "hefei"
+     ],
+     [
+      "add",
+      "wu",
+      "prestige",
+      -20
+     ],
+     [
+      "add",
+      "wu",
+      "stability",
+      -0.1
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      15
+     ]
+    ],
+    "imp": 3,
+    "at": "hefei"
+   }
+  },
+  {
+   "id": "xyj_bridge",
+   "event": "xiaoyaojin",
+   "order": 1,
+   "why": "主人公が逍遥津の橋の守りを固めさせた",
+   "when": {
+    "flag": "h_xyj_bridge"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "合肥の戦い。[[p:張遼]]は八百の兵で打って出たが、[[p:孫権]]の本陣はすでに逍遥津の橋を渡っており、橋のたもとを固めた[[p:凌統]]の兵に阻まれて城へ戻った。{n_wu}軍は兵を損なわずに退いた。",
+    "do": [
+     [
+      "add",
+      "wu",
+      "prestige",
+      -3
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      3
+     ]
+    ],
+    "imp": 3,
+    "at": "hefei"
+   }
+  }
+ ]
+}

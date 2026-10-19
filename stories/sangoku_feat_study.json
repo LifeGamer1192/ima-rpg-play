@@ -1,0 +1,338 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_feat_study",
+ "kind": "feat",
+ "feat": "study",
+ "title": "天下の論",
+ "era": "sangoku",
+ "trigger": {
+  "schoolRank": 3,
+  "notFeat": "study"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "master": {
+   "npc": "老いた師",
+   "sex": "m"
+  },
+  "champ": {
+   "npc": "他派の名士",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}で、老いた師の言葉を聞く",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は床に伏したまま、{player}の手を取った。「{ruler}様が{capital}に諸家の師を集め、御前でその道を競わせるという。わしは行けぬ。そなたが行け」",
+    "「勝てば、我らの道が天下の道と呼ばれる。負ければ、百年は埋もれよう」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ向かう",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}の大堂で、論の第一席に臨む",
+   "art": "court",
+   "text": [
+    "大堂に、諸家の師が居並ぶ。経書も、律も、兵法も、符水も、鍼も、人物評も。それぞれが御前で己の道を示し、残る者だけが次の席に進む。"
+   ],
+   "choices": [
+    {
+     "label": "経書を縦横に引いて、礼と孝を講じる",
+     "if": {
+      "school": "taixue"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "一州の戸籍と租税を、律と算木ひとつで読み解いてみせる",
+     "if": {
+      "school": "fajia"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "庭で弩を引き、百歩先の的を続けざまに射抜く",
+     "if": {
+      "school": "bingjia"
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "病みついた衛士に符水を与え、その場で起き上がらせる",
+     "if": {
+      "school": "wudoumi"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "御前で古傷に鍼を打ち、痛みを消してみせる",
+     "if": {
+      "school": "yimen"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "居並ぶ名士を一人ずつ、ひと言で評してみせる",
+     "if": {
+      "school": "qingtan"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "己の道の心を、言葉で説く",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、{champ}と道を競う",
+   "speaker": "champ",
+   "art": "court",
+   "text": [
+    "勝ち残ったのは二人。{champ}は麈尾を置いた。「そなたの道は見事。だが、見事なだけでは天下は治まらぬ」将と属官が息を呑んで見守る。"
+   ],
+   "choices": [
+    {
+     "label": "春秋の義と世の理を、問答で競う",
+     "if": {
+      "school": "taixue"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "同じ州をどちらがより富ませるか、法と算段で競う",
+     "if": {
+      "school": "fajia"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "砂盤の上で、兵を動かし合って勝ちを競う",
+     "if": {
+      "school": "bingjia"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "疫に倒れた民の村で、どちらが多く救うかを競う",
+     "if": {
+      "school": "wudoumi"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "同じ病人を診て、どちらの見立てが正しいかを競う",
+     "if": {
+      "school": "yimen"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "有と無の理を、清談で競う",
+     "if": {
+      "school": "qingtan"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "理で押し切る",
+     "check": {
+      "skill": "speech",
+      "dc": 84,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "史書の実例で、道の力を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 84,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    }
+   ]
+  },
+  "s3b": {
+   "speaker": "champ",
+   "art": "court",
+   "text": [
+    "{champ}の道が一枚上を行った。大堂がざわめく。もう一度だけ、示す機会がある。"
+   ],
+   "choices": [
+    {
+     "label": "己の道の奥義を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 86,
+      "win": "s4",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "己の言葉で、道の心を示す",
+     "check": {
+      "skill": "speech",
+      "dc": 86,
+      "win": "s4",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}が身を乗り出した。「では問う。漢の世が傾いたこの天下を、そなたの道はどう救う。一言で答えよ」"
+   ],
+   "choices": [
+    {
+     "label": "学んだすべてを一言に込める",
+     "check": {
+      "skill": "letters",
+      "dc": 80,
+      "win": "swin",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "主公の目を見て、己の言葉で答える",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "swin",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "swin": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "長い沈黙のあと、{ruler}は席を降り、{player}に向かって拱手した。「師よ」",
+    "その一言で、天下の論は決した。{capital}には、{player}の門を叩こうという若者たちが列をなした。"
+   ],
+   "effects": [
+    {
+     "fame": 25
+    },
+    {
+     "feat": "study"
+    }
+   ],
+   "end": "宗師"
+  },
+  "sfail": {
+   "art": "lecture",
+   "text": [
+    "道は及ばなかった。{player}は黙って一礼し、大堂を辞した。……学び直して、また次の論に。"
+   ],
+   "effects": [
+    {
+     "fame": -5
+    }
+   ],
+   "end": "論いまだ至らず"
+  }
+ }
+}

@@ -1,0 +1,779 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_fan",
+ "kind": "history",
+ "title": "漢水の長雨",
+ "era": "sangoku",
+ "event": "fan",
+ "lead": 6,
+ "before": [
+  "f1",
+  "f2",
+  "f2ok",
+  "f2ng",
+  "f3",
+  "f3in",
+  "f3caught",
+  "f3hurt",
+  "f4",
+  "f5",
+  "f6",
+  "f6move",
+  "f6ng",
+  "f6pd"
+ ],
+ "onFired": "late",
+ "cast": {
+  "jl": {
+   "scnPlace": "jiangling"
+  },
+  "city": {
+   "scnPlace": "xiangyang"
+  },
+  "wan": {
+   "scnPlace": "wan"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "shu": {
+   "scnRealm": "shu"
+  },
+  "guanyu": {
+   "scnPerson": "関羽"
+  },
+  "yujin": {
+   "scnPerson": "于禁"
+  },
+  "pangde": {
+   "scnPerson": "龐徳"
+  },
+  "caoren": {
+   "scnPerson": "曹仁"
+  },
+  "boatman": {
+   "npc": "漢水の老船頭",
+   "sex": "m"
+  }
+ },
+ "start": "f1",
+ "scenes": {
+  "f1": {
+   "at": {
+    "place": "jl",
+    "building": "inn"
+   },
+   "goal": "{jl}の{inn}で、北伐の噂を聞く",
+   "speaker": "boatman",
+   "art": "inn",
+   "text": [
+    "{jl}の{inn}は、北へ下る兵と舟人で溢れていた。{guanyu}将軍が荊州の兵を挙げ、漢水を遡って樊城の{caoren}を囲むのだという。",
+    "隅の卓で、日に焼けた老人が濁り酒を舐めていた。漢水で五十年、舟を操ってきたという{boatman}である。「今年は梅雨が明けても空が重い。秋に長雨が来る年の空だ。漢水があふれりゃ、樊城の北の低い原は湖になる」",
+    "「北からは魏王の救いの軍が来るそうな。{yujin}将軍の七軍よ。……どっちにつくにせよ、高い所に陣を張るこった」"
+   ],
+   "choices": [
+    {
+     "label": "関羽の軍に加わり、舟で北へ上る",
+     "effects": [
+      {
+       "note": "{guanyu}が樊城の{caoren}を囲むという。関羽の軍に加わった。"
+      }
+     ],
+     "next": "f2"
+    },
+    {
+     "label": "北の宛へ回り、魏の救いの軍に加わる",
+     "effects": [
+      {
+       "flag": "h_fan_cao"
+      },
+      {
+       "note": "樊城の救いに来る{yujin}の軍に加わることにした。"
+      }
+     ],
+     "next": "f5"
+    }
+   ]
+  },
+  "f2": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の{barracks}で、{guanyu}に会う",
+   "speaker": "guanyu",
+   "art": "camp",
+   "text": [
+    "漢水の南岸、{city}の{barracks}で、長い鬚の大将が灯の下で竹簡を読んでいた。{guanyu}である。読んでいるのは春秋の左氏伝だった。",
+    "「樊城は川向こう、目と鼻の先だ。だが{caoren}は守りの上手い男でな、陸から攻めても埒が明かぬ」将軍は竹簡を閉じた。「舟が要る。漢水を自在に動ける舟が百艘。集められるか」"
+   ],
+   "choices": [
+    {
+     "label": "漢水の舟主たちと掛け合い、舟を百艘そろえる",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "f2ok",
+      "lose": "f2ng"
+     }
+    }
+   ]
+  },
+  "f2ok": {
+   "speaker": "guanyu",
+   "text": [
+    "ひと月で、漢水の両岸から舟が集まった。漁舟、塩舟、渡し舟。{guanyu}は舟を一艘ずつ見て回り、満足げに鬚をしごいた。「商いの腕も、戦の腕のうちよ」"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "note": "{guanyu}のために漢水の舟を集めた。"
+    }
+   ],
+   "next": "f3"
+  },
+  "f2ng": {
+   "text": [
+    "舟主たちは、魏との戦に舟を出すのを渋った。{player}は自腹で船賃を積み、ようやく半分を集めた。"
+   ],
+   "effects": [
+    {
+     "money": -60
+    }
+   ],
+   "next": "f3"
+  },
+  "f3": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の渡し場で、{boatman}に会う",
+   "speaker": "boatman",
+   "art": "road",
+   "text": [
+    "渡し場で、{boatman}が網を繕っていた。{player}を見ると、北の空を顎で指した。「ほら、来るぞ。あの雲は十日は居座る」",
+    "「樊城の城壁は版築の土壁よ。十日も雨に打たれりゃ、北東の隅から溶けて崩れる。わしの若いころにも一度あった。城の中の者は、まだ気づいとらんだろうがな」"
+   ],
+   "choices": [
+    {
+     "label": "雨の夜に樊城へ忍び込み、崩れかけた城壁を確かめる",
+     "turn": true,
+     "guide": "城に忍び込む。見つかれば城兵に囲まれる",
+     "check": {
+      "skill": "stealth",
+      "dc": 42,
+      "win": "f3in",
+      "lose": "f3caught"
+     }
+    },
+    {
+     "label": "雨の話だけを{guanyu}に伝える",
+     "next": "f4"
+    }
+   ]
+  },
+  "f3caught": {
+   "text": [
+    "城壁の下の水門をくぐったところで、見張りの松明に照らされた。「間者だ」叫び声が雨音を裂いた。"
+   ],
+   "choices": [
+    {
+     "label": "水門の中で斬り結ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "f3in",
+      "lose": "f3hurt"
+     }
+    }
+   ]
+  },
+  "f3hurt": {
+   "text": [
+    "{player}は漢水に飛び込み、濁流に流されるままに逃げた。崩れかけた壁があったのか、確かめる間はなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "f4"
+  },
+  "f3in": {
+   "art": "war",
+   "text": [
+    "城の北東の隅は、老船頭の言うとおりだった。雨を吸った土壁が膨らみ、指で押すと泥が崩れる。その内側では、{caoren}の兵が城門を泥で塞ぎながら、「城が持たぬ」と囁き合っていた。",
+    "{player}は崩れかけた壁の位置に印の縄を垂らし、闇に紛れて城を出た。"
+   ],
+   "effects": [
+    {
+     "flag": "h_fan_wall"
+    },
+    {
+     "note": "樊城の北東の城壁が雨で崩れかけているのを確かめた。"
+    }
+   ],
+   "next": "f4"
+  },
+  "f4": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の{barracks}で、{guanyu}に報せる",
+   "speaker": "guanyu",
+   "art": "camp",
+   "text": [
+    "{guanyu}は{player}の報せを黙って聞き、地図の上に指を置いた。「水が来れば、{yujin}の七軍は低い原に取り残される。舟で囲めば戦わずに降る」",
+    "「だが、それだけでは樊城は落ちぬ。{caoren}の首を取らねば、魏王は都を移しはせぬ」"
+   ],
+   "choices": [
+    {
+     "label": "崩れかけた北東の壁の位置を地図に描いて見せる",
+     "if": {
+      "flag": "h_fan_wall"
+     },
+     "effects": [
+      {
+       "flag": "h_fan_fall"
+      },
+      {
+       "note": "樊城の崩れかけた壁の位置を{guanyu}に伝えた。"
+      }
+     ],
+     "next": "aftergo"
+    },
+    {
+     "label": "一礼して、雨を待つ",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "f5": {
+   "at": {
+    "place": "wan",
+    "building": "barracks"
+   },
+   "goal": "{wan}の{barracks}で、{yujin}の軍に加わる",
+   "speaker": "yujin",
+   "art": "camp",
+   "text": [
+    "{wan}の{barracks}に、七軍、三万の兵が集まっていた。総大将の{yujin}は、三十年、魏王のもとで軍律を守らせてきた厳しい将である。",
+    "陣の隅に、一つだけ異様なものがあった。白木の棺である。「龐将軍の棺だ」と兵が囁いた。「関羽を殺すか、自分が死ぬか。どちらにしても要るだろう、と言って担がせてきたそうな」"
+   ],
+   "choices": [
+    {
+     "label": "{yujin}の軍に加わり、樊城の北へ向かう",
+     "next": "f6"
+    }
+   ]
+  },
+  "f6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の対岸、樊城の北の原に陣を張る",
+   "speaker": "pangde",
+   "art": "camp",
+   "text": [
+    "七軍は樊城の北の平らな原に陣を張った。草は柔らかく、水は近く、兵を休めるには申し分ない。ただ、空が十日も低いままだった。",
+    "{pangde}が{player}の隣で空を見上げた。羌の地から来た、顔に古傷のある将である。「この原は、漢水より低い。……{yujin}殿にそう言ったが、『陣を動かせば、兵が関羽を恐れていると思う』と取り合ってもらえなんだ」"
+   ],
+   "choices": [
+    {
+     "label": "{yujin}の幕舎へ行き、「陣を北の高みへ移されよ」と説く",
+     "turn": true,
+     "guide": "総大将に陣替えを説く。軍律に厳しい将だ",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "f6move",
+      "lose": "f6ng"
+     }
+    },
+    {
+     "label": "{pangde}と棺の前で酒を酌み交わす",
+     "next": "f6pd"
+    }
+   ]
+  },
+  "f6move": {
+   "speaker": "yujin",
+   "text": [
+    "{yujin}は{player}の描いた原の高低の図を、長いあいだ見ていた。「漢水の水位の書き付けまであるのか。……軍律は、兵を生かすためのものだ」",
+    "翌朝、七軍は鉦を鳴らして北の丘へ陣を移した。兵たちは雨の中で文句を言いながら、柵を立て直した。"
+   ],
+   "effects": [
+    {
+     "flag": "h_fan_high"
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "note": "{yujin}に七軍の陣を高みへ移させた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "f6ng": {
+   "speaker": "yujin",
+   "text": [
+    "「お前は将か」{yujin}は{player}を幕舎から追い出した。「陣を動かすかどうかは、わしが決める」雨はその夜から、本降りになった。"
+   ],
+   "next": "aftergo"
+  },
+  "f6pd": {
+   "speaker": "pangde",
+   "text": [
+    "{pangde}は棺の蓋を卓代わりにして、{player}と酒を飲んだ。「わしの兄は蜀にいる。だから皆、わしが寝返ると思っておる」将軍は杯を干した。「この棺は、そういう者たちへの返事よ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_fan_pangde"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、長雨の行方を見届ける",
+   "wait": {
+    "settled": "fan"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "fan_high"
+     },
+     "next": "high"
+    },
+    {
+     "if": {
+      "branch": "fan_fall"
+     },
+     "next": "fall"
+    },
+    {
+     "if": {
+      "flag": "h_fan_cao"
+     },
+     "next": "flood_cao"
+    },
+    {
+     "next": "flood"
+    }
+   ]
+  },
+  "high": {
+   "speaker": "yujin",
+   "art": "war",
+   "text": [
+    "十日の長雨で漢水はあふれ、樊城の北の原は一面の湖になった。だが、湖の上に浮かんでいるのは空の柵だけだった。七軍は北の丘の上で、水が引くのを待っていた。",
+    "{guanyu}の舟の群れは丘を囲んだが、上陸はできなかった。秋の終わり、徐晃の援軍が着くと、関羽は囲みを解いて南へ退いた。{yujin}は{player}に言った。「軍律で兵を死なせるところだった。礼を言う」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "cao",
+     "n": 15
+    },
+    {
+     "unflag": "h_fan_high"
+    },
+    {
+     "unflag": "h_fan_cao"
+    },
+    {
+     "unflag": "h_fan_pangde"
+    },
+    {
+     "note": "樊城の戦い。七軍は高みにいて水に呑まれず、{guanyu}は囲みを解いた。"
+    }
+   ],
+   "end": "丘の上の七軍"
+  },
+  "fall": {
+   "speaker": "guanyu",
+   "art": "war",
+   "text": [
+    "漢水があふれた夜、樊城の北東の隅が音を立てて崩れた。{player}の垂らした縄の目印の下に、{guanyu}の舟が次々と漕ぎ寄せた。",
+    "夜明けには、城の楼に関羽の旗が立っていた。{caoren}はわずかな兵と北へ逃れ、低い原の七軍は水の中で降った。関羽の名は許の都まで震わせ、魏王は都を移すことを口にしたという。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "rep": "shu",
+     "n": 20
+    },
+    {
+     "rep": "cao",
+     "n": -15
+    },
+    {
+     "unflag": "h_fan_fall"
+    },
+    {
+     "unflag": "h_fan_wall"
+    },
+    {
+     "note": "樊城の戦い。崩れた城壁から{guanyu}の兵が入り、樊城は落ちた。"
+    }
+   ],
+   "end": "崩れた樊城"
+  },
+  "flood_cao": {
+   "art": "disaster",
+   "text": [
+    "十日目の夜、漢水があふれた。陣は腰まで、やがて胸まで水に浸かった。兵たちは柵にしがみつき、丘の上へ逃げた者は{guanyu}の舟に囲まれた。",
+    "{yujin}は舟の上の関羽に向かって、兜を脱いだ。三十年、軍律を守ってきた将の降伏だった。だが一つの堤の上で、{pangde}だけが弓を引き続けていた。"
+   ],
+   "choices": [
+    {
+     "label": "水に浮かぶ兵たちを、流れてきた舟で拾い上げる",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "end_rescue",
+      "lose": "end_drown"
+     }
+    },
+    {
+     "label": "{pangde}の堤へ泳ぎ渡り、共に弓を引く",
+     "if": {
+      "flag": "h_fan_pangde"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_pangde",
+      "lose": "end_drown"
+     }
+    },
+    {
+     "label": "{yujin}と共に降る",
+     "next": "end_surrender"
+    }
+   ]
+  },
+  "flood": {
+   "art": "war",
+   "text": [
+    "十日目の夜、漢水があふれた。夜明け、樊城の北の原は一面の湖になり、七軍の陣は水の中に柵の先だけを覗かせていた。{guanyu}の舟が、四方から湖へ漕ぎ出していく。",
+    "{player}の舟の前にも、水に浸かった魏の兵が槍を捨てて手を挙げていた。"
+   ],
+   "choices": [
+    {
+     "label": "舟を寄せ、降る兵を一人残らず拾い上げる",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "end_boats",
+      "lose": "end_watch"
+     }
+    },
+    {
+     "label": "樊城の城壁の下まで漕ぎ寄せ、城の様子をうかがう",
+     "next": "end_watch"
+    }
+   ]
+  },
+  "end_rescue": {
+   "text": [
+    "{player}は流れてきた舟に飛び乗り、溺れかけた兵を一人、また一人と引き上げた。舟が沈みそうになるまで乗せた兵たちは、そのまま関羽の舟に囲まれて降ったが、少なくとも生きていた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "unflag": "h_fan_cao"
+    },
+    {
+     "unflag": "h_fan_pangde"
+    },
+    {
+     "note": "樊城の水攻めで、溺れる七軍の兵を舟で拾い上げた。"
+    }
+   ],
+   "end": "濁流の舟"
+  },
+  "end_pangde": {
+   "speaker": "pangde",
+   "text": [
+    "堤の上で、{pangde}と{player}は矢の尽きるまで射続けた。やがて小舟を奪って城へ向かおうとしたが、舟は水の中で覆り、将軍は捕らえられた。",
+    "{player}は流木にしがみついて逃れた。のちに聞いた。{pangde}は関羽の前で膝を屈さず、「魏の鬼となっても、賊の将にはならぬ」と言って斬られたと。白木の棺は、主を乗せずに漢水を流れていったという。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "unflag": "h_fan_cao"
+    },
+    {
+     "unflag": "h_fan_pangde"
+    },
+    {
+     "note": "樊城の水攻めの中、{pangde}と共に最後まで戦った。"
+    }
+   ],
+   "end": "空の棺"
+  },
+  "end_surrender": {
+   "text": [
+    "{player}は{yujin}の後ろで武器を捨てた。降った兵は三万。のちに{yujin}は呉へ送られ、さらに魏へ帰されたが、魏王の陵に描かれた己の降る姿の絵を見て、病んで死んだという。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "unflag": "h_fan_cao"
+    },
+    {
+     "unflag": "h_fan_pangde"
+    },
+    {
+     "note": "樊城の水攻めで、{yujin}と共に{guanyu}に降った。"
+    }
+   ],
+   "end": "降将の列"
+  },
+  "end_drown": {
+   "text": [
+    "濁流が{player}を呑みこんだ。気がつくと、樊城から遠く離れた下流の葦の中だった。七軍が水に沈み、{yujin}が降ったと聞いたのは、それから三日後のことである。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "unflag": "h_fan_cao"
+    },
+    {
+     "unflag": "h_fan_pangde"
+    },
+    {
+     "note": "樊城の水攻めで濁流に呑まれた。"
+    }
+   ],
+   "end": "下流の葦"
+  },
+  "end_boats": {
+   "speaker": "guanyu",
+   "text": [
+    "{player}の集めた舟が、湖の上で降る兵を拾い集めた。{guanyu}は三万の捕虜を見渡して言った。「舟を集めた者の手柄だ」その名は荊州から中原まで鳴り響いた。だが樊城の{caoren}は、まだ城門を閉ざしたままだった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "money": 120
+    },
+    {
+     "rep": "shu",
+     "n": 15
+    },
+    {
+     "unflag": "h_fan_wall"
+    },
+    {
+     "note": "樊城の水攻めで、{guanyu}の舟を率いて七軍を降した。"
+    }
+   ],
+   "end": "湖の上の三万"
+  },
+  "end_watch": {
+   "text": [
+    "樊城の城壁は水に浸かり、ところどころ崩れていた。だが城の楼には、まだ{caoren}の旗が立っていた。{guanyu}の威名は中原を震わせたが、城は落ちなかった。南の{jl}の守りが手薄になっていることを、気にする者は誰もいなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_fan_wall"
+    },
+    {
+     "note": "樊城の戦い。{guanyu}が七軍を水に沈めた。"
+    }
+   ],
+   "end": "中原を震わす"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "fan_high"
+     },
+     "next": "late_high"
+    },
+    {
+     "if": {
+      "branch": "fan_fall"
+     },
+     "next": "late_fall"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_high": {
+   "text": [
+    "旅の途中で噂を聞いた。漢水があふれたが、{yujin}の七軍は丘の上に陣を移していて水に呑まれず、{guanyu}は樊城の囲みを解いたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_fan_high"
+    },
+    {
+     "unflag": "h_fan_cao"
+    },
+    {
+     "unflag": "h_fan_pangde"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_fall": {
+   "text": [
+    "旅の途中で噂を聞いた。漢水があふれた夜、樊城の城壁が崩れ、{guanyu}の兵がなだれ込んで城を落としたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_fan_fall"
+    },
+    {
+     "unflag": "h_fan_wall"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。漢水の長雨で{yujin}の七軍が水に沈み、三万の兵が{guanyu}に降った。{pangde}は降らずに斬られたという。",
+    "「魏王が都を移すと言い出したそうな」客舎の主は声を潜めた。「髭の将軍、天下を取るかもしれんぞ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_fan_cao"
+    },
+    {
+     "unflag": "h_fan_pangde"
+    },
+    {
+     "unflag": "h_fan_wall"
+    },
+    {
+     "unflag": "h_fan_fall"
+    },
+    {
+     "unflag": "h_fan_high"
+    },
+    {
+     "note": "樊城で七軍が水に沈んだと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "fan_high",
+   "event": "fan",
+   "order": 2,
+   "why": "主人公が于禁に陣を高みへ移させた",
+   "when": {
+    "flag": "h_fan_high"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:関羽]]は樊城を囲んだが、長雨の前に[[p:于禁]]が七軍の陣を北の丘へ移しており、漢水があふれても魏の兵は水に呑まれなかった。秋の終わり、関羽は囲みを解いて南へ退いた。",
+    "do": [
+     [
+      "army",
+      "shu",
+      0.9
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 3,
+    "at": "xiangyang"
+   }
+  },
+  {
+   "id": "fan_fall",
+   "event": "fan",
+   "order": 1,
+   "why": "主人公が樊城の崩れかけた壁を関羽に教えた",
+   "when": {
+    "flag": "h_fan_fall"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:関羽]]は樊城を囲み、漢水があふれた機に[[p:于禁]]の七軍を降した。その夜、雨に崩れた城壁から関羽の兵がなだれ込み、[[p:曹仁]]は樊城を捨てて北へ逃れた。関羽の威名は中原を震わせ、[[p:曹操]]は都を移すことさえ考えた。",
+    "do": [
+     [
+      "battle",
+      "fancheng"
+     ],
+     [
+      "army",
+      "cao",
+      0.7
+     ],
+     [
+      "add",
+      "shu",
+      "prestige",
+      20
+     ],
+     [
+      "add",
+      "cao",
+      "stability",
+      -0.1
+     ]
+    ],
+    "imp": 3,
+    "at": "xiangyang"
+   }
+  }
+ ]
+}

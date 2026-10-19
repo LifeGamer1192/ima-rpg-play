@@ -1,0 +1,906 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_chibi",
+ "kind": "history",
+ "title": "赤壁の火",
+ "era": "sangoku",
+ "event": "chibi",
+ "lead": 6,
+ "before": [
+  "r1",
+  "r2",
+  "r2win",
+  "r2lose",
+  "r3",
+  "r3ok",
+  "r3short",
+  "r4",
+  "r4rout",
+  "r4rout_ng",
+  "r4boat",
+  "r2cao",
+  "r2c_ok",
+  "r2c_ng",
+  "r3cao",
+  "r3warn",
+  "r3warn_ng",
+  "r3chain"
+ ],
+ "onFired": "late",
+ "cast": {
+  "chaisang": {
+   "scnPlace": "chaisang"
+  },
+  "chibi": {
+   "scnPlace": "chibi"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "wu": {
+   "scnRealm": "wu"
+  },
+  "caocao": {
+   "person": "ruler:cao"
+  },
+  "sunquan": {
+   "person": "ruler:wu"
+  },
+  "zhouyu": {
+   "scnPerson": "周瑜"
+  },
+  "huanggai": {
+   "scnPerson": "黄蓋"
+  },
+  "lusu": {
+   "scnPerson": "魯粛"
+  },
+  "kongming": {
+   "scnPerson": "諸葛亮"
+  },
+  "zhangzhao": {
+   "scnPerson": "張昭"
+  },
+  "caoren": {
+   "scnPerson": "曹仁"
+  }
+ },
+ "start": "r1",
+ "scenes": {
+  "r1": {
+   "at": {
+    "place": "chaisang",
+    "building": "inn"
+   },
+   "goal": "{chaisang}の{inn}で、北の噂を聞く",
+   "speaker": "船頭",
+   "art": "inn",
+   "text": [
+    "{chaisang}の{inn}は、上流から下ってきた船頭たちの噂で持ちきりだった。",
+    "「荊州は戦わずに曹操に降った。荊州の水軍がそっくり曹操のものだ。曹操は孫将軍に書状を寄こしたそうな。『いま水軍八十万を整え、将軍と呉で狩りをしたい』とな」",
+    "「狩りの獲物は誰だ、って話よ」船頭は唾を吐いた。「お偉方は降るか戦うかで揉めてる。魯子敬様が、劉豫州の軍師とかいう若いのを連れて戻ってきたって話だ」"
+   ],
+   "choices": [
+    {
+     "label": "{lusu}を訪ね、{palace}の評定を見る",
+     "effects": [
+      {
+       "note": "曹操の大軍が長江を下ってくる。孫氏の評定を見に行くことにした。"
+      }
+     ],
+     "next": "r2"
+    },
+    {
+     "label": "江を上り、曹操の水軍に雇われる",
+     "effects": [
+      {
+       "note": "曹操の大軍が長江を下ってくる。その水軍に雇われることにした。"
+      }
+     ],
+     "next": "r2cao"
+    }
+   ]
+  },
+  "r2": {
+   "at": {
+    "place": "chaisang",
+    "building": "palace"
+   },
+   "goal": "{chaisang}の{palace}で、評定を見る",
+   "speaker": "zhangzhao",
+   "art": "court",
+   "text": [
+    "{palace}の広間では、白髪の{zhangzhao}が声を張り上げていた。「曹公は天子を奉じておられる。これに逆らえば逆賊の名を負う。しかも長江の利は、荊州の水軍とともに曹公のものとなった。降るほかに道はない」",
+    "重臣の多くが頷いた。若い{sunquan}は黙って聞いていた。広間の隅で、{lusu}と、羽扇を手にした若い男が目を交わした。{kongming}である。"
+   ],
+   "choices": [
+    {
+     "label": "「北の兵は水に慣れず、疫病に苦しんでいる」と降伏論の者たちを説き伏せる",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "r2win",
+      "lose": "r2lose"
+     }
+    },
+    {
+     "label": "黙って成り行きを見る",
+     "next": "r2lose"
+    }
+   ]
+  },
+  "r2win": {
+   "speaker": "sunquan",
+   "text": [
+    "{player}が北の兵の病のことを語ると、広間がざわめいた。{lusu}がすかさず言葉を継ぎ、鄱陽から呼び戻された{zhouyu}が進み出た。「三万の精兵をお預けください。曹操を破ってご覧に入れましょう」",
+    "{sunquan}は剣を抜いて、目の前の机を断ち割った。「この上、降ると言う者は、この机と同じになる」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "wu",
+     "n": 8
+    },
+    {
+     "note": "{chaisang}の評定で、戦うべきことを説いた。"
+    }
+   ],
+   "next": "r3"
+  },
+  "r2lose": {
+   "speaker": "sunquan",
+   "text": [
+    "評定は夜まで続いた。翌朝、鄱陽から呼び戻された{zhouyu}が進み出ると、{sunquan}は剣を抜いて机を断ち割った。「この上、降ると言う者は、この机と同じになる」"
+   ],
+   "next": "r3"
+  },
+  "r3": {
+   "at": {
+    "place": "chibi",
+    "building": "barracks"
+   },
+   "goal": "{chibi}の{barracks}で、{zhouyu}の陣に加わる",
+   "speaker": "huanggai",
+   "art": "camp",
+   "text": [
+    "{chibi}の南岸の陣から、対岸の烏林が見えた。曹操の船団は数え切れず、船と船とが鎖でつながれて、一つの城のように江に浮かんでいる。",
+    "老将の{huanggai}が、{player}の隣で江を眺めていた。「北の兵は船に酔う。だから鎖でつないで揺れを止めた。賢い手だ。だが、つないだ船は逃げられぬ」老将は笑った。「枯れ草と油が要る。たくさんな」"
+   ],
+   "choices": [
+    {
+     "label": "近くの村々から、枯れ草と油を買い集める",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "r3ok",
+      "lose": "r3short"
+     }
+    },
+    {
+     "label": "陣の普請を手伝う",
+     "next": "r4"
+    }
+   ]
+  },
+  "r3ok": {
+   "text": [
+    "十日のあいだに、枯れ草を積んだ舟が十艘、油の甕が二百。{huanggai}は荷を見て頷いた。「これで燃える」"
+   ],
+   "effects": [
+    {
+     "money": 80
+    },
+    {
+     "rep": "wu",
+     "n": 5
+    },
+    {
+     "flag": "h_chibi_oil"
+    }
+   ],
+   "next": "r4"
+  },
+  "r3short": {
+   "text": [
+    "村々の油は、とうに孫氏の兵が買い上げていた。{player}が集められたのは、枯れ草の束が幾つかだけだった。"
+   ],
+   "next": "r4"
+  },
+  "r4": {
+   "speaker": "zhouyu",
+   "art": "war",
+   "text": [
+    "冬の夜、{zhouyu}が諸将を集めた。三十四の、美しい顔の将である。「{huanggai}が曹操に偽りの降伏の書を送る。降る舟に枯れ草と油を積み、近づいて火を放つ。東南の風が吹く日を待つ」",
+    "「火がつけば、曹操は北へ逃げる。逃げ道は二つ。江を上るか、華容の沼の道を行くか」{zhouyu}は絵図の上の沼地を指で叩いた。「沼の道は泥が深い。だが、ここまで手は回らぬ」"
+   ],
+   "choices": [
+    {
+     "label": "「沼の道に枯れ草を敷き、退く曹操を待ち伏せましょう」と{zhouyu}に献策する",
+     "turn": true,
+     "guide": "曹操の退き道を断つ。献策が通れば、自ら沼の伏兵を率いる",
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "r4rout",
+      "lose": "r4rout_ng"
+     }
+    },
+    {
+     "label": "火船の漕ぎ手に名乗り出る",
+     "next": "r4boat"
+    },
+    {
+     "label": "陣で風を待つ",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "r4rout": {
+   "speaker": "zhouyu",
+   "text": [
+    "{zhouyu}は絵図から目を上げた。「沼の道に枯れ草を敷き、退く兵の足が泥に取られたところへ火をかける。……面白い。兵を五百与える。お前がやれ」",
+    "{player}は兵を連れて夜のうちに北岸へ渡り、華容の沼の道に枯れ草を敷き詰めた。泥の匂いの中で、火打ち石を握って風を待った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_chibi_huarong"
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "note": "{zhouyu}に献策し、華容の沼の道に伏兵を置いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "r4rout_ng": {
+   "speaker": "zhouyu",
+   "text": [
+    "「兵は足りぬ。火が全てだ」{zhouyu}は首を振った。「沼の道までは追わぬ。曹操が逃げるなら、逃がしてやればよい。荊州の地さえ取り戻せればな」"
+   ],
+   "next": "aftergo"
+  },
+  "r4boat": {
+   "speaker": "huanggai",
+   "text": [
+    "「よし、わしの舟に乗れ」{huanggai}は{player}の肩を叩いた。「降る舟だ。旗も降参の旗よ。火を放ったら、すぐ小舟に飛び移れ。遅れたら、曹操と一緒に焼けるぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_chibi_boat"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "r2cao": {
+   "at": {
+    "place": "chibi",
+    "building": "barracks"
+   },
+   "goal": "{chibi}の対岸、烏林の曹操の陣に入る",
+   "speaker": "荊州の水軍の将",
+   "art": "camp",
+   "text": [
+    "烏林の陣は、北の兵の咳の音で満ちていた。慣れぬ水と南の湿り気で、熱を出す者が日に日に増えている。荊州から降った水軍の将が、{player}を船の雇い手の列に並ばせた。",
+    "「病で漕ぎ手が足りぬ。北の兵は船に乗るだけで吐く。丞相は船を鎖でつながせた。揺れは止まったが……」将は言葉を切った。「火を使われたら、ひとたまりもない」"
+   ],
+   "choices": [
+    {
+     "label": "病の兵の看病をする",
+     "check": {
+      "skill": "medicine",
+      "dc": 28,
+      "win": "r2c_ok",
+      "lose": "r2c_ng"
+     }
+    },
+    {
+     "label": "船の見張りに立つ",
+     "next": "r3cao"
+    }
+   ]
+  },
+  "r2c_ok": {
+   "text": [
+    "煎じ薬を配り、汚れた水を飲ませぬよう井戸を掘らせた。熱の下がった兵たちが、{player}を「先生」と呼ぶようになった。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    }
+   ],
+   "next": "r3cao"
+  },
+  "r2c_ng": {
+   "text": [
+    "薬は足りなかった。毎朝、筵に包まれた亡骸が陣の外へ運ばれていった。"
+   ],
+   "next": "r3cao"
+  },
+  "r3cao": {
+   "speaker": "caoren",
+   "art": "war",
+   "text": [
+    "冬の夜、南岸から小舟が一艘渡ってきた。孫氏の老将{huanggai}の使いで、降伏の書を携えている。{caoren}がそれを丞相の本陣へ運んでいった。陣じゅうが沸いた。",
+    "{player}は舟着き場で、使いの小舟を見ていた。舟底に、妙に乾いた藁がのぞいている。それに、この冬にしては、風が南から吹きはじめていた。"
+   ],
+   "choices": [
+    {
+     "label": "使いの舟を探り、偽りの降伏を丞相の本陣に告げる",
+     "turn": true,
+     "guide": "黄蓋の偽りの降伏を見破る。告げても信じられねば、間者として斬られかねない",
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "r3warn",
+      "lose": "r3warn_ng"
+     }
+    },
+    {
+     "label": "鎖でつながれた自分の船だけでも、鎖を外しておく",
+     "next": "r3chain"
+    },
+    {
+     "label": "黙って江を見る",
+     "next": "aftercao"
+    }
+   ]
+  },
+  "r3warn": {
+   "speaker": "caocao",
+   "text": [
+    "使いの舟の舟底には、油の匂いのする藁が詰まっていた。{player}がそれをひと束抱えて本陣に駆け込むと、{caocao}は藁の匂いを嗅ぎ、しばらく黙っていた。",
+    "「黄公覆め」丞相は笑った。「降る舟は江の中ほどで止め、近づく前に矢を射かけよ。鎖も外せ。今夜のうちにだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_chibi_warn"
+    },
+    {
+     "rep": "cao",
+     "n": 15
+    },
+    {
+     "rep": "wu",
+     "n": -10
+    },
+    {
+     "note": "黄蓋の降伏が偽りであることを、曹操に告げた。"
+    }
+   ],
+   "next": "aftercao"
+  },
+  "r3warn_ng": {
+   "speaker": "caoren",
+   "text": [
+    "舟に近づいたところで、使いの男たちに突き飛ばされた。「何をする」騒ぎを聞きつけた{caoren}は、{player}をにらんだ。「降る者に無礼を働くな。丞相のお喜びを汚す気か」"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "aftercao"
+  },
+  "r3chain": {
+   "text": [
+    "夜のうちに、{player}は自分の乗る船の鎖の留め金を外し、縄で軽く結んでおいた。何かあれば、縄を切ればすぐに離れられる。"
+   ],
+   "effects": [
+    {
+     "flag": "h_chibi_loose"
+    }
+   ],
+   "next": "aftercao"
+  },
+  "aftergo": {
+   "at": {
+    "place": "chibi"
+   },
+   "goal": "{chibi}で、東南の風を待つ",
+   "wait": {
+    "settled": "chibi"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "chibi_rout"
+     },
+     "next": "rout"
+    },
+    {
+     "if": {
+      "branch": "chibi_foiled"
+     },
+     "next": "foiled"
+    },
+    {
+     "next": "rec"
+    }
+   ]
+  },
+  "rec": {
+   "speaker": "huanggai",
+   "art": "war",
+   "text": [
+    "東南の風が吹いた夜、{huanggai}の十艘の舟が降参の旗を掲げて北岸へ向かった。江の中ほどで、一斉に火が放たれた。鎖でつながれた曹操の船団は逃げられず、火は烏林の陣まで燃え移った。",
+    "江が赤く燃えていた。{caocao}は残った兵を連れて華容の道を北へ逃れた。泥に足を取られた兵が、後から来る兵に踏まれて死んだという。"
+   ],
+   "choices": [
+    {
+     "label": "江に落ちた{huanggai}を探す",
+     "if": {
+      "flag": "h_chibi_boat"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_gai",
+      "lose": "end_fire"
+     }
+    },
+    {
+     "label": "燃え残りの船から、敵の兵を救い上げる",
+     "next": "end_save"
+    },
+    {
+     "label": "岸から、燃える江を見届ける",
+     "next": "end_fire"
+    }
+   ]
+  },
+  "end_gai": {
+   "speaker": "huanggai",
+   "text": [
+    "火の粉の降る江で、流れ矢を受けて沈みかけた老将を、{player}は小舟に引き上げた。誰も{huanggai}と気づかず、厠に寝かされかけていたところを、{player}が叫んで止めた。「年寄りの冷や水よ」老将は笑った。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "unflag": "h_chibi_boat"
+    },
+    {
+     "unflag": "h_chibi_oil"
+    },
+    {
+     "note": "赤壁の戦い。火船に乗り、江に落ちた{huanggai}を救った。"
+    }
+   ],
+   "end": "降参の旗の火"
+  },
+  "end_save": {
+   "text": [
+    "燃え残りの船の上で、北の兵が泳げずに震えていた。{player}は綱を投げ、十幾人かを岸へ引き上げた。誰も礼を言わなかった。言葉が通じなかったのかもしれない。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_chibi_boat"
+    },
+    {
+     "unflag": "h_chibi_oil"
+    },
+    {
+     "note": "赤壁の戦い。燃える江から北の兵を救った。"
+    }
+   ],
+   "end": "燃える江の綱"
+  },
+  "end_fire": {
+   "text": [
+    "夜が明けるまで、江は燃えていた。曹操の八十万は、北へ帰ったときには幾らも残っていなかったという。{player}は、焦げた船の板が流れていくのを見ていた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_chibi_boat"
+    },
+    {
+     "unflag": "h_chibi_oil"
+    },
+    {
+     "note": "赤壁の戦いを見届けた。"
+    }
+   ],
+   "end": "赤い江"
+  },
+  "rout": {
+   "speaker": "zhouyu",
+   "art": "war",
+   "text": [
+    "江が燃えた夜、{caocao}は華容の沼の道へ逃れてきた。{player}は泥に足を取られた兵の列に火を放った。枯れ草は湿っていたが、油がそれを補った。沼の道は炎の帯になった。",
+    "丞相は身一つで逃れたという。北へ戻った兵は、出てきたときの三分の一にも満たなかった。{zhouyu}は{player}の煤けた顔を見て言った。「曹操は、もう十年は南を見ぬだろう」"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "wu",
+     "n": 15
+    },
+    {
+     "rep": "cao",
+     "n": -15
+    },
+    {
+     "unflag": "h_chibi_huarong"
+    },
+    {
+     "unflag": "h_chibi_oil"
+    },
+    {
+     "unflag": "h_chibi_boat"
+    },
+    {
+     "note": "赤壁の戦い。華容の沼の道に火を放ち、曹操の軍を潰走させた。"
+    }
+   ],
+   "end": "華容の炎"
+  },
+  "foiled": {
+   "speaker": "huanggai",
+   "art": "war",
+   "text": [
+    "降参の旗の舟は、江の中ほどで矢の雨に迎えられた。火は放たれたが、曹操の船団は鎖を外して散っており、燃えたのは幾艘かだけだった。",
+    "「見破られたか」{huanggai}は焦げた髯をなでた。それでも、北の陣の病は止まらなかった。年が明けるころ、曹操は兵を退いた。勝ったのか負けたのか、誰にもよく分からなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_chibi_oil"
+    },
+    {
+     "unflag": "h_chibi_boat"
+    },
+    {
+     "unflag": "h_chibi_huarong"
+    },
+    {
+     "note": "赤壁の火攻めは見破られた。曹操は病のために兵を退いた。"
+    }
+   ],
+   "end": "燃えなかった船団"
+  },
+  "aftercao": {
+   "at": {
+    "place": "chibi"
+   },
+   "goal": "{chibi}の対岸の陣で、成り行きを見届ける",
+   "wait": {
+    "settled": "chibi"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "chibi_foiled"
+     },
+     "next": "warned"
+    },
+    {
+     "if": {
+      "branch": "chibi_rout"
+     },
+     "next": "cao_rout"
+    },
+    {
+     "next": "cao_rec"
+    }
+   ]
+  },
+  "warned": {
+   "speaker": "caocao",
+   "art": "war",
+   "text": [
+    "降参の旗の舟は、江の中ほどで矢を浴びて燃え上がった。鎖を外した船団は、火の粉を避けて散った。{caocao}は本陣の楼の上から、燃える舟を見下ろしていた。",
+    "「江東の小僧どもに、一杯食わされるところだった」丞相は{player}に言った。だが陣の病は日ごとにひどくなり、年が明けると、丞相は北へ兵を退く命を下した。「勝たずに退くのは、負けて退くよりはましだ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "unflag": "h_chibi_warn"
+    },
+    {
+     "unflag": "h_chibi_loose"
+    },
+    {
+     "note": "赤壁で黄蓋の偽りの降伏を見破った。曹操は病のために兵を退いた。"
+    }
+   ],
+   "end": "見破られた降伏"
+  },
+  "cao_rec": {
+   "speaker": "caoren",
+   "art": "war",
+   "text": [
+    "東南の風が吹いた夜、降参の旗の舟が近づき、江の中ほどで火を噴いた。鎖でつながれた船は逃げられず、火は烏林の陣まで燃え移った。",
+    "炎の中で{caoren}が叫んでいた。「丞相を華容の道へ。江陵まで退け」"
+   ],
+   "choices": [
+    {
+     "label": "鎖を外しておいた船で、兵を乗せて逃れる",
+     "if": {
+      "flag": "h_chibi_loose"
+     },
+     "next": "end_loose"
+    },
+    {
+     "label": "丞相の退き道を、泥に草を敷いて固める",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "end_road",
+      "lose": "end_burn"
+     }
+    },
+    {
+     "label": "江に飛び込む",
+     "next": "end_burn"
+    }
+   ]
+  },
+  "end_loose": {
+   "text": [
+    "縄を切ると、{player}の船は燃える船団から離れた。乗せられるだけの兵を乗せ、闇の中を上流へ漕いだ。夜明けに数えると、四十人が生きていた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "unflag": "h_chibi_loose"
+    },
+    {
+     "note": "赤壁の戦い。燃える船団から兵を連れて逃れた。"
+    }
+   ],
+   "end": "鎖を解いた船"
+  },
+  "end_road": {
+   "text": [
+    "華容の沼の道に、兵たちと草を敷いた。丞相の馬が泥を越えていった。後から来た兵の多くは、泥と火に呑まれた。江陵に着いた{caocao}は、なぜか大声で笑っていたという。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "cao",
+     "n": 8
+    },
+    {
+     "unflag": "h_chibi_loose"
+    },
+    {
+     "note": "赤壁の戦い。華容の道で、退く曹操の道を開いた。"
+    }
+   ],
+   "end": "華容の泥"
+  },
+  "end_burn": {
+   "text": [
+    "冷たい江を泳ぎ、{player}は南岸の葦原に這い上がった。振り返ると、烏林の陣が燃えていた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_chibi_loose"
+    },
+    {
+     "note": "赤壁の戦いで、曹操の陣が焼かれるのを見た。"
+    }
+   ],
+   "end": "燃える烏林"
+  },
+  "cao_rout": {
+   "text": [
+    "江が燃えた夜、華容の沼の道にも火が放たれた。{player}は泥の中を這って逃れた。北へ帰り着いた兵は、出てきたときの三分の一にも満たなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_chibi_loose"
+    },
+    {
+     "note": "赤壁の戦い。曹操の軍は華容の道でも焼かれ、潰え去った。"
+    }
+   ],
+   "end": "燃える烏林"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "chibi_rout"
+     },
+     "next": "late_rout"
+    },
+    {
+     "if": {
+      "branch": "chibi_foiled"
+     },
+     "next": "late_foiled"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rout": {
+   "text": [
+    "旅の途中で噂を聞いた。赤壁で曹操の船団が焼かれ、退く道の華容の沼にも火が放たれて、曹操の大軍は潰え去ったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_chibi_huarong"
+    },
+    {
+     "unflag": "h_chibi_oil"
+    },
+    {
+     "unflag": "h_chibi_boat"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_foiled": {
+   "text": [
+    "旅の途中で噂を聞いた。赤壁で孫氏の火攻めは見破られたが、曹操の陣には病がはびこり、結局は北へ兵を退いたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_chibi_warn"
+    },
+    {
+     "unflag": "h_chibi_loose"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。赤壁で、孫氏の周瑜が曹操の船団を火で焼いたという。「八十万が一晩で燃えた」と客舎の男は言ったが、八十万がどれほどの数なのか、言った本人も分かっていないようだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_chibi_oil"
+    },
+    {
+     "unflag": "h_chibi_boat"
+    },
+    {
+     "unflag": "h_chibi_loose"
+    },
+    {
+     "note": "赤壁の戦いの噂を聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "chibi_rout",
+   "event": "chibi",
+   "order": 2,
+   "why": "主人公が華容の沼の道に伏兵を置いた",
+   "when": {
+    "flag": "h_chibi_huarong"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "赤壁の戦い。{r_wu}は[[p:周瑜]]に兵を預け、[[p:劉備]]と結んで{n_cao}の大軍を長江に迎えた。[[p:黄蓋]]の火船が[[p:曹操]]の船団を焼き、退く道の華容の沼にも伏兵の火が放たれた。曹操は身一つで逃れ、北へ戻った兵は三分の一にも満たなかった。",
+    "do": [
+     [
+      "battle",
+      "chibi"
+     ],
+     [
+      "army",
+      "cao",
+      0.3
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      -30
+     ],
+     [
+      "add",
+      "cao",
+      "stability",
+      -0.1
+     ],
+     [
+      "add",
+      "wu",
+      "prestige",
+      30
+     ]
+    ],
+    "imp": 3,
+    "at": "chibi"
+   }
+  },
+  {
+   "id": "chibi_foiled",
+   "event": "chibi",
+   "order": 1,
+   "why": "主人公が黄蓋の偽りの降伏を見破った",
+   "when": {
+    "flag": "h_chibi_warn"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "赤壁の戦い。[[p:黄蓋]]は偽りの降伏とともに火船を放ったが、[[p:曹操]]は前もってそれを見破り、船団の鎖を解いていた。火は大きく燃え広がらなかったが、疫病に苦しんだ{n_cao}軍は年明けに北へ退いた。",
+    "do": [
+     [
+      "army",
+      "cao",
+      0.75
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      -8
+     ],
+     [
+      "add",
+      "wu",
+      "prestige",
+      10
+     ]
+    ],
+    "imp": 3,
+    "at": "chibi"
+   }
+  }
+ ]
+}

@@ -1,0 +1,442 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_koukei",
+ "kind": "random",
+ "where": "inn",
+ "weight": 3,
+ "again": 400,
+ "most": 2,
+ "hook": "人目を忍ぶ使いが、主家の一族のある方の密書を持ってきた",
+ "title": "後継争い",
+ "era": "sangoku",
+ "trigger": {
+  "patron": true,
+  "rank": 4,
+  "sizeMin": "mid",
+  "king": false
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "adviser": {
+   "npc": "別駕従事",
+   "sex": "m"
+  },
+  "prince": {
+   "npc": "主家の一族",
+   "sex": "m",
+   "house": "power",
+   "pick": [
+    {
+     "role": "御舎弟",
+     "kin": "弟",
+     "why": "兄上は佞臣の言うがまま、名士は去り、兵は飢えている。このままでは{power}は群雄に呑まれる",
+     "age": [
+      24,
+      44
+     ]
+    },
+    {
+     "role": "嫡長子",
+     "kin": "倅",
+     "why": "父上は継室の讒言を信じ、長子のわたしを遠ざけて、幼い弟を後継に立てようとしておられる。このままでは家は継室の一族のものになる",
+     "age": [
+      20,
+      32
+     ]
+    },
+    {
+     "role": "廃された嫡子",
+     "kin": "倅",
+     "why": "わたしは一度は世子と定められた。それが一言の讒言で廃され、辺境の郡へ追いやられた。正しき後継はこちらにある",
+     "age": [
+      22,
+      36
+     ]
+    },
+    {
+     "role": "庶子",
+     "kin": "庶子",
+     "why": "母が婢の出というだけで、わたしは日陰に置かれてきた。だが、兵とともに飢え、民の苦しみを知る者は一族にわたしのほかにない",
+     "age": [
+      18,
+      30
+     ]
+    },
+    {
+     "role": "甥御",
+     "kin": "甥",
+     "why": "叔父上は、父が戦で死んだとき、幼いわたしから兵と郡を取り上げた。父の旧臣は、いまもわたしを待っている",
+     "age": [
+      20,
+      36
+     ]
+    },
+    {
+     "role": "従弟にして一族の重鎮",
+     "kin": "従弟",
+     "why": "主公は宦官上がりの近臣に政を任せ、蔵は空、名士の心は離れた。宗族の長として、黙って見てはおれぬ",
+     "age": [
+      35,
+      55
+     ]
+    },
+    {
+     "role": "隠居させられた先代",
+     "kin": "父上",
+     "why": "倅に印綬を奪われ、隠居の身に押し込められた。だが、わしの目の黒いうちに、この家を潰させはせぬ",
+     "age": [
+      55,
+      72
+     ]
+    }
+   ]
+  },
+  "go": {
+   "npc": "密使",
+   "sex": "m"
+  }
+ },
+ "start": "k1",
+ "scenes": {
+  "k1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で、密使の話を聞く",
+   "speaker": "go",
+   "art": "backroom",
+   "text": [
+    "{inn}の奥の小部屋で、{go}は封泥の付いた書簡を差し出した。「{ruler}様の{prince:role}、{prince}様からでございます」",
+    "「{prince:why}。心ある方のお力を借りたい……と」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}で{prince}に会う",
+     "guide": "主をすげかえる企て。しくじれば失脚か牢",
+     "next": "k2"
+    },
+    {
+     "label": "書簡を{ruler}に差し出す（密告）",
+     "next": "kbetray"
+    },
+    {
+     "label": "何も聞かなかったことにする",
+     "next": "kno"
+    }
+   ]
+  },
+  "k2": {
+   "at": {
+    "place": "capital",
+    "building": "house"
+   },
+   "goal": "{capital}の屋敷で、{prince}に会う",
+   "speaker": "prince",
+   "art": "backroom",
+   "text": [
+    "{prince}（{prince:age}歳）は灯の下で州の地図を広げていた。「{ruler}のままでは{power}は滅ぶ。わたしが立てば、もう一度天下を窺える」",
+    "「兵を握る校尉たちの心を掴み、{adviser}の目を逸らし、ひと晩で州府を押さえる。成った暁には、そなたを州の柱としよう」"
+   ],
+   "choices": [
+    {
+     "label": "与する",
+     "next": "k3"
+    },
+    {
+     "label": "やはり手を引く",
+     "next": "kno"
+    }
+   ]
+  },
+  "k3": {
+   "at": {
+    "place": "capital",
+    "building": "barracks"
+   },
+   "goal": "{capital}の{barracks}で、校尉たちを味方につける",
+   "art": "camp",
+   "text": [
+    "{barracks}の奥で、校尉たちが顔を寄せ合っている。誰が{prince}に付き、誰が主公に忠を尽くすのか。言葉ひとつで首が飛ぶ。"
+   ],
+   "choices": [
+    {
+     "label": "主公の失政を数え上げ、校尉たちを説く",
+     "check": {
+      "skill": "speech",
+      "dc": 62,
+      "scale": "power",
+      "win": "k4",
+      "lose": "k3leak"
+     }
+    },
+    {
+     "label": "銭で校尉たちの口と兵を買う（20000）",
+     "if": {
+      "money": 20000
+     },
+     "effects": [
+      {
+       "money": -20000
+      }
+     ],
+     "next": "k4"
+    }
+   ]
+  },
+  "k3leak": {
+   "art": "camp",
+   "text": [
+    "一人の校尉が、黙って席を立った。……{adviser}の耳に入るのは時間の問題だ。"
+   ],
+   "effects": [
+    {
+     "flag": "km_leak"
+    }
+   ],
+   "next": "k4"
+  },
+  "k4": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、{adviser}の目を逸らす",
+   "speaker": "adviser",
+   "art": "court",
+   "text": [
+    "軍議のあと、{adviser}が{player}を呼び止めた。「近ごろ、夜な夜な兵営へ通う者がいると聞く。そなた、何か知らぬか」"
+   ],
+   "choices": [
+    {
+     "label": "平然と受け流す",
+     "check": {
+      "skill": "speech",
+      "dc": 66,
+      "scale": "power",
+      "win": "k5",
+      "lose": "kcaught"
+     }
+    },
+    {
+     "label": "別の謀反の噂を流して、{adviser}の目をそちらへ向ける",
+     "check": {
+      "skill": "letters",
+      "dc": 68,
+      "scale": "power",
+      "win": "k5",
+      "lose": "kcaught"
+     }
+    },
+    {
+     "label": "（漏れていると察して）今夜のうちに決行する",
+     "if": {
+      "flag": "km_leak"
+     },
+     "next": "k5rush"
+    }
+   ]
+  },
+  "k5rush": {
+   "art": "war",
+   "text": [
+    "手筈の整わぬまま、松明が上がった。州府の守りは、思ったより固い。"
+   ],
+   "choices": [
+    {
+     "label": "州府へ斬り込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 64,
+      "scale": "power",
+      "win": "k6",
+      "lose": "kfail_jail"
+     }
+    }
+   ]
+  },
+  "k5": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "夜、{capital}の{palace}を押さえる",
+   "art": "war",
+   "text": [
+    "月のない夜。{prince}の合図とともに、味方の兵が州府の門を開いた。奥の堂の前に、主公の親衛の兵が立ちはだかる。"
+   ],
+   "choices": [
+    {
+     "label": "親衛の兵を斬り払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 58,
+      "scale": "power",
+      "win": "k6",
+      "lose": "kfail_jail"
+     }
+    },
+    {
+     "label": "親衛の長に、勝ち目のないことを説く",
+     "check": {
+      "skill": "speech",
+      "dc": 64,
+      "scale": "power",
+      "win": "k6",
+      "lose": "k5fight"
+     }
+    }
+   ]
+  },
+  "k5fight": {
+   "art": "war",
+   "text": [
+    "親衛の長は戟を構えた。「主を売る口など持たぬ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 58,
+      "scale": "power",
+      "win": "k6",
+      "lose": "kfail_jail"
+     }
+    }
+   ]
+  },
+  "k6": {
+   "speaker": "prince",
+   "art": "court",
+   "text": [
+    "夜明け。{ruler}は別院に移され、堂の上座には{prince}が座っていた。新しい主は印綬を帯び、居並ぶ将と属官の前で{player}の手を取った。",
+    "「この者なくして、今日はなかった。今日より州の柱とする」"
+   ],
+   "effects": [
+    {
+     "crown": "power",
+     "who": "prince"
+    },
+    {
+     "promote": 2
+    },
+    {
+     "favor": 200
+    },
+    {
+     "fame": 15
+    }
+   ],
+   "end": "後継"
+  },
+  "kbetray": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、{ruler}に書簡を差し出す",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は書簡を読み、長いあいだ黙っていた。「……{prince:kin}が、な」",
+    "「そなたの忠、忘れぬ」{prince}はその夜のうちに捕らえられ、遠い辺郡へ流された。"
+   ],
+   "effects": [
+    {
+     "favor": 80
+    },
+    {
+     "promote": 1
+    },
+    {
+     "rel": 15
+    }
+   ],
+   "end": "密告"
+  },
+  "kno": {
+   "art": "inn",
+   "text": [
+    "書簡は灯にくべた。この話は、聞かなかったことにする。"
+   ],
+   "end": "聞かなかった話"
+  },
+  "kcaught": {
+   "speaker": "adviser",
+   "art": "court",
+   "text": [
+    "{adviser}の目が細くなった。「……そうか。下がってよい」その日の夕刻、{player}の屋敷を兵が囲んだ。企ては露見した。"
+   ],
+   "choices": [
+    {
+     "label": "縛につく",
+     "next": "kfail_jail"
+    },
+    {
+     "label": "官を捨てて城を落ち延びる",
+     "check": {
+      "skill": "stealth",
+      "dc": 55,
+      "win": "kfail_fall",
+      "lose": "kfail_jail"
+     }
+    }
+   ]
+  },
+  "kfail_jail": {
+   "art": "jail",
+   "text": [
+    "{prince}は捕らえられ、企てに与した者は次々と獄に下された。{player}も官を剥がれ、獄へ送られた。"
+   ],
+   "effects": [
+    {
+     "fall": true
+    },
+    {
+     "wanted": "power",
+     "n": 20
+    },
+    {
+     "jail": 60
+    }
+   ],
+   "end": "投獄"
+  },
+  "kfail_fall": {
+   "art": "road",
+   "text": [
+    "夜陰に紛れて城を抜けた。官も位も、すべて失った。{power}では、もう二度と浮かび上がれまい。"
+   ],
+   "effects": [
+    {
+     "fall": true
+    },
+    {
+     "wanted": "power",
+     "n": 35
+    },
+    {
+     "rep": "power",
+     "n": -30
+    }
+   ],
+   "end": "失脚"
+  }
+ }
+}

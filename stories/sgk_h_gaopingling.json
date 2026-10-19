@@ -1,0 +1,609 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_gaopingling",
+ "kind": "history",
+ "title": "高平陵の朝",
+ "era": "sangoku",
+ "event": "gaopingling",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2see",
+  "s2fooled",
+  "s3",
+  "s3warn",
+  "s3warn_ng",
+  "s3watch",
+  "s3watch_ng",
+  "s4",
+  "s5",
+  "s5ready",
+  "s5ready_ng",
+  "s5books"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "luoyang"
+  },
+  "xu": {
+   "scnPlace": "xu"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "emperor": {
+   "person": "ruler:cao"
+  },
+  "simayi": {
+   "scnPerson": "司馬懿"
+  },
+  "shi": {
+   "scnPerson": "司馬師"
+  },
+  "shuang": {
+   "scnPerson": "曹爽"
+  },
+  "huanfan": {
+   "scnPerson": "桓範"
+  },
+  "lisheng": {
+   "scnPerson": "李勝"
+  },
+  "guest": {
+   "npc": "曹爽の門客",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}で、都の噂を聞く",
+   "speaker": "guest",
+   "art": "inn",
+   "text": [
+    "{city}の{inn}は、新しい絹の衣をまとった若者たちで賑わっていた。皆、大将軍{shuang}の門客だという。",
+    "{guest}は上機嫌だった。「いまの魏は、大将軍の天下よ。帝はまだお若い。太傅の{simayi}は病で寝たきり、口から粥をこぼして、人の顔も見分けられぬそうだ。もう怖いものはない」",
+    "「近く、正月の高平陵の参りに、帝と大将軍のご兄弟がそろって出られる。腕の立つ者を供に集めておる。おぬしも来ぬか」"
+   ],
+   "choices": [
+    {
+     "label": "門客の誘いに乗る",
+     "effects": [
+      {
+       "note": "{city}で、大将軍{shuang}の門客に誘われた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の屋敷町で、{lisheng}の供をして{simayi}を見舞う",
+   "speaker": "simayi",
+   "art": "backroom",
+   "text": [
+    "荊州の刺史に任じられた{lisheng}が、別れの挨拶に太傅の屋敷を訪ねるという。{player}はその供に付いた。",
+    "{simayi}は二人の侍女に支えられて寝台から起き上がった。衣を取ろうとして取り落とし、口を指して粥を求めた。粥をすすると、半ばが胸にこぼれた。",
+    "「荊州に赴きます」と{lisheng}が言うと、老人は耳に手を当てた。「并州か。并州は胡に近い。よく備えよ」「荊州です」「おお、并州か」{lisheng}は笑いをこらえていた。"
+   ],
+   "choices": [
+    {
+     "label": "粥をこぼす手つきと、目の動きをよく見る",
+     "check": {
+      "skill": "medicine",
+      "dc": 26,
+      "win": "s2see",
+      "lose": "s2fooled"
+     }
+    },
+    {
+     "label": "見舞いを済ませて退く",
+     "next": "s2fooled"
+    }
+   ]
+  },
+  "s2see": {
+   "text": [
+    "粥は、こぼれていた。だが、匙を持つ指は少しも震えていなかった。そして{lisheng}が背を向けた一瞬、老人の目が鷹のように{lisheng}の背を追った。",
+    "病ではない。{player}は背筋が冷たくなった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_gpl_seen"
+    },
+    {
+     "xp": "medicine",
+     "n": 1
+    },
+    {
+     "note": "{simayi}の病が偽りだと見抜いた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fooled": {
+   "text": [
+    "屋敷を出ると、{lisheng}が声を上げて笑った。「太傅は形骸のみ。もう魂は抜けておる」その報せは、その日のうちに大将軍の耳に入った。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で、大将軍{shuang}に会う",
+   "speaker": "shuang",
+   "art": "court",
+   "text": [
+    "{shuang}は宮中の御物を自分の屋敷に運ばせ、帝の楽人を勝手に呼び寄せているという噂だった。その大将軍が、高平陵への参りの支度をしていた。帝{emperor}と、大将軍の兄弟三人がそろって都を出る。",
+    "「太傅は死にかけておる。都に誰を残す必要がある」{shuang}は笑った。"
+   ],
+   "choices": [
+    {
+     "label": "{simayi}の病は偽りだと説き、兄弟そろって都を空けぬよう諫める",
+     "turn": true,
+     "if": {
+      "flag": "h_gpl_seen"
+     },
+     "guide": "司馬懿の挙兵を遅らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s3warn",
+      "lose": "s3warn_ng"
+     }
+    },
+    {
+     "label": "夜、{simayi}の屋敷のまわりを見張る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s3watch",
+      "lose": "s3watch_ng"
+     }
+    },
+    {
+     "label": "参りの行列の供に加わる",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3warn": {
+   "speaker": "shuang",
+   "text": [
+    "{player}は、太傅の指が震えていなかったこと、目が{lisheng}の背を追ったことを、一つずつ語った。{shuang}の顔から笑いが消えた。",
+    "「……弟たちは都に残す。禁兵も城の中に置く」大将軍は爪を噛んだ。「参りは、わし一人で行く。いや、今年の参りは取りやめだ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_gpl_stay"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "note": "大将軍{shuang}を諫め、兄弟そろって都を空けることを思いとどまらせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3warn_ng": {
+   "speaker": "shuang",
+   "text": [
+    "「李勝が見てきたのだ。粥もすすれぬ老いぼれだと」{shuang}は手を振った。「おぬしは疲れておる。行列の供をして、気を晴らせ」"
+   ],
+   "next": "s4"
+  },
+  "s3watch": {
+   "text": [
+    "太傅の屋敷の裏門から、夜ごと人が出入りしていた。長子の{shi}が、ひそかに養ってきた死士だという。数はおよそ三千。それが都のあちこちの民家に、散らばって潜んでいる。"
+   ],
+   "effects": [
+    {
+     "flag": "h_gpl_seen"
+    },
+    {
+     "xp": "stealth",
+     "n": 1
+    },
+    {
+     "note": "{shi}が三千の死士を都に潜ませているのを見た。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3watch_ng": {
+   "text": [
+    "屋敷の塀に近づいたところで、犬に吠えられた。見張りの影が動いた気がして、{player}は引き返した。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の屋敷町で、大司農{huanfan}に会う",
+   "speaker": "huanfan",
+   "art": "backroom",
+   "text": [
+    "大司農の{huanfan}は、大将軍の一党でただ一人、知恵の回る老人だった。人払いをして、{player}に言った。",
+    "「太傅を侮ってはならぬ。もし、帝が都を出ている間に何かあれば、帝を奉じて{xu}へ走ることだ。{xu}には武庫があり、倉がある。天子を手にして四方の兵を召せば、太傅とて手は出せぬ」",
+    "「だが{xu}の守将は日和見だ。誰かが先に行って、倉と武庫を天子のために開けるよう、話をつけておかねばならぬ。行ってくれぬか」"
+   ],
+   "choices": [
+    {
+     "label": "引き受けて{xu}へ向かう",
+     "next": "s5"
+    },
+    {
+     "label": "断って、{city}に留まる",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s5": {
+   "at": {
+    "place": "xu",
+    "building": "office"
+   },
+   "goal": "{xu}の{office}で、守将に会う",
+   "art": "court",
+   "speaker": "{xu}の守将",
+   "text": [
+    "{xu}は、かつて武帝曹操が天子を迎えた都だった。いまも城壁は厚く、武庫には戟が山と積まれている。",
+    "守将は{player}の話を聞くと、目をそらした。「都で何が起ころうと、わしは帝の命に従う。だが、帝の命を伝えるのが大将軍なのか太傅なのか、それが分からぬうちは、倉は開けられぬ」"
+   ],
+   "choices": [
+    {
+     "label": "守将を説き、倉と武庫を天子のために開けさせる約束を取る",
+     "turn": true,
+     "guide": "曹爽が許へ逃れる道ができる。魏が二つに割れる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s5ready",
+      "lose": "s5ready_ng"
+     }
+    },
+    {
+     "label": "倉の帳簿を調べ、蓄えの数を{huanfan}に書き送る",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "s5books",
+      "lose": "aftergo"
+     }
+    },
+    {
+     "label": "何もせずに{city}へ戻る",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s5ready": {
+   "text": [
+    "{player}は守将に言った。「天子がこの城にお入りになれば、あなたは天子を守った将です。門を閉ざせば、天子を拒んだ将です。どちらの名で、子や孫は呼ばれますか」",
+    "守将は長く黙り、やがて武庫の鍵を机に置いた。「天子が来られたなら、開けよう。来られなければ、わしは何も聞かなかった」"
+   ],
+   "effects": [
+    {
+     "flag": "h_gpl_xu"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "note": "{xu}の守将に、天子のために倉と武庫を開けると約束させた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5ready_ng": {
+   "text": [
+    "守将は首を振るばかりだった。「わしは何も聞かなかった。おぬしも、ここへは来なかった」"
+   ],
+   "next": "aftergo"
+  },
+  "s5books": {
+   "text": [
+    "倉の米は一年分、武庫の戟は二万。{player}はそれを細かく書き付け、{huanfan}への書簡に封じた。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}へ戻り、都の成り行きを見届ける",
+   "wait": {
+    "settled": "gaopingling"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "gpl_xu"
+     },
+     "next": "split"
+    },
+    {
+     "if": {
+      "branch": "gpl_stay"
+     },
+     "next": "stayed"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "split": {
+   "speaker": "huanfan",
+   "art": "war",
+   "text": [
+    "正月、帝の車が高平陵へ出た朝、{simayi}は兵を挙げて{city}の門を閉ざし、武庫を押さえた。だが{huanfan}は城を抜け出し、洛水のほとりで大将軍に追いついた。「{xu}へ。倉も武庫も、天子を待っております」",
+    "{shuang}は帝を奉じて{xu}に入り、四方の州郡に檄を飛ばした。洛陽の太傅と、{xu}の天子。魏の朝廷は二つに裂けた。{huanfan}は{player}の手を握った。「これで五分だ。あとは、どちらが先に折れるかよ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "unflag": "h_gpl_xu"
+    },
+    {
+     "unflag": "h_gpl_seen"
+    },
+    {
+     "note": "高平陵の変で、曹爽は天子を奉じて許へ走り、魏は二つに割れた。"
+    }
+   ],
+   "end": "許の門"
+  },
+  "stayed": {
+   "speaker": "guest",
+   "art": "court",
+   "text": [
+    "その年、大将軍の兄弟は都を空けなかった。太傅の屋敷は静まり返り、{simayi}は相変わらず粥をこぼしているという。",
+    "だが翌年の正月、大将軍は気が緩み、ついに兄弟そろって高平陵へ出た。その朝、太傅は兵を挙げた。{guest}は青い顔で{player}に言った。「一年、待っていたのだ。あの老人は、一年、粥をこぼし続けていたのだ」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_gpl_stay"
+    },
+    {
+     "unflag": "h_gpl_seen"
+    },
+    {
+     "note": "高平陵の変は一年遅れたが、やはり起きた。"
+    }
+   ],
+   "end": "一年の粥"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、都の成り行きを見届ける",
+   "wait": {
+    "fired": "gaopingling"
+   },
+   "speaker": "guest",
+   "art": "court",
+   "text": [
+    "帝が高平陵へ出た朝、{simayi}は寝台から起き上がり、甲冑をつけて兵を率いた。{shi}の死士が都の門を閉ざし、武庫を押さえた。{huanfan}は城を抜け出し、帝を奉じて{xu}へ走るよう大将軍に説いたが、{shuang}は迷った末に言った。「官を失っても、富める家の主として暮らせればよい」",
+    "大将軍は降った。そして数日後、謀反の罪で一族ことごとく斬られた。{huanfan}も、{lisheng}も。{guest}が{player}の袖をつかんだ。「門客の名簿が太傅の手にある。逃げねば」"
+   ],
+   "choices": [
+    {
+     "label": "{guest}と門客たちを都の外へ逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_escape",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "太傅の屋敷へ出向き、名を書いて許しを乞う",
+     "next": "end_sima"
+    },
+    {
+     "label": "何も言わずに都を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_escape": {
+   "text": [
+    "夜、城壁の崩れたところから、{guest}と門客たち十数人を外へ出した。洛水の渡しで別れるとき、誰も礼を言わなかった。言えば泣いてしまうからだ。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "wanted": "cao",
+     "n": 10
+    },
+    {
+     "unflag": "h_gpl_seen"
+    },
+    {
+     "note": "高平陵の変で曹爽の一党が滅んだ。門客たちを都の外へ逃がした。"
+    }
+   ],
+   "end": "洛水の渡し"
+  },
+  "end_caught": {
+   "text": [
+    "城門で見とがめられた。{player}は斬り抜けたが、{guest}は捕らえられた。その後、市で斬られたと聞いた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "wanted": "cao",
+     "n": 15
+    },
+    {
+     "unflag": "h_gpl_seen"
+    },
+    {
+     "note": "高平陵の変で曹爽の一党が滅んだ。門客を逃がしきれなかった。"
+    }
+   ],
+   "end": "閉ざされた門"
+  },
+  "end_sima": {
+   "speaker": "simayi",
+   "text": [
+    "{simayi}は、あの日の粥の椀を手にしていた。「見舞いに来た男だな。目の利く男だ」老人は名簿に{player}の名を書き足した。「生かしておこう。目の利く男は、使い道がある」"
+   ],
+   "effects": [
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "fame": -2
+    },
+    {
+     "unflag": "h_gpl_seen"
+    },
+    {
+     "note": "高平陵の変で曹爽の一党が滅んだ。{simayi}に許しを乞うた。"
+    }
+   ],
+   "end": "太傅の名簿"
+  },
+  "end_left": {
+   "text": [
+    "{player}は都を背にした。魏の政は、この日から司馬氏のものになった。帝の名で詔が出ても、それを書いたのが誰か、もう誰も疑わなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_gpl_seen"
+    },
+    {
+     "note": "高平陵の変で、魏の政が司馬氏のものになるのを見届けた。"
+    }
+   ],
+   "end": "司馬氏の都"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "gpl_xu"
+     },
+     "next": "split"
+    },
+    {
+     "if": {
+      "branch": "gpl_stay"
+     },
+     "next": "stayed"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。洛陽で、寝たきりのはずの太傅{simayi}が兵を挙げ、大将軍{shuang}を除いたという。帝が高平陵へ参っている、その留守を突いたのだと。",
+    "「十年、病のふりをしていたのさ」と噂の主は言った。「老いぼれほど怖いものはない」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_gpl_seen"
+    },
+    {
+     "note": "高平陵の変で、司馬懿が曹爽を除いたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "gpl_xu",
+   "event": "gaopingling",
+   "order": 2,
+   "why": "主人公が許の倉と武庫を天子のために開かせた",
+   "when": {
+    "flag": "h_gpl_xu"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "高平陵の変。皇帝が陵墓に詣でた隙に[[p:司馬懿]]は洛陽の門を閉ざして兵を挙げたが、曹爽は桓範の言を容れ、[[p:曹芳]]を奉じて許に走り四方の兵を召した。洛陽の太傅と許の天子が睨み合い、魏は二つに裂けた。",
+    "do": [
+     [
+      "add",
+      "cao",
+      "stability",
+      -0.25
+     ],
+     [
+      "add",
+      "cao",
+      "legitimacy",
+      -0.1
+     ],
+     [
+      "army",
+      "cao",
+      0.9
+     ]
+    ],
+    "imp": 3,
+    "at": "xu"
+   }
+  },
+  {
+   "id": "gpl_stay",
+   "event": "gaopingling",
+   "order": 1,
+   "why": "主人公が司馬懿の仮病を見抜き曹爽を諫めた",
+   "when": {
+    "flag": "h_gpl_stay"
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "曹爽の兄弟は都を空けず、[[p:司馬懿]]は病と称したまま、なお一年を待った。"
+  }
+ ]
+}

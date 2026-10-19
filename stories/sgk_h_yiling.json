@@ -1,0 +1,730 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_yiling",
+ "kind": "history",
+ "title": "夷陵の火",
+ "era": "sangoku",
+ "event": "yiling",
+ "lead": 8,
+ "before": [
+  "y1",
+  "y2",
+  "y2ok",
+  "y2ng",
+  "y3",
+  "y3ok",
+  "y3ng",
+  "y4",
+  "y4boat",
+  "y4ng",
+  "y5",
+  "y6",
+  "y6win",
+  "y6hurt"
+ ],
+ "onFired": "late",
+ "cast": {
+  "baidi": {
+   "scnPlace": "baidi"
+  },
+  "field": {
+   "scnPlace": "yiling"
+  },
+  "xk": {
+   "scnPlace": "xiakou"
+  },
+  "shu": {
+   "scnRealm": "shu"
+  },
+  "wu": {
+   "scnRealm": "wu"
+  },
+  "liubei": {
+   "person": "ruler:shu"
+  },
+  "luxun": {
+   "scnPerson": "陸遜"
+  },
+  "huangquan": {
+   "scnPerson": "黄権"
+  },
+  "maliang": {
+   "scnPerson": "馬良"
+  }
+ },
+ "start": "y1",
+ "scenes": {
+  "y1": {
+   "at": {
+    "place": "baidi",
+    "building": "inn"
+   },
+   "goal": "{baidi}の{inn}で、東征の噂を聞く",
+   "speaker": "江の船乗り",
+   "art": "inn",
+   "text": [
+    "{baidi}の{inn}の窓の下を、兵を満載した舟が次々と下っていった。船乗りが顎で川下を指す。「皇帝様が自ら呉を討ちに行かれる。荊州で関将軍を殺された仇よ。張将軍も、出陣の前に部下に寝首をかかれなすった」",
+    "「諸葛丞相は成都に残られた。止めたが聞き入れられなかったという話だ。……川下の夏口じゃ、呉も人を集めとるそうな。若い書生が大都督になったと、呉の古株の将たちは笑っとるらしいが」"
+   ],
+   "choices": [
+    {
+     "label": "{liubei}の東征の軍に加わる",
+     "effects": [
+      {
+       "note": "{liubei}が関羽の仇を討つため、呉へ攻め下るという。東征の軍に加わった。"
+      }
+     ],
+     "next": "y2"
+    },
+    {
+     "label": "川を下って夏口へ行き、呉の軍に加わる",
+     "effects": [
+      {
+       "flag": "h_yil_wu"
+      },
+      {
+       "note": "{liubei}の大軍を迎え撃つ呉の軍に加わることにした。"
+      }
+     ],
+     "next": "y5"
+    }
+   ]
+  },
+  "y2": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の{barracks}で、{maliang}に会う",
+   "speaker": "maliang",
+   "art": "camp",
+   "text": [
+    "{barracks}の幕舎で、眉に白い毛の混じる若い文官が帳面をつけていた。「馬氏の五常、白眉最も良し」と謳われた{maliang}である。",
+    "「武陵の山の民を味方につけよと、陛下の仰せだ。蛮の王の沙摩柯は、贈り物と言葉の両方を見る男でな。錦と塩を持って、一緒に山へ入ってもらえぬか」"
+   ],
+   "choices": [
+    {
+     "label": "{maliang}と山へ入り、沙摩柯と掛け合う",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "y2ok",
+      "lose": "y2ng"
+     }
+    }
+   ]
+  },
+  "y2ok": {
+   "speaker": "maliang",
+   "text": [
+    "沙摩柯は錦を肩にかけ、{player}の盃を受けた。「関将軍の仇なら、わしの仇でもある」五千の山の民が、赤い顔料を頬に塗って山を下りてきた。{maliang}は白い眉を下げて笑った。"
+   ],
+   "effects": [
+    {
+     "money": 80
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "note": "{maliang}と共に、武陵の山の民を味方につけた。"
+    }
+   ],
+   "next": "y3"
+  },
+  "y2ng": {
+   "text": [
+    "沙摩柯は錦だけを受け取り、兵は出すとも出さぬとも言わなかった。帰り道、{maliang}は「出す気があれば、もう少し酒を飲ませたはずだ」とため息をついた。"
+   ],
+   "next": "y3"
+  },
+  "y3": {
+   "at": {
+    "place": "field",
+    "building": "palace"
+   },
+   "goal": "{field}の本陣で、{liubei}に目通りする",
+   "speaker": "liubei",
+   "art": "camp",
+   "text": [
+    "本陣は、江から離れた山あいの林の中にあった。夏の日差しを避けるため、四十余りの陣が木陰に連なり、その長さは七百里に及ぶという。",
+    "{liubei}は六十を過ぎてなお、背筋がまっすぐだった。だが目の下には、義弟二人を失った者の深い影があった。「呉の小僧は、半年も山の口に籠もって出てこぬ。怖いのだ。暑さが過ぎれば、一気に押し下る」",
+    "幕舎を出ると、乾ききった林の落ち葉が、足の下でかさかさと鳴った。"
+   ],
+   "choices": [
+    {
+     "label": "{maliang}を通じて、「陣を林から出し、江べりに集められよ」と諫める",
+     "turn": true,
+     "guide": "皇帝を諫める。怒りに触れれば遠ざけられる",
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "y3ok",
+      "lose": "y3ng"
+     }
+    },
+    {
+     "label": "北岸の{huangquan}の陣へ移る",
+     "next": "y4"
+    }
+   ]
+  },
+  "y3ok": {
+   "speaker": "liubei",
+   "text": [
+    "{liubei}は長く黙っていた。{maliang}が描いた陣の図の上で、{player}は林と落ち葉と風向きを一つずつ指した。",
+    "「……雲長も、樊城では水を味方にした」皇帝はようやく言った。「火を敵にするわけにはいかぬな。陣を江べりへ移せ。林の中には見張りだけを置け」"
+   ],
+   "effects": [
+    {
+     "flag": "h_yil_camps"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "note": "{liubei}に、陣を林から江べりへ移させた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "y3ng": {
+   "speaker": "liubei",
+   "text": [
+    "「書生の兵法か」{liubei}は手を振った。「林を出れば、兵が暑さで倒れる。呉の小僧が火を使うなら、とうに使っておるわ」{player}は幕舎から下がらされた。"
+   ],
+   "next": "y4"
+  },
+  "y4": {
+   "at": {
+    "place": "field",
+    "building": "office"
+   },
+   "goal": "{field}の北岸の陣で、{huangquan}に会う",
+   "speaker": "huangquan",
+   "art": "camp",
+   "text": [
+    "{huangquan}の陣は、江の北岸にぽつんと離れて置かれていた。北の魏の動きを見張るためだという。将軍は江の向こうの本陣を見て、眉を寄せた。",
+    "「わしは陛下に、先鋒を任せて陛下は後ろにおられよと申し上げた。聞き入れられず、北岸の守りに回された。……本陣が崩れたら、わしの兵は江を渡って戻れぬ。北へ行くしかなくなる」"
+   ],
+   "choices": [
+    {
+     "label": "漁師たちと掛け合い、北岸の入り江に舟を集めて繋いでおく",
+     "turn": true,
+     "guide": "退路の舟を用意する。銭と手間がかかる",
+     "check": {
+      "skill": "trade",
+      "dc": 38,
+      "win": "y4boat",
+      "lose": "y4ng"
+     }
+    },
+    {
+     "label": "北岸の守りに加わって、夏を待つ",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "y4boat": {
+   "speaker": "huangquan",
+   "text": [
+    "{player}は北岸の漁村を回り、前金を払って漁舟を三百艘、葦の入り江に隠して繋がせた。{huangquan}は入り江を見て回り、一艘ずつ舟底を叩いた。「これなら八千の兵が一晩で江を渡れる。……使わずに済めばよいがな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_yil_boats"
+    },
+    {
+     "money": -100
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "note": "北岸の{huangquan}のために、退路の舟を入り江に用意した。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "y4ng": {
+   "text": [
+    "漁師たちは、戦に舟を出すのを嫌がった。「呉に知れたら、村ごと焼かれる」集まったのは、穴のあいた小舟が十艘だけだった。"
+   ],
+   "next": "aftergo"
+  },
+  "y5": {
+   "at": {
+    "place": "xk",
+    "building": "barracks"
+   },
+   "goal": "{xk}の{barracks}で、{luxun}の軍に加わる",
+   "speaker": "luxun",
+   "art": "camp",
+   "text": [
+    "{xk}の{barracks}で、白面の若い将が古株の将たちに囲まれていた。呉の大都督、{luxun}。四十にもならぬ書生あがりで、将たちは「陸の書生」と陰で呼んでいた。",
+    "「劉備は天下に名を知られた将で、曹操さえ恐れた。いま勢いのある敵に当たるのは愚かだ」大都督は静かに言った。「待つ。敵が暑さに疲れ、陣を林に移すまで待つ」",
+    "将たちは不満の声を上げたが、{luxun}は剣を抜いて卓に置いた。「軍令に背く者は斬る」"
+   ],
+   "choices": [
+    {
+     "label": "{luxun}の下で働き、夏を待つ",
+     "next": "y6"
+    }
+   ]
+  },
+  "y6": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}の前線で、{luxun}の合図を待つ",
+   "speaker": "luxun",
+   "art": "war",
+   "text": [
+    "夏、{luxun}は一つの陣を試しに攻めて、わざと退いた。将たちが笑う中、大都督は言った。「これで分かった。茅を持て。一人一束」",
+    "{player}も茅の束を背負わされた。風下の林の中に、蜀の陣の柵が見える。合図の火が上がるまで、まだ半刻ある。陣の外には、見張りの兵が三人立っていた。"
+   ],
+   "choices": [
+    {
+     "label": "見張りを先に片づける",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "y6win",
+      "lose": "y6hurt"
+     }
+    }
+   ]
+  },
+  "y6win": {
+   "text": [
+    "見張りを斬り伏せ、{player}は柵の根元に茅の束を押し込んだ。ほどなく、江の上に合図の火が上がった。"
+   ],
+   "effects": [
+    {
+     "rep": "wu",
+     "n": 5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "y6hurt": {
+   "text": [
+    "見張りの一人に腕を斬られ、{player}は茅の束を取り落とした。それでも、江の上に合図の火が上がった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}で、夏の戦の行方を見届ける",
+   "wait": {
+    "settled": "yiling"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "yil_camps"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "yil_boats"
+     },
+     "next": "boats"
+    },
+    {
+     "if": {
+      "flag": "h_yil_wu"
+     },
+     "next": "fire_wu"
+    },
+    {
+     "next": "fire"
+    }
+   ]
+  },
+  "held": {
+   "speaker": "maliang",
+   "art": "war",
+   "text": [
+    "夏の夜、呉の火は林の中の空の陣を焼いた。見張りの兵は火を見るなり鉦を打って江べりへ駆け戻り、江べりの陣は火の届かぬ水際で槍を揃えて待っていた。",
+    "火攻めの後の呉の突撃は江べりで食い止められ、{liubei}は兵をまとめて{baidi}へ退いた。勝ちではなかった。だが七百里の陣が一夜で灰になることもなかった。{maliang}は煤けた顔で言った。「生きて帰れる兵が、何万もいる」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "shu",
+     "n": 15
+    },
+    {
+     "unflag": "h_yil_camps"
+    },
+    {
+     "unflag": "h_yil_boats"
+    },
+    {
+     "note": "夷陵の戦い。陣を江べりに移していた{liubei}の軍は、火攻めに崩れず退いた。"
+    }
+   ],
+   "end": "江べりの陣"
+  },
+  "boats": {
+   "speaker": "huangquan",
+   "art": "voyage",
+   "text": [
+    "夏の夜、南岸の林が端から端まで燃え上がった。{liubei}の本陣は崩れ、皇帝は{baidi}へ逃れたという。北岸に取り残された{huangquan}の兵の前には、北の魏へ下る道しか残っていなかった。",
+    "だが葦の入り江には、三百艘の舟が繋がれていた。八千の兵は一晩で江を渡り、山道を伝って{baidi}へ戻った。{huangquan}は{player}に言った。「わしは陛下に背かずに済んだ。舟一艘ずつに、礼を言わねばならん」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "shu",
+     "n": 15
+    },
+    {
+     "unflag": "h_yil_boats"
+    },
+    {
+     "note": "夷陵の戦いの後、{huangquan}の兵を舟で江の南へ渡し、魏へ降らずに済ませた。"
+    }
+   ],
+   "end": "葦の入り江"
+  },
+  "fire_wu": {
+   "speaker": "luxun",
+   "art": "war",
+   "text": [
+    "一つの陣に火がつくと、風が火を次の陣へ運んだ。乾いた林は四十の陣を一つの炎の帯に変え、蜀の兵は煙の中を逃げ惑った。{luxun}の兵が江と山から押し寄せる。",
+    "「劉備を追え。馬鞍山へ逃げたぞ」将たちが叫ぶ中、{luxun}は一人、北の空を見ていた。「深追いはせぬ。魏が、われらの背を見ている」"
+   ],
+   "choices": [
+    {
+     "label": "馬鞍山へ{liubei}を追う",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "end_chase",
+      "lose": "end_burn"
+     }
+    },
+    {
+     "label": "大都督の言葉に従い、焼け跡で降る兵を集める",
+     "next": "end_spare"
+    }
+   ]
+  },
+  "fire": {
+   "art": "war",
+   "text": [
+    "夏の夜、林の端に火の手が上がった。風が火を次の陣へ、また次の陣へと運び、四十の陣は一夜で炎の帯になった。兵たちは煙の中で同士討ちをし、江に飛び込んで溺れた。",
+    "{liubei}は馬鞍山に逃げ上がり、兵の鎧を積んで焼いて道を塞ぎながら、{baidi}へ落ちていく。{player}の目の前にも、火傷を負った兵が転がっていた。"
+   ],
+   "choices": [
+    {
+     "label": "負傷した兵を担いで、山道を{baidi}へ逃げる",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "end_carry",
+      "lose": "end_burn"
+     }
+    },
+    {
+     "label": "石門の狭い道で、追ってくる呉の兵を食い止める",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_guard",
+      "lose": "end_burn"
+     }
+    },
+    {
+     "label": "江に飛び込んで逃げる",
+     "next": "end_flee"
+    }
+   ]
+  },
+  "end_chase": {
+   "text": [
+    "馬鞍山の麓で、{player}は蜀の殿の兵を斬り破った。だが山道は焼いた鎧で塞がれ、{liubei}の輿はその向こうへ消えていた。{luxun}は追撃をやめさせ、{player}の働きだけを帳面に書き留めた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "wu",
+     "n": 15
+    },
+    {
+     "unflag": "h_yil_wu"
+    },
+    {
+     "note": "夷陵の戦いで、敗走する{liubei}を馬鞍山まで追った。"
+    }
+   ],
+   "end": "燃える鎧の道"
+  },
+  "end_spare": {
+   "speaker": "luxun",
+   "text": [
+    "焼け跡で、{player}は降る蜀の兵を数え、水と粥を配った。{luxun}は通りがかりにそれを見て言った。「勝った後に人を殺すのは、誰にでもできる。生かして使うのが将の仕事だ」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "unflag": "h_yil_wu"
+    },
+    {
+     "note": "夷陵の戦いの後、焼け跡で降る兵を集めた。"
+    }
+   ],
+   "end": "焼け跡の粥"
+  },
+  "end_carry": {
+   "text": [
+    "{player}は火傷を負った兵を背負い、三日かけて山道を{baidi}まで歩いた。白帝城の門に着いたとき、背中の兵は「生きてる」とつぶやいた。城の中では、皇帝が病の床についたという噂が流れていた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_yil_boats"
+    },
+    {
+     "note": "夷陵の戦いで敗れ、負傷した兵を背負って白帝城へ逃れた。"
+    }
+   ],
+   "end": "背中の兵"
+  },
+  "end_guard": {
+   "text": [
+    "石門の狭い道で、{player}は追ってくる呉の兵を三度押し返した。そのあいだに、数百の兵が山の向こうへ逃れた。{liubei}は{baidi}に入り、「わしが陸遜に辱められたのは天命か」と嘆いたという。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "rep": "shu",
+     "n": 15
+    },
+    {
+     "unflag": "h_yil_boats"
+    },
+    {
+     "note": "夷陵の戦いで、石門の道で追手を食い止めた。"
+    }
+   ],
+   "end": "石門の殿"
+  },
+  "end_burn": {
+   "text": [
+    "煙に巻かれ、{player}は倒れた。気がつくと、江べりの葦の中だった。七百里の陣は灰になり、{liubei}は{baidi}に逃れたと聞いた。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "unflag": "h_yil_wu"
+    },
+    {
+     "unflag": "h_yil_boats"
+    },
+    {
+     "note": "夷陵の火の中で傷を負った。"
+    }
+   ],
+   "end": "煙の中"
+  },
+  "end_flee": {
+   "text": [
+    "江の水は、燃える林の照り返しで赤かった。{player}は流木につかまって下流へ流された。陣を連ねた七百里は、一夜で灰になった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_yil_boats"
+    },
+    {
+     "note": "夷陵の戦いで{liubei}の軍が焼かれ、江に逃れた。"
+    }
+   ],
+   "end": "赤い江"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "yil_camps"
+     },
+     "next": "late_held"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_held": {
+   "text": [
+    "旅の途中で噂を聞いた。夷陵で呉の{luxun}が火攻めをかけたが、{liubei}の陣は江べりにあって崩れず、皇帝は兵をまとめて白帝城へ退いたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_yil_camps"
+    },
+    {
+     "unflag": "h_yil_boats"
+    },
+    {
+     "unflag": "h_yil_wu"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。夷陵で呉の{luxun}が火を放ち、{liubei}の七百里の陣は一夜で灰になった。皇帝は白帝城へ逃れたという。",
+    "「若い書生に、天下の英雄が焼かれたか」客舎の主は首を振った。「年を取ると、人は待つことを忘れるらしい」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_yil_camps"
+    },
+    {
+     "unflag": "h_yil_boats"
+    },
+    {
+     "unflag": "h_yil_wu"
+    },
+    {
+     "note": "夷陵の戦いで{liubei}が大敗したと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "yil_camps",
+   "event": "yiling",
+   "order": 2,
+   "why": "主人公が劉備に陣を林から江べりへ移させた",
+   "when": {
+    "flag": "h_yil_camps"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "夷陵の戦い。[[p:関羽]]の仇を討とうと攻め込んだ{r_shu}は、夏の前に陣を林から江べりへ移していた。[[p:陸遜]]の火は空の陣を焼いただけで、蜀の軍は崩れずに白帝城へ退いた。",
+    "do": [
+     [
+      "army",
+      "shu",
+      0.8
+     ],
+     [
+      "add",
+      "shu",
+      "stability",
+      -0.05
+     ],
+     [
+      "add",
+      "wu",
+      "prestige",
+      8
+     ]
+    ],
+    "imp": 3,
+    "at": "yiling"
+   },
+   "people": [
+    {
+     "spare": "馬良",
+     "years": 10
+    }
+   ]
+  },
+  {
+   "id": "yil_boats",
+   "event": "yiling",
+   "order": 1,
+   "why": "主人公が北岸に黄権の退路の舟を用意した",
+   "when": {
+    "flag": "h_yil_boats"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "夷陵の戦い。[[p:陸遜]]は連なる陣に火を放って{r_shu}の大軍を大破し、[[p:劉備]]は白帝城へ逃れた。北岸に取り残された[[p:黄権]]は、入り江に用意されていた舟で江を渡り、魏へ降らずに蜀へ帰った。",
+    "do": [
+     [
+      "battle",
+      "yiling"
+     ],
+     [
+      "army",
+      "shu",
+      0.45
+     ],
+     [
+      "add",
+      "shu",
+      "stability",
+      -0.2
+     ],
+     [
+      "add",
+      "wu",
+      "prestige",
+      20
+     ]
+    ],
+    "imp": 3,
+    "at": "yiling"
+   },
+   "people": [
+    {
+     "move": "黄権",
+     "to": "shu"
+    }
+   ]
+  }
+ ]
+}

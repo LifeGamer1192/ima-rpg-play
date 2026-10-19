@@ -1,0 +1,692 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_shu_end",
+ "kind": "history",
+ "title": "成都の降旗",
+ "era": "sangoku",
+ "event": "shu_end",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2q",
+  "s2train",
+  "s3",
+  "s3back",
+  "s3back_ng",
+  "s3win",
+  "s3hurt",
+  "s4",
+  "s4east",
+  "s4east_ng",
+  "s5"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "chengdu"
+  },
+  "jiange": {
+   "scnPlace": "jiange"
+  },
+  "east": {
+   "scnPlace": "jiangzhou"
+  },
+  "shu": {
+   "scnRealm": "shu"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "emperor": {
+   "person": "ruler:shu"
+  },
+  "qiaozhou": {
+   "scnPerson": "譙周"
+  },
+  "liuchen": {
+   "scnPerson": "劉諶"
+  },
+  "jiangwei": {
+   "scnPerson": "姜維"
+  },
+  "dengai": {
+   "scnPerson": "鄧艾"
+  },
+  "clerk": {
+   "npc": "蜀の郎官",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}で、宮中の噂を聞く",
+   "speaker": "clerk",
+   "art": "inn",
+   "text": [
+    "{city}の{inn}で、{clerk}が酔って管を巻いていた。宮中の書記だという。",
+    "「宦官の黄皓が巫女に占わせたら、魏の兵は来ないと出たそうだ。それで帝は、大将軍{jiangwei}の援軍の願いを握りつぶした。いまや漢中は落ち、大将軍は{jiange}で鍾会の大軍を防いでいる。あそこが破れたら、終わりだ」",
+    "「朝廷では、もう降る話が出ておる。光禄大夫の{qiaozhou}どのは、天命は魏にあると説いている。北地王{liuchen}さまだけが、それに噛みついておられる」"
+   ],
+   "choices": [
+    {
+     "label": "宮中の様子を見に行く",
+     "effects": [
+      {
+       "note": "{city}で、蜀の朝廷が降る話をしていると聞いた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で、朝議の行方を見る",
+   "speaker": "liuchen",
+   "art": "court",
+   "text": [
+    "宮城の廊下で、若い王族が声を荒げていた。先帝の血を引く北地王{liuchen}である。「降る話をする者は、先帝の廟に唾を吐くのと同じだ。城にはまだ兵がいる。{jiangwei}の兵が戻れば、魏の孤軍など」",
+    "向かいの白髪の学者が、静かに首を振った。{qiaozhou}だった。「王よ。戦えば城は焼かれ、民は死にます。天命が去った国を、民の血で引き止めることはできませぬ」"
+   ],
+   "choices": [
+    {
+     "label": "{qiaozhou}の屋敷を訪ね、その考えを聞く",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "s2q",
+      "lose": "s3"
+     }
+    },
+    {
+     "label": "{liuchen}に付き、宮城の衛兵を鍛える",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2train",
+      "lose": "s3"
+     }
+    }
+   ]
+  },
+  "s2q": {
+   "speaker": "qiaozhou",
+   "text": [
+    "{qiaozhou}の書斎は竹簡で埋まっていた。老学者は茶を淹れながら言った。「わたしが降れと言うのは、魏が好きだからではない。蜀が負けると分かっているからだ。負けると分かっている戦で、民を死なせるのは、仁ではない」",
+    "「だが、北地王の言うことも分かる。人は、正しさだけでは生きられぬ」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "next": "s3"
+  },
+  "s2train": {
+   "speaker": "liuchen",
+   "text": [
+    "衛兵たちの槍を一人ずつ打ち落としてみせると、{liuchen}は手を打って喜んだ。「これだ。蜀にはまだ、こういう者がいる」"
+   ],
+   "effects": [
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "xp": "blade",
+     "n": 1
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "jiange",
+    "building": "barracks"
+   },
+   "goal": "{jiange}の関で、{jiangwei}に会う",
+   "speaker": "jiangwei",
+   "art": "war",
+   "text": [
+    "{jiangwei}は六十を過ぎていた。丞相の兵法を継いで三十年、北を伐ち続けてきた男の顔には、深い皺が刻まれている。",
+    "「関はまだ破れぬ。鍾会は糧が尽きかけて、退こうかと迷っている」老将は言った。「だが、成都が心配だ。陰平の山を越えてくる者がいれば、都はがら空きだ」"
+   ],
+   "choices": [
+    {
+     "label": "剣閣の兵の半ばを割き、成都の守りに返すよう説く",
+     "turn": true,
+     "guide": "成都が持ちこたえる。蜀の降伏が遅れる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s3back",
+      "lose": "s3back_ng"
+     }
+    },
+    {
+     "label": "関の守りを手伝う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3win",
+      "lose": "s3hurt"
+     }
+    }
+   ]
+  },
+  "s3back": {
+   "speaker": "jiangwei",
+   "text": [
+    "{player}は言った。「関の門は、一人で守れば万人も通れぬと申します。ならば一万の兵はいりませぬ。五千で関を守り、五千を都へ。都が落ちれば、関を守る意味もなくなります」",
+    "{jiangwei}は長いあいだ地図を見ていた。やがて、副将を呼んだ。「廖化に五千を預ける。夜のうちに南へ下れ。成都の門を閉じ、王の命に従え」"
+   ],
+   "effects": [
+    {
+     "flag": "h_se_fight"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "note": "{jiangwei}を説き、剣閣の兵の半ばを成都へ返させた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3back_ng": {
+   "speaker": "jiangwei",
+   "text": [
+    "「一兵でも欠ければ、関は破れる」{jiangwei}は首を振った。「都のことは、都の者に任せるしかない」"
+   ],
+   "next": "s4"
+  },
+  "s3win": {
+   "text": [
+    "崖をよじ登ってきた魏の兵を三人、関の上から突き落とした。{jiangwei}は黙って頷いた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hurt": {
+   "text": [
+    "矢が腕をかすめた。関は破れなかったが、{player}は三日、熱にうなされた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で、帝{emperor}に目通りする",
+   "speaker": "emperor",
+   "art": "court",
+   "text": [
+    "玉座の{emperor}の顔に、怒りも悲しみもなかった。ただ、疲れていた。",
+    "「南中へ逃げよという者がいる。呉へ逃げよという者がいる。降れという者がいる。朕は、どこへ行けばよいのだ」",
+    "{qiaozhou}が進み出た。「南中は遠く、夷の地です。呉へ行けば、呉の臣となるだけ。どうせ臣となるなら、大きな国の臣となるほうがよい」"
+   ],
+   "choices": [
+    {
+     "label": "{city}を捨てて東の{east}へ移り、呉の援けを待つよう説く",
+     "turn": true,
+     "guide": "成都は失うが、蜀は東の巴に残る",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s4east",
+      "lose": "s4east_ng"
+     }
+    },
+    {
+     "label": "御前を辞す",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4east": {
+   "speaker": "emperor",
+   "text": [
+    "{player}は言った。「{east}は江に臨み、城は堅く、呉の船がその日のうちに着きます。永安の守りはまだ破れておりません。{city}は失っても、蜀の社稷は失われませぬ。降るのは、いつでもできます」",
+    "{emperor}は{qiaozhou}を見、それから{liuchen}を見た。「……降るのは、いつでもできる、か」帝は立ち上がった。「車を用意せよ。東へ行く」"
+   ],
+   "effects": [
+    {
+     "flag": "h_se_east"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "rep": "cao",
+     "n": -10
+    },
+    {
+     "note": "帝{emperor}に、{city}を捨てて東の{east}へ移るよう説いた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4east_ng": {
+   "speaker": "qiaozhou",
+   "text": [
+    "{qiaozhou}が首を振った。「逃げた帝を、民は帝と呼びませぬ」{emperor}は目を閉じ、それきり何も言わなかった。"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の町で、魏の軍を待つ",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "liuchen",
+   "art": "backroom",
+   "text": [
+    "夜、{liuchen}が{player}を訪ねてきた。王族の衣ではなく、粗末な旅の衣を着ていた。",
+    "「明日、どうなるか分からぬ。もしものときは、わたしは先帝の廟へ行く。妻と子も連れて行く」若い王は笑った。「止めるなよ。止められたら、迷ってしまう」"
+   ],
+   "choices": [
+    {
+     "label": "黙って、{liuchen}と酒を酌み交わす",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、蜀の行く末を見届ける",
+   "wait": {
+    "settled": "shu_end"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "shu_end_east"
+     },
+     "next": "east_end"
+    },
+    {
+     "if": {
+      "branch": "shu_end_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "shu_end_mz"
+     },
+     "next": "held_mz"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "east_end": {
+   "at": {
+    "place": "east"
+   },
+   "speaker": "emperor",
+   "art": "voyage",
+   "text": [
+    "{dengai}が{city}に入ったとき、宮城は空だった。帝の車は東へ走り、{east}の城に入った。呉の船が江を上ってきて、城の下に錨を下ろした。",
+    "{emperor}は江を見下ろす楼の上で、{player}に言った。「朕は、生まれて初めて逃げた。逃げてみると、存外、悪くない。まだ朕の国がある」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_se_east"
+    },
+    {
+     "unflag": "h_se_fight"
+    },
+    {
+     "note": "帝は{city}を捨てて{east}に移り、蜀は東の巴に残った。"
+    }
+   ],
+   "end": "東へ下る車"
+  },
+  "held": {
+   "speaker": "liuchen",
+   "art": "war",
+   "text": [
+    "剣閣から戻った五千の兵が、{city}の門を閉ざした。{dengai}の孤軍は城を囲んだが、梯子も衝車もない。城下で年を越すうちに、魏の兵は飢え始めた。",
+    "{liuchen}は城壁の上で{player}の肩を叩いた。「半年だ。半年あれば、何かが変わる。変わらなくとも、蜀は戦って滅んだと言える」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_se_fight"
+    },
+    {
+     "unflag": "h_se_east"
+    },
+    {
+     "note": "剣閣の兵が戻り、{city}はなお半年を持ちこたえた。"
+    }
+   ],
+   "end": "閉ざされた城門"
+  },
+  "held_mz": {
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "綿竹の戦いが記録と違う形で終わり、{dengai}はすぐには{city}に迫れなかった。朝廷は降るか戦うかの議論を、もう半年続けることになった。",
+    "{clerk}が苦笑した。「時が延びても、議論は同じところを回るばかりだ。だが、民は半年、家にいられる」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_se_fight"
+    },
+    {
+     "unflag": "h_se_east"
+    },
+    {
+     "note": "綿竹の戦いが変わり、蜀の降伏は半年遅れた。"
+    }
+   ],
+   "end": "延びた半年"
+  },
+  "s6": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の宮城で、蜀の最後を見届ける",
+   "wait": {
+    "fired": "shu_end"
+   },
+   "speaker": "qiaozhou",
+   "art": "court",
+   "text": [
+    "帝{emperor}は自らを縛り、棺を車に載せて、{dengai}の陣へ降った。{qiaozhou}の言が通ったのだ。",
+    "その朝、{liuchen}は先帝の廟に詣で、妻子を殺して自ら命を絶った。剣閣の{jiangwei}のもとへは、武器を置けという帝の命が届いた。兵たちは怒りのあまり、刀で岩を斬りつけたという。"
+   ],
+   "choices": [
+    {
+     "label": "先帝の廟へ走る",
+     "next": "end_temple"
+    },
+    {
+     "label": "{jiange}の{jiangwei}のもとへ走る",
+     "next": "end_jiangwei"
+    },
+    {
+     "label": "降る帝の車の列に従う",
+     "next": "end_surrender"
+    }
+   ]
+  },
+  "end_temple": {
+   "text": [
+    "廟の前には、もう人だかりができていた。{liuchen}は先帝の像の前に倒れていた。旅の衣のまま、剣を握って。",
+    "{player}は、あの夜の酒の味を思い出した。止めるなよ、と王は言った。止めなかった。それが正しかったのかどうか、{player}にはいまも分からない。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "unflag": "h_se_fight"
+    },
+    {
+     "unflag": "h_se_east"
+    },
+    {
+     "note": "蜀が降った。北地王{liuchen}は先帝の廟で命を絶った。"
+    }
+   ],
+   "end": "昭烈廟の王"
+  },
+  "end_jiangwei": {
+   "speaker": "jiangwei",
+   "text": [
+    "剣閣の兵は、岩を斬りつけた刀を鞘に戻せずにいた。{jiangwei}は鍾会に降ると決めていた。",
+    "老将は{player}に耳打ちした。「降るのは、蜀を取り戻すためだ。鍾会には野心がある。あれを使う。いずれ、また会おう」その目は、少しも死んでいなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "unflag": "h_se_fight"
+    },
+    {
+     "unflag": "h_se_east"
+    },
+    {
+     "note": "蜀が降った。剣閣の{jiangwei}は、なお蜀を取り戻すつもりでいた。"
+    }
+   ],
+   "end": "岩を斬る刀"
+  },
+  "end_surrender": {
+   "text": [
+    "帝の車の後ろを、蜀の臣たちが徒歩で続いた。{dengai}は帝の縛めを自ら解き、棺を焼かせた。礼は尽くされた。",
+    "後に洛陽へ移された蜀の帝は、「蜀を思い出しますか」と問われて、「ここは楽しく、蜀を思い出しませぬ」と答えたという。それが愚かさなのか、身を守る知恵なのか、{player}には分からなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "unflag": "h_se_fight"
+    },
+    {
+     "unflag": "h_se_east"
+    },
+    {
+     "note": "蜀が降るのを見届けた。"
+    }
+   ],
+   "end": "降る車"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "shu_end_east"
+     },
+     "next": "east_end"
+    },
+    {
+     "if": {
+      "branch": "shu_end_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "shu_end_mz"
+     },
+     "next": "held_mz"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。蜀の帝が自らを縛って魏の{dengai}に降り、蜀という国は消えたという。北地王が先帝の廟で自害し、剣閣の兵は刀で岩を斬って泣いた、と。",
+    "「先帝が草鞋を売って建てた国が、四十年で終わったか」と噂の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_se_fight"
+    },
+    {
+     "unflag": "h_se_east"
+    },
+    {
+     "note": "蜀が魏に降ったと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "shu_end_east",
+   "event": "shu_end",
+   "order": 3,
+   "why": "主人公が蜀の帝に東の江州へ移るよう説いた",
+   "when": {
+    "flag": "h_se_east"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:鄧艾]]は成都に迫ったが、{r_shu}は降らず、城を捨てて東の江州へ移り、呉の援けを待った。成都は{n_cao}の手に落ちたが、{n_shu}はなお巴の地に残った。",
+    "do": [
+     [
+      "capital",
+      "shu",
+      "jiangzhou"
+     ],
+     [
+      "cede",
+      "shu",
+      "cao",
+      [
+       "chengdu"
+      ]
+     ],
+     [
+      "add",
+      "shu",
+      "stability",
+      -0.2
+     ],
+     [
+      "add",
+      "shu",
+      "prestige",
+      -10
+     ]
+    ],
+    "imp": 3,
+    "at": "chengdu"
+   }
+  },
+  {
+   "id": "shu_end_hold",
+   "event": "shu_end",
+   "order": 2,
+   "why": "主人公が姜維に成都へ兵を返させた",
+   "when": {
+    "flag": "h_se_fight"
+   },
+   "then": "delay",
+   "months": 6,
+   "note": "剣閣から[[p:姜維]]の兵の半ばが戻り、成都は門を閉ざした。[[p:鄧艾]]の孤軍は城下で年を越し、蜀はなお半年を保った。",
+   "people": [
+    {
+     "spare": "姜維",
+     "years": 1
+    }
+   ]
+  },
+  {
+   "id": "shu_end_mz",
+   "event": "shu_end",
+   "order": 1,
+   "why": "綿竹の戦いが記録と変わっていた",
+   "when": {
+    "changed": [
+     "mianzhu"
+    ]
+   },
+   "then": "delay",
+   "months": 6,
+   "note": "綿竹の戦いが記録と違っていたため、[[p:鄧艾]]はすぐには成都に迫れず、蜀はなお半年を保った。",
+   "people": [
+    {
+     "spare": "姜維",
+     "years": 1
+    }
+   ]
+  },
+  {
+   "id": "zhonghui_noshu",
+   "event": "zhonghui",
+   "order": 1,
+   "why": "蜀の降伏が記録と変わっていた",
+   "when": {
+    "changed": [
+     "shu_end"
+    ]
+   },
+   "then": "cancel",
+   "note": "蜀はまだ降っておらず、[[p:鍾会]]が成都で背くことはなかった。"
+  }
+ ]
+}

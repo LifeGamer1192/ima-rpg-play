@@ -1,0 +1,594 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_mianzhu",
+ "kind": "history",
+ "title": "陰平の毛氈",
+ "era": "sangoku",
+ "event": "mianzhu",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2win",
+  "s2hurt",
+  "s3",
+  "s3burn",
+  "s3burn_ng",
+  "s3look",
+  "s4",
+  "s4pass",
+  "s4pass_ng",
+  "s5"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "chengdu"
+  },
+  "jiange": {
+   "scnPlace": "jiange"
+  },
+  "pass": {
+   "scnPlace": "zitong"
+  },
+  "shu": {
+   "scnRealm": "shu"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "emperor": {
+   "person": "ruler:shu"
+  },
+  "dengai": {
+   "scnPerson": "鄧艾"
+  },
+  "jiangwei": {
+   "scnPerson": "姜維"
+  },
+  "zhan": {
+   "scnPerson": "諸葛瞻"
+  },
+  "huangchong": {
+   "scnPerson": "黄崇"
+  },
+  "hunter": {
+   "npc": "陰平の猟師",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}で、北の噂を聞く",
+   "speaker": "hunter",
+   "art": "inn",
+   "text": [
+    "{city}の{inn}は、北から逃げてきた者でいっぱいだった。魏が十数万の兵を三つの道から蜀へ向けたという。漢中はもう落ち、大将軍{jiangwei}は{jiange}まで退いて関を閉じた。",
+    "「剣閣は一人で守れば万人も通れぬ関だ。あそこさえ持てば蜀は大丈夫だ」と、皆が言い合っている。",
+    "隅の卓で、獣の皮を着た{hunter}がぽつりと言った。「剣閣の西には、陰平から山を越える獣道がある。七百里、人の住まぬ山だ。だが先月、魏の兵がその道の崖を測っておるのを見た」"
+   ],
+   "choices": [
+    {
+     "label": "{hunter}を連れて、{jiange}の大将軍に知らせに行く",
+     "effects": [
+      {
+       "note": "{city}で、陰平の山道を測る魏の兵の話を聞いた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "jiange",
+    "building": "barracks"
+   },
+   "goal": "{jiange}の関で、{jiangwei}に会う",
+   "speaker": "jiangwei",
+   "art": "war",
+   "text": [
+    "剣閣は、絶壁と絶壁の間に門を一つ挟んだだけの関だった。その下に、魏の鍾会の大軍が蟻のように群がっている。",
+    "{jiangwei}は{hunter}の話を聞き、眉を寄せた。「陰平か。あの道を軍が通れるとは思えぬ。だが、鄧艾ならやりかねん。あの男は、兵が死ぬのを惜しまぬ」",
+    "そのとき、関の下で太鼓が鳴った。魏の兵が梯子を担いで崖に取りついてくる。"
+   ],
+   "choices": [
+    {
+     "label": "関の上から、梯子の兵を突き落とす",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s2win",
+      "lose": "s2hurt"
+     }
+    }
+   ]
+  },
+  "s2win": {
+   "speaker": "jiangwei",
+   "text": [
+    "梯子は谷底へ落ち、魏の兵は退いた。{jiangwei}は汗を拭った。「ここは動けぬ。陰平の道は、おぬしが見てきてくれ。何かあれば、成都の諸葛瞻どのに知らせよ」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hurt": {
+   "text": [
+    "梯子の上から突き出された槍が、腿を裂いた。それでも関は破れなかった。{jiangwei}は{player}に、陰平の道を見てくるよう頼んだ。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "pass"
+   },
+   "goal": "{pass}から山に入り、陰平の道を見る",
+   "speaker": "hunter",
+   "art": "road",
+   "text": [
+    "{hunter}の案内で、{pass}の西の山に入った。道と呼べるものはない。崖に穴を穿って丸太を差し込んだ古い桟道と、谷に渡した縄の橋が、ところどころに残っているだけだ。",
+    "「魏の兵が来るなら、この桟道と縄橋を伝うしかない」{hunter}は言った。「これを落とせば、谷ごとに橋を架け直さねばならん」"
+   ],
+   "choices": [
+    {
+     "label": "桟道と縄橋を焼き落とし、陰平の道を断つ",
+     "turn": true,
+     "guide": "鄧艾の軍を山で足止めする。綿竹の戦いが遅れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "s3burn",
+      "lose": "s3burn_ng"
+     }
+    },
+    {
+     "label": "道の険しさを書き留め、山を下りる",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "s3look",
+      "lose": "s4"
+     }
+    }
+   ]
+  },
+  "s3burn": {
+   "speaker": "hunter",
+   "text": [
+    "三日かけて、桟道の丸太に油を染ませ、縄橋の綱に切れ目を入れた。夜、火を放つと、炎は崖を伝って一里も走った。焼け落ちた丸太が、谷底の川に次々と吸い込まれていく。",
+    "{hunter}が言った。「これで、鄧艾はひと谷ごとに橋を架けねばならん。三月はかかるぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_mz_burn"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "shu",
+     "n": 8
+    },
+    {
+     "note": "陰平の桟道と縄橋を焼き落とした。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3burn_ng": {
+   "text": [
+    "油の甕を背負って崖を渡る途中、足を滑らせた。甕は谷へ落ち、{player}も岩に打たれた。火を放つどころではなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s4"
+  },
+  "s3look": {
+   "text": [
+    "崖の高さ、谷の幅、桟道の朽ち具合を一つずつ書き留めた。軍が通るなら、ひと月は飢えながら歩くことになる。出てくる兵は、骨と皮だろう。"
+   ],
+   "effects": [
+    {
+     "flag": "h_mz_seen"
+    },
+    {
+     "xp": "letters",
+     "n": 1
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "pass",
+    "building": "barracks"
+   },
+   "goal": "{pass}の{barracks}で、{zhan}に会う",
+   "speaker": "zhan",
+   "art": "camp",
+   "text": [
+    "{zhan}は、丞相諸葛亮の子だった。三十七。父の名を背負って都の兵を率いてきたが、戦の場に立つのは初めてだという。",
+    "副将の{huangchong}が地図を叩いた。「陰平から下りてくる兵は、飢えて疲れておる。平地に出る前の、谷の口の険を先に押さえれば、一兵も通さずに済む。いまのうちに兵を進めるべきです」",
+    "{zhan}は迷っていた。「険に兵を出して、もし敵が別の道から来たら、成都は空になる。ここで待つほうが……」"
+   ],
+   "choices": [
+    {
+     "label": "{huangchong}と共に、谷の口の険を先に押さえるよう{zhan}を説く",
+     "turn": true,
+     "guide": "鄧艾を谷で押し返す。成都は救われる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s4pass",
+      "lose": "s4pass_ng"
+     }
+    },
+    {
+     "label": "{zhan}の陣に加わる",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4pass": {
+   "speaker": "zhan",
+   "text": [
+    "{player}は陰平の道の険しさを語った。崖を転げ落ちてくる兵は、鎧も満足に着ておらず、糧も尽きている。谷の口で待てば、相手は戦う前に半ば負けている。",
+    "{zhan}は目を閉じ、やがて開いた。「父なら、そうしたろう」若い将は立ち上がった。「{huangchong}、先手を率いよ。夜のうちに谷の口へ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_mz_pass"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "note": "{zhan}を説き、陰平の谷の口を先に押さえさせた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4pass_ng": {
+   "speaker": "zhan",
+   "text": [
+    "「わたしは父ほど賢くない。だから、賭けはせぬ」{zhan}は首を振った。{huangchong}が天を仰いで泣いた。"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "pass",
+    "building": "barracks"
+   },
+   "goal": "{pass}の陣で、魏の軍を待つ",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "zhan",
+   "art": "camp",
+   "text": [
+    "夜、{zhan}は陣の外に出て、星を見ていた。「父は、星を見て人の死を知ったという。わたしには何も見えぬ」",
+    "「子の尚が、明日わたしの隣で戦うと言ってきかぬ。十九だ。止めるべきだろうか」"
+   ],
+   "choices": [
+    {
+     "label": "黙って、{zhan}の隣に立つ",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}へ戻り、北の成り行きを見届ける",
+   "wait": {
+    "settled": "mianzhu"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "mianzhu_pass"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "mianzhu_burn"
+     },
+     "next": "burnt"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "held": {
+   "speaker": "zhan",
+   "art": "war",
+   "text": [
+    "山から転げ出てきた{dengai}の兵は、谷の口に並ぶ蜀の弩を見て立ちすくんだ。三度押し寄せ、三度谷の中へ押し戻された。毛氈を巻いた兵の骸が、崖の下に積み重なった。",
+    "{zhan}は血に汚れた顔で{player}の前に来た。「父の名に恥じぬ戦ができた。成都はまだ、ここにある」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_mz_pass"
+    },
+    {
+     "unflag": "h_mz_burn"
+    },
+    {
+     "unflag": "h_mz_seen"
+    },
+    {
+     "note": "陰平の谷の口で、{dengai}の軍を押し返した。"
+    }
+   ],
+   "end": "谷の口の弩"
+  },
+  "burnt": {
+   "speaker": "hunter",
+   "art": "war",
+   "text": [
+    "焼けた桟道の前で、{dengai}の軍は三月足止めされた。だが鄧艾は谷ごとに木を伐って橋を架け、ついに山を越えた。綿竹で{zhan}は討たれ、子の尚も父の隣で死んだ。",
+    "{hunter}は山を見上げて言った。「三月だ。成都の人間が逃げるには、十分な時だった。逃げた者がいれば、の話だが」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "unflag": "h_mz_burn"
+    },
+    {
+     "unflag": "h_mz_seen"
+    },
+    {
+     "note": "陰平の桟道を焼いて鄧艾を三月足止めしたが、綿竹は落ちた。"
+    }
+   ],
+   "end": "焼けた桟道"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、北の成り行きを見届ける",
+   "wait": {
+    "fired": "mianzhu"
+   },
+   "art": "war",
+   "text": [
+    "{dengai}の兵は、陰平の崖を毛氈にくるまって転げ落ち、江油の城を降して平地に出た。{zhan}は綿竹で迎え撃ち、子の尚と共に討ち死にした。尚は死に際に「父子ともに国の恩を受けながら、早く黄皓を斬らなかったばかりに」と叫んだという。",
+    "{city}は目の前だった。城の中は、逃げ出す者と、逃げ場を探す者で溢れ返っていた。"
+   ],
+   "choices": [
+    {
+     "label": "城の門で、逃げる民を西の山へ導く",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_people",
+      "lose": "end_crowd"
+     }
+    },
+    {
+     "label": "綿竹へ走り、{zhan}の骸を探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_bury",
+      "lose": "end_crowd"
+     }
+    },
+    {
+     "label": "宮城の前で、帝{emperor}の決断を待つ",
+     "next": "end_wait"
+    }
+   ]
+  },
+  "end_people": {
+   "text": [
+    "{player}は城門の上から声を張り上げ、西の山へ逃げる道を示した。数千の民が、荷を背負って列をなした。魏の兵が入ったとき、城下の家の半ばは空だった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "unflag": "h_mz_seen"
+    },
+    {
+     "note": "綿竹で蜀の軍が敗れた。成都の民を西の山へ逃がした。"
+    }
+   ],
+   "end": "西の山へ"
+  },
+  "end_crowd": {
+   "text": [
+    "人の波に押し流され、{player}は倒れた。起き上がったときには、懐の銭袋がなくなっていた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "money": -50
+    },
+    {
+     "unflag": "h_mz_seen"
+    },
+    {
+     "note": "綿竹で蜀の軍が敗れ、成都は乱れた。"
+    }
+   ],
+   "end": "乱れる都"
+  },
+  "end_bury": {
+   "text": [
+    "綿竹の野には、蜀の兵の骸が折り重なっていた。{player}はその中から、父子の骸を見つけ出した。父の手は、子の手を握っていた。",
+    "二人を同じ穴に葬り、土を盛った。墓標には何も書かなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "unflag": "h_mz_seen"
+    },
+    {
+     "note": "綿竹で{zhan}父子が討たれた。その骸を葬った。"
+    }
+   ],
+   "end": "綿竹の父子"
+  },
+  "end_wait": {
+   "text": [
+    "宮城の門は、固く閉ざされたままだった。中から聞こえてくるのは、議論の声ばかりだ。戦うか、南へ逃げるか、降るか。{player}は門の前で夜を明かした。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_mz_seen"
+    },
+    {
+     "note": "綿竹で蜀の軍が敗れ、成都の朝廷は迷っていた。"
+    }
+   ],
+   "end": "閉ざされた宮門"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "mianzhu_pass"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "mianzhu_burn"
+     },
+     "next": "burnt"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。魏の{dengai}が陰平の山を毛氈にくるまって転げ下り、綿竹で丞相の子{zhan}を討ったという。成都は目の前だと。",
+    "「剣閣を守っても、山の上から来られてはな」噂の主は肩をすくめた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_mz_seen"
+    },
+    {
+     "note": "綿竹で{zhan}が討たれたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "mianzhu_pass",
+   "event": "mianzhu",
+   "order": 2,
+   "why": "主人公が諸葛瞻に谷の口の険を押さえさせた",
+   "when": {
+    "flag": "h_mz_pass"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_cao}の[[p:鄧艾]]は陰平の山道七百里を越えたが、[[p:諸葛亮]]の子諸葛瞻は先に谷の口の険を押さえ、飢え疲れた魏軍を三度押し返した。成都は息をついた。",
+    "do": [
+     [
+      "add",
+      "cao",
+      "prestige",
+      -8
+     ],
+     [
+      "army",
+      "cao",
+      0.92
+     ],
+     [
+      "add",
+      "shu",
+      "stability",
+      -0.05
+     ]
+    ],
+    "imp": 3,
+    "at": "zitong"
+   }
+  },
+  {
+   "id": "mianzhu_burn",
+   "event": "mianzhu",
+   "order": 1,
+   "why": "主人公が陰平の桟道と縄橋を焼き落とした",
+   "when": {
+    "flag": "h_mz_burn"
+   },
+   "then": "delay",
+   "months": 3,
+   "note": "陰平の桟道は焼け落ちていた。[[p:鄧艾]]の軍は谷ごとに橋を架け直し、山を越えるのに三月を余計に費やした。"
+  }
+ ]
+}

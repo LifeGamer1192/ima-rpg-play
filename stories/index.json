@@ -1375,6 +1375,237 @@
    "title": "塢壁の内"
   },
   {
+   "id": "sgk_r_koukei",
+   "file": "sgk_r_koukei.json",
+   "kind": "random",
+   "era": "sangoku",
+   "title": "後継争い"
+  },
+  {
+   "id": "sangoku_feat_main",
+   "file": "sangoku_feat_main.json",
+   "kind": "feat",
+   "era": "sangoku",
+   "title": "天命"
+  },
+  {
+   "id": "sangoku_feat_throne_cede",
+   "file": "sangoku_feat_throne_cede.json",
+   "kind": "feat",
+   "era": "sangoku",
+   "title": "禅譲"
+  },
+  {
+   "id": "sangoku_feat_throne_seize",
+   "file": "sangoku_feat_throne_seize.json",
+   "kind": "feat",
+   "era": "sangoku",
+   "title": "簒奪"
+  },
+  {
+   "id": "sangoku_feat_throne_invite",
+   "file": "sangoku_feat_throne_invite.json",
+   "kind": "feat",
+   "era": "sangoku",
+   "title": "招聘"
+  },
+  {
+   "id": "sangoku_feat_trade",
+   "file": "sangoku_feat_trade.json",
+   "kind": "feat",
+   "era": "sangoku",
+   "title": "天下の富"
+  },
+  {
+   "id": "sangoku_feat_bandit",
+   "file": "sangoku_feat_bandit.json",
+   "kind": "feat",
+   "era": "sangoku",
+   "title": "天下の大盗"
+  },
+  {
+   "id": "sangoku_feat_study",
+   "file": "sangoku_feat_study.json",
+   "kind": "feat",
+   "era": "sangoku",
+   "title": "天下の論"
+  },
+  {
+   "id": "sangoku_feat_sword",
+   "file": "sangoku_feat_sword.json",
+   "kind": "feat",
+   "era": "sangoku",
+   "title": "天下第一の武"
+  },
+  {
+   "id": "sgk_h_sunjian_dies",
+   "file": "sgk_h_sunjian_dies.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "峴山の矢"
+  },
+  {
+   "id": "sgk_h_dong_dies",
+   "file": "sgk_h_dong_dies.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "長安に歌う"
+  },
+  {
+   "id": "sgk_h_xian_east",
+   "file": "sgk_h_xian_east.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "東へ還る車駕"
+  },
+  {
+   "id": "sgk_h_xiapi",
+   "file": "sgk_h_xiapi.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "白門楼"
+  },
+  {
+   "id": "sgk_h_sunce_dies",
+   "file": "sgk_h_sunce_dies.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "丹徒の狩り"
+  },
+  {
+   "id": "sgk_h_guandu",
+   "file": "sgk_h_guandu.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "烏巣の火"
+  },
+  {
+   "id": "sgk_h_three_visits",
+   "file": "sgk_h_three_visits.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "三顧の礼"
+  },
+  {
+   "id": "sgk_h_changban",
+   "file": "sgk_h_changban.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "長坂の橋"
+  },
+  {
+   "id": "sgk_h_chibi",
+   "file": "sgk_h_chibi.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "赤壁の火"
+  },
+  {
+   "id": "sgk_h_tongguan",
+   "file": "sgk_h_tongguan.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "潼関の書簡"
+  },
+  {
+   "id": "sgk_h_yi_falls",
+   "file": "sgk_h_yi_falls.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "成都の門"
+  },
+  {
+   "id": "sgk_h_xiaoyaojin",
+   "file": "sgk_h_xiaoyaojin.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "逍遥津"
+  },
+  {
+   "id": "sgk_h_dingjun",
+   "file": "sgk_h_dingjun.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "定軍山"
+  },
+  {
+   "id": "sgk_h_fan",
+   "file": "sgk_h_fan.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "漢水の長雨"
+  },
+  {
+   "id": "sgk_h_cao_cao_dies",
+   "file": "sgk_h_cao_cao_dies.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "魏王の遺令"
+  },
+  {
+   "id": "sgk_h_shanrang",
+   "file": "sgk_h_shanrang.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "受禅台"
+  },
+  {
+   "id": "sgk_h_yiling",
+   "file": "sgk_h_yiling.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "夷陵の火"
+  },
+  {
+   "id": "sgk_h_baidi",
+   "file": "sgk_h_baidi.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "白帝城の託孤"
+  },
+  {
+   "id": "sgk_h_jieting",
+   "file": "sgk_h_jieting.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "街亭の水"
+  },
+  {
+   "id": "sgk_h_wuzhang",
+   "file": "sgk_h_wuzhang.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "五丈原の秋風"
+  },
+  {
+   "id": "sgk_h_gaopingling",
+   "file": "sgk_h_gaopingling.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "高平陵の朝"
+  },
+  {
+   "id": "sgk_h_mianzhu",
+   "file": "sgk_h_mianzhu.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "陰平の毛氈"
+  },
+  {
+   "id": "sgk_h_shu_end",
+   "file": "sgk_h_shu_end.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "成都の降旗"
+  },
+  {
+   "id": "sgk_h_jin_wu",
+   "file": "sgk_h_jin_wu.json",
+   "kind": "history",
+   "era": "sangoku",
+   "title": "石頭の降旗"
+  },
+  {
    "id": "job_office_bandits",
    "file": "job_office_bandits.json",
    "kind": "job",

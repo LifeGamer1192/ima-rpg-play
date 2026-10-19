@@ -1,0 +1,763 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_dingjun",
+ "kind": "history",
+ "title": "定軍山",
+ "era": "sangoku",
+ "event": "dingjun",
+ "lead": 6,
+ "before": [
+  "d1",
+  "d2",
+  "d2ok",
+  "d2fight",
+  "d2hurt",
+  "d3",
+  "d3van",
+  "d5",
+  "d6",
+  "d6stop",
+  "d6ng",
+  "d6z",
+  "d6fire",
+  "d6caught",
+  "d6hurt"
+ ],
+ "onFired": "late",
+ "cast": {
+  "hz": {
+   "scnPlace": "hanzhong"
+  },
+  "field": {
+   "scnPlace": "dingjun"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "shu": {
+   "scnRealm": "shu"
+  },
+  "liubei": {
+   "person": "ruler:shu"
+  },
+  "huang": {
+   "scnPerson": "黄忠"
+  },
+  "xiahou": {
+   "scnPerson": "夏侯淵"
+  },
+  "fazheng": {
+   "scnPerson": "法正"
+  },
+  "zhanghe": {
+   "scnPerson": "張郃"
+  },
+  "guide": {
+   "npc": "米倉山の樵",
+   "sex": "m"
+  }
+ },
+ "start": "d1",
+ "scenes": {
+  "d1": {
+   "at": {
+    "place": "hz",
+    "building": "inn"
+   },
+   "goal": "{hz}の{inn}で、漢中の戦の噂を聞く",
+   "speaker": "guide",
+   "art": "inn",
+   "text": [
+    "{hz}の{inn}の土間で、薪を背負った樵が粟の粥をすすっていた。米倉山で四十年、木を伐ってきたという{guide}である。",
+    "「{liubei}様の軍は、陽平関の前でもう一年も睨み合いよ。関を守るのは{xiahou}将軍、三日で五百里、六日で千里を駆けるという魏王の一族だ。どっちも退かん」",
+    "「わしは定軍山の裏の獣道を知っとる。沔水を渡って南の山に上がれば、将軍の陣は足の下に見える。……こんな話、どっちの陣に持っていけば銭になるかのう」"
+   ],
+   "choices": [
+    {
+     "label": "樵を連れて劉備の陣へ行き、法正に会う",
+     "effects": [
+      {
+       "note": "{liubei}の軍が漢中で{xiahou}と睨み合っている。樵の{guide}を連れて劉備の陣へ向かった。"
+      }
+     ],
+     "next": "d2"
+    },
+    {
+     "label": "夏侯淵の陣で人を募っていると聞き、そちらへ行く",
+     "effects": [
+      {
+       "flag": "h_dgj_cao"
+      },
+      {
+       "note": "漢中を守る{xiahou}の陣に加わることにした。"
+      }
+     ],
+     "next": "d5"
+    }
+   ]
+  },
+  "d2": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の麓の{barracks}で、{fazheng}に会う",
+   "speaker": "fazheng",
+   "art": "camp",
+   "text": [
+    "陣の幕舎で、痩せた男が地図に爪で線を引いていた。{liubei}の謀臣、{fazheng}である。人の恩も恨みも一つ残らず返すという噂の男だった。",
+    "「陽平関は抜けぬ。ならば関を相手にせねばよい。沔水を南へ渡り、定軍山に陣を移す。高みを取れば、{xiahou}は山の下で戦うしかなくなる」",
+    "「問題は、敵の物見に見つからずに山へ上がる道だ。お前の連れている樵が本物かどうか、試させてもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "{guide}と夜の獣道を登り、山頂までの道を確かめる",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "d2ok",
+      "lose": "d2fight"
+     }
+    }
+   ]
+  },
+  "d2fight": {
+   "text": [
+    "尾根の手前で、魏の物見の松明に出くわした。三人。{guide}が藪に伏せ、{player}は剣を抜いた。"
+   ],
+   "choices": [
+    {
+     "label": "声を上げられる前に斬る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "d2ok",
+      "lose": "d2hurt"
+     }
+    }
+   ]
+  },
+  "d2hurt": {
+   "text": [
+    "斬り合いの声で、山の下の陣に篝火が増えた。{player}は脇腹を斬られ、樵に肩を借りて沢へ転がり落ちた。道は確かめられなかったが、物見のいる場所だけは分かった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "d3"
+  },
+  "d2ok": {
+   "speaker": "fazheng",
+   "text": [
+    "明け方、山頂の岩場から見下ろすと、{xiahou}の陣が手に取るように見えた。陣のまわりには鹿角（逆茂木）が幾重にも巡らされ、東の端だけが薄い。",
+    "{fazheng}は{player}の描いた図を見て、薄く笑った。「よし。山を取ったら、まず東の鹿角に火をかける。{xiahou}は勇の将だ。柵が燃えれば、自ら繕いに出てくる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dgj_path"
+    },
+    {
+     "money": 60
+    },
+    {
+     "note": "{fazheng}のために定軍山へ上がる獣道を確かめた。"
+    }
+   ],
+   "next": "d3"
+  },
+  "d3": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の{barracks}で、山を取る日を待つ",
+   "speaker": "huang",
+   "art": "camp",
+   "text": [
+    "定軍山に陣を移した夜、白い鬚の老将が{player}の焚火にあたりに来た。{huang}、七十を越えてなお、弓を二石引くという。",
+    "「若い者は、わしを年寄り扱いしよる。だが戦は、年で勝つものでも若さで勝つものでもない。山の上で、太鼓の鳴る時を待てる者が勝つのよ」",
+    "「明日か明後日、敵の将が自分で出てくる。そのとき、わしが先に駆け下りる。ついてくるか」"
+   ],
+   "choices": [
+    {
+     "label": "「先鋒にお加えください」と願い出る",
+     "next": "d3van"
+    },
+    {
+     "label": "後詰めに回り、山の上から戦を見届ける",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "d3van": {
+   "speaker": "huang",
+   "text": [
+    "{huang}は大笑いして{player}の背を叩いた。「よし。太鼓が鳴ったら、わしの馬の尻尾だけを見ておれ。前を見ると、足がすくむぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dgj_huang"
+    },
+    {
+     "note": "{huang}の先鋒に加わった。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "d5": {
+   "at": {
+    "place": "hz",
+    "building": "palace"
+   },
+   "goal": "{hz}の{palace}で、{xiahou}に目通りする",
+   "speaker": "xiahou",
+   "art": "court",
+   "text": [
+    "{xiahou}は、日に焼けた太い腕を卓に乗せて{player}を見た。魏王の従弟で、急な行軍では並ぶ者がないと言われる将である。",
+    "「魏王からは、こう言われておる。『将たる者、怯むときもなければならぬ。ただ勇を恃んではならぬ』とな」将軍は笑った。「怯むのは苦手でな。だから{zhanghe}が東の陣を、わしが南を守っておる」",
+    "「腕の立つ者はいくらでも欲しい。鹿角の見回りでも、{zhanghe}への使いでも、好きな方をやれ」"
+   ],
+   "choices": [
+    {
+     "label": "南の陣で鹿角の見回りを請け負う",
+     "next": "d6"
+    },
+    {
+     "label": "東の陣の{zhanghe}へ書簡を届ける",
+     "next": "d6z"
+    }
+   ]
+  },
+  "d6": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}の麓の陣で、鹿角の見回りをする",
+   "speaker": "xiahou",
+   "art": "war",
+   "text": [
+    "夜半、東の鹿角が燃え上がった。山の上の{liubei}の陣から火矢が雨のように降り、乾いた逆茂木は見る間に炎の壁になった。",
+    "{xiahou}は鎧も半ばのまま幕舎を飛び出した。「東は{zhanghe}が支えておる。南の柵は、わしが自ら繕う。四百人ついて来い」将軍の手には、斧が一本握られているだけだった。",
+    "山の上の暗がりで、太鼓が一つ、鳴った気がした。"
+   ],
+   "choices": [
+    {
+     "label": "「将が自ら柵を繕いに出てはなりませぬ。山の上は伏兵です」と引き止める",
+     "turn": true,
+     "guide": "将軍を引き止める。怒らせれば斬られるかもしれない",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "d6stop",
+      "lose": "d6ng"
+     }
+    },
+    {
+     "label": "将軍のあとについて、南の柵へ走る",
+     "effects": [
+      {
+       "flag": "h_dgj_follow"
+      }
+     ],
+     "next": "aftergo"
+    }
+   ]
+  },
+  "d6stop": {
+   "speaker": "xiahou",
+   "text": [
+    "{xiahou}は{player}の胸ぐらをつかみ、山を見上げた。火の明かりの届かない斜面に、旗の影が幾つも動いている。",
+    "「……魏王の言うとおりか」将軍は斧を放り出した。「柵は兵に繕わせる。わしは陣の中で弓を構えて待つ。下りて来るなら来い、老いぼれ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dgj_xiahou"
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "note": "燃える鹿角を繕いに出ようとした{xiahou}を引き止めた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "d6ng": {
+   "speaker": "xiahou",
+   "text": [
+    "「臆したか」{xiahou}は{player}を突き飛ばした。「わしは白地将軍と笑われても、陣の外で死ぬのは怖くない」将軍は四百の兵を連れ、炎の向こうへ消えた。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "d6z": {
+   "at": {
+    "place": "field",
+    "building": "office"
+   },
+   "goal": "{field}の東の陣で、{zhanghe}に書簡を届ける",
+   "speaker": "zhanghe",
+   "art": "camp",
+   "text": [
+    "{zhanghe}は書簡を読み終えると、{player}を幕舎の奥へ招いた。袁紹のもとから降ってきた将で、地の形を読むことにかけては魏でも一番だという。",
+    "「劉備はひと月もせぬうちに山へ上がる。陽平関の裏の谷に、奴らの兵糧蔵がある。あれが燃えれば、山の上の兵は十日で干上がる」",
+    "「だが、わしの兵を動かせば劉備に悟られる。……お前のような、名もない者なら別だがな」"
+   ],
+   "choices": [
+    {
+     "label": "陽平関の裏の谷へ忍び込み、劉備の兵糧蔵に火をかける",
+     "turn": true,
+     "guide": "兵糧を焼く。見つかれば囲まれる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "d6fire",
+      "lose": "d6caught"
+     }
+    },
+    {
+     "label": "「わたしは使いです」と断り、南の陣へ戻る",
+     "next": "d6"
+    }
+   ]
+  },
+  "d6caught": {
+   "text": [
+    "蔵の番兵は、思ったより多かった。藁束に火打ち石を打った瞬間、背後で槍の石突きが地を叩いた。"
+   ],
+   "choices": [
+    {
+     "label": "囲みを斬り破る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "d6fire",
+      "lose": "d6hurt"
+     }
+    }
+   ]
+  },
+  "d6hurt": {
+   "text": [
+    "火は小さな蔵ひとつを焦がしただけで消し止められた。{player}は谷川に飛び込み、流されるままに逃げた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "wanted": "shu",
+     "n": 10
+    }
+   ],
+   "next": "d6"
+  },
+  "d6fire": {
+   "art": "war",
+   "text": [
+    "谷の蔵が三つ、続けざまに燃え上がった。積み上げた粟の俵が弾け、谷じゅうに焦げた穀物の匂いが立ちこめた。山の上の陣から、慌てた鉦の音が聞こえてくる。",
+    "翌朝、{zhanghe}は焼け跡の煙を見て、一言だけ言った。「これで半年は持つ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dgj_grain"
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "wanted": "shu",
+     "n": 15
+    },
+    {
+     "note": "陽平関の裏の谷で、{liubei}の兵糧蔵に火をかけた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}で、山の太鼓が鳴るのを待つ",
+   "wait": {
+    "settled": "dingjun"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dgj_xiahou"
+     },
+     "next": "xsaved"
+    },
+    {
+     "if": {
+      "branch": "dgj_grain"
+     },
+     "next": "delayed"
+    },
+    {
+     "if": {
+      "flag": "h_dgj_huang"
+     },
+     "next": "charge"
+    },
+    {
+     "if": {
+      "flag": "h_dgj_follow"
+     },
+     "next": "fence"
+    },
+    {
+     "next": "rec"
+    }
+   ]
+  },
+  "xsaved": {
+   "speaker": "xiahou",
+   "art": "war",
+   "text": [
+    "太鼓が鳴り、{huang}の兵が山を駆け下りてきた。だが南の柵にいたのは、斧を持った将ではなく、弓を構えた三千の兵だった。老将の突撃は柵の前で止まり、山へ押し戻された。",
+    "{xiahou}はそれでも漢中を守り切れなかった。兵糧の尽きる前に陣を払い、陽平関から北へ退いた。将軍は退き際に{player}の肩を叩いた。「怯むことを覚えた。魏王に叱られずに済む」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "unflag": "h_dgj_xiahou"
+    },
+    {
+     "unflag": "h_dgj_cao"
+    },
+    {
+     "unflag": "h_dgj_follow"
+    },
+    {
+     "note": "定軍山の戦い。{xiahou}は討たれず、兵をまとめて漢中から退いた。"
+    }
+   ],
+   "end": "退いた白地将軍"
+  },
+  "delayed": {
+   "speaker": "zhanghe",
+   "art": "war",
+   "text": [
+    "兵糧を焼かれた{liubei}の軍は、山を下りて半年のあいだ蜀から粟を運び直した。そのあいだに{xiahou}は陣を固め、漢中の麦も刈り入れた。",
+    "だが秋、蜀の兵は戻ってきた。定軍山の太鼓は半年遅れて鳴り、{huang}はやはり山を駆け下りた。{zhanghe}は焼け跡で拾った炭を{player}に見せた。「半年は買えた。だが、戦の行方までは買えなんだ」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "money": 120
+    },
+    {
+     "unflag": "h_dgj_grain"
+    },
+    {
+     "unflag": "h_dgj_cao"
+    },
+    {
+     "unflag": "h_dgj_follow"
+    },
+    {
+     "note": "{liubei}の兵糧を焼き、定軍山の戦いを半年遅らせた。"
+    }
+   ],
+   "end": "焼けた兵糧"
+  },
+  "charge": {
+   "speaker": "huang",
+   "art": "war",
+   "text": [
+    "太鼓が鳴った。{huang}は「行くぞ」とだけ叫び、馬腹を蹴った。{player}は言われたとおり、前を見ずに老将の馬の尻尾だけを追った。",
+    "気がつくと、燃える鹿角の前にいた。斧を持った大柄な将が振り向き、{huang}の刀がその首に吸い込まれた。魏の兵が雪崩を打って崩れていく。だが柵の陰から、将を討たれた兵たちが死に物狂いで斬りかかってきた。"
+   ],
+   "choices": [
+    {
+     "label": "老将の背を守って斬り結ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_charge",
+      "lose": "end_wound"
+     }
+    }
+   ]
+  },
+  "fence": {
+   "speaker": "xiahou",
+   "art": "war",
+   "text": [
+    "南の柵の火を、{xiahou}は自ら斧で叩き落としていた。そのとき、山の上で太鼓が鳴った。白い鬚の老将が、まっすぐこちらへ駆け下りてくる。",
+    "将軍が振り向いたときには、もう刀が届く間合いだった。{xiahou}は斧を振り上げたまま倒れた。四百の兵は散り、{player}のまわりに残ったのは数人だけだった。"
+   ],
+   "choices": [
+    {
+     "label": "将軍の亡骸を担ぎ、陣へ退く",
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "end_body",
+      "lose": "end_wound"
+     }
+    },
+    {
+     "label": "亡骸を捨て、谷へ逃げる",
+     "next": "end_flee"
+    }
+   ]
+  },
+  "rec": {
+   "art": "war",
+   "text": [
+    "定軍山の太鼓が鳴り、白い鬚の老将が山を駆け下りた。燃える柵を繕っていた{xiahou}は、振り向く間もなく討たれた。漢中は{liubei}のものになった。",
+    "ひと月ののち、魏王は自ら大軍を率いて来たが、山に籠もった劉備の軍を抜けなかった。陣中の合言葉は「鶏肋」――食うには肉がなく、捨てるには惜しい。魏王は兵を引いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dgj_cao"
+    },
+    {
+     "unflag": "h_dgj_path"
+    },
+    {
+     "note": "定軍山の戦い。{huang}が{xiahou}を討ち、漢中は{liubei}のものになった。"
+    }
+   ],
+   "end": "鶏肋"
+  },
+  "end_charge": {
+   "speaker": "huang",
+   "text": [
+    "日が暮れるころ、定軍山の麓に立っている魏の兵はいなかった。{huang}は鞍の上で肩で息をしながら、{player}に言った。「尻尾だけ見ておれと言うたのに、ちゃんと前を見ておったな」",
+    "ひと月ののち、魏王の陣で「鶏肋」という合言葉が流れ、魏の大軍は漢中を去った。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "shu",
+     "n": 15
+    },
+    {
+     "unflag": "h_dgj_huang"
+    },
+    {
+     "unflag": "h_dgj_path"
+    },
+    {
+     "note": "定軍山の戦い。{huang}の先鋒として{xiahou}の陣を破った。"
+    }
+   ],
+   "end": "老将の尻尾"
+  },
+  "end_wound": {
+   "text": [
+    "乱戦の中で、{player}は肩に槍を受けて倒れた。目が覚めたのは、定軍山の頂の幕舎の中だった。漢中はもう{liubei}のものになったと、看病の兵が教えてくれた。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_dgj_huang"
+    },
+    {
+     "unflag": "h_dgj_follow"
+    },
+    {
+     "unflag": "h_dgj_cao"
+    },
+    {
+     "unflag": "h_dgj_path"
+    },
+    {
+     "note": "定軍山の戦いで深手を負った。"
+    }
+   ],
+   "end": "麓の傷"
+  },
+  "end_body": {
+   "text": [
+    "追いすがる蜀の兵を払いながら、{player}は将軍の亡骸を陣まで担ぎ戻した。{zhanghe}は亡骸の前で長く頭を下げ、残った兵をまとめて陽平関へ退いた。",
+    "のちに、魏王は{xiahou}の死を聞いて言ったという。「だから言ったのだ。勇だけを恃むなと」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "cao",
+     "n": 15
+    },
+    {
+     "unflag": "h_dgj_follow"
+    },
+    {
+     "unflag": "h_dgj_cao"
+    },
+    {
+     "note": "定軍山の戦いで討たれた{xiahou}の亡骸を陣へ担ぎ戻した。"
+    }
+   ],
+   "end": "将軍の亡骸"
+  },
+  "end_flee": {
+   "text": [
+    "谷を這い降りるあいだ、背後の山では勝ち鬨が続いていた。{player}は一度も振り返らなかった。漢中が{liubei}のものになったと聞いたのは、北へ逃れる道の宿でだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dgj_follow"
+    },
+    {
+     "unflag": "h_dgj_cao"
+    },
+    {
+     "note": "定軍山の戦いで{xiahou}が討たれ、谷へ逃れた。"
+    }
+   ],
+   "end": "谷の逃げ道"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dgj_xiahou"
+     },
+     "next": "late_x"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_x": {
+   "text": [
+    "旅の途中で噂を聞いた。定軍山で{huang}が山を駆け下りたが、{xiahou}は柵の内で待ち構えて討たれず、兵をまとめて漢中から退いたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dgj_xiahou"
+    },
+    {
+     "unflag": "h_dgj_cao"
+    },
+    {
+     "unflag": "h_dgj_path"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。定軍山で、七十を越えた{huang}が{xiahou}を討ち取り、漢中は{liubei}のものになったという。",
+    "「魏王は漢中を『鶏肋』と呼んで兵を引いたそうな」宿の主は鶏の骨をしゃぶりながら言った。「捨てるには惜しい、か。うまいことを言う」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dgj_cao"
+    },
+    {
+     "unflag": "h_dgj_path"
+    },
+    {
+     "unflag": "h_dgj_huang"
+    },
+    {
+     "unflag": "h_dgj_follow"
+    },
+    {
+     "unflag": "h_dgj_grain"
+    },
+    {
+     "note": "定軍山で{xiahou}が討たれたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "dgj_xiahou",
+   "event": "dingjun",
+   "order": 2,
+   "why": "主人公が夏侯淵を柵の繕いから引き止めた",
+   "when": {
+    "flag": "h_dgj_xiahou"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "定軍山の戦い。[[p:黄忠]]は山を駆け下りたが、[[p:夏侯淵]]は燃える柵に自ら出ず、陣の内で待ち構えて討たれなかった。夏侯淵は兵をまとめて退き、{r_shu}は漢中を手に入れた。",
+    "do": [
+     [
+      "add",
+      "shu",
+      "prestige",
+      8
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      -3
+     ]
+    ],
+    "imp": 3,
+    "at": "dingjun"
+   },
+   "people": [
+    {
+     "spare": "夏侯淵",
+     "years": 10
+    }
+   ]
+  },
+  {
+   "id": "dgj_grain",
+   "event": "dingjun",
+   "order": 1,
+   "why": "主人公が陽平関の裏で劉備の兵糧を焼いた",
+   "when": {
+    "flag": "h_dgj_grain"
+   },
+   "then": "delay",
+   "months": 6,
+   "note": "兵糧を焼かれた{r_shu}の軍は定軍山を下り、漢中の戦は半年のあいだ止んだ。",
+   "people": [
+    {
+     "spare": "夏侯淵",
+     "years": 1
+    }
+   ]
+  }
+ ]
+}

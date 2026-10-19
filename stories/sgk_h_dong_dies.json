@@ -1,0 +1,873 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_dong_dies",
+ "kind": "history",
+ "title": "長安に歌う",
+ "era": "sangoku",
+ "event": "dong_dies",
+ "lead": 6,
+ "before": [
+  "s1",
+  "s2",
+  "s2caught",
+  "s2hurt",
+  "s2lu",
+  "s3",
+  "s3leak",
+  "s3leak_ng",
+  "s4",
+  "s4pardon",
+  "s4stub",
+  "s5",
+  "s5ok",
+  "s5ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "changan"
+  },
+  "camp": {
+   "scnPlace": "hongnong"
+  },
+  "han": {
+   "scnRealm": "han"
+  },
+  "emperor": {
+   "person": "ruler:han"
+  },
+  "dong": {
+   "scnPerson": "董卓"
+  },
+  "wangyun": {
+   "scnPerson": "王允"
+  },
+  "lubu": {
+   "scnPerson": "呂布"
+  },
+  "lijue": {
+   "scnPerson": "李傕"
+  },
+  "jiaxu": {
+   "scnPerson": "賈詡"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}で、司徒の家人の話を聞く",
+   "speaker": "司徒の家人",
+   "art": "inn",
+   "text": [
+    "{city}の{inn}では、誰も大きな声で話さなかった。相国{dong}の兵が、酒の席の陰口ひとつで人を引き立てていくからである。銭は董卓の鋳た薄い小銭ばかりで、米一石が数十万銭にもなっていた。",
+    "隅の卓で、身なりのよい老僕が{player}に目配せした。「司徒の{wangyun}さまが、腕の立つ方を探しておいでです。口の堅い方を」",
+    "「それとも、相国府の衛士の口でもお探しですか。あちらは給金がよいと聞きます。……どちらに付くかで、首の行き先も変わりましょうが」"
+   ],
+   "choices": [
+    {
+     "label": "{wangyun}の屋敷を訪ねる",
+     "effects": [
+      {
+       "note": "司徒{wangyun}が、口の堅い者を探しているという。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "相国府の衛士に雇われる",
+     "effects": [
+      {
+       "note": "相国{dong}の府で、衛士に雇われることにした。"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の司徒の屋敷で、{wangyun}に会う",
+   "speaker": "wangyun",
+   "art": "backroom",
+   "text": [
+    "{wangyun}は灯を一つだけ点けた部屋で{player}を迎えた。五十を半ば過ぎた、背筋の伸びた老臣である。",
+    "「相国の養子、{lubu}どのは、相国に手戟を投げつけられたことがある。それに、相国の侍女とわけがあって、露見を恐れている。父子とはいえ、心はもう離れておるのだ」",
+    "「この書を{lubu}どのに届けてほしい。相国府の者に見られれば、わしもおぬしも、九族まで終わりだ」"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れ、{lubu}の屋敷に書を届ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "s2lu",
+      "lose": "s2caught"
+     }
+    },
+    {
+     "label": "届けるのは断り、司徒府の役人として{wangyun}の手伝いをする",
+     "next": "s4"
+    }
+   ]
+  },
+  "s2caught": {
+   "text": [
+    "{lubu}の屋敷の裏手で、相国府の見回りに呼び止められた。「この夜更けに何の用だ。懐のものを見せろ」"
+   ],
+   "choices": [
+    {
+     "label": "刀を抜く",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2lu",
+      "lose": "s2hurt"
+     }
+    }
+   ]
+  },
+  "s2hurt": {
+   "text": [
+    "書を懐に押し込んだまま、からくも逃げ延びた。翌日、{wangyun}は別の者に書を託したという。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s4"
+  },
+  "s2lu": {
+   "speaker": "lubu",
+   "art": "backroom",
+   "text": [
+    "{lubu}は書を読み、大きな手でそれを握りつぶした。並の男より頭ひとつ背が高く、目だけが子どものように落ち着かなかった。",
+    "「わしと相国は父子だ」{lubu}はうめいた。「……だが、手戟を投げられたとき、父子の情などどこにあった」しばらくして、{lubu}は言った。「司徒どのに伝えよ。日を決めてくれれば、わしが刺す」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dd_plot"
+    },
+    {
+     "note": "{wangyun}の書を{lubu}に届けた。{lubu}は{dong}を刺すと言った。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の相国府で、衛士の勤めにつく",
+   "speaker": "dong",
+   "art": "feast",
+   "text": [
+    "相国府の宴は夜通し続いた。{dong}は肥えた体を揺すって笑い、降った北地の兵の舌を抜かせ、目をえぐらせて、それを肴に酒を飲んだ。居並ぶ公卿は箸を落としたが、{dong}は平然としていた。",
+    "宴の端で、{lubu}が黙って盃を見つめていた。前の日、{dong}は些細なことで怒り、この養子に手戟を投げつけたという。{lubu}が退出するとき、司徒{wangyun}の家人が、その袖にそっと何かを滑り込ませるのを{player}は見た。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dd_guard"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{dong}に、{lubu}と{wangyun}の企てを密告する",
+     "turn": true,
+     "guide": "暴君を救う。告げ口が外れれば、鞭打たれて放り出される",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s3leak",
+      "lose": "s3leak_ng"
+     }
+    },
+    {
+     "label": "黙って勤めを続ける",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3leak": {
+   "speaker": "dong",
+   "art": "court",
+   "text": [
+    "{dong}の小さな目が細くなった。「奉先が、司徒と」長い沈黙のあと、{dong}は笑った。「わしの子が、わしを刺すか。面白い」",
+    "その夜のうちに、司徒の屋敷は相国府の兵に囲まれた。{player}の懐には、褒美の金が重く入っていた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dd_leak"
+    },
+    {
+     "money": 250
+    },
+    {
+     "rep": "han",
+     "n": -10
+    },
+    {
+     "note": "{dong}に{wangyun}と{lubu}の企てを密告した。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3leak_ng": {
+   "speaker": "dong",
+   "text": [
+    "「奉先がわしを刺すだと。わしの子をそしる気か」{dong}は笑いもせず、{player}を鞭打たせて門の外へ放り出した。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "office"
+   },
+   "goal": "{city}の{office}で、{wangyun}に会う",
+   "speaker": "wangyun",
+   "art": "court",
+   "text": [
+    "{office}の奥で、{wangyun}は帝の詔の下書きをしたためていた。相国を除いたあとの手筈である。",
+    "{player}は気になっていたことを口にした。{dong}の兵は涼州の荒くれ者ばかりで、{lijue}ら部将が数万を率いて東の{camp}に陣取っている。主を殺されて、黙っているとは思えない。"
+   ],
+   "choices": [
+    {
+     "label": "「涼州の兵に赦しを出し、兵を解かせるべきです」と説く",
+     "turn": true,
+     "guide": "頑なな老臣を説く。容れられねば、長安は戦火に呑まれる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s4pardon",
+      "lose": "s4stub"
+     }
+    },
+    {
+     "label": "何も言わずに退く",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s4pardon": {
+   "speaker": "wangyun",
+   "text": [
+    "{wangyun}は筆を止め、長いあいだ黙っていた。「董卓の爪牙を赦すなど、天下の笑いものだ」",
+    "「……だが、長安の民を焼かせるわけにもいかぬ」老臣は新しい竹簡を取り、赦しの文を書き上げた。「{camp}の陣へ届けてくれ。相国が倒れたと聞いて兵が騒ぐ前に」"
+   ],
+   "effects": [
+    {
+     "flag": "h_dd_pardon_ok"
+    },
+    {
+     "note": "{wangyun}に、涼州の兵への赦しを書かせた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4stub": {
+   "speaker": "wangyun",
+   "text": [
+    "「賊の手先を赦す道理はない」{wangyun}はきっぱりと言った。「相国が倒れれば、兵などは烏合の衆よ」{player}はそれ以上、何も言えなかった。"
+   ],
+   "next": "aftergo"
+  },
+  "s5": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の{barracks}へ、赦しの書を届ける",
+   "speaker": "jiaxu",
+   "art": "camp",
+   "text": [
+    "{camp}の陣は、羌の言葉と涼州の訛りが入り混じっていた。{lijue}の幕舎に通される前に、一人の痩せた男が{player}を呼び止めた。{jiaxu}と名乗った。",
+    "「赦しの書か」{jiaxu}は竹簡にちらりと目をやった。「兵は、主を失えば必ず罰されると思っている。罰されると思えば、長安を攻めるしか生きる道がない。……それを、皆の前で読み上げられるか」"
+   ],
+   "choices": [
+    {
+     "label": "{lijue}と兵たちの前で、赦しの書を読み上げる",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s5ok",
+      "lose": "s5ng"
+     }
+    }
+   ]
+  },
+  "s5ok": {
+   "speaker": "lijue",
+   "text": [
+    "{player}が読み終えると、陣はしんと静まった。{lijue}は唾を吐いた。「司徒の言葉など信じられるか」",
+    "「では、ほかに道がおありか」{jiaxu}が静かに言った。「赦しが出たのです。兵を解いて郷里へ帰る者を止めることはできますまい」兵たちの間に、ざわめきが広がった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dd_pardon"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "note": "{camp}の涼州兵に、{wangyun}の赦しを読み上げた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5ng": {
+   "speaker": "lijue",
+   "text": [
+    "読み上げる声が、兵たちの怒号にかき消された。{lijue}は竹簡を奪い取って火にくべた。「赦しなど、董公が死んでから言え」{player}は陣を追い出された。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、事の成り行きを見届ける",
+   "wait": {
+    "settled": "dong_dies"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dd_leak"
+     },
+     "next": "leak"
+    },
+    {
+     "if": {
+      "branch": "dd_pardon"
+     },
+     "next": "pardon"
+    },
+    {
+     "if": {
+      "flag": "h_dd_guard"
+     },
+     "next": "gate"
+    },
+    {
+     "next": "fall"
+    }
+   ]
+  },
+  "leak": {
+   "speaker": "dong",
+   "art": "court",
+   "text": [
+    "司徒{wangyun}は市で斬られた。{lubu}は数百騎を率いて{city}を脱け出し、東へ逃れたという。{dong}は郿の城塞から戻り、前よりも多くの兵に囲まれて宮城へ通った。",
+    "{dong}は{player}を呼び、手ずから酒を注いだ。「おぬしはわしの命の恩人だ。何でも望め」その目は、少しも笑っていなかった。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "han",
+     "n": -10
+    },
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "{wangyun}の企ては漏れ、{dong}は生き延びた。"
+    }
+   ],
+   "end": "密告の褒美"
+  },
+  "pardon": {
+   "speaker": "wangyun",
+   "art": "feast",
+   "text": [
+    "{dong}は北掖門で{lubu}に刺され、{city}の民は歌い踊った。{lijue}らの兵は赦しを受けて散り、長安を攻める者はなかった。",
+    "{wangyun}は{player}の手を取った。「おぬしの言を容れなければ、わしは今ごろ涼州兵の刃の下にいただろう。頑なさは、学者の病だな」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "han",
+     "n": 15
+    },
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "{dong}は討たれ、涼州の兵は赦されて散った。"
+    }
+   ],
+   "end": "赦された涼州兵"
+  },
+  "gate": {
+   "speaker": "lubu",
+   "art": "war",
+   "text": [
+    "{dong}の車が北掖門をくぐったとき、門の脇から戟が突き出された。鎧に阻まれて{dong}は車から転げ落ち、「奉先はどこだ」と叫んだ。{lubu}が進み出た。「詔によって賊臣を討つ」",
+    "衛士たちは凍りついた。{player}の手も、刀の柄の上で止まっていた。"
+   ],
+   "choices": [
+    {
+     "label": "{dong}を庇って{lubu}に斬りかかる",
+     "fight": {
+      "foes": "person",
+      "who": "lubu",
+      "n": 1,
+      "level": 0,
+      "confirm": "相手は武勇並ぶ者なしと名高い{lubu}だ。それでも斬りかかるか",
+      "cancel": "end_stand",
+      "free": true,
+      "fled": "end_stand",
+      "win": "end_guard",
+      "lose": "end_guard_lose"
+     }
+    },
+    {
+     "label": "刀を収め、詔に従う",
+     "next": "end_stand"
+    }
+   ]
+  },
+  "fall": {
+   "art": "feast",
+   "text": [
+    "{dong}は北掖門で{lubu}に刺された。屍は市に晒され、肥えた腹の臍に灯心を挿して火を点けると、幾日も燃え続けたという。{city}の民は歌い踊り、衣を売って酒と肉を買った。",
+    "だがひと月も経たぬうちに、{lijue}と郭汜の兵が{city}を囲んだ。赦しを得られなかった涼州の兵は、生きるために攻めるしかなかったのだ。城門が破られ、町に火の手が上がった。"
+   ],
+   "choices": [
+    {
+     "label": "{wangyun}を城から逃がそうとする",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_wang",
+      "lose": "end_sack"
+     }
+    },
+    {
+     "label": "{lubu}の騎兵について城を落ちる",
+     "next": "end_lubu"
+    },
+    {
+     "label": "物陰から見届ける",
+     "next": "end_watch"
+    }
+   ]
+  },
+  "end_guard": {
+   "text": [
+    "{player}の刀は{lubu}の頬を浅く裂いた。それだけだった。振り返ったとき、{dong}はもう李粛の兵に囲まれ、血の中に倒れていた。",
+    "{lubu}は頬の血をぬぐい、{player}を見て笑った。「主のために刀を抜いたのは、おぬし一人だったな。覚えておこう」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "北掖門で{dong}を庇い、{lubu}に斬りかかった。{dong}は討たれた。"
+    }
+   ],
+   "end": "一人だけの衛士"
+  },
+  "end_guard_lose": {
+   "text": [
+    "戟の柄で胸を打たれ、{player}は門の下に転がった。目を開けたときには、{dong}の首はもう長い竿の先にあった。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "北掖門で{lubu}に打ち倒された。{dong}は討たれた。"
+    }
+   ],
+   "end": "門の下の衛士"
+  },
+  "end_stand": {
+   "text": [
+    "衛士たちは誰も動かなかった。{dong}は門の下で討たれ、居並ぶ兵が「万歳」と叫んだ。{player}もその声の中にいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "北掖門で{dong}が討たれるのを見届けた。"
+    }
+   ],
+   "end": "万歳の声"
+  },
+  "end_wang": {
+   "speaker": "wangyun",
+   "text": [
+    "炎の中を斬り抜けて司徒の府にたどり着いたが、{wangyun}は首を振った。「わしが逃げれば、天子をお守りする者がいなくなる。おぬしは行け」",
+    "翌日、{wangyun}は{lijue}に引き出されて斬られたと聞いた。{player}の手元には、老臣が最後に託した一通の書だけが残った。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "han",
+     "n": 10
+    },
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "{dong}が討たれ、長安は{lijue}らに落とされた。{wangyun}は逃げなかった。"
+    }
+   ],
+   "end": "逃げなかった司徒"
+  },
+  "end_sack": {
+   "text": [
+    "燃える町の中で、{player}は涼州兵の槍に追われた。気がつけば城の外の溝の中にいた。長安の空は、三日のあいだ赤かった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "{dong}が討たれたのち、長安は{lijue}らに落とされた。"
+    }
+   ],
+   "end": "燃える長安"
+  },
+  "end_lubu": {
+   "speaker": "lubu",
+   "text": [
+    "{lubu}は百騎ほどを率いて青瑣門を駆け抜けた。鞍には{dong}の首を包んだ袋が括りつけられていた。",
+    "「関東の諸侯はわしを迎えるだろう。董卓を討った男だ」{lubu}はそう言ったが、振り返った長安の煙を見る目は、やはり落ち着かなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "{dong}が討たれ、長安が落ちた。{lubu}について東へ落ちた。"
+    }
+   ],
+   "end": "東へ駆ける騎兵"
+  },
+  "end_watch": {
+   "text": [
+    "歌と踊りの日々は、ひと月で終わった。{player}は焼け落ちた長安の町を歩きながら、灯心の燃え尽きた市の跡を見た。何が変わったのか、{player}にはわからなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "{dong}が討たれ、長安は{lijue}らに落とされた。"
+    }
+   ],
+   "end": "燃え尽きた灯心"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dd_leak"
+     },
+     "next": "late_leak"
+    },
+    {
+     "if": {
+      "branch": "dd_pardon"
+     },
+     "next": "late_pardon"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_leak": {
+   "text": [
+    "旅の途中で噂を聞いた。司徒{wangyun}が相国{dong}を除こうとしたが、企ては漏れて斬られたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_pardon": {
+   "text": [
+    "旅の途中で噂を聞いた。相国{dong}が養子の{lubu}に刺され、涼州の兵は赦されて郷里へ帰ったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。相国{dong}が養子の{lubu}に刺し殺され、長安の人々は歌い踊ったという。だが、その後すぐに涼州の兵が長安を攻め落とし、司徒{wangyun}を殺したとも。",
+    "「暴君が一人死んで、暴君が二人になった」と、宿の客が言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "{dong}が討たれ、長安が落ちたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "dd_leak",
+   "event": "dong_dies",
+   "order": 2,
+   "why": "主人公が王允と呂布の企てを董卓に密告した",
+   "when": {
+    "flag": "h_dd_leak"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:王允]]が[[p:呂布]]と謀った企ては密告によって漏れた。王允は捕らえられて斬られ、呂布は長安を逃れた。[[p:董卓]]はなお天子を擁して長安を握った。",
+    "do": [
+     [
+      "add",
+      "han",
+      "stability",
+      -0.1
+     ]
+    ],
+    "imp": 3,
+    "at": "changan"
+   },
+   "people": [
+    {
+     "spare": "董卓",
+     "years": 3
+    },
+    {
+     "kill": "王允",
+     "cause": "executed"
+    }
+   ]
+  },
+  {
+   "id": "dd_pardon",
+   "event": "dong_dies",
+   "order": 1,
+   "why": "主人公が王允を説き、涼州兵に赦しを届けた",
+   "when": {
+    "flag": "h_dd_pardon"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:王允]]の計で、[[p:董卓]]は養子の[[p:呂布]]に刺し殺された。長安の人々は歌い踊った。王允は董卓の部将李傕・郭汜の兵に赦しを出し、涼州の兵は散って、長安は戦火を免れた。",
+    "do": [
+     [
+      "add",
+      "han",
+      "stability",
+      -0.05
+     ]
+    ],
+    "imp": 3,
+    "at": "changan"
+   },
+   "people": [
+    {
+     "spare": "王允",
+     "years": 6
+    }
+   ]
+  }
+ ]
+}

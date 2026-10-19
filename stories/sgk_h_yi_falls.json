@@ -1,0 +1,778 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_yi_falls",
+ "kind": "history",
+ "title": "成都の門",
+ "era": "sangoku",
+ "event": "yi_falls",
+ "lead": 8,
+ "before": [
+  "y1",
+  "y2",
+  "y2ok",
+  "y2ng",
+  "y3",
+  "y3storm",
+  "y3storm_ng",
+  "y3grain",
+  "y2shu",
+  "y2s_win",
+  "y2s_hurt",
+  "y3shu",
+  "y3scout",
+  "y3scout_ng",
+  "y3pt",
+  "y3pt_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "chengdu": {
+   "scnPlace": "chengdu"
+  },
+  "zitong": {
+   "scnPlace": "zitong"
+  },
+  "shu": {
+   "scnRealm": "shu"
+  },
+  "liuyan": {
+   "scnRealm": "liuyan"
+  },
+  "liubei": {
+   "person": "ruler:shu"
+  },
+  "liuzhang": {
+   "person": "ruler:liuyan"
+  },
+  "pangtong": {
+   "scnPerson": "龐統"
+  },
+  "fazheng": {
+   "scnPerson": "法正"
+  },
+  "huangquan": {
+   "scnPerson": "黄権"
+  }
+ },
+ "start": "y1",
+ "scenes": {
+  "y1": {
+   "at": {
+    "place": "chengdu",
+    "building": "inn"
+   },
+   "goal": "{chengdu}の{inn}で、北の噂を聞く",
+   "speaker": "蜀錦の商人",
+   "art": "inn",
+   "text": [
+    "{chengdu}の{inn}で、蜀錦を商う男が声をひそめた。「張魯を討つために招いた劉豫州が、葭萌から兵を返して南へ下ってきた。益州を取る気だ」",
+    "「別駕の張松様が、劉豫州に宛てた密書が見つかって斬られた。益州を劉豫州に差し出す手引きをしていたんだとさ。法正様は、とうに向こうの陣にいる。……{liuzhang}様はお優しい方だ。お優しすぎる」"
+   ],
+   "choices": [
+    {
+     "label": "{chengdu}の{palace}を訪ね、守りの人手に加わる",
+     "effects": [
+      {
+       "note": "劉備が益州に兵を向けた。成都の守りに加わることにした。"
+      }
+     ],
+     "next": "y2"
+    },
+    {
+     "label": "北へ行き、{liubei}の軍に加わる",
+     "effects": [
+      {
+       "note": "劉備が益州に兵を向けた。その軍に加わることにした。"
+      }
+     ],
+     "next": "y2shu"
+    }
+   ]
+  },
+  "y2": {
+   "at": {
+    "place": "chengdu",
+    "building": "palace"
+   },
+   "goal": "{chengdu}の{palace}で、{huangquan}に会う",
+   "speaker": "huangquan",
+   "art": "court",
+   "text": [
+    "{palace}の廊下で、{huangquan}が書きかけの上書を握りしめていた。劉豫州を益州に入れるなと、最後まで諫めた男である。",
+    "「わしの言を容れておられれば、こんなことにはならなかった」{huangquan}は首を振った。「だが、まだ遅くはない。{chengdu}には兵三万と、一年分の糧がある。城を固めて待てば、劉備の兵のほうが先に飢える」"
+   ],
+   "choices": [
+    {
+     "label": "{huangquan}と共に、守りの策を練る",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "y2ok",
+      "lose": "y2ng"
+     }
+    },
+    {
+     "label": "城の様子を見て回る",
+     "next": "y3"
+    }
+   ]
+  },
+  "y2ok": {
+   "text": [
+    "城門ごとの兵の数、糧の蔵の場所、井戸の数。{player}と{huangquan}は夜通し竹簡に書きつけた。「これを州牧にお見せすれば、お心も決まろう」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "rep": "liuyan",
+     "n": 5
+    }
+   ],
+   "next": "y3"
+  },
+  "y2ng": {
+   "text": [
+    "策はまとまらなかった。夜明けに、城の東から逃げ出す役人の車の音が聞こえた。"
+   ],
+   "next": "y3"
+  },
+  "y3": {
+   "at": {
+    "place": "chengdu",
+    "building": "office"
+   },
+   "goal": "{chengdu}の{office}で、{liuzhang}に目通りする",
+   "speaker": "liuzhang",
+   "art": "court",
+   "text": [
+    "{liuzhang}は、穏やかな顔の、気の弱そうな男だった。父の跡を継いで二十年、戦らしい戦をしたことがない。",
+    "「劉豫州は同じ劉の一族だ。わしが招いた客だ」{liuzhang}は額を押さえた。「城を固めれば、民が飢える。民が飢えるのを見るのは、つらい」"
+   ],
+   "choices": [
+    {
+     "label": "「城を開けば、益州の民は他国の兵の下に置かれます」と最後まで籠城を説く",
+     "turn": true,
+     "guide": "劉璋に城を守らせる。成都は力で攻め落とされることになる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "y3storm",
+      "lose": "y3storm_ng"
+     }
+    },
+    {
+     "label": "城の民の糧を手配する",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "y3grain",
+      "lose": "aftergo"
+     }
+    },
+    {
+     "label": "何も言わずに退出する",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "y3storm": {
+   "speaker": "liuzhang",
+   "text": [
+    "{liuzhang}は長いあいだ黙っていた。やがて、震える声で言った。「父の遺した州だ。客に取られて、黙って開けるわけにはいかぬ」",
+    "州牧は{huangquan}を呼び、城門を固く閉ざすよう命じた。降ることを勧める使いが来ても、門は開かなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_yi_storm"
+    },
+    {
+     "rep": "liuyan",
+     "n": 10
+    },
+    {
+     "rep": "shu",
+     "n": -10
+    },
+    {
+     "note": "{liuzhang}に、最後まで成都を守るよう説いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "y3storm_ng": {
+   "speaker": "liuzhang",
+   "text": [
+    "「もうよい」{liuzhang}は手を振った。「わしは、戦の上手な州牧ではない。せめて、民に優しい州牧でありたい」"
+   ],
+   "next": "aftergo"
+  },
+  "y3grain": {
+   "text": [
+    "城の蔵を開け、粥を炊く場所を城内に十か所設けた。痩せた子どもたちが、椀を持って列をなした。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "flag": "h_yi_grain"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "y2shu": {
+   "at": {
+    "place": "zitong",
+    "building": "barracks"
+   },
+   "goal": "{zitong}の南、劉備の軍の{barracks}に入る",
+   "speaker": "pangtong",
+   "art": "camp",
+   "text": [
+    "雒の城を囲む陣で、{player}を迎えたのは、色の黒い、見栄えのしない男だった。{pangtong}、字は士元。鳳雛と呼ばれた軍師である。",
+    "「雒の城は固い。一年近く囲んで、まだ落ちぬ。わしが自ら城壁の下まで行かねば、兵が動かぬ」{pangtong}は苦笑した。「孔明に、龐統は口ばかりだと笑われたくないのでな。お前、城攻めはできるか」"
+   ],
+   "choices": [
+    {
+     "label": "雒の城壁に梯子をかける",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "y2s_win",
+      "lose": "y2s_hurt"
+     }
+    },
+    {
+     "label": "陣の普請を手伝う",
+     "next": "y3shu"
+    }
+   ]
+  },
+  "y2s_win": {
+   "text": [
+    "城壁の上まで登り、守り兵を三人斬った。だが後に続く者がなく、{player}は梯子を滑り下りた。{pangtong}が手を叩いた。「惜しい。だが、城の兵が思ったより少ないと分かった」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    }
+   ],
+   "next": "y3shu"
+  },
+  "y2s_hurt": {
+   "text": [
+    "城壁の上から落ちてきた石が肩を打った。{player}は堀の泥の中に転がり落ちた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "y3shu"
+  },
+  "y3shu": {
+   "speaker": "fazheng",
+   "art": "camp",
+   "text": [
+    "{fazheng}が{player}を呼んだ。益州の地を知り尽くした男である。「明日、軍師が自ら城の西の坂を上って攻める。坂の道は狭く、両側は林だ」",
+    "「城の将の張任は、手堅い男だ。わしなら、あの林に弓手を伏せる」{fazheng}は言葉を切った。「軍師は、わしの言うことは聞かぬ。功を急いでおられる」"
+   ],
+   "choices": [
+    {
+     "label": "夜のうちに、坂の林を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "y3scout",
+      "lose": "y3scout_ng"
+     }
+    },
+    {
+     "label": "眠って、明日に備える",
+     "next": "aftershu"
+    }
+   ]
+  },
+  "y3scout": {
+   "text": [
+    "林の中に、矢筒を背負った兵が百人ほど潜んでいた。焚き火も焚かず、息を殺している。坂の道の一番狭いところを、両側から狙える場所だった。"
+   ],
+   "choices": [
+    {
+     "label": "{pangtong}の天幕に駆け込み、明日は坂の道を避けるよう説く",
+     "turn": true,
+     "guide": "軍師に伏兵を告げる。功を急ぐ軍師は聞き入れぬかもしれない",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "y3pt",
+      "lose": "y3pt_ng"
+     }
+    },
+    {
+     "label": "陣に戻って眠る",
+     "next": "aftershu"
+    }
+   ]
+  },
+  "y3scout_ng": {
+   "text": [
+    "林に入ったところで枝を踏み、矢が一本、耳をかすめた。{player}は這うようにして陣へ逃げ帰った。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "aftershu"
+  },
+  "y3pt": {
+   "speaker": "pangtong",
+   "text": [
+    "{pangtong}は{player}の描いた林の図を見て、しばらく黙っていた。「坂の道の一番狭いところ、か。わしが張任でも、そこに伏せる」",
+    "「よかろう。明日は坂を避け、東の門を攻める。坂には、わしの旗だけを立てておけ」軍師は笑った。「鳳雛が坂で死んだなどと言われては、孔明に笑われる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_yi_pangtong"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "note": "{pangtong}に、坂の林の伏兵を告げた。"
+    }
+   ],
+   "next": "aftershu"
+  },
+  "y3pt_ng": {
+   "speaker": "pangtong",
+   "text": [
+    "「伏兵がいるなら、なおのこと、わしが先頭に立たねば兵が進まぬ」{pangtong}は首を振った。「心配はありがたいが、軍師が坂一つ避けて通っては、軍が笑う」"
+   ],
+   "next": "aftershu"
+  },
+  "aftergo": {
+   "at": {
+    "place": "chengdu"
+   },
+   "goal": "{chengdu}で、城の成り行きを見届ける",
+   "wait": {
+    "settled": "yi_falls"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "yi_storm"
+     },
+     "next": "storm"
+    },
+    {
+     "next": "rec"
+    }
+   ]
+  },
+  "rec": {
+   "speaker": "liuzhang",
+   "art": "court",
+   "text": [
+    "{liubei}の軍が{chengdu}を囲んで数十日、城にはまだ兵も糧もあった。それでも{liuzhang}は城門を開いた。「父子二代、二十余年、民に恩を施したこともない。三年の戦で民の血を草野に流させた。これ以上は忍びない」",
+    "城の者たちは泣いた。{liuzhang}は荊州の公安へ移されることになった。"
+   ],
+   "choices": [
+    {
+     "label": "{liuzhang}を公安まで送る",
+     "next": "end_escort"
+    },
+    {
+     "label": "{liubei}の新しい州府に仕えを求める",
+     "next": "end_newlord"
+    },
+    {
+     "label": "城を去る",
+     "next": "end_leave"
+    }
+   ]
+  },
+  "end_escort": {
+   "speaker": "liuzhang",
+   "text": [
+    "公安へ下る船の上で、{liuzhang}はほっとしたような顔をしていた。「州牧という荷は、わしには重すぎた。……城を開いたことを、わしは悔いておらぬ」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "liuyan",
+     "n": 5
+    },
+    {
+     "unflag": "h_yi_grain"
+    },
+    {
+     "note": "益州は劉備のものとなった。城を開いた{liuzhang}を公安まで送った。"
+    }
+   ],
+   "end": "開かれた門"
+  },
+  "end_newlord": {
+   "text": [
+    "{liubei}は益州の旧臣を多く用いた。{huangquan}にも官を与えた。{player}も州府の帳簿の役を得た。成都の町は、あっけないほど静かに主を替えた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "money": 100
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_yi_grain"
+    },
+    {
+     "note": "益州は劉備のものとなった。新しい州府に仕えを求めた。"
+    }
+   ],
+   "end": "主の替わった町"
+  },
+  "end_leave": {
+   "text": [
+    "城門を出ると、劉備の兵が道の両側に整然と並んでいた。略奪はなかった。{player}は振り返らずに北へ歩いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_yi_grain"
+    },
+    {
+     "note": "益州は劉備のものとなった。"
+    }
+   ],
+   "end": "益州の主"
+  },
+  "storm": {
+   "speaker": "huangquan",
+   "art": "war",
+   "text": [
+    "{chengdu}の門は、最後まで開かなかった。冬が来て、劉備の兵は城壁に梯子をかけ、三日のあいだ城の内外で血が流れた。{liuzhang}は州府の奥で捕らえられ、公安へ送られる途中で病に倒れたという。",
+    "{huangquan}は傷だらけの姿で{player}に言った。「守り抜けはしなかった。だが、益州の者が戦わずに主を明け渡したとは、誰にも言わせぬ」"
+   ],
+   "choices": [
+    {
+     "label": "焼けた町で、傷ついた者を手当てする",
+     "check": {
+      "skill": "medicine",
+      "dc": 28,
+      "win": "end_storm_heal",
+      "lose": "end_storm"
+     }
+    },
+    {
+     "label": "城を落ちる",
+     "next": "end_storm"
+    }
+   ]
+  },
+  "end_storm_heal": {
+   "text": [
+    "焼け跡の祠に傷ついた者を集め、夜を徹して傷を縫った。劉備の兵も、益州の兵も、同じ筵に寝かせた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "unflag": "h_yi_storm"
+    },
+    {
+     "unflag": "h_yi_grain"
+    },
+    {
+     "note": "成都は籠城の末に攻め落とされた。焼けた町で傷ついた者を手当てした。"
+    }
+   ],
+   "end": "焼けた錦の町"
+  },
+  "end_storm": {
+   "text": [
+    "焼けた城門をくぐって、{player}は{chengdu}を出た。劉備の兵が城壁の上に旗を立てていた。益州の主は替わったが、門は開かれたのではなく、破られたのだった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "shu",
+     "n": -5
+    },
+    {
+     "unflag": "h_yi_storm"
+    },
+    {
+     "unflag": "h_yi_grain"
+    },
+    {
+     "note": "成都は籠城の末に攻め落とされた。"
+    }
+   ],
+   "end": "破られた門"
+  },
+  "aftershu": {
+   "at": {
+    "place": "chengdu"
+   },
+   "goal": "{liubei}の軍と共に、{chengdu}へ進む",
+   "wait": {
+    "settled": "yi_falls"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "yi_pangtong"
+     },
+     "next": "pt"
+    },
+    {
+     "if": {
+      "branch": "yi_storm"
+     },
+     "next": "shu_storm"
+    },
+    {
+     "next": "shu_rec"
+    }
+   ]
+  },
+  "pt": {
+   "speaker": "pangtong",
+   "art": "war",
+   "text": [
+    "坂の林から放たれた矢は、軍師の旗だけを射抜いた。{pangtong}は東の門から雒の城に入り、やがて{chengdu}の囲みに加わった。{liuzhang}が城を開いたとき、{liubei}の左右には二人の軍師が並んでいた。",
+    "{pangtong}は{player}に酒を注いだ。「坂の名を聞いたか。土地の者は、落鳳坡と呼ぶそうだ。鳳の落ちる坂。……落ちたのは、わしの旗だけだったがな」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "shu",
+     "n": 15
+    },
+    {
+     "unflag": "h_yi_pangtong"
+    },
+    {
+     "note": "益州は劉備のものとなった。{pangtong}は坂の伏兵を逃れて生き延びた。"
+    }
+   ],
+   "end": "落ちなかった鳳"
+  },
+  "shu_rec": {
+   "speaker": "fazheng",
+   "art": "war",
+   "text": [
+    "雒の城の西の坂で、{pangtong}は流れ矢に当たって死んだ。三十六だった。{liubei}は軍師の名を口にするたびに涙を流したという。",
+    "翌年の夏、{chengdu}は城門を開いた。{fazheng}は城門をくぐる{liubei}の後ろで、{player}に言った。「軍師が生きておられたら、この門をくぐるのは、もう半年早かった」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "money": 80
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "note": "益州は劉備のものとなった。{pangtong}は雒の城の前で流れ矢に倒れた。"
+    }
+   ],
+   "end": "鳳の落ちた坂"
+  },
+  "shu_storm": {
+   "text": [
+    "{chengdu}の門は開かなかった。{player}は城壁に梯子をかける列に加わった。三日の戦のあと、城の上に劉備の旗が立った。勝ったという気はしなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "hp": -10
+    },
+    {
+     "note": "成都は籠城の末に攻め落とされた。"
+    }
+   ],
+   "end": "破られた門"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "yi_pangtong"
+     },
+     "next": "late_pt"
+    },
+    {
+     "if": {
+      "branch": "yi_storm"
+     },
+     "next": "late_storm"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_pt": {
+   "text": [
+    "旅の途中で噂を聞いた。劉豫州が成都を取ったという。鳳雛の龐統は、雒の城の坂の伏兵を前もって知り、命拾いしたとも。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_yi_pangtong"
+    },
+    {
+     "unflag": "h_yi_grain"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_storm": {
+   "text": [
+    "旅の途中で噂を聞いた。成都の劉璋は最後まで門を開かず、城は三日の戦の末に攻め落とされたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_yi_storm"
+    },
+    {
+     "unflag": "h_yi_grain"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。益州の劉璋が「民を苦しめるに忍びない」と成都の門を開き、劉豫州に降ったという。軍師の龐統は、その前に雒の城で流れ矢に当たって死んだとも。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_yi_grain"
+    },
+    {
+     "note": "劉備が益州を取ったと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "yi_storm",
+   "event": "yi_falls",
+   "order": 2,
+   "why": "主人公が劉璋に最後まで籠城を説いた",
+   "when": {
+    "flag": "h_yi_storm"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_shu}は益州に入り、成都を囲んだ。[[p:劉璋]]は最後まで城を開かず、冬に城は攻め落とされた。劉璋は捕らえられて荊州へ送られる途中で病に倒れ、焼けた成都で益州の民は新しい主を迎えた。途中、軍師の[[p:龐統]]が流れ矢に当たって死んだ。",
+    "do": [
+     [
+      "annex",
+      "shu",
+      "liuyan"
+     ],
+     [
+      "capital",
+      "shu",
+      "chengdu"
+     ],
+     [
+      "add",
+      "shu",
+      "stability",
+      -0.1
+     ],
+     [
+      "army",
+      "shu",
+      0.85
+     ]
+    ],
+    "imp": 3,
+    "at": "chengdu"
+   }
+  },
+  {
+   "id": "yi_pangtong",
+   "event": "yi_falls",
+   "order": 1,
+   "why": "主人公が坂の伏兵を龐統に告げた",
+   "when": {
+    "flag": "h_yi_pangtong"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_shu}は益州に入り、成都を囲んだ。[[p:劉璋]]は「民を苦しめるに忍びない」と城を開いた。雒の城の坂に伏せられた弓手は前もって見破られ、軍師の[[p:龐統]]は難を逃れて益州の平定に力を尽くした。",
+    "do": [
+     [
+      "annex",
+      "shu",
+      "liuyan"
+     ],
+     [
+      "capital",
+      "shu",
+      "chengdu"
+     ],
+     [
+      "add",
+      "shu",
+      "stability",
+      0.05
+     ]
+    ],
+    "imp": 3,
+    "at": "chengdu"
+   },
+   "people": [
+    {
+     "spare": "龐統",
+     "years": 10
+    }
+   ]
+  }
+ ]
+}

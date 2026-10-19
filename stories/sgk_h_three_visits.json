@@ -1,0 +1,764 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_three_visits",
+ "kind": "history",
+ "title": "三顧の礼",
+ "era": "sangoku",
+ "event": "three_visits",
+ "lead": 8,
+ "before": [
+  "t1",
+  "t2",
+  "t2m",
+  "t2sima",
+  "t2hint",
+  "t3",
+  "t3letter",
+  "t3first",
+  "t3lost",
+  "t4",
+  "t4calm",
+  "t4fei",
+  "t4hurt",
+  "t5",
+  "t5wu",
+  "t5wu_ng",
+  "t5stay"
+ ],
+ "onFired": "late",
+ "cast": {
+  "xinye": {
+   "scnPlace": "xinye"
+  },
+  "xiangyang": {
+   "scnPlace": "xiangyang"
+  },
+  "liubiao": {
+   "scnRealm": "liubiao"
+  },
+  "wu": {
+   "scnRealm": "wu"
+  },
+  "liubei": {
+   "scnPerson": "劉備"
+  },
+  "kongming": {
+   "scnPerson": "諸葛亮"
+  },
+  "xushu": {
+   "scnPerson": "徐庶"
+  },
+  "simahui": {
+   "scnPerson": "司馬徽"
+  },
+  "zhangfei": {
+   "scnPerson": "張飛"
+  },
+  "guanyu": {
+   "scnPerson": "関羽"
+  },
+  "jin": {
+   "scnPerson": "諸葛瑾"
+  },
+  "merchant": {
+   "npc": "江東の商人",
+   "sex": "m"
+  }
+ },
+ "start": "t1",
+ "scenes": {
+  "t1": {
+   "at": {
+    "place": "xinye",
+    "building": "inn"
+   },
+   "goal": "{xinye}の{inn}で、噂を聞く",
+   "speaker": "xushu",
+   "art": "inn",
+   "text": [
+    "{xinye}は{liubiao}の北の守りの小さな城である。その{inn}の片隅で、剣を帯びた書生が一人、濁り酒をなめていた。若いころ人を斬って名を変えたという、{xushu}である。",
+    "「劉豫州は良い主だ。だが、知恵のある者がそばにおらぬ。わしでは足りぬ」書生は杯を置いた。「隆中に臥龍がいる。諸葛孔明という。わしが呼んでも来ぬ。将軍みずから行かねば会えぬ男だ」",
+    "「将軍は行くと言われた。ただ、あの庵の主は気まぐれでな、いつ家にいるのか誰にも分からぬ。道に明るい者を探しておられる」"
+   ],
+   "choices": [
+    {
+     "label": "劉備に会ってみる",
+     "effects": [
+      {
+       "note": "{xushu}から、隆中の臥龍の話を聞いた。"
+      }
+     ],
+     "next": "t2"
+    }
+   ]
+  },
+  "t2": {
+   "at": {
+    "place": "xinye",
+    "building": "barracks"
+   },
+   "goal": "{xinye}の{barracks}で{liubei}に会う",
+   "speaker": "liubei",
+   "art": "camp",
+   "text": [
+    "{barracks}の庭で、耳の大きな、腕の長い男が兵と同じ釜の飯を食っていた。{liubei}である。四十を過ぎて、まだ一つの州も持たない。",
+    "「髀肉の嘆、というのを聞いたことがあるか」{liubei}は笑った。「長く馬に乗らぬうちに、腿に肉がついてしまった。わしは何も成さぬまま老いていく。だから、臥龍とやらに会いたいのだ」",
+    "「先に隆中へ行き、先生がいつ庵におられるのか確かめてくれぬか。わしが行って留守では、関羽と張飛がまた機嫌を損ねる」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "effects": [
+      {
+       "note": "{liubei}に頼まれ、隆中の臥龍の居どころを探ることになった。"
+      }
+     ],
+     "next": "t2m"
+    },
+    {
+     "label": "「手間賃はいただく」と念を押して引き受ける",
+     "effects": [
+      {
+       "money": 40
+      },
+      {
+       "note": "{liubei}に頼まれ、隆中の臥龍の居どころを探ることになった。"
+      }
+     ],
+     "next": "t2m"
+    }
+   ]
+  },
+  "t2m": {
+   "at": {
+    "place": "xiangyang",
+    "building": "market"
+   },
+   "goal": "{xiangyang}の{market}で、隆中への道を尋ねる",
+   "speaker": "merchant",
+   "art": "trade",
+   "text": [
+    "{xiangyang}の{market}で隆中への道を聞くと、絹を商う男が振り向いた。江東の訛りがある。{merchant}と名乗った。",
+    "「隆中の諸葛先生をお訪ねで。それは都合がいい。実は、先生の兄君の{jin}様から書簡を預かっております。{jin}様は江東の孫将軍にお仕えでしてな、弟御にも江東へ来てほしいと」",
+    "「わたしのような商人が持っていっても、先生は読んでくださらぬ。道案内の方なら庵に上がれましょう。礼はいたします」"
+   ],
+   "choices": [
+    {
+     "label": "書簡を預かる",
+     "effects": [
+      {
+       "flag": "h_tv_letter"
+      },
+      {
+       "money": 60
+      },
+      {
+       "rep": "wu",
+       "n": 3
+      },
+      {
+       "note": "{jin}から弟の諸葛亮に宛てた書簡を預かった。"
+      }
+     ],
+     "next": "t2sima"
+    },
+    {
+     "label": "断る",
+     "next": "t2sima"
+    }
+   ]
+  },
+  "t2sima": {
+   "at": {
+    "place": "xiangyang",
+    "building": "house"
+   },
+   "goal": "{xiangyang}の{simahui}の家を訪ねる",
+   "speaker": "simahui",
+   "art": "lecture",
+   "text": [
+    "{simahui}は、人に何を聞かれても「好し、好し」と答えるので知られた老人である。人を見る目は荊州一で、水鏡先生と呼ばれている。",
+    "「臥龍と鳳雛、どちらか一人を得れば天下を安んじられる。臥龍とは孔明、鳳雛とは龐士元のことよ。好し、好し」老人は茶をすすった。「だが孔明は、山を歩いて梁父吟を口ずさみ、友を訪ねて回る男でな。庵にいる日のほうが少ない」"
+   ],
+   "choices": [
+    {
+     "label": "臥龍の行き先の心当たりを尋ねる",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "t2hint",
+      "lose": "t3"
+     }
+    },
+    {
+     "label": "礼を言って辞する",
+     "next": "t3"
+    }
+   ]
+  },
+  "t2hint": {
+   "speaker": "simahui",
+   "text": [
+    "{player}が経書の一節を引いて問うと、老人は目を細めた。「学のある道案内とは珍しい。好し、好し」",
+    "「冬になれば、孔明は舅の黄承彦の家へよく行く。沔水の向こう、小さな橋を渡った先だ。雪の日に驢馬に乗った老人に会ったら、それが黄承彦よ。孔明の居どころを知っておる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_tv_hint"
+    },
+    {
+     "note": "{simahui}から、諸葛亮が舅の黄承彦の家をよく訪ねると聞いた。"
+    }
+   ],
+   "next": "t3"
+  },
+  "t3": {
+   "at": {
+    "place": "xiangyang"
+   },
+   "goal": "{xiangyang}の西、隆中の庵を{liubei}と訪ねる",
+   "speaker": "童子",
+   "art": "road",
+   "text": [
+    "隆中は{xiangyang}の西、低い山に囲まれた谷である。竹林の奥に草葺きの庵があり、畑には冬の菜が植わっていた。{liubei}と{guanyu}、{zhangfei}が馬を下りる。",
+    "柴の戸を叩くと、童子が顔を出した。「先生は今朝早くお出かけになりました。どちらへ行かれたか、いつお帰りになるか、存じません」",
+    "{zhangfei}が鼻を鳴らした。「田舎の書生が、兄者を門前で待たせるか」"
+   ],
+   "choices": [
+    {
+     "label": "諸葛瑾の書簡を童子に託す",
+     "if": {
+      "flag": "h_tv_letter"
+     },
+     "next": "t3letter"
+    },
+    {
+     "label": "司馬徽に聞いた黄承彦の屋敷へ、雪の道を劉備を案内する",
+     "turn": true,
+     "guide": "一度目の訪いで臥龍に会わせる。雪の山道は迷いやすい",
+     "if": {
+      "flag": "h_tv_hint"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "t3first",
+      "lose": "t3lost"
+     }
+    },
+    {
+     "label": "書き置きを残して、新野へ戻る",
+     "next": "t4"
+    }
+   ]
+  },
+  "t3letter": {
+   "speaker": "童子",
+   "text": [
+    "童子は書簡を両手で受け取った。「先生がお帰りになったら、きっとお渡しします」帰り道、{liubei}は何度も庵の方を振り返った。"
+   ],
+   "effects": [
+    {
+     "note": "{jin}の書簡を隆中の庵に託した。"
+    }
+   ],
+   "next": "t4"
+  },
+  "t3lost": {
+   "text": [
+    "雪は昼過ぎから激しくなった。沔水のほとりで道を失い、橋を見つけたときには日が暮れていた。{liubei}は黙って馬の首を返した。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "t4"
+  },
+  "t3first": {
+   "speaker": "kongming",
+   "art": "tale",
+   "text": [
+    "雪の橋のたもとで、驢馬に乗った老人と、その後ろを歩く背の高い若者に行き会った。若者は綸巾をかぶり、羽扇を手にしていた。{liubei}が馬を飛び下り、雪の上に膝をついた。",
+    "若者はしばらく{liubei}を見下ろしていたが、やがて笑った。「水鏡先生のお節介でしょう。雪の中を追ってくる将軍は初めてです。庵へお戻りください。火を熾しましょう」"
+   ],
+   "effects": [
+    {
+     "flag": "h_tv_first"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "note": "雪の橋で、{liubei}を{kongming}に引き合わせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "t4": {
+   "at": {
+    "place": "xinye",
+    "building": "barracks"
+   },
+   "goal": "{xinye}の{barracks}へ戻る",
+   "speaker": "zhangfei",
+   "art": "camp",
+   "text": [
+    "二度目の訪いも留守だった。{xinye}へ戻ると、{zhangfei}が酒瓶を床に叩きつけた。",
+    "「次はわしが一人で行く。縄をかけて引っ張ってくればよいのだ。道案内、お前もそう思うだろう」"
+   ],
+   "choices": [
+    {
+     "label": "「縄で引いた知恵は、縄が切れれば逃げます」と張飛をなだめる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "t4calm",
+      "lose": "t4fei"
+     }
+    },
+    {
+     "label": "黙っている",
+     "next": "t4fei"
+    }
+   ]
+  },
+  "t4calm": {
+   "speaker": "guanyu",
+   "text": [
+    "{zhangfei}は口をとがらせて黙った。長い髯の{guanyu}が、目だけで笑った。「この男の言うとおりだ、翼徳。兄者が三度行くと言われるなら、我らは三度ついていくまで」"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    }
+   ],
+   "next": "t5"
+  },
+  "t4fei": {
+   "speaker": "zhangfei",
+   "text": [
+    "「口のきけぬ道案内に用はない。わしと一手、立ち合え。腕のある男なら話を聞いてやる」{zhangfei}は蛇矛を手にした。"
+   ],
+   "choices": [
+    {
+     "label": "立ち合う",
+     "fight": {
+      "foes": "person",
+      "who": "zhangfei",
+      "n": 1,
+      "level": 0,
+      "confirm": "{zhangfei}は万人の敵と呼ばれる豪傑だ。立ち合うか。",
+      "cancel": "t4calm",
+      "free": true,
+      "fled": "t4hurt",
+      "win": "t5",
+      "lose": "t4hurt"
+     }
+    }
+   ]
+  },
+  "t4hurt": {
+   "text": [
+    "蛇矛の柄で打ち据えられ、{player}は庭に転がった。{zhangfei}は大笑いして、それきり機嫌を直した。「よく逃げなかった。三度目も来い」"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "t5"
+  },
+  "t5": {
+   "at": {
+    "place": "xiangyang"
+   },
+   "goal": "{xiangyang}の西、隆中の庵で三度目の訪いを待つ",
+   "speaker": "kongming",
+   "art": "lecture",
+   "text": [
+    "三度目の訪いの前の晩、{player}は先に隆中へ入った。庵には灯がともっていた。戸を叩くと、背の高い若者が自ら出てきた。二十七の、目の涼しい男だった。",
+    "「劉豫州の道案内ですね。二度も無駄足を踏ませて、申し訳なく思っていました」{kongming}は{player}を炉端に座らせた。「聞かせてください。四十を過ぎて一つの城も持たぬ将軍が、なぜ田舎の書生のために三度も山を越えるのです」"
+   ],
+   "choices": [
+    {
+     "label": "諸葛瑾の書簡のことを持ち出し、江東へ下るよう勧める",
+     "turn": true,
+     "guide": "臥龍を江東の孫氏に向かわせる。兄の名を借りて説く",
+     "if": {
+      "flag": "h_tv_letter"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "t5wu",
+      "lose": "t5wu_ng"
+     }
+    },
+    {
+     "label": "「あの方は、民を捨てて逃げたことがない」と劉備の人となりを語る",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "t5stay",
+      "lose": "aftergo"
+     }
+    },
+    {
+     "label": "何も言わず、庵の外で夜を明かす",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "t5wu": {
+   "speaker": "kongming",
+   "text": [
+    "{kongming}は兄の書簡を灯にかざし、長いあいだ黙っていた。「江東には長江がある。孫将軍は三代にわたって地を固め、賢い者を用いる。劉豫州には兵も地もない」",
+    "「……兄の言うことにも、あなたの言うことにも理がある」若者は書簡を畳んだ。「明朝、劉豫州が来られる前に、ここを発ちます。将軍には、まことに申し訳ないと伝えてください」"
+   ],
+   "effects": [
+    {
+     "flag": "h_tv_wu"
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "note": "{kongming}に、兄を頼って江東へ下るよう説いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "t5wu_ng": {
+   "speaker": "kongming",
+   "text": [
+    "{kongming}は笑って書簡を炉の脇に置いた。「兄は兄の主を選びました。わたしは、わたしの主を自分で選びます」それきり、書簡には触れなかった。"
+   ],
+   "next": "aftergo"
+  },
+  "t5stay": {
+   "speaker": "kongming",
+   "text": [
+    "{player}の話を、{kongming}は火を見つめながら聞いていた。「民を捨てぬ将、ですか」羽扇がゆっくりと止まった。「明日は、庵におりましょう」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "flag": "h_tv_good"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "xinye"
+   },
+   "goal": "{xinye}で、隆中の成り行きを見届ける",
+   "wait": {
+    "settled": "three_visits"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "tv_wu"
+     },
+     "next": "wu"
+    },
+    {
+     "if": {
+      "branch": "tv_first"
+     },
+     "next": "first"
+    },
+    {
+     "next": "rec"
+    }
+   ]
+  },
+  "rec": {
+   "speaker": "liubei",
+   "art": "court",
+   "text": [
+    "三度目の訪いで、{liubei}は庵の階の下に立ったまま、{kongming}が昼寝から覚めるのを待ったという。目を覚ました臥龍は、荊州と益州を取り、孫氏と結んで曹操に当たり、天下を三つに分ける策を説いた。",
+    "{xinye}に戻った{liubei}は、若い軍師と寝食を共にした。{guanyu}と{zhangfei}が面白くない顔をすると、{liubei}は言った。「わしに孔明があるのは、魚に水があるようなものだ」"
+   ],
+   "choices": [
+    {
+     "label": "{kongming}に兵法の手ほどきを願う",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "end_learn",
+      "lose": "end_rec"
+     }
+    },
+    {
+     "label": "{liubei}から礼を受け取って去る",
+     "next": "end_rec"
+    }
+   ]
+  },
+  "end_learn": {
+   "speaker": "kongming",
+   "text": [
+    "{kongming}は竹簡を一巻、{player}に貸した。「戦は兵の数ではなく、地と時と人の和で決まります。あなたは道に明るい。地を知る者は、半ば勝ったも同じです」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_tv_letter"
+    },
+    {
+     "unflag": "h_tv_hint"
+    },
+    {
+     "unflag": "h_tv_good"
+    },
+    {
+     "note": "三顧の礼。{liubei}は{kongming}を軍師に迎えた。臥龍に兵法を学んだ。"
+    }
+   ],
+   "end": "水を得た魚"
+  },
+  "end_rec": {
+   "text": [
+    "{liubei}は{player}の手を取って礼を言い、銭の袋を渡した。翌年の秋、曹操の大軍が荊州に下ってくることを、このとき{xinye}の誰もまだ知らなかった。"
+   ],
+   "effects": [
+    {
+     "money": 80
+    },
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_tv_letter"
+    },
+    {
+     "unflag": "h_tv_hint"
+    },
+    {
+     "unflag": "h_tv_good"
+    },
+    {
+     "note": "三顧の礼。{liubei}は{kongming}を軍師に迎えた。"
+    }
+   ],
+   "end": "三顧の礼"
+  },
+  "wu": {
+   "speaker": "liubei",
+   "art": "tale",
+   "text": [
+    "三度目に隆中を訪ねた{liubei}が見たのは、戸を閉ざした空の庵だった。童子が言うには、先生は兄君を頼って江東へ下られたという。",
+    "{liubei}は長いあいだ庵の前に立っていた。やがて{zhangfei}の肩を叩いて言った。「縄をかけておけばよかったな」笑っていたが、目は笑っていなかった。"
+   ],
+   "choices": [
+    {
+     "label": "江東へ下り、{kongming}の行く末を見届ける",
+     "next": "end_wu"
+    },
+    {
+     "label": "{liubei}に詫びる",
+     "next": "end_wu_sorry"
+    }
+   ]
+  },
+  "end_wu": {
+   "text": [
+    "柴桑で、{player}は孫氏の客卿となった若者を遠くから見た。天下を三つに分ける策は、いまは江東のために説かれている。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "unflag": "h_tv_wu"
+    },
+    {
+     "unflag": "h_tv_letter"
+    },
+    {
+     "unflag": "h_tv_hint"
+    },
+    {
+     "note": "{kongming}は{liubei}の招きを待たず、江東へ下った。"
+    }
+   ],
+   "end": "東へ下った臥龍"
+  },
+  "end_wu_sorry": {
+   "speaker": "liubei",
+   "text": [
+    "「お前のせいではない。臥龍が淵を選んだだけだ」{liubei}はそう言って{player}を許した。だが{guanyu}は、それから{player}と目を合わせようとしなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_tv_wu"
+    },
+    {
+     "unflag": "h_tv_letter"
+    },
+    {
+     "unflag": "h_tv_hint"
+    },
+    {
+     "note": "{kongming}は{liubei}の招きを待たず、江東へ下った。"
+    }
+   ],
+   "end": "空の庵"
+  },
+  "first": {
+   "speaker": "kongming",
+   "art": "lecture",
+   "text": [
+    "雪の夜、隆中の庵の炉端で、{kongming}は絵図を広げた。北は曹操に、東は孫氏に譲る。荊州と益州を取り、西と南の夷を和し、孫氏と結んで天下を三つに分ける。",
+    "{liubei}は一度で臥龍を得た。二度目も三度目も、山道を往く必要はなくなった。「道案内のおかげで、二つの冬を得した」{kongming}はそう言って笑った。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 100
+    },
+    {
+     "unflag": "h_tv_first"
+    },
+    {
+     "unflag": "h_tv_hint"
+    },
+    {
+     "unflag": "h_tv_letter"
+    },
+    {
+     "note": "{liubei}は一度目の訪いで{kongming}を軍師に迎えた。"
+    }
+   ],
+   "end": "雪の橋"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "tv_wu"
+     },
+     "next": "late_wu"
+    },
+    {
+     "if": {
+      "branch": "tv_first"
+     },
+     "next": "first"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_wu": {
+   "text": [
+    "旅の途中で噂を聞いた。新野の劉豫州が隆中の臥龍を三度訪ねたが、臥龍はすでに兄を頼って江東へ下っていたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_tv_wu"
+    },
+    {
+     "unflag": "h_tv_letter"
+    },
+    {
+     "unflag": "h_tv_hint"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。新野の劉豫州が、隆中の若い書生の庵を三度も訪ね、ついに軍師に迎えたという。",
+    "「四十を過ぎた将軍が、二十七の若造に頭を下げたそうだ」と客舎の男は笑った。笑わずに聞いていた者も、何人かいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_tv_letter"
+    },
+    {
+     "unflag": "h_tv_hint"
+    },
+    {
+     "unflag": "h_tv_good"
+    },
+    {
+     "note": "{liubei}が三顧の礼で{kongming}を迎えたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "tv_wu",
+   "event": "three_visits",
+   "order": 2,
+   "why": "主人公が諸葛亮に江東行きを勧めた",
+   "when": {
+    "flag": "h_tv_wu"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "新野の[[p:劉備]]は隆中の庵を三度訪ねたが、[[p:諸葛亮]]はすでに兄[[p:諸葛瑾]]を頼って江東へ下っていた。天下を三分する策は、{r_wu}のもとで説かれることになった。",
+    "do": [
+     [
+      "add",
+      "wu",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 3,
+    "at": "xinye"
+   },
+   "people": [
+    {
+     "move": "諸葛亮",
+     "to": "wu"
+    }
+   ]
+  },
+  {
+   "id": "tv_first",
+   "event": "three_visits",
+   "order": 1,
+   "keep": true,
+   "why": "主人公が雪の橋へ劉備を導いた",
+   "when": {
+    "flag": "h_tv_first"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "新野にいた[[p:劉備]]は、道案内に導かれて雪の橋で[[p:諸葛亮]]に行き会い、一度目の訪いで会うことができた。諸葛亮は荊州と益州を取って天下を三分する策を説いた (天下三分の計)。",
+    "imp": 3,
+    "at": "xinye"
+   }
+  }
+ ]
+}

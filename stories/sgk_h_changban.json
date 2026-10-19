@@ -1,0 +1,819 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_changban",
+ "kind": "history",
+ "title": "長坂の橋",
+ "era": "sangoku",
+ "event": "changban",
+ "lead": 6,
+ "before": [
+  "c1",
+  "c2",
+  "c2ok",
+  "c2slow",
+  "c3",
+  "c3ford",
+  "c3ford_ng",
+  "c3bridge",
+  "c4",
+  "c4ok",
+  "c4ng",
+  "c2cao",
+  "c3cao",
+  "c3sold",
+  "c3lie",
+  "c3lie_ng",
+  "c3lie_hurt"
+ ],
+ "onFired": "late",
+ "cast": {
+  "xiangyang": {
+   "scnPlace": "xiangyang"
+  },
+  "xiakou": {
+   "scnPlace": "xiakou"
+  },
+  "jiangling": {
+   "scnPlace": "jiangling"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "liubiao": {
+   "scnRealm": "liubiao"
+  },
+  "caocao": {
+   "person": "ruler:cao"
+  },
+  "liubei": {
+   "scnPerson": "劉備"
+  },
+  "zhangfei": {
+   "scnPerson": "張飛"
+  },
+  "zhaoyun": {
+   "scnPerson": "趙雲"
+  },
+  "kongming": {
+   "scnPerson": "諸葛亮"
+  }
+ },
+ "start": "c1",
+ "scenes": {
+  "c1": {
+   "at": {
+    "place": "xiangyang",
+    "building": "inn"
+   },
+   "goal": "{xiangyang}の{inn}で、北の噂を聞く",
+   "speaker": "荷車引き",
+   "art": "inn",
+   "text": [
+    "{xiangyang}の{inn}は、北から逃げてきた者でごった返していた。荷車引きの男が、汗をぬぐいながら言った。",
+    "「曹丞相が、北を平らげた兵を全部連れて南へ下ってくるそうだ。それなのに州牧の劉景升様は病の床で、跡継ぎの若様は戦う気がない。降るつもりだって噂だ」",
+    "「樊城の劉豫州は南へ逃げるとさ。おれたちもついていく。曹丞相は徐州で城ごと人を殺したお方だ。あの方の下で暮らすくらいなら、劉豫州の後ろを歩くほうがましだ」"
+   ],
+   "choices": [
+    {
+     "label": "劉備の一行に加わる",
+     "effects": [
+      {
+       "note": "曹操の大軍が南へ下ってくる。南へ逃れる劉備の一行に加わることにした。"
+      }
+     ],
+     "next": "c2"
+    },
+    {
+     "label": "曹操の軍の先触れに雇われる",
+     "effects": [
+      {
+       "note": "曹操の大軍が南へ下ってくる。その先触れに雇われることにした。"
+      }
+     ],
+     "next": "c2cao"
+    }
+   ]
+  },
+  "c2": {
+   "at": {
+    "place": "xiangyang",
+    "building": "office"
+   },
+   "goal": "{xiangyang}の{office}の前で、劉備の一行を待つ",
+   "speaker": "liubei",
+   "art": "road",
+   "text": [
+    "{office}の門は閉ざされていた。城の上から、劉琮の家臣たちが黙って見下ろしている。門の前で{liubei}は馬を止め、城に向かって一礼した。",
+    "{kongming}が馬を寄せた。「いまこの城を攻め取れば、荊州は将軍のものです」{liubei}は首を振った。「景升殿の恩を、子を討って返すことはできぬ」",
+    "一行は南へ動き出した。兵は数千、ついてくる民は十余万、荷車は数千両。一日に十里ほどしか進めない。"
+   ],
+   "choices": [
+    {
+     "label": "荷車の列を組み直し、道を空ける",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "c2ok",
+      "lose": "c2slow"
+     }
+    },
+    {
+     "label": "列について歩く",
+     "next": "c3"
+    }
+   ]
+  },
+  "c2ok": {
+   "text": [
+    "老人と子どもの車を前に、荷の重い車を後ろに回した。一日に十五里進んだ日もあった。民の中から、{player}の名を呼ぶ声が聞こえるようになった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "next": "c3"
+  },
+  "c2slow": {
+   "text": [
+    "車軸の折れた荷車が道をふさぎ、列は半日止まった。押しても引いても動かない。後ろの方から泣き声が聞こえてきた。"
+   ],
+   "next": "c3"
+  },
+  "c3": {
+   "speaker": "zhangfei",
+   "art": "road",
+   "text": [
+    "{xiangyang}を出て幾日目か、物見から戻った{zhangfei}が、汗まみれの馬から飛び下りた。「曹操は精鋭の騎兵五千を放った。一日一夜に三百里を駆けてくる。追いつかれるのは、長坂のあたりだ」",
+    "{liubei}は列を見渡した。民を捨てて兵だけで駆ければ、逃げ切れる。だが{liubei}はそうしなかった。"
+   ],
+   "choices": [
+    {
+     "label": "山に分け入って漢水へ抜ける間道を探し、民を先に逃がす",
+     "turn": true,
+     "guide": "民を間道へ逃がす。山は深く、迷えば列を見失う",
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "c3ford",
+      "lose": "c3ford_ng"
+     }
+    },
+    {
+     "label": "{zhangfei}と共に、長坂の橋を守る支度をする",
+     "next": "c3bridge"
+    }
+   ]
+  },
+  "c3ford": {
+   "speaker": "kongming",
+   "text": [
+    "谷を二つ越えたところで、葦の茂る浅瀬を見つけた。漢水の支流で、腰までの深さしかない。その先の河原には、関羽の舟を呼び寄せられる。",
+    "{kongming}は{player}の描いた絵図を見て、すぐに{liubei}のもとへ走った。その夜のうちに、老人と女と子どもの車が、静かに谷へ入っていった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_cb_ford"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "民を漢水へ逃がす間道を見つけた。"
+    }
+   ],
+   "next": "c4"
+  },
+  "c3ford_ng": {
+   "text": [
+    "山は思いのほか深かった。尾根を三つ越えても川の音は聞こえず、{player}は日暮れにようやく列に戻った。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "c3bridge"
+  },
+  "c3bridge": {
+   "speaker": "zhangfei",
+   "text": [
+    "長坂の川には、細い木の橋が一つ架かっていた。{zhangfei}は橋の板を一枚ずつ指で叩いた。「いざとなったら、これを落とす。落とした後は、わしが川の前に立つ。それで十分だ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_cb_bridge"
+    }
+   ],
+   "next": "c4"
+  },
+  "c4": {
+   "at": {
+    "place": "xiakou",
+    "building": "office"
+   },
+   "goal": "{xiakou}の{office}へ走り、劉琦に舟を求める",
+   "speaker": "劉琦",
+   "art": "court",
+   "text": [
+    "{liubei}の書状を携えて、{player}は先に{xiakou}へ走った。江夏を守るのは劉表の長子、劉琦である。継母と弟に疎まれて、この城に逃れてきた若者だった。",
+    "「父は死んだのか」劉琦は書状を読む前に言った。「弟は曹操に降るのだな。……叔父上を見殺しにはせぬ。だが舟を出せば、曹操はこの城にも来る」"
+   ],
+   "choices": [
+    {
+     "label": "「叔父上が倒れれば、次はこの城です」と舟を出すよう説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "c4ok",
+      "lose": "c4ng"
+     }
+    },
+    {
+     "label": "書状を渡して、返事を待つ",
+     "next": "c4ng"
+    }
+   ]
+  },
+  "c4ok": {
+   "speaker": "劉琦",
+   "text": [
+    "劉琦は唇を噛み、やがて頷いた。「一万の兵と舟を出す。漢津で叔父上を待とう」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "flag": "h_cb_boats"
+    },
+    {
+     "note": "劉琦に、劉備のために舟を出させた。"
+    }
+   ],
+   "next": "afterliu"
+  },
+  "c4ng": {
+   "text": [
+    "劉琦は書状を握ったまま、窓の外の江を見ていた。返事は、その日のうちには来なかった。"
+   ],
+   "next": "afterliu"
+  },
+  "c2cao": {
+   "at": {
+    "place": "xiangyang",
+    "building": "barracks"
+   },
+   "goal": "{xiangyang}の{barracks}で、曹操の騎兵の道案内に雇われる",
+   "speaker": "曹純",
+   "art": "camp",
+   "text": [
+    "{xiangyang}が城を開いた翌日、{barracks}には黒い具足の騎兵が溢れていた。曹操の親衛、虎豹騎である。率いるのは丞相の従弟、曹純だった。",
+    "「劉備が南へ逃げた。江陵の兵糧と武具を取られる前に追いつく。この辺りの道に明るい者を探している」曹純は銀を卓に置いた。「劉備の首を取った者には、この十倍だ」"
+   ],
+   "choices": [
+    {
+     "label": "道案内を引き受ける",
+     "effects": [
+      {
+       "money": 60
+      },
+      {
+       "rep": "cao",
+       "n": 3
+      }
+     ],
+     "next": "c3cao"
+    },
+    {
+     "label": "やはり断り、劉備の列を追う",
+     "next": "c3"
+    }
+   ]
+  },
+  "c3cao": {
+   "speaker": "曹純",
+   "art": "road",
+   "text": [
+    "虎豹騎は、昼も夜も駆けた。替え馬を引き、鞍の上で干し肉をかじる。三日目の朝、丘の上から南の野を見下ろすと、土埃の下に、蟻の列のような人の流れが見えた。",
+    "「あれが劉備か」曹純は目を細めた。「民を連れて逃げるとは、馬鹿か聖人か。どちらにせよ、列のどこに劉備がいるのか分からねば、民草を斬るだけで日が暮れる」"
+   ],
+   "choices": [
+    {
+     "label": "劉備の妻子の車がどこを行くか、曹純に告げる",
+     "turn": true,
+     "guide": "劉備の一行の道筋を売る。阿斗を守る趙雲が囲まれる",
+     "next": "c3sold"
+    },
+    {
+     "label": "わざと山の道を教え、追っ手を遅らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "c3lie",
+      "lose": "c3lie_ng"
+     }
+    },
+    {
+     "label": "黙って馬を走らせる",
+     "next": "aftercao"
+    }
+   ]
+  },
+  "c3sold": {
+   "speaker": "曹純",
+   "text": [
+    "「列の中ほど、白い幌の車が三両。その前後を、白馬の将が守っています」{player}がそう言うと、曹純はにやりと笑った。「白馬の将。常山の趙子龍か。あれを捕らえれば、丞相はお喜びになる」",
+    "騎兵は三手に分かれ、白い幌の車をめがけて丘を駆け下りていった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_cb_sold"
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "note": "曹純に、劉備の妻子の車の居場所を教えた。"
+    }
+   ],
+   "next": "aftercao"
+  },
+  "c3lie": {
+   "text": [
+    "{player}は東の山道を指さした。「劉備は民を捨てて、あちらへ抜けました」騎兵の半分が山へ入り、半日を失って戻ってきた。曹純は{player}をにらんだが、何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "flag": "h_cb_lie"
+    }
+   ],
+   "next": "aftercao"
+  },
+  "c3lie_ng": {
+   "speaker": "曹純",
+   "text": [
+    "「お前の指す道に、轍がない」曹純は剣を抜いた。「劉備の間者か」騎兵が二人、馬を寄せてきた。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "aftercao",
+      "lose": "c3lie_hurt"
+     }
+    }
+   ]
+  },
+  "c3lie_hurt": {
+   "text": [
+    "馬から叩き落とされ、気づいたときには騎兵はとうに南へ去っていた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftercao"
+  },
+  "afterliu": {
+   "at": {
+    "place": "xiakou"
+   },
+   "goal": "{xiakou}で、長坂の報せを待つ",
+   "wait": {
+    "settled": "changban"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "cb_ford"
+     },
+     "next": "ford"
+    },
+    {
+     "if": {
+      "branch": "cb_zhaoyun"
+     },
+     "next": "taken"
+    },
+    {
+     "next": "rec"
+    }
+   ]
+  },
+  "rec": {
+   "speaker": "zhaoyun",
+   "art": "war",
+   "text": [
+    "長坂で、曹操の騎兵は列に追いついた。民は散り、{liubei}は妻子を捨てて数十騎で逃れた。{zhangfei}は二十騎で橋を断ち、川を前に矛を横たえて叫んだ。「燕人張翼徳これにあり。死にたい者から来い」追っ手は誰も川を渡らなかった。",
+    "血まみれの{zhaoyun}が、胸に幼子を抱いて{xiakou}の舟着き場に着いたのは、その三日後だった。{liubei}は子を受け取ると、地に放り出した。「この子のために、大事な将を失うところだった」"
+   ],
+   "choices": [
+    {
+     "label": "{zhaoyun}の傷の手当てをする",
+     "check": {
+      "skill": "medicine",
+      "dc": 28,
+      "win": "end_heal",
+      "lose": "end_gather"
+     }
+    },
+    {
+     "label": "河原で、散った民と兵を集める",
+     "next": "end_gather"
+    },
+    {
+     "label": "何も言わずに立ち去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_heal": {
+   "speaker": "zhaoyun",
+   "text": [
+    "{zhaoyun}の体には、矢傷と槍傷が十を越えていた。{player}が傷を洗って縫うあいだ、白馬の将は一度も声を上げなかった。「若君は眠っておられたか」それだけを聞いた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "unflag": "h_cb_bridge"
+    },
+    {
+     "unflag": "h_cb_boats"
+    },
+    {
+     "note": "長坂の戦い。{zhaoyun}は阿斗を抱いて囲みを破った。その傷を手当てした。"
+    }
+   ],
+   "end": "白馬の将"
+  },
+  "end_gather": {
+   "text": [
+    "河原には、はぐれた民が三々五々たどり着いてきた。十余万のうち、ここまで来られたのはわずかだった。{player}は粥を炊き、名を呼び合う声の中で夜を明かした。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_cb_bridge"
+    },
+    {
+     "unflag": "h_cb_boats"
+    },
+    {
+     "note": "長坂の戦い。散った劉備の民を夏口の河原で迎えた。"
+    }
+   ],
+   "end": "長坂の河原"
+  },
+  "end_left": {
+   "text": [
+    "{player}は舟着き場に背を向けた。後ろで、{zhangfei}の大きな笑い声が聞こえた。橋を落としたのは早まったと、{kongming}にからかわれているらしかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_cb_bridge"
+    },
+    {
+     "unflag": "h_cb_boats"
+    },
+    {
+     "note": "長坂の戦いを見届けた。"
+    }
+   ],
+   "end": "断たれた橋"
+  },
+  "ford": {
+   "speaker": "liubei",
+   "art": "voyage",
+   "text": [
+    "曹操の騎兵が長坂に着いたとき、道に残っていたのは空の荷車と、わずかな兵だけだった。民の多くは前の晩のうちに谷へ入り、漢水の河原で劉琦と関羽の舟に拾われていた。",
+    "{liubei}は舟の上で{player}の手を握った。「わしは民を捨てずに済んだ。礼の言葉が見つからぬ」{zhangfei}は、落とすはずだった橋を、一度も落とさずに済んだことを、少しばかり残念がった。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "money": 120
+    },
+    {
+     "unflag": "h_cb_ford"
+    },
+    {
+     "unflag": "h_cb_bridge"
+    },
+    {
+     "unflag": "h_cb_boats"
+    },
+    {
+     "note": "長坂の戦い。民は間道から漢水へ逃れ、曹操の騎兵は空の道を見た。"
+    }
+   ],
+   "end": "漢水の浅瀬"
+  },
+  "taken": {
+   "speaker": "liubei",
+   "art": "tale",
+   "text": [
+    "{zhaoyun}は戻らなかった。阿斗を抱いた白馬の将は、曹純の騎兵に三方から囲まれ、矢を受けて落馬したという。阿斗は、簡雍が泥の中から拾い上げて逃れた。",
+    "曹操は捕らえた{zhaoyun}の縄を自ら解き、「この男を斬る者は、わしを斬るのと同じだ」と言ったという。{liubei}はその噂を聞いて、一晩じゅう江を見ていた。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "unflag": "h_cb_bridge"
+    },
+    {
+     "unflag": "h_cb_boats"
+    },
+    {
+     "note": "長坂の戦い。{zhaoyun}は囲まれて曹操に捕らわれた。"
+    }
+   ],
+   "end": "戻らなかった白馬"
+  },
+  "aftercao": {
+   "at": {
+    "place": "jiangling",
+    "building": "barracks"
+   },
+   "goal": "{jiangling}の{barracks}で、長坂の始末を見届ける",
+   "wait": {
+    "settled": "changban"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "cb_zhaoyun"
+     },
+     "next": "sold_end"
+    },
+    {
+     "if": {
+      "branch": "cb_ford"
+     },
+     "next": "cao_empty"
+    },
+    {
+     "next": "cao_rec"
+    }
+   ]
+  },
+  "sold_end": {
+   "speaker": "caocao",
+   "art": "court",
+   "text": [
+    "{jiangling}の{barracks}の庭に、縄をかけられた{zhaoyun}が引き出された。{caocao}は自ら縄を解き、酒を注いだ。「劉備には過ぎた将だ。わしに仕えよ」",
+    "{zhaoyun}は杯を受け取らなかった。曹純は{player}の肩を叩き、銀の入った袋を渡した。その重さが、なぜか手に余った。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "rep": "cao",
+     "n": 15
+    },
+    {
+     "fame": -2
+    },
+    {
+     "unflag": "h_cb_sold"
+    },
+    {
+     "note": "長坂で、劉備の一行の道筋を曹操の騎兵に売った。{zhaoyun}が捕らわれた。"
+    }
+   ],
+   "end": "売られた道"
+  },
+  "cao_empty": {
+   "speaker": "曹純",
+   "text": [
+    "長坂の野に残っていたのは、空の荷車と壊れた鍋ばかりだった。民はどこへ消えたのか。曹純は荷車を蹴り飛ばし、江陵へ馬を返した。"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "unflag": "h_cb_lie"
+    },
+    {
+     "note": "長坂の戦い。劉備の民は先に逃れていた。"
+    }
+   ],
+   "end": "空の荷車"
+  },
+  "cao_rec": {
+   "speaker": "曹純",
+   "art": "war",
+   "text": [
+    "長坂で、虎豹騎は劉備の列に追いついた。民は散り、劉備の妻子の車も捕らえた。だが川の橋は断たれ、その前に髭の大男が一人、矛を横たえて立っていた。誰も渡ろうとしなかった。",
+    "白馬の将が一騎、幼子を抱いて囲みを破ったという話を、{player}は{jiangling}で聞いた。曹純は苦い顔で言った。「劉備は、ついている男だ」"
+   ],
+   "choices": [
+    {
+     "label": "曹純から褒美を受け取る",
+     "next": "cao_paid"
+    },
+    {
+     "label": "散らされた民の亡骸を葬る",
+     "next": "cao_bury"
+    }
+   ]
+  },
+  "cao_paid": {
+   "text": [
+    "銀を受け取り、{player}は虎豹騎と別れた。長坂の野には、まだ荷車が転がっていた。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "unflag": "h_cb_lie"
+    },
+    {
+     "note": "長坂の戦いで、曹操の騎兵の道案内をした。"
+    }
+   ],
+   "end": "虎豹騎の道案内"
+  },
+  "cao_bury": {
+   "text": [
+    "{player}は長坂の野に戻り、土を掘った。逃げ遅れた老人と子どもが多かった。三日かかった。通りかかった百姓たちが、黙って鍬を手伝ってくれた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_cb_lie"
+    },
+    {
+     "note": "長坂の戦いのあと、散らされた民を葬った。"
+    }
+   ],
+   "end": "長坂の土"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "cb_ford"
+     },
+     "next": "late_ford"
+    },
+    {
+     "if": {
+      "branch": "cb_zhaoyun"
+     },
+     "next": "late_taken"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_ford": {
+   "text": [
+    "旅の途中で噂を聞いた。南へ逃れた劉豫州の民は、曹操の騎兵が来る前に間道から漢水へ抜け、舟で夏口へ逃れたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_cb_ford"
+    },
+    {
+     "unflag": "h_cb_bridge"
+    },
+    {
+     "unflag": "h_cb_boats"
+    },
+    {
+     "unflag": "h_cb_lie"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_taken": {
+   "text": [
+    "旅の途中で噂を聞いた。長坂で劉豫州の一行が追いつかれ、白馬の将の趙子龍が曹操に捕らわれたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_cb_sold"
+    },
+    {
+     "unflag": "h_cb_bridge"
+    },
+    {
+     "unflag": "h_cb_boats"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。長坂で劉豫州の一行が曹操の騎兵に追いつかれ、民は散り散りになったという。張飛が橋を断って一人で川の前に立ち、趙雲が幼い若君を抱いて囲みを破ったとも。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_cb_bridge"
+    },
+    {
+     "unflag": "h_cb_boats"
+    },
+    {
+     "unflag": "h_cb_lie"
+    },
+    {
+     "note": "長坂の戦いの噂を聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "cb_zhaoyun",
+   "event": "changban",
+   "order": 2,
+   "why": "主人公が劉備の妻子の居場所を曹軍に売った",
+   "when": {
+    "flag": "h_cb_sold"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "長坂の戦い。{r_cao}の騎兵は道案内の手引きで南へ逃れる[[p:劉備]]の妻子の車を見つけ出した。劉備の子阿斗を抱いた[[p:趙雲]]は三方から囲まれて捕らわれ、曹操はその勇を惜しんで縄を解いた。阿斗は泥の中から拾われて逃れた。",
+    "do": [
+     [
+      "add",
+      "cao",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 2,
+    "at": "xiangyang"
+   },
+   "people": [
+    {
+     "move": "趙雲",
+     "to": "cao"
+    }
+   ]
+  },
+  {
+   "id": "cb_ford",
+   "event": "changban",
+   "order": 1,
+   "why": "主人公が民を漢水への間道へ導いた",
+   "when": {
+    "flag": "h_cb_ford"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "長坂の戦い。{r_cao}の騎兵は南へ逃れる[[p:劉備]]を追って長坂に着いたが、民の多くは前の晩のうちに山の間道から漢水へ抜け、舟で夏口へ逃れていた。曹操の騎兵が見たのは空の荷車ばかりだった。",
+    "do": [
+     [
+      "add",
+      "cao",
+      "prestige",
+      -5
+     ]
+    ],
+    "imp": 2,
+    "at": "xiangyang"
+   }
+  }
+ ]
+}

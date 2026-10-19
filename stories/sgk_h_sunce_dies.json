@@ -1,0 +1,648 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_sunce_dies",
+ "kind": "history",
+ "title": "丹徒の狩り",
+ "era": "sangoku",
+ "event": "sunce_dies",
+ "lead": 6,
+ "before": [
+  "s1",
+  "s2",
+  "s3",
+  "s3found",
+  "s3lost",
+  "s3caught",
+  "s3talk",
+  "s4",
+  "s4heed",
+  "s4scoff"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "wujun"
+  },
+  "hunt": {
+   "scnPlace": "danyang"
+  },
+  "wu": {
+   "scnRealm": "wu"
+  },
+  "sunce": {
+   "person": "ruler:wu"
+  },
+  "sunquan": {
+   "scnPerson": "孫権"
+  },
+  "zhangzhao": {
+   "scnPerson": "張昭"
+  },
+  "zhouyu": {
+   "scnPerson": "周瑜"
+  },
+  "retainer": {
+   "npc": "許貢の食客",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}で、老兵の話を聞く",
+   "speaker": "片目の老兵",
+   "art": "inn",
+   "text": [
+    "{city}の{inn}で、片目の老兵が{player}に酒をおごってくれた。「若殿……いや、もう殿か。{sunce}さまは、二十六で江東を平らげなすった。小覇王とはよく言ったもんだ」",
+    "「ただ、敵も多い。前の呉郡の太守の許貢が、許の朝廷に『孫策は項羽のような男だ、都に呼んで飼い殺しにせよ』と密書を送った。それが見つかって、許貢は絞め殺された。その食客たちが、どこかへ消えたままなんだ」",
+    "「殿は狩りがお好きでな。駿馬で供を置き去りにして、独りで鹿を追いなさる。……{zhangzhao}さまは、それが心配でならんらしい」"
+   ],
+   "choices": [
+    {
+     "label": "{city}の{palace}に仕官を願い出る",
+     "effects": [
+      {
+       "note": "{sunce}が許貢の食客に狙われているかもしれない。{city}の州府を訪ねる。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "消えた許貢の食客の行方を探る",
+     "effects": [
+      {
+       "note": "{sunce}に恨みを持つ許貢の食客を探すことにした。"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の{palace}で、{zhangzhao}に会う",
+   "speaker": "zhangzhao",
+   "art": "court",
+   "text": [
+    "{zhangzhao}は四十半ばの、厳めしい顔の文官だった。{sunce}は政を一切この男に任せ、自分は戦と狩りに明け暮れているという。",
+    "「北では曹操と袁紹が官渡で睨み合っている。殿は、その隙に許を衝いて天子を迎えようとお考えだ」{zhangzhao}は眉を寄せた。「それはよい。だが殿は、狩りでも戦でも、ご自分が一番先に駆けねば気が済まぬ。いずれ、どこかで矢が待っている」",
+    "「狩りの供に、腕の立つ者を加えたい。それとも、許貢の残党を探してくれるか」"
+   ],
+   "choices": [
+    {
+     "label": "狩りの供に加わる",
+     "effects": [
+      {
+       "flag": "h_sc_hunt"
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "許貢の残党の行方を探る",
+     "next": "s3"
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の{market}で、許貢の食客の行方を探る",
+   "art": "trade",
+   "text": [
+    "{market}の外れに、許貢の屋敷に出入りしていた鍛冶がいた。{player}が銭を握らせると、鍛冶はしぶしぶ口を開いた。「三人いた。ひと月前、強い弓を三張り、ここで直していったよ。鹿を射るには強すぎる弓だった」"
+   ],
+   "choices": [
+    {
+     "label": "弓を直した三人の足取りを追う",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "s3found",
+      "lose": "s3lost"
+     }
+    }
+   ]
+  },
+  "s3lost": {
+   "text": [
+    "足取りは丹徒の山の麓で途切れた。山の中には、猟師の小屋がいくつもある。どれに潜んでいるのか、確かめようがなかった。"
+   ],
+   "next": "s4"
+  },
+  "s3found": {
+   "at": {
+    "place": "hunt"
+   },
+   "goal": "{hunt}の山へ、三人の足取りを追う",
+   "speaker": "retainer",
+   "art": "hideout",
+   "text": [
+    "{hunt}の山奥の猟師小屋に、三人の男がいた。弓の弦を張り替え、矢じりを研いでいる。一人が{player}に気づき、静かに言った。「わしは{retainer}。許貢さまの客だった」",
+    "「殿は、許の朝廷に忠を尽くそうとして殺された。わしらは、その恩を返すだけだ」男の目には、怒りよりも静けさがあった。「見逃してくれとは言わん。止めたいなら、止めてみよ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sc_know"
+    },
+    {
+     "note": "{hunt}の山中に、{sunce}を狙う許貢の食客がいるのを見つけた。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "三人を捕らえて郡府に突き出す",
+     "turn": true,
+     "guide": "恩を返そうとする者を捕らえる。三人とも弓の名手だ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "s3caught",
+      "lose": "s3lost"
+     }
+    },
+    {
+     "label": "黙って彼らの言い分を聞く",
+     "next": "s3talk"
+    }
+   ]
+  },
+  "s3caught": {
+   "text": [
+    "三人を縛り上げ、{city}の郡府へ引いていった。{retainer}は道中ひとことも口をきかなかったが、郡府の門の前で一度だけ振り返った。「主の恩を返せぬまま死ぬのが、一番の恥だ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sc_caught"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "note": "{sunce}を狙う許貢の食客を捕らえた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3talk": {
+   "speaker": "retainer",
+   "text": [
+    "{retainer}は語った。許貢がどれほど客を厚くもてなしたか、どれほど無残に殺されたか。話し終えると、男は{player}に頭を下げた。「聞いてくれて礼を言う。だが、わしらの心は変わらん」"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "hunt"
+   },
+   "goal": "{hunt}の狩り場で、{sunce}の狩りの列に加わる",
+   "speaker": "sunce",
+   "art": "road",
+   "text": [
+    "{hunt}の野に、{sunce}の狩りの列が出ていた。殿は二十六、美しい顔をよく笑わせる若者で、誰よりも速い馬に乗っていた。",
+    "「江東の鹿は足が速い。だが、わしの馬はもっと速い」{sunce}は笑い、鞭を上げた。「許を獲ったら、天子さまにも江東の鹿を食わせてやろう」"
+   ],
+   "choices": [
+    {
+     "label": "「供を離れて独りで駆けてはなりませぬ」と強く諫める",
+     "turn": true,
+     "guide": "主君の楽しみに水を差す。聞かれねば疎まれる",
+     "if": {
+      "flag": "h_sc_know"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s4heed",
+      "lose": "s4scoff"
+     }
+    },
+    {
+     "label": "狩りの列に従う",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s4heed": {
+   "speaker": "sunce",
+   "text": [
+    "{sunce}は鞭を下ろし、{player}をじっと見た。「許貢の客が、まだ山にいると言うのか」",
+    "「……{zhangzhao}もうるさいが、おぬしもうるさい」{sunce}は笑ったが、その目はもう笑っていなかった。「よかろう。狩りのあいだ、おぬしがわしの馬の脇を離れるな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sc_heed"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "wu",
+     "n": 5
+    },
+    {
+     "note": "{sunce}に、独りで駆けぬよう諫めた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4scoff": {
+   "speaker": "sunce",
+   "text": [
+    "「わしの首を狙う者など、江東には掃いて捨てるほどおる」{sunce}は笑い飛ばし、馬腹を蹴った。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "hunt"
+   },
+   "goal": "{hunt}の狩り場で、事の成り行きを見届ける",
+   "wait": {
+    "settled": "sunce_dies"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "sc_caught"
+     },
+     "next": "caught"
+    },
+    {
+     "if": {
+      "branch": "sc_guard"
+     },
+     "next": "guard"
+    },
+    {
+     "if": {
+      "flag": "h_sc_hunt"
+     },
+     "next": "arrow"
+    },
+    {
+     "next": "wound"
+    }
+   ]
+  },
+  "caught": {
+   "speaker": "sunce",
+   "art": "road",
+   "text": [
+    "狩りの日は何事もなく暮れた。{sunce}は鹿を三頭仕留め、上機嫌で{city}に戻った。郡府の牢では、許貢の客たちが黙って刑の日を待っていた。",
+    "{sunce}は{player}を呼び、自ら盃を与えた。「わしの命を拾ったそうだな。だが礼は、許を獲ってからまとめて言おう」",
+    "だがその月のうちに、{sunce}は沢で拾った熱病に倒れた。枕元に{sunquan}と{zhangzhao}を呼び、静かに印綬を渡したという。刺客の矢でなかったことだけが、江東の兵の慰めだった。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "wu",
+     "n": 15
+    },
+    {
+     "money": 150
+    },
+    {
+     "unflag": "h_sc_know"
+    },
+    {
+     "unflag": "h_sc_caught"
+    },
+    {
+     "unflag": "h_sc_heed"
+    },
+    {
+     "unflag": "h_sc_hunt"
+    },
+    {
+     "note": "許貢の食客は狩りの前に捕らえられ、{sunce}は無事だった。"
+    }
+   ],
+   "end": "研がれなかった矢"
+  },
+  "guard": {
+   "speaker": "sunce",
+   "art": "war",
+   "text": [
+    "鹿を追う{sunce}の前に、草むらから三人の男が立ち上がった。弓が引き絞られたとき、{player}の馬が{sunce}の前に割って入った。矢は{player}の鞍に突き立ち、供の兵が駆けつけて三人を囲んだ。",
+    "{sunce}は、縛られた{retainer}を見下ろした。「主の仇を討とうとしたか。……許貢は、よい客を持ったな」",
+    "だが、ひと月と経たぬうちに、{sunce}は高い熱を出して床に就いた。最期に{sunquan}へ印綬を渡すとき、殿は{player}の名を呼び、弟を頼むと言ったという。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "rep": "wu",
+     "n": 20
+    },
+    {
+     "hp": -10
+    },
+    {
+     "unflag": "h_sc_know"
+    },
+    {
+     "unflag": "h_sc_caught"
+    },
+    {
+     "unflag": "h_sc_heed"
+    },
+    {
+     "unflag": "h_sc_hunt"
+    },
+    {
+     "note": "丹徒の狩りで、{sunce}を狙った矢を防いだ。"
+    }
+   ],
+   "end": "鞍に立つ矢"
+  },
+  "arrow": {
+   "speaker": "sunce",
+   "art": "war",
+   "text": [
+    "{sunce}の馬は速すぎた。{player}たち供の者が追いついたとき、殿は顔に矢を受けて草の上に倒れ、そばで三人の男が斬り伏せられていた。{retainer}は、死に際に笑っていたという。",
+    "{sunce}は弟の{sunquan}を枕元に呼び、印綬を渡した。「江東の兵を率いて天下と争うことなら、おまえはわしに及ばぬ。だが、賢い者を用いて江東を保つことなら、わしはおまえに及ばぬ」"
+   ],
+   "choices": [
+    {
+     "label": "{sunquan}のもとに留まる",
+     "next": "end_quan"
+    },
+    {
+     "label": "巴丘の{zhouyu}のもとへ、急を知らせに走る",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_zhouyu",
+      "lose": "end_road"
+     }
+    },
+    {
+     "label": "黙って江東を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "wound": {
+   "art": "tale",
+   "text": [
+    "{city}に、狩りに出た殿が顔を射られたという報せが届いた。傷は深く、医者は百日のあいだ静かに養えと言ったが、{sunce}は鏡を見て「この顔で、どうして功を立てられようか」と叫んで机を叩き、傷が裂けたという。",
+    "その夜、{sunce}は二十六で世を去った。十九の{sunquan}が、泣きはらした目で後を継いだ。"
+   ],
+   "choices": [
+    {
+     "label": "{sunquan}のもとに留まる",
+     "next": "end_quan"
+    },
+    {
+     "label": "黙って江東を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_quan": {
+   "speaker": "zhangzhao",
+   "text": [
+    "{sunquan}は兄の棺の前で泣き続けた。{zhangzhao}がその腕をつかみ、喪服を脱がせて馬に乗せた。「いまは泣くときではありませぬ。兵に顔をお見せなされ」",
+    "{player}は、馬上の若い主の顔を見た。泣きはらした目の奥に、兄とは違う、静かな光があった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "unflag": "h_sc_know"
+    },
+    {
+     "unflag": "h_sc_caught"
+    },
+    {
+     "unflag": "h_sc_heed"
+    },
+    {
+     "unflag": "h_sc_hunt"
+    },
+    {
+     "note": "{sunce}が刺客の矢に倒れ、{sunquan}が後を継いだ。"
+    }
+   ],
+   "end": "若き主"
+  },
+  "end_zhouyu": {
+   "speaker": "zhouyu",
+   "text": [
+    "昼も夜も馬を走らせ、巴丘の{zhouyu}のもとに報せを届けた。{zhouyu}はしばらく声もなかったが、やがて兵をまとめて{city}へ向かった。",
+    "「伯符とは、兄弟の契りを結んだ仲だ」{zhouyu}は馬上で言った。「伯符の弟は、わしの弟だ。江東は、わしが守る」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wu",
+     "n": 15
+    },
+    {
+     "unflag": "h_sc_know"
+    },
+    {
+     "unflag": "h_sc_caught"
+    },
+    {
+     "unflag": "h_sc_heed"
+    },
+    {
+     "unflag": "h_sc_hunt"
+    },
+    {
+     "note": "{sunce}の死を巴丘の{zhouyu}に知らせた。"
+    }
+   ],
+   "end": "巴丘への早馬"
+  },
+  "end_road": {
+   "text": [
+    "巴丘への道で、山越の賊に馬を射られた。{player}が徒歩でたどり着いたときには、{zhouyu}はすでに報せを聞いて発ったあとだった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "unflag": "h_sc_know"
+    },
+    {
+     "unflag": "h_sc_caught"
+    },
+    {
+     "unflag": "h_sc_heed"
+    },
+    {
+     "unflag": "h_sc_hunt"
+    },
+    {
+     "note": "{sunce}が刺客の矢に倒れた。"
+    }
+   ],
+   "end": "遅れた早馬"
+  },
+  "end_left": {
+   "text": [
+    "{player}は江東を後にした。小覇王の名は、わずか数年で天下に轟き、一本の矢で消えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sc_know"
+    },
+    {
+     "unflag": "h_sc_caught"
+    },
+    {
+     "unflag": "h_sc_heed"
+    },
+    {
+     "unflag": "h_sc_hunt"
+    },
+    {
+     "note": "{sunce}が刺客の矢に倒れたのを見届けた。"
+    }
+   ],
+   "end": "小覇王の死を見送る"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "sc_caught"
+     },
+     "next": "late_saved"
+    },
+    {
+     "if": {
+      "branch": "sc_guard"
+     },
+     "next": "late_saved"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_saved": {
+   "text": [
+    "旅の途中で噂を聞いた。{sunce}を狙った許貢の食客は、事を起こす前に捕らえられたという。だが{sunce}はほどなく病に倒れ、弟の{sunquan}が後を継いだとも。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sc_know"
+    },
+    {
+     "unflag": "h_sc_caught"
+    },
+    {
+     "unflag": "h_sc_heed"
+    },
+    {
+     "unflag": "h_sc_hunt"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。{sunce}が狩りの途中で旧主の仇を狙う刺客に襲われ、その傷がもとで死んだという。弟の{sunquan}が十九で後を継いだとも。",
+    "「北の曹操は、さぞ胸をなでおろしただろうよ」と、宿の客は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sc_know"
+    },
+    {
+     "unflag": "h_sc_caught"
+    },
+    {
+     "unflag": "h_sc_heed"
+    },
+    {
+     "unflag": "h_sc_hunt"
+    },
+    {
+     "note": "{sunce}が刺客の矢に倒れたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "sc_caught",
+   "event": "sunce_dies",
+   "order": 2,
+   "why": "主人公が許貢の食客を狩りの前に捕らえた",
+   "when": {
+    "flag": "h_sc_caught"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:孫策]]を狙っていた許貢の食客は、狩りの前に山中で捕らえられた。だが孫策はその月のうちに熱病に倒れ、枕元で弟の[[p:孫権]]に印綬を託した。江東は乱れずに引き継がれた。",
+    "do": [
+     [
+      "add",
+      "wu",
+      "stability",
+      0.1
+     ]
+    ],
+    "imp": 2,
+    "at": "wujun"
+   }
+  },
+  {
+   "id": "sc_guard",
+   "event": "sunce_dies",
+   "order": 1,
+   "why": "主人公が孫策を諫め、狩りの矢を防いだ",
+   "when": {
+    "flag": "h_sc_heed"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:孫策]]は狩りの途中で旧主の仇を狙う刺客に襲われたが、そばを離れなかった供の者が矢を防ぎ、刺客は捕らえられた。だが孫策はほどなく病に倒れ、弟の[[p:孫権]]が後を継いだ。",
+    "do": [
+     [
+      "add",
+      "wu",
+      "stability",
+      0.05
+     ]
+    ],
+    "imp": 2,
+    "at": "wujun"
+   }
+  }
+ ]
+}

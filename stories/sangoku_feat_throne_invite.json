@@ -1,0 +1,243 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_feat_throne_invite",
+ "kind": "feat",
+ "feat": "career",
+ "title": "招聘",
+ "era": "sangoku",
+ "trigger": {
+  "patron": true,
+  "bySize": {
+   "realm": "weakestOther",
+   "rank": [
+    3,
+    6,
+    7
+   ],
+   "fame": [
+    60,
+    100,
+    150
+   ]
+  },
+  "king": false,
+  "notFeat": "career"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "small": {
+   "realm": "weakestOther"
+  },
+  "smallcap": {
+   "place": "capital:small"
+  },
+  "envoy": {
+   "npc": "使者",
+   "sex": "m"
+  },
+  "noble": {
+   "npc": "州の豪族の筆頭",
+   "sex": "m"
+  },
+  "nephew": {
+   "npc": "先主の従弟",
+   "sex": "m"
+  }
+ },
+ "start": "i1",
+ "scenes": {
+  "i1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で、{small}からの使者に会う",
+   "speaker": "envoy",
+   "art": "road",
+   "text": [
+    "旅装の{envoy}が、地に額をつけた。「{small}の主が後継なく亡くなられました。今わの際に、天下に名高い{player}様に州を託せと仰せられたのです。隣の群雄は境に兵を寄せております」",
+    "「豪族も属官も、{player}様をお迎えして主に戴きたいと申しております。小さな州ではございますが……」"
+   ],
+   "choices": [
+    {
+     "label": "{smallcap}へ向かう",
+     "guide": "主になれば、いま仕える主公のもとを去ることになる",
+     "next": "i2"
+    },
+    {
+     "label": "断る",
+     "next": "idecline"
+    }
+   ]
+  },
+  "i2": {
+   "at": {
+    "place": "smallcap",
+    "building": "palace"
+   },
+   "goal": "{smallcap}の{palace}で、{small}の豪族と属官たちに会う",
+   "speaker": "noble",
+   "art": "court",
+   "text": [
+    "{noble}は値踏みするようにこちらを見た。「名声は聞いております。だが、群雄の間にあるこの小さな州をどう守り、どう富ませるおつもりか。それを聞かせていただきたい」"
+   ],
+   "choices": [
+    {
+     "label": "小さな州が群雄の間で生き延びる策を説く",
+     "check": {
+      "skill": "letters",
+      "dc": 60,
+      "scale": "small",
+      "win": "i3",
+      "lose": "i2b"
+     }
+    },
+    {
+     "label": "豪族たちの塢を一つずつ訪ね、心を掴む",
+     "check": {
+      "skill": "speech",
+      "dc": 62,
+      "scale": "small",
+      "win": "i3",
+      "lose": "i2b"
+     }
+    }
+   ]
+  },
+  "i2b": {
+   "speaker": "noble",
+   "art": "court",
+   "text": [
+    "豪族たちの半ばは首をかしげている。もう一押しが要る。"
+   ],
+   "choices": [
+    {
+     "label": "州の蔵に私財を献じる（10000）",
+     "if": {
+      "money": 10000
+     },
+     "effects": [
+      {
+       "money": -10000
+      }
+     ],
+     "next": "i3"
+    },
+    {
+     "label": "言葉を尽くしてもう一度説く",
+     "check": {
+      "skill": "speech",
+      "dc": 66,
+      "scale": "small",
+      "win": "i3",
+      "lose": "ifail"
+     }
+    }
+   ]
+  },
+  "i3": {
+   "at": {
+    "place": "smallcap",
+    "building": "barracks"
+   },
+   "goal": "{smallcap}の{barracks}で、主の座を狙う{nephew}と対する",
+   "speaker": "nephew",
+   "art": "duel",
+   "text": [
+    "{barracks}の前で、{nephew}が剣を抜いた。「よそ者に州を渡してなるものか。この州の主は、血を引くこのわしだ」兵たちが成り行きを見守っている。"
+   ],
+   "choices": [
+    {
+     "label": "一騎打ちに応じる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 60,
+      "scale": "small",
+      "win": "i4",
+      "lose": "ifail"
+     }
+    },
+    {
+     "label": "兵たちに向かって、どちらが州を守れるかを説く",
+     "check": {
+      "skill": "speech",
+      "dc": 66,
+      "scale": "small",
+      "win": "i4talk",
+      "lose": "i3fight"
+     }
+    }
+   ]
+  },
+  "i3fight": {
+   "speaker": "nephew",
+   "art": "duel",
+   "text": [
+    "兵たちは迷っている。{nephew}は斬りかかってきた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 60,
+      "scale": "small",
+      "win": "i4",
+      "lose": "ifail"
+     }
+    }
+   ]
+  },
+  "i4talk": {
+   "art": "camp",
+   "text": [
+    "兵たちの間から歓声が上がった。{nephew}は剣を落とし、うなだれて去った。"
+   ],
+   "next": "i4"
+  },
+  "i4": {
+   "at": {
+    "place": "smallcap",
+    "building": "palace"
+   },
+   "goal": "{smallcap}の{palace}で、印綬を受ける",
+   "art": "court",
+   "text": [
+    "小さな州府の、小さな堂。だが、そこに居並ぶ将と属官の目は真剣だった。{player}は先主の霊の前で州の印綬を受け、上座に就いた。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "throne": "small",
+     "how": "招聘"
+    },
+    {
+     "feat": "career"
+    }
+   ],
+   "end": "招聘"
+  },
+  "idecline": {
+   "speaker": "envoy",
+   "art": "road",
+   "text": [
+    "{envoy}は肩を落として帰っていった。"
+   ],
+   "end": "いまだ時ならず"
+  },
+  "ifail": {
+   "art": "court",
+   "text": [
+    "豪族たちは別の者を立てることにした。{player}は{smallcap}を後にした。……ひと月ほどして、また使いが来るかもしれない。"
+   ],
+   "end": "いまだ時ならず"
+  }
+ }
+}

@@ -1,0 +1,825 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_guandu",
+ "kind": "history",
+ "title": "烏巣の火",
+ "era": "sangoku",
+ "event": "guandu",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2guard",
+  "s2xuyou",
+  "s2ng",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s4"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "guandu"
+  },
+  "xu": {
+   "scnPlace": "xu"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "yuan": {
+   "scnRealm": "yuanshao"
+  },
+  "caocao": {
+   "person": "ruler:cao"
+  },
+  "yuanshao": {
+   "person": "ruler:yuanshao"
+  },
+  "jushou": {
+   "scnPerson": "沮授"
+  },
+  "xuyou": {
+   "scnPerson": "許攸"
+  },
+  "chunyu": {
+   "scnPerson": "淳于瓊"
+  },
+  "zhanghe": {
+   "scnPerson": "張郃"
+  },
+  "xunyu": {
+   "scnPerson": "荀彧"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}で、糧を運ぶ車夫の話を聞く",
+   "speaker": "黄河の車夫",
+   "art": "inn",
+   "text": [
+    "{city}の{inn}は、両軍の兵糧を運ぶ車夫であふれていた。北から来た車夫は、自慢げに言った。「袁の殿様の兵は十万、糧車は一万両だ。烏巣の倉には、山のように穀物が積んである」",
+    "南から来た車夫は首をすくめた。「曹の陣はもう、ひと月分の米もないそうだ。{xu}から運ぶ車も、途中で袁の騎兵に焼かれる。兵の半分は傷を負い、残りは腹を空かせてる」",
+    "「どっちの陣でも人手は要る。強いほうに付くか、負けそうなほうに付くか、だ」"
+   ],
+   "choices": [
+    {
+     "label": "{yuanshao}の陣に加わる",
+     "effects": [
+      {
+       "flag": "h_gd_yuan"
+      },
+      {
+       "note": "{city}で両軍が睨み合っている。{yuanshao}の陣に加わった。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "{xu}へ行き、曹軍の糧を運ぶ",
+     "effects": [
+      {
+       "note": "{city}で両軍が睨み合っている。{xu}から曹軍の糧を運ぶことにした。"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の袁軍の{barracks}で、{jushou}に会う",
+   "speaker": "jushou",
+   "art": "camp",
+   "text": [
+    "袁軍の陣は、どこまでも続いていた。土山を築いて曹の陣に矢を射込み、地下に道を掘って攻める。兵も糧も、曹軍の十倍はあるという。",
+    "監軍の{jushou}は、顔色が悪かった。「烏巣の倉を守るのは{chunyu}どのだが、酒好きで兵の扱いが甘い。蒋奇の兵を出して外を固めるよう殿に申し上げたが、聞き入れられなかった」",
+    "「もう一つ、気がかりがある。謀士の{xuyou}どのが、鄴で家族を審配どのに捕らえられて、ひどく腹を立てている。あの男は曹操と幼なじみだ。……兵がいくら多くても、心が離れれば戦は負ける」"
+   ],
+   "choices": [
+    {
+     "label": "{jushou}の上書を携え、{yuanshao}に烏巣の守りを固めるよう説く",
+     "turn": true,
+     "guide": "総大将の耳に逆らう。しくじれば陣を追われる",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s2guard",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "夜ごと{xuyou}の幕舎を見張り、寝返りを止める",
+     "turn": true,
+     "guide": "謀士を見張る。見つかれば斬り合いになる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "s2xuyou",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "陣の守りにつく",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s2guard": {
+   "speaker": "yuanshao",
+   "art": "court",
+   "text": [
+    "{yuanshao}は名門の貴公子らしい、立派な髭の男だった。上書を読み、鼻を鳴らした。「沮授はいつも心配ばかりする」",
+    "だが{player}が、烏巣の地形と曹軍の飢えを並べて説くと、{yuanshao}はしばらく考え込んだ。「……よかろう。蒋奇に一万を与え、烏巣の外を固めさせる。{chunyu}には、夜も酒を断てと伝えよ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_gd_guard"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "yuan",
+     "n": 10
+    },
+    {
+     "note": "{yuanshao}を説き、烏巣の守りを固めさせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2xuyou": {
+   "speaker": "xuyou",
+   "art": "backroom",
+   "text": [
+    "七日目の夜更け、{xuyou}が供も連れずに陣の裏手へ出た。{player}が行く手に立つと、{xuyou}は青ざめ、それから笑った。「散歩だよ」",
+    "{player}は黙って、{xuyou}の懐から曹操宛ての書簡を抜き取った。{jushou}は書簡を読んで、{xuyou}を幕舎に閉じ込めさせた。「これで、曹操は烏巣のことを知らずに済む」"
+   ],
+   "effects": [
+    {
+     "flag": "h_gd_xuyou"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "yuan",
+     "n": 10
+    },
+    {
+     "note": "曹操に寝返ろうとした{xuyou}を止めた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2ng": {
+   "text": [
+    "{player}の言うことに、耳を貸す者はいなかった。{yuanshao}の取り巻きたちは、すでに勝ったあとの論功行賞の話ばかりしていた。"
+   ],
+   "effects": [
+    {
+     "rep": "yuan",
+     "n": -3
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3": {
+   "at": {
+    "place": "xu",
+    "building": "palace"
+   },
+   "goal": "{xu}の{palace}で、{xunyu}に会う",
+   "speaker": "xunyu",
+   "art": "court",
+   "text": [
+    "{xu}の{palace}を守る{xunyu}は、目元の涼しい、物静かな人だった。机の上には、陣中の{caocao}からの書簡が置かれている。「兵糧が尽きる。許へ退こうと思う」と書いてあった。",
+    "{xunyu}はすでに返書を書いていた。「いま退けば、天下の勢いは袁紹に傾く。弱い者が強い者を制するのは、まさにこのときです。奇策を用いる時は近い」",
+    "「この書と、ありったけの糧を官渡へ。途中、袁の騎兵が出る。守ってくれ」"
+   ],
+   "choices": [
+    {
+     "label": "糧車を守って{city}へ運ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "袁の騎兵を追い払い、糧車を一両も失わずに官渡へ届けた。曹の兵たちは糧車に群がり、生の粟をそのまま噛んだ。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "note": "{xunyu}の書と糧を、{city}の曹軍に届けた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "text": [
+    "糧車の半ばを焼かれ、残りをどうにか官渡へ運び込んだ。{xunyu}の書だけは、懐に入れて守り抜いた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "money": 40
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の曹軍の本陣で、{caocao}に目通りする",
+   "speaker": "caocao",
+   "art": "camp",
+   "text": [
+    "曹軍の本陣は、袁軍の土山から射込まれる矢を避けて、盾の屋根の下にあった。{caocao}は小柄な男で、よく笑い、よく怒り、よく詩を口ずさんだ。",
+    "{caocao}は{xunyu}の書を読み、しばらく黙った。「文若は、わしより肝が太い」そう言ってから、{player}を見た。「ここに残るなら、いずれ夜に働いてもらう。眠りの浅い者がよい」"
+   ],
+   "effects": [
+    {
+     "flag": "h_gd_raid"
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、戦の行く末を見届ける",
+   "wait": {
+    "settled": "guandu"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "gd_guard"
+     },
+     "next": "guarded"
+    },
+    {
+     "if": {
+      "branch": "gd_xuyou"
+     },
+     "next": "stalemate"
+    },
+    {
+     "if": {
+      "flag": "h_gd_yuan"
+     },
+     "next": "rout"
+    },
+    {
+     "next": "raid"
+    }
+   ]
+  },
+  "guarded": {
+   "speaker": "jushou",
+   "art": "war",
+   "text": [
+    "冬の夜、曹軍の五千が袁の旗を掲げて烏巣へ忍び寄った。だが蒋奇の兵が外を固め、{chunyu}も酒を断って起きていた。火矢は倉に届かず、曹軍は夜明けまでに多くの兵を失って退いた。",
+    "数日後、曹軍は官渡の陣を払い、{xu}へ引いていった。{jushou}は{player}に言った。「勝ったのは兵の数ではない。耳を傾けた、ということだ。殿にそれがお分かりになればよいが」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "yuan",
+     "n": 15
+    },
+    {
+     "rep": "cao",
+     "n": -10
+    },
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    },
+    {
+     "note": "烏巣の夜襲は退けられ、曹軍は{xu}へ退いた。"
+    }
+   ],
+   "end": "燃えなかった倉"
+  },
+  "stalemate": {
+   "speaker": "jushou",
+   "art": "camp",
+   "text": [
+    "烏巣の倉は、ついに一度も狙われなかった。曹軍は糧が尽き、冬の初めに官渡の陣を焼いて{xu}へ退いた。袁軍は追ったが、殿の{caocao}は自ら弓を取って追手を防ぎ、許の城に入った。",
+    "幕舎に閉じ込められた{xuyou}は、毎日{player}を罵った。{jushou}は苦笑した。「あの男の口は止められぬ。だが、足は止めた。それで十分だ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "yuan",
+     "n": 10
+    },
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    },
+    {
+     "note": "{xuyou}の寝返りは止められ、曹軍は糧が尽きて{xu}へ退いた。"
+    }
+   ],
+   "end": "止められた謀士"
+  },
+  "raid": {
+   "speaker": "caocao",
+   "art": "war",
+   "text": [
+    "袁紹のもとから{xuyou}が駆け込んできたとき、{caocao}は裸足のまま迎えに出た。「子遠、よく来た。これで勝てる」{xuyou}は言った。「烏巣の倉を焼けば、袁紹は三日で崩れる」",
+    "その夜、{caocao}は自ら五千を率い、袁の旗を掲げて烏巣へ向かった。兵は口に枚を含み、馬の口を縛った。{player}も、その列の中にいた。烏巣の倉の影が、闇の中に見えてきた。"
+   ],
+   "choices": [
+    {
+     "label": "{chunyu}の陣に斬り込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "end_raid",
+      "lose": "end_burn"
+     }
+    },
+    {
+     "label": "倉から倉へ走り、火を放って回る",
+     "next": "end_fire"
+    }
+   ]
+  },
+  "rout": {
+   "speaker": "zhanghe",
+   "art": "war",
+   "text": [
+    "夜半、南の空が赤く染まった。烏巣が燃えている。{yuanshao}の幕舎では、救いに行くか、曹の本陣を攻めるかで謀士たちが言い争い、結局どちらにも中途半端な兵が出された。",
+    "曹の本陣を攻めさせられた{zhanghe}は、陣が落ちぬと見るや兵を率いて曹軍に降った。袁軍は総崩れになった。{zhanghe}が馬上から{player}に叫んだ。「来るか、残るか。袁の殿はもう、河の向こうへ逃げる支度をしておられるぞ」"
+   ],
+   "choices": [
+    {
+     "label": "捕らわれそうな{jushou}を連れて逃げる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_jushou",
+      "lose": "end_scatter"
+     }
+    },
+    {
+     "label": "{zhanghe}と共に曹軍に降る",
+     "next": "end_zhanghe"
+    },
+    {
+     "label": "{yuanshao}を追って黄河を渡る",
+     "next": "end_river"
+    }
+   ]
+  },
+  "end_raid": {
+   "speaker": "caocao",
+   "text": [
+    "{chunyu}の陣は夜明けまで持ちこたえたが、{player}たちが柵を破ると崩れた。{chunyu}は鼻を削がれて捕らえられ、一万両の糧車はすべて炎に包まれた。",
+    "{caocao}は燃える倉を見上げて笑った。「袁本初は、天下で一番大きな焚き火をしてくれたな」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "cao",
+     "n": 15
+    },
+    {
+     "rep": "yuan",
+     "n": -15
+    },
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    },
+    {
+     "note": "官渡の戦い。烏巣の夜襲に加わり、{chunyu}の陣を破った。"
+    }
+   ],
+   "end": "烏巣の火"
+  },
+  "end_burn": {
+   "text": [
+    "乱戦の中で、{player}は燃える倉の梁の下敷きになりかけた。這い出したときには髪も袖も焦げていた。倉は燃え落ち、袁軍は崩れたと、後になって聞いた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    },
+    {
+     "note": "官渡の戦い。烏巣の夜襲で傷を負った。"
+    }
+   ],
+   "end": "焦げた袖"
+  },
+  "end_fire": {
+   "text": [
+    "松明を手に、倉から倉へ走った。穀物が爆ぜる音と、煙の匂い。一万両の糧が燃えるのに、一刻もかからなかった。",
+    "夜が明けたとき、烏巣は黒い焼け野になっていた。袁軍十万の腹が、そこで燃え尽きたのだ。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    },
+    {
+     "note": "官渡の戦い。烏巣の倉に火を放って回った。"
+    }
+   ],
+   "end": "一万両の炎"
+  },
+  "end_jushou": {
+   "speaker": "jushou",
+   "text": [
+    "{jushou}を馬に押し上げ、追ってくる曹の兵を斬り払って北へ逃れた。黄河の岸で、{jushou}は振り返った。「殿は、わしの言を一度でも聞かれたことがあったか」",
+    "{jushou}は涙をこぼした。「それでも、わしは河北へ帰る。殿のもとへ。……おぬしに救われた命だ、粗末にはせぬ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "yuan",
+     "n": 10
+    },
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    },
+    {
+     "note": "官渡の戦いで袁軍が崩れた。{jushou}を連れて逃れた。"
+    }
+   ],
+   "end": "河北へ帰る監軍"
+  },
+  "end_scatter": {
+   "text": [
+    "逃げる兵の波に呑まれ、{player}は{jushou}を見失った。後で聞くと、{jushou}は曹軍に捕らえられ、降らずに斬られたという。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    },
+    {
+     "note": "官渡の戦いで袁軍が崩れた。"
+    }
+   ],
+   "end": "崩れる十万"
+  },
+  "end_zhanghe": {
+   "speaker": "zhanghe",
+   "text": [
+    "{zhanghe}は曹の陣門で兜を脱ぎ、膝をついた。{caocao}は自ら迎えに出て言った。「昔、微子は殷を去って周に仕えた。おぬしもそれだ」",
+    "{zhanghe}は{player}に小声で言った。「殿が負けたのではない。殿の耳が負けたのだ」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "rep": "yuan",
+     "n": -10
+    },
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    },
+    {
+     "note": "官渡の戦いで袁軍が崩れた。{zhanghe}と共に曹操に降った。"
+    }
+   ],
+   "end": "降将の兜"
+  },
+  "end_river": {
+   "speaker": "yuanshao",
+   "text": [
+    "{yuanshao}は鎧も着けず、わずか八百騎で黄河を渡った。{player}はその最後の舟に飛び乗った。対岸で振り返ると、捨てられた十万の兵と一万両の糧車が、炎の中にあった。",
+    "{yuanshao}は一言も口をきかなかった。その髭が、ひと晩で白くなったように見えた。"
+   ],
+   "effects": [
+    {
+     "rep": "yuan",
+     "n": 5
+    },
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    },
+    {
+     "note": "官渡の戦いで袁軍が崩れ、{yuanshao}と共に河を渡って逃れた。"
+    }
+   ],
+   "end": "八百騎の河"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "gd_guard"
+     },
+     "next": "late_guard"
+    },
+    {
+     "if": {
+      "branch": "gd_xuyou"
+     },
+     "next": "late_xuyou"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_guard": {
+   "text": [
+    "旅の途中で噂を聞いた。官渡で{caocao}が烏巣の倉を夜襲したが、守りが固く、曹軍は兵を失って{xu}へ退いたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_xuyou": {
+   "text": [
+    "旅の途中で噂を聞いた。官渡の対陣は秋を越えて続き、糧の尽きた曹軍が{xu}へ退いたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。官渡で、{caocao}が寝返った{xuyou}の進言で烏巣の倉を焼き、{yuanshao}の大軍を崩したという。",
+    "「十万が、一晩の火で負けるのか」宿の主は首を振った。「戦というのは、腹でするものなんだな」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_gd_yuan"
+    },
+    {
+     "unflag": "h_gd_guard"
+    },
+    {
+     "unflag": "h_gd_xuyou"
+    },
+    {
+     "unflag": "h_gd_raid"
+    },
+    {
+     "note": "官渡で{yuanshao}の大軍が崩れたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "gd_guard",
+   "event": "guandu",
+   "order": 2,
+   "why": "主人公が袁紹を説き、烏巣の守りを固めさせた",
+   "when": {
+    "flag": "h_gd_guard"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "官渡の戦い。兵糧の尽きかけた{r_cao}は、[[p:袁紹]]のもとから寝返った許攸の進言で烏巣の兵糧庫を夜襲したが、[[p:沮授]]の進言で守りが固められており、曹軍は多くの兵を失って許へ退いた。",
+    "do": [
+     [
+      "army",
+      "cao",
+      0.7
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      -15
+     ],
+     [
+      "add",
+      "yuanshao",
+      "prestige",
+      15
+     ]
+    ],
+    "imp": 3,
+    "at": "guandu"
+   },
+   "people": [
+    {
+     "spare": "沮授",
+     "years": 4
+    },
+    {
+     "spare": "田豊",
+     "years": 4
+    }
+   ]
+  },
+  {
+   "id": "gd_xuyou",
+   "event": "guandu",
+   "order": 1,
+   "why": "主人公が許攸の寝返りを止めた",
+   "when": {
+    "flag": "h_gd_xuyou"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "官渡の対陣は秋を越えて続いた。[[p:袁紹]]のもとから寝返ろうとした許攸は陣中で捕らえられ、兵糧の尽きた{r_cao}は官渡の陣を焼いて許へ退いた。",
+    "do": [
+     [
+      "army",
+      "cao",
+      0.85
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      -8
+     ],
+     [
+      "add",
+      "yuanshao",
+      "prestige",
+      8
+     ]
+    ],
+    "imp": 3,
+    "at": "guandu"
+   },
+   "people": [
+    {
+     "spare": "沮授",
+     "years": 2
+    }
+   ]
+  }
+ ]
+}

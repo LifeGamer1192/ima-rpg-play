@@ -1,0 +1,781 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_tongguan",
+ "kind": "history",
+ "title": "潼関の書簡",
+ "era": "sangoku",
+ "event": "tongguan",
+ "lead": 7,
+ "before": [
+  "g1",
+  "g2",
+  "g2win",
+  "g2lose",
+  "g3",
+  "g3near",
+  "g3fled",
+  "g4",
+  "g4hold",
+  "g4hold_ng",
+  "g4split",
+  "g2cao",
+  "g2c_ok",
+  "g3cao",
+  "g3c_reveal",
+  "g3c_caught",
+  "g3c_hurt",
+  "g3c_deliver"
+ ],
+ "onFired": "late",
+ "cast": {
+  "changan": {
+   "scnPlace": "changan"
+  },
+  "hongnong": {
+   "scnPlace": "hongnong"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "liang": {
+   "scnRealm": "liang"
+  },
+  "caocao": {
+   "person": "ruler:cao"
+  },
+  "machao": {
+   "scnPerson": "馬超"
+  },
+  "hansui": {
+   "scnPerson": "韓遂"
+  },
+  "jiaxu": {
+   "scnPerson": "賈詡"
+  },
+  "xuchu": {
+   "scnPerson": "許褚"
+  },
+  "madai": {
+   "scnPerson": "馬岱"
+  }
+ },
+ "start": "g1",
+ "scenes": {
+  "g1": {
+   "at": {
+    "place": "changan",
+    "building": "inn"
+   },
+   "goal": "{changan}の{inn}で、関中の噂を聞く",
+   "speaker": "羌の馬商人",
+   "art": "inn",
+   "text": [
+    "{changan}の{inn}で、羌の馬商人が羊の脂の匂いをさせながら言った。「曹操が漢中の張魯を討つと言って、兵を関中に入れるそうだ。張魯を討つのに、なぜ関中の真ん中を通る」",
+    "「関中の軍閥はみな、次は自分の番だと思っている。涼州の{machao}と{hansui}が、十の軍を合わせて潼関に陣を敷いた。馬超の父の馬騰は鄴で曹操に囚われているというのにな」"
+   ],
+   "choices": [
+    {
+     "label": "{machao}の陣に加わる",
+     "effects": [
+      {
+       "note": "関中の軍閥が曹操に背いた。馬超の陣に加わることにした。"
+      }
+     ],
+     "next": "g2"
+    },
+    {
+     "label": "曹操の軍に加わる",
+     "effects": [
+      {
+       "note": "関中の軍閥が曹操に背いた。曹操の軍に加わることにした。"
+      }
+     ],
+     "next": "g2cao"
+    }
+   ]
+  },
+  "g2": {
+   "at": {
+    "place": "hongnong",
+    "building": "barracks"
+   },
+   "goal": "{hongnong}の西、潼関の西軍の{barracks}に入る",
+   "speaker": "machao",
+   "art": "camp",
+   "text": [
+    "潼関の西の野には、羌や氐の騎兵が入り混じった十の軍の陣が並んでいた。中でもひときわ目立つのが、白い戦袍の若い将、{machao}である。錦馬超と呼ばれていた。",
+    "「父は鄴で人質になっている。わしが兵を挙げれば、父は殺されるだろう」{machao}は槍を地に突き立てた。「それでも挙げた。曹操に従えば、関中の者は皆、いずれ同じ目に遭う。……槍は使えるか。一手、見せてみろ」"
+   ],
+   "choices": [
+    {
+     "label": "{machao}と槍を合わせる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "g2win",
+      "lose": "g2lose"
+     }
+    },
+    {
+     "label": "陣を見回る",
+     "next": "g3"
+    }
+   ]
+  },
+  "g2win": {
+   "speaker": "machao",
+   "text": [
+    "{player}の槍が、{machao}の戦袍の袖を裂いた。若い将は袖を見て笑った。「涼州でも、わしの袖に届く者は少ない。わしのそばにいろ」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "liang",
+     "n": 5
+    }
+   ],
+   "next": "g3"
+  },
+  "g2lose": {
+   "speaker": "machao",
+   "text": [
+    "三合で槍を弾き飛ばされた。{machao}は手を差し伸べた。「悪くない。曹操の兵なら、十人は倒せる」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "g3"
+  },
+  "g3": {
+   "speaker": "madai",
+   "art": "war",
+   "text": [
+    "夏の終わり、曹操の軍が渭水を北へ渡りはじめた。{machao}は騎兵を率いて渡し場に襲いかかった。曹操は川岸の床几に座ったまま動かず、矢が雨のように降る中を、虎のような大男が鞍で主を覆って舟へ運んだ。{xuchu}である。",
+    "{madai}が叫んだ。「あの舟だ。舟に曹操がいる」"
+   ],
+   "choices": [
+    {
+     "label": "渡しの舟へ斬り込む",
+     "fight": {
+      "foes": "person",
+      "who": "xuchu",
+      "n": 2,
+      "level": 0,
+      "confirm": "{xuchu}は虎痴と呼ばれる怪力の将だ。斬り込むか。",
+      "cancel": "g4",
+      "free": true,
+      "fled": "g3fled",
+      "win": "g3near",
+      "lose": "g3fled"
+     }
+    },
+    {
+     "label": "岸から舟を射る",
+     "next": "g4"
+    }
+   ]
+  },
+  "g3near": {
+   "text": [
+    "{xuchu}の護衛を斬り払い、舟べりに手をかけた。だが大男は片手で鞍を掲げて矢を防ぎ、片手で櫂を漕いで、舟を対岸へ押しやった。舟の中で、髭の短い男がこちらを見て笑っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "liang",
+     "n": 5
+    },
+    {
+     "rep": "cao",
+     "n": -5
+    }
+   ],
+   "next": "g4"
+  },
+  "g3fled": {
+   "text": [
+    "{xuchu}の腕の一振りで、{player}は川の中へ叩き落とされた。泥水を飲みながら岸へ這い上がったとき、舟はもう対岸に着いていた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "g4"
+  },
+  "g4": {
+   "at": {
+    "place": "changan",
+    "building": "barracks"
+   },
+   "goal": "{changan}の{barracks}で、{hansui}の陣を訪ねる",
+   "speaker": "hansui",
+   "art": "court",
+   "text": [
+    "和議の話が持ち上がった。{hansui}は曹操と馬を並べて、昔話をしたという。若いころ、洛陽で共に酒を飲んだ仲だった。戦の話は一言も出なかった。",
+    "その翌日、曹操から{hansui}に書簡が届いた。ところどころ墨で塗り消してある。{machao}が陣に乗り込んできて、書簡をつかんだ。「なぜ消した。わしに見られて困ることが書いてあったのか」{hansui}は青ざめた。「届いたときから、こうだったのだ」"
+   ],
+   "choices": [
+    {
+     "label": "「塗り消した書簡を送ること自体が、曹操の離間の計です」と{machao}に説く",
+     "turn": true,
+     "guide": "二人の仲を保つ。若い将は疑い深い",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "g4hold",
+      "lose": "g4hold_ng"
+     }
+    },
+    {
+     "label": "{hansui}に、{machao}から身を守るよう囁く",
+     "next": "g4split"
+    },
+    {
+     "label": "黙って見ている",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "g4hold": {
+   "speaker": "machao",
+   "text": [
+    "{player}は書簡を灯にかざした。「墨の下に、字はありません。初めから何も書かれていなかったのです。曹操は、将軍が疑うのを待っているだけです」",
+    "{machao}は長いあいだ書簡を見つめ、やがてそれを火に投げ入れた。「叔父上、許されよ」{hansui}は若い将の肩を抱いた。その夜、二人は同じ天幕で酒を飲んだ。"
+   ],
+   "effects": [
+    {
+     "flag": "h_tg_letter"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "liang",
+     "n": 10
+    },
+    {
+     "note": "曹操の塗り消した書簡が離間の計だと、{machao}に説いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "g4hold_ng": {
+   "speaker": "machao",
+   "text": [
+    "「お前も叔父上の味方か」{machao}は{player}を突き飛ばした。「曹操と昔話をする男を、誰が信じる」"
+   ],
+   "next": "aftergo"
+  },
+  "g4split": {
+   "speaker": "hansui",
+   "text": [
+    "{hansui}は{player}の言葉に頷き、天幕の外に兵を増やした。その兵を見て、{machao}の疑いはいっそう深まった。"
+   ],
+   "effects": [
+    {
+     "rep": "liang",
+     "n": -5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "g2cao": {
+   "at": {
+    "place": "hongnong",
+    "building": "barracks"
+   },
+   "goal": "{hongnong}の西、潼関の曹操の{barracks}に入る",
+   "speaker": "jiaxu",
+   "art": "camp",
+   "text": [
+    "潼関の東の陣で、{player}の名を帳面に書いたのは、痩せた老人だった。{jiaxu}という。かつて張繡の軍師として曹操を散々に破り、そののち降った男である。",
+    "「渭水の北は砂地で、塁が築けぬ。丞相は、夜のうちに砂を積んで水をかけよと仰せだ。この寒さなら、朝には氷の城になる」老人は細い目で{player}を見た。「手は空いているか」"
+   ],
+   "choices": [
+    {
+     "label": "砂を積んで水をかけ、氷の塁を築くのを手伝う",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "g2c_ok",
+      "lose": "g3cao"
+     }
+    },
+    {
+     "label": "陣の見張りに立つ",
+     "next": "g3cao"
+    }
+   ]
+  },
+  "g2c_ok": {
+   "text": [
+    "夜通し砂袋を運び、桶で水をかけた。夜明けには、白く凍った塁が渭水の北岸に立っていた。馬超の騎兵が来て、驚いたように馬を止めた。"
+   ],
+   "effects": [
+    {
+     "rep": "cao",
+     "n": 5
+    },
+    {
+     "money": 50
+    }
+   ],
+   "next": "g3cao"
+  },
+  "g3cao": {
+   "at": {
+    "place": "changan",
+    "building": "house"
+   },
+   "goal": "{changan}の近くの{jiaxu}の宿所へ行く",
+   "speaker": "jiaxu",
+   "art": "backroom",
+   "text": [
+    "{jiaxu}は書簡を一通、{player}に渡した。ところどころ墨で塗り消してある。「これを{hansui}の陣に届けてくれ。和議の礼状だ」",
+    "「何が書いてあったのか、と聞かれたら、知らぬと答えよ。本当に知らぬのだからな」老人は薄く笑った。「何も書かれておらぬ書簡ほど、人を疑わせるものはない」"
+   ],
+   "choices": [
+    {
+     "label": "書簡を届ける",
+     "next": "g3c_deliver"
+    },
+    {
+     "label": "書簡を届けず、西の陣へ走って{machao}に曹操の計を明かす",
+     "turn": true,
+     "guide": "離間の計を西の陣に明かす。曹操の陣には戻れなくなる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "g3c_reveal",
+      "lose": "g3c_caught"
+     }
+    }
+   ]
+  },
+  "g3c_deliver": {
+   "text": [
+    "{hansui}の陣の門番に書簡を渡した。その日の夕方、{machao}が{hansui}の陣に乗り込んでいくのが見えた。{player}は黙って曹操の陣へ戻った。"
+   ],
+   "effects": [
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "money": 100
+    },
+    {
+     "flag": "h_tg_carried"
+    }
+   ],
+   "next": "aftercao"
+  },
+  "g3c_reveal": {
+   "speaker": "machao",
+   "text": [
+    "夜陰に紛れて西の陣にたどり着き、{machao}の前で書簡を広げた。「曹操の軍師が、何も書かずに墨で消した書簡です。これを韓遂殿に送り、将軍に疑わせるつもりだった」",
+    "{machao}は書簡を握りつぶし、{hansui}の天幕へ走った。二人の大将が並んで{player}を迎えた。「曹操の陣から来た男に救われるとはな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_tg_letter"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "liang",
+     "n": 15
+    },
+    {
+     "rep": "cao",
+     "n": -15
+    },
+    {
+     "note": "{jiaxu}の離間の計を、{machao}に明かした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "g3c_caught": {
+   "speaker": "jiaxu",
+   "text": [
+    "陣の柵を越えたところで、{jiaxu}の手の者に囲まれた。「老人を甘く見たな」"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "aftergo",
+      "lose": "g3c_hurt"
+     }
+    }
+   ]
+  },
+  "g3c_hurt": {
+   "text": [
+    "棒で打ち据えられ、陣の隅に転がされた。書簡は、別の使いが{hansui}の陣に届けた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "rep": "cao",
+     "n": -10
+    }
+   ],
+   "next": "aftercao"
+  },
+  "aftergo": {
+   "at": {
+    "place": "changan"
+   },
+   "goal": "{changan}で、潼関の成り行きを見届ける",
+   "wait": {
+    "settled": "tongguan"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "tg_letter"
+     },
+     "next": "hold"
+    },
+    {
+     "if": {
+      "branch": "tg_late"
+     },
+     "next": "late_war"
+    },
+    {
+     "next": "rec"
+    }
+   ]
+  },
+  "rec": {
+   "speaker": "machao",
+   "art": "war",
+   "text": [
+    "疑いは、軍を内から腐らせた。{machao}と{hansui}は互いの兵を信じず、曹操が軽騎兵を放って挟み撃ちにすると、十の軍はばらばらに崩れた。",
+    "{machao}は西の涼州へ逃れた。鄴にいた父の馬騰と一族は、まもなく斬られたという。若い将は、白い戦袍を黒く染め替えた。"
+   ],
+   "choices": [
+    {
+     "label": "{machao}について西へ落ちる",
+     "next": "end_west"
+    },
+    {
+     "label": "逃げ遅れた兵を連れて、山へ逃れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "end_hills",
+      "lose": "end_rout"
+     }
+    }
+   ]
+  },
+  "end_west": {
+   "speaker": "machao",
+   "text": [
+    "涼州へ落ちる道で、{machao}は一度も後ろを振り返らなかった。「いつか戻る」と言ったきりだった。{player}はその背中を、金城の手前まで見送った。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "liang",
+     "n": 10
+    },
+    {
+     "unflag": "h_tg_letter"
+    },
+    {
+     "note": "潼関の戦い。関中の軍閥は破れ、{machao}は西へ落ちた。"
+    }
+   ],
+   "end": "西へ落ちる槍"
+  },
+  "end_hills": {
+   "text": [
+    "山の間道を知る羌の兵が道を教えてくれた。{player}は三十人ほどの兵を連れて、曹操の追っ手を逃れた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "note": "潼関の戦い。崩れた西の陣から兵を連れて逃れた。"
+    }
+   ],
+   "end": "山の間道"
+  },
+  "end_rout": {
+   "text": [
+    "崩れた陣の中で、{player}も傷を負った。気がつくと渭水の葦原に倒れていた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "note": "潼関の戦いで、関中の軍閥が崩れるのを見た。"
+    }
+   ],
+   "end": "崩れた十の軍"
+  },
+  "hold": {
+   "speaker": "hansui",
+   "art": "war",
+   "text": [
+    "{machao}と{hansui}は、最後まで互いの背を預け合った。曹操は潼関を抜き、{changan}までは取ったが、西の涼州の騎兵を崩すことはできなかった。安定と北地は、なお西の軍閥の手に残った。",
+    "{hansui}は{player}に杯を差し出した。「書簡一枚で、関中が割れるところだった。墨で消した字より、消した者の心を読むことだな」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "money": 100
+    },
+    {
+     "rep": "liang",
+     "n": 10
+    },
+    {
+     "unflag": "h_tg_letter"
+    },
+    {
+     "note": "潼関の戦い。{machao}と{hansui}は割れず、関中の西を保った。"
+    }
+   ],
+   "end": "割れなかった盟"
+  },
+  "late_war": {
+   "speaker": "madai",
+   "art": "war",
+   "text": [
+    "赤壁の大敗の傷が癒えず、曹操の西征は一年遅れた。だが、遅れてやってきた曹操の軍は、やはり書簡一枚で{machao}と{hansui}の仲を裂き、関中の軍閥を破った。",
+    "{madai}は言った。「一年あった。一年あって、わしらは何も固められなかった」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_tg_letter"
+    },
+    {
+     "note": "潼関の戦いは一年遅れて起き、関中の軍閥は破れた。"
+    }
+   ],
+   "end": "遅れてきた丞相"
+  },
+  "aftercao": {
+   "at": {
+    "place": "hongnong",
+    "building": "barracks"
+   },
+   "goal": "{hongnong}の曹操の陣で、成り行きを見届ける",
+   "wait": {
+    "settled": "tongguan"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "tg_letter"
+     },
+     "next": "cao_hold"
+    },
+    {
+     "next": "cao_rec"
+    }
+   ]
+  },
+  "cao_rec": {
+   "speaker": "caocao",
+   "art": "war",
+   "text": [
+    "{machao}と{hansui}は、互いの兵を疑ったまま戦った。曹操が軽騎兵で挟み撃ちにすると、十の軍は崩れた。{jiaxu}は戦のあいだ、一度も陣の外に出なかった。",
+    "{caocao}は諸将に言った。「賊が潼関に集まったとき、わしは喜んだ。ばらばらの十の賊を一つずつ討てば一年かかる。一つにまとまってくれれば、一度で済む」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "money": 120
+    },
+    {
+     "rep": "cao",
+     "n": 8
+    },
+    {
+     "unflag": "h_tg_carried"
+    },
+    {
+     "note": "潼関の戦い。曹操の陣で、関中の軍閥が崩れるのを見た。"
+    }
+   ],
+   "end": "墨で消した書簡"
+  },
+  "cao_hold": {
+   "speaker": "jiaxu",
+   "text": [
+    "書簡の計は、なぜか効かなかった。{machao}と{hansui}は割れず、曹操は{changan}を取っただけで兵を返した。{jiaxu}は首をかしげた。「誰かが、墨の下を読んだな」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_tg_carried"
+    },
+    {
+     "note": "潼関の戦い。離間の計は効かず、関中の軍閥は割れなかった。"
+    }
+   ],
+   "end": "読まれた墨"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "tg_letter"
+     },
+     "next": "late_hold"
+    },
+    {
+     "if": {
+      "branch": "tg_late"
+     },
+     "next": "late_delay"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_hold": {
+   "text": [
+    "旅の途中で噂を聞いた。潼関で曹操は関中の軍閥を割ろうとしたが、馬超と韓遂は割れず、曹操は長安を取っただけで兵を返したという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_tg_letter"
+    },
+    {
+     "unflag": "h_tg_carried"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_delay": {
+   "text": [
+    "旅の途中で噂を聞いた。赤壁で大敗した曹操は、関中へ兵を出す余力がなく、西征を一年先に延ばしたという。潼関に集まった関中の軍閥は、拍子抜けしたように睨み合いを続けている。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_tg_letter"
+    },
+    {
+     "unflag": "h_tg_carried"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。潼関で、曹操が墨で消した書簡一枚で馬超と韓遂を仲違いさせ、関中の軍閥を破ったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_tg_carried"
+    },
+    {
+     "note": "潼関の戦いの噂を聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "tg_letter",
+   "event": "tongguan",
+   "order": 2,
+   "why": "主人公が書簡は離間の計だと馬超に説いた",
+   "when": {
+    "flag": "h_tg_letter"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "潼関の戦い。{r_cao}は[[p:賈詡]]の計で[[p:馬超]]と[[p:韓遂]]を仲違いさせようとしたが、その企みは見破られ、二人は割れなかった。曹操は長安を取ったものの、西の軍閥を崩せずに兵を返した。",
+    "do": [
+     [
+      "cede",
+      "han",
+      "cao",
+      [
+       "changan",
+       "hongnong",
+       "hedong"
+      ]
+     ],
+     [
+      "army",
+      "cao",
+      0.85
+     ],
+     [
+      "army",
+      "liang",
+      0.85
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      -5
+     ],
+     [
+      "add",
+      "liang",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 3,
+    "at": "changan"
+   }
+  },
+  {
+   "id": "tg_late",
+   "event": "tongguan",
+   "order": 1,
+   "why": "赤壁で曹操の大軍が潰えていた",
+   "when": {
+    "taken": [
+     "chibi_rout"
+    ]
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "赤壁の大敗の傷が癒えず、{r_cao}の関中への西征は一年遅れた。"
+  }
+ ]
+}

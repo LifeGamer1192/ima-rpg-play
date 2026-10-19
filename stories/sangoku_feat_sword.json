@@ -1,0 +1,154 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_feat_sword",
+ "kind": "feat",
+ "feat": "sword",
+ "title": "天下第一の武",
+ "era": "sangoku",
+ "trigger": {
+  "skill": {
+   "blade": 80
+  },
+  "fame": 100,
+  "notFeat": "sword"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "far": {
+   "place": "near:here"
+  },
+  "herald": {
+   "npc": "白髪の遊侠",
+   "sex": "m"
+  },
+  "first": {
+   "npc": "一の弟子",
+   "sex": "m"
+  },
+  "second": {
+   "npc": "二の弟子",
+   "sex": "f"
+  },
+  "master": {
+   "npc": "山の隠者",
+   "sex": "m"
+  }
+ },
+ "start": "w1",
+ "scenes": {
+  "w1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で、白髪の遊侠に会う",
+   "speaker": "herald",
+   "art": "inn",
+   "text": [
+    "{herald}は杯を置いた。「{far}の山に、生涯一度も負けたことのない武人がおる。挑む者は、まず二人の弟子を越えねばならぬ」",
+    "「この四十年、庵に辿り着いた者はいない。そなたの腕なら、あるいは」"
+   ],
+   "choices": [
+    {
+     "label": "{far}へ向かう",
+     "next": "w2"
+    }
+   ]
+  },
+  "w2": {
+   "at": {
+    "place": "far",
+    "building": "shrine"
+   },
+   "goal": "{far}の山の{shrine}で、一の弟子と立ち合う",
+   "speaker": "first",
+   "art": "duel",
+   "text": [
+    "山の{shrine}の前で、{first}が戟を手に待っていた。「師に会いたくば、我を越えよ」"
+   ],
+   "choices": [
+    {
+     "label": "立ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 74,
+      "win": "w3",
+      "lose": "wfail"
+     }
+    }
+   ]
+  },
+  "w3": {
+   "speaker": "second",
+   "art": "duel",
+   "text": [
+    "石段を登りきると、{second}が双剣を構えた。「一の弟子を越えた者は十年ぶり。だが、ここで終わりよ」"
+   ],
+   "choices": [
+    {
+     "label": "立ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 80,
+      "win": "w4",
+      "lose": "wfail"
+     }
+    }
+   ]
+  },
+  "w4": {
+   "speaker": "master",
+   "art": "duel",
+   "text": [
+    "山頂の庵の前に、痩せた老人が立っていた。手にしているのは、ただの竹の杖だ。「来たか。さあ、そなたの武を見せてくれ」その立ち姿に、一分の隙もない。"
+   ],
+   "choices": [
+    {
+     "label": "全霊をもって打ちかかる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 90,
+      "win": "wwin",
+      "lose": "wfail"
+     }
+    }
+   ]
+  },
+  "wwin": {
+   "speaker": "master",
+   "art": "duel",
+   "text": [
+    "杖が割れ、{master}は静かに目を閉じた。「……見事。わしが四十年待っていたのは、この一撃よ」",
+    "老人は庵に戻り、一巻の書を持ってきた。「もう、わしには要らぬ。天下第一の武は、そなただ」"
+   ],
+   "effects": [
+    {
+     "fame": 30
+    },
+    {
+     "feat": "sword"
+    }
+   ],
+   "end": "天下第一"
+  },
+  "wfail": {
+   "speaker": "master",
+   "art": "duel",
+   "text": [
+    "膝をついた{player}に、声が降ってきた。「まだ若い武だ。山を下りて、もう一度鍛えてこい」……ひと月ほどして、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    }
+   ],
+   "end": "頂いまだ遠し"
+  }
+ }
+}

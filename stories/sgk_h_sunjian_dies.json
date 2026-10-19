@@ -1,0 +1,887 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_sunjian_dies",
+ "kind": "history",
+ "title": "峴山の矢",
+ "era": "sangoku",
+ "event": "sunjian_dies",
+ "lead": 4,
+ "before": [
+  "s1",
+  "s2",
+  "s2caught",
+  "s2hurt",
+  "s2scout",
+  "s3",
+  "s3envoy",
+  "s3wait",
+  "s4",
+  "s4heed",
+  "s4scoff",
+  "s4peace"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "xiangyang"
+  },
+  "camp": {
+   "scnPlace": "xinye"
+  },
+  "wu": {
+   "scnRealm": "wu"
+  },
+  "jing": {
+   "scnRealm": "liubiao"
+  },
+  "sunjian": {
+   "person": "ruler:wu"
+  },
+  "liubiao": {
+   "person": "ruler:liubiao"
+  },
+  "huanggai": {
+   "scnPerson": "黄蓋"
+  },
+  "chengpu": {
+   "scnPerson": "程普"
+  },
+  "kuai": {
+   "scnPerson": "蒯良"
+  },
+  "huangzu": {
+   "scnPerson": "黄祖"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}で、漢水の船頭の話を聞く",
+   "speaker": "漢水の船頭",
+   "art": "inn",
+   "text": [
+    "{city}の{inn}は、北から逃げてきた者でごった返していた。卓の向かいで、漢水の船頭が濁り酒をすすりながら声を落とした。",
+    "「江東の虎が来たんだよ。{sunjian}さまさ。袁術の言いつけで荊州を獲りに来て、樊城と鄧のあいだで{huangzu}の軍を蹴散らした。いまは漢水を渡って、この城をぐるりと囲んでいる」",
+    "「{liubiao}さまは学者の殿様だ。城に籠もって、書を読みながら策を練っておいでだとか。北の{camp}には孫の陣が張られて、腕の立つ者なら誰でも雇うと触れが出てる。城の州府でも、弓の引ける者を探してるそうだがね」"
+   ],
+   "choices": [
+    {
+     "label": "北の{camp}へ行き、孫堅の陣に加わる",
+     "effects": [
+      {
+       "note": "{sunjian}が{city}を囲んでいる。{camp}の陣に加わることにした。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "{city}の城に残り、劉表の州府に雇われる",
+     "effects": [
+      {
+       "note": "{sunjian}が{city}を囲んでいる。城の{liubiao}に雇われることにした。"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の{barracks}で、孫堅の陣に加わる",
+   "speaker": "huanggai",
+   "art": "camp",
+   "text": [
+    "{camp}の陣は、江南の訛りで溢れていた。{player}の名を帳面に書いたのは、鉄の鞭を腰に差した古参の将、{huanggai}だった。",
+    "「殿は強い。強すぎて、いつも先頭を駆けなさる。{huangzu}が城を抜けて峴山に逃げ込んだと聞けば、きっとまた独りで追われるだろう」{huanggai}は苦い顔をした。「斥候が足りぬ。峴山の様子を見てきてくれる者はおらぬか」"
+   ],
+   "choices": [
+    {
+     "label": "斥候に出て、峴山の竹林を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "s2scout",
+      "lose": "s2caught"
+     }
+    },
+    {
+     "label": "陣で槍を振るい、出陣を待つ",
+     "next": "s4"
+    }
+   ]
+  },
+  "s2caught": {
+   "text": [
+    "竹林の小道で、荊州の兵に出くわした。向こうも驚いたようだったが、すぐに刀を抜いた。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2scout",
+      "lose": "s2hurt"
+     }
+    }
+   ]
+  },
+  "s2hurt": {
+   "text": [
+    "腕を斬られ、竹林を転がるように逃げ帰った。峴山の奥に何がいたのかは、確かめられなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s4"
+  },
+  "s2scout": {
+   "text": [
+    "峴山の中腹、竹が密に生えた谷あいに、弓を抱えた兵が幾十も伏せていた。地面には矢が束ねて並べてある。道は一本きりで、騎馬が駆け込めば逃げ場はない。",
+    "{player}は息を殺して谷を離れた。あれは逃げる兵の隠れ場所ではない。追ってくる者を待つ罠だ。"
+   ],
+   "effects": [
+    {
+     "flag": "h_sj_scout"
+    },
+    {
+     "note": "峴山の竹林に、荊州の弓兵が伏せているのを見た。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の{palace}で、劉表の謀臣に会う",
+   "speaker": "kuai",
+   "art": "court",
+   "text": [
+    "{palace}の奥で、{liubiao}の謀臣{kuai}が地図を広げていた。痩せた、目の鋭い男である。",
+    "「孫堅は勇ましいが、軽い。{huangzu}に夜のうちに城を抜けさせ、峴山へ逃げ込ませる。孫堅は必ず自ら追ってくる。竹林に弓兵を伏せておけば、虎も一本の矢で倒れよう」",
+    "{kuai}は{player}を見た。「弓を引けるなら、伏兵に加わってもらう。……それとも、別の役が望みか。殿は、できれば血を流さずに済ませたいとも仰せだ」"
+   ],
+   "choices": [
+    {
+     "label": "峴山の伏兵に加わる",
+     "effects": [
+      {
+       "flag": "h_sj_jing"
+      },
+      {
+       "rep": "jing",
+       "n": 5
+      }
+     ],
+     "next": "s3wait"
+    },
+    {
+     "label": "「和議の使いを務めましょう」と申し出る",
+     "next": "s3envoy"
+    },
+    {
+     "label": "策を聞き届けたうえで、夜のうちに城を抜けて孫堅の陣へ走る",
+     "effects": [
+      {
+       "flag": "h_sj_scout"
+      },
+      {
+       "note": "{kuai}の策を聞いた。峴山に弓兵が伏せられる。"
+      }
+     ],
+     "next": "s4"
+    }
+   ]
+  },
+  "s3envoy": {
+   "speaker": "liubiao",
+   "art": "court",
+   "text": [
+    "{liubiao}は白い髭をしごきながら、一通の書を{player}に渡した。「孫文台は袁術の駒にすぎぬ。荊州の米を分けてやるから、兵を返して長沙を守れと伝えてくれ。わしは戦が嫌いだ」",
+    "書には、漢水の渡しまで孫軍を送る約束と、兵糧三万石の目録が添えられていた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_sj_letter"
+    },
+    {
+     "note": "{liubiao}から、{sunjian}への和議の書を預かった。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3wait": {
+   "speaker": "huangzu",
+   "art": "camp",
+   "text": [
+    "夜、城の小門がそっと開き、{huangzu}が数百の兵とともに抜け出した。{player}は弓を背負ってその列に紛れ、峴山の竹林へ入った。",
+    "「ここで待つ」{huangzu}は笑いもせずに言った。「虎が来たら、虎の目を狙え」"
+   ],
+   "next": "aftergo"
+  },
+  "s4": {
+   "at": {
+    "place": "camp",
+    "building": "palace"
+   },
+   "goal": "{camp}の本陣で、{sunjian}に目通りする",
+   "speaker": "sunjian",
+   "art": "court",
+   "text": [
+    "本陣の幕舎で、{sunjian}は兜も着けずに酒を飲んでいた。四十に届かぬ、日に焼けた精悍な男である。洛陽の焼け跡に一番乗りした話を、もう幾度も繰り返しているらしかった。",
+    "「荊州など、ひと月で獲ってみせる。{huangzu}は逃げ足だけは速いがな」{sunjian}は豪快に笑った。「明日も奴が出てきたら、わしが自ら首を取ってやる」"
+   ],
+   "choices": [
+    {
+     "label": "峴山の伏兵のことを告げ、弓兵を連れずに追わぬよう諫める",
+     "turn": true,
+     "guide": "主君の武勇を止める。退けられれば臆病者と笑われる",
+     "if": {
+      "flag": "h_sj_scout"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s4heed",
+      "lose": "s4scoff"
+     }
+    },
+    {
+     "label": "劉表の和議の書を差し出し、兵を返すよう説く",
+     "turn": true,
+     "guide": "和を説く。敵の使いと見られれば斬られかねない",
+     "if": {
+      "flag": "h_sj_letter"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s4peace",
+      "lose": "s4scoff"
+     }
+    },
+    {
+     "label": "明日の先駆けを願い出る",
+     "effects": [
+      {
+       "rep": "wu",
+       "n": 3
+      }
+     ],
+     "next": "aftergo"
+    },
+    {
+     "label": "黙って頭を下げ、幕舎を辞する",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s4heed": {
+   "speaker": "sunjian",
+   "text": [
+    "{sunjian}は盃を置き、しばらく{player}の顔を見ていた。「竹林に弓か。蒯良あたりの考えそうなことだ」",
+    "「よかろう。追うときは{huanggai}の弓兵を先に入れる。竹林ごと焼いてもよい」虎は牙を剥くように笑った。「伏兵というものは、見つかれば袋の鼠よ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sj_heed"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "wu",
+     "n": 5
+    },
+    {
+     "note": "{sunjian}に峴山の伏兵を告げ、弓兵を先に入れることになった。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4peace": {
+   "speaker": "sunjian",
+   "text": [
+    "{sunjian}は書を読み、眉をひそめた。「袁術のために荊州を獲っても、袁術がわしに何をくれる。洛陽でも兵糧を止められた」",
+    "長い沈黙のあと、{sunjian}は書を{chengpu}に渡した。「三万石か。長沙の兵を食わせるには足りる。……{liubiao}め、学者のくせに人の腹の内をよく読む」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sj_peace"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "jing",
+     "n": 10
+    },
+    {
+     "rep": "wu",
+     "n": 3
+    },
+    {
+     "note": "{sunjian}に{liubiao}の和議を説いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4scoff": {
+   "speaker": "sunjian",
+   "text": [
+    "「虎が藪の鼠を恐れて何とする」{sunjian}は笑い飛ばし、{player}を幕舎から追い出させた。外で待っていた{huanggai}が、黙って首を振った。"
+   ],
+   "effects": [
+    {
+     "rep": "wu",
+     "n": -3
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の郊外、峴山で事の成り行きを見届ける",
+   "wait": {
+    "settled": "sunjian_dies"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "sj_peace"
+     },
+     "next": "peace"
+    },
+    {
+     "if": {
+      "branch": "sj_heed"
+     },
+     "next": "heed"
+    },
+    {
+     "if": {
+      "flag": "h_sj_jing"
+     },
+     "next": "ambush"
+    },
+    {
+     "next": "fall"
+    }
+   ]
+  },
+  "peace": {
+   "speaker": "chengpu",
+   "art": "road",
+   "text": [
+    "孫軍は囲みを解き、漢水を南へ渡っていった。荊州の兵糧を積んだ船が、その後をついていく。{city}の城壁の上では、兵たちが信じられないという顔で見送っていた。",
+    "{chengpu}が馬上から{player}に声をかけた。「殿は長沙へ帰られる。袁術はさぞ怒るだろうが、怒らせておけばよい。……峴山の竹林は、誰も通らずに済んだな」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "jing",
+     "n": 10
+    },
+    {
+     "money": 120
+    },
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    },
+    {
+     "note": "{sunjian}は{liubiao}と和を結び、兵を返した。"
+    }
+   ],
+   "end": "漢水を渡る船"
+  },
+  "heed": {
+   "speaker": "huanggai",
+   "art": "war",
+   "text": [
+    "{huangzu}が峴山へ逃げ込むと、{sunjian}は馬を止め、{huanggai}の弓兵を先に竹林へ入れた。伏せていた荊州の兵は、逆に背中から矢を浴びて崩れた。{huangzu}は竹藪の中で縄を打たれた。",
+    "{sunjian}は肩に流れ矢を受けたが、笑って抜き捨てた。「虎の目を狙うなら、もっと近くで射ることだ」{huanggai}は{player}の肩を叩いた。「殿の命を拾ったのは、おぬしの目だ」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "wu",
+     "n": 15
+    },
+    {
+     "rep": "jing",
+     "n": -10
+    },
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    },
+    {
+     "note": "峴山の伏兵は見破られ、{huangzu}は捕らえられた。"
+    }
+   ],
+   "end": "竹林の伏兵"
+  },
+  "ambush": {
+   "speaker": "huangzu",
+   "art": "war",
+   "text": [
+    "夕暮れ、蹄の音が竹林に響いた。供も連れずに駆けてくる騎馬が一騎。赤い頭巾。江東の虎だった。",
+    "「放て」{huangzu}の声と同時に、竹のあいだから矢が雨のように降った。{player}も弓を引き絞っていた。"
+   ],
+   "choices": [
+    {
+     "label": "狙いを定めて矢を放つ",
+     "check": {
+      "skill": "bow",
+      "dc": 30,
+      "win": "end_shot",
+      "lose": "end_miss"
+     }
+    },
+    {
+     "label": "弓を下ろす",
+     "next": "end_lowered"
+    }
+   ]
+  },
+  "fall": {
+   "speaker": "huanggai",
+   "art": "war",
+   "text": [
+    "{huangzu}が峴山へ逃げ込んだと聞くや、{sunjian}は供も待たずに馬を駆った。竹林の中で弓弦の鳴る音が重なり、それきり虎の咆哮は聞こえなくなった。",
+    "陣に戻ってきたのは主のいない馬だけだった。{huanggai}が{player}の腕をつかんだ。「殿の亡骸が、竹林に置き去りだ。荊州の兵が首を取りに来る前に、取り返さねばならん」"
+   ],
+   "choices": [
+    {
+     "label": "{huanggai}と共に竹林へ斬り込み、亡骸を取り返す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_body",
+      "lose": "end_scatter"
+     }
+    },
+    {
+     "label": "城へ行き、捕虜と亡骸を取り替える談判をする",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_trade",
+      "lose": "end_scatter"
+     }
+    },
+    {
+     "label": "何も言わずに陣を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_shot": {
+   "text": [
+    "誰の矢が当たったのかは分からない。ただ、赤い頭巾の騎馬は竹のあいだに崩れ落ち、二度と起き上がらなかった。",
+    "{huangzu}は{player}に銀を一枚渡した。「誰の矢でもよい。荊州が救われたのだ」城に戻ると、{liubiao}は虎の死を聞いて、なぜか長いこと黙っていたという。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "jing",
+     "n": 10
+    },
+    {
+     "rep": "wu",
+     "n": -20
+    },
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    },
+    {
+     "note": "峴山の伏兵に加わり、{sunjian}を射た。"
+    }
+   ],
+   "end": "虎を射た矢"
+  },
+  "end_miss": {
+   "text": [
+    "{player}の矢は竹に当たって折れた。だがほかの矢は外れなかった。虎は竹林に倒れた。{player}は弦を外し、黙って城へ戻った。"
+   ],
+   "effects": [
+    {
+     "money": 60
+    },
+    {
+     "rep": "jing",
+     "n": 5
+    },
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    },
+    {
+     "note": "峴山の伏兵に加わった。{sunjian}は竹林で討たれた。"
+    }
+   ],
+   "end": "折れた矢"
+  },
+  "end_lowered": {
+   "text": [
+    "{player}は弦から指を離さなかった。降りしきる矢の中で、虎は竹林に倒れた。誰も{player}が矢を放たなかったことに気づかなかった。気づいていたのは、{player}だけだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    },
+    {
+     "note": "峴山の伏兵の中で、弓を下ろした。{sunjian}は竹林で討たれた。"
+    }
+   ],
+   "end": "放たれなかった矢"
+  },
+  "end_body": {
+   "speaker": "huanggai",
+   "text": [
+    "竹林の奥で、荊州の兵三人を斬り伏せ、主の亡骸を担いで戻った。{huanggai}は泣かなかった。ただ、陣の者すべてに白い布を巻かせた。",
+    "「若殿はまだ十七だ」{huanggai}は言った。「だが、あの方は父上よりも強くなる。わしにはわかる」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "wu",
+     "n": 15
+    },
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    },
+    {
+     "note": "{sunjian}が峴山で討たれた。その亡骸を取り返した。"
+    }
+   ],
+   "end": "虎の亡骸"
+  },
+  "end_trade": {
+   "text": [
+    "{city}の州府で、{player}は捕らえていた荊州の将と、{sunjian}の亡骸とを取り替える話をまとめた。{liubiao}は意外にもあっさりと頷いた。「死者を辱めるのは、学問をした者のすることではない」",
+    "棺は漢水を下り、江東へ帰っていった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "wu",
+     "n": 10
+    },
+    {
+     "rep": "jing",
+     "n": 5
+    },
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    },
+    {
+     "note": "{sunjian}が峴山で討たれた。亡骸を江東へ返す談判をまとめた。"
+    }
+   ],
+   "end": "漢水を下る棺"
+  },
+  "end_scatter": {
+   "text": [
+    "竹林の中で{player}も矢を受けた。主を失った孫軍は、その夜のうちに散り散りに南へ退いていった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    },
+    {
+     "note": "{sunjian}が峴山で討たれ、孫軍は退いた。"
+    }
+   ],
+   "end": "散りゆく虎の兵"
+  },
+  "end_left": {
+   "text": [
+    "{player}は陣を背にした。江東の虎は、三十七で竹林に倒れた。誰もが、虎の子らのことはまだ知らなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    },
+    {
+     "note": "{sunjian}が峴山で討たれるのを見届けた。"
+    }
+   ],
+   "end": "虎の死を見送る"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "sj_peace"
+     },
+     "next": "late_peace"
+    },
+    {
+     "if": {
+      "branch": "sj_heed"
+     },
+     "next": "late_heed"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_peace": {
+   "text": [
+    "旅の途中で噂を聞いた。{sunjian}が{liubiao}と和を結び、荊州の兵糧を土産に長沙へ兵を返したという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_heed": {
+   "text": [
+    "旅の途中で噂を聞いた。{sunjian}が峴山の伏兵を見破り、{huangzu}を生け捕りにしたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。{city}を囲んでいた{sunjian}が、峴山で伏兵の矢に倒れたという。",
+    "「江東の虎も、竹藪の矢には勝てなんだか」と、宿の主はつぶやいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sj_scout"
+    },
+    {
+     "unflag": "h_sj_heed"
+    },
+    {
+     "unflag": "h_sj_letter"
+    },
+    {
+     "unflag": "h_sj_peace"
+    },
+    {
+     "unflag": "h_sj_jing"
+    },
+    {
+     "note": "{sunjian}が峴山で討たれたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "sj_peace",
+   "event": "sunjian_dies",
+   "order": 2,
+   "why": "主人公が劉表の和議を孫堅に届けた",
+   "when": {
+    "flag": "h_sj_peace"
+   },
+   "then": "cancel",
+   "note": "[[p:孫堅]]は[[p:劉表]]の和議を容れ、荊州の兵糧を受け取って襄陽の囲みを解き、長沙へ兵を返した。"
+  },
+  {
+   "id": "sj_heed",
+   "event": "sunjian_dies",
+   "order": 1,
+   "why": "主人公が峴山の伏兵を孫堅に告げた",
+   "when": {
+    "flag": "h_sj_heed"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:孫堅]]は[[p:劉表]]を攻めて襄陽を囲んだ。峴山の竹林の伏兵は前もって見破られ、逆に囲まれて崩れ、黄祖は生け捕りにされた。",
+    "do": [
+     [
+      "add",
+      "liubiao",
+      "prestige",
+      -10
+     ],
+     [
+      "add",
+      "wu",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 2,
+    "at": "xiangyang"
+   }
+  }
+ ]
+}

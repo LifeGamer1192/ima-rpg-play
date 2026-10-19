@@ -1,0 +1,701 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_h_wuzhang",
+ "kind": "history",
+ "title": "五丈原の秋風",
+ "era": "sangoku",
+ "event": "wuzhang",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2med",
+  "s2talk",
+  "s3",
+  "s3cure",
+  "s3cure_ng",
+  "s4",
+  "s4lure",
+  "s4lure_ng",
+  "s4spy",
+  "s4caught",
+  "s4beaten",
+  "s5"
+ ],
+ "onFired": "late",
+ "cast": {
+  "camp": {
+   "scnPlace": "wuzhang"
+  },
+  "rear": {
+   "scnPlace": "changan"
+  },
+  "shu": {
+   "scnRealm": "shu"
+  },
+  "cao": {
+   "scnRealm": "cao"
+  },
+  "liang": {
+   "scnPerson": "諸葛亮"
+  },
+  "simayi": {
+   "scnPerson": "司馬懿"
+  },
+  "jiangwei": {
+   "scnPerson": "姜維"
+  },
+  "xinpi": {
+   "scnPerson": "辛毗"
+  },
+  "soldier": {
+   "npc": "屯田の蜀兵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "camp",
+    "building": "inn"
+   },
+   "goal": "{camp}の{inn}で、蜀の兵の話を聞く",
+   "speaker": "soldier",
+   "art": "inn",
+   "text": [
+    "渭水の南、五丈原。台地の上に蜀の陣が広がり、その下の畑では、蜀の兵が土地の百姓に混じって麦を植えていた。長く居座るつもりなのだ。",
+    "{inn}で鍬を置いた{soldier}が、土の付いた手で杯を取った。「丞相{liang}様は、二十杖以上の罰は自ら目を通される。夜もろくに眠らず、飯は日に数合だ。魏の{simayi}が使者に丞相の暮らしぶりを尋ねて、『食少なく事煩わし、それで長く持つものか』と言ったそうな」",
+    "「わしらは丞相のために麦を植えておる。だが、刈り入れまで丞相の体が持つかどうか」"
+   ],
+   "choices": [
+    {
+     "label": "蜀の陣を訪ねる",
+     "effects": [
+      {
+       "note": "五丈原で、丞相{liang}の病の噂を聞いた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の{barracks}で、{jiangwei}に会う",
+   "speaker": "jiangwei",
+   "art": "camp",
+   "text": [
+    "{jiangwei}は天水から蜀に降って六年、いまでは丞相の兵法を継ぐ者と目されている。だが、その顔は暗かった。",
+    "「丞相は咳を隠しておられる。医者を呼べと言っても、聞き入れてくださらぬ。おぬし、心得はあるか。せめて、丞相のお体がどれほど悪いのか知りたい」"
+   ],
+   "choices": [
+    {
+     "label": "丞相の幕の前で、出された薬湯の滓を調べる",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "s2med",
+      "lose": "s3"
+     }
+    },
+    {
+     "label": "{jiangwei}を励まし、丞相に休みを勧める手立てを話し合う",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2talk",
+      "lose": "s3"
+     }
+    }
+   ]
+  },
+  "s2med": {
+   "text": [
+    "薬湯の滓から、血止めの草の匂いがした。血を吐いているのだ。{player}がそう告げると、{jiangwei}は唇を噛んだ。"
+   ],
+   "effects": [
+    {
+     "flag": "h_wz_med"
+    },
+    {
+     "xp": "medicine",
+     "n": 1
+    }
+   ],
+   "next": "s3"
+  },
+  "s2talk": {
+   "speaker": "jiangwei",
+   "text": [
+    "「丞相に休めと言えるのは、帝ぐらいのものだ」{jiangwei}は苦笑した。「だが、おぬしのような外の者の言葉なら、かえって耳に入るかもしれぬ。わたしが幕へ案内しよう」"
+   ],
+   "effects": [
+    {
+     "flag": "h_wz_med"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の本営で、丞相{liang}に会う",
+   "speaker": "liang",
+   "art": "camp",
+   "text": [
+    "本営の幕の中は、竹簡の山だった。その間に、痩せた男が座っている。{liang}は筆を置き、{player}を見た。目だけが、驚くほど澄んでいた。",
+    "「{simayi}は出てこぬ。女の頭巾と衣を贈ってやったが、それでも出てこぬ」丞相は咳き込み、袖で口を覆った。「あの男は、わたしが先に倒れるのを待っている。それが分かっていても、わたしには待つ時がない」"
+   ],
+   "choices": [
+    {
+     "label": "薬と休みを説き、政務を{jiangwei}らに分けさせる",
+     "turn": true,
+     "guide": "丞相の命をのばす。北伐の行方が変わる",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "s3cure",
+      "lose": "s3cure_ng"
+     }
+    },
+    {
+     "label": "魏の陣を探りに、渭水の北へ渡る",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3cure": {
+   "speaker": "liang",
+   "text": [
+    "{player}は丞相の脈を取り、吐いた血の色を言い当て、このままでは秋まで持たぬと告げた。そして、二十杖の罰の竹簡を一束、{jiangwei}の前に積んだ。「これを丞相が見なければ、蜀は滅びますか」",
+    "{liang}は長いあいだ竹簡の束を見ていた。やがて、小さく笑った。「先帝にも、同じことを言われた。……よかろう。夜は眠る。薬も飲む。そなたが煎じよ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_wz_cure"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "note": "丞相{liang}に、薬と休みを聞き入れさせた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3cure_ng": {
+   "speaker": "liang",
+   "text": [
+    "「ありがたい。だが、わたしの体のことは、わたしが一番よく知っている」{liang}は穏やかに言い、また筆を取った。灯は夜更けまで消えなかった。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "rear",
+    "building": "office"
+   },
+   "goal": "渭水を渡り、{rear}の{office}で魏の様子を探る",
+   "speaker": "xinpi",
+   "art": "court",
+   "text": [
+    "{rear}の{office}の前に、都からの行列が着いていた。白い髭の老臣{xinpi}が、帝から授かった節を掲げている。「陛下の仰せである。蜀の挑みに乗ってはならぬ。出て戦う者は斬る」",
+    "居並ぶ魏の将たちは顔を見合わせた。女の衣を贈られて、なお戦わぬのかと。彼らの不満はもう、隠しようがないほどに煮え立っていた。"
+   ],
+   "choices": [
+    {
+     "label": "{xinpi}の行列を足止めし、魏の諸将を焚きつけて野戦に誘う",
+     "turn": true,
+     "guide": "司馬懿を渭水の南へ引き出す。魏が敗れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "s4lure",
+      "lose": "s4lure_ng"
+     }
+    },
+    {
+     "label": "魏の兵営に忍び込み、陣の数を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s4spy",
+      "lose": "s4caught"
+     }
+    },
+    {
+     "label": "五丈原へ戻る",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4lure": {
+   "text": [
+    "夜のうちに、{xinpi}の車の轅に細工をした。行列は渭水の手前で立ち往生し、節は三日遅れることになった。その三日のあいだに、{player}は魏の将たちの酒の席を回った。「女の衣を着て陣に籠もる大将に、いつまで従うのか」",
+    "三日目の朝、魏の将たちは{simayi}の幕に押しかけ、口々に戦いを求めた。司馬懿は、帝の節がまだ届かぬことを確かめて、ついに頷いたという。"
+   ],
+   "effects": [
+    {
+     "flag": "h_wz_lure"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "cao",
+     "n": -15
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "wanted": "cao",
+     "n": 15
+    },
+    {
+     "note": "{xinpi}を足止めし、魏の将たちを野戦へ焚きつけた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4lure_ng": {
+   "speaker": "xinpi",
+   "text": [
+    "轅に手をかけたところを、行列の兵に見とがめられた。{xinpi}は{player}を一瞥し、「蜀の犬か。ならば、なおさら出てはならぬ」と言った。逃げるのがやっとだった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "wanted": "cao",
+     "n": 10
+    }
+   ],
+   "next": "s5"
+  },
+  "s4spy": {
+   "text": [
+    "兵営の竈の数を数えた。十万。魏の兵は飯を炊き、矢を削り、ただ待っている。待つことを命じられた軍は、強い。"
+   ],
+   "effects": [
+    {
+     "flag": "h_wz_spy"
+    },
+    {
+     "xp": "stealth",
+     "n": 1
+    }
+   ],
+   "next": "s5"
+  },
+  "s4caught": {
+   "text": [
+    "柵を越えたところで、見張りの兵に囲まれた。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4beaten"
+     }
+    }
+   ]
+  },
+  "s4beaten": {
+   "text": [
+    "渭水の岸まで追われ、冷たい水に飛び込んで逃げた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の本営で、秋を待つ",
+   "wait": {
+    "days": 5
+   },
+   "speaker": "jiangwei",
+   "art": "camp",
+   "text": [
+    "秋風が、五丈原の台地を渡っていく。畑の麦は色づき始めていた。",
+    "{jiangwei}が夜空を見上げて言った。「昨夜、赤い大きな星が、東北から西南へ流れて、陣の上に落ちたそうだ。兵たちが怯えている」"
+   ],
+   "choices": [
+    {
+     "label": "丞相の幕のそばで夜を明かす",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "aftergo": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "{camp}で、対陣の成り行きを見届ける",
+   "wait": {
+    "settled": "wuzhang"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "wuzhang_cure"
+     },
+     "next": "cured"
+    },
+    {
+     "if": {
+      "branch": "wuzhang_lure"
+     },
+     "next": "lured"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "cured": {
+   "speaker": "liang",
+   "art": "camp",
+   "text": [
+    "秋が過ぎ、冬が来ても、丞相の幕の灯は夜半には消えるようになった。{liang}の咳は軽くなり、頬に少しずつ肉が戻った。{simayi}は最後まで出てこず、蜀の軍は麦を刈り終えてから、整然と漢中へ退いた。",
+    "帰り道、丞相は車の上から{player}に言った。「次の北伐まで、三年はかかる。そのあいだ、そなたの薬を飲み続けよう。三年、生きていられればの話だが」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_wz_cure"
+    },
+    {
+     "unflag": "h_wz_med"
+    },
+    {
+     "unflag": "h_wz_spy"
+    },
+    {
+     "note": "五丈原で丞相{liang}は病から持ち直し、蜀の軍は退いた。"
+    }
+   ],
+   "end": "落ちなかった星"
+  },
+  "lured": {
+   "speaker": "jiangwei",
+   "art": "war",
+   "text": [
+    "魏の大軍が渭水を渡ってきた朝、蜀の陣は静かだった。{liang}は台地の上から旗を振らせ、渡り終えた魏の兵を、伏せていた弩で横から撃たせた。魏の軍は川へ押し戻され、多くが溺れた。",
+    "だがその月の終わり、丞相は陣中で息を引き取った。{jiangwei}は泣きながら言った。「丞相は勝って逝かれた。おぬしのおかげで、勝ちを一つ、持って逝かれたのだ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_wz_lure"
+    },
+    {
+     "unflag": "h_wz_med"
+    },
+    {
+     "unflag": "h_wz_spy"
+    },
+    {
+     "note": "五丈原で魏の軍を野戦に引き出して破ったが、丞相{liang}は陣中で没した。"
+    }
+   ],
+   "end": "渭水の野戦"
+  },
+  "s6": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の本営で、丞相の最期を見届ける",
+   "wait": {
+    "fired": "wuzhang"
+   },
+   "speaker": "jiangwei",
+   "art": "camp",
+   "text": [
+    "丞相{liang}は、陣中で死んだ。五十四であった。喪は伏せられ、蜀の軍はひそかに陣を払って退き始めた。",
+    "{simayi}が追ってきた。ところが、蜀の軍が旗を返し、太鼓を鳴らして向き直ると、司馬懿は慌てて兵を退いた。丞相がまだ生きていると思ったのだ。「死せる孔明、生ける仲達を走らす」と、百姓たちは笑った。",
+    "{jiangwei}が{player}に言った。「丞相の柩を漢中へ運ぶ。手を貸してくれるか」"
+   ],
+   "choices": [
+    {
+     "label": "{jiangwei}と共に殿に立ち、旗を返す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_rear",
+      "lose": "end_hurt"
+     }
+    },
+    {
+     "label": "丞相の柩を守って、漢中へ向かう",
+     "next": "end_coffin"
+    },
+    {
+     "label": "魏の陣へ走り、蜀の撤退を告げる",
+     "if": {
+      "flag": "h_wz_spy"
+     },
+     "next": "end_sold"
+    }
+   ]
+  },
+  "end_rear": {
+   "speaker": "jiangwei",
+   "text": [
+    "旗を返して魏の先手を一つ叩くと、追手はそれきり来なかった。{jiangwei}は兵をまとめながら言った。「丞相の兵法は、死んでも生きている。わたしが継ぐ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "shu",
+     "n": 10
+    },
+    {
+     "unflag": "h_wz_med"
+    },
+    {
+     "unflag": "h_wz_spy"
+    },
+    {
+     "note": "五丈原で丞相{liang}が没した。{jiangwei}と共に殿を務めた。"
+    }
+   ],
+   "end": "死せる孔明"
+  },
+  "end_hurt": {
+   "text": [
+    "旗を返したところへ、魏の騎兵がまともにぶつかってきた。{player}は馬から落ち、気がついたときには、蜀の軍は谷の向こうへ消えていた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_wz_med"
+    },
+    {
+     "unflag": "h_wz_spy"
+    },
+    {
+     "note": "五丈原で丞相{liang}が没し、退く道で傷を負った。"
+    }
+   ],
+   "end": "取り残された殿"
+  },
+  "end_coffin": {
+   "text": [
+    "柩は質素だった。丞相の遺言で、着ていた衣のまま納められ、副葬の品は一つもない。定軍山に葬れ、山に合わせて墓を作れ、棺が入るだけの穴でよい、と。",
+    "桟道を越えるあいだ、兵たちは誰も口をきかなかった。{player}は柩の綱を握り続けた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "unflag": "h_wz_med"
+    },
+    {
+     "unflag": "h_wz_spy"
+    },
+    {
+     "note": "五丈原で丞相{liang}が没した。その柩を守って漢中へ退いた。"
+    }
+   ],
+   "end": "定軍山の柩"
+  },
+  "end_sold": {
+   "text": [
+    "{simayi}は{player}の報せを聞いても、すぐには動かなかった。「孔明は死んだふりをしてでも、わしを誘う男だ」それでも銭の袋は寄越した。魏の軍が追ったのは、蜀の軍が谷へ消えた後だった。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "rep": "shu",
+     "n": -20
+    },
+    {
+     "fame": -2
+    },
+    {
+     "unflag": "h_wz_med"
+    },
+    {
+     "unflag": "h_wz_spy"
+    },
+    {
+     "note": "五丈原で丞相{liang}が没した。蜀の撤退を魏に告げた。"
+    }
+   ],
+   "end": "生ける仲達"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "wuzhang_cure"
+     },
+     "next": "cured"
+    },
+    {
+     "if": {
+      "branch": "wuzhang_lure"
+     },
+     "next": "lured"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。蜀の丞相{liang}が、五丈原の陣中で病に没したという。退く蜀の軍を{simayi}が追ったが、蜀の軍が向き直ると慌てて逃げた、と。",
+    "「死せる孔明、生ける仲達を走らす、だとさ」噂の主は笑い、それから黙って杯を干した。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_wz_med"
+    },
+    {
+     "unflag": "h_wz_spy"
+    },
+    {
+     "note": "五丈原で丞相{liang}が没したと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "wuzhang_cure",
+   "event": "wuzhang",
+   "order": 2,
+   "why": "主人公が諸葛亮に薬と休みを聞き入れさせた",
+   "when": {
+    "flag": "h_wz_cure"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "五丈原で[[p:司馬懿]]と対陣中、[[p:諸葛亮]]は重い病に倒れたが、薬と休みを得て持ち直した。司馬懿は最後まで戦わず、蜀軍は麦を刈り終えて整然と漢中へ退いた。",
+    "do": [
+     [
+      "add",
+      "shu",
+      "prestige",
+      3
+     ],
+     [
+      "add",
+      "cao",
+      "prestige",
+      -3
+     ]
+    ],
+    "imp": 3,
+    "at": "wuzhang"
+   },
+   "people": [
+    {
+     "spare": "諸葛亮",
+     "years": 4
+    }
+   ]
+  },
+  {
+   "id": "wuzhang_lure",
+   "event": "wuzhang",
+   "order": 1,
+   "why": "主人公が辛毗を足止めし魏将を野戦に誘った",
+   "when": {
+    "flag": "h_wz_lure"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "五丈原の対陣。挑発に耐えかねた魏の諸将に押され、[[p:司馬懿]]は渭水を渡って戦ったが、伏せた弩に撃たれて大いに敗れた。だが[[p:諸葛亮]]はその秋、陣中で病に没し、蜀軍は勝ちを持ち帰って退いた。",
+    "do": [
+     [
+      "add",
+      "cao",
+      "prestige",
+      -10
+     ],
+     [
+      "army",
+      "cao",
+      0.9
+     ],
+     [
+      "add",
+      "shu",
+      "prestige",
+      5
+     ],
+     [
+      "add",
+      "shu",
+      "stability",
+      -0.05
+     ]
+    ],
+    "imp": 3,
+    "at": "wuzhang"
+   }
+  }
+ ]
+}
