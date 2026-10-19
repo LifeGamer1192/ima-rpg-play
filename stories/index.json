@@ -752,6 +752,13 @@
    "title": "蔵破り"
   },
   {
+   "id": "oie_sodo",
+   "file": "oie_sodo.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "御家騒動"
+  },
+  {
    "id": "sg_r_ikko_village",
    "file": "sg_r_ikko_village.json",
    "kind": "random",
