@@ -1,0 +1,656 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_suriagehara",
+ "kind": "history",
+ "title": "摺上原の風",
+ "era": "sengoku",
+ "event": "suriagehara",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s2lost",
+  "s3",
+  "s3stop",
+  "s3stop_ng",
+  "s3sell",
+  "s4",
+  "s4hold",
+  "s4hold_ng",
+  "s5"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "kurokawa"
+  },
+  "yonezawa": {
+   "scnPlace": "yonezawa"
+  },
+  "field": {
+   "place": "near:city"
+  },
+  "ashina": {
+   "scnRealm": "ashina"
+  },
+  "date": {
+   "scnRealm": "date"
+  },
+  "lord": {
+   "person": "ruler:ashina"
+  },
+  "masamune": {
+   "person": "ruler:date"
+  },
+  "kagetsuna": {
+   "scnPerson": "片倉景綱"
+  },
+  "shigezane": {
+   "scnPerson": "伊達成実"
+  },
+  "kanagami": {
+   "scnPerson": "金上盛備"
+  },
+  "inawashiro": {
+   "scnPerson": "猪苗代盛国"
+  },
+  "runner": {
+   "npc": "猪苗代の使い",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の旅籠で、蘆名の宿老に会う",
+   "speaker": "kanagami",
+   "art": "backroom",
+   "text": [
+    "磐梯山から吹き下ろす風が、旅籠の障子を鳴らしていた。奥の間で{player}を待っていたのは、白髪の老武士だった。蘆名家の宿老、{kanagami}である。",
+    "「殿は常陸の佐竹から迎えたお方で、まだお若い。佐竹から付いてきた者どもが殿の周りを固め、古くからの家臣は面白くない。家が二つに割れておる。そこへ米沢の{masamune}が牙を研いでおるのだ」",
+    "「猪苗代の{inawashiro}の館に、夜な夜な米沢の者が出入りしておるという噂がある。猪苗代は黒川の喉首。あそこが寝返れば、伊達は一日で会津に入る。確かめてはくれぬか」",
+    "老人は懐から一通の写しを出した。「それから、これを。関白様が奥州の大名に私の戦を禁じた御教書の写しだ。伊達がこれを破れば、関白様が黙っておられぬ。いざという時の盾よ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sur_kyosho"
+    }
+   ],
+   "choices": [
+    {
+     "label": "猪苗代の噂を探る",
+     "effects": [
+      {
+       "note": "{kanagami}に頼まれ、猪苗代の{inawashiro}と伊達のつながりを探ることになった。関白の惣無事の御教書の写しを預かった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の町家に潜み、猪苗代の使いを待ち伏せる",
+   "speaker": "runner",
+   "art": "backroom",
+   "text": [
+    "猪苗代から黒川へ通う道は一本きりだ。町はずれの町家の二階に身を潜めて三晩目、笠を深くかぶった男が北の米沢道へ折れていった。{inawashiro}の家の紋の入った文箱を背負っている。"
+   ],
+   "choices": [
+    {
+     "label": "後をつけ、文箱の中を盗み見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "道で呼び止め、酒をおごって口を割らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ng": {
+   "speaker": "runner",
+   "text": [
+    "男は振り向きざまに刀を抜いた。「蘆名の犬か」藪の中から、さらに二人が出てくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り合う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2lost"
+     }
+    }
+   ]
+  },
+  "s2lost": {
+   "text": [
+    "泥の中に倒れているうちに、使いの足音は米沢道の闇に消えた。手には何も残らなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ok": {
+   "text": [
+    "文箱の中の書状には、伊達の竪三引両の印があった。「摺上原に陣取る折、猪苗代は伊達に付くべし。会津を得たのちは、猪苗代の所領を倍とする」宛名は{inawashiro}。差出人は{kagetsuna}。",
+    "{player}は書状を写し取り、元のとおりに封をして文箱に戻した。"
+   ],
+   "effects": [
+    {
+     "flag": "h_sur_letter"
+    },
+    {
+     "note": "{inawashiro}が伊達に寝返る約束を交わした書状を写し取った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "yonezawa",
+    "building": "palace"
+   },
+   "goal": "{yonezawa}の城で、伊達の主従に会う",
+   "speaker": "masamune",
+   "art": "court",
+   "text": [
+    "蘆名の口上を伝える使いの供として、{yonezawa}の城に入った。広間の上座の若い当主は、片目を眼帯で覆っていた。伊達{masamune}。まだ二十を少し出たばかりだという。",
+    "「蘆名は佐竹の子を当主に据え、家中はばらばら。わしが取らねば、いずれ佐竹か上杉が取る」若い当主は笑った。「関白が何を言おうと、奥州は奥州の者が決める」",
+    "脇に控えた{kagetsuna}だけが、主の言葉に目を伏せていた。"
+   ],
+   "choices": [
+    {
+     "label": "口上だけ伝えて退く",
+     "next": "s4"
+    },
+    {
+     "label": "関白の御教書を示し、「私の戦を続ければ、伊達の家が潰される」と説く",
+     "turn": true,
+     "if": {
+      "flag": "h_sur_kyosho"
+     },
+     "guide": "伊達の兵を止める。蘆名の滅びが遅れる",
+     "check": {
+      "skill": "speech",
+      "dc": 39,
+      "win": "s3stop",
+      "lose": "s3stop_ng"
+     }
+    },
+    {
+     "label": "{kagetsuna}にそっと近づき、蘆名の家中の割れ目を売る",
+     "next": "s3sell"
+    }
+   ]
+  },
+  "s3stop": {
+   "speaker": "kagetsuna",
+   "text": [
+    "{player}が御教書の写しを読み上げると、広間が静まり返った。{masamune}の顔から笑みが消えた。",
+    "{kagetsuna}が膝を進めた。「殿。小田原の北条が関白に睨まれておるのは、この御教書を軽んじたゆえ。会津はいつでも取れます。伊達の家は、一度潰れれば戻りませぬ」",
+    "{masamune}は扇で膝を三度打ち、吐き捨てるように言った。「……一年待つ。関白がどう出るか、見てからでよい」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sur_bujirei"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "ashina",
+     "n": 10
+    },
+    {
+     "rep": "date",
+     "n": -5
+    },
+    {
+     "note": "{masamune}に関白の御教書を示し、会津攻めを一年待たせた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3stop_ng": {
+   "speaker": "masamune",
+   "text": [
+    "「写しなど、どこの坊主でも書ける」{masamune}は御教書を見もせず、扇で払った。{kagetsuna}が小さくため息をついた。"
+   ],
+   "next": "s4"
+  },
+  "s3sell": {
+   "speaker": "kagetsuna",
+   "text": [
+    "{kagetsuna}は{player}の話を黙って聞き、最後に一言だけ言った。「猪苗代のことは、もう知っておる。だが、佐竹の者の名まで分かったのは助かる」銭の包みが袖に落とされた。"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "rep": "date",
+     "n": 10
+    },
+    {
+     "rep": "ashina",
+     "n": -15
+    },
+    {
+     "note": "蘆名の家中の様子を{kagetsuna}に売った。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の城で、蘆名家の評定に出る",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "黒川の城の広間には、佐竹から来た者たちと、古くからの蘆名の家臣が左右に分かれて座っていた。互いに目を合わせようともしない。",
+    "上座の{lord}は、まだ十五の少年だった。「伊達が動くなら、須賀川へ兵を出して迎え撃つ」佐竹の者が言うと、古い家臣たちは鼻で笑った。"
+   ],
+   "choices": [
+    {
+     "label": "評定の行方を見守る",
+     "next": "s5"
+    },
+    {
+     "label": "写し取った書状を示し、猪苗代を押さえて伊達の道を断つよう説く",
+     "turn": true,
+     "if": {
+      "flag": "h_sur_letter"
+     },
+     "guide": "寝返りを先に潰す。蘆名が持ちこたえる",
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "s4hold",
+      "lose": "s4hold_ng"
+     }
+    }
+   ]
+  },
+  "s4hold": {
+   "speaker": "kanagami",
+   "text": [
+    "書状の写しが上座から下座へ回されるうちに、広間の空気が変わった。佐竹の者も古い家臣も、同じ一枚を覗き込んでいる。",
+    "{kanagami}が立った。「猪苗代は今夜のうちに押さえる。伊達が摺上原に出てきたら、後ろの道はもう無い。挟み撃ちにするのはこちらの方だ」{lord}が、初めて家臣たちの前で大きく頷いた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_sur_hold"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "ashina",
+     "n": 15
+    },
+    {
+     "rep": "date",
+     "n": -10
+    },
+    {
+     "note": "{inawashiro}の寝返りを評定の場で暴き、猪苗代を押さえさせた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4hold_ng": {
+   "speaker": "lord",
+   "text": [
+    "「猪苗代を疑えば、ほかの者も皆、疑わねばならぬ」古い家臣の一人が言い、写しは誰の手にも取られないまま床に置かれた。"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の陣で、伊達の動きを待つ",
+   "wait": {
+    "days": 6
+   },
+   "speaker": "kanagami",
+   "art": "camp",
+   "text": [
+    "磐梯山の裾野に、蘆名の陣が張られた。風は西から吹いている。伊達の陣へ向かって、こちらの背中を押すような風だ。",
+    "{kanagami}は兜の緒を締めながら言った。「この風が変わらねばよいがな。わしは七十を過ぎた。会津の土になるのも悪くはない」"
+   ],
+   "choices": [
+    {
+     "label": "陣の前に出て、伊達の物見を追い払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "aftergo",
+      "lose": "aftergo"
+     }
+    },
+    {
+     "label": "{kanagami}のそばに控える",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、会津の行く末を見届ける",
+   "wait": {
+    "settled": "suriagehara"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "suriagehara_hold"
+     },
+     "next": "hold"
+    },
+    {
+     "if": {
+      "branch": "suriagehara_wait"
+     },
+     "next": "waited"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "hold": {
+   "speaker": "kanagami",
+   "art": "war",
+   "text": [
+    "伊達の軍は摺上原に出てきた。だが、後ろに付くはずの猪苗代の兵は来なかった。昼過ぎに風が東へ変わり、砂が蘆名の兵の目を打ったが、そのときにはもう、伊達の陣の横腹に猪苗代を押さえた蘆名の別手が食い込んでいた。",
+    "{masamune}は兵をまとめて米沢へ退いた。{kanagami}は泥だらけの顔で笑った。「七十を過ぎて、まだ会津の土にはなれぬらしい」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "ashina",
+     "n": 10
+    },
+    {
+     "unflag": "h_sur_hold"
+    },
+    {
+     "unflag": "h_sur_letter"
+    },
+    {
+     "unflag": "h_sur_kyosho"
+    },
+    {
+     "note": "摺上原で伊達は退き、蘆名は会津を守った。"
+    }
+   ],
+   "end": "変わらなかった会津"
+  },
+  "waited": {
+   "speaker": "kagetsuna",
+   "art": "tale",
+   "text": [
+    "一年、伊達の兵は動かなかった。その間に蘆名の家中では、佐竹の者と古い家臣の争いがますます深まった。翌年の夏、{masamune}はついに兵を出し、摺上原で蘆名を破って黒川城に入った。",
+    "{kagetsuna}が{player}の前を通り過ぎながら、低い声で言った。「一年待ったおかげで、関白の目は小田原に向いた。殿は、おぬしに借りがあると思っておられぬ。だが、わしは思っておる」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "date",
+     "n": 5
+    },
+    {
+     "unflag": "h_sur_bujirei"
+    },
+    {
+     "unflag": "h_sur_kyosho"
+    },
+    {
+     "unflag": "h_sur_letter"
+    },
+    {
+     "note": "伊達の会津攻めは一年遅れたが、蘆名は結局滅んだ。"
+    }
+   ],
+   "end": "一年の猶予"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、会津の行く末を見届ける",
+   "wait": {
+    "fired": "suriagehara"
+   },
+   "speaker": "masamune",
+   "art": "war",
+   "text": [
+    "摺上原の戦は、半日で決した。{inawashiro}は伊達の先手として現れ、昼過ぎに風が東へ変わると、砂ぼこりが蘆名の兵の目を打った。日橋川の橋は退く兵の重みで落ち、多くが川に呑まれた。{kanagami}は退かず、陣の中で討たれたという。",
+    "数日後、{masamune}が黒川の城に入った。城下を進む若い当主の眼帯を、町の者は戸の隙間から見つめていた。{lord}は常陸の実家へ落ちていった。"
+   ],
+   "choices": [
+    {
+     "label": "日橋川の岸で、流れ着いた蘆名の兵を弔う",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "end_mourn",
+      "lose": "end_left"
+     }
+    },
+    {
+     "label": "{masamune}の行列に頭を下げ、伊達の陣借りを願う",
+     "next": "end_date"
+    },
+    {
+     "label": "何も言わずに会津を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_mourn": {
+   "text": [
+    "岸に引き上げた兵のうち、三人はまだ息があった。{player}は傷を洗い、粥を炊いた。歩けるようになった一人は、{kanagami}の家の若党だった。「ご老体は最後まで、殿の名を呼んでおられた」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "rep": "ashina",
+     "n": 5
+    },
+    {
+     "unflag": "h_sur_kyosho"
+    },
+    {
+     "unflag": "h_sur_letter"
+    },
+    {
+     "note": "摺上原で蘆名は滅んだ。日橋川の岸で落ち武者を介抱した。"
+    }
+   ],
+   "end": "日橋川の岸"
+  },
+  "end_date": {
+   "speaker": "masamune",
+   "text": [
+    "{masamune}は馬上から{player}を見下ろした。「蘆名の使いの供をしておった者か。主を選ぶ目はあるらしい」翌日、伊達の陣から呼び出しがあった。",
+    "だが城下では、関白が伊達の私の戦に怒っているという噂がもう立っていた。奥州の若い竜の天下は、思ったより短いかもしれない。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "rep": "date",
+     "n": 10
+    },
+    {
+     "unflag": "h_sur_kyosho"
+    },
+    {
+     "unflag": "h_sur_letter"
+    },
+    {
+     "note": "摺上原で伊達が蘆名を破った。伊達の陣に身を寄せた。"
+    }
+   ],
+   "end": "独眼の竜の陣"
+  },
+  "end_left": {
+   "text": [
+    "{player}は会津を後にした。峠から振り返ると、黒川の城に竪三引両の旗が翻っていた。四百年会津を治めた蘆名の家は、ひと夏で消えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sur_kyosho"
+    },
+    {
+     "unflag": "h_sur_letter"
+    },
+    {
+     "note": "摺上原で伊達が蘆名を破るのを見届けた。"
+    }
+   ],
+   "end": "峠の旗"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "suriagehara_hold"
+     },
+     "next": "hold"
+    },
+    {
+     "if": {
+      "branch": "suriagehara_wait"
+     },
+     "next": "waited"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。会津の摺上原で伊達{masamune}が蘆名を破り、黒川の城に入ったという。蘆名の家臣が寝返り、風までが伊達に味方したそうだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sur_kyosho"
+    },
+    {
+     "unflag": "h_sur_letter"
+    },
+    {
+     "note": "摺上原で伊達が蘆名を破ったと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "suriagehara_hold",
+   "event": "suriagehara",
+   "order": 2,
+   "why": "主人公が猪苗代盛国の寝返りの書状を評定で暴いた",
+   "when": {
+    "flag": "h_sur_hold"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "摺上原の戦い。寝返るはずの猪苗代を先に押さえられた{r_date}は、{n_ashina}の挟み撃ちに遭って米沢へ退いた。会津は蘆名の手に残った。",
+    "do": [
+     [
+      "add",
+      "date",
+      "prestige",
+      -10
+     ],
+     [
+      "army",
+      "date",
+      0.85
+     ],
+     [
+      "add",
+      "ashina",
+      "prestige",
+      10
+     ],
+     [
+      "add",
+      "ashina",
+      "stability",
+      0.1
+     ]
+    ],
+    "imp": 3,
+    "at": "kurokawa"
+   }
+  },
+  {
+   "id": "suriagehara_wait",
+   "event": "suriagehara",
+   "order": 1,
+   "why": "主人公が関白の惣無事の御教書を伊達政宗に突きつけた",
+   "when": {
+    "flag": "h_sur_bujirei"
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "関白の御教書を示された{r_date}は、会津攻めを一年見合わせた。"
+  }
+ ]
+}

@@ -1,0 +1,698 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_iga_end",
+ "kind": "history",
+ "era": "sengoku",
+ "title": "天正伊賀の乱",
+ "event": "iga_end",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s3fire",
+  "s3fire_ng",
+  "s3esc",
+  "s3esc_ok",
+  "s3esc_ng",
+  "s4",
+  "s4ok",
+  "s4hurt",
+  "o1",
+  "o1ok",
+  "o1ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "ueno"
+  },
+  "anotsu": {
+   "scnPlace": "anotsu"
+  },
+  "okazaki": {
+   "scnPlace": "okazaki"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "iga": {
+   "scnRealm": "iga"
+  },
+  "tokugawa": {
+   "scnRealm": "tokugawa"
+  },
+  "kazumasu": {
+   "scnPerson": "滝川一益"
+  },
+  "hanzo": {
+   "scnPerson": "服部半蔵"
+  },
+  "kusuri": {
+   "npc": "伊賀の薬売り",
+   "sex": "m"
+  },
+  "jonin": {
+   "npc": "伊賀の上忍",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "anotsu",
+    "building": "inn"
+   },
+   "goal": "{anotsu}の{inn}へ行く",
+   "speaker": "kusuri",
+   "art": "inn",
+   "text": [
+    "{anotsu}の湊には、織田の兵糧船が毎日のように着いていた。{inn}の客は、口々に「伊賀攻め」と言う。二年前、伊勢の若殿が勝手に伊賀へ攻め入り、散々に負けて逃げ帰った。今度は右府さま（織田信長）ご自身のお下知で、四万とも五万とも聞く。",
+    "隣で薬籠を広げていた{kusuri}が、{player}に丸薬を一粒差し出した。「腹痛によく効く。……おまえさん、どこへも仕えておらぬ顔だな。伊賀へ来てみぬか。山の中にも、人の暮らしはある。それが、もうじき無くなる」",
+    "{inn}の表には、織田の奉行所の触れが貼ってあった。「伊賀の山道を知る者、申し出よ。褒美を取らす」"
+   ],
+   "choices": [
+    {
+     "label": "{kusuri}について伊賀へ入る",
+     "effects": [
+      {
+       "note": "伊賀の薬売り{kusuri}について、伊賀へ入る。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "触れに応じ、織田の陣へ申し出る",
+     "guide": "伊賀を売る。織田の褒美は厚い",
+     "next": "o1"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の惣の寄り合いに出る",
+   "speaker": "jonin",
+   "art": "backroom",
+   "text": [
+    "伊賀の盆地は、山に囲まれた箱庭のようだった。小さな城館が田のあいだに点々とあり、それぞれに地侍がいる。主はいない。皆で寄り合って、国のことを決めてきた。",
+    "寺の本堂の寄り合いで、{jonin}は膝を叩いた。「織田は六つの口から来る。こちらは、多く見ても一万。前の戦のようにはいかぬ。だが降れば、長島や越前の門徒と同じ目に遭う。戦うしかない」",
+    "{kusuri}が{player}の耳元でささやいた。「年寄りと女子どもだけでも逃がせぬかと言う者もいる。三河の徳川には、伊賀の出の侍がおる。服部という」"
+   ],
+   "choices": [
+    {
+     "label": "夜、織田の兵糧の荷駄に忍び寄って火をかける",
+     "turn": true,
+     "guide": "伊賀攻めは遅れる。織田の手配は重くなる",
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "s3fire",
+      "lose": "s3fire_ng"
+     }
+    },
+    {
+     "label": "{okazaki}へ走り、{hanzo}に女子どもの落ち延びる道を頼む",
+     "turn": true,
+     "next": "s3esc"
+    },
+    {
+     "label": "砦の守りに加わる",
+     "effects": [
+      {
+       "flag": "h_iga_in"
+      }
+     ],
+     "next": "s4"
+    }
+   ]
+  },
+  "s3fire": {
+   "art": "war",
+   "text": [
+    "風の強い夜だった。{kusuri}と二人、黒装束で織田の荷駄の野営に忍び込み、油を染ませた布を俵のあいだに押し込んだ。火口を切ると、炎は風に乗って、米俵から米俵へと走った。",
+    "逃げる途中、{kusuri}が闇の中から番の{soldier}を一人、音もなく倒すのを見た。刀を抜いた手も見えなかった。「闇夜の一撃じゃ。見たなら覚えておけ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_iga_fire"
+    },
+    {
+     "flag": "h_iga_in"
+    },
+    {
+     "art": "k067"
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "wanted": "oda",
+     "n": 20
+    },
+    {
+     "rep": "iga",
+     "n": 12
+    },
+    {
+     "note": "伊賀攻めのための織田の兵糧の荷駄を、夜陰に焼いた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3fire_ng": {
+   "art": "war",
+   "text": [
+    "火口を切る前に、犬が吠えた。松明が近づき、{player}は俵の陰から転がり出て山へ走った。肩に矢が一本刺さったまま、明け方に里へ戻った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_iga_in"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "wanted": "oda",
+     "n": 10
+    }
+   ],
+   "next": "s4"
+  },
+  "s3esc": {
+   "at": {
+    "place": "okazaki",
+    "building": "barracks"
+   },
+   "goal": "{okazaki}で{hanzo}に会う",
+   "speaker": "hanzo",
+   "art": "court",
+   "text": [
+    "{hanzo}は、三河の武士らしい無骨な男だった。だが伊賀の名を聞くと、目の色が変わった。「父は伊賀の出だ。わしは伊賀を知らぬ。だが、伊賀の者がわしを頼ってくるなら、門は閉ざさぬ」",
+    "「ただし、織田さまは殿のお味方。表立って伊賀の者を匿えば、殿にご迷惑がかかる。山の道も、関も、こちらでは何も知らぬことにせねばならぬ」"
+   ],
+   "choices": [
+    {
+     "label": "「名もない百姓として三河へ入れれば、誰も伊賀者とは知りませぬ」と説く",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "s3esc_ok",
+      "lose": "s3esc_ng"
+     }
+    },
+    {
+     "label": "頼むのをあきらめて伊賀へ戻る",
+     "next": "s3esc_ng"
+    }
+   ]
+  },
+  "s3esc_ok": {
+   "speaker": "hanzo",
+   "text": [
+    "{hanzo}はしばらく考え、やがて頷いた。「柘植から加太を抜け、鈴鹿の山を越えて、三河の村へ。名を変え、百姓として田を打たせる。道筋の村には、わしから手を回しておく」",
+    "{player}が伊賀へ戻ると、{kusuri}が年寄りと子どもを一人ずつ、夜の山道へ送り出す支度を始めた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_iga_refuge"
+    },
+    {
+     "flag": "h_iga_in"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "tokugawa",
+     "n": 8
+    },
+    {
+     "rep": "iga",
+     "n": 12
+    },
+    {
+     "note": "{hanzo}に頼み、伊賀の年寄りと女子どもを三河へ落とす道をつけた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3esc_ng": {
+   "speaker": "hanzo",
+   "text": [
+    "「すまぬ」{hanzo}は目を伏せた。「殿のお家が先だ」{player}は一人で伊賀へ戻った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_iga_in"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の砦で、織田の軍を待つ",
+   "wait": {
+    "days": 12
+   },
+   "speaker": "jonin",
+   "art": "war",
+   "text": [
+    "秋、山の向こうから法螺の音が聞こえた。伊勢から、近江から、大和から、六つの口から織田の軍が一斉に盆地へなだれ込んでくる。寺が焼かれ、煙が谷を埋めた。",
+    "{jonin}が砦の柵の上から怒鳴った。「来るぞ。一人で十人を倒せ。それができねば、伊賀はない」"
+   ],
+   "choices": [
+    {
+     "label": "柵を越えてくる織田の{soldier}を迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4ok",
+      "lose": "s4hurt"
+     }
+    }
+   ]
+  },
+  "s4ok": {
+   "text": [
+    "三人、四人と倒した。だが倒しても倒しても、谷の下から新しい旗が上がってくる。日が暮れるころ、砦は火に包まれ、{player}たちは柏原の城へ退いた。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4hurt": {
+   "text": [
+    "槍に脇腹を裂かれた。{kusuri}に担がれて、燃える砦を後にした。行き先は、伊賀の最後の城、柏原だという。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "aftergo"
+  },
+  "o1": {
+   "at": {
+    "place": "anotsu",
+    "building": "barracks"
+   },
+   "goal": "{anotsu}の織田の陣で{kazumasu}に会う",
+   "speaker": "kazumasu",
+   "art": "camp",
+   "text": [
+    "{kazumasu}は、甲賀の出だという。伊賀の隣の、似たような山の国だ。「伊賀の者はしぶとい。前の戦では、山道ごとに伏せられて、伊勢の若殿の軍は散々な目に遭った。山道を知る者が要る」",
+    "「伊賀の中にも、こちらに付く者が出てきておる。だが、そいつらの言うことが真か偽りか、確かめる者がおらぬ」"
+   ],
+   "choices": [
+    {
+     "label": "伊賀の者が言う山道を、先に歩いて確かめる",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "o1ok",
+      "lose": "o1ng"
+     }
+    }
+   ]
+  },
+  "o1ok": {
+   "speaker": "kazumasu",
+   "text": [
+    "道は、伊賀の者が言った通りだった。{player}は伏せ場になりそうな谷を三つ、尾根の抜け道を二つ地図に書き込んで戻った。{kazumasu}は銭の袋を投げてよこした。「これで伊賀の山は、裸も同じよ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_iga_guide"
+    },
+    {
+     "money": 400
+    },
+    {
+     "rep": "oda",
+     "n": 12
+    },
+    {
+     "rep": "iga",
+     "n": -20
+    },
+    {
+     "note": "{kazumasu}のために、伊賀の山道を確かめて地図に書き込んだ。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "o1ng": {
+   "text": [
+    "谷の途中で道を見失い、伊賀の者に見つかりかけて引き返した。{kazumasu}は不機嫌そうに、それでも駄賃だけはよこした。"
+   ],
+   "effects": [
+    {
+     "money": 80
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、伊賀の行く末を見届ける",
+   "wait": {
+    "settled": "iga_end"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "iga_refuge"
+     },
+     "next": "refuge"
+    },
+    {
+     "if": {
+      "branch": "iga_fire"
+     },
+     "next": "burnt"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "art": "disaster",
+   "text": [
+    "伊賀の最後の城、柏原は、ひと月持ちこたえたのち、和を乞うて開いた。そのあいだに、盆地の寺という寺、館という館が焼かれた。山に逃げた者も狩り出された。",
+    "焼け跡のあちこちに、まだ煙が細く立っていた。"
+   ],
+   "choices": [
+    {
+     "label": "{kazumasu}の陣へ褒美を受けに行く",
+     "if": {
+      "flag": "h_iga_guide"
+     },
+     "next": "end_guide"
+    },
+    {
+     "label": "焼け跡で生き残りを探す",
+     "if": {
+      "flag": "h_iga_in"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "end_search",
+      "lose": "end_left"
+     }
+    },
+    {
+     "label": "伊賀を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_guide": {
+   "speaker": "kazumasu",
+   "text": [
+    "{kazumasu}は約束通り、銭と太刀を与えた。「伊賀の山は、おぬしの地図のおかげで三日早く抜けた」",
+    "帰り道、焼けた村の辻に子どもが一人座っていた。{player}を見ても、泣きも逃げもしなかった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "favor": 8
+    },
+    {
+     "fame": -2
+    },
+    {
+     "unflag": "h_iga_fire"
+    },
+    {
+     "unflag": "h_iga_refuge"
+    },
+    {
+     "unflag": "h_iga_guide"
+    },
+    {
+     "unflag": "h_iga_in"
+    },
+    {
+     "note": "伊賀は織田に滅ぼされた。山道の地図の褒美を受けた。"
+    }
+   ],
+   "end": "山道の地図"
+  },
+  "end_search": {
+   "text": [
+    "焼けた寺の床下に、子どもが三人隠れていた。{player}は火傷に膏薬を塗り、水を飲ませ、夜を待って山を越えさせた。",
+    "三人は名を名乗らなかった。伊賀の子は、知らぬ者に名を明かさぬように育てられるのだという。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "rep": "iga",
+     "n": 8
+    },
+    {
+     "unflag": "h_iga_fire"
+    },
+    {
+     "unflag": "h_iga_refuge"
+    },
+    {
+     "unflag": "h_iga_guide"
+    },
+    {
+     "unflag": "h_iga_in"
+    },
+    {
+     "note": "伊賀は織田に滅ぼされた。焼け跡で子どもを三人救い出した。"
+    }
+   ],
+   "end": "名を明かさぬ子"
+  },
+  "end_left": {
+   "text": [
+    "{player}は伊賀を去った。峠から振り返ると、盆地はまだ煙っていた。山に囲まれた箱庭は、もう誰の寄り合いもない、ただの織田の領地だった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_iga_fire"
+    },
+    {
+     "unflag": "h_iga_refuge"
+    },
+    {
+     "unflag": "h_iga_guide"
+    },
+    {
+     "unflag": "h_iga_in"
+    },
+    {
+     "note": "伊賀は織田の大軍に攻められて滅んだ。"
+    }
+   ],
+   "end": "煙る盆地"
+  },
+  "refuge": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "kusuri",
+   "art": "road",
+   "text": [
+    "伊賀は焼かれた。だがそのころには、年寄りと女子ども、それに若い者の幾人かが、名を変え、夜の山を越えて、三河の村々に散っていた。{hanzo}の手回しで、関はどこも黙って通した。",
+    "{kusuri}は最後の一団を送り出したあと、{player}に言った。「伊賀はなくなった。だが伊賀の者は残った。いつか徳川に、この恩を返す日が来るだろう」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "tokugawa",
+     "n": 8
+    },
+    {
+     "rep": "iga",
+     "n": 10
+    },
+    {
+     "unflag": "h_iga_fire"
+    },
+    {
+     "unflag": "h_iga_refuge"
+    },
+    {
+     "unflag": "h_iga_guide"
+    },
+    {
+     "unflag": "h_iga_in"
+    },
+    {
+     "note": "伊賀は滅んだが、多くの伊賀者が三河へ落ち延びた。"
+    }
+   ],
+   "end": "山を越えた伊賀"
+  },
+  "burnt": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "jonin",
+   "art": "war",
+   "text": [
+    "荷駄を焼かれた織田の軍は、伊賀攻めを半年見合わせた。そのあいだに、伊賀の者は砦を固め、山道に罠を仕掛けた。だが半年ののち、織田の大軍はやはり来た。六つの口から、前よりも多く。",
+    "燃える砦の上で、{jonin}は笑った。「半年、伊賀は伊賀のままでいられた。それでよい」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "iga",
+     "n": 10
+    },
+    {
+     "unflag": "h_iga_fire"
+    },
+    {
+     "unflag": "h_iga_refuge"
+    },
+    {
+     "unflag": "h_iga_guide"
+    },
+    {
+     "unflag": "h_iga_in"
+    },
+    {
+     "note": "荷駄を焼いて伊賀攻めを半年遅らせたが、伊賀はやがて滅んだ。"
+    }
+   ],
+   "end": "半年の伊賀"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "iga_refuge"
+     },
+     "next": "refuge"
+    },
+    {
+     "if": {
+      "branch": "iga_fire"
+     },
+     "next": "burnt"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の空で噂を聞いた。織田の大軍が伊賀に攻め入り、寺も館も焼き払い、伊賀の惣国は滅んだという。",
+    "「伊賀者は皆、殺されたのか」と誰かが問うと、行商人は首を振った。「さあな。伊賀者は、死んだふりがうまい」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_iga_fire"
+    },
+    {
+     "unflag": "h_iga_refuge"
+    },
+    {
+     "unflag": "h_iga_guide"
+    },
+    {
+     "unflag": "h_iga_in"
+    },
+    {
+     "note": "伊賀が織田に滅ぼされたと聞いた。"
+    }
+   ],
+   "end": "遠い伊賀"
+  }
+ },
+ "branches": [
+  {
+   "id": "iga_refuge",
+   "event": "iga_end",
+   "order": 2,
+   "why": "主人公が服部半蔵に頼み、伊賀の者を三河へ落とした",
+   "when": {
+    "flag": "h_iga_refuge"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_oda}の大軍が伊賀に攻め入り、{n_iga}は滅んだ。だが[[p:服部半蔵]]の手回しで多くの伊賀者が名を変えて三河へ落ち延び、{n_tokugawa}の村々に身を寄せた。",
+    "do": [
+     [
+      "annex",
+      "oda",
+      "iga"
+     ],
+     [
+      "add",
+      "tokugawa",
+      "prestige",
+      3
+     ],
+     [
+      "add",
+      "tokugawa",
+      "stability",
+      0.03
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      -2
+     ]
+    ],
+    "imp": 2,
+    "at": "ueno"
+   }
+  },
+  {
+   "id": "iga_fire",
+   "event": "iga_end",
+   "order": 1,
+   "why": "主人公が伊賀攻めの兵糧の荷駄を焼いた",
+   "when": {
+    "flag": "h_iga_fire"
+   },
+   "then": "delay",
+   "months": 6,
+   "note": "兵糧の荷駄を夜陰に焼かれた{n_oda}の軍は、伊賀攻めを半年見合わせた。"
+  }
+ ]
+}

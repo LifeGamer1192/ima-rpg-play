@@ -1,0 +1,791 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_osaka_summer",
+ "kind": "history",
+ "title": "真田の赤備え",
+ "era": "sengoku",
+ "event": "osaka_summer",
+ "lead": 10,
+ "before": [
+  "s1",
+  "s2",
+  "s2win",
+  "s2hurt",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s4",
+  "s4ship",
+  "s4ship_ng",
+  "s4warn",
+  "s5",
+  "s5flee",
+  "s5flee_ng",
+  "s6",
+  "s6kill",
+  "s6kill_ng",
+  "s6ride",
+  "s6hurt"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "ishiyama"
+  },
+  "sakai": {
+   "scnPlace": "sakai"
+  },
+  "field": {
+   "place": "near:city"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "tokugawa": {
+   "scnRealm": "tokugawa"
+  },
+  "hideyori": {
+   "person": "ruler:oda"
+  },
+  "ieyasu": {
+   "person": "ruler:tokugawa"
+  },
+  "nobushige": {
+   "scnPerson": "真田信繁"
+  },
+  "matabei": {
+   "scnPerson": "後藤又兵衛"
+  },
+  "yodo": {
+   "scnPerson": "淀殿",
+   "sex": "f"
+  },
+  "ronin": {
+   "npc": "大坂の牢人",
+   "sex": "m"
+  },
+  "shipman": {
+   "npc": "堺の船主",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の旅籠で、牢人の話を聞く",
+   "speaker": "ronin",
+   "art": "inn",
+   "text": [
+    "大坂の旅籠は、どこも牢人であふれていた。関ヶ原で主家を失った者、改易で禄を離れた者。皆、古びた具足を背負い、目だけをぎらつかせている。",
+    "{ronin}が酒をあおって言った。「京の方広寺の鐘に『国家安康』と刻んだら、家康の名を二つに切って呪うものだと難癖をつけられた。駿府の大御所は、はなから豊臣を潰す口実を探しておったのよ」",
+    "「城では牢人を十万集めるそうだ。九度山から真田も来たぞ。あの真田昌幸の倅だ。おぬしも来い。どうせ、ほかに行くところはあるまい」"
+   ],
+   "choices": [
+    {
+     "label": "大坂の城に入る",
+     "effects": [
+      {
+       "note": "{ronin}に誘われ、大坂の城に入った。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の番所から、真田丸の守りに加わる",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "nobushige",
+   "art": "war",
+   "text": [
+    "冬。城の南の外れに、{nobushige}は土の出丸を築いた。三方を空堀で囲み、柵の内に鉄砲を並べた小さな砦だ。人はそれを真田丸と呼んだ。",
+    "四十を半ば過ぎた男は、穏やかな顔で{player}に鉄砲を渡した。「敵は堀の手前まで来れば、必ず止まる。止まったところを撃て。こちらから出る必要はない。敵が勝手に来て、勝手に死ぬ」",
+    "夜明け、前田と井伊の兵が、喚声を上げて空堀へなだれ込んできた。"
+   ],
+   "choices": [
+    {
+     "label": "柵に取りつく敵を撃ち払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s2win",
+      "lose": "s2hurt"
+     }
+    }
+   ]
+  },
+  "s2win": {
+   "speaker": "nobushige",
+   "text": [
+    "空堀は、昼までに東の兵の骸で埋まった。{nobushige}は柵の上から敵陣を眺めて言った。「これで、大御所も力攻めは諦めよう。次は、口で攻めてくる」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "bow",
+     "n": 2
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "flag": "h_osk_maru"
+    },
+    {
+     "note": "真田丸で{nobushige}と共に東軍を撃ち退けた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hurt": {
+   "text": [
+    "柵を越えてきた槍に脇腹を突かれた。真田の兵に引きずられて丸の奥へ下がると、戦はもう、こちらの勝ちで終わっていた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の城で、和議の成り行きを見る",
+   "speaker": "yodo",
+   "art": "court",
+   "text": [
+    "大御所は城を囲んだまま、昼も夜も大筒を撃ちこんできた。ある日、弾の一つが奥御殿に落ち、侍女が死んだ。{yodo}が和議を言い出したのは、その翌日だった。",
+    "和議の条件は、外の堀を埋めること。だが、東の人足は外堀を埋め終えると、そのまま内の堀にまで土を入れはじめた。「約束が違う」と城の者が叫んでも、人足たちは手を止めなかった。"
+   ],
+   "choices": [
+    {
+     "label": "黙って堀が埋まるのを見る",
+     "next": "s4"
+    },
+    {
+     "label": "{yodo}の前に出て、「堀のない城は城ではない。いまのうちに備えを」と訴える",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "yodo",
+   "text": [
+    "{yodo}は扇で口元を隠したまま、{player}を見下ろした。「牢人が、太閤の城に指図をするのか」それでも翌日、城の蔵が開かれ、牢人たちに米と火薬が配られた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "oda",
+     "n": 5
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "speaker": "yodo",
+   "text": [
+    "「下がりや」{yodo}の一言で、{player}は広間から下げられた。城の周りでは、土を運ぶ人足の掛け声が、夜まで続いていた。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "sakai",
+    "building": "market"
+   },
+   "goal": "{sakai}の市で、火薬と舟を探す",
+   "speaker": "shipman",
+   "art": "trade",
+   "text": [
+    "春、和議は破れた。{sakai}の町は、大坂と東のどちらにも付けず、怯えていた。大坂の兵が堺を焼くという噂が、もう市に流れている。",
+    "浜の舟入りで、日に焼けた船主が{player}に声をかけた。{shipman}と名乗った。「大坂の牢人衆だな。薬なら少しは回せる。それとも……いざというときの舟がご入用か。薩摩へなら、三日で着く」"
+   ],
+   "choices": [
+    {
+     "label": "金創の薬を買い込み、城へ戻る（120）",
+     "if": {
+      "money": 120
+     },
+     "effects": [
+      {
+       "money": -120
+      },
+      {
+       "item": "herbs",
+       "n": 3
+      }
+     ],
+     "next": "s5"
+    },
+    {
+     "label": "「町が焼かれる。逃げよ」と市の者に触れて回る",
+     "next": "s4warn"
+    },
+    {
+     "label": "薩摩へ落ちる舟を、浜に待たせておく約束を取りつける",
+     "turn": true,
+     "guide": "秀頼を落とす舟。城で説く手間が残る",
+     "if": {
+      "money": 200
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 36,
+      "win": "s4ship",
+      "lose": "s4ship_ng"
+     }
+    }
+   ]
+  },
+  "s4warn": {
+   "text": [
+    "{player}の触れを聞いて、市の者たちは荷をまとめはじめた。数日後、大坂の兵が堺に火を放ったとき、町の者の多くはもう逃げていた。焼け跡で、老婆が{player}に手を合わせた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "oda",
+     "n": -5
+    },
+    {
+     "note": "堺が焼かれる前に、町の者に逃げるよう触れて回った。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4ship": {
+   "speaker": "shipman",
+   "text": [
+    "{shipman}は算盤を弾き、指を三本立てた。「この値で、船を一艘、城が落ちる日まで浜の外に浮かべておく。合図は、天守に灯が三つ」",
+    "「大坂の殿様を乗せるつもりなら、言わずともよい。わしは何も聞いておらぬ。薩摩の島津様は、太閤様のご恩を忘れてはおられぬ、とだけ申しておく」"
+   ],
+   "effects": [
+    {
+     "flag": "h_osk_ship"
+    },
+    {
+     "money": -200
+    },
+    {
+     "note": "{shipman}に、薩摩へ落ちる船を浜の外に待たせる約束を取りつけた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4ship_ng": {
+   "speaker": "shipman",
+   "text": [
+    "「その値では、命は運べませぬな」{shipman}は首を振り、舟入りの奥へ消えた。"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の城で、最後の軍議に出る",
+   "speaker": "matabei",
+   "art": "court",
+   "text": [
+    "堀のない城に籠もることはできない。豊臣方は城を出て、野で戦うことに決めた。道明寺へ向かった{matabei}は霧で味方とはぐれ、ただ一手で戦って討たれたという。",
+    "最後の軍議の夜、天守の奥で、{hideyori}は二十三の若者らしい澄んだ目をしていた。母の{yodo}は、息子の手を固く握って離さなかった。"
+   ],
+   "choices": [
+    {
+     "label": "{nobushige}の陣へ向かう",
+     "next": "s6"
+    },
+    {
+     "label": "「浜に船を待たせてございます。生きて豊臣の名を残されませ」と秀頼公に説く",
+     "turn": true,
+     "if": {
+      "flag": "h_osk_ship"
+     },
+     "guide": "秀頼を落とす。城は落ちても血は残る",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s5flee",
+      "lose": "s5flee_ng"
+     }
+    }
+   ]
+  },
+  "s5flee": {
+   "speaker": "hideyori",
+   "text": [
+    "{yodo}が金切り声を上げた。「太閤の子が、城を捨てて逃げるのか」だが、{hideyori}は母の手をそっとほどいた。",
+    "「父上は、生きておられれば必ずまた立つ、と仰せでした。わしは、父上ほど強くはない。せめて、生きることくらいは父上に倣いたい」若者は{player}に向き直った。「落ちる日が来たら、案内を頼む」"
+   ],
+   "effects": [
+    {
+     "flag": "h_osk_escape"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "note": "{hideyori}に、城が落ちる日に薩摩へ落ちるよう説いた。"
+    }
+   ],
+   "next": "s6"
+  },
+  "s5flee_ng": {
+   "speaker": "yodo",
+   "text": [
+    "「下郎、口を慎め」{yodo}の声で、{player}は廊下へ引き出された。{hideyori}は一度だけ振り返ったが、何も言わなかった。"
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の天王寺口の陣で、{nobushige}と並ぶ",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "nobushige",
+   "art": "war",
+   "text": [
+    "茶臼山の陣は、赤一色だった。具足も旗も、兜の吹き返しまで赤い。真田の赤備えである。正面には、雲霞のような東の大軍。その奥に、金の扇の馬印が見えた。大御所{ieyasu}の本陣だ。",
+    "{nobushige}は十文字の槍を握り、穏やかに言った。「狙うは、あの金の扇ただ一つ。ほかの首は要らぬ。届かなければ、それまでのことよ」"
+   ],
+   "choices": [
+    {
+     "label": "赤備えの後に続き、東の先手を突き崩す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s6ride",
+      "lose": "s6hurt"
+     }
+    },
+    {
+     "label": "{nobushige}と並び、金の扇の馬印めがけて斬り込む",
+     "turn": true,
+     "guide": "家康の本陣を衝く。敵は厚い",
+     "fight": {
+      "foes": "soldier",
+      "n": 5,
+      "level": 0,
+      "win": "s6kill",
+      "lose": "s6kill_ng"
+     }
+    }
+   ]
+  },
+  "s6ride": {
+   "text": [
+    "赤備えは東の先手を三つ突き破った。だが、本陣の金の扇は遠かった。{nobushige}の姿は、乱戦の中に見えなくなった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6hurt": {
+   "text": [
+    "馬を撃たれ、地に投げ出された。起き上がったときには、赤い旗は遠くへ去っていた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6kill": {
+   "speaker": "nobushige",
+   "art": "war",
+   "text": [
+    "一度目の突撃で旗本の列が割れ、二度目で金の扇の馬印が倒れた。三度目、{player}と{nobushige}の槍は、輿に乗ろうとする老人の前まで届いた。",
+    "大御所{ieyasu}は、逃げなかった。槍が届く刹那、七十を越えた老人は二人を見て、何か言いかけた。赤い旗が、その上に覆いかぶさった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_osk_ieyasu"
+    },
+    {
+     "fame": 15
+    },
+    {
+     "rep": "oda",
+     "n": 20
+    },
+    {
+     "rep": "tokugawa",
+     "n": -40
+    },
+    {
+     "wanted": "tokugawa",
+     "n": 40
+    },
+    {
+     "note": "天王寺口で{nobushige}と共に{ieyasu}の本陣を衝き、大御所を討った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6kill_ng": {
+   "text": [
+    "旗本の槍衾が、二度、三度と赤備えを押し返した。{player}は深手を負い、真田の兵に担がれて茶臼山へ退いた。金の扇は、遠くで揺れていた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、豊臣家の行く末を見届ける",
+   "wait": {
+    "settled": "osaka_summer"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "osaka_ieyasu"
+     },
+     "next": "slain"
+    },
+    {
+     "if": {
+      "branch": "osaka_escape"
+     },
+     "next": "escaped"
+    },
+    {
+     "next": "s7"
+    }
+   ]
+  },
+  "slain": {
+   "speaker": "nobushige",
+   "art": "war",
+   "text": [
+    "大御所が討たれたという報せは、東の大軍を一刻で崩した。将軍秀忠は兵をまとめて京へ退き、大坂の城の周りから、東の旗が消えた。",
+    "{nobushige}は茶臼山の上で、傷だらけの体を槍で支えていた。「天下は、これで二つに割れた。いや、割れたままになった。わしらは乱世を百年、延ばしたのかもしれぬ」それでも、城の天守には、まだ千成瓢箪の馬印が立っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 10
+    },
+    {
+     "unflag": "h_osk_ieyasu"
+    },
+    {
+     "unflag": "h_osk_ship"
+    },
+    {
+     "unflag": "h_osk_escape"
+    },
+    {
+     "unflag": "h_osk_maru"
+    },
+    {
+     "note": "大坂夏の陣で家康が討たれ、豊臣家は大坂に残った。"
+    }
+   ],
+   "end": "倒れた金の扇"
+  },
+  "escaped": {
+   "speaker": "hideyori",
+   "art": "voyage",
+   "text": [
+    "城が燃えた夜、天守に灯が三つともった。{player}は抜け穴から{hideyori}を連れ出し、闇の浜で待つ船に乗せた。{yodo}は城に残り、炎の中に消えたという。",
+    "夜明け、船は紀伊の沖を南へ走っていた。若者は焼ける大坂の空を見つめたまま言った。「花のようなる秀頼様を、鬼のようなる真田が連れて、退きも退いたり鹿児島へ……。町の童は、そう歌うだろうか」",
+    "大坂の城は落ち、豊臣の家は天下から消えた。だが、焼け跡から秀頼の骸は見つからなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "wanted": "tokugawa",
+     "n": 25
+    },
+    {
+     "unflag": "h_osk_escape"
+    },
+    {
+     "unflag": "h_osk_ship"
+    },
+    {
+     "unflag": "h_osk_maru"
+    },
+    {
+     "note": "大坂の城は落ちたが、{hideyori}を薩摩へ落とした。"
+    }
+   ],
+   "end": "鹿児島へ"
+  },
+  "s7": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、豊臣家の行く末を見届ける",
+   "wait": {
+    "fired": "osaka_summer"
+   },
+   "speaker": "ronin",
+   "art": "disaster",
+   "text": [
+    "{nobushige}は大御所の本陣に三度斬り込み、金の扇の馬印を倒したが、ついに届かなかった。安居神社の境内で、疲れ果てて腰を下ろしているところを討たれたという。",
+    "その夜、城は燃えた。天守の炎は、京からも見えたそうだ。{hideyori}と{yodo}は、山里の蔵の中で自害した。焼け跡で、{ronin}が折れた槍を杖に立っていた。「太閤の城が、ひと晩で灰か」"
+   ],
+   "choices": [
+    {
+     "label": "{ronin}と焼け跡で落ち延びる者を助ける",
+     "check": {
+      "skill": "medicine",
+      "dc": 26,
+      "win": "end_help",
+      "lose": "end_left"
+     }
+    },
+    {
+     "label": "安居神社へ行き、{nobushige}を弔う",
+     "next": "end_sanada"
+    },
+    {
+     "label": "燃える城を背に、大坂を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_help": {
+   "text": [
+    "焼け跡から、煤だらけの女と子どもを七人引き出した。{ronin}は彼らを連れて、紀伊の山奥へ向かうという。「わしは豊臣のために死ぬつもりで来た。だが、生き残ったからには、生き残った者を守るのが筋だろう」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "unflag": "h_osk_maru"
+    },
+    {
+     "unflag": "h_osk_ship"
+    },
+    {
+     "note": "大坂の城が落ちた。焼け跡で生き残った者を助けた。"
+    }
+   ],
+   "end": "焼け跡の七人"
+  },
+  "end_sanada": {
+   "text": [
+    "安居神社の境内には、赤い具足の欠片が落ちていた。{player}は手を合わせ、それを懐にしまった。",
+    "後で聞いた。東の大名のある者は、国元への書状にこう書いたという。「真田、日本一の兵。古よりの物語にもこれなき由」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_osk_maru"
+    },
+    {
+     "unflag": "h_osk_ship"
+    },
+    {
+     "note": "大坂の城が落ちた。{nobushige}の最期の地を弔った。"
+    }
+   ],
+   "end": "日本一の兵"
+  },
+  "end_left": {
+   "text": [
+    "{player}は燃える城を背に、大坂を去った。乱世は終わった、と人は言う。戦のない世で、牢人の槍に何ができるのか、{player}にはまだ分からなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_osk_maru"
+    },
+    {
+     "unflag": "h_osk_ship"
+    },
+    {
+     "note": "大坂の城が落ち、豊臣家が滅ぶのを見届けた。"
+    }
+   ],
+   "end": "元和の空"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "osaka_ieyasu"
+     },
+     "next": "slain"
+    },
+    {
+     "if": {
+      "branch": "osaka_escape"
+     },
+     "next": "escaped"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。大坂の城が燃え落ち、{hideyori}と{yodo}が自害したという。真田の赤備えは、大御所の本陣に三度斬り込んだそうだ。",
+    "「これで、もう戦はないのだろうか」と、宿の主はつぶやいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_osk_maru"
+    },
+    {
+     "unflag": "h_osk_ship"
+    },
+    {
+     "note": "大坂の城が落ち、豊臣家が滅んだと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "osaka_ieyasu",
+   "event": "osaka_summer",
+   "order": 2,
+   "why": "主人公が真田信繁と共に家康の本陣を衝き、家康を討った",
+   "when": {
+    "flag": "h_osk_ieyasu"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "大坂夏の陣。堀を失った大坂城の豊臣方は城外に打って出た。[[p:真田信繁]]は家康の本陣に三度斬り込み、ついに[[p:徳川家康]]を討ち取った。総崩れとなった{n_tokugawa}の軍は京へ退き、豊臣家は大坂に残った。",
+    "do": [
+     [
+      "add",
+      "tokugawa",
+      "stability",
+      -0.2
+     ],
+     [
+      "add",
+      "tokugawa",
+      "prestige",
+      -20
+     ],
+     [
+      "army",
+      "tokugawa",
+      0.8
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      20
+     ]
+    ],
+    "imp": 3,
+    "at": "ishiyama"
+   },
+   "people": [
+    {
+     "kill": "徳川家康",
+     "cause": "battle"
+    },
+    {
+     "spare": "真田信繁",
+     "years": 10
+    },
+    {
+     "spare": "淀殿",
+     "years": 10
+    }
+   ]
+  },
+  {
+   "id": "osaka_escape",
+   "event": "osaka_summer",
+   "order": 1,
+   "why": "主人公が堺に船を用意し、豊臣秀頼に落ち延びるよう説いた",
+   "when": {
+    "flag": "h_osk_escape"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "大坂夏の陣。[[p:真田信繁]]は家康の本陣に三度斬り込んだのち討たれ、城は燃え落ちた。[[p:淀殿]]は自害したが、[[p:豊臣秀頼]]の骸は見つからず、薩摩へ落ちたという噂が残った。",
+    "do": [
+     [
+      "battle",
+      "osaka_summer"
+     ],
+     [
+      "annex",
+      "tokugawa",
+      "oda"
+     ],
+     [
+      "add",
+      "tokugawa",
+      "prestige",
+      15
+     ]
+    ],
+    "imp": 3,
+    "at": "ishiyama"
+   }
+  }
+ ]
+}

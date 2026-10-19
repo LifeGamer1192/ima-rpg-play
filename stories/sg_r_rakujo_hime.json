@@ -1,0 +1,377 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_rakujo_hime",
+ "kind": "random",
+ "where": "road",
+ "hook": "お城が落ちました。姫さまだけは、なんとしても",
+ "title": "落城の姫",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "奥女中"
+  },
+  "hime": {
+   "npc": "姫",
+   "sex": "f"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "foe": {
+   "realm": "enemy:land"
+  },
+  "kin": {
+   "place": "near:here"
+  },
+  "uncle": {
+   "npc": "姫の叔父",
+   "sex": "m"
+  },
+  "oute": {
+   "npc": "追手の物頭",
+   "sex": "m"
+  },
+  "ama": {
+   "npc": "庵主",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "街道脇の藪から、煤にまみれた女が転がり出てきた。打掛の裾は破れ、手には懐剣を握っている。",
+    "「昨夜、城が{foe}の軍勢に落ちました。殿も若殿も、天守とともに……。姫さまだけをお連れして、ここまで逃れてまいったのです。{kin}の母御の里まで、どうかお守りくだされ」"
+   ],
+   "choices": [
+    {
+     "label": "姫のもとへ案内させる",
+     "next": "hut"
+    },
+    {
+     "label": "関わり合いになるのは御免だ",
+     "next": "end_refuse"
+    }
+   ]
+  },
+  "hut": {
+   "speaker": "hime",
+   "art": "hideout",
+   "text": [
+    "炭焼き小屋の暗がりに、十二、三の娘が座っていた。足袋は血に染まり、膝の上に錦の袋を抱えている。家の系図だという。",
+    "{hime}は震える声で、それでも背筋を伸ばして言った。「父上の名を辱めぬよう、取り乱しはいたしませぬ」"
+   ],
+   "choices": [
+    {
+     "label": "足の傷を手当てする",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "tended",
+      "lose": "pass"
+     }
+    },
+    {
+     "label": "近くの村で百姓娘の野良着を買い求める（100文）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      },
+      {
+       "flag": "sg_rh_garb"
+      }
+     ],
+     "next": "pass"
+    },
+    {
+     "label": "すぐに発つ",
+     "next": "pass"
+    }
+   ]
+  },
+  "tended": {
+   "speaker": "client",
+   "art": "hideout",
+   "text": [
+    "傷を洗い、膏薬を塗って布を巻いた。{hime}は小さく礼を言い、{client}がほっと息をついた。「これなら峠を越えられましょう」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_rh_tended"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "pass"
+  },
+  "pass": {
+   "speaker": "oute",
+   "art": "road",
+   "text": [
+    "峠の茶屋の前に、{foe}の旗を差した足軽が十人ほどたむろしていた。物頭の{oute}が、通る女の顔を一人ずつ改めている。",
+    "「落ちた城の姫を捕らえた者には、銀十枚じゃ。娘連れは残らず止めよ」"
+   ],
+   "choices": [
+    {
+     "label": "野良着の姫を妹ということにして、堂々と通る",
+     "if": {
+      "flag": "sg_rh_garb"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "kinhouse",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "手当てした姫の手を引き、山の間道を抜ける",
+     "if": {
+      "flag": "sg_rh_tended"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "kinhouse",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "姫を背負って山の間道を抜ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "kinhouse",
+      "lose": "caught"
+     },
+     "guide": "険しい間道を背負って歩く。足音を立てやすい"
+    },
+    {
+     "label": "足軽どもを斬り払って押し通る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "kinhouse",
+      "lose": "end_taken"
+     }
+    }
+   ]
+  },
+  "caught": {
+   "speaker": "oute",
+   "art": "war",
+   "text": [
+    "「待て。その娘、手を見せよ。……鍬を握った手ではないな」{oute}がにやりと笑った。足軽たちが槍を構えて囲む。",
+    "「姫を渡せ。そうすれば、そこもとには銀を分けてやる。{foe}の殿は、姫を粗略には扱わぬと仰せだ」"
+   ],
+   "choices": [
+    {
+     "label": "姫を背にかばって斬り結ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "kinhouse",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "「幼い姫を捕らえて晒せば、{foe}の殿の名が泣くぞ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "kinhouse",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "姫を引き渡す",
+     "next": "end_handed"
+    }
+   ]
+  },
+  "kinhouse": {
+   "at": {
+    "place": "kin",
+    "building": "house"
+   },
+   "goal": "{kin}の母方の屋敷へ{hime}を送り届ける",
+   "speaker": "uncle",
+   "art": "backroom",
+   "text": [
+    "{kin}の屋敷で、姫の叔父{uncle}は姪の姿を見るなり目をうるませた。だが、話が匿うことに及ぶと、その顔が曇った。",
+    "「{foe}はいずれこの辺りも呑む。姫を匿えば、この家も焼かれよう。いっそ姫を差し出し、{foe}の殿の側に上げていただく方が、姫の身も立つのではないか」"
+   ],
+   "choices": [
+    {
+     "label": "「姪御を敵に差し出して守った家に、何が残る」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_sheltered",
+      "lose": "nunnery"
+     }
+    },
+    {
+     "label": "系図を盾に「この家の血を絶やすおつもりか」と迫る",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_sheltered",
+      "lose": "nunnery"
+     }
+    },
+    {
+     "label": "叔父には頼らず、姫を尼寺へ連れていく",
+     "next": "nunnery"
+    },
+    {
+     "label": "叔父の言うとおりにさせる",
+     "next": "end_handed"
+    }
+   ]
+  },
+  "nunnery": {
+   "at": {
+    "place": "kin",
+    "building": "shrine"
+   },
+   "goal": "{kin}の尼寺へ{hime}を連れていく",
+   "speaker": "ama",
+   "art": "faith",
+   "text": [
+    "山門の内に入れば、俗世の争いは届かない。庵主の{ama}は、{hime}の手を取って静かに言った。「ここでは、誰の娘でもございませぬ。仏の子として、お暮らしなされ」",
+    "{hime}は錦の袋をしばらく見つめ、それから庵主に差し出した。"
+   ],
+   "next": "end_nun"
+  },
+  "end_sheltered": {
+   "speaker": "hime",
+   "art": "backroom",
+   "text": [
+    "{uncle}は長い沈黙ののち、姪の肩を抱いた。「……わしが愚かであった。姫は、この家の奥でお育てしよう」",
+    "{hime}は膝をついて、こちらに深く頭を下げた。「いつか家を興したら、この恩は必ず」{client}が後ろで声を殺して泣いていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_rh_tended"
+    },
+    {
+     "unflag": "sg_rh_garb"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "落城した城の姫{hime}を、{kin}の母方の家へ送り届けた。"
+    }
+   ],
+   "end": "母の里"
+  },
+  "end_nun": {
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "翌朝、{hime}は髪を下ろした。系図は寺の蔵に納められ、いつか誰かが家を興す日まで眠ることになった。",
+    "{client}も尼寺に残るという。「姫さまのお側を離れませぬ」別れ際、二人は山門でいつまでも見送っていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_rh_tended"
+    },
+    {
+     "unflag": "sg_rh_garb"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 1
+    },
+    {
+     "note": "落城した城の姫{hime}を、{kin}の尼寺に託した。"
+    }
+   ],
+   "end": "山門の内"
+  },
+  "end_handed": {
+   "speaker": "oute",
+   "art": "court",
+   "text": [
+    "{hime}は泣きもせず、迎えの輿に乗った。{client}が輿にすがりつき、足軽に引き剥がされた。",
+    "数日後、銀の包みが届いた。姫が{foe}の殿の側に上げられたのか、それとも別の扱いを受けたのか、知る者はいない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_rh_tended"
+    },
+    {
+     "unflag": "sg_rh_garb"
+    },
+    {
+     "money": 400
+    },
+    {
+     "fame": -4
+    }
+   ],
+   "end": "迎えの輿"
+  },
+  "end_taken": {
+   "speaker": "client",
+   "art": "war",
+   "text": [
+    "槍の柄で打ち倒され、気づいたときには{hime}の姿はなかった。{client}が土にまみれて泣き伏している。",
+    "錦の袋だけが、草むらに落ちていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_rh_tended"
+    },
+    {
+     "unflag": "sg_rh_garb"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "奪われた姫"
+  },
+  "end_refuse": {
+   "speaker": "client",
+   "text": [
+    "{client}は唇を噛み、藪の奥へ戻っていった。峠の方から、追手の法螺貝が聞こえてくる。"
+   ],
+   "end": "断った"
+  }
+ }
+}

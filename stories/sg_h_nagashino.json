@@ -1,0 +1,977 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_nagashino",
+ "kind": "history",
+ "title": "設楽原の柵",
+ "era": "sengoku",
+ "event": "nagashino",
+ "lead": 5,
+ "before": [
+  "s1",
+  "s2",
+  "s3stay",
+  "s3spy",
+  "s3spy_ng",
+  "s3report",
+  "s3powder",
+  "s3powder_ng",
+  "s4road",
+  "s4fight",
+  "s4camp",
+  "s4retreat",
+  "s4ng",
+  "s4cross",
+  "s4cut",
+  "s4cut_ng",
+  "s5",
+  "s5raid",
+  "s5wait"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "okazaki"
+  },
+  "east": {
+   "scnPlace": "yoshida_m"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "takeda": {
+   "scnRealm": "takeda"
+  },
+  "tokugawa": {
+   "scnRealm": "tokugawa"
+  },
+  "nobunaga": {
+   "person": "ruler:oda"
+  },
+  "katsuyori": {
+   "person": "ruler:takeda"
+  },
+  "ieyasu": {
+   "person": "ruler:tokugawa"
+  },
+  "sakai": {
+   "scnPerson": "酒井忠次"
+  },
+  "baba": {
+   "scnPerson": "馬場信春"
+  },
+  "yamagata": {
+   "scnPerson": "山県昌景"
+  },
+  "kumi": {
+   "npc": "足軽組頭",
+   "sex": "m"
+  },
+  "suppa": {
+   "npc": "武田の透破",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の旅籠で長篠の噂を聞く",
+   "speaker": "鳥居強右衛門",
+   "art": "inn",
+   "text": [
+    "{city}の旅籠の土間に、ずぶ濡れの男が転がり込んできた。奥三河の長篠城に籠もる奥平の足軽、鳥居強右衛門と名乗った。夜のうちに城の下の川を潜り、武田の囲みを抜けてきたという。",
+    "「{katsuyori}様の一万五千に囲まれて、城の兵は五百。兵糧はあと幾日ももたぬ。{ieyasu}様に、援けは来るのか来ぬのか、それだけを聞きに来た」",
+    "男は水を三杯続けて飲み、{player}の顔を見た。「お主、城まで道を知っておるか。わしは殿の返事を持って、また長篠へ戻らねばならぬ」"
+   ],
+   "choices": [
+    {
+     "label": "強右衛門について{city}の城へ行く",
+     "effects": [
+      {
+       "note": "長篠城から抜け出してきた鳥居強右衛門に会った。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「戻れば死ぬぞ」と言いつつ、ついて行く",
+     "effects": [
+      {
+       "note": "長篠城から抜け出してきた鳥居強右衛門に会った。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の城で強右衛門の訴えを見届ける",
+   "speaker": "sakai",
+   "art": "court",
+   "text": [
+    "{city}の城は、もう戦の支度で沸き立っていた。岐阜から{nobunaga}の大軍が着くという。広間で強右衛門の話を聞いた{sakai}は、膝を打った。「援けは出る。織田殿も来られる。城の者にそう伝えよ」",
+    "強右衛門は額を床にすりつけ、すぐにでも長篠へ戻ると言った。{sakai}は{player}を見た。「お主は何者だ。手が空いているなら、柵の木を運ぶ人足が足りぬ。足軽一人につき柵木一本、それが織田殿のお指図よ」"
+   ],
+   "choices": [
+    {
+     "label": "強右衛門と共に長篠へ戻る",
+     "guide": "武田の囲みを抜ける。捕まるかもしれない",
+     "next": "s4road"
+    },
+    {
+     "label": "{city}に残り、柵木と煙硝の運びを手伝う",
+     "next": "s3stay"
+    }
+   ]
+  },
+  "s3stay": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の市で柵木と煙硝を運ぶ",
+   "speaker": "kumi",
+   "art": "trade",
+   "text": [
+    "市の外れには丸太が山と積まれ、縄の束が荷車からあふれていた。堺から届いた煙硝の樽には、油紙が三重に巻いてある。{kumi}が汗を拭きながら言った。「鉄砲は三千挺と聞く。撃つ玉と薬が湿れば、ただの鉄の棒よ」",
+    "荷を運んで三日目、樽を数えている{player}の袖を、旅の薬売りが引いた。人のいない蔵の陰で、男は甲斐の訛りで囁いた。「銭はいらぬか。樽に一杯、水を差すだけでよい」"
+   ],
+   "choices": [
+    {
+     "label": "黙って柵木を運び続ける",
+     "effects": [
+      {
+       "flag": "h_ng_stakes"
+      },
+      {
+       "money": 40
+      },
+      {
+       "xp": "trade",
+       "n": 1
+      }
+     ],
+     "next": "s5"
+    },
+    {
+     "label": "薬売りの後をつけ、仲間の居所を突き止める",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s3spy",
+      "lose": "s3spy_ng"
+     }
+    },
+    {
+     "label": "銭を受け取り、煙硝の蔵に水を差す",
+     "turn": true,
+     "guide": "織田方を裏切る。見つかれば斬られる",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s3powder",
+      "lose": "s3powder_ng"
+     }
+    }
+   ]
+  },
+  "s3spy": {
+   "speaker": "suppa",
+   "text": [
+    "薬売りは町外れの百姓家に入っていった。中には同じ訛りの男が三人、絵図を広げている。岡崎から長篠までの道、柵を結う野の広さ、煙硝の蔵の場所まで書き込まれていた。",
+    "{player}は絵図の端を見届けてから、そっと引き返した。"
+   ],
+   "effects": [
+    {
+     "flag": "h_ng_spy"
+    }
+   ],
+   "next": "s3report"
+  },
+  "s3spy_ng": {
+   "speaker": "suppa",
+   "text": [
+    "角を曲がったところで、薬売りが待っていた。笑っている。後ろの路地から、脇差を抜いた男がもう二人。「甲斐の透破を、町の素人がつけるとはな」"
+   ],
+   "choices": [
+    {
+     "label": "斬り払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "free": true,
+      "fled": "s5",
+      "win": "s3spy",
+      "lose": "s5"
+     }
+    }
+   ]
+  },
+  "s3report": {
+   "at": {
+    "place": "city",
+    "building": "office"
+   },
+   "goal": "{city}の奉行所に透破の居所を告げる",
+   "speaker": "kumi",
+   "text": [
+    "奉行所の役人は話半分に聞いていたが、絵図のことを言うと顔色を変えた。その夜のうちに百姓家は囲まれ、二人が斬られ、一人が捕らえられた。",
+    "{kumi}が{player}の肩を叩いた。「よう見つけた。あの樽に水を差されておったら、設楽原で死ぬのはわしらだった」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "money": 80
+    },
+    {
+     "rep": "tokugawa",
+     "n": 8
+    },
+    {
+     "note": "{city}で武田の透破の巣を突き止めた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s3powder": {
+   "speaker": "suppa",
+   "text": [
+    "夜更けに蔵へ忍び込み、樽の栓を抜いては桶の水を注いだ。十樽、二十樽。油紙を元どおりに巻き直すと、外から見て分かる者はいない。",
+    "翌朝、薬売りは約束どおり銭の袋を置いていった。「設楽原に雨が降れば、なおよい。甲斐の神も、お主に礼を言うだろう」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ng_powder"
+    },
+    {
+     "money": 250
+    },
+    {
+     "rep": "takeda",
+     "n": 10
+    },
+    {
+     "rep": "tokugawa",
+     "n": -10
+    },
+    {
+     "note": "武田の透破に銭をもらい、織田方の煙硝に水を差した。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3powder_ng": {
+   "speaker": "kumi",
+   "text": [
+    "蔵の戸を開けたところで、見回りの足軽の灯が{player}の顔を照らした。手には水の桶。言い訳はきかなかった。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜けて逃げる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5wait",
+      "lose": "s5wait"
+     }
+    }
+   ]
+  },
+  "s4road": {
+   "at": {
+    "place": "east"
+   },
+   "goal": "{east}から長篠へ抜ける道を行く",
+   "speaker": "鳥居強右衛門",
+   "art": "road",
+   "text": [
+    "{east}を過ぎると、道は豊川に沿って山へ入っていく。強右衛門は足が速かった。「城の者は皆、川向こうの雁峰山を見ておる。援けが来るなら、あの山で狼煙を上げる約束だ」",
+    "長篠の城が見える尾根まで来たとき、藪の中から武田の兵が立ち上がった。十人を超えている。"
+   ],
+   "choices": [
+    {
+     "label": "強右衛門を逃がそうと斬りかかる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4fight",
+      "lose": "s4camp"
+     }
+    },
+    {
+     "label": "刀を捨てて降る",
+     "next": "s4camp"
+    }
+   ]
+  },
+  "s4fight": {
+   "speaker": "鳥居強右衛門",
+   "text": [
+    "二人を斬り伏せたが、後から後から兵が湧いてくる。強右衛門は{player}の前に立ちはだかった。「もうよい。わしが捕まれば済むことだ。お主まで死ぬことはない」",
+    "二人はそのまま縄を打たれ、武田の陣へ引かれていった。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 1
+    }
+   ],
+   "next": "s4camp"
+  },
+  "s4camp": {
+   "at": {
+    "place": "east",
+    "building": "barracks"
+   },
+   "goal": "長篠を囲む武田の陣で引き出される",
+   "speaker": "baba",
+   "art": "camp",
+   "text": [
+    "陣幕の内で縄をほどかれた。床几に腰かけていたのは、白髪まじりの老将だった。{baba}と名乗った。四十年戦場を駆けて、傷ひとつ負ったことがないと噂される男である。",
+    "「強右衛門とやらには、城の者に『援けは来ぬ』と叫べと命じた。叫べば命は助ける、とな」老将は{player}を見た。「お主は岡崎を見てきたのだろう。織田の兵はどれほどだ。正直に言え」"
+   ],
+   "choices": [
+    {
+     "label": "「数は分からぬ」としらを切る",
+     "next": "s4cross"
+    },
+    {
+     "label": "岡崎で見た柵木の山と鉄砲の数を、ありのまま語る",
+     "next": "s4ng"
+    },
+    {
+     "label": "「柵の内に鉄砲三千。御屋形様に囲みを解かせなされ」と老将に説く",
+     "turn": true,
+     "guide": "武田に退かせる。言葉ひとつで戦が消える",
+     "check": {
+      "skill": "speech",
+      "dc": 37,
+      "win": "s4retreat",
+      "lose": "s4ng"
+     }
+    }
+   ]
+  },
+  "s4retreat": {
+   "speaker": "baba",
+   "art": "camp",
+   "text": [
+    "{player}は地べたに枝で絵を描いた。連吾川の流れ、その向こうの三重の柵、柵の切れ目ごとに並ぶ鉄砲の列。{baba}は長いあいだ黙っていた。",
+    "「わしと{yamagata}も、同じことを申し上げた。御屋形様は聞かれなんだ。だが、敵の陣を見てきた者の口から出れば、話は別だ」老将は立ち上がった。「来い。本陣で、今の話をもう一度するのだ」",
+    "その夜、本陣の篝火の前で{player}は同じ絵を描いた。{katsuyori}は扇を握りしめたまま、最後まで一言も発しなかった。翌朝、陣触れが変わった。長篠の囲みを解き、甲斐へ兵を返す、と。"
+   ],
+   "effects": [
+    {
+     "flag": "h_ng_retreat"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "takeda",
+     "n": 10
+    },
+    {
+     "note": "{baba}に説き、{katsuyori}に長篠の囲みを解かせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4ng": {
+   "speaker": "baba",
+   "text": [
+    "老将は黙って聞き、やがて小さく息を吐いた。「わしも同じことを申し上げた。御屋形様は、退けば武田の名が地に落ちると仰せだ」",
+    "「お主を斬っても何も変わらぬ。行け。ただし、明日の朝は見ておけ」"
+   ],
+   "next": "s4cross"
+  },
+  "s4cross": {
+   "speaker": "鳥居強右衛門",
+   "art": "war",
+   "text": [
+    "翌朝、強右衛門は長篠城の大手の前に引き出された。城の櫓に、奥平の兵の顔が並んでいる。強右衛門は大きく息を吸い、叫んだ。",
+    "「援けは来るぞ。織田殿も徳川殿も、もうそこまで来ておる。あと二、三日の辛抱じゃ」",
+    "武田の兵が槍を構えた。強右衛門はその場で磔にかけられた。城の櫓から、泣き声とも鬨の声ともつかぬものが上がった。"
+   ],
+   "choices": [
+    {
+     "label": "夜を待ち、磔柱から強右衛門の亡骸を下ろす",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s4cut",
+      "lose": "s4cut_ng"
+     }
+    },
+    {
+     "label": "陣の乱れに紛れて逃げ、{east}へ戻る",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4cut": {
+   "text": [
+    "月のない夜だった。縄を切り、冷たくなった体を背負って川べりの竹藪に運んだ。土を掘る音を、雨蛙の声が消してくれた。墓標の代わりに、強右衛門の脇差を突き立てた。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "tokugawa",
+     "n": 5
+    },
+    {
+     "note": "磔にされた鳥居強右衛門の亡骸を下ろして葬った。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4cut_ng": {
+   "text": [
+    "柱に手をかけたところで見張りに見つかった。追われ、川に飛び込み、流されるままに下った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "east",
+    "building": "barracks"
+   },
+   "goal": "{east}の番所で徳川の陣に加わる",
+   "speaker": "sakai",
+   "art": "war",
+   "text": [
+    "{east}には徳川の兵が集まり、そこから設楽原へ向かっていた。番所で{sakai}が地図を広げている。「武田の背、鳶ヶ巣山の砦を夜のうちに落とす。長篠の城を救い、武田に退く道をなくすのだ」",
+    "「腕に覚えのある者は来い。山を越える。鎧は脱いでいけ。音が立つ」"
+   ],
+   "choices": [
+    {
+     "label": "鳶ヶ巣山の夜襲に加わる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5raid",
+      "lose": "s5wait"
+     }
+    },
+    {
+     "label": "柵の内に残り、鉄砲の玉込めを手伝う",
+     "next": "s5wait"
+    }
+   ]
+  },
+  "s5raid": {
+   "speaker": "sakai",
+   "text": [
+    "夜明け前、砦の柵を乗り越えて火をかけた。武田の兵は寝込みを襲われて四散し、長篠の城から歓声が上がった。{sakai}が煤けた顔で笑った。「これで武田は前へ出るしかない」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ng_tobi"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5wait": {
+   "at": {
+    "place": "east"
+   },
+   "goal": "設楽原で決戦の時を待つ",
+   "wait": {
+    "days": 5
+   },
+   "speaker": "kumi",
+   "art": "camp",
+   "text": [
+    "連吾川の西に、柵が三重に結われた。柵の切れ目ごとに鉄砲足軽が並び、火縄の匂いが野に満ちている。{kumi}は空を見上げた。「雨が降らねばよいがな」"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "east"
+   },
+   "goal": "設楽原の戦の成り行きを見届ける",
+   "wait": {
+    "settled": "nagashino"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ng_retreat"
+     },
+     "next": "retreated"
+    },
+    {
+     "if": {
+      "branch": "ng_powder"
+     },
+     "next": "wet"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "retreated": {
+   "speaker": "baba",
+   "art": "road",
+   "text": [
+    "武田の軍は長篠の囲みを解き、伊那の谷を北へ退いていった。設楽原の柵の内で、三千の鉄砲は撃つ相手を待ったまま、火縄を燃やし尽くした。",
+    "退く列の殿にいた{baba}が、馬上から{player}を見つけて頷いた。「命拾いした者が一万はおる。わしもその一人だ。御屋形様は、この恥を一生お忘れにならぬだろうがな」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ng_retreat"
+    },
+    {
+     "unflag": "h_ng_powder"
+    },
+    {
+     "unflag": "h_ng_spy"
+    },
+    {
+     "unflag": "h_ng_tobi"
+    },
+    {
+     "unflag": "h_ng_stakes"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "takeda",
+     "n": 10
+    },
+    {
+     "note": "武田は長篠の囲みを解いて退き、設楽原の決戦は起きなかった。"
+    }
+   ],
+   "end": "撃たれなかった鉄砲"
+  },
+  "wet": {
+   "speaker": "suppa",
+   "art": "war",
+   "text": [
+    "前の夜から雨だった。武田の騎馬が連吾川を渡って押し寄せたとき、柵の内の鉄砲は半ばが火を噴かなかった。一重目の柵が破られ、二重目で辛うじて止まった。昼過ぎに武田は退いたが、野には両軍の死骸が折り重なった。",
+    "{suppa}は約束の残りの銭を置いて、甲斐へ消えた。「お主の水は、千の騎馬に勝る」。袋は重かった。{player}は、柵の前で倒れていた{kumi}の顔を思い出さないようにした。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ng_retreat"
+    },
+    {
+     "unflag": "h_ng_powder"
+    },
+    {
+     "unflag": "h_ng_spy"
+    },
+    {
+     "unflag": "h_ng_tobi"
+    },
+    {
+     "unflag": "h_ng_stakes"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "takeda",
+     "n": 10
+    },
+    {
+     "note": "湿った煙硝のせいで、設楽原の戦は血みどろの痛み分けになった。"
+    }
+   ],
+   "end": "湿った煙硝"
+  },
+  "s6": {
+   "at": {
+    "place": "east"
+   },
+   "goal": "設楽原の戦の成り行きを見届ける",
+   "wait": {
+    "fired": "nagashino"
+   },
+   "speaker": "kumi",
+   "art": "war",
+   "text": [
+    "戦は朝から昼過ぎまで続いた。武田の騎馬は名乗りを上げて柵へ駆け、そのたびに鉄砲の煙の中へ消えた。{yamagata}が討たれ、{baba}が殿に残って討たれた。夕暮れの設楽原は、赤い旗指物と馬の骸で埋まった。",
+    "{kumi}が火縄を踏み消した。「これが戦か。槍を一度も合わせぬうちに、名のある侍が次々と死んでいく」"
+   ],
+   "choices": [
+    {
+     "label": "鳶ヶ巣山で共に戦った者たちと、退く武田を追い討つ",
+     "if": {
+      "flag": "h_ng_tobi"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_pursuit",
+      "lose": "end_field"
+     }
+    },
+    {
+     "label": "柵木を運んだ足軽たちと、野の手負いを助けて回る",
+     "if": {
+      "flag": "h_ng_stakes"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "end_wounded",
+      "lose": "end_field"
+     }
+    },
+    {
+     "label": "討死した武田の名将たちの首を、手厚く葬るよう願い出る",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "end_buried",
+      "lose": "end_field"
+     }
+    },
+    {
+     "label": "野に落ちた鉄砲を拾い集めて売る",
+     "next": "end_guns"
+    }
+   ]
+  },
+  "end_pursuit": {
+   "speaker": "sakai",
+   "text": [
+    "退く武田の兵を追って、寒狭川の渡しまで駆けた。名のある侍の首こそ取れなかったが、{sakai}は{player}の働きを帳面に書き留めさせた。",
+    "「夜の山を越えた者を、殿は忘れぬ。徳川に仕える気があるなら、いつでも来い」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ng_retreat"
+    },
+    {
+     "unflag": "h_ng_powder"
+    },
+    {
+     "unflag": "h_ng_spy"
+    },
+    {
+     "unflag": "h_ng_tobi"
+    },
+    {
+     "unflag": "h_ng_stakes"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "tokugawa",
+     "n": 12
+    },
+    {
+     "money": 150
+    },
+    {
+     "note": "長篠の戦で、鳶ヶ巣山の夜襲と追い討ちに加わった。"
+    }
+   ],
+   "end": "鳶ヶ巣山の夜"
+  },
+  "end_wounded": {
+   "speaker": "kumi",
+   "text": [
+    "敵も味方もなかった。腹を撃たれた甲斐の若侍に水を飲ませ、脚を砕かれた三河の足軽に添え木を当てた。{kumi}は「武田の者まで助けてどうする」と言いながら、自分も手を貸した。",
+    "日が暮れるころ、助けた者の中に、長篠城から出てきた奥平の兵がいた。「強右衛門の叫びが聞こえたから、わしらは持ちこたえた」と男は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ng_retreat"
+    },
+    {
+     "unflag": "h_ng_powder"
+    },
+    {
+     "unflag": "h_ng_spy"
+    },
+    {
+     "unflag": "h_ng_tobi"
+    },
+    {
+     "unflag": "h_ng_stakes"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "note": "長篠の戦の後、設楽原で手負いを助けて回った。"
+    }
+   ],
+   "end": "設楽原の手当て"
+  },
+  "end_buried": {
+   "text": [
+    "{sakai}に願い出ると、意外にもすぐに許しが出た。「敵ながら見事な死にざまであった。葬ってやれ」",
+    "設楽原の外れに塚を築き、{yamagata}や{baba}ら名のある侍を葬った。のちに土地の者はそこを「信玄塚」と呼び、毎年夏に火を焚いて弔うようになったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ng_retreat"
+    },
+    {
+     "unflag": "h_ng_powder"
+    },
+    {
+     "unflag": "h_ng_spy"
+    },
+    {
+     "unflag": "h_ng_tobi"
+    },
+    {
+     "unflag": "h_ng_stakes"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "takeda",
+     "n": 8
+    },
+    {
+     "note": "長篠の戦で討死した武田の名将たちを葬った。"
+    }
+   ],
+   "end": "設楽原の塚"
+  },
+  "end_guns": {
+   "text": [
+    "拾った鉄砲は九挺。火皿の欠けたもの、銃身の曲がったもの。それでも{city}の鍛冶屋は喜んで買い取った。「これからは、どこの家も鉄砲を欲しがる。武田の騎馬が負けた話は、もう国中に広まっておる」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ng_retreat"
+    },
+    {
+     "unflag": "h_ng_powder"
+    },
+    {
+     "unflag": "h_ng_spy"
+    },
+    {
+     "unflag": "h_ng_tobi"
+    },
+    {
+     "unflag": "h_ng_stakes"
+    },
+    {
+     "money": 300
+    },
+    {
+     "note": "長篠の戦の後、野に落ちた鉄砲を拾って売った。"
+    }
+   ],
+   "end": "拾った鉄砲"
+  },
+  "end_field": {
+   "text": [
+    "流れ弾が肩をかすめ、{player}は泥の中に倒れた。気がつくと夜で、野のあちこちで松明が首を探していた。武田の騎馬が負けたという話だけが、確かなことだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ng_retreat"
+    },
+    {
+     "unflag": "h_ng_powder"
+    },
+    {
+     "unflag": "h_ng_spy"
+    },
+    {
+     "unflag": "h_ng_tobi"
+    },
+    {
+     "unflag": "h_ng_stakes"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "note": "長篠の戦で、織田と徳川の鉄砲が武田の騎馬を破るのを見た。"
+    }
+   ],
+   "end": "鉄砲の野"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ng_retreat"
+     },
+     "next": "retreated"
+    },
+    {
+     "if": {
+      "branch": "ng_powder"
+     },
+     "next": "wet"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。三河の設楽原で、織田と徳川の鉄砲が武田の騎馬を打ち破ったという。山県、馬場、内藤、名のある武田の侍が幾人も討死した、とも。",
+    "「これからは槍ではなく鉄砲の世だ」と、旅籠の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ng_retreat"
+    },
+    {
+     "unflag": "h_ng_powder"
+    },
+    {
+     "unflag": "h_ng_spy"
+    },
+    {
+     "unflag": "h_ng_tobi"
+    },
+    {
+     "unflag": "h_ng_stakes"
+    },
+    {
+     "note": "長篠で武田が敗れたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "ng_retreat",
+   "event": "nagashino",
+   "order": 2,
+   "why": "主人公が馬場信春と共に勝頼に退却を説いた",
+   "when": {
+    "flag": "h_ng_retreat"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_takeda}は[[p:馬場信春]]・[[p:山県昌景]]らの諫めを容れて長篠城の囲みを解き、兵を甲斐へ返した。{n_oda}と{n_tokugawa}の鉄砲は、設楽原の柵の内で撃つ相手を待ちつづけた。",
+    "do": [
+     [
+      "army",
+      "takeda",
+      0.9
+     ],
+     [
+      "add",
+      "takeda",
+      "prestige",
+      -6
+     ],
+     [
+      "add",
+      "tokugawa",
+      "prestige",
+      6
+     ]
+    ],
+    "imp": 3,
+    "at": "okazaki"
+   },
+   "people": [
+    {
+     "spare": "馬場信春",
+     "years": 3
+    },
+    {
+     "spare": "山県昌景",
+     "years": 3
+    }
+   ]
+  },
+  {
+   "id": "ng_powder",
+   "event": "nagashino",
+   "order": 1,
+   "why": "主人公が織田方の煙硝に水を差していた",
+   "when": {
+    "flag": "h_ng_powder"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "長篠の戦い。雨の中、{n_takeda}の騎馬は設楽原の柵に押し寄せた。{n_oda}の鉄砲は湿った煙硝で半ばが火を噴かず、柵の一重目が破られた。武田は退いたが、両軍とも多くの兵を失った。",
+    "do": [
+     [
+      "army",
+      "takeda",
+      0.65
+     ],
+     [
+      "army",
+      "oda",
+      0.85
+     ],
+     [
+      "army",
+      "tokugawa",
+      0.85
+     ],
+     [
+      "add",
+      "takeda",
+      "prestige",
+      -5
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 3,
+    "at": "okazaki"
+   }
+  }
+ ]
+}

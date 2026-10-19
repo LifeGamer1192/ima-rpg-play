@@ -1,0 +1,830 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_tedorigawa",
+ "kind": "history",
+ "title": "七尾の門",
+ "era": "sengoku",
+ "event": "tedorigawa",
+ "lead": 7,
+ "before": [
+  "s1",
+  "s2",
+  "s2sick",
+  "s2sick_ng",
+  "s3",
+  "s3proof",
+  "s3ng",
+  "s3gate",
+  "s3gate_ok",
+  "s3gate_ng",
+  "s4",
+  "s4road",
+  "s4road_ng",
+  "s5",
+  "s5relay",
+  "s5ng",
+  "s6"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "nanao"
+  },
+  "kaga": {
+   "scnPlace": "oyama"
+  },
+  "echizen": {
+   "scnPlace": "ichijodani"
+  },
+  "uesugi": {
+   "scnRealm": "uesugi"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "kenshin": {
+   "person": "ruler:uesugi"
+  },
+  "nobunaga": {
+   "person": "ruler:oda"
+  },
+  "shibata": {
+   "scnPerson": "柴田勝家"
+  },
+  "cho": {
+   "npc": "長家の侍",
+   "sex": "m"
+  },
+  "yusa": {
+   "npc": "遊佐家の用人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の旅籠で能登の噂を聞く",
+   "speaker": "cho",
+   "art": "inn",
+   "text": [
+    "{city}の町は、山の上の城を見上げて息をひそめていた。越後の{kenshin}が、また能登へ兵を向けたという。去年の冬にも城を囲み、雪で一度は引き上げた。今度は退かぬ、と越後の者は言いふらしている。",
+    "旅籠の奥で、城の重臣長続連の家の侍、{cho}が{player}に声をかけた。「城では、殿の幼い御子と家臣の妻子が籠もる。わしらは織田殿に援けを求めている。だが城の中には、越後に通じたがる者もおる」"
+   ],
+   "choices": [
+    {
+     "label": "{cho}について城へ上がる",
+     "effects": [
+      {
+       "note": "七尾城の長家の侍{cho}に頼まれ、城に上がった。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「わしは旅の者だ」と言いながらも、ついて行く",
+     "effects": [
+      {
+       "note": "七尾城の長家の侍{cho}に頼まれ、城に上がった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の城で籠城の様子を見る",
+   "speaker": "cho",
+   "art": "war",
+   "text": [
+    "七尾の城は山の尾根に沿って曲輪が連なる堅い城だった。だが中には、近在の村から逃げ込んだ百姓まで一万を超える人が詰め込まれている。井戸の水は濁り、夏の暑さで病が出はじめていた。",
+    "{cho}が声を落とした。「長の殿は織田方、遊佐の殿は越後と通じたい。城の中が二つに割れておる。……そのうえ、この病だ」"
+   ],
+   "choices": [
+    {
+     "label": "病人を診て回る",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "s2sick",
+      "lose": "s2sick_ng"
+     }
+    },
+    {
+     "label": "遊佐の屋敷を探る",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2sick": {
+   "text": [
+    "病は腹から来ていた。濁った井戸の水を飲んだ者から倒れていく。{player}は水を煮てから飲むように触れて回り、病人を一つの曲輪に集めた。倒れる者の数は、目に見えて減った。",
+    "{cho}が頭を下げた。「お主のおかげで、城はあと一月はもつ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_td_sick"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "s3"
+  },
+  "s2sick_ng": {
+   "text": [
+    "手は尽くしたが、病人は増えるばかりだった。夜になると、曲輪のあちこちから念仏が聞こえた。城の幼い御子も熱を出したという。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "house"
+   },
+   "goal": "{city}の遊佐の屋敷を探る",
+   "speaker": "yusa",
+   "art": "backroom",
+   "text": [
+    "城の二の丸に、遊佐の家の屋敷がある。夜更け、屋敷の裏木戸から、百姓の身なりをした男が出ていった。歩き方が百姓ではない。越後の侍だ、と{player}は思った。",
+    "木戸の内では、{yusa}が誰かと話していた。「……殿は、長の一族さえ除けば、城を明け渡すと仰せだ。門は、その夜、内から開く」"
+   ],
+   "choices": [
+    {
+     "label": "屋敷に忍び込み、越後との密書を探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s3proof",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "聞いたことを{cho}に知らせる",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3proof": {
+   "speaker": "yusa",
+   "text": [
+    "書院の文箱の底に、越後の{kenshin}の花押の据わった書状があった。「長の一族を除き、城を明け渡さば、能登一国の仕置は遊佐に任すべし」",
+    "{player}は書状を懐に入れた。これを長の殿に見せれば、城の中で血が流れる。見せなければ、門が開く。"
+   ],
+   "effects": [
+    {
+     "flag": "h_td_proof"
+    },
+    {
+     "note": "七尾城の遊佐が越後と通じている密書を見つけた。"
+    }
+   ],
+   "next": "s3gate"
+  },
+  "s3ng": {
+   "text": [
+    "屋敷の犬が吠えた。家士が灯を手に走ってくる。{player}は塀を越えて逃げた。遊佐の屋敷は、翌日から見張りが倍になった。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "s4"
+  },
+  "s3gate": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の城で、長の殿に密書を見せる",
+   "speaker": "cho",
+   "art": "court",
+   "text": [
+    "長続連は密書を読み、拳で床を叩いた。「やはりか。だが遊佐を斬れば、遊佐の兵が門の内で刃を抜く。城の中で戦えば、外の越後が喜ぶだけだ」",
+    "{cho}が{player}を見た。「門を開ける夜はいつか、誰が開けるか。それさえ分かれば、その夜だけ、門に長の者を立てられる」"
+   ],
+   "choices": [
+    {
+     "label": "門を開ける夜を探り出し、その夜の門を固めさせる",
+     "turn": true,
+     "guide": "七尾が持ちこたえれば、謙信は兵を返す",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s3gate_ok",
+      "lose": "s3gate_ng"
+     }
+    },
+    {
+     "label": "密書を長の殿に預け、城の外へ援けを呼びに出る",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3gate_ok": {
+   "speaker": "yusa",
+   "art": "war",
+   "text": [
+    "{player}は遊佐の下人に化けて屋敷に入り込み、三日目の夜、{yusa}が門番に酒を配る手筈を聞き取った。その夜、門の内には遊佐の門番の代わりに、長の家の者が槍を並べて立った。",
+    "真夜中、門の外で越後の兵が合図の松明を振った。門は開かなかった。松明はしばらく揺れ、やがて山の闇に消えた。翌朝、遊佐の一族は城の奥の曲輪に押し込められた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_td_gate"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "uesugi",
+     "n": -10
+    },
+    {
+     "note": "七尾城の遊佐の内応を防ぎ、城の門を閉ざさせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3gate_ng": {
+   "speaker": "yusa",
+   "text": [
+    "遊佐の屋敷で下人の一人に顔を覚えられた。{yusa}が冷たく笑った。「長の犬か。殿に申し上げるまでもない。お主はもう、城の中を歩けぬぞ」{player}は夜のうちに城を下りるしかなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "kaga"
+   },
+   "goal": "{kaga}を抜けて越前へ援けを呼びに行く",
+   "speaker": "cho",
+   "art": "road",
+   "text": [
+    "城の者が書いた援けを乞う書状を懐に、{player}は加賀の道を南へ走った。加賀は一向宗の門徒の国で、越後と手を結んでいる。街道の辻ごとに、竹槍を持った門徒が立っていた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_td_letter"
+    }
+   ],
+   "choices": [
+    {
+     "label": "門徒の関を夜陰に紛れて抜ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "s5",
+      "lose": "s4road_ng"
+     }
+    },
+    {
+     "label": "「念仏の者だ」と言い張って関を通る",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "s5",
+      "lose": "s4road_ng"
+     }
+    }
+   ]
+  },
+  "s4road_ng": {
+   "text": [
+    "関の門徒に囲まれた。竹槍の穂先が喉に向く。「越後の殿の敵に、加賀の道は通さぬ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "s5",
+      "lose": "s4road"
+     }
+    }
+   ]
+  },
+  "s4road": {
+   "text": [
+    "書状は無事だったが、{player}は傷を負い、山道を這うようにして越前へ抜けた。三日、遅れた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "echizen",
+    "building": "barracks"
+   },
+   "goal": "{echizen}の番所で柴田勝家に書状を届ける",
+   "speaker": "shibata",
+   "art": "war",
+   "text": [
+    "{echizen}には織田の大軍が集まっていた。総大将は{shibata}。鬼柴田と呼ばれる、髭の濃い大男である。陣の中では、羽柴とかいう将が柴田と言い争い、勝手に兵を引き上げてしまったと噂されていた。",
+    "{shibata}は書状を読み、地図を叩いた。「七尾まで、加賀を抜けて二十里。手取川を渡らねばならぬ。秋の雨で、川は溢れておるそうな」"
+   ],
+   "choices": [
+    {
+     "label": "「一日も早く七尾へ」と急かす",
+     "next": "s6"
+    },
+    {
+     "label": "「七尾が落ちたらすぐ分かるよう、山々に狼煙の番を置かれよ」と献じる",
+     "turn": true,
+     "guide": "柴田が川を渡る前に退けば、織田の兵は討たれぬ",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "s5relay",
+      "lose": "s5ng"
+     }
+    }
+   ]
+  },
+  "s5relay": {
+   "speaker": "shibata",
+   "art": "war",
+   "text": [
+    "{player}は地図の上に、七尾から加賀の山々を経て手取川までの峰を一つずつ指した。峰ごとに三人ずつ置き、七尾の城に越後の旗が立ったら、昼は煙、夜は火を上げる。半日で報せは川に届く。",
+    "{shibata}は唸った。「加賀の門徒の山に、わしの兵を置けというのか。……だが、七尾が落ちたことも知らずに越後の軍と出くわすよりは、ましか」柴田は膝を打った。「よかろう。山に強い足軽を選べ。お主が率いよ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_td_relay"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "note": "{shibata}に、七尾から手取川までの峰に狼煙の番を置くよう献じた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5ng": {
+   "speaker": "shibata",
+   "text": [
+    "「狼煙など、門徒に見つかれば番の者が斬られるだけよ」{shibata}は取り合わなかった。「わしらは急ぐのだ。四万の兵が川を渡れば、越後の兵など蹴散らしてくれる」"
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "kaga"
+   },
+   "goal": "柴田の軍と共に手取川へ向かう",
+   "wait": {
+    "days": 5
+   },
+   "speaker": "shibata",
+   "art": "war",
+   "text": [
+    "織田の大軍は加賀へ入った。秋の雨が降り続き、道はぬかるみ、川はどれも茶色に濁っていた。七尾の城からの報せは、もう十日も途絶えている。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "kaga"
+   },
+   "goal": "七尾と手取川の成り行きを見届ける",
+   "wait": {
+    "settled": "tedorigawa"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "td_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "td_relay"
+     },
+     "next": "relayed"
+    },
+    {
+     "next": "s7"
+    }
+   ]
+  },
+  "held": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "cho",
+   "art": "war",
+   "text": [
+    "門は最後まで開かなかった。越後の軍は二月のあいだ城を囲んだが、やがて雪の気配が北の空に満ちると、春日山へ兵を返した。織田の援けの軍は、加賀の手前で引き返したという。",
+    "{cho}は城の大手で{player}を迎えた。「病で倒れた者も多い。だが城は越後のものにならなかった。能登は、まだ能登の者のものだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_td_gate"
+    },
+    {
+     "unflag": "h_td_relay"
+    },
+    {
+     "unflag": "h_td_proof"
+    },
+    {
+     "unflag": "h_td_sick"
+    },
+    {
+     "unflag": "h_td_letter"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "money": 150
+    },
+    {
+     "note": "七尾城は遊佐の内応を防いで持ちこたえ、越後の軍は兵を返した。"
+    }
+   ],
+   "end": "開かなかった門"
+  },
+  "relayed": {
+   "speaker": "shibata",
+   "art": "war",
+   "text": [
+    "手取川の手前に陣を構えた夜、北の峰に火が上がった。一つ、また一つ。七尾が落ちたのだ。{shibata}は川を渡りかけていた先手を呼び戻し、夜のうちに兵を南へ返した。",
+    "翌朝、川の向こうの野に越後の旗が並んだ。だが溢れる川を挟んで、両軍は矢一本交えなかった。{shibata}は{player}の肩をつかんだ。「狼煙一つで、四万が生きて帰る。殿にはそう申し上げる」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_td_gate"
+    },
+    {
+     "unflag": "h_td_relay"
+    },
+    {
+     "unflag": "h_td_proof"
+    },
+    {
+     "unflag": "h_td_sick"
+    },
+    {
+     "unflag": "h_td_letter"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 8
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "note": "狼煙の報せで、柴田の軍は手取川を渡る前に退き、討たれずに済んだ。"
+    }
+   ],
+   "end": "峰の狼煙"
+  },
+  "s7": {
+   "at": {
+    "place": "kaga"
+   },
+   "goal": "七尾と手取川の成り行きを見届ける",
+   "wait": {
+    "fired": "tedorigawa"
+   },
+   "speaker": "shibata",
+   "art": "disaster",
+   "text": [
+    "七尾の城は内から門が開いて落ち、長の一族は皆殺しにされたという。その報せが届いたのは、織田の軍が溢れる手取川を渡りきった後だった。",
+    "夜の闇の中から越後の軍が襲いかかった。退こうにも、後ろは濁流である。川に追い落とされた兵が、流されながら叫んでいた。夜が明けたとき、{shibata}の軍は散り散りになっていた。"
+   ],
+   "choices": [
+    {
+     "label": "流される兵を岸に引き上げる",
+     "check": {
+      "skill": "blade",
+      "dc": 25,
+      "win": "end_river",
+      "lose": "end_flood"
+     }
+    },
+    {
+     "label": "城の病人を診た縁で、七尾に残った者の消息を尋ねに行く",
+     "if": {
+      "flag": "h_td_sick"
+     },
+     "next": "end_nanao"
+    },
+    {
+     "label": "城から預かった書状を、柴田に返す",
+     "if": {
+      "flag": "h_td_letter"
+     },
+     "next": "end_letter"
+    },
+    {
+     "label": "濁流に背を向けて、越前へ落ちる",
+     "next": "end_flee"
+    }
+   ]
+  },
+  "end_river": {
+   "text": [
+    "腰まで水に浸かって、流れてくる兵の襟首をつかんでは岸へ放り上げた。十人目で腕が上がらなくなった。岸の上では、助けた兵たちが震えながら焚き火を囲んでいた。",
+    "後で、越後の{kenshin}がこう言ったと聞いた。「聞くと見るとは大違い、案外弱い信長」。焚き火の兵たちは、それを聞いて黙り込んだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_td_gate"
+    },
+    {
+     "unflag": "h_td_relay"
+    },
+    {
+     "unflag": "h_td_proof"
+    },
+    {
+     "unflag": "h_td_sick"
+    },
+    {
+     "unflag": "h_td_letter"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "oda",
+     "n": 8
+    },
+    {
+     "note": "手取川で、流される織田の兵を岸に引き上げた。"
+    }
+   ],
+   "end": "濁流の岸"
+  },
+  "end_nanao": {
+   "at": {
+    "place": "city"
+   },
+   "text": [
+    "越後の兵が守る七尾の町に、{player}は百姓の身なりで戻った。病人を集めた曲輪にいた者のうち、幾人かは生きていた。城が開いた夜、病人の曲輪だけは誰も斬りに来なかったという。",
+    "「水を煮て飲めと言った人だ」と、子どもが{player}を指さした。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_td_gate"
+    },
+    {
+     "unflag": "h_td_relay"
+    },
+    {
+     "unflag": "h_td_proof"
+    },
+    {
+     "unflag": "h_td_sick"
+    },
+    {
+     "unflag": "h_td_letter"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "note": "七尾が落ちた後、城で診た病人たちの消息を尋ねた。"
+    }
+   ],
+   "end": "煮た水"
+  },
+  "end_letter": {
+   "speaker": "shibata",
+   "text": [
+    "{shibata}は濡れた書状を受け取り、長いあいだ見つめていた。「わしは間に合わなんだ。長の一族に、何と詫びればよい」鬼と呼ばれた男の目が赤かった。書状は、越前の寺に納められたという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_td_gate"
+    },
+    {
+     "unflag": "h_td_relay"
+    },
+    {
+     "unflag": "h_td_proof"
+    },
+    {
+     "unflag": "h_td_sick"
+    },
+    {
+     "unflag": "h_td_letter"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "oda",
+     "n": 5
+    },
+    {
+     "note": "七尾城の援けを乞う書状を、手取川の敗れの後に柴田へ返した。"
+    }
+   ],
+   "end": "届いて間に合わず"
+  },
+  "end_flee": {
+   "text": [
+    "泥の道を南へ走った。後ろで越後の鬨の声が上がった。越前に着いたとき、{player}の草鞋は両方とも脱げていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_td_gate"
+    },
+    {
+     "unflag": "h_td_relay"
+    },
+    {
+     "unflag": "h_td_proof"
+    },
+    {
+     "unflag": "h_td_sick"
+    },
+    {
+     "unflag": "h_td_letter"
+    },
+    {
+     "hp": -10
+    },
+    {
+     "note": "手取川で、越後の軍が織田の軍を破るのを見た。"
+    }
+   ],
+   "end": "濁流に背を向けて"
+  },
+  "end_flood": {
+   "text": [
+    "兵の手をつかんだまま、{player}も流れに足を取られた。気がつくと下流の葦の中だった。つかんでいたはずの手は、もうなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_td_gate"
+    },
+    {
+     "unflag": "h_td_relay"
+    },
+    {
+     "unflag": "h_td_proof"
+    },
+    {
+     "unflag": "h_td_sick"
+    },
+    {
+     "unflag": "h_td_letter"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "note": "手取川で、越後の軍が織田の軍を破るのを見た。"
+    }
+   ],
+   "end": "手取川の夜"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "td_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "td_relay"
+     },
+     "next": "relayed"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。越後の{kenshin}が能登の七尾城を落とし、援けに来た柴田の軍を加賀の手取川で打ち破ったという。",
+    "「上杉の殿は、戦の神の生まれ変わりだそうな」と、旅籠の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_td_gate"
+    },
+    {
+     "unflag": "h_td_relay"
+    },
+    {
+     "unflag": "h_td_proof"
+    },
+    {
+     "unflag": "h_td_sick"
+    },
+    {
+     "unflag": "h_td_letter"
+    },
+    {
+     "note": "七尾が落ち、手取川で織田の軍が敗れたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "td_hold",
+   "event": "tedorigawa",
+   "order": 2,
+   "why": "主人公が七尾城の遊佐の内応を防いだ",
+   "when": {
+    "flag": "h_td_gate"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_uesugi}は能登の七尾城を囲んだが、城中の遊佐の内応が露わになって門は開かず、雪を前に越後へ兵を返した。援けに出た{n_oda}の軍も、加賀の手前で引き返した。",
+    "do": [
+     [
+      "add",
+      "uesugi",
+      "prestige",
+      -5
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      3
+     ]
+    ],
+    "imp": 2,
+    "at": "nanao"
+   }
+  },
+  {
+   "id": "td_relay",
+   "event": "tedorigawa",
+   "order": 1,
+   "why": "主人公の狼煙で柴田が手取川の前で退いた",
+   "when": {
+    "flag": "h_td_relay"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_uesugi}は七尾城を落として能登を取った。援けに来た[[p:柴田勝家]]は、峰々の狼煙で七尾の落城を知り、手取川を渡る前に兵を返した。両軍は川を挟んで戦わなかった。",
+    "do": [
+     [
+      "annex",
+      "uesugi",
+      "noto"
+     ],
+     [
+      "add",
+      "uesugi",
+      "prestige",
+      8
+     ]
+    ],
+    "imp": 3,
+    "at": "nanao"
+   }
+  }
+ ]
+}

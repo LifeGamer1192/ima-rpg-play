@@ -13,7 +13,7 @@
  "trigger": {
   "patron": true,
   "rank": 4,
-  "realmMin": 11,
+  "sizeMin": "mid",
   "king": false
  },
  "cast": {

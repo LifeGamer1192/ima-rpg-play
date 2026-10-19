@@ -1,0 +1,641 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_rikyu",
+ "kind": "history",
+ "title": "一畳半の客",
+ "era": "sengoku",
+ "event": "rikyu",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s3hurt",
+  "s4",
+  "s5",
+  "s5bow",
+  "s5bow_ng",
+  "s5flee",
+  "s5flee_ng",
+  "s5tea",
+  "s6",
+  "s6ok",
+  "s6ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "sakai": {
+   "scnPlace": "sakai"
+  },
+  "city": {
+   "scnPlace": "kyoto"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "kanpaku": {
+   "person": "ruler:oda"
+  },
+  "rikyu": {
+   "scnPerson": "千利休"
+  },
+  "toshiie": {
+   "scnPerson": "前田利家"
+  },
+  "mitsunari": {
+   "scnPerson": "石田三成"
+  },
+  "hidenaga": {
+   "scnPerson": "羽柴秀長"
+  },
+  "pupil": {
+   "npc": "利休の弟子",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "sakai",
+    "building": "inn"
+   },
+   "goal": "{sakai}の旅籠で、利休の弟子に会う",
+   "speaker": "pupil",
+   "art": "inn",
+   "text": [
+    "堀に囲まれた{sakai}の町は、南蛮の船の帆柱が家並みの向こうに見えた。旅籠の奥で{player}を待っていたのは、まだ若い茶人だった。{rikyu}の弟子、{pupil}と名乗った。",
+    "「小田原の陣で、兄弟子の山上宗二様が殿下の勘気に触れ、耳と鼻を削がれて斬られました。口が過ぎたのです。師もまた、殿下の前で言葉を曲げぬお方。わたしは怖いのです」",
+    "「近ごろ、師の身辺を嗅ぎ回る者がおります。茶会の相客として、しばらく師のそばにいてはいただけませぬか」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "effects": [
+      {
+       "note": "{pupil}に頼まれ、{rikyu}の身辺に付くことになった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "sakai",
+    "building": "house"
+   },
+   "goal": "{sakai}の{rikyu}の屋敷で茶に招かれる",
+   "speaker": "rikyu",
+   "art": "feast",
+   "text": [
+    "躙口をくぐると、そこは畳一枚半の部屋だった。窓は小さく、床の間には花が一輪あるきり。七十近い老人が、黒い楽茶碗に湯を注いでいた。",
+    "「殿下は黄金の茶室をお好みになる。あれはあれで美しい。だが、茶は黄金がなくとも点てられる。そう申し上げたら、殿下はお顔をしかめられた」老人は静かに笑った。「わしはもう、言葉を曲げる年ではありませぬ」"
+   ],
+   "choices": [
+    {
+     "label": "作法どおりに茶を頂く",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s3"
+     }
+    },
+    {
+     "label": "黙って碗を受け取る",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "rikyu",
+   "text": [
+    "{player}が碗を回し、飲み干して置くと、老人は目を細めた。「よい手つきだ。武骨なようで、碗を怖がっておらぬ」帰りしな、老人は自ら躙口まで見送った。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "flag": "h_rikyu_guest"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "shrine"
+   },
+   "goal": "{city}の大徳寺で、山門の噂を確かめる",
+   "speaker": "mitsunari",
+   "art": "faith",
+   "text": [
+    "{city}の大徳寺の山門の楼上には、雪駄をはいた{rikyu}の木像が据えられていた。山門の修理に銭を出した礼に、寺が置いたものだという。",
+    "「勅使も殿下も、この門をくぐられる。その頭の上に、茶頭が雪駄で立っておるとはな」門の前で、細面の奉行が帳面に何か書きつけていた。{mitsunari}である。家来たちが、門をくぐる者の顔を一人ずつ見ている。"
+   ],
+   "choices": [
+    {
+     "label": "{mitsunari}の家来の話を立ち聞きする",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "門の前を素通りし、聚楽第へ向かう",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3ng": {
+   "text": [
+    "柱の陰から出たところで、家来に見咎められた。「利休の屋敷に出入りしておる者だな」二人が刀の柄に手をかけた。"
+   ],
+   "choices": [
+    {
+     "label": "斬り払って逃げる",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3hurt"
+     }
+    }
+   ]
+  },
+  "s3hurt": {
+   "text": [
+    "寺の塀を越えて逃げるときに、足をくじいた。だが、追ってきた家来の言葉だけは耳に残った。「木像のことは、もう殿下のお耳に入っておる」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ok": {
+   "text": [
+    "「木像の件、茶器の目利きで私腹を肥やしたという件。並べて申し上げれば、殿下もお許しにはなるまい」家来たちはそう話していた。「大和大納言様が病で伏せっておられる今のうちだ。あのお方だけは、利休をかばわれるからな」"
+   ],
+   "effects": [
+    {
+     "note": "{mitsunari}の家来が、{rikyu}の罪を数え上げているのを聞いた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の聚楽第で、{toshiie}に会う",
+   "speaker": "toshiie",
+   "art": "court",
+   "text": [
+    "聚楽第の廊下は金箔で光っていた。人目を避けた控えの間で、背の高い老武士が{player}を迎えた。{toshiie}である。",
+    "「{hidenaga}様の病は重い。あのお方が倒れれば、殿下をお諫めできる者はおらぬ」{toshiie}は声を落とした。「利休殿が北政所様におすがりして詫びを入れれば、殿下もお怒りを収められよう。だが、あの頑固者が頭を下げるかどうか」",
+    "「堺へ行ってくれ。わしの名を出してよい」"
+   ],
+   "choices": [
+    {
+     "label": "{sakai}へ戻る",
+     "next": "s5"
+    }
+   ]
+  },
+  "s5": {
+   "at": {
+    "place": "sakai",
+    "building": "house"
+   },
+   "goal": "{sakai}の屋敷で、蟄居する{rikyu}に会う",
+   "speaker": "rikyu",
+   "art": "backroom",
+   "text": [
+    "堺へ戻ったその日に、{rikyu}は殿下の命で{sakai}の屋敷に押し込められた。門の外には足軽が立ち、茶会は禁じられた。",
+    "老人は、誰も客の来ない茶室で一人、湯を沸かしていた。「前田様のお心遣いはありがたい。だが、わしが詫びれば、わしの茶が詫びることになる。それだけはできぬ」"
+   ],
+   "choices": [
+    {
+     "label": "黙って茶を頂く",
+     "next": "s5tea"
+    },
+    {
+     "label": "「茶は生き残った者が点てるもの。どうか頭を下げてくだされ」と説く",
+     "turn": true,
+     "guide": "利休に詫びさせる。続けて聚楽第で取り次ぎが要る",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s5bow",
+      "lose": "s5bow_ng"
+     }
+    },
+    {
+     "label": "「今夜、南蛮船で堺をお落ちくだされ」と勧め、見張りの目を盗む",
+     "turn": true,
+     "guide": "利休を逃がす。見つかれば咎めを受ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "s5flee",
+      "lose": "s5flee_ng"
+     }
+    }
+   ]
+  },
+  "s5tea": {
+   "speaker": "rikyu",
+   "text": [
+    "二人は黙って茶を飲んだ。湯の沸く音だけがしていた。帰りしな、老人は言った。「来てくれて、うれしかった。それで十分だ」"
+   ],
+   "next": "aftergo"
+  },
+  "s5bow": {
+   "speaker": "rikyu",
+   "text": [
+    "老人は長いあいだ炉の火を見つめていた。やがて筆を取り、短い詫び状を書いた。「わしのためではない。弟子たちに、茶を残すためだ」",
+    "「前田様に届けてくだされ。わしの字だと、すぐお分かりになる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_rikyu_bow"
+    },
+    {
+     "note": "{rikyu}に詫び状を書かせた。"
+    }
+   ],
+   "next": "s6"
+  },
+  "s5bow_ng": {
+   "speaker": "rikyu",
+   "text": [
+    "「ありがたい。だが、それはできぬ」老人の声は穏やかで、少しも揺れなかった。"
+   ],
+   "next": "aftergo"
+  },
+  "s5flee": {
+   "speaker": "pupil",
+   "art": "voyage",
+   "text": [
+    "夜更け、{pupil}と二人で老人を荷車の茶道具の箱の陰に伏せさせ、見張りの足軽に酒を振る舞った隙に門を抜けた。浜には、薩摩へ向かう南蛮帰りの船が待っていた。",
+    "舟板を渡るとき、{rikyu}は一度だけ振り返った。「殿下には、わしが逃げたと伝わるだろう。それもよい。茶人は、ときに己の茶より臆病でなければならぬのかもしれぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_rikyu_flee"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "wanted": "oda",
+     "n": 20
+    },
+    {
+     "note": "{rikyu}を堺から船で逃がした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5flee_ng": {
+   "text": [
+    "裏口で、見張りの足軽頭に呼び止められた。{player}は酔ったふりをしてやり過ごしたが、その夜から門の番は倍になった。"
+   ],
+   "effects": [
+    {
+     "wanted": "oda",
+     "n": 5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の聚楽第で、詫び状を{toshiie}に届ける",
+   "speaker": "toshiie",
+   "art": "court",
+   "text": [
+    "{toshiie}は詫び状を開き、思わず声を上げた。「あの利休殿が……。よし。北政所様へは、わしがお届けする。だが殿下のお耳に入れるには、奉行どもの目をくぐらねばならぬ」",
+    "「おぬしも来い。北政所様は、話の分かる者がお好きだ」"
+   ],
+   "choices": [
+    {
+     "label": "北政所の前で、利休の詫びの心を言葉を尽くして伝える",
+     "turn": true,
+     "guide": "殿下の怒りを解く最後の一押し",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "s6ok",
+      "lose": "s6ng"
+     }
+    },
+    {
+     "label": "{toshiie}に任せて退く",
+     "next": "s6ng"
+    }
+   ]
+  },
+  "s6ok": {
+   "text": [
+    "北政所は詫び状を読み、ふっと笑った。「あの人は、自分が頭を下げるのは嫌いなくせに、人に頭を下げられるのは大好きなのです」",
+    "その夜、北政所は殿下の寝所へ詫び状を持っていった。翌朝、{rikyu}の木像は山門から下ろされた。だが、像のほかは何も壊されなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_rikyu_pardon"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "note": "北政所を通じて、{rikyu}の詫び状を殿下に届けた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6ng": {
+   "text": [
+    "詫び状は奉行の手に渡り、そこで止まった。{toshiie}は唇を噛んだ。「遅かったか。いや、届かぬようにされたのだ」"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、{rikyu}の成り行きを見届ける",
+   "wait": {
+    "settled": "rikyu"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "rikyu_pardon"
+     },
+     "next": "pardon"
+    },
+    {
+     "if": {
+      "branch": "rikyu_flee"
+     },
+     "next": "fled"
+    },
+    {
+     "next": "s7"
+    }
+   ]
+  },
+  "pardon": {
+   "speaker": "rikyu",
+   "art": "feast",
+   "text": [
+    "{rikyu}は聚楽第に呼ばれ、殿下の前で茶を点てた。黄金の茶室ではなく、畳一枚半の部屋だった。殿下は黒い茶碗を手に取り、しばらく眺めてから「地味じゃのう」と言い、それから黙って飲み干したという。",
+    "後日、{player}のもとに堺から小さな包みが届いた。中には竹の茶杓が一本。「生き残った者が点てる茶の、最初の一服に」と書き添えてあった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 5
+    },
+    {
+     "item": "lacquer"
+    },
+    {
+     "unflag": "h_rikyu_pardon"
+    },
+    {
+     "unflag": "h_rikyu_bow"
+    },
+    {
+     "unflag": "h_rikyu_guest"
+    },
+    {
+     "note": "{rikyu}は許され、また殿下の茶を点てた。"
+    }
+   ],
+   "end": "生き残った茶"
+  },
+  "fled": {
+   "speaker": "pupil",
+   "art": "voyage",
+   "text": [
+    "{rikyu}が堺から消えたと知って、殿下は大いに怒り、屋敷の茶道具をすべて取り上げさせた。山門の木像は引き下ろされ、一条戻橋で磔にされたという。",
+    "ひと月後、{pupil}が{player}に一通の文を見せた。薩摩の山の中の寺から来たものだった。「こちらの茶は、土の匂いがする。悪くない」差出人の名は書かれていなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "oda",
+     "n": -10
+    },
+    {
+     "unflag": "h_rikyu_flee"
+    },
+    {
+     "unflag": "h_rikyu_guest"
+    },
+    {
+     "note": "{rikyu}は堺から逃れ、行方をくらませた。"
+    }
+   ],
+   "end": "名のない文"
+  },
+  "s7": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、{rikyu}の成り行きを見届ける",
+   "wait": {
+    "fired": "rikyu"
+   },
+   "speaker": "pupil",
+   "art": "disaster",
+   "text": [
+    "{rikyu}は堺から{city}へ呼び戻され、腹を切るよう命じられた。屋敷の周りは、奪い去られるのを恐れた兵がぐるりと囲んでいたという。その日、都には季節外れの雷が鳴り、霰が降った。",
+    "首は一条戻橋に晒された。山門から下ろされた木像に、首を踏ませる形で。{pupil}は橋のたもとで膝をつき、声を殺して泣いていた。"
+   ],
+   "choices": [
+    {
+     "label": "{pupil}を連れて橋を離れる",
+     "next": "end_pupil"
+    },
+    {
+     "label": "夜を待って首を下ろし、ひそかに葬る",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "end_buried",
+      "lose": "end_left"
+     }
+    },
+    {
+     "label": "何も言わずに{city}を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_pupil": {
+   "speaker": "pupil",
+   "text": [
+    "{pupil}は堺へ帰り、小さな茶室を開いた。窓は小さく、床の間には花が一輪あるきり。「師の茶は、これで終わりではありませぬ」若い茶人はそう言って、{player}に一服を点てた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_rikyu_guest"
+    },
+    {
+     "unflag": "h_rikyu_bow"
+    },
+    {
+     "note": "{rikyu}が腹を切らされた。弟子の{pupil}を堺へ送り届けた。"
+    }
+   ],
+   "end": "一輪の花"
+  },
+  "end_buried": {
+   "text": [
+    "夜更け、晒し台から首を下ろし、大徳寺の裏の竹藪に葬った。墓標の代わりに、拾った黒い茶碗の欠片を一つ埋めた。",
+    "翌朝、橋のたもとに人だかりができていた。誰が首を下ろしたのかと、奉行の家来が声を荒げていた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "wanted": "oda",
+     "n": 10
+    },
+    {
+     "unflag": "h_rikyu_guest"
+    },
+    {
+     "unflag": "h_rikyu_bow"
+    },
+    {
+     "note": "{rikyu}が腹を切らされた。その首をひそかに葬った。"
+    }
+   ],
+   "end": "竹藪の欠片"
+  },
+  "end_left": {
+   "text": [
+    "{player}は{city}を後にした。聚楽第の金の瓦が、雨上がりの日にまぶしく光っていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_rikyu_guest"
+    },
+    {
+     "unflag": "h_rikyu_bow"
+    },
+    {
+     "note": "{rikyu}が腹を切らされるのを見届けた。"
+    }
+   ],
+   "end": "金の瓦"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "rikyu_pardon"
+     },
+     "next": "pardon"
+    },
+    {
+     "if": {
+      "branch": "rikyu_flee"
+     },
+     "next": "fled"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。殿下の茶頭であった{rikyu}が、勘気を被って腹を切らされたという。わけを知る者は誰もいなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_rikyu_guest"
+    },
+    {
+     "note": "{rikyu}が腹を切らされたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "rikyu_pardon",
+   "event": "rikyu",
+   "order": 2,
+   "why": "主人公が利休に詫び状を書かせ、北政所を通じて秀吉に届けた",
+   "when": {
+    "flag": "h_rikyu_pardon"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:千利休]]は秀吉の怒りを買ったが、北政所を通じて詫びを入れ、許された。大徳寺山門の木像だけが下ろされた。"
+   },
+   "people": [
+    {
+     "spare": "千利休",
+     "years": 6
+    }
+   ]
+  },
+  {
+   "id": "rikyu_flee",
+   "event": "rikyu",
+   "order": 1,
+   "why": "主人公が蟄居中の利休を堺から船で逃がした",
+   "when": {
+    "flag": "h_rikyu_flee"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "秀吉の怒りを買って堺に押し込められた[[p:千利休]]は、夜のうちに船で姿を消した。秀吉は茶道具をすべて取り上げ、木像を一条戻橋で磔にした。"
+   },
+   "people": [
+    {
+     "spare": "千利休",
+     "years": 4
+    }
+   ]
+  }
+ ]
+}

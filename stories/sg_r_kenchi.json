@@ -1,0 +1,429 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_kenchi",
+ "kind": "random",
+ "where": "folk",
+ "hook": "明日、検地の竿入れが村に来ます。谷の田が見つかれば……",
+ "title": "竿入れ",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "村の乙名"
+  },
+  "land": {
+   "realm": "patron"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "kenchi": {
+   "npc": "検地奉行",
+   "sex": "m"
+  },
+  "saotori": {
+   "npc": "竿取り",
+   "sex": "m"
+  },
+  "goke": {
+   "npc": "後家",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は日に焼けた顔をしかめた。{land}の殿が国中に検地を命じ、明日には{village}の村へ竿入れの役人が来るという。",
+    "「村の奥の谷に、帳に載せておらぬ田がござる。戦で亭主を亡くした後家たちが、細々と耕しておる。あれが見つかれば年貢は倍、隠した咎で乙名のわしは縛り首じゃ」"
+   ],
+   "choices": [
+    {
+     "label": "{village}の村へ同行する",
+     "next": "village"
+    }
+   ]
+  },
+  "village": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の村で検地を待つ",
+   "speaker": "goke",
+   "art": "tale",
+   "text": [
+    "谷の奥に、段々の小さな田が隠れるように並んでいた。泥にまみれて苗を見ていた女が顔を上げる。後家の{goke}だ。",
+    "「亭主は二年前の合戦で戻りませなんだ。この田がなければ、子らは冬を越せませぬ」"
+   ],
+   "choices": [
+    {
+     "label": "夜のうちに谷の畦を崩し、藪に見せかける",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "hid",
+      "lose": "seen"
+     },
+     "guide": "見つかれば隠し田の片棒を担いだことになる"
+    },
+    {
+     "label": "「隠すより、自ら申し出て情けを乞うべきだ」と乙名を説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "honest",
+      "lose": "survey"
+     }
+    },
+    {
+     "label": "何もせず、竿入れに立ち会う",
+     "next": "survey"
+    }
+   ]
+  },
+  "hid": {
+   "art": "tale",
+   "text": [
+    "月明かりの下、若い衆と畦を崩し、谷の口に柴を積んだ。夜が明ければ、ただの荒れた藪にしか見えまい。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_kc_hidden"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "survey"
+  },
+  "seen": {
+   "speaker": "saotori",
+   "art": "road",
+   "text": [
+    "柴を担いで谷を出たところで、提灯を下げた男と鉢合わせた。一足先に村へ来ていた竿取りの{saotori}だ。",
+    "「夜なべとは精が出るのう。……三百文で、わしは何も見なんだことにしてやろう」"
+   ],
+   "choices": [
+    {
+     "label": "三百文を握らせる",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      },
+      {
+       "flag": "sg_kc_hidden"
+      }
+     ],
+     "next": "survey"
+    },
+    {
+     "label": "突っぱねる",
+     "next": "survey"
+    }
+   ]
+  },
+  "honest": {
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は長いこと黙っていたが、やがて膝を打った。「隠して縛り首より、申し出て頭を下げる方がましか。後家たちの暮らしのことは、わしが願い出よう」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_kc_honest"
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "next": "survey"
+  },
+  "survey": {
+   "speaker": "kenchi",
+   "art": "court",
+   "text": [
+    "翌朝、検地奉行{kenchi}が床几に腰を据え、{saotori}たちが田に竿と縄を入れはじめた。一枚ごとに上田・中田と等級をつけ、帳に書き込んでいく。",
+    "だが見ていると、{saotori}の竿はどうも短い。御定めの六尺三寸より、握り一つほど足りぬように見える。短い竿で測れば、田は広く、年貢は重くなる。"
+   ],
+   "choices": [
+    {
+     "label": "「その竿、御定めの寸法か」と奉行の前で改めさせる",
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "pole",
+      "lose": "bad"
+     }
+    },
+    {
+     "label": "黙って竿入れを見守る",
+     "next": "bad"
+    }
+   ]
+  },
+  "pole": {
+   "speaker": "kenchi",
+   "art": "court",
+   "text": [
+    "曲尺を当てると、竿は三寸も短かった。{saotori}は青くなって平伏した。村々で竿を縮め、目こぼしの銭を取っていたのだ。{kenchi}は苦い顔で縄を打たせた。",
+    "「礼を言う。殿の検地に泥を塗られるところであった」そこで{kenchi}の目が、谷の口に向いた。「……あちらは何だ」"
+   ],
+   "choices": [
+    {
+     "label": "乙名に、隠し田を申し出させる",
+     "if": {
+      "flag": "sg_kc_honest"
+     },
+     "next": "end_fair"
+    },
+    {
+     "label": "「ただの荒れ藪にございます」と答える",
+     "if": {
+      "flag": "sg_kc_hidden"
+     },
+     "next": "end_hidden"
+    },
+    {
+     "label": "「戦で夫を亡くした後家の田。せめて数年の猶予を」と願う",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_fair",
+      "lose": "end_heavy"
+     }
+    }
+   ]
+  },
+  "bad": {
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "短い竿のまま測られ、村の石高は二割も増えた。谷にも竿が入り、後家たちの田まで帳に載った。{saotori}は帰り際、乙名の袖から銭を抜いていった。",
+    "その夜、村の若い衆が囲炉裏端に集まった。「峠で待ち伏せて、竿をへし折ってやる」{client}は止めきれずにいる。"
+   ],
+   "choices": [
+    {
+     "label": "城下の{office}へ訴え出る",
+     "next": "appeal"
+    },
+    {
+     "label": "若い衆とともに峠で{saotori}を待ち伏せる",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "end_ambush",
+      "lose": "end_heavy"
+     },
+     "guide": "役人を襲えば、村も自分も追われる身になる"
+    },
+    {
+     "label": "諦めるよう若い衆を宥める",
+     "next": "end_heavy"
+    }
+   ]
+  },
+  "appeal": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}に訴状を出す",
+   "speaker": "奉行所の目付",
+   "art": "court",
+   "text": [
+    "目付は訴状を受け取り、眉を寄せた。「検地は殿の御大事。百姓の訴えで、奉行の帳を覆すことはできぬ。よほどの証がなければな」"
+   ],
+   "choices": [
+    {
+     "label": "御定めの竿の寸法を引き、測り直しを願う訴状を書き改める",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_appeal",
+      "lose": "end_heavy"
+     }
+    },
+    {
+     "label": "{saotori}が村々で取った目こぼし銭を数え上げる",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_appeal",
+      "lose": "end_heavy"
+     }
+    }
+   ]
+  },
+  "end_fair": {
+   "speaker": "kenchi",
+   "art": "court",
+   "text": [
+    "{kenchi}は谷の田を帳に載せたうえで、「戦死した者の家の田は、三年の鍬下年季とする」と書き添えた。三年は年貢を取らぬ、ということだ。",
+    "{goke}は泥のついた手を合わせた。{client}は首がつながったと笑い、村じゅうで餅をついてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kc_hidden"
+    },
+    {
+     "unflag": "sg_kc_honest"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 15
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "{village}の検地で竿のごまかしを暴き、後家たちの田に猶予を得た。"
+    }
+   ],
+   "end": "正しい竿"
+  },
+  "end_hidden": {
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{kenchi}は藪を一瞥しただけで、次の村へ向かった。竿のごまかしも暴かれ、村の石高はかえって軽くなった。",
+    "{client}は、村じゅうで集めた銭をこちらに押しつけた。「このことは、墓まで持っていってくだされ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kc_hidden"
+    },
+    {
+     "unflag": "sg_kc_honest"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": -5
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "藪の田"
+  },
+  "end_heavy": {
+   "speaker": "goke",
+   "art": "disaster",
+   "text": [
+    "帳に載った石高は覆らなかった。谷の田にも年貢がかかり、{goke}は子の手を引いて、冬を前に村を出ていった。",
+    "{client}は「お手間をかけ申した」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kc_hidden"
+    },
+    {
+     "unflag": "sg_kc_honest"
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "重い年貢"
+  },
+  "end_appeal": {
+   "speaker": "奉行所の目付",
+   "art": "court",
+   "text": [
+    "十日後、別の竿取りが{village}へ遣わされ、御定めの竿で測り直しが行われた。{saotori}は役を解かれ、村の石高は元に戻った。",
+    "目付は「よく調べた」と短く言い、こちらの名を帳面に書き留めた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kc_hidden"
+    },
+    {
+     "unflag": "sg_kc_honest"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "{village}の検地のごまかしを{office}に訴え、測り直しをさせた。"
+    }
+   ],
+   "end": "測り直し"
+  },
+  "end_ambush": {
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "峠で{saotori}と供の足軽を打ち倒し、短い竿を谷へ投げ捨てた。帳面も焚き火にくべた。",
+    "村の若い衆は喝采したが、{client}は青ざめていた。役人を襲った者を、殿が捨て置くはずがない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_kc_hidden"
+    },
+    {
+     "unflag": "sg_kc_honest"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": -15
+    },
+    {
+     "wanted": "land",
+     "n": 20
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "検地の竿取りを峠で襲った。"
+    }
+   ],
+   "end": "折れた竿"
+  }
+ }
+}

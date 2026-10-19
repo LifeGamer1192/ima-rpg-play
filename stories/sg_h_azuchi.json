@@ -1,0 +1,776 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_azuchi",
+ "kind": "history",
+ "title": "安土の石",
+ "era": "sengoku",
+ "event": "azuchi",
+ "lead": 6,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2hurt",
+  "s3",
+  "s3book",
+  "s3book_ng",
+  "s4",
+  "s4ok",
+  "s4ng",
+  "s4fire",
+  "s4fire_ng",
+  "s5",
+  "s5ledger",
+  "s5ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "kannonji"
+  },
+  "lake": {
+   "scnPlace": "sakamoto"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "nobunaga": {
+   "person": "ruler:oda"
+  },
+  "niwa": {
+   "scnPerson": "丹羽長秀"
+  },
+  "eitoku": {
+   "scnPerson": "狩野永徳"
+  },
+  "bugyo": {
+   "npc": "普請の小奉行",
+   "sex": "m"
+  },
+  "oyakata": {
+   "npc": "石引きの親方",
+   "sex": "m"
+  },
+  "ronin": {
+   "npc": "六角の旧臣",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の旅籠で普請の人足集めの話を聞く",
+   "speaker": "oyakata",
+   "art": "inn",
+   "text": [
+    "{city}の旅籠は、どこから来たとも知れぬ男たちで満ちていた。尾張の大工、美濃の石工、奈良の瓦師、京の塗師。{nobunaga}が湖のほとりの安土の山に、天下に二つとない城を築くのだという。",
+    "赤銅色の腕をした{oyakata}が、{player}の肩をつかんだ。「人足が足りぬ。日に米五合と銭十文。石を引くのに頭はいらぬ、腰があればよい」"
+   ],
+   "choices": [
+    {
+     "label": "石引きの人足になる",
+     "effects": [
+      {
+       "note": "安土の城の普請に、石引きの人足として加わった。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「読み書きができる」と申し出て、帳付けを手伝う",
+     "effects": [
+      {
+       "flag": "h_az_book"
+      },
+      {
+       "note": "安土の城の普請に、帳付けとして加わった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "安土の山で蛇石を引く",
+   "speaker": "oyakata",
+   "art": "trade",
+   "text": [
+    "山の麓に、家ほどもある大石が据えられていた。「蛇石」と人足たちは呼んだ。津田坊とかいう者が見つけてきた、天主の礎にする石だという。綱が十本、引く者が千人、さらにその後ろに千人。",
+    "音頭取りが笛を吹くと、山全体が揺れたように石が動いた。だが坂の途中で綱が一本はじけ、石がずるりと後ろへ滑った。下には逃げ遅れた人足が何人もいる。"
+   ],
+   "choices": [
+    {
+     "label": "綱に飛びつき、石を食い止める",
+     "check": {
+      "skill": "blade",
+      "dc": 25,
+      "win": "s2ok",
+      "lose": "s2hurt"
+     }
+    },
+    {
+     "label": "下の人足たちに叫び、逃げ道を指す",
+     "check": {
+      "skill": "speech",
+      "dc": 23,
+      "win": "s2ok",
+      "lose": "s2hurt"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "oyakata",
+   "text": [
+    "石は丸太の楔に引っかかって止まった。押しつぶされた者はいなかった。{oyakata}が{player}の背を叩いた。「お主がいなければ、十人は石の下だった。今夜の酒はわしが持つ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_az_snake"
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hurt": {
+   "text": [
+    "石は止まったが、その前に三人が下敷きになった。{player}も綱に手を焼かれ、しばらく指が曲がらなかった。人足たちは黙って死者を運び、翌朝にはまた綱を握った。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "office"
+   },
+   "goal": "{city}の普請小屋で帳場を覗く",
+   "speaker": "bugyo",
+   "art": "backroom",
+   "text": [
+    "普請小屋の帳場では、{bugyo}が算盤を弾いていた。石一つにいくら、人足一人にいくら、運ぶ舟一艘にいくら。銭は岐阜から、堺から、京の町衆から、湯水のように流れ込んでくる。",
+    "人足の数を数えていて、{player}は妙なことに気づいた。帳面の人足は二千、山にいるのは千五百に足りない。五百人分の米と銭は、どこへ行くのか。"
+   ],
+   "choices": [
+    {
+     "label": "夜、帳場に忍び込んで裏帳簿を探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s3book",
+      "lose": "s3book_ng"
+     }
+    },
+    {
+     "label": "帳付けとして、帳面の数を一つずつ確かめる",
+     "if": {
+      "flag": "h_az_book"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "s3book",
+      "lose": "s3book_ng"
+     }
+    },
+    {
+     "label": "見なかったことにする",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3book": {
+   "speaker": "bugyo",
+   "text": [
+    "帳場の床下に、もう一冊の帳面があった。いない人足の名、いない舟の数、来ない石の値。その差の銭は、{bugyo}と、その上の何人かの手に分けられていた。",
+    "{player}は帳面を懐に入れた。これを誰に見せるかで、首が飛ぶのは{bugyo}か、自分か、どちらかだ。"
+   ],
+   "effects": [
+    {
+     "flag": "h_az_ledger"
+    },
+    {
+     "note": "安土の普請の小奉行が、人足の銭を掠めている裏帳簿を見つけた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3book_ng": {
+   "speaker": "bugyo",
+   "text": [
+    "帳場の灯が、ふいに明るくなった。{bugyo}が刀に手をかけて立っている。「人足風情が帳面を覗いて何とする。首を刎ねられたいか」{player}は頭を下げて小屋を出た。翌日から、見張りが一人ついた。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "lake"
+   },
+   "goal": "{lake}の湖岸で材木の舟を迎える",
+   "speaker": "ronin",
+   "art": "road",
+   "text": [
+    "比叡の山から伐り出した木は、{lake}から舟で湖を渡り、安土へ運ばれる。湖岸の材木置き場で、{player}は一人の痩せた侍に呼び止められた。{ronin}と名乗った。観音寺の城で、六角の殿に仕えていた者だという。",
+    "「あの山の上から、信長はわしらの観音寺を見下ろす城を建てる。殿は甲賀の山に逃れ、わしらは野良犬だ」男は材木の山を指した。「あれに火をかければ、半年は普請が止まる。手を貸せば、銭は甲賀の衆が出す」"
+   ],
+   "choices": [
+    {
+     "label": "断り、舟の荷下ろしに戻る",
+     "next": "s4ok"
+    },
+    {
+     "label": "男を捕らえて番所に突き出す",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4ng",
+      "lose": "s4ok"
+     }
+    },
+    {
+     "label": "火付けに手を貸す",
+     "turn": true,
+     "guide": "普請を半年止める。見つかれば磔",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s4fire",
+      "lose": "s4fire_ng"
+     }
+    }
+   ]
+  },
+  "s4ok": {
+   "speaker": "ronin",
+   "text": [
+    "{ronin}は肩をすくめ、湖岸の葦の中へ消えた。「信長の城が天下の城になるなら、わしらは天下の外で生きるだけよ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_az_rokkaku"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4ng": {
+   "text": [
+    "{ronin}の仲間は逃げ散り、一人だけが縄にかかった。番所の役人は{player}に銭を十文投げてよこした。後ろで、縛られた男がつぶやいた。「六角の者を売って、十文か」"
+   ],
+   "effects": [
+    {
+     "money": 10
+    },
+    {
+     "rep": "oda",
+     "n": 3
+    }
+   ],
+   "next": "s5"
+  },
+  "s4fire": {
+   "speaker": "ronin",
+   "art": "disaster",
+   "text": [
+    "風の強い夜を待った。油を含ませた藁を材木の山の下に押し込み、火縄で火をつけた。比叡の檜は脂が多い。火はたちまち湖岸を舐め、空が赤く染まった。",
+    "{ronin}は湖の舟の上で、燃える材木を見ていた。「観音寺の城が焼けた夜も、こんな色だった」。{player}の手に甲賀の銭が押しつけられた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_az_fire"
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "oda",
+     "n": -10
+    },
+    {
+     "wanted": "oda",
+     "n": 15
+    },
+    {
+     "note": "六角の旧臣と共に、安土の普請の材木置き場に火を放った。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4fire_ng": {
+   "text": [
+    "藁に火を移す前に、夜回りの足軽の笛が鳴った。{ronin}は湖へ飛び込み、{player}は葦の中を這って逃げた。材木は一本も燃えなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の城で普請総奉行に目通りする",
+   "speaker": "niwa",
+   "art": "court",
+   "text": [
+    "観音寺の古い城の一間で、普請総奉行の{niwa}が絵図を見下ろしていた。五層七重の天主、その内に描かれる金碧の襖絵。隣では{eitoku}という若い絵師が、墨の線を引いていた。",
+    "「殿は急いておられる。年が明ければ、安土の山に縄を張る。銭がいくらかかろうと、天下の城を建てよ、とのお指図だ」{niwa}は{player}を見た。「人足が何の用だ」"
+   ],
+   "choices": [
+    {
+     "label": "「人足は皆、よう働いております」とだけ申し上げる",
+     "next": "aftergo"
+    },
+    {
+     "label": "裏帳簿を差し出し、普請の費えの立て直しを献じる",
+     "if": {
+      "flag": "h_az_ledger"
+     },
+     "turn": true,
+     "guide": "普請の費えが半ばで済む。小奉行の恨みを買う",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "s5ledger",
+      "lose": "s5ng"
+     }
+    },
+    {
+     "label": "{eitoku}の絵の下書きを手伝わせてもらう",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "aftergo",
+      "lose": "aftergo"
+     }
+    }
+   ]
+  },
+  "s5ledger": {
+   "speaker": "niwa",
+   "art": "court",
+   "text": [
+    "{niwa}は裏帳簿を一枚ずつめくり、表の帳面と並べた。顔色は変わらなかったが、指が止まるたびに、控えていた家臣の誰かが息を呑んだ。",
+    "{player}は献じた。人足は組ごとに名を書いて日に二度数える。石と木は運んだ舟の数ではなく、山に着いた数で払う。米は銭に替えず、組頭に渡す。",
+    "「人足の口から、算用の筋の通った話を聞くとは思わなんだ」{niwa}は帳面を閉じた。「よかろう。普請の帳場は今日から改める。小奉行は殿に申し上げて裁いていただく。お主は帳場に入れ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "oda",
+     "n": 12
+    },
+    {
+     "flag": "h_az_cheap"
+    },
+    {
+     "note": "{niwa}に裏帳簿を差し出し、安土の普請の帳場を改めさせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5ng": {
+   "speaker": "niwa",
+   "text": [
+    "「帳面の数など、どこでも合わぬものだ」{niwa}は裏帳簿を脇へ置いた。「殿の城だ。銭を惜しんで遅れるほうが罪は重い」{player}は下がった。廊下の向こうで、{bugyo}がこちらを見ていた。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "安土の山で普請の始まりを見届ける",
+   "wait": {
+    "settled": "azuchi"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "az_frugal"
+     },
+     "next": "frugal"
+    },
+    {
+     "if": {
+      "branch": "az_fire"
+     },
+     "next": "burned"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "frugal": {
+   "speaker": "niwa",
+   "art": "court",
+   "text": [
+    "安土の山に縄が張られ、普請が始まった。帳場では、組ごとの札が日に二度数えられる。いない人足に払う米は一粒もなくなり、石の値は半ばに落ちた。",
+    "{niwa}は{player}の前に一枚の書付を置いた。「殿が帳面をご覧になって、笑われた。『城は金で建つが、帳面で倍建つ』とな。これは褒美だ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_az_ledger"
+    },
+    {
+     "unflag": "h_az_fire"
+    },
+    {
+     "unflag": "h_az_book"
+    },
+    {
+     "unflag": "h_az_snake"
+    },
+    {
+     "unflag": "h_az_rokkaku"
+    },
+    {
+     "unflag": "h_az_cheap"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 10
+    },
+    {
+     "money": 300
+    },
+    {
+     "note": "安土の城は、改めた帳場のおかげで見込みの半ばの費えで建ちはじめた。"
+    }
+   ],
+   "end": "帳面の城"
+  },
+  "burned": {
+   "speaker": "ronin",
+   "art": "disaster",
+   "text": [
+    "材木を失った普請は半年遅れ、比叡の山からまた木が伐り出された。湖岸の焼け跡には、新しい材木が前より高く積まれた。焼いた者を探す高札が、近江じゅうの辻に立った。",
+    "甲賀の山の小屋で、{ronin}は杯をあおった。「半年だ。半年しか止められなんだ。それでも、観音寺の城の下で死んだ者たちへの、せめてもの手向けよ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_az_ledger"
+    },
+    {
+     "unflag": "h_az_fire"
+    },
+    {
+     "unflag": "h_az_book"
+    },
+    {
+     "unflag": "h_az_snake"
+    },
+    {
+     "unflag": "h_az_rokkaku"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "hunted": 30
+    },
+    {
+     "note": "材木置き場が焼け、安土の普請は半年遅れた。"
+    }
+   ],
+   "end": "湖岸の火"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "安土の山で普請の始まりを見届ける",
+   "wait": {
+    "fired": "azuchi"
+   },
+   "speaker": "oyakata",
+   "art": "trade",
+   "text": [
+    "年が明けて、安土の山に縄が張られた。蛇石は天主の台の下に据えられ、山の上には石垣が一段ずつ積み上がっていく。宣教師が見に来て、目を丸くしていたという。",
+    "{oyakata}が汗を拭いた。「わしらは天主ができるのを見ることはあるまい。石を積み終えたら次の普請、その次の普請。だが、この石垣は三百年は崩れぬ」"
+   ],
+   "choices": [
+    {
+     "label": "石を食い止めた礼にと、親方に石垣の積み方を教わる",
+     "if": {
+      "flag": "h_az_snake"
+     },
+     "next": "end_mason"
+    },
+    {
+     "label": "{eitoku}の工房で、襖絵の金箔貼りを手伝う",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "end_gold",
+      "lose": "end_labour"
+     }
+    },
+    {
+     "label": "湖の向こうへ去った六角の者たちを思う",
+     "if": {
+      "flag": "h_az_rokkaku"
+     },
+     "next": "end_rokkaku"
+    },
+    {
+     "label": "人足の給金を受け取り、山を下りる",
+     "next": "end_labour"
+    }
+   ]
+  },
+  "end_mason": {
+   "speaker": "oyakata",
+   "text": [
+    "「石には目がある。目に沿って据えれば、石は自分で立つ」{oyakata}は穴太の石工の積み方を、一月かけて{player}に教えた。大きな石の隙間に小さな石を噛ませ、面を揃えず、ただ重さを下へ流す。",
+    "山を下りる日、親方は小さな槌をくれた。「どこの城でも、これを見せれば石垣に雇ってもらえる」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_az_ledger"
+    },
+    {
+     "unflag": "h_az_fire"
+    },
+    {
+     "unflag": "h_az_book"
+    },
+    {
+     "unflag": "h_az_snake"
+    },
+    {
+     "unflag": "h_az_rokkaku"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "money": 100
+    },
+    {
+     "note": "安土の普請で、石工の親方に石垣の積み方を教わった。"
+    }
+   ],
+   "end": "石には目がある"
+  },
+  "end_gold": {
+   "speaker": "eitoku",
+   "text": [
+    "金箔は息ひとつで舞い上がる。{player}は息を止めて箔を置き、{eitoku}がその上に松の幹を描いた。太い筆が一息に走り、枝が襖からはみ出しそうなほど伸びた。",
+    "「天主の中は金で埋める。殿は、見た者が二度と忘れぬ城を、と仰せだ」若い絵師は、{player}の箔の置き方を少しだけ褒めた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_az_ledger"
+    },
+    {
+     "unflag": "h_az_fire"
+    },
+    {
+     "unflag": "h_az_book"
+    },
+    {
+     "unflag": "h_az_snake"
+    },
+    {
+     "unflag": "h_az_rokkaku"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "安土の天主の襖絵の金箔貼りを手伝った。"
+    }
+   ],
+   "end": "金の襖"
+  },
+  "end_rokkaku": {
+   "text": [
+    "{player}は湖の向こうの観音寺山を見た。古い城の石垣は、もう新しい城の石垣のために崩されはじめている。六角の者たちが二度と戻れぬように、とも、ただ石が足りぬから、とも言われた。",
+    "一つの家が消え、一つの城が建つ。石を引いた者の名は、どちらの側にも残らない。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_az_ledger"
+    },
+    {
+     "unflag": "h_az_fire"
+    },
+    {
+     "unflag": "h_az_book"
+    },
+    {
+     "unflag": "h_az_snake"
+    },
+    {
+     "unflag": "h_az_rokkaku"
+    },
+    {
+     "fame": 1
+    },
+    {
+     "note": "安土の城が観音寺山を見下ろして建ちはじめるのを見た。"
+    }
+   ],
+   "end": "観音寺の石"
+  },
+  "end_labour": {
+   "text": [
+    "給金は米と銭で、約束より少しだけ多かった。普請が順調なしるしだと、人足たちは言い合った。{player}は山の上に積み上がっていく石垣を振り返り、街道へ出た。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_az_ledger"
+    },
+    {
+     "unflag": "h_az_fire"
+    },
+    {
+     "unflag": "h_az_book"
+    },
+    {
+     "unflag": "h_az_snake"
+    },
+    {
+     "unflag": "h_az_rokkaku"
+    },
+    {
+     "money": 120
+    },
+    {
+     "note": "安土の城の普請が始まるのを見届けた。"
+    }
+   ],
+   "end": "石引きの給金"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "az_frugal"
+     },
+     "next": "frugal"
+    },
+    {
+     "if": {
+      "branch": "az_fire"
+     },
+     "next": "burned"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。近江の安土の山に、{nobunaga}が五層七重の天主を持つ城を築きはじめたという。中は金と絵で埋め尽くされるとか。",
+    "「天下の主は、天下の真ん中に住むものだ」と、旅籠の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_az_ledger"
+    },
+    {
+     "unflag": "h_az_fire"
+    },
+    {
+     "unflag": "h_az_book"
+    },
+    {
+     "unflag": "h_az_snake"
+    },
+    {
+     "unflag": "h_az_rokkaku"
+    },
+    {
+     "note": "安土の城の普請が始まったと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "az_fire",
+   "event": "azuchi",
+   "order": 2,
+   "why": "主人公が六角の旧臣と材木置き場を焼いた",
+   "when": {
+    "flag": "h_az_fire"
+   },
+   "then": "delay",
+   "months": 6,
+   "note": "湖岸の材木置き場が夜の火で焼け、安土の城の普請は半年遅れることになった。"
+  },
+  {
+   "id": "az_frugal",
+   "event": "azuchi",
+   "order": 1,
+   "why": "主人公が普請の裏帳簿を丹羽長秀に届けた",
+   "when": {
+    "flag": "h_az_cheap"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_oda}は琵琶湖のほとりに安土城を築きはじめた。普請の帳場が改められて掠め取りが絶え、費えは見込みの半ばで済んだ。",
+    "do": [
+     [
+      "capital",
+      "oda",
+      "kannonji"
+     ],
+     [
+      "add",
+      "oda",
+      "treasury",
+      -100
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      15
+     ]
+    ],
+    "imp": 3,
+    "at": "kannonji"
+   }
+  }
+ ]
+}

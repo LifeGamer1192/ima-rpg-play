@@ -1,0 +1,430 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_nanbanji",
+ "kind": "random",
+ "where": "folk",
+ "most": 1,
+ "hook": "南蛮寺の伴天連さまが、今夜焼き討ちに遭うかもしれません",
+ "title": "南蛮寺の灯",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "切支丹の町娘"
+  },
+  "padre": {
+   "npc": "伴天連",
+   "sex": "m"
+  },
+  "dojuku": {
+   "npc": "同宿",
+   "sex": "m"
+  },
+  "monk": {
+   "npc": "悪僧",
+   "sex": "m"
+  },
+  "oke": {
+   "npc": "桶屋",
+   "sex": "m"
+  },
+  "bugyo": {
+   "npc": "町奉行",
+   "sex": "m"
+  },
+  "port": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{client}は胸の小さな十字架を握りしめていた。町はずれの南蛮寺では、伴天連の{padre}さまが病人を看て、親のない子らを養っている。",
+    "「それなのに、寺の{monk}という坊さまが、南蛮寺は子をさらって生き血を飲むと言いふらしているのです。今夜、若い衆を集めて火をかけると……」"
+   ],
+   "choices": [
+    {
+     "label": "まず南蛮寺を訪ねる",
+     "next": "temple"
+    },
+    {
+     "label": "市で噂の出どころを探る",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "rumor",
+      "lose": "temple"
+     }
+    }
+   ]
+  },
+  "rumor": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で噂の出どころを探る",
+   "speaker": "古着屋の女房",
+   "art": "trade",
+   "text": [
+    "古着屋の女房が声をひそめた。「生き血の話なら、{monk}さまが辻で説いていたのさ。けど、あの坊さまは南蛮寺の建つ土地が欲しいだけだよ。寺の檀那に、あそこへ塔頭を建てると約束したんだと」",
+    "女房は、{monk}が辻に貼らせた落書の一枚をこっそり渡してくれた。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_nb_rumor"
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "next": "temple"
+  },
+  "temple": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}の町はずれの南蛮寺を訪ねる",
+   "speaker": "padre",
+   "art": "faith",
+   "text": [
+    "板葺きの堂の奥で、背の高い{padre}が病人の額を拭っていた。筵の上には熱にうなされる者が五人、隅では子らが身を寄せ合っている。",
+    "{padre}はたどたどしい言葉で言った。「わたし、逃げません。この人たち、動かせない」同宿の{dojuku}が、困り果てた顔でこちらを見た。"
+   ],
+   "choices": [
+    {
+     "label": "薬を煎じ、熱の重い子を看る",
+     "check": {
+      "skill": "medicine",
+      "dc": 35,
+      "win": "healed",
+      "lose": "dusk"
+     }
+    },
+    {
+     "label": "日暮れに備えて手を考える",
+     "next": "dusk"
+    }
+   ]
+  },
+  "healed": {
+   "speaker": "oke",
+   "art": "faith",
+   "text": [
+    "夜明け前から看た子の熱が、昼過ぎにすっと引いた。迎えに来た父親は、町の桶屋{oke}だった。",
+    "「生き血どころか、倅の命を拾ってもろうた。いざとなったら、わしが皆の前でそう言うてやる」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_nb_healed"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "dusk"
+  },
+  "dusk": {
+   "speaker": "dojuku",
+   "art": "faith",
+   "text": [
+    "西の空が赤くなってきた。{dojuku}が戸口から辻をうかがう。「松明の支度をしている者がおります。もう一刻もありますまい」"
+   ],
+   "choices": [
+    {
+     "label": "{office}へ走り、捕り手を出してもらう",
+     "next": "office"
+    },
+    {
+     "label": "門の前に立ち、群衆を迎える",
+     "next": "mob"
+    },
+    {
+     "label": "夜陰に紛れ、{padre}と子らを{port}の湊へ逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "port",
+      "lose": "mob"
+     },
+     "guide": "病人は動かせない。南蛮寺そのものは守れない"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で{bugyo}に訴える",
+   "speaker": "bugyo",
+   "art": "court",
+   "text": [
+    "{bugyo}は扇で膝を打った。「伴天連は殿が南蛮船を呼ぶために置いておられる。焼かれては困る。だが、坊主と町衆を捕らえれば、それはそれで騒ぎになる」",
+    "「捕り手を出すには、それなりの理由が要るのだ」"
+   ],
+   "choices": [
+    {
+     "label": "{monk}が貼らせた落書を見せ、土地欲しさの企みだと説く",
+     "if": {
+      "flag": "sg_nb_rumor"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "end_protected",
+      "lose": "mob"
+     }
+    },
+    {
+     "label": "「町が焼ければ、奉行さまの落ち度になりますぞ」と迫る",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_protected",
+      "lose": "mob"
+     }
+    },
+    {
+     "label": "埒が明かぬ。南蛮寺へ取って返す",
+     "next": "mob"
+    }
+   ]
+  },
+  "mob": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}の南蛮寺の門を守る",
+   "speaker": "monk",
+   "art": "war",
+   "text": [
+    "松明を掲げた若い衆が三十人ほど、南蛮寺の門を囲んだ。先頭で錫杖を鳴らしているのが{monk}だ。",
+    "「どけ、異国の鬼に味方する気か。子らの生き血を吸う化け物の巣を、焼き清めるのだ」"
+   ],
+   "choices": [
+    {
+     "label": "{oke}を呼び、倅の命を救われた話をさせる",
+     "if": {
+      "flag": "sg_nb_healed"
+     },
+     "next": "end_calmed"
+    },
+    {
+     "label": "「中にいるのは熱病の町衆だ。火をかければお前らの身内も焼けるぞ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_calmed",
+      "lose": "gate"
+     }
+    },
+    {
+     "label": "刀を抜いて門に立ちふさがる",
+     "next": "gate"
+    }
+   ]
+  },
+  "gate": {
+   "speaker": "monk",
+   "art": "war",
+   "text": [
+    "「かまわぬ、押し通れ！」{monk}の声に、棒や鎌を持った男たちがどっと押し寄せてきた。"
+   ],
+   "choices": [
+    {
+     "label": "門を背にして打ち払う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "end_defended",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "病人だけでも裏から運び出す",
+     "next": "end_burned"
+    }
+   ]
+  },
+  "port": {
+   "at": {
+    "place": "port"
+   },
+   "goal": "{padre}と子らを{port}の湊へ送り届ける",
+   "speaker": "padre",
+   "art": "voyage",
+   "text": [
+    "夜通し歩いて、明け方に{port}の湊へ着いた。沖に南蛮船の帆柱が見える。振り返ると、遠い空がうっすらと赤かった。",
+    "{padre}は子らの頭を一人ずつ撫で、こちらに向き直った。「あなたに、神の恵みを」"
+   ],
+   "next": "end_exile"
+  },
+  "end_protected": {
+   "speaker": "bugyo",
+   "art": "court",
+   "text": [
+    "{bugyo}が出した捕り手が辻を固め、松明の群れは手も出せずに散っていった。{monk}は寺に謹慎を命じられた。",
+    "翌朝、{padre}は戸口で深々と頭を下げた。南蛮寺の灯は、今夜も消えずにともっている。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_nb_healed"
+    },
+    {
+     "unflag": "sg_nb_rumor"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "{here}の南蛮寺を焼き討ちから守った。"
+    }
+   ],
+   "end": "捕り手の辻"
+  },
+  "end_calmed": {
+   "speaker": "padre",
+   "art": "faith",
+   "text": [
+    "一人、また一人と松明が下ろされ、若い衆は気まずそうに帰っていった。{monk}は取り残され、舌打ちして闇に消えた。",
+    "{padre}は堂の奥から、木と真鍮でできた丸いものを抱えてきた。「地は、まるい。これ、あなたに。あなたは、世界の広さを知る人です」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_nb_healed"
+    },
+    {
+     "unflag": "sg_nb_rumor"
+    },
+    {
+     "item": "t_globe",
+     "n": 1
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "南蛮寺を囲んだ群衆を言葉で鎮め、伴天連から地球儀を贈られた。"
+    }
+   ],
+   "end": "まるい地"
+  },
+  "end_defended": {
+   "speaker": "client",
+   "art": "war",
+   "text": [
+    "打ち据えられた男たちは、松明を放り出して逃げていった。門の板には焦げ跡が残ったが、堂は無事だった。",
+    "{client}は泣きながら礼を言った。だが町では、異国の坊主のために町衆を打ち据えた者がいると噂になっている。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_nb_healed"
+    },
+    {
+     "unflag": "sg_nb_rumor"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 3
+    },
+    {
+     "wanted": "here",
+     "n": 8
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "焦げた門"
+  },
+  "end_burned": {
+   "speaker": "dojuku",
+   "art": "disaster",
+   "text": [
+    "炎が板葺きの屋根を舐め、南蛮寺は一夜で灰になった。病人と子らは、{dojuku}と裏の畑へ担ぎ出すのが精一杯だった。",
+    "{padre}は焼け跡に膝をつき、異国の言葉で長いこと祈っていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_nb_healed"
+    },
+    {
+     "unflag": "sg_nb_rumor"
+    },
+    {
+     "fame": -1
+    },
+    {
+     "hp": -15
+    }
+   ],
+   "end": "灰の十字架"
+  },
+  "end_exile": {
+   "speaker": "client",
+   "art": "voyage",
+   "text": [
+    "{padre}と子らを乗せた小舟が、南蛮船へ漕ぎ出していった。{client}は浜に立ち、いつまでも手を振っていた。",
+    "町に残した病人たちは、{dojuku}が看ることになった。堂は焼けたと、後で聞いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_nb_healed"
+    },
+    {
+     "unflag": "sg_nb_rumor"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "伴天連を{port}の湊から南蛮船へ逃がした。"
+    }
+   ],
+   "end": "沖の帆柱"
+  }
+ }
+}

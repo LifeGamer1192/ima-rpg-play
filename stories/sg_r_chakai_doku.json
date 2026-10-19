@@ -1,0 +1,476 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_chakai_doku",
+ "kind": "random",
+ "where": "folk",
+ "hook": "三日後の茶会で、お客人の菓子に毒が盛られます。聞いてしまったのです",
+ "title": "茶会の毒",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "茶坊主"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "lord": {
+   "npc": "城主",
+   "sex": "m"
+  },
+  "guest": {
+   "npc": "国衆の当主",
+   "sex": "m"
+  },
+  "karo": {
+   "npc": "次席家老",
+   "sex": "m"
+  },
+  "kosho": {
+   "npc": "小姓",
+   "sex": "m"
+  },
+  "yakushu": {
+   "npc": "薬種屋",
+   "sex": "m"
+  },
+  "town": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "若い{client}は、人目を気にしながら袖を引いた。三日後、城主{lord}さまが国衆の{guest}さまを招いて茶会を開く。{guest}さまの家が、こちらに付くか隣国に付くかの瀬戸際なのだという。",
+    "「昨夜、水屋の外で聞いたのです。『正客の主菓子に附子を』と。誰の声かは分かりませぬ。でも、もし毒が出れば、菓子を運ぶ役のわたしが真っ先に疑われます」"
+   ],
+   "choices": [
+    {
+     "label": "附子の出どころを追い、{town}の薬種屋を訪ねる",
+     "next": "yakushu"
+    },
+    {
+     "label": "今夜、城の水屋を探る",
+     "next": "mizuya"
+    }
+   ]
+  },
+  "yakushu": {
+   "at": {
+    "place": "town",
+    "building": "market"
+   },
+   "goal": "{town}の薬種屋で、附子を買った者を探る",
+   "speaker": "yakushu",
+   "art": "trade",
+   "text": [
+    "薬種屋の{yakushu}は百味箪笥の前で首を振った。「附子は猪の矢毒にも使うで、買い手は珍しゅうない。誰に売ったかなど、いちいち覚えておられん」"
+   ],
+   "choices": [
+    {
+     "label": "帳を見せてもらう代わりに、薬を言い値で買う（150文）",
+     "if": {
+      "money": 150
+     },
+     "effects": [
+      {
+       "money": -150
+      },
+      {
+       "item": "herbs",
+       "n": 2
+      }
+     ],
+     "next": "buyer"
+    },
+    {
+     "label": "薬の目利きで、附子の扱いを知る者と見せて話を引き出す",
+     "check": {
+      "skill": "medicine",
+      "dc": 35,
+      "win": "buyer",
+      "lose": "mizuya"
+     }
+    }
+   ]
+  },
+  "buyer": {
+   "speaker": "yakushu",
+   "art": "trade",
+   "text": [
+    "{yakushu}は帳をめくった。「ああ、これだ。十日ほど前、若いお侍が附子を一両。城のお方だと言うておった。羽織の紋は、たしかこう……」",
+    "{yakushu}が帳の端に描いてみせた紋は、{land}の次席家老{karo}の家のものだった。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_cd_buyer"
+    },
+    {
+     "xp": "medicine",
+     "n": 1
+    }
+   ],
+   "next": "mizuya"
+  },
+  "mizuya": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "夜、{here}の{palace}の水屋を探る",
+   "art": "hideout",
+   "text": [
+    "{client}の手引きで、夜更けの水屋に入り込んだ。棚には茶入と茶碗、縁高に菓子を盛る支度が整っている。",
+    "奥の行李の一つに、見慣れぬ紙包みが押し込まれていた。行李の主は、{karo}付きの小姓{kosho}だという。"
+   ],
+   "choices": [
+    {
+     "label": "足音を殺し、行李を改める",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "found",
+      "lose": "spotted"
+     }
+    }
+   ]
+  },
+  "spotted": {
+   "speaker": "kosho",
+   "art": "war",
+   "text": [
+    "背後で板戸が鳴った。{kosho}が、宿直の足軽を二人連れて立っている。「水屋に忍び込むとは、何者だ」"
+   ],
+   "choices": [
+    {
+     "label": "足軽を打ち倒して包みを奪う",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "found",
+      "lose": "end_framed"
+     }
+    },
+    {
+     "label": "「茶坊主に頼まれて道具を改めに来た」と言い繕って引き下がる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "chakai",
+      "lose": "end_framed"
+     }
+    }
+   ]
+  },
+  "found": {
+   "art": "hideout",
+   "text": [
+    "紙包みの中には、灰色の粉が少し。指先につけて嗅ぐと、つんと舌の痺れるような匂いがした。附子だ。",
+    "隣には、正客の分だけ別に作らせた主菓子の箱がある。蓋には小さく印がつけてあった。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_cd_poison"
+    }
+   ],
+   "choices": [
+    {
+     "label": "印のある菓子を、ほかの菓子とすり替えておく",
+     "effects": [
+      {
+       "flag": "sg_cd_swap"
+      }
+     ],
+     "next": "chakai"
+    },
+    {
+     "label": "何も触らず、茶会の席で暴く",
+     "next": "chakai"
+    }
+   ]
+  },
+  "chakai": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "三日後、{here}の{palace}の茶会に連なる",
+   "wait": {
+    "days": 2
+   },
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "茶会の日。四畳半の席に{lord}と正客の{guest}、相伴に{karo}が座る。こちらは{client}の手伝いとして水屋に控えた。",
+    "{kosho}が縁高を捧げて、{guest}の前に置いた。蓋が取られる。{karo}は湯の音に耳を澄ますふりをして、正客の手元から目を離さない。"
+   ],
+   "choices": [
+    {
+     "label": "何も言わず、成り行きを見守る",
+     "if": {
+      "flag": "sg_cd_swap"
+     },
+     "next": "end_quiet"
+    },
+    {
+     "label": "「その菓子、お待ちを」と声を上げる",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "accuse",
+      "lose": "end_framed"
+     }
+    },
+    {
+     "label": "茶を運ぶふりをして、縁高をひっくり返す",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "end_quiet",
+      "lose": "collapse"
+     }
+    },
+    {
+     "label": "水屋から動かずにいる",
+     "next": "collapse"
+    }
+   ]
+  },
+  "accuse": {
+   "speaker": "karo",
+   "art": "court",
+   "text": [
+    "座が凍りついた。{karo}が声を荒らげる。「茶席で何たる無礼。下郎、そこへ直れ」",
+    "{lord}は黙ってこちらを見ている。{guest}は菓子に伸ばしかけた手を止めた。"
+   ],
+   "choices": [
+    {
+     "label": "{town}の薬種屋の帳にあった紋を申し上げる",
+     "if": {
+      "flag": "sg_cd_buyer"
+     },
+     "next": "end_exposed"
+    },
+    {
+     "label": "{kosho}の行李にあった附子の包みのことを申し上げる",
+     "if": {
+      "flag": "sg_cd_poison"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_exposed",
+      "lose": "end_framed"
+     }
+    },
+    {
+     "label": "菓子を庭の池に投げ入れ、鯉の様子を見ていただく",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "end_exposed",
+      "lose": "end_framed"
+     },
+     "guide": "毒の回りが遅ければ、ただの狼藉になる"
+    }
+   ]
+  },
+  "collapse": {
+   "speaker": "guest",
+   "art": "disaster",
+   "text": [
+    "菓子を口にしてほどなく、{guest}が胸を押さえて前のめりに倒れた。口から泡が漏れる。{lord}が立ち上がり、{karo}が「医師を」と叫んだ。その声は、どこか落ち着いていた。"
+   ],
+   "choices": [
+    {
+     "label": "水屋から駆け込み、吐かせて手当てする",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "end_saved",
+      "lose": "end_dead"
+     }
+    }
+   ]
+  },
+  "end_exposed": {
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "{lord}の目が{karo}に向いた。{karo}は口を開きかけ、やがてうなだれた。国衆の家を滅ぼし、その地を己の手に入れるつもりだったのだ。",
+    "{guest}は{lord}の手を取り、「この家とともに歩もう」と誓った。帰り際、{lord}はこちらを呼び、手ずから茶を点ててくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cd_buyer"
+    },
+    {
+     "unflag": "sg_cd_poison"
+    },
+    {
+     "unflag": "sg_cd_swap"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 20
+    },
+    {
+     "rep": "land",
+     "n": 8
+    },
+    {
+     "item": "lacquer",
+     "n": 1
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "茶会に仕込まれた毒を暴き、次席家老{karo}の企みを止めた。"
+    }
+   ],
+   "end": "一服の茶"
+  },
+  "end_quiet": {
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{guest}は何事もなく菓子を食べ、濃茶を喫して上機嫌で帰っていった。{karo}だけが、狐につままれたような顔をしていた。",
+    "誰も何も知らぬまま、茶会は終わった。{client}は水屋の陰で、何度も頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cd_buyer"
+    },
+    {
+     "unflag": "sg_cd_poison"
+    },
+    {
+     "unflag": "sg_cd_swap"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "end": "何事もなく"
+  },
+  "end_saved": {
+   "speaker": "guest",
+   "art": "court",
+   "text": [
+    "塩水を飲ませて吐かせ、背をさすり続けた。半刻ののち、{guest}はうっすらと目を開けた。",
+    "毒の出どころは分からずじまいだったが、{guest}は「命の恩人」と言って銀を贈ってきた。{karo}は、それきりこちらと目を合わせようとしない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cd_buyer"
+    },
+    {
+     "unflag": "sg_cd_poison"
+    },
+    {
+     "unflag": "sg_cd_swap"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "note": "茶会で毒に倒れた{guest}を手当てで救った。"
+    }
+   ],
+   "end": "吐かせた毒"
+  },
+  "end_dead": {
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "手を尽くしたが、{guest}は二度と目を開けなかった。国衆の家は{land}を見限り、境の村々に火の手が上がった。",
+    "菓子を運んだ{client}は捕らえられた。誰が毒を盛ったのか、口にする者はいない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cd_buyer"
+    },
+    {
+     "unflag": "sg_cd_poison"
+    },
+    {
+     "unflag": "sg_cd_swap"
+    },
+    {
+     "fame": -2
+    },
+    {
+     "favor": -10
+    }
+   ],
+   "end": "冷えた茶碗"
+  },
+  "end_framed": {
+   "speaker": "karo",
+   "art": "jail",
+   "text": [
+    "「この者を捕らえよ。茶会を乱し、毒の噂を言い立てて、国衆との仲を裂こうとする曲者だ」{karo}の一声で、縄を打たれた。",
+    "三日後に放たれたときには、茶会は終わり、{client}は城を追われていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_cd_buyer"
+    },
+    {
+     "unflag": "sg_cd_poison"
+    },
+    {
+     "unflag": "sg_cd_swap"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "favor": -15
+    },
+    {
+     "wanted": "land",
+     "n": 10
+    },
+    {
+     "pass": 4320
+    }
+   ],
+   "end": "濡れ衣"
+  }
+ }
+}

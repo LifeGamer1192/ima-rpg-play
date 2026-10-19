@@ -1,0 +1,618 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_okitanawate",
+ "kind": "history",
+ "title": "沖田畷の泥",
+ "era": "sengoku",
+ "event": "okitanawate",
+ "lead": 6,
+ "before": [
+  "o1",
+  "o2r",
+  "o3r",
+  "o3r_ok",
+  "o3r_ng",
+  "o2a",
+  "o3a",
+  "o3a_ok"
+ ],
+ "onFired": "late",
+ "cast": {
+  "saga": {
+   "scnPlace": "saga"
+  },
+  "hinoe": {
+   "scnPlace": "hinoe"
+  },
+  "marsh": {
+   "scnPlace": "hinoe"
+  },
+  "ryuzoji": {
+   "scnRealm": "ryuzoji"
+  },
+  "shimazu": {
+   "scnRealm": "shimazu"
+  },
+  "arima": {
+   "scnRealm": "arima"
+  },
+  "takanobu": {
+   "person": "ruler:ryuzoji"
+  },
+  "harunobu": {
+   "person": "ruler:arima"
+  },
+  "naoshige": {
+   "scnPerson": "鍋島直茂"
+  },
+  "iehisa": {
+   "scnPerson": "島津家久"
+  },
+  "samurai": {
+   "npc": "陣触れの侍",
+   "sex": "m"
+  }
+ },
+ "start": "o1",
+ "scenes": {
+  "o1": {
+   "at": {
+    "place": "saga",
+    "building": "inn"
+   },
+   "goal": "{saga}の{inn}で、陣触れの話を聞く",
+   "speaker": "samurai",
+   "art": "inn",
+   "text": [
+    "{saga}の{inn}の前に、陣触れの高札が立っていた。{samurai}が集まった男たちに声を張り上げる。「島原の有馬が、殿に背いて薩摩の島津に寝返った。殿は御自ら三万を率いて、有馬を踏み潰される」",
+    "肥前の熊と呼ばれる{takanobu}は、五州の太守を名乗るほどの勢いだった。有馬の兵は五千、島津の援軍はわずか三千と聞く。誰もが、ひと月で片がつくと言っていた。",
+    "{inn}の隅で、島原から逃げてきたという漁師が一人、黙って酒を飲んでいた。"
+   ],
+   "choices": [
+    {
+     "label": "龍造寺の陣触れに応じる",
+     "effects": [
+      {
+       "note": "龍造寺隆信が有馬を討つ。陣触れに応じた。"
+      }
+     ],
+     "next": "o2r"
+    },
+    {
+     "label": "漁師の舟で有明の海を渡り、島原の有馬方へつく",
+     "effects": [
+      {
+       "note": "龍造寺隆信が有馬を討つ。島原へ渡り、有馬方についた。"
+      }
+     ],
+     "next": "o2a"
+    }
+   ]
+  },
+  "o2r": {
+   "at": {
+    "place": "saga",
+    "building": "palace"
+   },
+   "goal": "{saga}の{palace}で、{naoshige}に会う",
+   "speaker": "naoshige",
+   "art": "court",
+   "text": [
+    "{saga}の城の廊下で、{naoshige}は{player}を呼び止めた。殿の義弟で、龍造寺の家を実の上で支えている男である。顔には疲れが滲んでいた。",
+    "「島原の道は、山と海のあいだの沼地だ。畷と呼ぶ細い畦道が幾筋か通っているだけで、大軍は並べぬ。殿はそれを聞いても笑っておられる。三万で踏めば、沼も平らになると」",
+    "「おぬしは先に島原へ渡れ。畷の幅、沼の深さ、敵の柵のありか。見たままを、わしにだけ伝えよ」"
+   ],
+   "choices": [
+    {
+     "label": "物見として、先に島原へ渡る",
+     "effects": [
+      {
+       "flag": "h_okt_rside"
+      }
+     ],
+     "next": "o3r"
+    }
+   ]
+  },
+  "o3r": {
+   "at": {
+    "place": "marsh",
+    "building": "house"
+   },
+   "goal": "{marsh}の北、沖田畷の沼地を探る",
+   "art": "road",
+   "text": [
+    "沖田畷は、思った以上にひどい土地だった。畦道は人ひとりがやっと通れる幅で、両側は腰まで沈む深田。その先に、有馬の兵が木の柵と土塁を幾重にも築いている。",
+    "山の手の森の中には、島津の兵が身を伏せられるだけの茂みがあった。そして海べりには、潮が引けば歩ける浜の道が一筋、南へ延びていた。"
+   ],
+   "choices": [
+    {
+     "label": "見たままを{naoshige}に伝える",
+     "next": "aftergo"
+    },
+    {
+     "label": "「本陣は山の手に置き、退き口に浜の道を空けておくべし」と献策する",
+     "turn": true,
+     "guide": "負け戦の備えを説く。殿の怒りを買いかねない",
+     "check": {
+      "skill": "letters",
+      "dc": 42,
+      "win": "o3r_ok",
+      "lose": "o3r_ng"
+     }
+    }
+   ]
+  },
+  "o3r_ok": {
+   "speaker": "naoshige",
+   "text": [
+    "{naoshige}は{player}の描いた絵図を長いあいだ見つめていた。「殿には、勝ち戦の話しかできぬ。だが、わしの手勢だけでも、浜の道を押さえておこう。潮の刻も調べておけ」",
+    "直茂は絵図を懐にしまった。「負ける支度をする将は、臆病と言われる。だが、兵を連れて帰るのも将の仕事だ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_okt_retreat"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "note": "{naoshige}に、沖田畷の浜の道を退き口に空けておくよう献策した。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "o3r_ng": {
+   "speaker": "naoshige",
+   "text": [
+    "「負ける話をするな」{naoshige}は苦い顔で言った。「わしが言えば、殿は余計に意地を張られる」絵図は、そのまま返された。"
+   ],
+   "next": "aftergo"
+  },
+  "o2a": {
+   "at": {
+    "place": "hinoe",
+    "building": "palace"
+   },
+   "goal": "島原の{hinoe}の{palace}で、{harunobu}に会う",
+   "speaker": "harunobu",
+   "art": "court",
+   "text": [
+    "{hinoe}の城には、十字の旗と島津の丸に十字の旗が並んで翻っていた。城主の{harunobu}は、胸に小さな十字架を下げた若い殿だった。南蛮の宣教師が、城の礼拝堂で祈りを捧げている。",
+    "「龍造寺は三万、こちらは有馬と島津を合わせて八千。だが、島津の{iehisa}殿には策がある」若い殿は、怯えを隠すように笑った。「神は、数の多い方には味方されぬ」"
+   ],
+   "choices": [
+    {
+     "label": "島津の陣に加わる",
+     "effects": [
+      {
+       "flag": "h_okt_aside"
+      }
+     ],
+     "next": "o3a"
+    }
+   ]
+  },
+  "o3a": {
+   "at": {
+    "place": "marsh",
+    "building": "barracks"
+   },
+   "goal": "{marsh}の北、沖田畷で島津の陣に加わる",
+   "speaker": "iehisa",
+   "art": "camp",
+   "text": [
+    "{iehisa}は、沼地の真ん中に立って泥の深さを杖で測っていた。島津の四兄弟の末弟、三十八の小柄な男である。",
+    "「龍造寺の大軍は、この畷を一列で来るしかない。先手を少し叩いて、わざと退く。追ってきたら、両側の茂みと柵から鉄砲と弓で挟む。釣り野伏せという」家久は泥のついた杖で畷の先を指した。「隆信は必ず追ってくる。勝ちに慣れた男は、そういうものだ」"
+   ],
+   "choices": [
+    {
+     "label": "畷の両側に杭を打ち、泥を深くする",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 1
+      }
+     ],
+     "next": "aftergo"
+    },
+    {
+     "label": "沼地の茂みに鉄砲の伏せ場を掘る",
+     "next": "o3a_ok"
+    }
+   ]
+  },
+  "o3a_ok": {
+   "text": [
+    "葦の根元を切り払い、腹這いになれる窪みを十ほど掘った。上から葦を被せれば、畷の上からは見えない。家久はそれを一つずつ覗いて、満足そうに頷いた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_okt_pits"
+    },
+    {
+     "rep": "shimazu",
+     "n": 5
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "marsh"
+   },
+   "goal": "{marsh}の北、沖田畷で戦の行方を見届ける",
+   "wait": {
+    "settled": "okitanawate"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "okt_noiehisa"
+     },
+     "next": "noiehisa"
+    },
+    {
+     "if": {
+      "branch": "okt_retreat"
+     },
+     "next": "retreat"
+    },
+    {
+     "if": {
+      "flag": "h_okt_aside"
+     },
+     "next": "o4a"
+    },
+    {
+     "next": "o4r"
+    }
+   ]
+  },
+  "retreat": {
+   "speaker": "naoshige",
+   "art": "war",
+   "text": [
+    "龍造寺の大軍は、やはり畷の上で挟まれた。{takanobu}の輿は泥に沈み、島津の兵が群がった。殿は討たれた。",
+    "だが{naoshige}の手勢は浜の道を押さえていた。崩れた兵たちは潮の引いた浜を南へ、北へと退き、船に乗って佐賀へ帰った。直茂は浜で最後の一人が船に乗るのを見届けてから、{player}に言った。「殿を守れなかった。だが、龍造寺の家は守った。島津には降らぬ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "ryuzoji",
+     "n": 15
+    },
+    {
+     "unflag": "h_okt_retreat"
+    },
+    {
+     "unflag": "h_okt_rside"
+    },
+    {
+     "note": "沖田畷で龍造寺隆信は討たれたが、兵は浜の道から佐賀へ退いた。"
+    }
+   ],
+   "end": "浜の退き口"
+  },
+  "noiehisa": {
+   "speaker": "harunobu",
+   "art": "war",
+   "text": [
+    "島津の援軍は来たが、率いる将は家久ではなかった。釣り野伏せの策を知る者はなく、島津と有馬の兵は柵の後ろで龍造寺の大軍を待つしかなかった。",
+    "畷の上の押し合いは三日続いた。流れ弾が{takanobu}の輿に当たり、龍造寺の軍はようやく兵を返した。{harunobu}は城の礼拝堂で長く祈っていた。「勝ったのではない。神が、生かしてくださっただけだ」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_okt_retreat"
+    },
+    {
+     "unflag": "h_okt_aside"
+    },
+    {
+     "unflag": "h_okt_rside"
+    },
+    {
+     "unflag": "h_okt_pits"
+    },
+    {
+     "note": "家久のいない島津の援軍は小勢で、沖田畷の戦は押し合いに終わった。"
+    }
+   ],
+   "end": "三日の押し合い"
+  },
+  "o4r": {
+   "speaker": "naoshige",
+   "art": "war",
+   "text": [
+    "畷の先で、有馬の先手がわざとらしく崩れて退いた。殿の本陣が、それを追って畷に入った。両側の葦の中から、一斉に鉄砲が鳴った。",
+    "細い畦道の上で、三万の兵は前にも後ろにも動けなかった。泥に足を取られた者から撃たれていく。{takanobu}の輿の担ぎ手が倒れ、輿が深田に傾いた。「殿の輿が」誰かが叫んだ。"
+   ],
+   "choices": [
+    {
+     "label": "直茂の手勢の退き口を守り、敵を食い止める",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_naoshige",
+      "lose": "end_mud"
+     }
+    },
+    {
+     "label": "泥の中を這って、畷の外へ逃れる",
+     "next": "end_mud"
+    }
+   ]
+  },
+  "end_naoshige": {
+   "speaker": "naoshige",
+   "text": [
+    "畦道の曲がり角で、追ってくる島津の兵を三度押し返した。そのあいだに、{naoshige}と数百の兵が浜へ抜けた。殿の首は、島津の川上という侍に取られたという。",
+    "佐賀へ帰る船の上で、直茂は一度も殿の名を口にしなかった。ただ、{player}に刀を一振り与えた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "ryuzoji",
+     "n": 10
+    },
+    {
+     "unflag": "h_okt_rside"
+    },
+    {
+     "note": "沖田畷で龍造寺隆信が討たれた。鍋島直茂の退き口を守った。"
+    }
+   ],
+   "end": "曲がり角の槍"
+  },
+  "end_mud": {
+   "text": [
+    "腰まで泥に沈みながら、死んだ馬の陰に隠れて夜を待った。夜が明けると、畷の上には龍造寺の兵の骸が折り重なっていた。殿の首は、島津の手に渡ったという。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "unflag": "h_okt_rside"
+    },
+    {
+     "note": "沖田畷で龍造寺の大軍が敗れ、隆信が討たれた。"
+    }
+   ],
+   "end": "沖田畷の泥"
+  },
+  "o4a": {
+   "speaker": "iehisa",
+   "art": "war",
+   "text": [
+    "家久の言ったとおりだった。龍造寺の大軍は、退く有馬の先手を追って畷に入ってきた。両側の葦の中から、鉄砲と弓が一斉に放たれた。",
+    "畷の先に、六人担ぎの大きな輿が見えた。泥に傾いている。家久が叫んだ。「あれが隆信じゃ。首を取れ」"
+   ],
+   "choices": [
+    {
+     "label": "畦道を駆け、輿へ斬り込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_palanquin",
+      "lose": "end_wounded"
+     }
+    },
+    {
+     "label": "伏せ場から鉄砲を撃ちかけ続ける",
+     "next": "end_guns"
+    }
+   ]
+  },
+  "end_palanquin": {
+   "text": [
+    "輿の担ぎ手を斬り払ったとき、島津の侍が{player}の脇を駆け抜けて輿の簾を切り裂いた。中には、肥えた大きな男が床几に座ったまま、刀を膝に置いていた。",
+    "首を取ったのは川上忠堅という島津の侍だった。{player}の手には、輿の簾の切れ端だけが残った。家久は笑って、それを手柄の証として帳面に書きつけた。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "rep": "shimazu",
+     "n": 15
+    },
+    {
+     "rep": "arima",
+     "n": 10
+    },
+    {
+     "unflag": "h_okt_aside"
+    },
+    {
+     "unflag": "h_okt_pits"
+    },
+    {
+     "note": "沖田畷で、龍造寺隆信の輿へ斬り込んだ。"
+    }
+   ],
+   "end": "輿の簾"
+  },
+  "end_wounded": {
+   "text": [
+    "畦道で龍造寺の旗本と組み合い、深田に転げ落ちた。泥の中から這い上がったときには、勝ち鬨が上がっていた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "unflag": "h_okt_aside"
+    },
+    {
+     "unflag": "h_okt_pits"
+    },
+    {
+     "note": "沖田畷で島津と有馬が龍造寺の大軍を破った。"
+    }
+   ],
+   "end": "勝ち鬨の泥"
+  },
+  "end_guns": {
+   "text": [
+    "伏せ場の窪みから、火縄が焼き切れるまで撃ち続けた。畷の上の兵は、逃げる場所もなく倒れていった。勝ち鬨が上がったとき、{player}の頬は火薬で真っ黒だった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "shimazu",
+     "n": 8
+    },
+    {
+     "unflag": "h_okt_aside"
+    },
+    {
+     "unflag": "h_okt_pits"
+    },
+    {
+     "note": "沖田畷で島津と有馬が龍造寺の大軍を破った。"
+    }
+   ],
+   "end": "葦の伏せ場"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "okt_retreat"
+     },
+     "next": "late_retreat"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_retreat": {
+   "text": [
+    "旅の途中で噂を聞いた。沖田畷で龍造寺隆信は討たれたが、鍋島直茂が浜の道を押さえていて、兵の多くは佐賀へ帰ったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_okt_retreat"
+    },
+    {
+     "unflag": "h_okt_aside"
+    },
+    {
+     "unflag": "h_okt_rside"
+    },
+    {
+     "unflag": "h_okt_pits"
+    }
+   ],
+   "end": "間に合わなかった"
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。島原の沖田畷で、龍造寺隆信の大軍が島津と有馬の小勢に挟まれ、隆信は討たれたという。",
+    "「三万が八千に負けたんじゃ。沼は、数を数えんけんのう」と、船頭は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_okt_retreat"
+    },
+    {
+     "unflag": "h_okt_aside"
+    },
+    {
+     "unflag": "h_okt_rside"
+    },
+    {
+     "unflag": "h_okt_pits"
+    },
+    {
+     "note": "沖田畷で龍造寺隆信が討たれたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "okt_noiehisa",
+   "event": "okitanawate",
+   "order": 3,
+   "why": "島津家久がすでにこの世になかった",
+   "when": {
+    "dead": [
+     "島津家久"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "沖田畷の戦い。有馬を攻めた{r_ryuzoji}の大軍は、湿地の細道で有馬と{n_shimazu}の兵に阻まれた。島津の将家久はすでに亡く、援軍は小勢で策もなかった。押し合いは三日に及び、隆信は流れ弾に倒れて龍造寺の軍は退いたが、島津に降ることはなかった。",
+    "do": [
+     [
+      "rulerDies",
+      "ryuzoji",
+      "battle_wound",
+      "龍造寺隆信"
+     ],
+     [
+      "add",
+      "arima",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 3,
+    "at": "hinoe"
+   }
+  },
+  {
+   "id": "okt_retreat",
+   "event": "okitanawate",
+   "order": 2,
+   "why": "主人公が鍋島直茂に浜の道を退き口に空けておくよう説いた",
+   "when": {
+    "flag": "h_okt_retreat"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "沖田畷の戦い。有馬を攻めた{r_ryuzoji}の大軍は湿地の細道で{n_shimazu}と有馬の兵に囲まれ、隆信は討たれた。だが[[p:鍋島直茂]]が前もって浜の道を押さえていたため、兵の多くは崩れずに佐賀へ退き、龍造寺は島津に降らなかった。",
+    "do": [
+     [
+      "rulerDies",
+      "ryuzoji",
+      "battle_wound",
+      "龍造寺隆信"
+     ],
+     [
+      "add",
+      "shimazu",
+      "prestige",
+      8
+     ],
+     [
+      "add",
+      "ryuzoji",
+      "stability",
+      -0.1
+     ]
+    ],
+    "imp": 3,
+    "at": "hinoe"
+   }
+  }
+ ]
+}

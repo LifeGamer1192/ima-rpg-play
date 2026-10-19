@@ -1,0 +1,673 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_ishiyama_end",
+ "kind": "history",
+ "era": "sengoku",
+ "title": "石山退去",
+ "event": "ishiyama_end",
+ "lead": 9,
+ "before": [
+  "s1",
+  "k1",
+  "k1ok",
+  "k1ng",
+  "s2",
+  "s2terms",
+  "s2ng",
+  "s3kyo",
+  "s3kyo_ok",
+  "s3kyo_ng",
+  "s3",
+  "s3ok",
+  "s3hurt"
+ ],
+ "onFired": "late",
+ "cast": {
+  "sakai": {
+   "scnPlace": "sakai"
+  },
+  "city": {
+   "scnPlace": "ishiyama"
+  },
+  "kyoto": {
+   "scnPlace": "kyoto"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "ikko": {
+   "scnRealm": "ishiyama"
+  },
+  "kennyo": {
+   "person": "ruler:ishiyama"
+  },
+  "nobunaga": {
+   "person": "ruler:oda"
+  },
+  "rairen": {
+   "scnPerson": "下間頼廉"
+  },
+  "sakuma": {
+   "scnPerson": "佐久間信盛"
+  },
+  "merchant": {
+   "npc": "堺の会合衆",
+   "sex": "m"
+  },
+  "kuge": {
+   "npc": "勅使の公家",
+   "sex": "m"
+  },
+  "kyo": {
+   "npc": "新門跡方の坊官",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "sakai",
+    "building": "inn"
+   },
+   "goal": "{sakai}の{inn}で、石山の噂を聞く",
+   "speaker": "merchant",
+   "art": "trade",
+   "text": [
+    "{sakai}の濠の内は、戦の只中とは思えぬほど賑わっていた。南蛮の船、明の生糸、鉄砲の玉薬。{merchant}は茶碗を回しながら、北の方角を顎で示した。",
+    "「石山の御坊は、もう十年も織田さまに囲まれておる。毛利の船は木津川口で、九鬼の鉄の船に焼かれた。兵糧はもう細る一方よ。そこへ帝が勅使を立てて、和をお取り持ちになるという」",
+    "「門主の{kennyo}さまは和に傾いておられる。だが新門跡さま、ご子息の方は、石山を出るくらいなら死ぬと言うておられるそうな。勅使の一行は、文字の読める供を探しておる。御坊の中にも、まだ門徒が出入りしておる」"
+   ],
+   "choices": [
+    {
+     "label": "{kyoto}へ上り、勅使の一行の供に加わる",
+     "effects": [
+      {
+       "note": "石山の和議の勅使の一行に、供として加わりに行く。"
+      }
+     ],
+     "next": "k1"
+    },
+    {
+     "label": "門徒にまぎれて、石山の寺内町へ入る",
+     "effects": [
+      {
+       "note": "門徒にまぎれて石山の寺内町へ入る。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "k1": {
+   "at": {
+    "place": "kyoto",
+    "building": "house"
+   },
+   "goal": "{kyoto}で勅使の公家に会う",
+   "speaker": "kuge",
+   "art": "court",
+   "text": [
+    "{kuge}は、扇の陰で溜め息をついた。「右府さま（{nobunaga}）は、石山さえ明け渡せば門徒の命は取らぬ、加賀の二郡も返すと仰せじゃ。じゃが、御坊の衆は、織田の書いた文など誰も信じぬ」",
+    "「麿が読んでも、坊官どもは公家の戯言と聞き流す。条々を一つずつ、門徒の言葉に直して説ける者が要る」"
+   ],
+   "choices": [
+    {
+     "label": "条々を書き写し、一つ一つの意味を確かめる",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "k1ok",
+      "lose": "k1ng"
+     }
+    }
+   ]
+  },
+  "k1ok": {
+   "speaker": "kuge",
+   "text": [
+    "{player}は夜を徹して条々を写し、言葉の裏を一つずつ{kuge}に問いただした。誰を赦し、何を返し、いつまでに退くのか。明け方、{kuge}は感心したように扇を鳴らした。「そなた、坊主になれば出世したであろうに」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ish_envoy"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "石山の和議の条々を写し、勅使の供として石山へ向かう。"
+    }
+   ],
+   "next": "s2"
+  },
+  "k1ng": {
+   "speaker": "kuge",
+   "text": [
+    "公家の言葉は、言っていることの半分も分からなかった。{kuge}は苦笑して、{player}を荷運びの供に回した。"
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "shrine"
+   },
+   "goal": "{city}の御坊で{rairen}に会う",
+   "speaker": "rairen",
+   "art": "faith",
+   "text": [
+    "石山の御坊は、寺というより城だった。堀を巡らし、櫓を上げ、鉄砲狭間を切った塀の内に、町が丸ごと入っている。御堂の前で、門徒たちが南無阿弥陀仏を唱えていた。旗には「進まば往生極楽、退かば無間地獄」とある。",
+    "坊官の{rairen}は、刀傷だらけの手を膝に置いた。「門主さまは、民をこれ以上死なせとうないと仰せだ。だが新門跡さまは、織田は長島で門徒を焼き殺したと言われる。その通りなのだ。わしには、どちらが正しいとも言えぬ」"
+   ],
+   "choices": [
+    {
+     "label": "勅使の書状の条々を、{rairen}に一つずつ説いて聞かせる",
+     "if": {
+      "flag": "h_ish_envoy"
+     },
+     "turn": true,
+     "guide": "和議がまとまる。籠城を望む門徒には裏切り者と見られる",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s2terms",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "新門跡の籠城方に加わる",
+     "turn": true,
+     "guide": "石山の終わりは遅れる。そのぶん人も死ぬ",
+     "next": "s3kyo"
+    },
+    {
+     "label": "寺内町の守りを手伝う",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2terms": {
+   "speaker": "rairen",
+   "art": "faith",
+   "text": [
+    "{player}は条々を門徒の言葉に直した。石山を明け渡す。門徒の命は取らない。加賀の二郡は返す。門主と新門跡は、そろって紀伊へ移る。「そろって」というところで、{rairen}の目が動いた。",
+    "「親と子が別々に出れば、残った方は焼かれる。そろって出れば、誰も焼かれぬ」{rairen}は長く黙ったあと、立ち上がった。「新門跡さまのところへは、わしが行く。命に代えても説き伏せる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ish_terms"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "rep": "oda",
+     "n": 8
+    },
+    {
+     "note": "勅使の条々を{rairen}に説き、門主と新門跡がそろって石山を退く道をつけた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "speaker": "rairen",
+   "text": [
+    "「紙の上の約束は、焼ける」{rairen}は首を振った。「長島の門徒も、紙の約束を信じて城を出たのだ」"
+   ],
+   "next": "s3"
+  },
+  "s3kyo": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "speaker": "kyo",
+   "art": "war",
+   "text": [
+    "新門跡方の詰所で、{kyo}は{player}の手を握った。「よう来てくれた。門主さまが出られても、われらは出ぬ。だが米がない。雑賀の衆が舟を出すと言うてくれておるが、木津川の口は織田の船が塞いでおる」",
+    "「夜の潮に乗せて、葦の間を抜ける舟道がある。舟を導ける者がおらぬのだ」"
+   ],
+   "choices": [
+    {
+     "label": "夜の潮に乗り、雑賀の舟を導いて木津川口の封鎖を抜ける",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "s3kyo_ok",
+      "lose": "s3kyo_ng"
+     }
+    },
+    {
+     "label": "詰所を離れ、寺内町の守りに回る",
+     "next": "s3"
+    }
+   ]
+  },
+  "s3kyo_ok": {
+   "art": "voyage",
+   "text": [
+    "月が雲に隠れた夜、{player}は先頭の小舟の舳先に立ち、葦の間の暗い水路を手で示した。織田の大船の篝火が、すぐ頭の上を過ぎていった。誰も息をしなかった。",
+    "夜明け、石山の船入りに米を積んだ舟が十艘、滑り込んだ。門徒たちが泣きながら俵を担ぎ上げる。{kyo}は「仏のお導きじゃ」と言った。{player}は、潮のお導きだと思った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_ish_hold"
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "rep": "ikko",
+     "n": 15
+    },
+    {
+     "wanted": "oda",
+     "n": 15
+    },
+    {
+     "note": "雑賀の舟を導いて、木津川口の織田の封鎖を抜けた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3kyo_ng": {
+   "art": "voyage",
+   "text": [
+    "先頭の舟が浅瀬に乗り上げ、織田の船の篝火がこちらを向いた。焙烙の火が水の上で弾ける。{player}は川に飛び込み、葦の中を泳いで逃げた。舟は三艘しか着かなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "flag": "h_ish_kyo"
+    },
+    {
+     "wanted": "oda",
+     "n": 8
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の寺内町で、和議の行方を待つ",
+   "wait": {
+    "days": 15
+   },
+   "art": "war",
+   "text": [
+    "春の朝、織田の付城から足軽が押し出してきた。囲みの大将{sakuma}の手の者だ。塀の上から門徒の鉄砲が火を噴き、念仏の声が鬨の声に変わる。",
+    "十年、こうして毎日のように誰かが死んできた。"
+   ],
+   "choices": [
+    {
+     "label": "塀を越えてきた足軽を迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3hurt"
+     }
+    },
+    {
+     "label": "傷ついた門徒を御堂へ運ぶ",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "s3ok",
+      "lose": "s3hurt"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "足軽は退いた。夕暮れ、御堂から鐘が鳴った。門主が和を受け入れたという知らせだった。泣く者もいれば、怒鳴る者もいた。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 1
+    },
+    {
+     "rep": "ikko",
+     "n": 3
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3hurt": {
+   "text": [
+    "飛んできた礫に額を割られた。手当てを受けながら聞いた鐘の音は、門主が和を受け入れたという知らせだった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、石山の終わりを見届ける",
+   "wait": {
+    "settled": "ishiyama_end"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ish_terms"
+     },
+     "next": "unburnt"
+    },
+    {
+     "if": {
+      "branch": "ish_hold"
+     },
+     "next": "held"
+    },
+    {
+     "next": "s4"
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "city"
+   },
+   "art": "disaster",
+   "text": [
+    "門主の{kennyo}は紀伊の鷺森へ退いた。新門跡はなお数か月籠もったが、ついに力尽きて城を出た。その夜、御坊から火が上がった。誰が火をつけたのかは分からない。火は三日三晩燃えつづけ、十年持ちこたえた伽藍も寺内町も、すべて灰になった。",
+    "燃える御堂の前で、年老いた門徒が手を合わせていた。"
+   ],
+   "choices": [
+    {
+     "label": "燃える御堂に飛び込み、経巻を運び出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "end_sutra",
+      "lose": "end_burn"
+     }
+    },
+    {
+     "label": "老いた門徒の手を引いて、火から離れる",
+     "next": "end_watch"
+    }
+   ]
+  },
+  "end_sutra": {
+   "art": "disaster",
+   "text": [
+    "煙の中で、{player}は経机の上の巻物を三巻、懐に押し込んで飛び出した。背後で梁が落ちた。",
+    "巻物は鷺森の御坊へ届けた。門主の{kennyo}は焦げた端を指でなぞり、何も言わずに{player}に頭を下げた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "ikko",
+     "n": 12
+    },
+    {
+     "hp": -10
+    },
+    {
+     "unflag": "h_ish_envoy"
+    },
+    {
+     "unflag": "h_ish_terms"
+    },
+    {
+     "unflag": "h_ish_kyo"
+    },
+    {
+     "unflag": "h_ish_hold"
+    },
+    {
+     "note": "石山の御坊は焼け落ちた。燃える御堂から経巻を運び出した。"
+    }
+   ],
+   "end": "焦げた経巻"
+  },
+  "end_burn": {
+   "text": [
+    "熱で一歩も近づけなかった。{player}は髪と袖を焦がし、灰の降る中で膝をついた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_ish_envoy"
+    },
+    {
+     "unflag": "h_ish_terms"
+    },
+    {
+     "unflag": "h_ish_kyo"
+    },
+    {
+     "unflag": "h_ish_hold"
+    },
+    {
+     "note": "石山の御坊は三日三晩燃えて灰になった。"
+    }
+   ],
+   "end": "三日の火"
+  },
+  "end_watch": {
+   "text": [
+    "老人は{player}の手を握ったまま、念仏を唱えつづけた。「十年じゃ。十年、ここで生きた」火の照り返しで、その顔だけが赤かった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ish_envoy"
+    },
+    {
+     "unflag": "h_ish_terms"
+    },
+    {
+     "unflag": "h_ish_kyo"
+    },
+    {
+     "unflag": "h_ish_hold"
+    },
+    {
+     "note": "十年に及んだ石山合戦は終わり、御坊は焼け落ちた。"
+    }
+   ],
+   "end": "十年の念仏"
+  },
+  "unburnt": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "rairen",
+   "art": "faith",
+   "text": [
+    "門主と新門跡は、同じ日に、同じ舟で石山を出た。門徒たちは列をなして見送った。最後に{rairen}が御堂の鍵を織田の奉行に渡し、深く一礼して舟に乗った。火は上がらなかった。",
+    "舟の上から、{rairen}が{player}に声をかけた。「そろって出れば、誰も焼かれぬ。おぬしの言った通りだった。この伽藍は、誰のものになっても、伽藍のまま残る」"
+   ],
+   "effects": [
+    {
+     "fame": 9
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "ikko",
+     "n": 10
+    },
+    {
+     "rep": "oda",
+     "n": 6
+    },
+    {
+     "unflag": "h_ish_envoy"
+    },
+    {
+     "unflag": "h_ish_terms"
+    },
+    {
+     "unflag": "h_ish_kyo"
+    },
+    {
+     "unflag": "h_ish_hold"
+    },
+    {
+     "note": "門主と新門跡はそろって石山を退き、伽藍は焼かれずに引き渡された。"
+    }
+   ],
+   "end": "焼かれなかった伽藍"
+  },
+  "held": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "kyo",
+   "art": "war",
+   "text": [
+    "舟が運んだ米で、新門跡方はさらに半年を持ちこたえた。だがそのあいだに、門徒の数は櫛の歯が欠けるように減っていった。最後は、勅使がもう一度来て、新門跡もついに城を出た。その夜、御坊は燃えた。",
+    "{kyo}は灰の中で{player}に言った。「半年、念仏を唱えられた。それで満足すべきなのだろうな」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "ikko",
+     "n": 10
+    },
+    {
+     "unflag": "h_ish_envoy"
+    },
+    {
+     "unflag": "h_ish_terms"
+    },
+    {
+     "unflag": "h_ish_kyo"
+    },
+    {
+     "unflag": "h_ish_hold"
+    },
+    {
+     "note": "新門跡方は半年長く石山に籠もったが、やがて退き、御坊は焼け落ちた。"
+    }
+   ],
+   "end": "半年の念仏"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ish_terms"
+     },
+     "next": "unburnt"
+    },
+    {
+     "if": {
+      "branch": "ish_hold"
+     },
+     "next": "held"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の空で噂を聞いた。帝の仲立ちで和が結ばれ、石山の門主が紀伊の鷺森へ退いたという。御坊はそのあと、三日三晩燃えたとも。",
+    "「十年か」と、{inn}の客の一人が言った。「十年で、何が残ったんだろうな」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ish_envoy"
+    },
+    {
+     "unflag": "h_ish_terms"
+    },
+    {
+     "unflag": "h_ish_kyo"
+    },
+    {
+     "unflag": "h_ish_hold"
+    },
+    {
+     "note": "石山の門徒衆が石山を退いたと聞いた。"
+    }
+   ],
+   "end": "遠い念仏"
+  }
+ },
+ "branches": [
+  {
+   "id": "ish_terms",
+   "event": "ishiyama_end",
+   "order": 2,
+   "why": "主人公が勅使の条々を坊官に説き、門主父子をそろって退かせた",
+   "when": {
+    "flag": "h_ish_terms"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "朝廷の仲立ちで和が結ばれ、{r_ishiyama}と新門跡はそろって石山を退き、紀伊の鷺森へ移った。伽藍は焼かれずに織田方へ引き渡され、十年に及んだ石山合戦は終わった。",
+    "do": [
+     [
+      "annex",
+      "oda",
+      "ishiyama"
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      15
+     ],
+     [
+      "add",
+      "oda",
+      "stability",
+      0.05
+     ]
+    ],
+    "imp": 3,
+    "at": "ishiyama"
+   }
+  },
+  {
+   "id": "ish_hold",
+   "event": "ishiyama_end",
+   "order": 1,
+   "why": "主人公が雑賀の舟を導き、石山に兵糧を運び入れた",
+   "when": {
+    "flag": "h_ish_hold"
+   },
+   "then": "delay",
+   "months": 6,
+   "note": "新門跡は和議を拒んで石山に籠もりつづけ、雑賀の舟が織田の封鎖を抜けて兵糧を運び入れた。"
+  }
+ ]
+}

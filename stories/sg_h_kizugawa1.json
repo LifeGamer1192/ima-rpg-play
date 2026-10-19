@@ -1,0 +1,803 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_kizugawa1",
+ "kind": "history",
+ "title": "焙烙の海",
+ "era": "sengoku",
+ "event": "kizugawa1",
+ "lead": 6,
+ "before": [
+  "s1",
+  "s2oda",
+  "s2monto",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s3to",
+  "s4",
+  "s4hides",
+  "s4ng",
+  "s5",
+  "s5shoals",
+  "s5ng",
+  "s6"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "ishiyama"
+  },
+  "port": {
+   "scnPlace": "sakai"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "mori": {
+   "scnRealm": "mori"
+  },
+  "honganji": {
+   "scnRealm": "ishiyama"
+  },
+  "nobunaga": {
+   "person": "ruler:oda"
+  },
+  "kennyo": {
+   "person": "ruler:honganji"
+  },
+  "murakami": {
+   "scnPerson": "村上武吉"
+  },
+  "rairen": {
+   "scnPerson": "下間頼廉"
+  },
+  "captain": {
+   "npc": "織田方の船大将",
+   "sex": "m"
+  },
+  "sendo": {
+   "npc": "堺の船頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "port",
+    "building": "inn"
+   },
+   "goal": "{port}の旅籠で西国の船の噂を聞く",
+   "speaker": "sendo",
+   "art": "inn",
+   "text": [
+    "{port}の旅籠では、誰もが声をひそめて同じ話をしていた。安芸の{mori}が、本願寺に米を送るために七百とも八百ともいう船を集めている。率いるのは瀬戸内の海の主、{murakami}の水軍だという。",
+    "{sendo}が茶碗の酒を舐めた。「{nobunaga}様の船が木津川の口をふさいで、石山にはもう米一粒入らぬ。だが西国の船が来れば、海の上で一戦だ。どちらにつくかで、わしら船頭の運も決まる」",
+    "「織田の船手は櫓を漕ぐ者を、本願寺の門徒衆は荷を運ぶ者を探しておる。どちらも銭は弾むぞ」"
+   ],
+   "choices": [
+    {
+     "label": "織田方の船に、水夫として雇われる",
+     "effects": [
+      {
+       "flag": "h_kz_oda"
+      },
+      {
+       "note": "木津川口をふさぐ織田方の船に水夫として雇われた。"
+      }
+     ],
+     "next": "s2oda"
+    },
+    {
+     "label": "本願寺の門徒衆の荷運びに加わる",
+     "effects": [
+      {
+       "flag": "h_kz_monto"
+      },
+      {
+       "note": "石山本願寺の門徒衆の荷運びに加わった。"
+      }
+     ],
+     "next": "s2monto"
+    }
+   ]
+  },
+  "s2oda": {
+   "at": {
+    "place": "port",
+    "building": "barracks"
+   },
+   "goal": "{port}の番所で織田方の船大将に会う",
+   "speaker": "captain",
+   "art": "voyage",
+   "text": [
+    "番所の前の浜に、安宅船と関船が三百ばかり並んでいた。和泉と摂津の浦々から集めた船で、櫓の数も船の形もまちまちである。{captain}は胸を張った。「数ではこちらが劣る。だが木津川の口は狭い。狭い口に蓋をすれば、何百の船も通れはせぬ」",
+    "「お主には物見の小舟を漕いでもらう。西国の船が淡路の影から出てきたら、真っ先に知らせよ」"
+   ],
+   "next": "s3"
+  },
+  "s2monto": {
+   "at": {
+    "place": "city",
+    "building": "shrine"
+   },
+   "goal": "{city}の御坊で門徒衆の頭に会う",
+   "speaker": "rairen",
+   "art": "faith",
+   "text": [
+    "石山の御坊は、寺というより城だった。堀と土塁と櫓の内に、町がまるごと一つ入っている。だが市の米びつは空で、子どもたちの頬はこけていた。",
+    "坊官の{rairen}が{player}を迎えた。「{kennyo}様は、仏法の灯を消さぬと仰せだ。西国の船が来れば、米は必ず入る。お主には、川の浅瀬に舟を出して、荷を受け取る手伝いをしてもらう」"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "port",
+    "building": "market"
+   },
+   "goal": "{port}の市で西国の船の武具を探る",
+   "speaker": "sendo",
+   "art": "trade",
+   "text": [
+    "{port}の市の裏通りに、瀬戸内から流れてきた船乗りが集まる店があった。{sendo}が一人の老いた水夫を指した。かつて{murakami}の船に乗っていたという。",
+    "老水夫は、拳ほどの素焼きの壺を卓に置いた。「焙烙よ。中に火薬と油と鉄屑を詰めて、火縄をつけて投げる。船板に当たれば割れて火を噴く。水をかけても消えぬ。村上の船は、これで敵を焼く」"
+   ],
+   "choices": [
+    {
+     "label": "老水夫に酒を奢り、焙烙の防ぎ方を聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "壺を一つ買い取る（50）",
+     "if": {
+      "money": 50
+     },
+     "effects": [
+      {
+       "money": -50
+      }
+     ],
+     "next": "s3ok"
+    },
+    {
+     "label": "聞き流して浜へ戻る",
+     "next": "s3ng"
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "老水夫は酔うと饒舌になった。「焙烙は割れて燃える。割れねば燃えぬ。船べりに網を張れば、壺は網で止まって海に落ちる。濡らした牛の皮を張れば、火は移らぬ。……だが、そんな手間をかける船大将はおらぬよ」",
+    "{player}は壺を一つ懐に入れた。ずしりと重かった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_kz_pot"
+    },
+    {
+     "note": "焙烙火矢の作りと防ぎ方を、瀬戸内の老水夫から聞いた。"
+    }
+   ],
+   "next": "s3to"
+  },
+  "s3ng": {
+   "text": [
+    "老水夫は壺を懐にしまい、それきり口をつぐんだ。「瀬戸内の秘事を、堺の者に話す義理はない」"
+   ],
+   "next": "s3to"
+  },
+  "s3to": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "flag": "h_kz_oda"
+     },
+     "next": "s4"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "port",
+    "building": "barracks"
+   },
+   "goal": "{port}の番所で船大将に焙烙のことを告げる",
+   "speaker": "captain",
+   "art": "voyage",
+   "text": [
+    "{captain}は浜で、船を横一列に並べる稽古をさせていた。西国の船がいつ来てもおかしくない。夏の海は凪いで、淡路の島影がくっきりと見える。"
+   ],
+   "choices": [
+    {
+     "label": "黙って物見の小舟を漕ぐ",
+     "next": "s6"
+    },
+    {
+     "label": "焙烙の壺を見せ、船べりに網と濡れ皮を張るよう説く",
+     "if": {
+      "flag": "h_kz_pot"
+     },
+     "turn": true,
+     "guide": "焙烙を防げば、石山に米が入らぬ",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s4hides",
+      "lose": "s4ng"
+     }
+    }
+   ]
+  },
+  "s4hides": {
+   "speaker": "captain",
+   "art": "voyage",
+   "text": [
+    "{player}は浜で壺に火縄をつけ、古い小舟めがけて投げてみせた。舟板が割れて油の火が噴き上がり、水をかけても消えずに燃え広がった。{captain}の顔から血の気が引いた。",
+    "次に、網を張り、濡らした牛の皮を垂らした舟に投げた。壺は網に当たって跳ね、海に落ちてじゅっと音を立てた。",
+    "「皮を集めよ。堺じゅうの皮屋から買い上げろ。網は漁師から借りろ」{captain}は叫んだ。「人足の言うことでも、生きる道なら聞く」"
+   ],
+   "effects": [
+    {
+     "flag": "h_kz_hides"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "note": "織田方の船大将に、焙烙火矢の防ぎ方を説いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4ng": {
+   "speaker": "captain",
+   "text": [
+    "「壺ひとつで何ができる。船は数と櫓で勝つものだ」{captain}は取り合わなかった。網も皮も張られぬまま、船は木津川の口に並んだ。"
+   ],
+   "next": "s6"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "shrine"
+   },
+   "goal": "{city}の御坊で、西国の船の迎え方を談じる",
+   "speaker": "rairen",
+   "art": "faith",
+   "text": [
+    "御坊の一間で、{rairen}が川口の絵図を広げていた。木津川の口には織田の船が蓋をしている。西国の船がそれを破るにしても、米を積んだ船が石山まで上るには、浅瀬と洲の間の水路を知らねばならない。",
+    "「瀬戸内の船乗りは、この川を知らぬ。夜に上れば、半ばは洲に乗り上げるだろう」"
+   ],
+   "choices": [
+    {
+     "label": "御坊に残り、米を受け取る支度をする",
+     "next": "s6"
+    },
+    {
+     "label": "夜の川を測って回り、西国の船を浅瀬の裏道から導く",
+     "turn": true,
+     "guide": "米が倍入れば、石山の籠城は延びる",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s5shoals",
+      "lose": "s5ng"
+     }
+    }
+   ]
+  },
+  "s5shoals": {
+   "speaker": "murakami",
+   "art": "voyage",
+   "text": [
+    "{player}は七夜かけて、竿一本で川の深さを測った。織田の見張り船の灯をかわしながら、洲と洲の間の、満ち潮のときだけ通れる細い水路を見つけた。",
+    "淡路の島陰に潜んでいた西国の船に、小舟で漕ぎ寄った。{murakami}は日焼けした顔で絵図を睨み、やがて笑った。「堺の者が、門徒のためにここまでやるか。よかろう、潮が満ちたら、この道を行く。焙烙を投げる船と、米を運ぶ船とを分けてな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_kz_shoals"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "mori",
+     "n": 10
+    },
+    {
+     "rep": "oda",
+     "n": -10
+    },
+    {
+     "note": "{murakami}の船を、木津川の浅瀬の裏道へ導く手筈を整えた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5ng": {
+   "text": [
+    "三夜目に、織田の見張り船の灯に照らされた。矢が水面に刺さり、{player}は竿を捨てて川に潜った。水路は見つからぬままだった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "port"
+   },
+   "goal": "{port}の浜で西国の船を待つ",
+   "wait": {
+    "days": 5
+   },
+   "speaker": "sendo",
+   "art": "voyage",
+   "text": [
+    "夏の終わりの夕暮れ、淡路の島影から帆がひとつ、またひとつと現れた。やがて海が帆で埋まった。{sendo}が浜でつぶやいた。「来たぞ。今夜は海が燃える」"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "port"
+   },
+   "goal": "木津川の口の海戦の成り行きを見届ける",
+   "wait": {
+    "settled": "kizugawa1"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "kz_hides"
+     },
+     "next": "hides"
+    },
+    {
+     "if": {
+      "branch": "kz_shoals"
+     },
+     "next": "shoals"
+    },
+    {
+     "next": "s7"
+    }
+   ]
+  },
+  "hides": {
+   "speaker": "captain",
+   "art": "voyage",
+   "text": [
+    "夜の海に、焙烙の火が流れ星のように降った。だが壺の多くは船べりの網に当たって海へ落ち、濡れ皮に当たったものは煙を上げるだけだった。西国の船は二度、三度と押し寄せては退き、夜明けには淡路の陰へ戻っていった。石山に入った米は、わずかだった。",
+    "{captain}は焦げた皮を手に笑った。「牛の皮で、村上の水軍を退けたぞ。殿にはお主の名も申し上げておく」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_kz_hides"
+    },
+    {
+     "unflag": "h_kz_shoals"
+    },
+    {
+     "unflag": "h_kz_oda"
+    },
+    {
+     "unflag": "h_kz_monto"
+    },
+    {
+     "unflag": "h_kz_pot"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 8
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "note": "濡れ皮と網で焙烙を防ぎ、西国の船を木津川の口から退けた。"
+    }
+   ],
+   "end": "濡れ皮の船べり"
+  },
+  "shoals": {
+   "speaker": "rairen",
+   "art": "faith",
+   "text": [
+    "焙烙の火が織田の船を焼くあいだに、米を積んだ船は浅瀬の裏道を一列になって上っていった。夜明けまでに、石山の浜には米俵が山と積まれた。運び込まれた米は、見込みの倍に近かった。",
+    "御坊の鐘が鳴り、門徒たちが念仏を唱えながら俵を担いだ。{rairen}は{player}に深く頭を下げた。「この米で、石山はあと二年戦える。{kennyo}様も、お主の名をお聞きになった」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_kz_hides"
+    },
+    {
+     "unflag": "h_kz_shoals"
+    },
+    {
+     "unflag": "h_kz_oda"
+    },
+    {
+     "unflag": "h_kz_monto"
+    },
+    {
+     "unflag": "h_kz_pot"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "money": 150
+    },
+    {
+     "rep": "mori",
+     "n": 10
+    },
+    {
+     "note": "浅瀬の裏道から西国の船を導き、石山に多くの米を運び入れた。"
+    }
+   ],
+   "end": "浅瀬の裏道"
+  },
+  "s7": {
+   "at": {
+    "place": "port"
+   },
+   "goal": "木津川の口の海戦の成り行きを見届ける",
+   "wait": {
+    "fired": "kizugawa1"
+   },
+   "speaker": "sendo",
+   "art": "disaster",
+   "text": [
+    "夜の海に、焙烙の火が雨のように降った。織田の船は一艘、また一艘と火柱になり、木津川の口は燃える船で埋まった。その炎の明かりの中を、米を積んだ西国の船が石山へ上っていった。",
+    "夜明けの浜には、焦げた船板と、水を吸った骸が打ち上げられていた。{sendo}が言った。「海の上では、数でも勇でもない。火を持つ者が勝つ」"
+   ],
+   "choices": [
+    {
+     "label": "小舟を出し、燃える船から落ちた水夫を拾い上げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "end_rescue",
+      "lose": "end_burn"
+     }
+    },
+    {
+     "label": "米を運び入れる門徒衆を手伝う",
+     "if": {
+      "flag": "h_kz_monto"
+     },
+     "next": "end_rice"
+    },
+    {
+     "label": "焙烙の壺を、織田の船手に売り込む",
+     "if": {
+      "flag": "h_kz_pot"
+     },
+     "next": "end_pot"
+    },
+    {
+     "label": "浜に打ち上げられた積荷を拾う",
+     "next": "end_wreck"
+    }
+   ]
+  },
+  "end_rescue": {
+   "text": [
+    "焼けた船の間を縫って漕いだ。板切れにしがみついた者、火傷で声も出ぬ者。敵か味方かは問わなかった。夜が明けるまでに、小舟には九人が乗っていた。",
+    "一人は織田の船の水夫、二人は村上の船の漕ぎ手だった。浜に上がると、三人は互いに顔を見合わせ、黙って頭を下げ合った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_kz_hides"
+    },
+    {
+     "unflag": "h_kz_shoals"
+    },
+    {
+     "unflag": "h_kz_oda"
+    },
+    {
+     "unflag": "h_kz_monto"
+    },
+    {
+     "unflag": "h_kz_pot"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "note": "木津川口の海戦で、燃える船から落ちた水夫を拾い上げた。"
+    }
+   ],
+   "end": "焼け跡の小舟"
+  },
+  "end_rice": {
+   "speaker": "rairen",
+   "text": [
+    "夜明けまで米俵を担いだ。肩の皮がむけ、腰が立たなくなった。石山の御坊では、炊き出しの粥の匂いが町じゅうに広がった。痩せた子どもが、{player}の手を握って礼を言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_kz_hides"
+    },
+    {
+     "unflag": "h_kz_shoals"
+    },
+    {
+     "unflag": "h_kz_oda"
+    },
+    {
+     "unflag": "h_kz_monto"
+    },
+    {
+     "unflag": "h_kz_pot"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "mori",
+     "n": 5
+    },
+    {
+     "note": "木津川口の海戦の後、石山に米を運び入れる門徒衆を手伝った。"
+    }
+   ],
+   "end": "石山の粥"
+  },
+  "end_pot": {
+   "speaker": "captain",
+   "text": [
+    "焼け残った織田の船大将に、焙烙の壺を見せた。{captain}は唇を噛んだ。「これを先に知っておれば。……殿は、鉄の船を造れと九鬼に命じられるそうだ。燃えぬ船をな。この壺は、その手本にもらっておく」",
+    "銭は少なかったが、壺は伊勢の造船場へ運ばれていったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_kz_hides"
+    },
+    {
+     "unflag": "h_kz_shoals"
+    },
+    {
+     "unflag": "h_kz_oda"
+    },
+    {
+     "unflag": "h_kz_monto"
+    },
+    {
+     "unflag": "h_kz_pot"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "money": 100
+    },
+    {
+     "rep": "oda",
+     "n": 5
+    },
+    {
+     "note": "焙烙の壺を織田の船手に渡した。"
+    }
+   ],
+   "end": "燃えぬ船の手本"
+  },
+  "end_wreck": {
+   "text": [
+    "浜には、焦げた櫓、割れた樽、誰のものとも知れぬ刀が打ち上げられていた。{player}は拾えるだけ拾って、{port}の古道具屋に売った。店の主は「今日はどこの店にも同じ物が並ぶ」と笑った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_kz_hides"
+    },
+    {
+     "unflag": "h_kz_shoals"
+    },
+    {
+     "unflag": "h_kz_oda"
+    },
+    {
+     "unflag": "h_kz_monto"
+    },
+    {
+     "unflag": "h_kz_pot"
+    },
+    {
+     "money": 120
+    },
+    {
+     "note": "木津川口の海戦で、織田の船が焼かれるのを見た。"
+    }
+   ],
+   "end": "浜の拾い物"
+  },
+  "end_burn": {
+   "text": [
+    "小舟が燃える船に近づきすぎた。降ってきた火の粉で着物が燃え、{player}は海に飛び込んだ。浜にたどり着いたときには、もう誰も救えなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_kz_hides"
+    },
+    {
+     "unflag": "h_kz_shoals"
+    },
+    {
+     "unflag": "h_kz_oda"
+    },
+    {
+     "unflag": "h_kz_monto"
+    },
+    {
+     "unflag": "h_kz_pot"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "note": "木津川口の海戦で、織田の船が焼かれるのを見た。"
+    }
+   ],
+   "end": "燃える海"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "kz_hides"
+     },
+     "next": "hides"
+    },
+    {
+     "if": {
+      "branch": "kz_shoals"
+     },
+     "next": "shoals"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。摂津の木津川の口で、西国の毛利の水軍が焙烙火矢で織田の船を焼き払い、石山の本願寺に米を運び入れたという。",
+    "「海の上では、織田様もまだ勝てぬか」と、旅籠の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_kz_hides"
+    },
+    {
+     "unflag": "h_kz_shoals"
+    },
+    {
+     "unflag": "h_kz_oda"
+    },
+    {
+     "unflag": "h_kz_monto"
+    },
+    {
+     "unflag": "h_kz_pot"
+    },
+    {
+     "note": "木津川口で織田の船が焼かれたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "kz_hides",
+   "event": "kizugawa1",
+   "order": 2,
+   "why": "主人公が焙烙火矢の防ぎ方を織田方に説いた",
+   "when": {
+    "flag": "h_kz_hides"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "木津川口の戦い。{n_mori}の水軍は焙烙火矢を投げかけたが、{n_oda}の船は船べりに網と濡れ皮を張って火を防ぎ、西国の船は退いた。石山に入った兵糧はわずかだった。",
+    "do": [
+     [
+      "ally",
+      "mori",
+      "ishiyama"
+     ],
+     [
+      "add",
+      "mori",
+      "prestige",
+      -5
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      5
+     ],
+     [
+      "add",
+      "ishiyama",
+      "stability",
+      -0.15
+     ]
+    ],
+    "imp": 2,
+    "at": "ishiyama"
+   }
+  },
+  {
+   "id": "kz_shoals",
+   "event": "kizugawa1",
+   "order": 1,
+   "why": "主人公が毛利の船を浅瀬の裏道へ導いた",
+   "when": {
+    "flag": "h_kz_shoals"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "第一次木津川口の戦い。{n_mori}の水軍は焙烙火矢で織田の船を焼き、浅瀬の裏道を知る者の導きで、見込みの倍に近い兵糧を石山に運び込んだ。",
+    "do": [
+     [
+      "battle",
+      "kizugawa1"
+     ],
+     [
+      "ally",
+      "mori",
+      "ishiyama"
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      -10
+     ],
+     [
+      "add",
+      "ishiyama",
+      "stability",
+      0.1
+     ],
+     [
+      "add",
+      "ishiyama",
+      "treasury",
+      60
+     ]
+    ],
+    "imp": 2,
+    "at": "ishiyama"
+   }
+  }
+ ]
+}

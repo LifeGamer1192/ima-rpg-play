@@ -1,0 +1,226 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_feat_bandit",
+ "kind": "feat",
+ "feat": "bandit",
+ "title": "天下の大盗",
+ "era": "sengoku",
+ "trigger": {
+  "guildRank": 4,
+  "notFeat": "bandit"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "elder": {
+   "npc": "一味の古老",
+   "sex": "m"
+  },
+  "keeper": {
+   "npc": "金蔵番",
+   "sex": "m"
+  }
+ },
+ "start": "b1",
+ "scenes": {
+  "b1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏部屋で、一味の古老に会う",
+   "speaker": "elder",
+   "art": "backroom",
+   "text": [
+    "{elder}は行灯を細くした。「大盗よ。この世でまだ誰も盗んでおらぬ物が一つある。{power}の城の金蔵の奥、天下一の名物の茶入だ」",
+    "「一国と引き換えにすると言われた茶入よ。あれを抜いた者は、ただの盗人ではない。天下の大盗と呼ばれる」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "next": "b2"
+    }
+   ]
+  },
+  "b2": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の市で、城の様子を探る",
+   "art": "trade",
+   "text": [
+    "城の周りには、昼も夜も足軽が見回っている。金蔵は本丸の奥、石垣に半ば埋もれた土蔵だという。"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れて石垣を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 75,
+      "win": "b3",
+      "lose": "b2ng"
+     }
+    },
+    {
+     "label": "{keeper}に近づき、酒で口を軽くする",
+     "check": {
+      "skill": "speech",
+      "dc": 75,
+      "win": "b3",
+      "lose": "b2ng"
+     }
+    }
+   ]
+  },
+  "b2ng": {
+   "art": "war",
+   "text": [
+    "見回りの足軽に見咎められた。「何奴！」"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 66,
+      "win": "b3",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "b3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}の金蔵に忍び込む",
+   "art": "hideout",
+   "text": [
+    "月のない夜、金蔵の扉の前に立った。三重の錠前、鳴子の糸、眠らぬ番犬。そのすべての奥に、茶入がある。"
+   ],
+   "choices": [
+    {
+     "label": "錠前を外し、糸をくぐる",
+     "check": {
+      "skill": "theft",
+      "dc": 85,
+      "win": "b4",
+      "lose": "b3alarm"
+     }
+    }
+   ]
+  },
+  "b3alarm": {
+   "art": "war",
+   "text": [
+    "鳴子が鳴った。城中に陣太鼓が響き渡る。茶入はもう懐の中にある。あとは、生きて出るだけだ。"
+   ],
+   "choices": [
+    {
+     "label": "押し寄せる足軽を斬り払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 74,
+      "win": "b4",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "b4": {
+   "art": "road",
+   "text": [
+    "城下の木戸は閉ざされ、街道には早馬が走った。{capital}から逃れねばならない。"
+   ],
+   "choices": [
+    {
+     "label": "堀の水門をくぐって城外へ",
+     "check": {
+      "skill": "stealth",
+      "dc": 78,
+      "win": "bwin",
+      "lose": "b4fight"
+     }
+    },
+    {
+     "label": "夜明けの木戸を、行商人に化けて抜ける",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "bwin",
+      "lose": "b4fight"
+     }
+    }
+   ]
+  },
+  "b4fight": {
+   "art": "war",
+   "text": [
+    "見つかった。追っ手が迫る。"
+   ],
+   "choices": [
+    {
+     "label": "追っ手を振り切る",
+     "fight": {
+      "foes": "soldier",
+      "n": 5,
+      "level": 76,
+      "win": "bwin",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "bwin": {
+   "art": "hideout",
+   "text": [
+    "朝日の中で、{player}は掌の茶入を眺めた。小さな釉の景色の奥に、天下の欲がすべて映っているように見えた。",
+    "その日から、{power}の殿は眠れぬ夜を過ごし、裏の世界は一つの名を畏れを込めて囁くようになった。"
+   ],
+   "effects": [
+    {
+     "money": 50000
+    },
+    {
+     "fame": 15
+    },
+    {
+     "wanted": "capital",
+     "n": 40
+    },
+    {
+     "feat": "bandit"
+    }
+   ],
+   "end": "天下の大盗"
+  },
+  "bfail": {
+   "art": "jail",
+   "text": [
+    "深手を負い、何も持たずに闇へ逃れた。{power}は国じゅうに触れを出した。……傷が癒えたら、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -50
+    },
+    {
+     "wanted": "capital",
+     "n": 50
+    }
+   ],
+   "end": "大盗ならず"
+  }
+ }
+}

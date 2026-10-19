@@ -1,0 +1,619 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_sekigahara",
+ "kind": "history",
+ "title": "松尾山の旗",
+ "era": "sengoku",
+ "event": "sekigahara",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s3",
+  "s3win",
+  "s3hurt",
+  "s3wait",
+  "s3wait_ng",
+  "s4",
+  "s4hold",
+  "s4hold_ng",
+  "s4watch",
+  "s5"
+ ],
+ "onFired": "late",
+ "cast": {
+  "kyoto": {
+   "scnPlace": "kyoto"
+  },
+  "city": {
+   "scnPlace": "ogaki"
+  },
+  "field": {
+   "place": "near:city"
+  },
+  "tokugawa": {
+   "scnRealm": "tokugawa"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "ieyasu": {
+   "person": "ruler:tokugawa"
+  },
+  "hideyori": {
+   "person": "ruler:oda"
+  },
+  "mitsunari": {
+   "scnPerson": "石田三成"
+  },
+  "yoshitsugu": {
+   "scnPerson": "大谷吉継"
+  },
+  "hideaki": {
+   "scnPerson": "小早川秀秋"
+  },
+  "sakon": {
+   "scnPerson": "島左近"
+  },
+  "samurai": {
+   "npc": "石田の侍",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "kyoto",
+    "building": "inn"
+   },
+   "goal": "{kyoto}の旅籠で、石田の侍の話を聞く",
+   "speaker": "samurai",
+   "art": "inn",
+   "text": [
+    "太閤が亡くなって二年。{kyoto}の旅籠では、誰もが声をひそめて同じ名を口にしていた。内府{ieyasu}。太閤の遺言に背いて大名と縁を結び、伏見の城で天下人のように振る舞っているという。",
+    "{samurai}は近江訛りで言った。「わが主、治部少輔{mitsunari}様は佐和山に退いておられるが、黙ってはおられぬ。内府が会津の上杉を討ちに東へ下れば、上方は空になる。そのときだ」",
+    "「腕の立つ牢人を集めておる。治部様の盟友、刑部少輔様のもとへ行ってくれ」"
+   ],
+   "choices": [
+    {
+     "label": "大谷刑部のもとへ向かう",
+     "effects": [
+      {
+       "note": "{samurai}に誘われ、{mitsunari}の挙兵に加わることになった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "kyoto",
+    "building": "house"
+   },
+   "goal": "{kyoto}の町家で、{yoshitsugu}に会う",
+   "speaker": "yoshitsugu",
+   "art": "backroom",
+   "text": [
+    "薄暗い座敷に、白い頭巾で顔を覆った武将が座っていた。病で目がほとんど見えぬという。{yoshitsugu}である。",
+    "「治部に、内府に勝てる見込みはない。わしはそう言った。あの男は口が過ぎ、人に好かれぬ。勝てる戦も負けにする」頭巾の奥で、静かな声が続いた。「それでも、わしは治部に付く。友が死にに行くのを、見送るわけにはいかぬ」"
+   ],
+   "choices": [
+    {
+     "label": "「刑部様の目となりましょう」と申し出る",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s3"
+     }
+    },
+    {
+     "label": "黙って頭を下げる",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "yoshitsugu",
+   "text": [
+    "「目か。ありがたい」{yoshitsugu}は小さく笑った。「ならば一つ頼む。金吾中納言、{hideaki}の様子を見ていてくれ。あの若者は、風の向きで旗を変える」"
+   ],
+   "effects": [
+    {
+     "flag": "h_seki_eyes"
+    },
+    {
+     "note": "{yoshitsugu}に、{hideaki}の様子を見張るよう頼まれた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の城で、西軍の評定に出る",
+   "speaker": "mitsunari",
+   "art": "court",
+   "text": [
+    "伏見の城は落ち、西軍は{city}の城に集まった。東からは、会津から引き返した{ieyasu}の軍が美濃へ入ってくる。",
+    "評定の席で、{mitsunari}は痩せた顔をこわばらせていた。「内府は大垣を素通りして佐和山を衝き、大坂へ向かうと触れ回っておる。城に籠もっていては、背中を取られる。今夜のうちに関ヶ原へ出て、待ち受ける」",
+    "{sakon}が刀の柄を握った。「その前に、杭瀬川で東の先手を一つ叩いておきましょう。兵の気が上がる」"
+   ],
+   "choices": [
+    {
+     "label": "{sakon}に従い、杭瀬川の小競り合いに出る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3win",
+      "lose": "s3hurt"
+     }
+    },
+    {
+     "label": "「大垣を出てはなりませぬ。毛利様と秀頼公の御出馬を待つべし」と説く",
+     "turn": true,
+     "guide": "決戦を先へ延ばす。西軍は城で待つ",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s3wait",
+      "lose": "s3wait_ng"
+     }
+    },
+    {
+     "label": "評定の行方を見守る",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3win": {
+   "speaker": "sakon",
+   "art": "war",
+   "text": [
+    "杭瀬川を渡って退くふりをし、追ってきた東の兵を伏兵で挟んだ。中村・有馬の兵は崩れて逃げた。{sakon}は「これで十分だ」と兵を返した。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "rep": "oda",
+     "n": 5
+    },
+    {
+     "note": "杭瀬川の小競り合いで、{sakon}に従って東の先手を破った。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hurt": {
+   "text": [
+    "川の中で槍を受けた。{sakon}の兵に引きずられて岸へ上がると、小競り合いはもう終わっていた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s4"
+  },
+  "s3wait": {
+   "speaker": "mitsunari",
+   "text": [
+    "{player}は城の蔵の米の数と、関ヶ原までの夜道の険しさを数え上げた。「野に出れば、寝返る者が出ても止められませぬ。城に籠もれば、寝返る隙がない。内府は大坂に毛利様と秀頼公がおられる限り、上方へは入れませぬ」",
+    "{mitsunari}は長いあいだ黙っていた。やがて、小さく言った。「……大坂へ使いを出せ。秀頼公の御馬印を、大垣へ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_seki_wait"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "note": "{mitsunari}に、大垣に籠もって毛利と秀頼の出馬を待つよう説いた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3wait_ng": {
+   "speaker": "mitsunari",
+   "text": [
+    "「牢人の出る幕ではない」{mitsunari}は冷たく言い、{sakon}が気の毒そうに{player}を見た。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の松尾山の陣で、{hideaki}の様子を探る",
+   "speaker": "hideaki",
+   "art": "camp",
+   "text": [
+    "松尾山の陣は、西軍の誰よりも高いところにあった。一万五千の兵が、関ヶ原を見下ろしている。陣の主の{hideaki}は、まだ十九の若者だった。爪を噛みながら、幕の中を歩き回っている。",
+    "幕の陰に、見慣れぬ男がいた。東の使いだ。若者の前に置かれた書状には、上方の二か国を与えるという言葉が見えた。"
+   ],
+   "choices": [
+    {
+     "label": "陣の様子を見届け、{yoshitsugu}の陣へ戻る",
+     "next": "s4watch"
+    },
+    {
+     "label": "太閤様の恩を説き、西に留まるよう{hideaki}を説き伏せる",
+     "turn": true,
+     "guide": "寝返りを止める。関ヶ原の勝ち負けが変わる",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s4hold",
+      "lose": "s4hold_ng"
+     }
+    }
+   ]
+  },
+  "s4watch": {
+   "speaker": "yoshitsugu",
+   "text": [
+    "{yoshitsugu}は報せを聞いて、ただ頷いた。「やはりな。金吾が下りてきたら、わしが受け止める。わしの陣は、松尾山の真下に敷く」"
+   ],
+   "next": "s5"
+  },
+  "s4hold": {
+   "speaker": "hideaki",
+   "text": [
+    "{player}は東の使いの前で、太閤がこの若者を養子に取り、どれほど可愛がったかを語った。小早川の家を継がせたのも太閤なら、筑前の大国を与えたのも太閤だ。「その恩を、内府の二か国で売られますか。売れば、末代まで裏切り者の家と呼ばれましょう」",
+    "{hideaki}の顔が赤くなり、青くなった。やがて、若者は東の使いの書状を炉にくべた。「……わしは、動かぬ。どちらにも、だ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_seki_hold"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "rep": "tokugawa",
+     "n": -15
+    },
+    {
+     "note": "{hideaki}を説き、東軍への寝返りを思いとどまらせた。"
+    }
+   ],
+   "next": "s5"
+  },
+  "s4hold_ng": {
+   "speaker": "hideaki",
+   "text": [
+    "「牢人に何が分かる」若者は叫び、{player}は陣から追い出された。振り返ると、東の使いが若者の耳元で何かささやいていた。"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の{yoshitsugu}の陣で、夜明けを待つ",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "yoshitsugu",
+   "art": "war",
+   "text": [
+    "夜明けの関ヶ原は、深い霧に覆われていた。一間先の旗も見えない。霧の向こうで、馬のいななきと鉄砲の火縄の匂いがする。",
+    "{yoshitsugu}は輿の上から言った。「霧が晴れたら、始まる。おぬしは好きにせよ。ここで死ぬのは、わしと、わしの兵だけでよい」"
+   ],
+   "choices": [
+    {
+     "label": "{yoshitsugu}の輿のそばに付く",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、天下分け目の成り行きを見届ける",
+   "wait": {
+    "settled": "sekigahara"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "sekigahara_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "sekigahara_wait"
+     },
+     "next": "waited"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "held": {
+   "speaker": "yoshitsugu",
+   "art": "war",
+   "text": [
+    "霧が晴れ、昼を過ぎても、松尾山の旗は動かなかった。寝返りを待っていた東軍の先手は、宇喜多と大谷の陣に押し返され、夕刻には{ieyasu}の本陣が兵を退いた。",
+    "関ヶ原は、どちらの勝ちとも言えぬまま日が暮れた。{ieyasu}は兵をまとめて東へ戻り、上方は豊臣の手に残った。{yoshitsugu}は輿の上で、見えぬ目を松尾山へ向けた。「金吾が、動かなかったか。おぬしの手柄だな。治部には言うなよ。あの男は、礼を言うのが下手だ」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "unflag": "h_seki_hold"
+    },
+    {
+     "unflag": "h_seki_wait"
+    },
+    {
+     "unflag": "h_seki_eyes"
+    },
+    {
+     "note": "関ヶ原で小早川は動かず、東軍は退いた。"
+    }
+   ],
+   "end": "動かなかった旗"
+  },
+  "waited": {
+   "speaker": "sakon",
+   "art": "war",
+   "text": [
+    "西軍は{city}の城に籠もり、秋を越した。だが、大坂から秀頼公の御馬印は来なかった。毛利は城を出ず、待つうちに西の大名が一人、また一人と内府に通じた。年が明けて、西軍はついに関ヶ原へ出た。そして昼過ぎ、松尾山の旗が東へ向いた。",
+    "{sakon}は最後の突撃の前に、{player}の肩を叩いた。「待ったのは間違いではなかった。ただ、待つ相手を間違えたのだ」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "unflag": "h_seki_wait"
+    },
+    {
+     "unflag": "h_seki_eyes"
+    },
+    {
+     "note": "関ヶ原の決戦は遅れたが、西軍は敗れた。"
+    }
+   ],
+   "end": "来なかった馬印"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、天下分け目の成り行きを見届ける",
+   "wait": {
+    "fired": "sekigahara"
+   },
+   "speaker": "samurai",
+   "art": "war",
+   "text": [
+    "昼過ぎ、松尾山の一万五千が山を駆け下りた。向かった先は東ではなく、{yoshitsugu}の陣だった。大谷の兵は三度押し返したが、脇坂・朽木らの陣までが寝返ると、ついに崩れた。{yoshitsugu}は輿の上で腹を切ったという。",
+    "戦いは一日で決した。{mitsunari}は伊吹山へ落ちたが、数日後に捕らえられた。{samurai}は泥だらけの陣羽織のまま、{city}の城下に戻ってきた。「治部様は、六条河原で斬られることになった。わしは……どうすればよい」"
+   ],
+   "choices": [
+    {
+     "label": "{samurai}と落ち武者狩りの網をくぐって逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_escape",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "{kyoto}の六条河原で、{mitsunari}の最期を見届ける",
+     "next": "end_rokujo"
+    },
+    {
+     "label": "東軍の陣へ出向き、降る",
+     "next": "end_east"
+    }
+   ]
+  },
+  "end_escape": {
+   "text": [
+    "夜の山道を三晩歩き、近江の山里にたどり着いた。{samurai}は百姓家の納屋で刀を研ぎながら言った。「佐和山の城も、もう落ちたろう。治部様は、民には好かれていた。それだけが救いだ」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_seki_eyes"
+    },
+    {
+     "note": "関ヶ原で西軍が敗れた。落ち武者狩りを逃れた。"
+    }
+   ],
+   "end": "落ち武者の道"
+  },
+  "end_caught": {
+   "text": [
+    "落ち武者狩りの百姓たちに見つかった。竹槍を振り払って逃げたが、{samurai}とははぐれた。その後の行方は知れない。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_seki_eyes"
+    },
+    {
+     "note": "関ヶ原で西軍が敗れた。落ち武者狩りに追われた。"
+    }
+   ],
+   "end": "竹槍の山"
+  },
+  "end_rokujo": {
+   "at": {
+    "place": "kyoto"
+   },
+   "speaker": "mitsunari",
+   "text": [
+    "六条河原へ引かれる途中、{mitsunari}は喉が渇いたと言った。警固の者が干し柿を差し出すと、「柿は痰の毒だ」と断ったという。見物の者は笑ったが、{player}には笑えなかった。",
+    "「大志を抱く者は、首を刎ねられる瞬間まで命を惜しむものだ」それが最期の言葉だったと、後で聞いた。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "unflag": "h_seki_eyes"
+    },
+    {
+     "note": "関ヶ原で西軍が敗れた。六条河原で{mitsunari}の最期を見届けた。"
+    }
+   ],
+   "end": "干し柿"
+  },
+  "end_east": {
+   "text": [
+    "東軍の陣では、降った者を一人ずつ改めていた。{player}は牢人として名を書かれ、井伊の陣の人足に回された。",
+    "帰り道、松尾山を見上げた。山の上には、もう誰の旗もなかった。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "rep": "tokugawa",
+     "n": 5
+    },
+    {
+     "unflag": "h_seki_eyes"
+    },
+    {
+     "note": "関ヶ原で西軍が敗れた。東軍に降った。"
+    }
+   ],
+   "end": "降った牢人"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "sekigahara_hold"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "sekigahara_wait"
+     },
+     "next": "waited"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。美濃の関ヶ原で、内府{ieyasu}の東軍と{mitsunari}の西軍がぶつかり、一日で勝負がついたという。小早川が寝返ったのだ、と。",
+    "「天下分け目と言うが、分けたのは一人の若者の迷いだったそうだ」と、噂の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_seki_eyes"
+    },
+    {
+     "note": "関ヶ原で東軍が勝ったと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "sekigahara_hold",
+   "event": "sekigahara",
+   "order": 2,
+   "why": "主人公が小早川秀秋に寝返りを思いとどまらせた",
+   "when": {
+    "flag": "h_seki_hold"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "関ヶ原の戦い。[[p:徳川家康]]の東軍と[[p:石田三成]]の西軍がぶつかったが、松尾山の[[p:小早川秀秋]]は最後まで動かなかった。寝返りを当てにした東軍は攻めあぐね、家康は兵を退いて東へ戻った。上方は豊臣の手に残った。",
+    "do": [
+     [
+      "add",
+      "tokugawa",
+      "prestige",
+      -15
+     ],
+     [
+      "army",
+      "tokugawa",
+      0.85
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      10
+     ]
+    ],
+    "imp": 3,
+    "at": "ogaki"
+   },
+   "people": [
+    {
+     "spare": "石田三成",
+     "years": 10
+    },
+    {
+     "spare": "大谷吉継",
+     "years": 4
+    }
+   ]
+  },
+  {
+   "id": "sekigahara_wait",
+   "event": "sekigahara",
+   "order": 1,
+   "why": "主人公が石田三成に大垣に籠もって待つよう説いた",
+   "when": {
+    "flag": "h_seki_wait"
+   },
+   "then": "delay",
+   "months": 3,
+   "note": "西軍は大垣の城に籠もって毛利と秀頼の出馬を待ち、決戦は年を越した。"
+  }
+ ]
+}

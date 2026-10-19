@@ -1,0 +1,692 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_takatenjin",
+ "kind": "history",
+ "era": "sengoku",
+ "title": "高天神の後詰め",
+ "event": "takatenjin",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s2r",
+  "s2r_ok",
+  "s2r_ng",
+  "t1",
+  "t1ok",
+  "t1ng",
+  "s3",
+  "s3ok",
+  "s3hurt"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "kakegawa"
+  },
+  "kofu": {
+   "scnPlace": "kofu"
+  },
+  "tokugawa": {
+   "scnRealm": "tokugawa"
+  },
+  "takeda": {
+   "scnRealm": "takeda"
+  },
+  "ieyasu": {
+   "person": "ruler:tokugawa"
+  },
+  "katsuyori": {
+   "person": "ruler:takeda"
+  },
+  "tadatsugu": {
+   "scnPerson": "酒井忠次"
+  },
+  "masayuki": {
+   "scnPerson": "真田昌幸"
+  },
+  "aide": {
+   "npc": "高天神の城兵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}へ行く",
+   "speaker": "aide",
+   "art": "inn",
+   "text": [
+    "{city}の南、遠州灘を望む山の上に、高天神の城がある。{tokugawa}の兵はそのまわりに砦を六つ築き、堀と柵で山ごと囲んでしまった。城に籠もるのは{takeda}の兵、千に足りぬという。",
+    "{inn}の裏の薪小屋で、百姓の身なりをした男が震えていた。{aide}と名乗った。指は痩せて骨ばかり、だが目は武士の目だった。「城から抜けてきた。甲府へ、殿に後詰めを乞いに行かねばならぬ。だが徳川の関も、山の道も知らぬ。誰か、道を知る者を……」"
+   ],
+   "choices": [
+    {
+     "label": "{aide}を甲府まで送り届ける",
+     "effects": [
+      {
+       "flag": "h_tt_guided"
+      },
+      {
+       "note": "高天神の城から抜けてきた{aide}を、甲府まで送り届ける。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "徳川の陣に、城から抜けてきた者がいると知らせる",
+     "effects": [
+      {
+       "note": "高天神の城から抜けてきた者のことを、徳川の陣に知らせに行く。"
+      }
+     ],
+     "next": "t1"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "kofu",
+    "building": "palace"
+   },
+   "goal": "{kofu}の{palace}で、{katsuyori}に後詰めを乞う",
+   "speaker": "masayuki",
+   "art": "court",
+   "text": [
+    "{kofu}の館は、どこか落ち着かなかった。北の韮崎に新しい城を築くとかで、人も銭もそちらへ吸い取られている。{aide}の嘆願を取り次いだのは、普請の差配に追われる{masayuki}だった。",
+    "「殿は、後詰めを出したいと思うておられる」{masayuki}は小声で言った。「だが北条とは手切れ、上杉は家督争いの傷が癒えぬ。兵を出せば、甲斐ががら空きになる。長篠で、出したくても出せぬ戦の怖さを、殿は骨身に知っておられるのだ」",
+    "奥の間から、{katsuyori}の苛立った声が聞こえる。"
+   ],
+   "choices": [
+    {
+     "label": "{masayuki}に取り次ぎを頼み、「見捨てれば家中の心が離れます」と後詰めを説く",
+     "turn": true,
+     "guide": "小勢で囲みを破る。しくじれば城兵ともども討たれる",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "{katsuyori}の答えを待つ",
+     "next": "s2ng"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "masayuki",
+   "art": "court",
+   "text": [
+    "{katsuyori}は{player}の言葉を、扇を握りしめて聞いていた。「父上なら、どうなされたであろうな」やがて扇を膝に置いた。「大軍は出せぬ。だが、見捨てたと言われるくらいなら、小勢でも出す。昌幸、山の道を知る者をつけよ」",
+    "{masayuki}が{player}を見て、ほんのわずか笑った。「道を知る者なら、ここにおる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_tt_asked"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "rep": "takeda",
+     "n": 10
+    },
+    {
+     "note": "{katsuyori}に説き、高天神への小勢の後詰めを出させた。"
+    }
+   ],
+   "next": "s2r"
+  },
+  "s2ng": {
+   "speaker": "masayuki",
+   "text": [
+    "答えは来なかった。三日待って、来たのは{masayuki}だけだった。「殿は、出せぬと仰せだ」",
+    "{aide}は黙って頭を下げ、ひとりで城へ戻ると言った。死にに戻るのだと、{player}にも分かった。"
+   ],
+   "next": "s3"
+  },
+  "s2r": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "後詰めの小勢を、高天神の城へ導く",
+   "art": "war",
+   "text": [
+    "後詰めは三百。山伝いに遠江へ下り、新月の夜を待った。{player}は先頭で、砦と砦のあいだの沢筋へ兵を導いた。城の上で松明が三度振られる。{aide}が城に伝えた合図だ。",
+    "城門が開き、痩せた兵たちが坂を駆け下りてくる。だが柵の向こうで、徳川の陣の篝火が一斉にこちらを向いた。"
+   ],
+   "choices": [
+    {
+     "label": "柵を切り開き、城兵の退き口を守る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s2r_ok",
+      "lose": "s2r_ng"
+     }
+    }
+   ]
+  },
+  "s2r_ok": {
+   "art": "war",
+   "text": [
+    "{player}は柵の結び目を斬り落とし、駆け寄る徳川の{soldier}を槍の柄で突き返した。城兵が一人、また一人と沢へ逃れていく。最後に{aide}が、手負いの仲間を背負って柵をくぐった。",
+    "夜明け、山の上で数えると、城兵は四百を超えていた。皆、痩せ衰え、泥にまみれ、それでも甲斐の方を向いて泣いていた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_tt_relief"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "takeda",
+     "n": 15
+    },
+    {
+     "wanted": "tokugawa",
+     "n": 12
+    },
+    {
+     "note": "後詰めの小勢を導き、高天神の城兵を囲みの外へ逃がした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s2r_ng": {
+   "text": [
+    "柵の前で押し返された。後詰めは散り、城兵の多くは城へ追い戻された。{player}は傷を負い、沢を這って山へ逃れた。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "wanted": "tokugawa",
+     "n": 8
+    }
+   ],
+   "next": "s3"
+  },
+  "t1": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の徳川の陣で{tadatsugu}に会う",
+   "speaker": "tadatsugu",
+   "art": "camp",
+   "text": [
+    "{tadatsugu}は、城から抜けた者がいると聞いても驚かなかった。「毎晩のように何人かは抜けてくる。城はもう、長くはない。それより、城から矢文が来た。降るから命を助けよ、と。滝堺も小山も明け渡す、とまで書いてある」",
+    "「殿（{ieyasu}）は容れたいとお考えだ。だが岐阜の右府さまが、降伏は許すな、武田が後詰めを出せぬまま城を見殺しにするさまを、天下に見せよと言うてこられた」{tadatsugu}は唇を噛んだ。"
+   ],
+   "choices": [
+    {
+     "label": "「降る者を討てば、遠江の国衆の心が離れます」と{tadatsugu}に説く",
+     "turn": true,
+     "guide": "城兵の命は助かる。右府の意に背くことになる",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "t1ok",
+      "lose": "t1ng"
+     }
+    },
+    {
+     "label": "砦の普請に加わる",
+     "next": "t1ng"
+    }
+   ]
+  },
+  "t1ok": {
+   "speaker": "tadatsugu",
+   "text": [
+    "{tadatsugu}は、陣幕の外の高天神を長いあいだ見上げていた。「……遠江はわれらの国じゃ。右府さまの国ではない。降る者を殺せば、この国の者は、われらにも同じことをされると思うであろう」",
+    "「殿には、わしから申し上げる。叱られるのは、わし一人でよい」{tadatsugu}は{player}を城への使いに立てた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_tt_terms"
+    },
+    {
+     "flag": "h_tt_camp"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "tokugawa",
+     "n": 12
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{tadatsugu}に説き、高天神の城兵の降伏を容れさせた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "t1ng": {
+   "speaker": "tadatsugu",
+   "text": [
+    "「わしも、そう思わぬではない」{tadatsugu}はそれだけ言って、{player}を砦の普請に回した。山を囲む柵は、日ごとに高く、密になっていった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_tt_camp"
+    },
+    {
+     "rep": "tokugawa",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、高天神の城の終わりを待つ",
+   "wait": {
+    "days": 20
+   },
+   "art": "war",
+   "text": [
+    "春の雨が、高天神の山を煙らせていた。城からは、もう煮炊きの煙も上がらない。夜ごと、柵の向こうから草を摘みに出てくる城兵の影が見えた。",
+    "砦の{soldier}たちが、それを鉄砲で追い返している。"
+   ],
+   "choices": [
+    {
+     "label": "夜の見回りに出る",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3ok",
+      "lose": "s3hurt"
+     }
+    },
+    {
+     "label": "雨の上がるのを待つ",
+     "next": "s3ok"
+    }
+   ]
+  },
+  "s3ok": {
+   "text": [
+    "雨は三日で上がった。山の上の城は、静まり返っていた。"
+   ],
+   "next": "aftergo"
+  },
+  "s3hurt": {
+   "text": [
+    "闇の中で、草を摘みに出た城兵と鉢合わせた。痩せた腕から振り下ろされた刀は、驚くほど重かった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、高天神の城の成り行きを見届ける",
+   "wait": {
+    "settled": "takatenjin"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "tt_relief"
+     },
+     "next": "relieved"
+    },
+    {
+     "if": {
+      "branch": "tt_terms"
+     },
+     "next": "surrendered"
+    },
+    {
+     "next": "s4"
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "text": [
+    "三月の夜、城の門が一斉に開いた。飢えきった城兵が、鬨の声も上げずに坂を駆け下りてきた。徳川の柵の前で、一人残らず討たれた。夜が明けると、山の斜面に七百近い骸が並んでいた。",
+    "甲斐から後詰めは、ついに来なかった。「武田は、城を見殺しにした」その言葉は、どの陣でも、どの町でも、ささやかれるようになった。"
+   ],
+   "choices": [
+    {
+     "label": "{aide}を探して骸のあいだを歩く",
+     "if": {
+      "flag": "h_tt_guided"
+     },
+     "next": "end_aide"
+    },
+    {
+     "label": "討たれた者の名を、分かる限り書き留める",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "end_names",
+      "lose": "end_left"
+     }
+    },
+    {
+     "label": "黙って{city}を去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_aide": {
+   "text": [
+    "{aide}は、柵のすぐ手前に倒れていた。甲府から一人で城へ戻り、仲間と一緒に打って出たのだ。握った刀は、まだ鞘に戻されていなかった。",
+    "{player}はその刀を拾い、甲斐の方へ向けて、土に立てた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "rep": "takeda",
+     "n": 5
+    },
+    {
+     "unflag": "h_tt_guided"
+    },
+    {
+     "unflag": "h_tt_asked"
+    },
+    {
+     "unflag": "h_tt_relief"
+    },
+    {
+     "unflag": "h_tt_terms"
+    },
+    {
+     "unflag": "h_tt_camp"
+    },
+    {
+     "note": "高天神の城兵は打って出て全滅した。{aide}もその中にいた。"
+    }
+   ],
+   "end": "柵の手前"
+  },
+  "end_names": {
+   "text": [
+    "徳川の{soldier}から聞き、骸の具足の札を読み、名を一つずつ帳面に書いた。百を超えたところで、筆が震えた。",
+    "その帳面は、のちに{city}の寺に納めた。武田の名の書かれた、ただ一冊の帳面だった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "unflag": "h_tt_guided"
+    },
+    {
+     "unflag": "h_tt_asked"
+    },
+    {
+     "unflag": "h_tt_relief"
+    },
+    {
+     "unflag": "h_tt_terms"
+    },
+    {
+     "unflag": "h_tt_camp"
+    },
+    {
+     "note": "高天神の城兵は打って出て全滅した。討たれた者の名を書き留めた。"
+    }
+   ],
+   "end": "名の帳面"
+  },
+  "end_left": {
+   "text": [
+    "{player}は{city}を後にした。振り返ると、高天神の山の上に、烏が群れていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_tt_guided"
+    },
+    {
+     "unflag": "h_tt_asked"
+    },
+    {
+     "unflag": "h_tt_relief"
+    },
+    {
+     "unflag": "h_tt_terms"
+    },
+    {
+     "unflag": "h_tt_camp"
+    },
+    {
+     "note": "高天神の城は落ち、城兵は全滅した。"
+    }
+   ],
+   "end": "見殺しの城"
+  },
+  "relieved": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "aide",
+   "art": "tale",
+   "text": [
+    "城は徳川のものになった。空の城だった。城兵は甲斐へ帰り、{katsuyori}は自ら出迎えて、一人一人の名を呼んだという。「武田は城を失ったが、兵は見捨てなかった」その話は、信濃や上野の国衆のあいだにも伝わった。",
+    "{aide}は{player}の手を握り、甲斐の鎧師が打ったという小札を一枚くれた。「いつか甲府へ来い。おぬしの名は、殿も覚えておられる」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "takeda",
+     "n": 10
+    },
+    {
+     "unflag": "h_tt_guided"
+    },
+    {
+     "unflag": "h_tt_asked"
+    },
+    {
+     "unflag": "h_tt_relief"
+    },
+    {
+     "unflag": "h_tt_terms"
+    },
+    {
+     "unflag": "h_tt_camp"
+    },
+    {
+     "note": "高天神の城兵は後詰めとともに囲みを破り、甲斐へ帰った。"
+    }
+   ],
+   "end": "見捨てなかった殿"
+  },
+  "surrendered": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "tadatsugu",
+   "art": "court",
+   "text": [
+    "城の門が開き、痩せ衰えた城兵が、刀を捨てて一列に出てきた。{tadatsugu}は粥を煮させ、駿河の境まで送り届けると約した。右府さまの怒りの文は、のちに届いた。{ieyasu}はそれを黙って畳み、文箱に納めたという。",
+    "「降った者を生かして帰した。その噂の方が、千の首よりも遠江を固める」{tadatsugu}は{player}に、太刀を一振り下された。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "tokugawa",
+     "n": 10
+    },
+    {
+     "item": "good_katana"
+    },
+    {
+     "unflag": "h_tt_guided"
+    },
+    {
+     "unflag": "h_tt_asked"
+    },
+    {
+     "unflag": "h_tt_relief"
+    },
+    {
+     "unflag": "h_tt_terms"
+    },
+    {
+     "unflag": "h_tt_camp"
+    },
+    {
+     "note": "高天神の城兵は降り、命を助けられて城を出た。"
+    }
+   ],
+   "end": "降った城"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "tt_relief"
+     },
+     "next": "relieved"
+    },
+    {
+     "if": {
+      "branch": "tt_terms"
+     },
+     "next": "surrendered"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の途中で噂を聞いた。遠江の高天神の城が落ち、飢えた城兵は打って出て一人残らず討たれたという。甲斐の殿は後詰めを出さなかった、とも。",
+    "「武田も、もう長くはないな」と、馬借が言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_tt_guided"
+    },
+    {
+     "unflag": "h_tt_asked"
+    },
+    {
+     "unflag": "h_tt_relief"
+    },
+    {
+     "unflag": "h_tt_terms"
+    },
+    {
+     "unflag": "h_tt_camp"
+    },
+    {
+     "note": "高天神の城が落ちたと聞いた。"
+    }
+   ],
+   "end": "遠い高天神"
+  }
+ },
+ "branches": [
+  {
+   "id": "tt_relief",
+   "event": "takatenjin",
+   "order": 2,
+   "why": "主人公が勝頼に後詰めを説き、城兵を囲みの外へ導いた",
+   "when": {
+    "flag": "h_tt_relief"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_tokugawa}に一年半囲まれた高天神城に、{r_takeda}は小勢ながら後詰めを送り、城兵は囲みを破って甲斐へ退いた。城は徳川のものとなったが、兵を見捨てなかった武田を、家中はなお見限らなかった。",
+    "do": [
+     [
+      "add",
+      "takeda",
+      "prestige",
+      -3
+     ],
+     [
+      "add",
+      "tokugawa",
+      "prestige",
+      3
+     ]
+    ],
+    "imp": 2,
+    "at": "kakegawa"
+   }
+  },
+  {
+   "id": "tt_terms",
+   "event": "takatenjin",
+   "order": 1,
+   "why": "主人公が酒井忠次に説き、城兵の降伏を容れさせた",
+   "when": {
+    "flag": "h_tt_terms"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{r_tokugawa}は高天神城の降伏を容れ、飢えた城兵は命を助けられて城を出た。{r_takeda}が後詰めを送らなかったことは、なお武田の家中に重くのしかかった。",
+    "do": [
+     [
+      "add",
+      "takeda",
+      "prestige",
+      -8
+     ],
+     [
+      "add",
+      "tokugawa",
+      "prestige",
+      6
+     ]
+    ],
+    "imp": 2,
+    "at": "kakegawa"
+   }
+  }
+ ]
+}

@@ -1,0 +1,262 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_feat_throne_cede",
+ "kind": "feat",
+ "feat": "career",
+ "title": "家督相続",
+ "era": "sengoku",
+ "trigger": {
+  "patron": true,
+  "bySize": {
+   "realm": "patron",
+   "rank": [
+    4,
+    6,
+    7
+   ]
+  },
+  "king": false,
+  "notFeat": "career"
+ },
+ "cast": {
+  "power": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "elder": {
+   "npc": "御一門の長老",
+   "sex": "m"
+  },
+  "general": {
+   "person": "general:power"
+  }
+ },
+ "start": "c1",
+ "scenes": {
+  "c1": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、{ruler}の内意を聞く",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "人払いをした奥の間で、{ruler}は疲れた声で言った。「わしの倅どもは、この家を背負うには器が足らぬ。乱世に血筋だけで家は守れぬ」",
+    "「{player}、そなたを養子とし、家督を譲りたい。だが、御一門も重臣たちも、黙ってはおるまい」"
+   ],
+   "choices": [
+    {
+     "label": "謹んでお受けする",
+     "next": "c2"
+    },
+    {
+     "label": "今はまだその時ではない、と辞する",
+     "next": "cdecline"
+    }
+   ]
+  },
+  "c2": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、御一門の者たちを説き伏せる",
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "{elder}は扇で畳を打った。「血の繋がらぬ者に、家の旗を渡すと申すか。御先祖がお許しにならぬ」御一門の者たちが、一斉にこちらを睨んだ。"
+   ],
+   "choices": [
+    {
+     "label": "家を保った養子の先例を引いて説く",
+     "check": {
+      "skill": "letters",
+      "dc": 68,
+      "scale": "power",
+      "win": "c3",
+      "lose": "c2ng"
+     }
+    },
+    {
+     "label": "御一門の所領を約して、一人ずつ口説く",
+     "check": {
+      "skill": "speech",
+      "dc": 70,
+      "scale": "power",
+      "win": "c3",
+      "lose": "c2ng"
+     }
+    }
+   ]
+  },
+  "c2ng": {
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "御一門は首を縦に振らない。銭で黙らせる手もあるが、それは後々まで尾を引くだろう。"
+   ],
+   "choices": [
+    {
+     "label": "御一門に莫大な引出物を贈る（30000）",
+     "if": {
+      "money": 30000
+     },
+     "effects": [
+      {
+       "money": -30000
+      },
+      {
+       "fame": -5
+      }
+     ],
+     "next": "c3"
+    },
+    {
+     "label": "今は退く",
+     "next": "cfail"
+    }
+   ]
+  },
+  "c3": {
+   "at": {
+    "place": "capital",
+    "building": "barracks"
+   },
+   "goal": "{capital}の{barracks}で、侍大将{general}の心を掴む",
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "{general}は腕を組んだまま動かない。「兵は家に従うのではない。己を勝たせる大将に従う。そなたにその器があるか、見せてもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "軍略を語り、次の戦の勝ち筋を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 72,
+      "scale": "power",
+      "win": "c4",
+      "lose": "c3fight"
+     }
+    },
+    {
+     "label": "馬場で、侍大将の選んだ荒武者と立ち合う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 60,
+      "scale": "power",
+      "win": "c4",
+      "lose": "cfail"
+     }
+    }
+   ]
+  },
+  "c3fight": {
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "「口は達者だな。だが兵は口では動かぬ」{general}は顎で馬場を示した。"
+   ],
+   "choices": [
+    {
+     "label": "荒武者と立ち合う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 60,
+      "scale": "power",
+      "win": "c4",
+      "lose": "cfail"
+     }
+    }
+   ]
+  },
+  "c4": {
+   "at": {
+    "place": "capital",
+    "building": "shrine"
+   },
+   "goal": "{capital}の社で、家督を継ぐ誓いを立てる",
+   "art": "faith",
+   "text": [
+    "氏神の社の前で、{player}は起請文を読み上げる。一字でも誤れば、神が拒んだと言われる。家臣と城下の民が、固唾を呑んで見守っている。"
+   ],
+   "choices": [
+    {
+     "label": "起請文を読み上げる",
+     "check": {
+      "skill": "letters",
+      "dc": 70,
+      "scale": "power",
+      "win": "cwin",
+      "lose": "cfail_rite"
+     }
+    }
+   ]
+  },
+  "cwin": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "読み終えると、社の杉の梢で鷹が鳴いた。家臣たちがどよめいた。",
+    "{ruler}は自ら家の旗印を{player}に手渡した。「{power}を頼む」居並ぶ家臣が一斉に平伏した。"
+   ],
+   "effects": [
+    {
+     "fame": 30
+    },
+    {
+     "throne": "power",
+     "how": "家督相続"
+    },
+    {
+     "feat": "career"
+    }
+   ],
+   "end": "家督相続"
+  },
+  "cdecline": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は寂しげに笑った。「急ぎはせぬ。心が決まったら、また来るがよい」"
+   ],
+   "end": "いまだ時ならず"
+  },
+  "cfail": {
+   "art": "court",
+   "text": [
+    "家中の風向きは変わらなかった。{ruler}は「いずれまた」とだけ言った。……ひと月ほどして、もう一度。"
+   ],
+   "effects": [
+    {
+     "favor": -30
+    }
+   ],
+   "end": "いまだ時ならず"
+  },
+  "cfail_rite": {
+   "art": "faith",
+   "text": [
+    "起請文の一節で声が詰まった。「神が拒まれた」というささやきが広がり、儀は打ち切られた。……ひと月ほどして、もう一度。"
+   ],
+   "effects": [
+    {
+     "fame": -10
+    },
+    {
+     "favor": -40
+    }
+   ],
+   "end": "いまだ時ならず"
+  }
+ }
+}

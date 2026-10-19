@@ -1,0 +1,339 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_feat_study",
+ "kind": "feat",
+ "feat": "study",
+ "title": "御前の一座",
+ "era": "sengoku",
+ "trigger": {
+  "schoolRank": 3,
+  "notFeat": "study"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "master": {
+   "npc": "老いた師",
+   "sex": "m"
+  },
+  "champ": {
+   "npc": "他流の名人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}で、老いた師の言葉を聞く",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は床に伏したまま、{player}の手を取った。「{ruler}様が{capital}に諸道の名人を集め、御前で芸を競わせるという。わしは行けぬ。そなたが行け」",
+    "「勝てば、我らの道が天下一と呼ばれる。負ければ、百年は埋もれよう」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ向かう",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}の大広間で、一座の第一番に臨む",
+   "art": "court",
+   "text": [
+    "大広間に、諸道の名人が居並ぶ。剣も、経も、算盤も、茶筅も、鉄砲も。それぞれが御前で己の芸を見せ、残る者だけが次の番に進む。"
+   ],
+   "choices": [
+    {
+     "label": "庭で型を演じ、据え物を斬る",
+     "if": {
+      "school": "kenjutsu"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "経と古典を縦横に引いて講じる",
+     "if": {
+      "school": "tera"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "一国の米と銭の流れを、算盤ひとつで読み解いてみせる",
+     "if": {
+      "school": "za"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "広間の誰にも気づかれずに、御前の扇をすり替えてみせる",
+     "if": {
+      "school": "shinobi"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "御前で一服の茶を点て、座を一つにする",
+     "if": {
+      "school": "cha"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "百間先の的を、続けざまに撃ち抜く",
+     "if": {
+      "school": "teppo"
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "己の道の心を、言葉で説く",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、{champ}と芸を競う",
+   "speaker": "champ",
+   "art": "court",
+   "text": [
+    "勝ち残ったのは二人。{champ}は静かに一礼した。「そなたの芸は見事。だが、見事なだけでは天下一とは呼ばれぬ」家臣たちが息を呑んで見守る。"
+   ],
+   "choices": [
+    {
+     "label": "木刀で立ち合う",
+     "if": {
+      "school": "kenjutsu"
+     },
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 80,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "仏の道と世の道を、問答で競う",
+     "if": {
+      "school": "tera"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "同じ銭で、どちらがより多く稼ぐかを競う",
+     "if": {
+      "school": "za"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "夜の城で、どちらが先に天守の旗を取るかを競う",
+     "if": {
+      "school": "shinobi"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "同じ道具で、どちらの茶が客の心を打つかを競う",
+     "if": {
+      "school": "cha"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "風の中、揺れる的を撃ち合う",
+     "if": {
+      "school": "teppo"
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "理で押し切る",
+     "check": {
+      "skill": "speech",
+      "dc": 84,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "古の名人の例で、道の力を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 84,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    }
+   ]
+  },
+  "s3b": {
+   "speaker": "champ",
+   "art": "court",
+   "text": [
+    "{champ}の芸が一枚上を行った。広間がざわめく。もう一度だけ、見せる機会がある。"
+   ],
+   "choices": [
+    {
+     "label": "己の道の極意を見せる",
+     "check": {
+      "skill": "letters",
+      "dc": 86,
+      "win": "s4",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "己の言葉で、道の心を示す",
+     "check": {
+      "skill": "speech",
+      "dc": 86,
+      "win": "s4",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}が身を乗り出した。「では問う。この戦国の世に、そなたの道は何の役に立つ。一言で答えよ」"
+   ],
+   "choices": [
+    {
+     "label": "学んだすべてを一言に込める",
+     "check": {
+      "skill": "letters",
+      "dc": 80,
+      "win": "swin",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "殿の目を見て、己の言葉で答える",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "swin",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "swin": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "長い沈黙のあと、{ruler}は扇を置き、{player}に向かって頭を下げた。「天下一の名人よ」",
+    "その一言で、一座は決した。{capital}には、{player}の門を叩こうという若者たちが列をなした。"
+   ],
+   "effects": [
+    {
+     "fame": 25
+    },
+    {
+     "feat": "study"
+    }
+   ],
+   "end": "名人"
+  },
+  "sfail": {
+   "art": "lecture",
+   "text": [
+    "芸は及ばなかった。{player}は黙って一礼し、広間を辞した。……稽古を積み直して、また次の一座に。"
+   ],
+   "effects": [
+    {
+     "fame": -5
+    }
+   ],
+   "end": "芸いまだ至らず"
+  }
+ }
+}

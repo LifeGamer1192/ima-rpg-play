@@ -1,0 +1,384 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_fushin",
+ "kind": "random",
+ "where": "office",
+ "hook": "城の石垣普請に人を求む。腕の立つ者、目の利く者は日当を弾む",
+ "title": "崩れる石垣",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "普請奉行の手代"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "bugyo": {
+   "npc": "普請奉行",
+   "sex": "m"
+  },
+  "toryo": {
+   "npc": "穴太衆の棟梁",
+   "sex": "m"
+  },
+  "ishiya": {
+   "npc": "石屋頭",
+   "sex": "m"
+  },
+  "karo": {
+   "npc": "家老",
+   "sex": "m"
+  },
+  "quarry": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{office}の前で、{client}が汗を拭きながら人を集めていた。城の本丸の石垣が、隅の一角だけ二度も崩れたのだという。",
+    "「普請奉行の{bugyo}さまは、近江から呼んだ穴太衆の棟梁{toryo}の積み方が悪いとお怒りでな。十日後の御家老の見分までに積み上がらねば、棟梁は責めを負わされる」"
+   ],
+   "choices": [
+    {
+     "label": "普請場へ行ってみる",
+     "next": "site"
+    }
+   ]
+  },
+  "site": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "{here}の{palace}の普請場で{toryo}に会う",
+   "speaker": "toryo",
+   "art": "war",
+   "text": [
+    "崩れた隅には、割れた石がごろごろと転がっていた。{toryo}は節くれだった指で石の割れ目をなぞった。",
+    "「わしらの算木積みは、百年経っても崩れはせん。崩れたのは、根石が夜のうちに抜かれておったからだ。それに、この頃届く石はひびだらけよ。こんな石で積めと言われても困る」"
+   ],
+   "choices": [
+    {
+     "label": "夜の普請場を見張る",
+     "next": "night"
+    },
+    {
+     "label": "{quarry}の石切場へ行き、石の出どころを確かめる",
+     "next": "quarry"
+    }
+   ]
+  },
+  "night": {
+   "art": "hideout",
+   "text": [
+    "月のない夜、積みかけの石垣の陰に身を潜めた。丑の刻ごろ、提灯も持たぬ男が三人、梃子を担いで隅へ寄ってきた。足軽の身なりだ。"
+   ],
+   "choices": [
+    {
+     "label": "足音を殺して近づき、一人を取り押さえる",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "witness",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "飛び出して斬りかかる",
+     "next": "brawl"
+    }
+   ]
+  },
+  "brawl": {
+   "art": "war",
+   "text": [
+    "男たちは梃子を振り上げて向かってきた。「見られた、生かして帰すな！」"
+   ],
+   "choices": [
+    {
+     "label": "打ち払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "talk": true,
+      "win": "witness",
+      "lose": "inspection"
+     }
+    }
+   ]
+  },
+  "witness": {
+   "art": "hideout",
+   "text": [
+    "組み伏せた足軽は、震えながら白状した。「{bugyo}さまのお指図だ。隅が崩れれば、穴太の者のせいにできると……」",
+    "男を縛り上げ、{toryo}の小屋に預けた。"
+   ],
+   "effects": [
+    {
+     "flag": "sg_fs_witness"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "inspection"
+  },
+  "quarry": {
+   "at": {
+    "place": "quarry"
+   },
+   "goal": "{quarry}の石切場で石の出どころを確かめる",
+   "speaker": "ishiya",
+   "art": "trade",
+   "text": [
+    "山肌を削った石切場で、石屋頭の{ishiya}が鑿を置いた。「城の石か。{bugyo}さまの言いつけで、売り物にならぬひび石を回しておる。代は上石の値で帳に付けるから、差額は奉行さまの懐よ」",
+    "「わしらも、言われたとおりにせねば仕事を干される」"
+   ],
+   "choices": [
+    {
+     "label": "帳と割符を照らし合わせ、差額の証を押さえる",
+     "check": {
+      "skill": "trade",
+      "dc": 35,
+      "win": "tally",
+      "lose": "inspection"
+     }
+    },
+    {
+     "label": "自分の銭で、上の石を城へ回させる（500文）",
+     "if": {
+      "money": 500
+     },
+     "effects": [
+      {
+       "money": -500
+      },
+      {
+       "flag": "sg_fs_stone"
+      }
+     ],
+     "next": "inspection"
+    },
+    {
+     "label": "何も言わずに城下へ戻る",
+     "next": "inspection"
+    }
+   ]
+  },
+  "tally": {
+   "speaker": "ishiya",
+   "art": "trade",
+   "text": [
+    "{ishiya}の帳には、ひび石を送った日と数が細かく記されていた。城の帳では、同じ日に上石を同じ数だけ買ったことになっている。{ishiya}は割符の片方を差し出した。「わしが言うたとは言わんでくれ」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_fs_tally"
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "next": "inspection"
+  },
+  "inspection": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "{here}の{palace}で、{karo}の見分に立ち会う",
+   "speaker": "bugyo",
+   "art": "court",
+   "text": [
+    "見分の日、家老{karo}が普請場に現れた。隅の石垣は、まだ半ばまでしか積み上がっていない。",
+    "{bugyo}が進み出た。「穴太の者どもの怠りにございます。棟梁の{toryo}には、しかと責めを」{toryo}は黙って膝をついている。見分のあと、{bugyo}の家来がこちらの袖に重い包みを滑り込ませていった。"
+   ],
+   "choices": [
+    {
+     "label": "縛った足軽を引き出し、白状させる",
+     "if": {
+      "flag": "sg_fs_witness"
+     },
+     "next": "end_exposed"
+    },
+    {
+     "label": "石屋の割符と城の帳を並べて見せる",
+     "if": {
+      "flag": "sg_fs_tally"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "end_exposed",
+      "lose": "end_failed"
+     }
+    },
+    {
+     "label": "「上の石が届いております。積み直しをご覧あれ」と申し出る",
+     "if": {
+      "flag": "sg_fs_stone"
+     },
+     "next": "end_built"
+    },
+    {
+     "label": "「崩れたのは石のせい。棟梁の腕はたしか」と弁じる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_built",
+      "lose": "end_failed"
+     }
+    },
+    {
+     "label": "包みを懐に収め、黙っている",
+     "next": "end_bribed"
+    }
+   ]
+  },
+  "end_exposed": {
+   "speaker": "karo",
+   "art": "court",
+   "text": [
+    "{karo}の顔色が変わった。「殿の城の石を食い物にしたか」{bugyo}はその場で役を解かれ、屋敷に押し込められた。",
+    "新しい石が届き、隅の石垣はひと月で積み上がった。{toryo}は、こちらの手を両手で握った。「わしらの石垣が、また百年もつ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_fs_witness"
+    },
+    {
+     "unflag": "sg_fs_tally"
+    },
+    {
+     "unflag": "sg_fs_stone"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 20
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "城の石垣普請で、普請奉行{bugyo}の不正を暴いた。"
+    }
+   ],
+   "end": "百年の石垣"
+  },
+  "end_built": {
+   "speaker": "toryo",
+   "art": "war",
+   "text": [
+    "{toryo}は弟子たちを集め、自ら隅に立った。長い石を交互に組み、隙間に飼石を打ち込む。三日で、隅は反りを打って見事に積み上がった。",
+    "{karo}は石垣を見上げて唸った。{bugyo}は苦い顔をしていたが、手の打ちようはなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_fs_witness"
+    },
+    {
+     "unflag": "sg_fs_tally"
+    },
+    {
+     "unflag": "sg_fs_stone"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "穴太衆の棟梁{toryo}を守り、城の隅石垣を積み上げさせた。"
+    }
+   ],
+   "end": "反りの隅"
+  },
+  "end_bribed": {
+   "speaker": "bugyo",
+   "art": "court",
+   "text": [
+    "包みの中身は銀だった。{toryo}は普請場を追われ、穴太衆は近江へ帰っていった。",
+    "ひと月後、隅の石垣は{bugyo}の連れてきた人足たちの手で積み上がった。雨が降るたびに、どこかで石の擦れる音がするという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_fs_witness"
+    },
+    {
+     "unflag": "sg_fs_tally"
+    },
+    {
+     "unflag": "sg_fs_stone"
+    },
+    {
+     "money": 500
+    },
+    {
+     "fame": -3
+    },
+    {
+     "favor": 5
+    }
+   ],
+   "end": "口止めの銀"
+  },
+  "end_failed": {
+   "speaker": "karo",
+   "art": "court",
+   "text": [
+    "{karo}は「言い訳は聞き飽きた」と手を振った。{toryo}は棟梁の座を解かれ、弟子ともども城下を追われた。",
+    "去り際、{toryo}は崩れた隅を振り返った。「また崩れるぞ。あの石ではな」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_fs_witness"
+    },
+    {
+     "unflag": "sg_fs_tally"
+    },
+    {
+     "unflag": "sg_fs_stone"
+    },
+    {
+     "fame": -1
+    },
+    {
+     "favor": -5
+    }
+   ],
+   "end": "追われた穴太衆"
+  }
+ }
+}

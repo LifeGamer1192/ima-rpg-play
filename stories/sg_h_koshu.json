@@ -1,0 +1,724 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_koshu",
+ "kind": "history",
+ "era": "sengoku",
+ "title": "甲州征伐",
+ "event": "koshu",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s2",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s4",
+  "t1",
+  "t1ok",
+  "t1hurt",
+  "s5",
+  "s5ok",
+  "s5ng",
+  "s6",
+  "s6ok",
+  "s6hurt"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "kofu"
+  },
+  "takato": {
+   "scnPlace": "takato"
+  },
+  "ueda": {
+   "scnPlace": "ueda"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "takeda": {
+   "scnRealm": "takeda"
+  },
+  "tokugawa": {
+   "scnRealm": "tokugawa"
+  },
+  "katsuyori": {
+   "person": "ruler:takeda"
+  },
+  "masayuki": {
+   "scnPerson": "真田昌幸"
+  },
+  "nobutada": {
+   "scnPerson": "織田信忠"
+  },
+  "boss": {
+   "npc": "普請場の人足頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の{inn}へ行く",
+   "speaker": "boss",
+   "art": "inn",
+   "text": [
+    "{city}の{inn}は、普請に駆り出された百姓であふれていた。北の韮崎の七里岩の上に、殿が新しい城を築いておられる。新府と呼ぶのだという。",
+    "{boss}が椀の酒を呷った。「躑躅ヶ崎の館じゃ、もう守れぬと仰せでな。だが銭も人も、甲斐にはもう残っとらん。長篠で名のある侍は皆死んだ。高天神も見殺しにした。家中は、殿の顔色ばかり窺っておる」",
+    "「普請の差配は真田さまだ。人手はいくらあっても足りん。おぬしも来るか。飯だけは食える」"
+   ],
+   "choices": [
+    {
+     "label": "新府の普請に加わる",
+     "effects": [
+      {
+       "note": "{takeda}の新府の城の普請に加わった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "新府の普請場で{masayuki}に会う",
+   "speaker": "masayuki",
+   "art": "court",
+   "text": [
+    "{masayuki}は、普請場の真ん中で縄張りの図を広げていた。小柄で、よく笑う男だった。だが図を見る目は笑っていない。",
+    "「よい城になる。だが城は、守る兵がいてこそだ」{masayuki}は声を落とした。「木曾が怪しい。穴山も怪しい。いざとなれば、殿には上野の岩櫃の城へお移りいただくほかない。わしの城だ。山深く、兵糧さえあれば一年は持つ。だが、それを言えば、家中の者はわしを臆病者と笑うだろう」"
+   ],
+   "choices": [
+    {
+     "label": "{masayuki}に従い、{ueda}から岩櫃への備えを見に行く",
+     "next": "s3"
+    },
+    {
+     "label": "普請場に残る",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "ueda",
+    "building": "barracks"
+   },
+   "goal": "{ueda}の真田の番所へ行く",
+   "speaker": "masayuki",
+   "art": "camp",
+   "text": [
+    "{ueda}から上野へ抜ける山道は、雪が来れば人も通わぬ険しさだった。{masayuki}は峠ごとに番所を置き、村ごとに米を隠させようとしていた。だが人手も銭も足りない。",
+    "「殿が甲斐を捨てるとすれば、追手は三日のうちに来る。そのあいだに峠を越え、岩櫃に入る。道と米の段取りが、すべてだ」"
+   ],
+   "choices": [
+    {
+     "label": "峠ごとの番所と、村々の米の隠し場所の段取りをつける",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "masayuki",
+   "text": [
+    "ひと月かけて、{player}は峠の村を回り、米を炭俵に、塩を薪束に紛れさせて隠させた。{masayuki}は帳面を見て膝を打った。「これで、殿が来られても、飢えさせずにお迎えできる」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ks_road"
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "rep": "takeda",
+     "n": 8
+    },
+    {
+     "note": "{masayuki}のために、上野の岩櫃への道と兵糧の段取りをつけた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "speaker": "masayuki",
+   "text": [
+    "峠の村々は、米を出し渋った。「武田さまのためなら、とうに出しつくした」{masayuki}は苦笑した。「無理もない。わしでも、そう言う」"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で冬を越す",
+   "wait": {
+    "days": 20
+   },
+   "art": "war",
+   "text": [
+    "年が明けてまもなく、木曾義昌が織田に寝返った。殿は討手を出したが、雪の中で押し返された。そのあいだに、{nobutada}を大将とする織田の大軍が、伊那の谷を北へ攻め上がってくる。徳川の軍は駿河から、北条は関東から。",
+    "伊那の城は、戦わずに次々と開いた。残るは、殿の弟、仁科盛信の守る{takato}の城だけだという。"
+   ],
+   "choices": [
+    {
+     "label": "{takato}の城へ走り、仁科盛信の籠城に加わる",
+     "next": "t1"
+    },
+    {
+     "label": "新府に残り、殿のお下知を待つ",
+     "next": "s5"
+    }
+   ]
+  },
+  "t1": {
+   "at": {
+    "place": "takato",
+    "building": "barracks"
+   },
+   "goal": "{takato}の城へ行く",
+   "speaker": "仁科盛信",
+   "art": "war",
+   "text": [
+    "{takato}の城に籠もるのは三千。押し寄せる{nobutada}の軍は、その十倍を超えるという。降れという使いに、盛信は使いの耳を削いで送り返した。「武田の者は、皆が皆、寝返るわけではない」",
+    "夜明けとともに、織田の鉄砲が城の塀を叩きはじめた。"
+   ],
+   "choices": [
+    {
+     "label": "大手の門で、押し寄せる織田の{soldier}を迎え撃つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "t1ok",
+      "lose": "t1hurt"
+     }
+    }
+   ]
+  },
+  "t1ok": {
+   "art": "war",
+   "text": [
+    "一日で、城は落ちた。盛信は最後まで戦い、腹を切った。{player}は城の裏の崖を下り、からくも囲みを抜けた。",
+    "背後で、{takato}の城が燃えていた。殿の弟が、ただ一人、武田の名を守って死んだ城だった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_ks_takato"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "rep": "takeda",
+     "n": 8
+    },
+    {
+     "note": "{takato}の城で、仁科盛信とともに織田の大軍と戦った。"
+    }
+   ],
+   "next": "s5"
+  },
+  "t1hurt": {
+   "text": [
+    "鉄砲の玉に腿を撃ち抜かれた。足軽に担がれて裏の崖を下ろされ、気がつくと甲斐へ向かう荷車の上だった。{takato}の城は、その日のうちに落ちたという。"
+   ],
+   "effects": [
+    {
+     "flag": "h_ks_takato"
+    },
+    {
+     "hp": -25
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "新府の城で、{katsuyori}の評定に出る",
+   "speaker": "katsuyori",
+   "art": "court",
+   "text": [
+    "完成したばかりの新府の広間に、残った家臣は数えるほどしかいなかった。穴山梅雪も、織田に通じて駿河へ去った。{katsuyori}は床几に座り、顔色ひとつ変えずに言った。「この城は捨てる。どこへ行くか、申せ」",
+    "{masayuki}が進み出た。「上野の岩櫃へお越しくだされ。道も米も整えてございます」すかさず別の老臣が遮った。「真田は外様。郡内の小山田こそ譜代の重臣、岩殿の城は堅固にござる」{katsuyori}の目が、末席の{player}に向いた。"
+   ],
+   "choices": [
+    {
+     "label": "「岩櫃までの道も兵糧も、この目で確かめてございます」と申し上げる",
+     "if": {
+      "flag": "h_ks_road"
+     },
+     "turn": true,
+     "guide": "殿は真田を頼る。小山田は殿を恨むだろう",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s5ok",
+      "lose": "s5ng"
+     }
+    },
+    {
+     "label": "黙って頭を下げる",
+     "next": "s5ng"
+    }
+   ]
+  },
+  "s5ok": {
+   "speaker": "katsuyori",
+   "art": "court",
+   "text": [
+    "{katsuyori}は、しばらく{player}を見つめていた。それから、ふっと笑った。「父上は、外様でも使える者は使われた。わしは、それができなかった。……昌幸、岩櫃へ参る。案内せよ」",
+    "その夜、新府の城に火がかけられた。{katsuyori}の一行は、北へ、上野の山へ向かった。{player}は先頭で松明を掲げた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_ks_sanada"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "takeda",
+     "n": 15
+    },
+    {
+     "note": "{katsuyori}に説き、小山田を頼らずに真田の岩櫃へ向かわせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5ng": {
+   "speaker": "katsuyori",
+   "text": [
+    "{katsuyori}は、譜代の言葉を選んだ。「郡内へ参る。小山田を頼む」{masayuki}は黙って頭を下げ、上野へ戻っていった。その夜、新府の城に火がかけられた。"
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{katsuyori}の一行に従い、郡内へ向かう",
+   "art": "road",
+   "text": [
+    "一行は日ごとに減った。夜明けに数えるたび、誰かがいない。女たちの輿を担ぐ者さえ足りなくなった。笹子の峠の手前まで来たとき、峠の上から鉄砲が鳴った。小山田の兵だった。迎えに来たのではない。道を塞ぎに来たのだ。",
+    "「小山田、裏切ったか」誰かが叫んだ。峠から、小山田の{soldier}が駆け下りてくる。"
+   ],
+   "choices": [
+    {
+     "label": "輿の前に立ち、駆け下りてくる兵を防ぐ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s6ok",
+      "lose": "s6hurt"
+     }
+    }
+   ]
+  },
+  "s6ok": {
+   "text": [
+    "追い払いはした。だが峠は越えられない。一行は道を引き返し、天目山の方へ、山の奥へと入っていった。もう行く先はなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_ks_party"
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s6hurt": {
+   "text": [
+    "斬り結ぶうちに、石に足を取られて谷へ転げ落ちた。這い上がったときには、一行の姿はもう山の奥へ消えていた。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、武田の家の行く末を見届ける",
+   "wait": {
+    "settled": "koshu"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ks_sanada"
+     },
+     "next": "iwabitsu"
+    },
+    {
+     "if": {
+      "branch": "ks_faith"
+     },
+     "next": "faith"
+    },
+    {
+     "next": "s7"
+    }
+   ]
+  },
+  "s7": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "text": [
+    "天目山の麓、田野という村で、{katsuyori}の一行は追手に囲まれた。残っていたのは四十人ほど。土屋惣蔵は崖の細道に立ちふさがり、片手で藤蔓をつかんで、もう片手で寄せる兵を次々に斬り落としたという。",
+    "{katsuyori}は、まだ十六の嫡子とともに腹を切った。新羅三郎以来、四百年続いた甲斐の武田家は、こうして滅んだ。"
+   ],
+   "choices": [
+    {
+     "label": "女たちを守って、山を下りる",
+     "if": {
+      "flag": "h_ks_party"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_women",
+      "lose": "end_fallen"
+     }
+    },
+    {
+     "label": "高遠で死んだ者たちの名を、{city}の寺に告げに行く",
+     "if": {
+      "flag": "h_ks_takato"
+     },
+     "next": "end_takato"
+    },
+    {
+     "label": "{city}の焼け跡を後にする",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_women": {
+   "art": "road",
+   "text": [
+    "{player}は、逃げ遅れた侍女たちを連れて、沢沿いの獣道を下った。追手の松明が尾根を何度も過ぎたが、見つからなかった。",
+    "麓の寺で、侍女の一人が、殿から預かったという小さな守り袋を{player}に渡した。「殿は最後に、ついてきた者に礼を言うておられました。あなたさまにも」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "unflag": "h_ks_road"
+    },
+    {
+     "unflag": "h_ks_sanada"
+    },
+    {
+     "unflag": "h_ks_takato"
+    },
+    {
+     "unflag": "h_ks_party"
+    },
+    {
+     "note": "武田家は天目山で滅んだ。侍女たちを守って山を下りた。"
+    }
+   ],
+   "end": "天目山の守り袋"
+  },
+  "end_fallen": {
+   "text": [
+    "追手に見つかり、侍女たちは散り散りになった。{player}は刀を振るって何人かを逃がしたが、残りの者がどうなったかは分からない。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "unflag": "h_ks_road"
+    },
+    {
+     "unflag": "h_ks_sanada"
+    },
+    {
+     "unflag": "h_ks_takato"
+    },
+    {
+     "unflag": "h_ks_party"
+    },
+    {
+     "note": "武田家は天目山で滅んだ。"
+    }
+   ],
+   "end": "散った輿"
+  },
+  "end_takato": {
+   "text": [
+    "寺の住職は、{player}の挙げる名を一つずつ過去帳に書き入れた。仁科盛信、そのほか、{player}が{takato}で肩を並べた者たち。「寝返らなかった者の名は、残しておかねばならぬ」と住職は言った。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_ks_road"
+    },
+    {
+     "unflag": "h_ks_sanada"
+    },
+    {
+     "unflag": "h_ks_takato"
+    },
+    {
+     "unflag": "h_ks_party"
+    },
+    {
+     "note": "武田家は滅んだ。{takato}で死んだ者の名を寺に残した。"
+    }
+   ],
+   "end": "寝返らなかった者"
+  },
+  "end_left": {
+   "text": [
+    "{city}の町には、もう織田の旗が立っていた。{player}は振り返らずに町を出た。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ks_road"
+    },
+    {
+     "unflag": "h_ks_sanada"
+    },
+    {
+     "unflag": "h_ks_takato"
+    },
+    {
+     "unflag": "h_ks_party"
+    },
+    {
+     "note": "甲斐の武田家は滅んだ。"
+    }
+   ],
+   "end": "武田の滅び"
+  },
+  "iwabitsu": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "masayuki",
+   "art": "road",
+   "text": [
+    "一行は峠ごとの番所で米と馬を替え、追手より一日早く上野の山へ入った。甲斐も信濃も織田の手に落ち、武田の家は国を失った。だが{katsuyori}は、岩櫃の城で生きていた。",
+    "{masayuki}が、城の櫓から甲斐の方を眺めて言った。「国はなくなった。殿は残った。それに、織田の天下とて、いつまで続くか分からぬ。山の中で待つのも、戦のうちだ」"
+   ],
+   "effects": [
+    {
+     "fame": 9
+    },
+    {
+     "rep": "takeda",
+     "n": 10
+    },
+    {
+     "unflag": "h_ks_road"
+    },
+    {
+     "unflag": "h_ks_sanada"
+    },
+    {
+     "unflag": "h_ks_takato"
+    },
+    {
+     "unflag": "h_ks_party"
+    },
+    {
+     "note": "武田家は甲斐と信濃を失ったが、{katsuyori}は真田の岩櫃に生き延びた。"
+    }
+   ],
+   "end": "岩櫃の殿"
+  },
+  "faith": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "text": [
+    "高天神の城兵が見捨てられなかったことを、甲斐の侍たちは忘れていなかった。木曾は寝返ったが、それに続く者は思いのほか少なかった。{katsuyori}は甲斐の府中に兵を集め、迫る織田の大軍と正面から戦った。",
+    "一月持ちこたえたのち、{katsuyori}は乱戦の中で討ち死にした。武田の家は滅んだ。だが、それは逃げる途中に裏切られての最期ではなく、戦場での最期だった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "takeda",
+     "n": 8
+    },
+    {
+     "unflag": "h_ks_road"
+    },
+    {
+     "unflag": "h_ks_sanada"
+    },
+    {
+     "unflag": "h_ks_takato"
+    },
+    {
+     "unflag": "h_ks_party"
+    },
+    {
+     "note": "{katsuyori}は甲斐で織田の大軍と戦って討ち死にし、武田家は滅んだ。"
+    }
+   ],
+   "end": "戦場の最期"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ks_sanada"
+     },
+     "next": "iwabitsu"
+    },
+    {
+     "if": {
+      "branch": "ks_faith"
+     },
+     "next": "faith"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の空で噂を聞いた。織田と徳川の軍が甲斐に攻め入り、家臣たちは次々と寝返り、{katsuyori}は天目山で腹を切ったという。",
+    "「信玄公の家が、こうもあっけなく」と、{inn}の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ks_road"
+    },
+    {
+     "unflag": "h_ks_sanada"
+    },
+    {
+     "unflag": "h_ks_takato"
+    },
+    {
+     "unflag": "h_ks_party"
+    },
+    {
+     "note": "甲斐の武田家が滅んだと聞いた。"
+    }
+   ],
+   "end": "遠い天目山"
+  }
+ },
+ "branches": [
+  {
+   "id": "ks_sanada",
+   "event": "koshu",
+   "order": 2,
+   "why": "主人公が勝頼に説き、小山田を頼らず真田の岩櫃へ向かわせた",
+   "when": {
+    "flag": "h_ks_sanada"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_oda}と{n_tokugawa}の軍が甲斐に攻め入り、家臣たちは次々と寝返った。[[p:武田勝頼]]は小山田を頼らずに[[p:真田昌幸]]の岩櫃城へ逃れて生き延びたが、甲斐と信濃は織田のものとなり、名門武田家は国を失った。",
+    "do": [
+     [
+      "annex",
+      "oda",
+      "takeda"
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      12
+     ]
+    ],
+    "imp": 3,
+    "at": "kofu"
+   }
+  },
+  {
+   "id": "ks_faith",
+   "event": "koshu",
+   "order": 1,
+   "why": "高天神の城兵が見捨てられず、武田の家中が勝頼を見限らなかった",
+   "when": {
+    "taken": [
+     "tt_relief"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_oda}と{n_tokugawa}の軍が甲斐に攻め入った。高天神で城兵を見捨てなかった[[p:武田勝頼]]のもとを去る者は少なく、勝頼は甲斐で一月持ちこたえたのち討ち死にした。名門武田家は滅んだ。",
+    "do": [
+     [
+      "dies",
+      "武田勝頼",
+      "battle_wound"
+     ],
+     [
+      "annex",
+      "oda",
+      "takeda"
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      12
+     ],
+     [
+      "army",
+      "oda",
+      0.9
+     ]
+    ],
+    "imp": 3,
+    "at": "kofu"
+   }
+  }
+ ]
+}

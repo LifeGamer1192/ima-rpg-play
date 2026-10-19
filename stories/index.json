@@ -857,6 +857,293 @@
    "title": "古戦場の形見"
   },
   {
+   "id": "sg_r_nanbanji",
+   "file": "sg_r_nanbanji.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "南蛮寺の灯"
+  },
+  {
+   "id": "sg_r_kenchi",
+   "file": "sg_r_kenchi.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "竿入れ"
+  },
+  {
+   "id": "sg_r_rakujo_hime",
+   "file": "sg_r_rakujo_hime.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "落城の姫"
+  },
+  {
+   "id": "sg_r_hitojichi",
+   "file": "sg_r_hitojichi.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "人質屋敷の若君"
+  },
+  {
+   "id": "sg_r_jingari",
+   "file": "sg_r_jingari.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "陣借り"
+  },
+  {
+   "id": "sg_r_fushin",
+   "file": "sg_r_fushin.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "崩れる石垣"
+  },
+  {
+   "id": "sg_r_chakai_doku",
+   "file": "sg_r_chakai_doku.json",
+   "kind": "random",
+   "era": "sengoku",
+   "title": "茶会の毒"
+  },
+  {
+   "id": "sengoku_feat_main",
+   "file": "sengoku_feat_main.json",
+   "kind": "feat",
+   "era": "sengoku",
+   "title": "天命"
+  },
+  {
+   "id": "sengoku_feat_throne_cede",
+   "file": "sengoku_feat_throne_cede.json",
+   "kind": "feat",
+   "era": "sengoku",
+   "title": "家督相続"
+  },
+  {
+   "id": "sengoku_feat_throne_seize",
+   "file": "sengoku_feat_throne_seize.json",
+   "kind": "feat",
+   "era": "sengoku",
+   "title": "下剋上"
+  },
+  {
+   "id": "sengoku_feat_throne_invite",
+   "file": "sengoku_feat_throne_invite.json",
+   "kind": "feat",
+   "era": "sengoku",
+   "title": "養子入り"
+  },
+  {
+   "id": "sengoku_feat_trade",
+   "file": "sengoku_feat_trade.json",
+   "kind": "feat",
+   "era": "sengoku",
+   "title": "天下の豪商"
+  },
+  {
+   "id": "sengoku_feat_bandit",
+   "file": "sengoku_feat_bandit.json",
+   "kind": "feat",
+   "era": "sengoku",
+   "title": "天下の大盗"
+  },
+  {
+   "id": "sengoku_feat_study",
+   "file": "sengoku_feat_study.json",
+   "kind": "feat",
+   "era": "sengoku",
+   "title": "御前の一座"
+  },
+  {
+   "id": "sengoku_feat_sword",
+   "file": "sengoku_feat_sword.json",
+   "kind": "feat",
+   "era": "sengoku",
+   "title": "剣の頂"
+  },
+  {
+   "id": "sg_h_nagashino",
+   "file": "sg_h_nagashino.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "設楽原の柵"
+  },
+  {
+   "id": "sg_h_azuchi",
+   "file": "sg_h_azuchi.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "安土の石"
+  },
+  {
+   "id": "sg_h_kizugawa1",
+   "file": "sg_h_kizugawa1.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "焙烙の海"
+  },
+  {
+   "id": "sg_h_tedorigawa",
+   "file": "sg_h_tedorigawa.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "七尾の門"
+  },
+  {
+   "id": "sg_h_shigisan",
+   "file": "sg_h_shigisan.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "平蜘蛛"
+  },
+  {
+   "id": "sg_h_kenshin_dies",
+   "file": "sg_h_kenshin_dies.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "春日山の雪解け"
+  },
+  {
+   "id": "sg_h_arioka",
+   "file": "sg_h_arioka.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "有岡の土牢"
+  },
+  {
+   "id": "sg_h_mimikawa",
+   "file": "sg_h_mimikawa.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "耳川の戦い"
+  },
+  {
+   "id": "sg_h_miki_end",
+   "file": "sg_h_miki_end.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "三木の干殺し"
+  },
+  {
+   "id": "sg_h_ishiyama_end",
+   "file": "sg_h_ishiyama_end.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "石山退去"
+  },
+  {
+   "id": "sg_h_takatenjin",
+   "file": "sg_h_takatenjin.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "高天神の後詰め"
+  },
+  {
+   "id": "sg_h_iga_end",
+   "file": "sg_h_iga_end.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "天正伊賀の乱"
+  },
+  {
+   "id": "sg_h_koshu",
+   "file": "sg_h_koshu.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "甲州征伐"
+  },
+  {
+   "id": "sg_h_takamatsu",
+   "file": "sg_h_takamatsu.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "水に浮かぶ城"
+  },
+  {
+   "id": "sg_h_honnoji",
+   "file": "sg_h_honnoji.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "敵は本能寺にあり"
+  },
+  {
+   "id": "sg_h_yamazaki",
+   "file": "sg_h_yamazaki.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "天王山"
+  },
+  {
+   "id": "sg_h_shizugatake",
+   "file": "sg_h_shizugatake.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "賤ヶ岳の七本槍"
+  },
+  {
+   "id": "sg_h_komaki",
+   "file": "sg_h_komaki.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "長久手の朝霧"
+  },
+  {
+   "id": "sg_h_okitanawate",
+   "file": "sg_h_okitanawate.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "沖田畷の泥"
+  },
+  {
+   "id": "sg_h_iwaya",
+   "file": "sg_h_iwaya.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "岩屋の七百"
+  },
+  {
+   "id": "sg_h_kyushu",
+   "file": "sg_h_kyushu.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "泰平寺の剃髪"
+  },
+  {
+   "id": "sg_h_suriagehara",
+   "file": "sg_h_suriagehara.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "摺上原の風"
+  },
+  {
+   "id": "sg_h_odawara",
+   "file": "sg_h_odawara.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "小田原評定"
+  },
+  {
+   "id": "sg_h_rikyu",
+   "file": "sg_h_rikyu.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "一畳半の客"
+  },
+  {
+   "id": "sg_h_sekigahara",
+   "file": "sg_h_sekigahara.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "松尾山の旗"
+  },
+  {
+   "id": "sg_h_osaka_summer",
+   "file": "sg_h_osaka_summer.json",
+   "kind": "history",
+   "era": "sengoku",
+   "title": "真田の赤備え"
+  },
+  {
    "id": "job_office_bandits",
    "file": "job_office_bandits.json",
    "kind": "job",

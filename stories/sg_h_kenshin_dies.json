@@ -1,0 +1,799 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_kenshin_dies",
+ "kind": "history",
+ "title": "春日山の雪解け",
+ "era": "sengoku",
+ "event": "kenshin_dies",
+ "lead": 6,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s3",
+  "s3ok",
+  "s3ng",
+  "s4",
+  "s4silver",
+  "s5",
+  "s5heir",
+  "s5ng",
+  "s5split",
+  "s5split_ng",
+  "s6"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "kasugayama"
+  },
+  "ueda": {
+   "scnPlace": "sakado"
+  },
+  "uesugi": {
+   "scnRealm": "uesugi"
+  },
+  "hojo": {
+   "scnRealm": "hojo"
+  },
+  "kenshin": {
+   "person": "ruler:uesugi"
+  },
+  "kosai": {
+   "npc": "春日山の医師",
+   "sex": "m"
+  },
+  "higuchi": {
+   "npc": "上田衆の若侍",
+   "sex": "m"
+  },
+  "envoy": {
+   "npc": "北条の使い",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の旅籠で越後の陣触れの噂を聞く",
+   "speaker": "kosai",
+   "art": "inn",
+   "text": [
+    "雪に埋もれた{city}の城下に、越後じゅうから兵が集まりはじめていた。春になれば、{kenshin}は国じゅうの兵を挙げて出陣する。関東か、それとも上方の織田か。行き先は誰も知らない。",
+    "旅籠の炉端で、城に出入りする{kosai}が酒を断っていた。「殿は、わしの酒まで飲んでしまわれる。梅干しを肴に、朝から晩までな。顔の赤みが、近ごろは紫に近い」",
+    "「薬の心得のある者が欲しい。殿のお側で、わしの代わりに薬湯を運んでくれぬか。殿は、医者の顔を見るとご機嫌が悪くなるのだ」"
+   ],
+   "choices": [
+    {
+     "label": "薬湯運びを引き受ける",
+     "effects": [
+      {
+       "note": "春日山の医師{kosai}に頼まれ、{kenshin}の薬湯運びを引き受けた。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「酒を減らす薬はないのか」と尋ねてから引き受ける",
+     "effects": [
+      {
+       "note": "春日山の医師{kosai}に頼まれ、{kenshin}の薬湯運びを引き受けた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "shrine"
+   },
+   "goal": "{city}の城の毘沙門堂へ薬湯を運ぶ",
+   "speaker": "kenshin",
+   "art": "faith",
+   "text": [
+    "城の奥の毘沙門堂で、{kenshin}は一人、経を読んでいた。四十九の、背の低い男だった。薬湯を置くと、殿は{player}を見もせずに言った。「医者の使いか。毘沙門天は、薬など飲まぬ」",
+    "そう言いながら、殿は薬湯を一息に飲み干し、すぐに瓢箪の酒をあおった。左の手が、ときどき小さく震えていた。"
+   ],
+   "choices": [
+    {
+     "label": "手の震えと顔色を、さりげなく診る",
+     "check": {
+      "skill": "medicine",
+      "dc": 26,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "黙って堂を下がる",
+     "next": "s2ng"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "kosai",
+   "text": [
+    "{player}は{kosai}に告げた。左の手の震え、時折もつれる言葉、首の脈の強さ。{kosai}は青ざめた。「中風の兆しだ。厠でいきんだだけで倒れることもある。……だが殿は、隠居も養生もなさるまい。跡継ぎも決めておられぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ks_sick"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "note": "{kenshin}に中風の兆しがあることに気づいた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "殿の顔色は赤く、声は大きかった。病の影は見えなかった。少なくとも、{player}の目には。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "ueda",
+    "building": "barracks"
+   },
+   "goal": "{ueda}の番所で上田衆を訪ねる",
+   "speaker": "higuchi",
+   "art": "camp",
+   "text": [
+    "殿には実の子がいない。養子が二人。一人は姉の子で、{ueda}の上田長尾の家から来た景勝。もう一人は相模の北条から人質として来て、殿の若い頃の名をもらった景虎である。",
+    "{ueda}の番所で、上田衆の{higuchi}が{player}を迎えた。まだ二十にもならぬ、目の鋭い若者だった。「春日山の様子はどうだ。殿のお体は。景勝様は口に出されぬが、案じておられる」"
+   ],
+   "choices": [
+    {
+     "label": "殿のお体のことを打ち明ける",
+     "if": {
+      "flag": "h_ks_sick"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s3ok",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "「殿はお元気です」とだけ答える",
+     "next": "s3ng"
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "higuchi",
+   "text": [
+    "{higuchi}は長いあいだ黙っていた。「もし殿に何かあれば、春日山の本丸と金蔵を先に押さえた者が勝つ。景虎様には北条がついている。だが、北条の兵は越後まで遠い」",
+    "「殿が、景勝様を跡継ぎと一筆書いてくださればよいのだ。そうすれば、血は流れずに済む」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ks_ueda"
+    },
+    {
+     "note": "上田衆の{higuchi}と、殿の跡継ぎのことを話した。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ng": {
+   "speaker": "higuchi",
+   "text": [
+    "「そうか」{higuchi}はそれ以上何も聞かなかった。だが、番所を出るとき、その目がずっと{player}の背中を追っていた。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の旅籠に戻る",
+   "speaker": "envoy",
+   "art": "backroom",
+   "text": [
+    "旅籠に戻ると、相模の訛りの男が{player}を待っていた。{envoy}と名乗った。景虎様の実家、北条の使いだという。",
+    "男は銀の小粒を卓に並べた。「殿のお側に上がっておられるそうな。殿の御容体、それに上田衆の動き、何でもよい。知らせてくだされば、この倍を」"
+   ],
+   "choices": [
+    {
+     "label": "断る",
+     "next": "s5"
+    },
+    {
+     "label": "銀を受け取る",
+     "effects": [
+      {
+       "flag": "h_ks_silver"
+      },
+      {
+       "money": 150
+      },
+      {
+       "rep": "hojo",
+       "n": 5
+      }
+     ],
+     "next": "s4silver"
+    }
+   ]
+  },
+  "s4silver": {
+   "speaker": "envoy",
+   "text": [
+    "{envoy}は満足げに頷いた。「殿にもしものことがあれば、上田衆より先に、景虎様の御館に報せてくだされ。それだけで、越後の半分は景虎様のものになる」"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の城で、出陣を前にした殿に薬湯を運ぶ",
+   "speaker": "kenshin",
+   "art": "court",
+   "text": [
+    "雪解けが近づき、城の広間には出陣の支度が整いつつあった。{kenshin}は上機嫌で、酒をあおりながら絵図を見ていた。「この春は、関東を平らげる。それから上方だ。信長めに、越後の雪の冷たさを教えてやる」",
+    "殿の盃を持つ手が、また震えた。誰も、それに気づかぬふりをしていた。"
+   ],
+   "choices": [
+    {
+     "label": "薬湯を置いて、黙って下がる",
+     "next": "s6"
+    },
+    {
+     "label": "「出陣の前に、跡を継ぐ御方を書き置かれませ」と申し上げる",
+     "if": {
+      "flag": "h_ks_sick"
+     },
+     "turn": true,
+     "guide": "家督が決まれば、越後は割れない",
+     "check": {
+      "skill": "speech",
+      "dc": 37,
+      "win": "s5heir",
+      "lose": "s5ng"
+     }
+    },
+    {
+     "label": "北条の使いに、上田衆の動きを大げさに告げる",
+     "if": {
+      "flag": "h_ks_silver"
+     },
+     "turn": true,
+     "guide": "二人の養子を争わせる。越後は深く割れる",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s5split",
+      "lose": "s5split_ng"
+     }
+    }
+   ]
+  },
+  "s5heir": {
+   "speaker": "kenshin",
+   "art": "court",
+   "text": [
+    "広間が静まり返った。{kenshin}は盃を置き、{player}を睨んだ。「わしが死ぬとでも言うのか」",
+    "{player}は退かなかった。手の震え、もつれる言葉、首の脈。中風の兆しを、一つずつ申し上げた。「殿は毘沙門天の化身でも、お体は人のものでございます。出陣の先で倒れられれば、越後は二つに割れます」",
+    "殿は長いあいだ、自分の手を見ていた。やがて、祐筆を呼んだ。「景勝を跡とする。景虎には相応の所領を与えよ。……これで文句はあるまい、薬湯運び」"
+   ],
+   "effects": [
+    {
+     "flag": "h_ks_heir"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "uesugi",
+     "n": 15
+    },
+    {
+     "note": "{kenshin}に中風の兆しを申し上げ、景勝を跡継ぎと書き置かせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5ng": {
+   "speaker": "kenshin",
+   "text": [
+    "「下がれ。毘沙門天の前で、死の話をするな」{kenshin}は盃を投げた。盃は{player}の額に当たって割れた。誰も、それ以上は何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    }
+   ],
+   "next": "s6"
+  },
+  "s5split": {
+   "speaker": "envoy",
+   "art": "backroom",
+   "text": [
+    "{player}は{envoy}に告げた。上田衆が兵を集め、殿の死を待って本丸を奪う支度をしている、と。半ばは本当で、半ばは作り話だった。",
+    "男の顔色が変わった。その夜のうちに、景虎様の屋敷には北条の銀が運び込まれ、越後の国衆の屋敷を使いが走り回った。どちらにつくか。春日山の城下には、雪解けより先に、刃の匂いが満ちた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_ks_split"
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "hojo",
+     "n": 10
+    },
+    {
+     "rep": "uesugi",
+     "n": -15
+    },
+    {
+     "note": "北条の使いを煽り、二人の養子の争いの火種を大きくした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5split_ng": {
+   "speaker": "envoy",
+   "text": [
+    "{envoy}は鼻で笑った。「上田衆がそこまで動けるものか。お主の話は、銀の値打ちもない」使いは銀の袋を引き上げて去った。"
+   ],
+   "next": "s6"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で出陣の日を待つ",
+   "wait": {
+    "days": 6
+   },
+   "speaker": "kosai",
+   "art": "camp",
+   "text": [
+    "雪が融けはじめ、城下の道は泥になった。出陣は十日後と触れが出た。{kosai}は毎晩、殿の寝所の灯が消えるまで眠らなかった。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で殿の行く末を見届ける",
+   "wait": {
+    "settled": "kenshin_dies"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ks_heir"
+     },
+     "next": "heir"
+    },
+    {
+     "if": {
+      "branch": "ks_split"
+     },
+     "next": "split"
+    },
+    {
+     "next": "s7"
+    }
+   ]
+  },
+  "heir": {
+   "speaker": "higuchi",
+   "art": "court",
+   "text": [
+    "出陣の六日前、殿は厠で倒れ、四日後に息を引き取った。だが城の広間には、殿の花押の据わった書き置きがあった。景勝を跡とする、と。",
+    "景虎様は御館に退いて黙り、北条の使いは相模へ帰った。国衆は皆、春日山に頭を下げに来た。{higuchi}は{player}の手を取った。「血を流さずに済んだ。殿が最後に下された、一番の勝ち戦だ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ks_heir"
+    },
+    {
+     "unflag": "h_ks_split"
+    },
+    {
+     "unflag": "h_ks_sick"
+    },
+    {
+     "unflag": "h_ks_ueda"
+    },
+    {
+     "unflag": "h_ks_silver"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "uesugi",
+     "n": 10
+    },
+    {
+     "note": "{kenshin}は世を去ったが、書き置きによって景勝が家督を継ぎ、越後は割れなかった。"
+    }
+   ],
+   "end": "書き置き"
+  },
+  "split": {
+   "speaker": "envoy",
+   "art": "war",
+   "text": [
+    "殿は厠で倒れ、言葉もないまま世を去った。その日のうちに、春日山の本丸を景勝が、城下の御館を景虎が押さえ、国衆は二つに割れて刃を交えた。北条の銀を受けた者たちが景虎の側に走り、越後の村々が焼けた。",
+    "{envoy}は{player}に約束の銀を払った。「越後は当分、外へ兵を出せまい。北条にとっては何よりの土産よ」。その銀で買えるものが、焼けた越後にはもう何もなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ks_heir"
+    },
+    {
+     "unflag": "h_ks_split"
+    },
+    {
+     "unflag": "h_ks_sick"
+    },
+    {
+     "unflag": "h_ks_ueda"
+    },
+    {
+     "unflag": "h_ks_silver"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": -3
+    },
+    {
+     "hunted": 20
+    },
+    {
+     "note": "{kenshin}の死の後、二人の養子の争いは越後を深く引き裂いた。"
+    }
+   ],
+   "end": "北条の銀"
+  },
+  "s7": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で殿の行く末を見届ける",
+   "wait": {
+    "fired": "kenshin_dies"
+   },
+   "speaker": "kosai",
+   "art": "disaster",
+   "text": [
+    "出陣の六日前、殿は厠で倒れた。{kosai}が駆けつけたときには、もう口がきけなかった。四日後、{kenshin}は世を去った。辞世は「四十九年一睡の夢」と伝えられた。跡継ぎの名は、誰も聞いていない。",
+    "その夜、上田衆が本丸と金蔵を押さえた。景虎様は城下の御館に入り、北条に援けを求めた。御館の乱が始まった。"
+   ],
+   "choices": [
+    {
+     "label": "上田衆と共に、本丸の金蔵を守る",
+     "if": {
+      "flag": "h_ks_ueda"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_honmaru",
+      "lose": "end_snow"
+     }
+    },
+    {
+     "label": "城下の焼け出された者たちの手当てをする",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "end_heal",
+      "lose": "end_snow"
+     }
+    },
+    {
+     "label": "北条の使いに、殿の死を誰より早く知らせる",
+     "if": {
+      "flag": "h_ks_silver"
+     },
+     "next": "end_silver"
+    },
+    {
+     "label": "越後を去る",
+     "next": "end_leave"
+    }
+   ]
+  },
+  "end_honmaru": {
+   "speaker": "higuchi",
+   "text": [
+    "御館の兵が本丸へ押し寄せた夜、{player}は金蔵の門の前で槍を振るった。夜が明けたとき、金蔵の錠は上田衆の手にあった。",
+    "{higuchi}が煤けた顔で言った。「金を握った者が国衆を握る。景勝様は、お主の名を覚えておられる」。この若者が、のちに直江の家を継いで兼続と名乗ることになる。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ks_heir"
+    },
+    {
+     "unflag": "h_ks_split"
+    },
+    {
+     "unflag": "h_ks_sick"
+    },
+    {
+     "unflag": "h_ks_ueda"
+    },
+    {
+     "unflag": "h_ks_silver"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "uesugi",
+     "n": 12
+    },
+    {
+     "note": "{kenshin}の死の後、上田衆と共に春日山の金蔵を守った。"
+    }
+   ],
+   "end": "本丸の金蔵"
+  },
+  "end_heal": {
+   "text": [
+    "御館の周りの町屋が焼かれ、逃げ惑う町の者が城下の寺に溢れた。{player}は{kosai}と二人で、火傷と刀傷の手当てに追われた。殿を救えなかった医者は、黙って傷を縫い続けた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ks_heir"
+    },
+    {
+     "unflag": "h_ks_split"
+    },
+    {
+     "unflag": "h_ks_sick"
+    },
+    {
+     "unflag": "h_ks_ueda"
+    },
+    {
+     "unflag": "h_ks_silver"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "note": "{kenshin}の死の後、御館の乱で焼け出された者たちの手当てをした。"
+    }
+   ],
+   "end": "焼け出された城下"
+  },
+  "end_silver": {
+   "speaker": "envoy",
+   "text": [
+    "{player}は雪解けの道を走り、誰より早く{envoy}に殿の死を告げた。男は銀の袋を投げてよこした。「これで景虎様は先手を打てる」。だが本丸は、もう上田衆に押さえられていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ks_heir"
+    },
+    {
+     "unflag": "h_ks_split"
+    },
+    {
+     "unflag": "h_ks_sick"
+    },
+    {
+     "unflag": "h_ks_ueda"
+    },
+    {
+     "unflag": "h_ks_silver"
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "hojo",
+     "n": 10
+    },
+    {
+     "rep": "uesugi",
+     "n": -10
+    },
+    {
+     "note": "{kenshin}の死を北条の使いに知らせ、銀を受け取った。"
+    }
+   ],
+   "end": "早馬の銀"
+  },
+  "end_leave": {
+   "text": [
+    "{player}は雪の残る峠を越えて、越後を出た。振り返ると、春日山の方角に煙が上がっていた。毘沙門天の旗を掲げた軍は、もう二度と関東へも上方へも出てこないだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ks_heir"
+    },
+    {
+     "unflag": "h_ks_split"
+    },
+    {
+     "unflag": "h_ks_sick"
+    },
+    {
+     "unflag": "h_ks_ueda"
+    },
+    {
+     "unflag": "h_ks_silver"
+    },
+    {
+     "note": "{kenshin}の死と、御館の乱の始まりを見届けた。"
+    }
+   ],
+   "end": "一睡の夢"
+  },
+  "end_snow": {
+   "text": [
+    "乱戦の中で、{player}も傷を負った。泥と雪の混じった道に倒れ、気がつくと寺の板の間に寝かされていた。外では、まだ鬨の声が続いていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ks_heir"
+    },
+    {
+     "unflag": "h_ks_split"
+    },
+    {
+     "unflag": "h_ks_sick"
+    },
+    {
+     "unflag": "h_ks_ueda"
+    },
+    {
+     "unflag": "h_ks_silver"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "note": "{kenshin}の死の後、御館の乱に巻き込まれた。"
+    }
+   ],
+   "end": "泥の雪"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "ks_heir"
+     },
+     "next": "heir"
+    },
+    {
+     "if": {
+      "branch": "ks_split"
+     },
+     "next": "split"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。越後の{kenshin}が春日山の城で急に世を去り、跡を決めていなかったため、二人の養子が家督を争っているという。",
+    "「軍神も、厠の中では人だったか」と、旅籠の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_ks_heir"
+    },
+    {
+     "unflag": "h_ks_split"
+    },
+    {
+     "unflag": "h_ks_sick"
+    },
+    {
+     "unflag": "h_ks_ueda"
+    },
+    {
+     "unflag": "h_ks_silver"
+    },
+    {
+     "note": "{kenshin}が世を去ったと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "ks_heir",
+   "event": "kenshin_dies",
+   "order": 2,
+   "why": "主人公が謙信に跡継ぎを書き置かせた",
+   "when": {
+    "flag": "h_ks_heir"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:上杉謙信]]は春日山城で急死した。病の兆しを知って景勝を跡継ぎと書き置いていたため、景虎も国衆もそれに従い、家督の争いは起きなかった。",
+    "do": [
+     [
+      "add",
+      "uesugi",
+      "stability",
+      -0.08
+     ]
+    ],
+    "imp": 3
+   }
+  },
+  {
+   "id": "ks_split",
+   "event": "kenshin_dies",
+   "order": 1,
+   "why": "主人公が北条の使いを煽って争いを広げた",
+   "when": {
+    "flag": "h_ks_split"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:上杉謙信]]は春日山城で急死した。景勝と景虎の争いには前から北条の銀が流れ込んでおり、御館の乱は越後の国衆を二つに裂いて長く続いた。",
+    "do": [
+     [
+      "add",
+      "uesugi",
+      "stability",
+      -0.45
+     ],
+     [
+      "add",
+      "uesugi",
+      "prestige",
+      -10
+     ],
+     [
+      "army",
+      "uesugi",
+      0.85
+     ]
+    ],
+    "imp": 3
+   }
+  }
+ ]
+}

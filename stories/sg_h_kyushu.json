@@ -1,0 +1,714 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_kyushu",
+ "kind": "history",
+ "title": "泰平寺の剃髪",
+ "era": "sengoku",
+ "event": "kyushu",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s2raid",
+  "s2raid_ng",
+  "s3",
+  "s3pact",
+  "s3pact_ng",
+  "s3sell",
+  "s4",
+  "s4terms",
+  "s4terms_ng",
+  "s4hold",
+  "s4hold_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "kagoshima"
+  },
+  "camp": {
+   "scnPlace": "yatsushiro"
+  },
+  "front": {
+   "place": "near:city"
+  },
+  "shimazu": {
+   "scnRealm": "shimazu"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "lord": {
+   "person": "ruler:shimazu"
+  },
+  "kanpaku": {
+   "person": "ruler:oda"
+  },
+  "yoshihiro": {
+   "scnPerson": "島津義弘"
+  },
+  "kanbei": {
+   "scnPerson": "黒田官兵衛"
+  },
+  "hidenaga": {
+   "scnPerson": "羽柴秀長"
+  },
+  "samurai": {
+   "npc": "島津の侍",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "inn"
+   },
+   "goal": "{city}の旅籠で、島津の侍の話を聞く",
+   "speaker": "samurai",
+   "art": "inn",
+   "text": [
+    "桜島の灰が、旅籠の軒先にうっすらと積もっていた。土間の隅で焼酎をあおっていた日焼けした侍が、{player}を手招きした。{shimazu}の家中、{samurai}と名乗った。",
+    "「豊後の大友は戸次川でさんざんに打ち破った。九州はもう半ば島津のものよ。ところが大友めは大坂へ泣きつき、関白{kanpaku}が二十万の兵で下ってくるという。二十万だぞ。九州じゅうの男を集めても足りぬ数だ」",
+    "「{yoshihiro}様が、日向口で目の利く者を探しておられる。よそ者でも構わぬ、と仰せだ。来るか」"
+   ],
+   "choices": [
+    {
+     "label": "日向口の陣へ向かう",
+     "effects": [
+      {
+       "note": "{samurai}に誘われ、関白の大軍を迎える{yoshihiro}の陣に加わることになった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "front",
+    "building": "barracks"
+   },
+   "goal": "{front}の陣で{yoshihiro}に会う",
+   "speaker": "yoshihiro",
+   "art": "camp",
+   "text": [
+    "陣の幕の内で、{yoshihiro}は鎧の上に陣羽織を引っかけたまま、絵図を睨んでいた。五十を過ぎてなお、肩の厚さは若い足軽に劣らない。",
+    "「日向へは関白の弟、{hidenaga}の軍が入った。根白坂に砦を築き、こちらの道をふさいでおる。数は向こうが五倍。だが砦はまだ柵が一重だ。夜に衝けば崩せるかもしれぬ」",
+    "「その前に、砦の見張りがどこで手を抜いているか知りたい。行ってくれるか」"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れて根白坂の砦を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "砦に薪を売る百姓に銭をやって話を聞く（300）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "s2ok"
+    }
+   ]
+  },
+  "s2ng": {
+   "text": [
+    "柵に近づいたところで、鉄砲の火縄の匂いがした。見張りの足軽が三人、槍を構えて藪から飛び出してくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s3"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "yoshihiro",
+   "text": [
+    "砦の北の谷筋は、柵が途切れたまま、見張りは日暮れに一度回るきりだった。{player}の話を聞くと、{yoshihiro}は膝を打った。",
+    "「今夜だ。北の谷から斬り込む。先頭に立つ者が要る」"
+   ],
+   "effects": [
+    {
+     "flag": "h_kyu_seen"
+    },
+    {
+     "note": "根白坂の砦の北の谷筋が手薄なのを見つけた。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "先頭に立ち、北の谷から砦へ斬り込む",
+     "turn": true,
+     "guide": "五倍の敵の砦へ斬り込む。勝てば戦が長引く",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 0,
+      "win": "s2raid",
+      "lose": "s2raid_ng"
+     }
+    },
+    {
+     "label": "後ろに付き、退き口を固める",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2raid": {
+   "speaker": "yoshihiro",
+   "art": "war",
+   "text": [
+    "谷を這い上がり、柵を引き倒して砦の中へ躍り込んだ。寝込みを衝かれた上方の足軽は、鉄砲に火をつける間もなく逃げ散った。夜明け、根白坂の砦には丸に十の字の旗が翻っていた。",
+    "{yoshihiro}は血の付いた槍を地に突いて笑った。「関白の兵も、夜は人の子よ。これなら山に籠もって一年は戦える」"
+   ],
+   "effects": [
+    {
+     "flag": "h_kyu_raid"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "shimazu",
+     "n": 15
+    },
+    {
+     "rep": "oda",
+     "n": -10
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "根白坂の夜討ちで、関白方の砦を奪った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2raid_ng": {
+   "text": [
+    "砦の中で、待ち構えていた鉄砲が一斉に火を噴いた。夜討ちは読まれていた。{player}は肩を撃ち抜かれ、仲間に引きずられて谷を下った。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の関白の陣へ、使いの供として行く",
+   "speaker": "kanbei",
+   "art": "court",
+   "text": [
+    "肥後の{camp}には、見たこともない数の旗が立ち並んでいた。陣屋の前では上方の商人が米と塩を山と積み、足軽たちは九州の田舎侍を笑い話の種にしている。",
+    "和議の下話の使いの供として陣屋に通されると、杖をついた男が待っていた。関白の軍師、{kanbei}である。足を引きずりながら、目だけがよく動いた。",
+    "「島津殿は戦が上手い。だが戦が上手い家ほど、引き際を誤る。関白様は、早く降れば薩摩と大隅は残してよいと仰せだ。遅れれば、何も残らぬ」"
+   ],
+   "choices": [
+    {
+     "label": "黙って口上を聞き、{city}へ持ち帰る",
+     "next": "s4"
+    },
+    {
+     "label": "「日向の半ばも残すと、書状に一筆いただきたい」と掛け合う",
+     "turn": true,
+     "guide": "軍師から約定を取る。島津に早く降らせる道",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s3pact",
+      "lose": "s3pact_ng"
+     }
+    },
+    {
+     "label": "島津の陣の様子を{kanbei}に売る",
+     "next": "s3sell"
+    }
+   ]
+  },
+  "s3pact": {
+   "speaker": "kanbei",
+   "text": [
+    "{kanbei}は筆を取り、しばらく{player}の顔を見てから書きつけた。「薩摩・大隅、日向の諸県郡。降るなら、この官兵衛が関白様に取り次ぐ」",
+    "「ただし月が替わるまでだ。大軍は待つのが嫌いでな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_kyu_pact"
+    },
+    {
+     "note": "{kanbei}から、早く降れば島津の国を残すという約定の書状を得た。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3pact_ng": {
+   "speaker": "kanbei",
+   "text": [
+    "「供の者が口を出すことではない」{kanbei}は穏やかに笑い、書状は使いの侍の手にだけ渡された。"
+   ],
+   "next": "s4"
+  },
+  "s3sell": {
+   "speaker": "kanbei",
+   "text": [
+    "{player}は日向口の陣の数と、兵糧の運び道を語った。{kanbei}は聞き終えると、銭の袋を一つ置いた。「よい耳だ。戦が終わったら、また使ってやろう」"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "rep": "shimazu",
+     "n": -15
+    },
+    {
+     "note": "島津の陣の様子を{kanbei}に売った。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の城で、島津家の評定を見届ける",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "{city}の城の広間では、評定が三日続いていた。「降るなど島津の恥」と床を叩く者がいれば、「肥後も筑後も、もう関白の手に落ちた」と首を振る者もいる。",
+    "上座の{lord}は、ほとんど口をきかなかった。ただ一度、{player}の方へ目を向けて言った。「外から来た者の目には、この評定はどう見える」"
+   ],
+   "choices": [
+    {
+     "label": "「お家の決めることにございます」と頭を下げる",
+     "next": "aftergo"
+    },
+    {
+     "label": "{kanbei}の書状を示し、月の替わる前に降るよう説く",
+     "turn": true,
+     "if": {
+      "flag": "h_kyu_pact"
+     },
+     "guide": "早く降れば国が多く残る",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s4terms",
+      "lose": "s4terms_ng"
+     }
+    },
+    {
+     "label": "「根白坂の勝ちを見よ。山に籠もれば一年は戦える」と説く",
+     "turn": true,
+     "if": {
+      "flag": "h_kyu_raid"
+     },
+     "guide": "戦を長引かせる。降る日は遅れる",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s4hold",
+      "lose": "s4hold_ng"
+     }
+    }
+   ]
+  },
+  "s4terms": {
+   "speaker": "lord",
+   "text": [
+    "{lord}は書状を二度読み、目を閉じた。「戦は勝つためにする。勝てぬ戦を続けるのは、家ではなく意地を守るだけのことだ」",
+    "「関白の陣へ使いを出せ。月の替わる前にな」{yoshihiro}が何か言いかけたが、兄の顔を見て口をつぐんだ。"
+   ],
+   "effects": [
+    {
+     "flag": "h_kyu_terms"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "shimazu",
+     "n": 5
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "note": "{lord}に、早く降って国を残すよう説いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4terms_ng": {
+   "speaker": "samurai",
+   "text": [
+    "「上方の書状一枚で、島津の土地が守れるものか」若い侍たちが声を上げ、評定はまた振り出しに戻った。"
+   ],
+   "next": "aftergo"
+  },
+  "s4hold": {
+   "speaker": "yoshihiro",
+   "text": [
+    "{yoshihiro}が立ち上がった。「この者の言うとおりだ。関白の兵は二十万でも、薩摩の山は一つも動かぬ。米が尽きるのは向こうが先よ」",
+    "{lord}は長いあいだ黙っていたが、やがて頷いた。「ならば、やってみよ。ただし、領民を飢えさせるな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_kyu_holdout"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "shimazu",
+     "n": 10
+    },
+    {
+     "rep": "oda",
+     "n": -15
+    },
+    {
+     "note": "{lord}に、山に籠もって戦い続けるよう説いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4hold_ng": {
+   "speaker": "lord",
+   "text": [
+    "「一つの砦の勝ちで、二十万が引くものか」{lord}は静かに言い、それ以上は取り合わなかった。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、島津家の行く末を見届ける",
+   "wait": {
+    "settled": "kyushu"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "kyushu_terms"
+     },
+     "next": "terms"
+    },
+    {
+     "if": {
+      "branch": "kyushu_holdout"
+     },
+     "next": "holdout"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "terms": {
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "関白の軍が川内に入るより先に、島津の使いが{camp}の陣に着いた。{lord}は髪を下ろして関白の前に出たが、{kanbei}の書状どおり、薩摩・大隅に加えて日向の一郡が島津に残された。",
+    "城下では、戦わずに降ったことを恥じる声もあった。だが、焼かれずに済んだ村の者たちは、何も言わずに田に水を引いていた。{lord}は{player}を呼び、短く言った。「礼は言わぬ。言えば、家中が割れる」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 5
+    },
+    {
+     "money": 300
+    },
+    {
+     "unflag": "h_kyu_terms"
+    },
+    {
+     "unflag": "h_kyu_pact"
+    },
+    {
+     "unflag": "h_kyu_seen"
+    },
+    {
+     "note": "島津は早く降り、国を多く残した。"
+    }
+   ],
+   "end": "焼かれなかった村"
+  },
+  "holdout": {
+   "speaker": "yoshihiro",
+   "art": "war",
+   "text": [
+    "島津は山に籠もった。関白の軍は村を焼き、川を塞いだが、谷ごとに伏せた兵に悩まされ、一年のあいだ薩摩の奥へは入れなかった。だが翌年の夏、兵糧の尽きた島津はついに降った。{lord}は髪を下ろし、九州は関白の手で分け直された。",
+    "{yoshihiro}は降参の使いが発つのを見送り、{player}に言った。「一年、天下を相手にした。島津の兵の強さは、上方の者どもの骨に刻まれたろう。いずれ、役に立つ」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "shimazu",
+     "n": 10
+    },
+    {
+     "unflag": "h_kyu_holdout"
+    },
+    {
+     "unflag": "h_kyu_raid"
+    },
+    {
+     "unflag": "h_kyu_seen"
+    },
+    {
+     "note": "島津は一年山に籠もって戦い、のちに降った。"
+    }
+   ],
+   "end": "一年の山籠もり"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、島津家の行く末を見届ける",
+   "wait": {
+    "fired": "kyushu"
+   },
+   "speaker": "samurai",
+   "art": "tale",
+   "text": [
+    "川内の泰平寺で、{lord}は髪を剃り、墨染めの衣で関白の前に平伏したという。九州の国々は関白の手で分け直され、島津には薩摩と大隅だけが残った。",
+    "{samurai}は旅籠の土間で、焼酎の碗を握りしめていた。「大殿は家を残された。それは分かっておる。分かっておるが……」その先は言葉にならなかった。"
+   ],
+   "choices": [
+    {
+     "label": "{samurai}と夜通し飲む",
+     "next": "end_drink"
+    },
+    {
+     "label": "関白の陣で{kanbei}に仕官の口を探す",
+     "next": "end_kanbei"
+    },
+    {
+     "label": "何も言わずに{city}を発つ",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_drink": {
+   "text": [
+    "二人で甕を一つ空けた。明け方、{samurai}は酔いつぶれたまま「島津は滅びぬ」と繰り返していた。桜島が、いつものように灰を降らせていた。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "rep": "shimazu",
+     "n": 5
+    },
+    {
+     "unflag": "h_kyu_seen"
+    },
+    {
+     "unflag": "h_kyu_raid"
+    },
+    {
+     "unflag": "h_kyu_pact"
+    },
+    {
+     "note": "島津は関白に降った。家中の侍と夜通し飲んだ。"
+    }
+   ],
+   "end": "灰の降る朝"
+  },
+  "end_kanbei": {
+   "speaker": "kanbei",
+   "text": [
+    "{kanbei}は{player}を覚えていた。「九州の道と人を知る者は、これから要る。太閤検地の縄を引くにも、一揆を鎮めるにもな」",
+    "{player}の懐に、上方の銀がずしりと入った。島津の者たちの目は冷たかったが、天下はもう、上方の側にあった。"
+   ],
+   "effects": [
+    {
+     "money": 500
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "rep": "shimazu",
+     "n": -5
+    },
+    {
+     "unflag": "h_kyu_seen"
+    },
+    {
+     "unflag": "h_kyu_raid"
+    },
+    {
+     "unflag": "h_kyu_pact"
+    },
+    {
+     "note": "島津は関白に降った。{kanbei}のもとで九州の仕置を手伝った。"
+    }
+   ],
+   "end": "軍師の銀"
+  },
+  "end_left": {
+   "text": [
+    "{player}は{city}を発った。振り返ると、城の上に丸に十の字の旗がまだ揚がっていた。降っても、旗は下ろされなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_kyu_seen"
+    },
+    {
+     "unflag": "h_kyu_raid"
+    },
+    {
+     "unflag": "h_kyu_pact"
+    },
+    {
+     "note": "島津が関白に降るのを見届けた。"
+    }
+   ],
+   "end": "下ろされぬ旗"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "kyushu_terms"
+     },
+     "next": "terms"
+    },
+    {
+     "if": {
+      "branch": "kyushu_holdout"
+     },
+     "next": "holdout"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。薩摩の{lord}が髪を剃って関白{kanpaku}に降り、九州の国々は分け直されたという。",
+    "「九州を半ば取った家が、ひと春で薩摩一国に押し戻された」と、噂の主は首を振った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_kyu_seen"
+    },
+    {
+     "unflag": "h_kyu_raid"
+    },
+    {
+     "unflag": "h_kyu_pact"
+    },
+    {
+     "note": "島津が関白に降ったと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "kyushu_holdout",
+   "event": "kyushu",
+   "order": 2,
+   "why": "主人公が根白坂の夜討ちを成功させ、島津に山籠もりを説いた",
+   "when": {
+    "flag": "h_kyu_holdout"
+   },
+   "then": "delay",
+   "months": 12,
+   "note": "根白坂の夜討ちに勝った{n_shimazu}は薩摩の山に籠もり、{n_oda}の大軍はなお一年、薩摩の奥へ入れなかった。"
+  },
+  {
+   "id": "kyushu_terms",
+   "event": "kyushu",
+   "order": 1,
+   "why": "主人公が黒田官兵衛の約定を持ち帰り、島津に早く降るよう説いた",
+   "when": {
+    "flag": "h_kyu_terms"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "九州平定。{n_oda}の大軍が薩摩に入る前に、{r_shimazu}は使いを出して降った。[[p:黒田官兵衛]]の取り次ぎで、島津には薩摩・大隅に加えて日向の一郡が残された。",
+    "do": [
+     [
+      "vassal",
+      "oda",
+      "shimazu"
+     ],
+     [
+      "cede",
+      "*",
+      "oda",
+      [
+       "hakata",
+       "kumamoto",
+       "kokura"
+      ]
+     ],
+     [
+      "vassal",
+      "oda",
+      "otomo"
+     ],
+     [
+      "add",
+      "shimazu",
+      "stability",
+      0.05
+     ]
+    ],
+    "imp": 3,
+    "at": "kagoshima"
+   }
+  }
+ ]
+}

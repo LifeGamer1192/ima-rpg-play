@@ -1,0 +1,426 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_hitojichi",
+ "kind": "random",
+ "where": "inn",
+ "hook": "人質の若君が、父君の寝返りで磔にされようとしております",
+ "title": "人質屋敷の若君",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "傅役の老臣"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "waka": {
+   "npc": "若君",
+   "sex": "m"
+  },
+  "metsuke": {
+   "npc": "人質屋敷の目付",
+   "sex": "m"
+  },
+  "watashi": {
+   "npc": "渡し守",
+   "sex": "m"
+  },
+  "border": {
+   "place": "border:land"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "backroom",
+   "text": [
+    "旅籠の奥の間で、白髪の侍が畳に手をついた。{client}は、{land}の殿のもとへ人質に出された国衆の若君、{waka}の傅役だという。",
+    "「若君の父上が、隣国に寝返られた。人質の若君は、遠からず磔にされましょう。まだ十一の御子にござる。どうか、屋敷から連れ出してくだされ。{border}の渡しを越えれば、お味方の地です」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "next": "yashiki"
+    },
+    {
+     "label": "寝返りの話を、{palace}に知らせる",
+     "next": "end_informed",
+     "guide": "傅役を売ることになる"
+    }
+   ]
+  },
+  "yashiki": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}の人質屋敷に入り込む",
+   "speaker": "metsuke",
+   "art": "court",
+   "text": [
+    "人質屋敷は城の堀端にあり、板塀の門を足軽が固めていた。目付の{metsuke}が、出入りの者を一人ずつ改めている。",
+    "近ごろ若君は気鬱で床に伏しがちだと、門番が噂していた。"
+   ],
+   "choices": [
+    {
+     "label": "町の薬師を装い、若君の脈を診に来たと申し出る",
+     "check": {
+      "skill": "medicine",
+      "dc": 35,
+      "win": "inside",
+      "lose": "suspect"
+     }
+    },
+    {
+     "label": "夜、裏の板塀を越える",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "inside",
+      "lose": "suspect"
+     }
+    },
+    {
+     "label": "門番に酒代を握らせる（200文）",
+     "if": {
+      "money": 200
+     },
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "inside"
+    }
+   ]
+  },
+  "suspect": {
+   "speaker": "metsuke",
+   "art": "war",
+   "text": [
+    "「怪しい奴。その方、どこの手の者だ」{metsuke}の合図で、足軽が二人、槍を構えて迫ってきた。"
+   ],
+   "choices": [
+    {
+     "label": "斬り払って奥へ踏み込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "inside",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "いったん引き下がり、三日後の祭の夜を待つ",
+     "next": "festival"
+    }
+   ]
+  },
+  "festival": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "wait": {
+    "days": 3
+   },
+   "goal": "三日後、祭の夜に人質屋敷へ忍び込む",
+   "art": "feast",
+   "text": [
+    "三日後、城下は祭の囃子に沸いていた。人質屋敷の門番も、振る舞い酒に顔を赤くしている。"
+   ],
+   "choices": [
+    {
+     "label": "人混みに紛れて裏口から入る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "inside",
+      "lose": "end_caught"
+     }
+    }
+   ]
+  },
+  "inside": {
+   "speaker": "waka",
+   "art": "backroom",
+   "text": [
+    "奥の一間で、{waka}は碁盤を前に一人座っていた。傅役の名を告げると、少年は唇を結んだまま首を振った。",
+    "「わしが逃げれば、残る小姓の二人が斬られる。わしは人質じゃ。逃げぬ」"
+   ],
+   "choices": [
+    {
+     "label": "「生きて父上のもとへ戻ることこそ、家の務め」と説いて一人で連れ出す",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "flight",
+      "lose": "stubborn"
+     }
+    },
+    {
+     "label": "小姓たちも連れて、皆で逃げる",
+     "effects": [
+      {
+       "flag": "sg_hj_all"
+      }
+     ],
+     "next": "flight",
+     "guide": "大人数で逃げれば、足は遅く目立つ"
+    }
+   ]
+  },
+  "stubborn": {
+   "speaker": "waka",
+   "art": "backroom",
+   "text": [
+    "{waka}は碁石を握りしめ、動こうとしなかった。廊下の向こうで、見回りの足音が近づいてくる。"
+   ],
+   "choices": [
+    {
+     "label": "小姓たちも連れて逃げると約束する",
+     "effects": [
+      {
+       "flag": "sg_hj_all"
+      }
+     ],
+     "next": "flight"
+    },
+    {
+     "label": "若君を担いで連れ出す",
+     "next": "flight"
+    }
+   ]
+  },
+  "flight": {
+   "at": {
+    "place": "border"
+   },
+   "goal": "{waka}を連れて{border}の渡しへ落ちる",
+   "speaker": "watashi",
+   "art": "road",
+   "text": [
+    "夜通し街道を走り、明け方に{border}の川べりへたどり着いた。渡し舟はあるが、渡し守の{watashi}は首を振る。「お城から、人を渡すなとお触れが出ておる」",
+    "後ろの土手を、馬の蹄の音が近づいてくる。追手だ。"
+   ],
+   "choices": [
+    {
+     "label": "渡し守に銭を握らせる（300文）",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "safe"
+    },
+    {
+     "label": "舟の綱を切り、自分で漕ぎ出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "safe",
+      "lose": "bank"
+     }
+    },
+    {
+     "label": "土手に立ち、追手を食い止める",
+     "next": "bank"
+    }
+   ]
+  },
+  "bank": {
+   "speaker": "metsuke",
+   "art": "war",
+   "text": [
+    "{metsuke}が馬を下り、足軽を左右に広げた。「人質を連れ出すとは、殿への謀叛も同じ。ここで斬り捨てる」"
+   ],
+   "choices": [
+    {
+     "label": "子らを舟に乗せ、土手で斬り結ぶ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "safe",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "safe": {
+   "goto": [
+    {
+     "if": {
+      "flag": "sg_hj_all"
+     },
+     "next": "end_all"
+    }
+   ],
+   "speaker": "waka",
+   "art": "voyage",
+   "text": [
+    "舟は朝霧の川を渡りきった。向こう岸で、{waka}の家の旗を差した侍たちが手を振っている。"
+   ],
+   "next": "end_escaped"
+  },
+  "end_escaped": {
+   "speaker": "client",
+   "art": "voyage",
+   "text": [
+    "{waka}は向こう岸の侍たちに迎えられ、振り返って一度だけ頭を下げた。後から追いついた{client}が、膝をついて泣いた。",
+    "数日後、若君の父から、礼の銀と短い書状が届いた。残された小姓たちがどうなったかは、書かれていなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hj_all"
+    },
+    {
+     "money": 400
+    },
+    {
+     "fame": 4
+    },
+    {
+     "wanted": "land",
+     "n": 15
+    },
+    {
+     "rep": "land",
+     "n": -10
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "人質の若君{waka}を{land}から逃がした。"
+    }
+   ],
+   "end": "朝霧の渡し"
+  },
+  "end_all": {
+   "speaker": "waka",
+   "art": "voyage",
+   "text": [
+    "{waka}と二人の小姓は、肩を寄せ合って向こう岸に立った。「一人も見捨てずに済んだ」少年はそう言って、初めて子どもらしく笑った。",
+    "若君の父は、礼の銀に添えて、家伝の打刀を一振り贈ってきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hj_all"
+    },
+    {
+     "money": 400
+    },
+    {
+     "item": "good_katana",
+     "n": 1
+    },
+    {
+     "fame": 7
+    },
+    {
+     "wanted": "land",
+     "n": 20
+    },
+    {
+     "rep": "land",
+     "n": -15
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "人質の若君{waka}と小姓たちを、そろって{land}から逃がした。"
+    }
+   ],
+   "end": "一人も欠けず"
+  },
+  "end_caught": {
+   "speaker": "metsuke",
+   "art": "jail",
+   "text": [
+    "囲まれて縄を打たれ、番所の土間に転がされた。三日のあいだ責められたが、傅役の名だけは口にしなかった。",
+    "放り出されたとき、人質屋敷の門は固く閉ざされていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hj_all"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "wanted": "land",
+     "n": 10
+    },
+    {
+     "pass": 4320
+    }
+   ],
+   "end": "閉ざされた門"
+  },
+  "end_lost": {
+   "speaker": "metsuke",
+   "art": "war",
+   "text": [
+    "土手に倒れ伏したまま、{waka}たちが縄にかけられるのを見ていた。舟は、岸に繋がれたまま揺れていた。",
+    "{metsuke}は「命だけは助けてやる。二度と城下に顔を見せるな」と言い捨てて去った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hj_all"
+    },
+    {
+     "hp": -25
+    },
+    {
+     "wanted": "land",
+     "n": 15
+    }
+   ],
+   "end": "岸の舟"
+  },
+  "end_informed": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "{here}の{palace}に、傅役の企てを知らせる",
+   "speaker": "{land}の家老",
+   "art": "court",
+   "text": [
+    "家老はうなずき、すぐに足軽を旅籠へ走らせた。{client}は抗いもせず、縄を受けたという。",
+    "「よく知らせた」と、銀の包みが下された。その夜、人質屋敷の警固は倍になった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_hj_all"
+    },
+    {
+     "money": 200
+    },
+    {
+     "favor": 25
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "密告"
+  }
+ }
+}

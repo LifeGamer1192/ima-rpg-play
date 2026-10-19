@@ -1,0 +1,264 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_feat_trade",
+ "kind": "feat",
+ "feat": "trade",
+ "title": "天下の豪商",
+ "era": "sengoku",
+ "trigger": {
+  "wealth": 200000,
+  "skill": {
+   "trade": 60
+  },
+  "notFeat": "trade"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "third": {
+   "realm": "second"
+  },
+  "thirdcap": {
+   "place": "capital:third"
+  },
+  "broker": {
+   "npc": "会合衆の古老",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "大店の後家",
+   "sex": "f"
+  }
+ },
+ "start": "t1",
+ "scenes": {
+  "t1": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の市で、{broker}の話を聞く",
+   "speaker": "broker",
+   "art": "trade",
+   "text": [
+    "{broker}は算盤を置いた。「{power}が、南蛮船の荷を十年買い占める株を売りに出す。入札は{capital}の城。天下の大店がこぞって名乗りを上げる」",
+    "「鉄砲、焔硝、生糸。あれを握れば、天下の戦の値を握る。手付けだけで五万。あんたほどの身代でなければ、話にもならん」"
+   ],
+   "choices": [
+    {
+     "label": "手付けの五万を積む",
+     "if": {
+      "money": 50000
+     },
+     "effects": [
+      {
+       "money": -50000
+      },
+      {
+       "flag": "ft_bid"
+      }
+     ],
+     "next": "t2"
+    },
+    {
+     "label": "まだ身代が足りない",
+     "next": "tdecline"
+    }
+   ]
+  },
+  "t2": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、南蛮荷の入札に臨む",
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "居並ぶ大店の主の中で、{rival}がこちらを一瞥して笑った。「田舎の成り上がりが、この席に座るとはね」奉行が札を読み上げ始めた。"
+   ],
+   "choices": [
+    {
+     "label": "相場を読み切り、ぎりぎりの値を入れる",
+     "check": {
+      "skill": "trade",
+      "dc": 80,
+      "win": "t3",
+      "lose": "t2b"
+     }
+    },
+    {
+     "label": "奉行に十年の運上を説き、条件で勝つ",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "t3",
+      "lose": "t2b"
+     }
+    }
+   ]
+  },
+  "t2b": {
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "{rival}の札が、わずかに上を行った。だが、奉行はまだ迷っている。"
+   ],
+   "choices": [
+    {
+     "label": "値を上げて競り勝つ（30000）",
+     "if": {
+      "money": 30000
+     },
+     "effects": [
+      {
+       "money": -30000
+      }
+     ],
+     "next": "t3"
+    },
+    {
+     "label": "引き下がる",
+     "next": "tfail"
+    }
+   ]
+  },
+  "t3": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の市で、最初の荷駄を出す",
+   "art": "road",
+   "text": [
+    "南蛮の荷を積んだ百頭の馬が、{thirdcap}へ向けて出立する。だが峠には、{rival}が雇ったという噂の野伏りが待ち構えていた。"
+   ],
+   "choices": [
+    {
+     "label": "自ら護衛の先頭に立つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 6,
+      "level": 68,
+      "win": "t4",
+      "lose": "tfail_road"
+     }
+    },
+    {
+     "label": "間道を抜けて野伏りをかわす",
+     "check": {
+      "skill": "stealth",
+      "dc": 75,
+      "win": "t4",
+      "lose": "t3fight"
+     }
+    }
+   ]
+  },
+  "t3fight": {
+   "art": "road",
+   "text": [
+    "間道の出口で、野伏りが待っていた。"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 6,
+      "level": 68,
+      "win": "t4",
+      "lose": "tfail_road"
+     }
+    }
+   ]
+  },
+  "t4": {
+   "at": {
+    "place": "thirdcap",
+    "building": "market"
+   },
+   "goal": "{thirdcap}の市で、南蛮の荷を売り捌く",
+   "art": "trade",
+   "text": [
+    "{thirdcap}の市は、鉄砲と生糸の値の噂でもちきりだった。どこまで値を吊り上げ、どこで手を打つか。ここが天下の豪商の分かれ目だ。"
+   ],
+   "choices": [
+    {
+     "label": "値を読み切って売り捌く",
+     "check": {
+      "skill": "trade",
+      "dc": 82,
+      "win": "twin",
+      "lose": "thalf"
+     }
+    }
+   ]
+  },
+  "twin": {
+   "art": "trade",
+   "text": [
+    "荷はすべて捌け、代わりに金銀が蔵に積み上がった。その日から、天下の鉄砲と生糸の値は、{player}の帳面で決まるようになった。"
+   ],
+   "effects": [
+    {
+     "money": 200000
+    },
+    {
+     "fame": 25
+    },
+    {
+     "feat": "trade"
+    }
+   ],
+   "end": "天下の豪商"
+  },
+  "thalf": {
+   "art": "trade",
+   "text": [
+    "売り急いで値を崩した。損はしなかったが、天下の値を握るには至らなかった。……ひと月ほどして、もう一度。"
+   ],
+   "effects": [
+    {
+     "money": 60000
+    }
+   ],
+   "end": "富いまだ足らず"
+  },
+  "tdecline": {
+   "speaker": "broker",
+   "art": "trade",
+   "text": [
+    "{broker}は肩をすくめた。「次の入札は、またいつか」"
+   ],
+   "end": "富いまだ足らず"
+  },
+  "tfail": {
+   "art": "court",
+   "text": [
+    "株は{rival}の手に渡った。手付けは戻らない。……ひと月ほどして、また好機が来るかもしれない。"
+   ],
+   "end": "富いまだ足らず"
+  },
+  "tfail_road": {
+   "art": "road",
+   "text": [
+    "荷駄は焼かれ、荷は奪われた。{player}は傷だらけで{capital}に戻った。……ひと月ほどして、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -40
+    }
+   ],
+   "end": "富いまだ足らず"
+  }
+ }
+}

@@ -1,0 +1,732 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_miki_end",
+ "kind": "history",
+ "era": "sengoku",
+ "title": "三木の干殺し",
+ "event": "miki_end",
+ "lead": 10,
+ "before": [
+  "s1",
+  "s2",
+  "s2ng",
+  "s2ok",
+  "s2lost",
+  "s3",
+  "s3rice",
+  "s3rice_ng",
+  "s3out",
+  "h1",
+  "h1ok",
+  "h1ng",
+  "h2",
+  "h2ok",
+  "h2ng",
+  "s4"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "miki"
+  },
+  "himeji": {
+   "scnPlace": "himeji"
+  },
+  "shore": {
+   "place": "near:city"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "bessho": {
+   "scnRealm": "bessho"
+  },
+  "mori": {
+   "scnRealm": "mori"
+  },
+  "lord": {
+   "person": "ruler:bessho"
+  },
+  "hidenaga": {
+   "scnPerson": "羽柴秀長"
+  },
+  "hachisuka": {
+   "scnPerson": "蜂須賀正勝"
+  },
+  "elder": {
+   "npc": "別所の家老",
+   "sex": "m"
+  },
+  "boatman": {
+   "npc": "毛利方の船頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "shore",
+    "building": "inn"
+   },
+   "goal": "{shore}の浜の{inn}へ行く",
+   "speaker": "boatman",
+   "art": "inn",
+   "text": [
+    "{shore}の浜の{inn}は、魚の匂いと米俵の匂いがした。夜ごと沖に毛利の船が着き、米を下ろしていく。行き先は東の山の向こう、羽柴筑前守に囲まれた{city}の城だ。",
+    "{boatman}が囲炉裏端で声を落とした。「城の中じゃ、もう馬を食い尽くして、壁の藁まで煮ているそうな。米は浜までは来る。そこから先、羽柴の付城と柵のあいだを担いで抜ける者がおらん。抜けられりゃ、一俵につき銭を弾む」",
+    "別の客が笑った。「物好きなことだ。羽柴の陣なら、{himeji}で人足を日に何百と雇っておる。柵を一本立てれば飯が食える。どっちが利口か、考えるまでもない」"
+   ],
+   "choices": [
+    {
+     "label": "兵糧の俵を担いで、{city}への間道を行く",
+     "effects": [
+      {
+       "note": "毛利方の船頭に頼まれ、{city}の城へ兵糧を運ぶ。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "{himeji}へ行き、羽柴の陣で人足の口を探す",
+     "effects": [
+      {
+       "note": "{himeji}の羽柴の陣で働き口を探す。"
+      }
+     ],
+     "next": "h1"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "兵糧を担いで、{city}の城への間道を抜ける",
+   "art": "road",
+   "text": [
+    "月のない夜、米俵を背に山へ入った。尾根の上には羽柴の付城の篝火が点々と連なり、谷には柵が幾重にも巡らされている。柵の間を、鈴をつけた縄が渡してあった。",
+    "鳴らせば、すぐに鉄砲が来る。"
+   ],
+   "choices": [
+    {
+     "label": "縄の下をくぐって柵を抜ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ng": {
+   "text": [
+    "鈴が鳴った。松明が三つ、四つと斜面を下りてくる。羽柴の{soldier}だ。"
+   ],
+   "choices": [
+    {
+     "label": "俵を背負ったまま斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s2ok",
+      "lose": "s2lost"
+     }
+    }
+   ]
+  },
+  "s2lost": {
+   "text": [
+    "俵を捨てて逃げた。命は拾ったが、城へ届くはずだった米は、羽柴の{soldier}の晩飯になった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "h1"
+  },
+  "s2ok": {
+   "art": "tale",
+   "text": [
+    "城の裏の搦手で、痩せた門番が俵を見るなり泣き出した。中へ入ると、兵たちは目ばかり大きく、頬はこけ、口をきく力もない。厩はとうに空で、草の根を煮る匂いが城じゅうに漂っていた。",
+    "{player}の運んだ一俵は、その夜のうちに粥になり、百人の腹に少しずつ入った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_miki_in"
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "rep": "bessho",
+     "n": 10
+    },
+    {
+     "wanted": "oda",
+     "n": 8
+    },
+    {
+     "note": "羽柴の囲みを抜けて、{city}の城に兵糧を運び入れた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の{palace}で{lord}に会う",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "{lord}はまだ二十を幾つか越えたばかりの若い殿だった。痩せてはいたが、背筋は伸びている。「織田に従えと言う者もいた。だが、播磨の国衆を見下す羽柴の下につくのは、別所の名が許さぬ。それで城に籠もった。民まで巻き込んだのは、わしだ」",
+    "傍らの{elder}が、低い声で言った。「殿、弱気は禁物。毛利の後詰めは必ず来ます。米さえ続けば、羽柴の方が先に倦む」"
+   ],
+   "choices": [
+    {
+     "label": "浜の舟と山の間道を束ね、兵糧を大きく運び込む段取りをつける",
+     "turn": true,
+     "guide": "城は長く持つ。飢えの日々も長くなる",
+     "check": {
+      "skill": "trade",
+      "dc": 34,
+      "win": "s3rice",
+      "lose": "s3rice_ng"
+     }
+    },
+    {
+     "label": "城を出て、浜へ戻る",
+     "next": "s3out"
+    }
+   ]
+  },
+  "s3rice": {
+   "speaker": "elder",
+   "art": "tale",
+   "text": [
+    "{player}は浜の{boatman}と、山の炭焼きと、羽柴の陣に出入りする馬借とを、一本の糸で結んだ。米は昼は炭俵に、夜は空の水桶に紛れて山を越えた。",
+    "ひと月で運び込んだのは三百俵。{elder}は蔵の中の俵を数えて、初めて笑った。「これで春まではもつ。春まで持てば、毛利が来る」"
+   ],
+   "effects": [
+    {
+     "flag": "h_miki_rice"
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "rep": "bessho",
+     "n": 15
+    },
+    {
+     "rep": "mori",
+     "n": 8
+    },
+    {
+     "wanted": "oda",
+     "n": 12
+    },
+    {
+     "note": "浜の舟と山の間道を結んで、{city}の城に三百俵の兵糧を運び込んだ。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3rice_ng": {
+   "text": [
+    "馬借の一人が羽柴に通じていた。三度目の荷は付城の下で押さえられ、炭焼きが二人、見せしめに磔にされた。段取りはそこで途切れた。"
+   ],
+   "effects": [
+    {
+     "wanted": "oda",
+     "n": 10
+    }
+   ],
+   "next": "s4"
+  },
+  "s3out": {
+   "text": [
+    "城を出るとき、門番が{player}の手を握った。「また来てくれ」とは、言わなかった。"
+   ],
+   "next": "s4"
+  },
+  "h1": {
+   "at": {
+    "place": "himeji",
+    "building": "barracks"
+   },
+   "goal": "{himeji}の羽柴の陣で働き口を探す",
+   "speaker": "hachisuka",
+   "art": "camp",
+   "text": [
+    "{himeji}の陣は、戦場というより普請場だった。{hachisuka}が、鍬と縄を担いだ人足の列を怒鳴りつけている。「三木の周りに付城を三十、柵を三重。蟻一匹通すな。それが筑前さまの戦じゃ」",
+    "{hachisuka}は{player}の腕を見て、にやりとした。「鍬より刀が似合う顔だな。ちょうどいい。夜な夜な山の間道から米を運び込む鼠がおる。そいつらを狩れ」"
+   ],
+   "choices": [
+    {
+     "label": "間道を見張り、兵糧の運び手を捕らえる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "h1ok",
+      "lose": "h1ng"
+     }
+    }
+   ]
+  },
+  "h1ok": {
+   "art": "war",
+   "text": [
+    "捕らえた運び手は、まだ十五、六の百姓の倅だった。背負っていたのは米ではなく、干した芋の蔓だった。「城に母がいる」とだけ言った。",
+    "{hachisuka}は倅を放してやれと言い、それから{player}に教えた。「囲んで、待つ。斬らずに、飢えさせる。人死には少ない。だが、いちばん酷い戦じゃ」{player}はその戦のやり方を、骨の髄まで覚えた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_miki_camp"
+    },
+    {
+     "art": "x34"
+    },
+    {
+     "rep": "oda",
+     "n": 8
+    },
+    {
+     "note": "羽柴の陣で、三木の城への間道を見張った。"
+    }
+   ],
+   "next": "h2"
+  },
+  "h1ng": {
+   "text": [
+    "闇の中で逃げられた。{hachisuka}は笑って{player}の背を叩いた。「一人二人、通しても同じことよ。城の米は、もう百人分も残っておらん」"
+   ],
+   "effects": [
+    {
+     "flag": "h_miki_camp"
+    },
+    {
+     "rep": "oda",
+     "n": 3
+    }
+   ],
+   "next": "h2"
+  },
+  "h2": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}を囲む羽柴の本陣へ行く",
+   "speaker": "hidenaga",
+   "art": "war",
+   "text": [
+    "平井山の本陣で、筑前守の弟{hidenaga}が、城の方角を眺めていた。物静かな男で、兄とは似ても似つかない。「城の中では、もう人が人を食っているという噂もある。降れば城兵は助けると兄は言うている。ただ、{lord}どのと一門の首だけは、もらわねばならぬ」",
+    "「播磨の国衆は皆、この城の行く末を見ておる。首の取り方ひとつで、国のなびき方が変わる」{hidenaga}は{player}を振り返った。「そなたは城の者の顔を見たか。どう思う」"
+   ],
+   "choices": [
+    {
+     "label": "「長治殿の命も助ければ、播磨の国衆は皆なびきます」と説く",
+     "turn": true,
+     "guide": "若い城主の命を救う。羽柴に借りが一つできる",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "h2ok",
+      "lose": "h2ng"
+     }
+    },
+    {
+     "label": "「お指図に従います」とだけ答える",
+     "next": "h2ng"
+    }
+   ]
+  },
+  "h2ok": {
+   "speaker": "hidenaga",
+   "text": [
+    "{hidenaga}は長いあいだ黙っていた。「……兄は、人を殺すより使う方が好きな人だ。わしから話してみよう」",
+    "三日のち、{player}は矢文を城へ射込む役を仰せつかった。城主の命も城兵の命も助ける、城を明け渡せ、と。文の終わりに、{hidenaga}の花押が据えてあった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_miki_spare"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "oda",
+     "n": 10
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{hidenaga}に説き、{lord}の助命を羽柴方に約させた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "h2ng": {
+   "speaker": "hidenaga",
+   "text": [
+    "「そうか」{hidenaga}は頷いた。それ以上は何も言わず、また城の方を見た。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の囲みの成り行きを待つ",
+   "wait": {
+    "days": 20
+   },
+   "art": "disaster",
+   "text": [
+    "冬が来た。囲みは二年目に入っている。城の方からは、もう鬨の声も鉄砲の音も聞こえない。ときおり風に乗って、念仏の声だけが流れてくる。",
+    "付城の{soldier}たちは、城の煙突から煙が上がるたびに、「まだ何か煮ておるわ」と言い合った。"
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、囲みの終わりを見届ける",
+   "wait": {
+    "settled": "miki_end"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "miki_spare"
+     },
+     "next": "spared"
+    },
+    {
+     "if": {
+      "branch": "miki_hold"
+     },
+     "next": "held"
+    },
+    {
+     "next": "s5"
+    }
+   ]
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "text": [
+    "正月の半ば、城から使いが来た。{lord}は、一門とともに腹を切る。その代わりに城の者は皆助けてほしい、と。羽柴方はこれを容れた。",
+    "{lord}は妻子を刺し、弟とともに自害した。辞世が伝えられた。「今はただ　うらみもあらじ　諸人の　いのちにかはる　我が身と思へば」",
+    "門が開き、骨と皮ばかりの人々がよろめき出てきた。羽柴方は粥と握り飯を配った。腹をすかせきった者たちが、それにむしゃぶりついた。"
+   ],
+   "choices": [
+    {
+     "label": "「粥は薄く、少しずつ」と触れて回る",
+     "if": {
+      "flag": "h_miki_in"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "end_gruel",
+      "lose": "end_watch"
+     }
+    },
+    {
+     "label": "握り飯を配る列に加わる",
+     "if": {
+      "flag": "h_miki_camp"
+     },
+     "next": "end_camp"
+    },
+    {
+     "label": "城門の外で見届ける",
+     "next": "end_watch"
+    }
+   ]
+  },
+  "end_gruel": {
+   "text": [
+    "飢えきった腹に急に飯を詰めれば、人は死ぬ。寺の僧に聞いたことがあった。{player}は粥の鍋を回り、握り飯を取り上げ、泣いて怒る者を宥めながら、一椀ずつ、薄い粥を配らせた。",
+    "それでも、その夜のうちに何人もが死んだ。だが{player}が回った鍋の周りでは、死んだ者は少なかった。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "unflag": "h_miki_in"
+    },
+    {
+     "unflag": "h_miki_rice"
+    },
+    {
+     "unflag": "h_miki_spare"
+    },
+    {
+     "unflag": "h_miki_camp"
+    },
+    {
+     "note": "三木の城は開かれた。{lord}は自害し、城兵は助けられた。飢えた者に薄い粥を配らせた。"
+    }
+   ],
+   "end": "薄い粥"
+  },
+  "end_camp": {
+   "speaker": "hachisuka",
+   "text": [
+    "握り飯を配る手が、途中で止まった。受け取った老人が、ひと口食べたところで喉を詰まらせ、そのまま動かなくなったのだ。",
+    "{hachisuka}がぽつりと言った。「勝ったのは筑前さまじゃ。だが、これを勝ちと呼ぶのは、わしは好かん」その晩、{player}にも褒美の銭が下された。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "oda",
+     "n": 6
+    },
+    {
+     "unflag": "h_miki_in"
+    },
+    {
+     "unflag": "h_miki_rice"
+    },
+    {
+     "unflag": "h_miki_spare"
+    },
+    {
+     "unflag": "h_miki_camp"
+    },
+    {
+     "note": "三木の城は開かれた。{lord}は自害した。羽柴の陣で褒美を受けた。"
+    }
+   ],
+   "end": "干殺しの褒美"
+  },
+  "end_watch": {
+   "text": [
+    "{player}は門の外の土手に座り、出てくる人々を見ていた。数えるのはやめた。数えても、誰の名も分からないのだから。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_miki_in"
+    },
+    {
+     "unflag": "h_miki_rice"
+    },
+    {
+     "unflag": "h_miki_spare"
+    },
+    {
+     "unflag": "h_miki_camp"
+    },
+    {
+     "note": "三木の城は開かれ、{lord}は城兵の命と引き換えに自害した。"
+    }
+   ],
+   "end": "開かれた門"
+  },
+  "spared": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "hidenaga",
+   "art": "court",
+   "text": [
+    "矢文の返しは三日目に来た。門が開き、{lord}が白い衣で出てきた。腹を切るつもりで身を清めてきたのだという。{hidenaga}はその手を取って言った。「播磨の国衆に、羽柴は降る者を殺さぬと示していただきたい」",
+    "{lord}は髪を下ろし、高野山へ上った。城の者は皆、粥をもらって家へ帰った。去り際に{lord}は{player}の方を見て、深く頭を下げた。"
+   ],
+   "effects": [
+    {
+     "fame": 9
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "oda",
+     "n": 8
+    },
+    {
+     "rep": "bessho",
+     "n": 15
+    },
+    {
+     "unflag": "h_miki_in"
+    },
+    {
+     "unflag": "h_miki_rice"
+    },
+    {
+     "unflag": "h_miki_spare"
+    },
+    {
+     "unflag": "h_miki_camp"
+    },
+    {
+     "note": "三木の城は開かれ、{lord}は助命されて高野山に入った。"
+    }
+   ],
+   "end": "矢文の花押"
+  },
+  "held": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "elder",
+   "art": "war",
+   "text": [
+    "運び込んだ三百俵で、{city}の城は春を越え、夏まで持ちこたえた。だが毛利の後詰めは、ついに来なかった。最後の俵が空になった日、{lord}は一門とともに腹を切り、城兵の命を乞うた。",
+    "{elder}は{player}に、空の俵を一つ渡した。「おぬしのおかげで、半年長く生きた。半年長く飢えた、とも言える。どちらと取るかは、おぬしに任せる」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "bessho",
+     "n": 10
+    },
+    {
+     "rep": "mori",
+     "n": 6
+    },
+    {
+     "unflag": "h_miki_in"
+    },
+    {
+     "unflag": "h_miki_rice"
+    },
+    {
+     "unflag": "h_miki_spare"
+    },
+    {
+     "unflag": "h_miki_camp"
+    },
+    {
+     "note": "運び込んだ兵糧で三木の城は半年長く持ちこたえたが、やがて落ちた。"
+    }
+   ],
+   "end": "半年の米"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "miki_spare"
+     },
+     "next": "spared"
+    },
+    {
+     "if": {
+      "branch": "miki_hold"
+     },
+     "next": "held"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の途中で噂を聞いた。播磨の三木の城が二年近い囲みの末に開かれ、若い城主の{lord}が城兵の命と引き換えに腹を切ったという。",
+    "「羽柴さまは、斬らずに勝つ」と人は言った。誉め言葉なのかどうか、{player}には分からなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_miki_in"
+    },
+    {
+     "unflag": "h_miki_rice"
+    },
+    {
+     "unflag": "h_miki_spare"
+    },
+    {
+     "unflag": "h_miki_camp"
+    },
+    {
+     "note": "三木の城が開かれ、{lord}が自害したと聞いた。"
+    }
+   ],
+   "end": "遠い干殺し"
+  }
+ },
+ "branches": [
+  {
+   "id": "miki_spare",
+   "event": "miki_end",
+   "order": 2,
+   "why": "主人公が羽柴秀長に説き、城主の助命を約させた",
+   "when": {
+    "flag": "h_miki_spare"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "[[p:羽柴秀吉]]に二年近く囲まれた三木城は、弟[[p:羽柴秀長]]の矢文を受けて開かれた。[[p:別所長治]]は城兵とともに助命され、髪を下ろして高野山に入った。{n_bessho}は滅び、播磨の国衆は羽柴になびいた。",
+    "do": [
+     [
+      "annex",
+      "oda",
+      "bessho"
+     ],
+     [
+      "add",
+      "oda",
+      "prestige",
+      8
+     ],
+     [
+      "add",
+      "oda",
+      "stability",
+      0.05
+     ]
+    ],
+    "imp": 3,
+    "at": "miki"
+   }
+  },
+  {
+   "id": "miki_hold",
+   "event": "miki_end",
+   "order": 1,
+   "why": "主人公が三木の城に三百俵の兵糧を運び込んだ",
+   "when": {
+    "flag": "h_miki_rice"
+   },
+   "then": "delay",
+   "months": 6,
+   "note": "浜の舟と山の間道から兵糧が運び込まれ、{n_bessho}の三木城はなお持ちこたえた。"
+  }
+ ]
+}

@@ -1,0 +1,799 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_shigisan",
+ "kind": "history",
+ "title": "平蜘蛛",
+ "era": "sengoku",
+ "event": "shigisan",
+ "lead": 6,
+ "before": [
+  "s1",
+  "s2",
+  "s2ok",
+  "s2ng",
+  "s3",
+  "s3tea",
+  "s3yield",
+  "s3ng",
+  "s4",
+  "s4path",
+  "s4path_ng",
+  "s4boys",
+  "s5",
+  "s5out",
+  "s5out_ng"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "nara"
+  },
+  "port": {
+   "scnPlace": "sakai"
+  },
+  "kyo": {
+   "scnPlace": "kyoto"
+  },
+  "oda": {
+   "scnRealm": "oda"
+  },
+  "nobunaga": {
+   "person": "ruler:oda"
+  },
+  "hisahide": {
+   "scnPerson": "松永久秀"
+  },
+  "nobutada": {
+   "scnPerson": "織田信忠"
+  },
+  "chajin": {
+   "npc": "堺の茶人",
+   "sex": "m"
+  },
+  "hunter": {
+   "npc": "信貴山の猟師",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "port",
+    "building": "inn"
+   },
+   "goal": "{port}の旅籠で茶人に会う",
+   "speaker": "chajin",
+   "art": "inn",
+   "text": [
+    "{port}の旅籠の茶室で、{chajin}が釜の湯の音を聞いていた。「{hisahide}殿が、石山攻めの天王寺の砦を勝手に引き払い、大和の信貴山に籠もられた。二度目の謀反よ」",
+    "「{nobunaga}様は、こう仰せだそうな。『平蜘蛛の釜を差し出せば、命は助ける』と。……あの釜は天下に一つ。松永殿が釜を抱いて死ねば、釜も死ぬ」",
+    "茶人は{player}に茶碗を差し出した。「わしは堺を離れられぬ。誰か、信貴山へ使いに立つ者が要る。釜を救うか、人を救うか。どちらでもよい。どちらもなら、なおよい」"
+   ],
+   "choices": [
+    {
+     "label": "使いを引き受ける",
+     "effects": [
+      {
+       "note": "堺の茶人{chajin}に頼まれ、信貴山の{hisahide}への使いを引き受けた。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「釜の値はいかほどか」と尋ねてから引き受ける",
+     "effects": [
+      {
+       "money": 60
+      },
+      {
+       "note": "堺の茶人{chajin}に頼まれ、信貴山の{hisahide}への使いを引き受けた。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の市で信貴山への道を探す",
+   "speaker": "hunter",
+   "art": "trade",
+   "text": [
+    "{city}の市は、筒井の兵と織田の兵でごった返していた。信貴山へ向かう街道には関が立ち、怪しい者は片端から捕らえられている。",
+    "市の外れで、毛皮を売る{hunter}が{player}を見た。「信貴山へ行きたい顔をしておるな。表の道は織田の兵だらけだ。だが、獣の通う道なら、わしが知っておる」"
+   ],
+   "choices": [
+    {
+     "label": "銭を払って獣道を教わる（100）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "s2ok"
+    },
+    {
+     "label": "茶人の使いだと明かし、頼み込む",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s2ng"
+     }
+    },
+    {
+     "label": "表の関を口先で通る",
+     "check": {
+      "skill": "speech",
+      "dc": 27,
+      "win": "s3",
+      "lose": "s2ng"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "hunter",
+   "text": [
+    "{hunter}は尾根から沢へ下り、また尾根へ登る道を、指で地べたに描いた。「城の北の谷に、水の手の細道がある。城の者が水を汲みに降りる道だ。囲まれても、あそこだけは塞がれにくい」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sg_path"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ng": {
+   "text": [
+    "関の足軽に止められ、半日留め置かれた。銭を握らせてようやく放されたが、懐は軽くなった。{player}は回り道をして、日暮れに信貴山の麓へたどり着いた。"
+   ],
+   "effects": [
+    {
+     "money": -40
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "信貴山の城で{hisahide}に会う",
+   "speaker": "hisahide",
+   "art": "court",
+   "text": [
+    "信貴山の城は、山の上に曲輪を重ねた大きな城だった。天守のある櫓の一間で、{hisahide}は茶を点てていた。七十に手が届く老人とは思えぬほど、手つきは確かだった。釜は低く、這いつくばった蜘蛛のような形をしている。",
+    "「堺の者の使いか」{hisahide}は茶碗を差し出した。「信長は、この釜を寄越せば命を助けると言うておるのだろう。わしは三好の殿を見送り、公方を討ったと言われ、東大寺の大仏殿を焼いたと言われた男だ。いまさら釜一つで命乞いはせぬ」"
+   ],
+   "choices": [
+    {
+     "label": "黙って茶をいただく",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "s3tea",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "「釜を差し出し、頭を丸めて生きられよ」と説く",
+     "turn": true,
+     "guide": "久秀が生き延びる。茶人の頼みも果たせる",
+     "check": {
+      "skill": "speech",
+      "dc": 37,
+      "win": "s3yield",
+      "lose": "s3ng"
+     }
+    }
+   ]
+  },
+  "s3tea": {
+   "speaker": "hisahide",
+   "text": [
+    "{player}は茶碗を三度回して飲んだ。{hisahide}は少しだけ目を細めた。「作法は知らぬが、飲み方は悪くない。……織田の軍が来る前に山を下りよ。わしの孫が二人、安土に人質に取られておる。あの子らも、わしと共に死ぬことになろう」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sg_tea"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3yield": {
+   "speaker": "hisahide",
+   "art": "court",
+   "text": [
+    "{player}は言った。「釜は天下に一つ。殿もまた、天下に一人。釜を砕けば釜が死に、殿が死ねば、安土の御孫も死にます。釜を差し出すのは負けではありませぬ。釜を生かすことです」",
+    "{hisahide}は長いあいだ釜を見ていた。湯の音だけがしていた。やがて老人は、低く笑った。「釜を生かす、か。茶人の口車に乗るのも、これが最後だろう」",
+    "「よかろう。釜は信長にくれてやる。わしは頭を丸めて、どこぞの寺で茶でも点てて死ぬとしよう。孫たちの命と引き換えにな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sg_kettle"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "oda",
+     "n": 8
+    },
+    {
+     "note": "{hisahide}に説き、平蜘蛛の釜を差し出して降ることを承知させた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s3ng": {
+   "speaker": "hisahide",
+   "text": [
+    "「堺の者は口がうまい。だが、わしの口はもっとうまかった」{hisahide}は茶碗を下げさせた。「帰れ。次に会うのは、あの世の茶室だ」"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "信貴山の麓で織田の軍を見る",
+   "speaker": "nobutada",
+   "art": "war",
+   "text": [
+    "秋、{nobutada}の率いる四万の軍が信貴山を囲んだ。麓の村は焼かれ、尾根という尾根に織田の旗が立った。城からは鉄砲の音が絶えない。",
+    "麓の陣で、安土から人質の二人の少年が京へ引かれていったという噂を聞いた。六条河原で斬られるのだと。"
+   ],
+   "choices": [
+    {
+     "label": "水の手の細道を下見して、城に忍び込む道を確かめる",
+     "if": {
+      "flag": "h_sg_path"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s4path",
+      "lose": "s4path_ng"
+     }
+    },
+    {
+     "label": "{kyo}へ走り、少年たちの最期を見届ける",
+     "next": "s4boys"
+    },
+    {
+     "label": "麓で戦の行方を待つ",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s4path": {
+   "speaker": "hunter",
+   "text": [
+    "北の谷の細道は、織田の陣の灯のすぐ下を抜けていた。見張りは谷に背を向けて、城の櫓ばかり見ている。{player}は城の水の手の石垣まで登り、また音もなく降りた。この道なら、人ひとりは抜けられる。"
+   ],
+   "next": "s5"
+  },
+  "s4path_ng": {
+   "text": [
+    "谷の途中で足を滑らせ、石が音を立てて転がった。織田の見張りの鉄砲が火を噴いた。{player}は藪に伏せて夜明けを待ち、這って陣の外へ戻った。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4boys": {
+   "at": {
+    "place": "kyo"
+   },
+   "goal": "{kyo}の六条河原へ急ぐ",
+   "text": [
+    "間に合わなかった。少年たちは六条河原で斬られた。十二と十三だったという。見物の者たちが言うには、二人は泣かず、辞世の歌を詠み、互いに目を見交わして首を差し出した。",
+    "{player}は河原の砂を一握り、手ぬぐいに包んだ。"
+   ],
+   "effects": [
+    {
+     "flag": "h_sg_boys"
+    },
+    {
+     "note": "{hisahide}の孫たちが六条河原で斬られたと聞いた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "信貴山の城に忍び込み、{hisahide}に会う",
+   "speaker": "hisahide",
+   "art": "war",
+   "text": [
+    "城の中は、もう半ば燃えていた。天守の櫓の一間で、{hisahide}は釜に火を入れていた。周りには油の壺が並んでいる。「また来たか。物好きな」",
+    "「織田の使いが来た。釜を寄越せば助けると、まだ言うておる。わしは、この釜と首は信長に渡さぬと返した」老人は火薬の袋を撫でた。"
+   ],
+   "choices": [
+    {
+     "label": "「谷の細道から、お連れします」と腕を取る",
+     "turn": true,
+     "guide": "久秀を落とす。見つかれば共に死ぬ",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s5out",
+      "lose": "s5out_ng"
+     }
+    },
+    {
+     "label": "老人に一礼して、城を出る",
+     "next": "aftergo"
+    }
+   ]
+  },
+  "s5out": {
+   "speaker": "hisahide",
+   "art": "road",
+   "text": [
+    "{hisahide}は笑った。「生き恥か。わしにはそれが似合いかもしれぬ」。老人は家臣の一人に自分の具足を着せ、天守に残した。釜は布に包んで、自ら背負った。",
+    "北の谷の細道を、二人は這うように降りた。頭の上で、天守が火柱になった。織田の陣から鬨の声が上がった。「松永が果てたぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sg_escape"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "wanted": "oda",
+     "n": 20
+    },
+    {
+     "note": "落城する信貴山の城から、{hisahide}を谷の細道で落とした。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5out_ng": {
+   "speaker": "hisahide",
+   "text": [
+    "細道の口に、織田の兵の松明が並んでいた。もう塞がれていたのだ。{hisahide}は引き返し、{player}の背を押した。「お主ひとりなら抜けられよう。行け」老人の姿は、煙の中に消えた。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "信貴山の城の最期を見届ける",
+   "wait": {
+    "settled": "shigisan"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "sg_yield"
+     },
+     "next": "yielded"
+    },
+    {
+     "if": {
+      "branch": "sg_escape"
+     },
+     "next": "escaped"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "yielded": {
+   "at": {
+    "place": "port",
+    "building": "inn"
+   },
+   "speaker": "chajin",
+   "art": "inn",
+   "text": [
+    "平蜘蛛の釜は安土へ運ばれ、{hisahide}は頭を丸めて、奈良の寺の奥に入った。安土にいた孫たちは許されて、寺へ移された。",
+    "{chajin}は{player}のために茶を点てた。「釜も人も生きた。わしの頼んだ以上のことをしてくれた」茶人は笑った。「信長様は、釜より松永殿の頭を見て、笑われたそうな。『禿げても狸は狸よ』とな」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sg_kettle"
+    },
+    {
+     "unflag": "h_sg_escape"
+    },
+    {
+     "unflag": "h_sg_path"
+    },
+    {
+     "unflag": "h_sg_tea"
+    },
+    {
+     "unflag": "h_sg_boys"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "money": 300
+    },
+    {
+     "rep": "oda",
+     "n": 5
+    },
+    {
+     "note": "{hisahide}は平蜘蛛を差し出して降り、頭を丸めて寺に入った。"
+    }
+   ],
+   "end": "釜を生かす"
+  },
+  "escaped": {
+   "at": {
+    "place": "port",
+    "building": "inn"
+   },
+   "speaker": "hisahide",
+   "art": "inn",
+   "text": [
+    "焼け跡からは、具足を着た焼けた骸が出た。織田は松永が果てたと触れを出した。だがその月の終わり、{port}の町外れの小さな庵で、名を変えた老人が平蜘蛛の釜で茶を点てていた。",
+    "「死んだことになった男の茶は、うまいか」老人は{player}に茶碗を差し出した。「誰にも言うなよ。言えば、お主の首も飛ぶ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sg_kettle"
+    },
+    {
+     "unflag": "h_sg_escape"
+    },
+    {
+     "unflag": "h_sg_path"
+    },
+    {
+     "unflag": "h_sg_tea"
+    },
+    {
+     "unflag": "h_sg_boys"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "信貴山は落ちたが、{hisahide}は名を変えて堺に隠れた。"
+    }
+   ],
+   "end": "死んだことになった男"
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "信貴山の城の最期を見届ける",
+   "wait": {
+    "fired": "shigisan"
+   },
+   "speaker": "nobutada",
+   "art": "disaster",
+   "text": [
+    "信貴山の天守は、夜の空に火柱を上げて崩れ落ちた。{hisahide}は平蜘蛛の釜を打ち砕き、火薬に火をつけて果てたという。奇しくも十年前、東大寺の大仏殿が焼けたのと同じ日だった、と奈良の者は囁いた。",
+    "焼け跡を検める{nobutada}の兵たちが、黒く焦げた鉄の破片を拾っては捨てていた。"
+   ],
+   "choices": [
+    {
+     "label": "焼け跡に潜り込み、釜の破片を探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "end_shard",
+      "lose": "end_ash"
+     }
+    },
+    {
+     "label": "茶を共にした老人のために、焼け跡に線香を立てる",
+     "if": {
+      "flag": "h_sg_tea"
+     },
+     "next": "end_incense"
+    },
+    {
+     "label": "六条河原の砂を、焼け跡に撒く",
+     "if": {
+      "flag": "h_sg_boys"
+     },
+     "next": "end_sand"
+    },
+    {
+     "label": "堺へ戻り、茶人に顛末を告げる",
+     "next": "end_report"
+    }
+   ]
+  },
+  "end_shard": {
+   "speaker": "chajin",
+   "text": [
+    "灰の中に、蜘蛛の脚のような形をした鉄の欠片があった。{player}はそれを懐に入れ、{port}の{chajin}に届けた。",
+    "茶人は欠片を掌に載せ、長いあいだ黙っていた。「天下に一つの釜が、こうなるか。……これは床の間に飾る。茶を点てるたびに、松永殿と、欲の果てを思い出すためにな」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sg_kettle"
+    },
+    {
+     "unflag": "h_sg_escape"
+    },
+    {
+     "unflag": "h_sg_path"
+    },
+    {
+     "unflag": "h_sg_tea"
+    },
+    {
+     "unflag": "h_sg_boys"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "money": 200
+    },
+    {
+     "note": "信貴山の焼け跡から平蜘蛛の釜の欠片を拾い、堺の茶人に届けた。"
+    }
+   ],
+   "end": "釜の欠片"
+  },
+  "end_incense": {
+   "text": [
+    "焼け跡の隅に、線香を一本立てた。煙はまっすぐ空へ上った。あの老人が点てた茶の、苦い味がまだ舌に残っている気がした。悪人と呼ばれた男だった。だが、茶の点て方だけは美しかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sg_kettle"
+    },
+    {
+     "unflag": "h_sg_escape"
+    },
+    {
+     "unflag": "h_sg_path"
+    },
+    {
+     "unflag": "h_sg_tea"
+    },
+    {
+     "unflag": "h_sg_boys"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    },
+    {
+     "note": "信貴山の焼け跡で、茶を共にした{hisahide}を弔った。"
+    }
+   ],
+   "end": "一服の茶"
+  },
+  "end_sand": {
+   "text": [
+    "手ぬぐいを開き、六条河原の砂を焼け跡に撒いた。祖父と孫たちが、せめて同じ土の上にいられるように。風が灰と砂を一緒に巻き上げ、谷へ運んでいった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sg_kettle"
+    },
+    {
+     "unflag": "h_sg_escape"
+    },
+    {
+     "unflag": "h_sg_path"
+    },
+    {
+     "unflag": "h_sg_tea"
+    },
+    {
+     "unflag": "h_sg_boys"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "信貴山の焼け跡に、{hisahide}の孫たちが斬られた河原の砂を撒いた。"
+    }
+   ],
+   "end": "河原の砂"
+  },
+  "end_report": {
+   "at": {
+    "place": "port",
+    "building": "inn"
+   },
+   "speaker": "chajin",
+   "text": [
+    "{chajin}は顛末を聞き、釜に湯を沸かした。「釜も人も死んだか。……だが、お主は生きて帰った。使いとしては、それで十分だ」茶人は約束の銭を数えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sg_kettle"
+    },
+    {
+     "unflag": "h_sg_escape"
+    },
+    {
+     "unflag": "h_sg_path"
+    },
+    {
+     "unflag": "h_sg_tea"
+    },
+    {
+     "unflag": "h_sg_boys"
+    },
+    {
+     "money": 150
+    },
+    {
+     "note": "信貴山の城が落ち、{hisahide}が果てるのを見届けた。"
+    }
+   ],
+   "end": "使いの帰り"
+  },
+  "end_ash": {
+   "text": [
+    "焼け跡で織田の兵に見つかり、盗人と間違えられて追い払われた。手には灰しか残らなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sg_kettle"
+    },
+    {
+     "unflag": "h_sg_escape"
+    },
+    {
+     "unflag": "h_sg_path"
+    },
+    {
+     "unflag": "h_sg_tea"
+    },
+    {
+     "unflag": "h_sg_boys"
+    },
+    {
+     "hp": -5
+    },
+    {
+     "note": "信貴山の城が落ち、{hisahide}が果てるのを見届けた。"
+    }
+   ],
+   "end": "灰"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "sg_yield"
+     },
+     "next": "yielded"
+    },
+    {
+     "if": {
+      "branch": "sg_escape"
+     },
+     "next": "escaped"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "text": [
+    "旅の途中で噂を聞いた。大和の信貴山に籠もった{hisahide}が、織田の大軍に囲まれ、名物の平蜘蛛の釜を打ち砕いて城と共に果てたという。",
+    "「茶釜一つ渡せば助かったものを」と、旅籠の主は首を振った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sg_kettle"
+    },
+    {
+     "unflag": "h_sg_escape"
+    },
+    {
+     "unflag": "h_sg_path"
+    },
+    {
+     "unflag": "h_sg_tea"
+    },
+    {
+     "unflag": "h_sg_boys"
+    },
+    {
+     "note": "信貴山で{hisahide}が果てたと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "sg_yield",
+   "event": "shigisan",
+   "order": 2,
+   "why": "主人公が久秀に平蜘蛛を差し出させた",
+   "when": {
+    "flag": "h_sg_kettle"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "信貴山城に籠もった[[p:松永久秀]]は、名物の茶釜「平蜘蛛」を{r_oda}に差し出して降り、頭を丸めて寺に入った。人質の孫たちも許された。",
+    "do": [
+     [
+      "add",
+      "oda",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 2,
+    "at": "nara"
+   },
+   "people": [
+    {
+     "spare": "松永久秀",
+     "years": 3
+    }
+   ]
+  },
+  {
+   "id": "sg_escape",
+   "event": "shigisan",
+   "order": 1,
+   "why": "主人公が落城の夜に久秀を谷へ落とした",
+   "when": {
+    "flag": "h_sg_escape"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "信貴山城の戦い。[[p:織田信忠]]の大軍に囲まれた城は焼け落ちたが、焼け跡の骸は身代わりで、[[p:松永久秀]]は平蜘蛛を背負って谷から落ちのびたと噂された。",
+    "do": [
+     [
+      "add",
+      "oda",
+      "prestige",
+      -3
+     ]
+    ],
+    "imp": 2,
+    "at": "nara"
+   },
+   "people": [
+    {
+     "spare": "松永久秀",
+     "years": 3
+    }
+   ]
+  }
+ ]
+}

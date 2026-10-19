@@ -1,0 +1,891 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_h_mimikawa",
+ "kind": "history",
+ "era": "sengoku",
+ "title": "耳川の戦い",
+ "event": "mimikawa",
+ "lead": 9,
+ "before": [
+  "s1",
+  "s1yama",
+  "s1pact",
+  "s2",
+  "s2ok",
+  "s2guard",
+  "s2lure",
+  "s2lure_ng",
+  "s3",
+  "s3ng",
+  "s3seen",
+  "s3run",
+  "s4",
+  "s4warn",
+  "s4warn_ng",
+  "s5",
+  "s5ok",
+  "s5hurt",
+  "s5ford"
+ ],
+ "onFired": "late",
+ "cast": {
+  "funai": {
+   "scnPlace": "funai"
+  },
+  "city": {
+   "scnPlace": "tonokori"
+  },
+  "ken": {
+   "scnPlace": "nobeoka"
+  },
+  "otomo": {
+   "scnRealm": "otomo"
+  },
+  "shimazu": {
+   "scnRealm": "shimazu"
+  },
+  "sorin": {
+   "person": "ruler:otomo"
+  },
+  "joninn": {
+   "scnPerson": "田原紹忍"
+  },
+  "takita": {
+   "scnPerson": "田北鎮周"
+  },
+  "iehisa": {
+   "scnPerson": "島津家久"
+  },
+  "aide": {
+   "npc": "田北の家来",
+   "sex": "m"
+  },
+  "yama": {
+   "npc": "山伏",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "funai",
+    "building": "inn"
+   },
+   "goal": "{funai}の{inn}で、陣借りの話を聞く",
+   "speaker": "aide",
+   "art": "inn",
+   "text": [
+    "{funai}の町は、南蛮寺の鐘と陣触れの太鼓が一緒に鳴っていた。{sorin}が洗礼を受けて「ドン・フランシスコ」と名乗ったのはこの夏のこと。今度は日向に、神の教えの国を建てるのだという。",
+    "{inn}の土間で、{aide}と名乗る侍が陣借りの者を集めていた。「わが殿、{takita}さまは先手を承る。日向へ下るは四万とも五万とも。島津の高城など、ひと揉みよ。腕に覚えがあるなら来い。手柄は首の数で払う」",
+    "土間の隅では、煤けた鈴懸の{yama}が、黙って濁り酒を舐めていた。"
+   ],
+   "choices": [
+    {
+     "label": "{takita}の陣に陣借りする",
+     "effects": [
+      {
+       "note": "{otomo}の日向攻めに、{takita}の手の陣借りとして加わった。"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "土間の隅の{yama}に声をかける",
+     "next": "s1yama"
+    }
+   ]
+  },
+  "s1yama": {
+   "speaker": "yama",
+   "art": "backroom",
+   "text": [
+    "{yama}は顔も上げずに言った。「霧島の峰から下りてきた。大友の陣はどこも人手が足りぬと聞いてな」",
+    "声をひそめ、懐から銀の粒を三つ、卓に転がした。「陣に入ったら、こう言って回るだけでよい。『島津は高城の後詰めを捨てた。兵は散り、{iehisa}も薩摩へ逃げ帰った』と。同じことを十人から聞けば、人は確かめもせずに川を渡る」"
+   ],
+   "choices": [
+    {
+     "label": "銀を受け取り、噂を撒くと約す",
+     "turn": true,
+     "guide": "大友の大軍を罠へ送る裏切り。露見すれば手配",
+     "next": "s1pact"
+    },
+    {
+     "label": "銀を押し返し、{takita}の陣に加わる",
+     "effects": [
+      {
+       "note": "{shimazu}の間者らしい山伏の誘いを断り、{takita}の陣に加わった。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s1pact": {
+   "speaker": "yama",
+   "text": [
+    "{yama}は銀を{player}の手に押しつけ、湯呑みの酒を一息に干した。「高城の囲みが始まれば、また会おう。川向こうの葦原でな」振り向いたときには、もう土間にいなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_mk_pact"
+    },
+    {
+     "money": 150
+    },
+    {
+     "note": "{shimazu}の山伏から銀を受け取り、大友の陣で噂を撒くと約した。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "ken",
+    "building": "barracks"
+   },
+   "goal": "{ken}の大友の陣へ行く",
+   "speaker": "aide",
+   "art": "camp",
+   "text": [
+    "{ken}の野は、杏葉紋の旗で埋まっていた。だが陣の空気は、どこか浮ついている。{sorin}は無鹿の地に南蛮寺を建て、道すがらの寺や社を打ち壊させた。焼けた仏の首が、川原に転がっている。",
+    "「神仏を焼いた軍が勝てるものか」と、足軽たちは陰でささやく。{aide}は聞こえぬふりをして言った。「総大将は{joninn}どの。わが殿とは犬猿の仲よ。さて、おぬしには何をしてもらおうか」"
+   ],
+   "choices": [
+    {
+     "label": "小荷駄の護りにつく",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "s2guard",
+      "lose": "s2guard"
+     }
+    },
+    {
+     "label": "伴天連の言葉を通じる手伝いをする",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s2ok"
+     }
+    },
+    {
+     "label": "陣の焚き火を回り、「島津は後詰めを捨てた」と噂を撒く",
+     "if": {
+      "flag": "h_mk_pact"
+     },
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s2lure",
+      "lose": "s2lure_ng"
+     }
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "南蛮の伴天連",
+   "text": [
+    "黒い衣の伴天連は、{player}の拙い通詞にも何度も頷いた。「この戦は神の国のための戦です」その目は澄んでいたが、焼かれた寺の煙が、その背の向こうにまだ立ちのぼっていた。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "rep": "otomo",
+     "n": 3
+    }
+   ],
+   "next": "s3"
+  },
+  "s2guard": {
+   "text": [
+    "兵糧を積んだ荷車の列を、山から下りてきた野伏せりが襲った。追い払いはしたが、荷駄の兵の半分は、もう故郷の豊後へ逃げ帰ることばかり話している。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "rep": "otomo",
+     "n": 3
+    }
+   ],
+   "next": "s3"
+  },
+  "s2lure": {
+   "art": "camp",
+   "text": [
+    "一つの焚き火で言えば、次の焚き火ではもう誰かが同じことを言っていた。「島津は逃げた」「高城は見捨てられた」「渡れば首は取り放題よ」三日のうちに、噂は{takita}の本陣にまで届いた。",
+    "夜、陣の外れの葦原で、{yama}が待っていた。銀の袋がもう一つ、{player}の手に落ちた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_mk_lured"
+    },
+    {
+     "money": 250
+    },
+    {
+     "rep": "shimazu",
+     "n": 15
+    },
+    {
+     "note": "大友の陣で「島津は後詰めを捨てた」という噂を撒いた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2lure_ng": {
+   "text": [
+    "「島津が逃げた？　誰に聞いた」古参の足軽に問い詰められ、{player}は口ごもった。噂は広まらず、かえって妙な目で見られるようになった。"
+   ],
+   "effects": [
+    {
+     "wanted": "otomo",
+     "n": 10
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の近く、高城を囲む陣へ行く",
+   "speaker": "aide",
+   "art": "war",
+   "text": [
+    "高城は、小丸川の崖の上にあった。城に籠もるのはわずか五百ほどというが、大友の大軍がいくら攻めても落ちない。川の向こうの根白坂には、島津の後詰めが少しずつ集まってきているらしい。",
+    "{aide}が川向こうを顎で示した。「わが殿は、川を渡って一気に押し潰せと言う。{joninn}どのは、和議の使いを待てと言う。向こうに何がいるのか、確かめた者は誰もおらぬ」"
+   ],
+   "choices": [
+    {
+     "label": "夜、小丸川を渡って島津の陣を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "s3seen",
+      "lose": "s3ng"
+     }
+    },
+    {
+     "label": "陣で軍議の行方を待つ",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3ng": {
+   "text": [
+    "川を渡りきったところで、葦の中から槍が突き出された。島津の物見だ。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s3seen",
+      "lose": "s3run"
+     }
+    }
+   ]
+  },
+  "s3run": {
+   "text": [
+    "冷たい川に飛び込んで逃げ帰った。見えたのは、根白坂の上の篝火がやけに少ないことだけだった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "s4"
+  },
+  "s3seen": {
+   "art": "war",
+   "text": [
+    "丘の上から見ると、根白坂の正面に構える島津の兵は、驚くほど少なかった。だがその両脇、川原の葦と松の林の奥に、煮炊きの煙も上げずに兵が伏せている。数は正面の何倍もある。",
+    "正面の小勢が餌で、左右が鉤だ。渡って追えば、袋の口が閉じる。{player}は息を殺して伏兵の位置を数え、夜明け前に川を渡り戻った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_mk_seen"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "小丸川の向こうで、島津が左右に兵を伏せているのを見た。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の陣で軍議を待つ",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "takita",
+   "art": "war",
+   "text": [
+    "霜の降りた朝、陣幕の内で{takita}が床几を蹴った。「和議だと？　島津の小倅どもに頭を下げて、豊後へ帰れと申すか。わしは渡る。臆病者は川のこちらで念仏でも唱えておれ」",
+    "{joninn}は青ざめた顔で黙っている。総大将の言葉は、もう先手の荒武者には届かない。"
+   ],
+   "choices": [
+    {
+     "label": "見たものを{joninn}に告げ、{takita}の渡河を止めるよう説く",
+     "if": {
+      "flag": "h_mk_seen"
+     },
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s4warn",
+      "lose": "s4warn_ng"
+     }
+    },
+    {
+     "label": "{takita}の先手に加わる",
+     "next": "s5"
+    }
+   ]
+  },
+  "s4warn": {
+   "speaker": "joninn",
+   "art": "war",
+   "text": [
+    "{player}は陣幕の土に小枝で根白坂を描き、正面の小勢と、左右の葦原と松林に伏せた兵を書き入れた。「渡って追えば、袋の口が閉じます。島津のいつもの手です」",
+    "{joninn}の目に、初めて力が戻った。「……全軍に触れよ。小丸川を渡る者は、先手であろうと斬る」{takita}は顔を朱に染めて吠えたが、陣の諸将は総大将の側についた。川は渡られなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_mk_warned"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "otomo",
+     "n": 12
+    },
+    {
+     "note": "島津の伏兵を{joninn}に告げ、{takita}の渡河を止めさせた。"
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s4warn_ng": {
+   "speaker": "joninn",
+   "text": [
+    "「陣借りの者の話で、先手を止められるものか」{joninn}は首を振った。止めたい気持ちはあるのだ。だがその気持ちを押し通す力が、この総大将にはなかった。"
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の陣で、決戦の朝を迎える",
+   "wait": {
+    "days": 6
+   },
+   "speaker": "aide",
+   "art": "war",
+   "text": [
+    "夜明けとともに、{takita}の先手が小丸川へ押し出した。水しぶきが朝日に光る。対岸の島津の小勢は、ひと当てしただけで背を向けて逃げ出した。「見よ、逃げるぞ！」歓声が上がり、後続の諸隊も先を争って川へ入っていく。",
+    "{aide}が{player}の袖をつかんだ。「行くぞ。首を取るのは今だ」"
+   ],
+   "choices": [
+    {
+     "label": "先手とともに川を渡る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5ok",
+      "lose": "s5hurt"
+     }
+    },
+    {
+     "label": "川岸に残り、退くときの浅瀬を見定めておく",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "s5ford",
+      "lose": "s5ok"
+     }
+    }
+   ]
+  },
+  "s5ok": {
+   "text": [
+    "対岸で島津の兵を二人斬った。だが追うほどに、両脇の葦が妙に静かなのが気にかかった。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5hurt": {
+   "text": [
+    "渡りきる前に、鉄砲の玉が肩をかすめた。{player}は川原に転がり、後続の兵に踏まれながら這い上がった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "next": "aftergo"
+  },
+  "s5ford": {
+   "text": [
+    "{player}は川岸を歩き、流れの緩い浅瀬を三つ見つけて、石を積んで目印にした。使わずに済めばいい、と思いながら。"
+   ],
+   "effects": [
+    {
+     "flag": "h_mk_ford"
+    },
+    {
+     "xp": "stealth",
+     "n": 1
+    }
+   ],
+   "next": "aftergo"
+  },
+  "aftergo": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の陣で、高城の戦の成り行きを見届ける",
+   "wait": {
+    "settled": "mimikawa"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "mk_warned"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "mk_lured"
+     },
+     "next": "lured"
+    },
+    {
+     "next": "s6"
+    }
+   ]
+  },
+  "s6": {
+   "at": {
+    "place": "city"
+   },
+   "art": "war",
+   "text": [
+    "逃げていた島津の小勢が、根白坂の下でくるりと向きを変えた。同時に左右の葦原と松林から、鬨の声とともに伏兵が湧き出した。袋の口が閉じた。{takita}は真っ先に斬り込み、そのまま帰らなかった。",
+    "崩れた大軍は北へ逃げた。追われ、討たれ、冬の雨で水かさの増した耳川に追い落とされた。川は人と馬で埋まり、流れは赤く濁った。"
+   ],
+   "choices": [
+    {
+     "label": "目印の浅瀬へ兵を導く",
+     "if": {
+      "flag": "h_mk_ford"
+     },
+     "next": "end_ford"
+    },
+    {
+     "label": "崩れていく陣の形を、目に焼きつける",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_art",
+      "lose": "end_flee"
+     }
+    },
+    {
+     "label": "耳川を泳ぎ渡って逃れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "end_flee",
+      "lose": "end_drown"
+     }
+    }
+   ]
+  },
+  "end_ford": {
+   "text": [
+    "石を積んだ目印は、まだ流されずにあった。{player}は声を嗄らして逃げる兵を呼び集め、浅瀬から浅瀬へと導いた。追手の鉄砲が背中で鳴った。",
+    "渡りきった兵は二百ほど。皆、{player}の顔を見ると黙って頭を下げた。豊後へ帰れば、二百の家に父と子が戻る。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "rep": "otomo",
+     "n": 12
+    },
+    {
+     "unflag": "h_mk_pact"
+    },
+    {
+     "unflag": "h_mk_lured"
+    },
+    {
+     "unflag": "h_mk_seen"
+    },
+    {
+     "unflag": "h_mk_warned"
+    },
+    {
+     "unflag": "h_mk_ford"
+    },
+    {
+     "note": "耳川で大友の大軍が崩れた。浅瀬の目印で二百の兵を逃がした。"
+    }
+   ],
+   "end": "石の目印"
+  },
+  "end_art": {
+   "art": "war",
+   "text": [
+    "退きながら、{player}は振り返って見た。正面の兵が退き、敵を引き込み、左右が閉じる。まるで網を手繰る漁師のようだった。島津の者はこれを「釣り野伏せ」と呼ぶという。",
+    "{player}は泥の中を逃げながら、その形を何度も頭の中でなぞった。二度と、釣られる側には回らぬために。"
+   ],
+   "effects": [
+    {
+     "art": "x11"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "hp": -10
+    },
+    {
+     "unflag": "h_mk_pact"
+    },
+    {
+     "unflag": "h_mk_lured"
+    },
+    {
+     "unflag": "h_mk_seen"
+    },
+    {
+     "unflag": "h_mk_warned"
+    },
+    {
+     "unflag": "h_mk_ford"
+    },
+    {
+     "note": "耳川で大友の大軍が崩れた。島津の釣り野伏せを、その目で見て覚えた。"
+    }
+   ],
+   "end": "釣り野伏せ"
+  },
+  "end_flee": {
+   "text": [
+    "冷たい流れに身を投げ、流木につかまって対岸へ這い上がった。振り返ると、耳川の川面を、杏葉紋の旗が幾本も流れていった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "unflag": "h_mk_pact"
+    },
+    {
+     "unflag": "h_mk_lured"
+    },
+    {
+     "unflag": "h_mk_seen"
+    },
+    {
+     "unflag": "h_mk_warned"
+    },
+    {
+     "unflag": "h_mk_ford"
+    },
+    {
+     "note": "耳川で大友の大軍が崩れ、川を泳ぎ渡って逃れた。"
+    }
+   ],
+   "end": "赤い耳川"
+  },
+  "end_drown": {
+   "text": [
+    "流れに足を取られ、気がつくと下流の河原に打ち上げられていた。土地の漁師が火を焚いてくれていた。「大友の衆は、川に呑まれたよ。何千もな」"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "unflag": "h_mk_pact"
+    },
+    {
+     "unflag": "h_mk_lured"
+    },
+    {
+     "unflag": "h_mk_seen"
+    },
+    {
+     "unflag": "h_mk_warned"
+    },
+    {
+     "unflag": "h_mk_ford"
+    },
+    {
+     "note": "耳川で大友の大軍が崩れ、川に呑まれかけた。"
+    }
+   ],
+   "end": "呑まれた大軍"
+  },
+  "held": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "aide",
+   "art": "war",
+   "text": [
+    "根白坂の島津勢は、いくら待っても渡ってこない大友を見て、やがて伏兵を引き上げていった。釣り針に、魚がかからなかったのだ。",
+    "冬が深まると、大友の大軍は高城の囲みを解き、整然と豊後へ兵を返した。勝ちはしなかった。だが四万は四万のまま帰った。",
+    "{aide}は苦い顔で笑った。「わが殿は、おぬしを一生恨むだろうな。だが生きて恨める。それで足りる」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "otomo",
+     "n": 10
+    },
+    {
+     "unflag": "h_mk_pact"
+    },
+    {
+     "unflag": "h_mk_lured"
+    },
+    {
+     "unflag": "h_mk_seen"
+    },
+    {
+     "unflag": "h_mk_warned"
+    },
+    {
+     "unflag": "h_mk_ford"
+    },
+    {
+     "note": "大友の大軍は小丸川を渡らず、兵を損なわずに豊後へ戻った。"
+    }
+   ],
+   "end": "渡らなかった川"
+  },
+  "lured": {
+   "at": {
+    "place": "city"
+   },
+   "speaker": "yama",
+   "art": "war",
+   "text": [
+    "噂を信じた諸隊は、島津が逃げたと思い込んで競うように川を渡った。そして左右の伏兵に呑まれた。崩れた大軍は耳川に追い落とされ、豊後へ帰りついた者は半ばにも満たなかったという。",
+    "葦原の奥で、{yama}が最後の銀を渡した。「おぬしの舌は、鉄砲千挺にまさった」{player}は銀袋を受け取った。重かった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "shimazu",
+     "n": 10
+    },
+    {
+     "rep": "otomo",
+     "n": -25
+    },
+    {
+     "wanted": "otomo",
+     "n": 25
+    },
+    {
+     "unflag": "h_mk_pact"
+    },
+    {
+     "unflag": "h_mk_lured"
+    },
+    {
+     "unflag": "h_mk_seen"
+    },
+    {
+     "unflag": "h_mk_warned"
+    },
+    {
+     "unflag": "h_mk_ford"
+    },
+    {
+     "note": "撒いた噂のために、大友の大軍は耳川で潰えた。"
+    }
+   ],
+   "end": "撒かれた噂"
+  },
+  "late": {
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "mk_warned"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "branch": "mk_lured"
+     },
+     "next": "lured"
+    },
+    {
+     "next": "late_rec"
+    }
+   ]
+  },
+  "late_rec": {
+   "art": "tale",
+   "text": [
+    "旅の空で噂を聞いた。日向の高城で、大友の大軍が島津に誘い込まれて崩れ、耳川で数え切れぬほどが溺れたという。",
+    "「大友の世も、これで傾く」と、{inn}の主は言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_mk_pact"
+    },
+    {
+     "unflag": "h_mk_lured"
+    },
+    {
+     "unflag": "h_mk_seen"
+    },
+    {
+     "unflag": "h_mk_warned"
+    },
+    {
+     "unflag": "h_mk_ford"
+    },
+    {
+     "note": "耳川で大友の大軍が島津に破られたと聞いた。"
+    }
+   ],
+   "end": "遠い耳川"
+  }
+ },
+ "branches": [
+  {
+   "id": "mk_warned",
+   "event": "mimikawa",
+   "order": 2,
+   "why": "主人公が島津の伏兵を見つけ、大友の渡河を止めさせた",
+   "when": {
+    "flag": "h_mk_warned"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "{n_otomo}の大軍は日向の高城を囲んだが、総大将[[p:田原紹忍]]は小丸川を渡らずに陣を固め、[[p:島津家久]]の「釣り野伏せ」は空を切った。大友は冬を待たずに兵を返したが、その勢いは保たれた。",
+    "do": [
+     [
+      "army",
+      "otomo",
+      0.85
+     ],
+     [
+      "add",
+      "otomo",
+      "prestige",
+      -5
+     ],
+     [
+      "add",
+      "shimazu",
+      "prestige",
+      5
+     ]
+    ],
+    "imp": 3,
+    "at": "tonokori"
+   },
+   "people": [
+    {
+     "spare": "田北鎮周",
+     "years": 6
+    }
+   ]
+  },
+  {
+   "id": "mk_lured",
+   "event": "mimikawa",
+   "order": 1,
+   "why": "主人公が大友の陣に「島津は逃げた」と噂を撒いた",
+   "when": {
+    "flag": "h_mk_lured"
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "「島津は後詰めを捨てた」という噂を信じた{n_otomo}の諸隊は、先を争って小丸川を渡り、{n_shimazu}の「釣り野伏せ」に呑まれた。耳川に追い落とされた大軍は半ばも帰らず、大友の勢いはこれより大きく衰えた。",
+    "do": [
+     [
+      "army",
+      "otomo",
+      0.35
+     ],
+     [
+      "add",
+      "otomo",
+      "stability",
+      -0.3
+     ],
+     [
+      "add",
+      "otomo",
+      "prestige",
+      -10
+     ],
+     [
+      "add",
+      "shimazu",
+      "prestige",
+      25
+     ]
+    ],
+    "imp": 3,
+    "at": "tonokori"
+   }
+  }
+ ]
+}

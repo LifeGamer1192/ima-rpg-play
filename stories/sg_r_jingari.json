@@ -1,0 +1,408 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_r_jingari",
+ "kind": "random",
+ "where": "inn",
+ "hook": "陣借りに行かぬか。手柄次第で、仕官の口も開ける",
+ "title": "陣借り",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "牢人"
+  },
+  "land": {
+   "realm": "here"
+  },
+  "foe": {
+   "realm": "enemy:land"
+  },
+  "camp": {
+   "place": "near:here"
+  },
+  "taisho": {
+   "npc": "侍大将",
+   "sex": "m"
+  },
+  "kumi": {
+   "npc": "足軽組頭",
+   "sex": "m"
+  },
+  "kataki": {
+   "npc": "敵方の物頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "旅籠の土間で、無精髭の侍が椀の酒を干した。{client}と名乗る牢人だ。具足は継ぎはぎだが、槍の穂は丁寧に研いである。",
+    "「{camp}に{land}の陣が張られた。{foe}と一戦交えるらしい。陣借りを願い出れば、雑兵扱いでも戦には出られる。首一つで仕官が叶うこともある。どうだ、組まぬか」"
+   ],
+   "choices": [
+    {
+     "label": "組んで{camp}の陣へ向かう",
+     "next": "camp"
+    }
+   ]
+  },
+  "camp": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "{camp}の{land}の陣で、陣借りを願い出る",
+   "speaker": "taisho",
+   "art": "camp",
+   "text": [
+    "幔幕の内で、侍大将{taisho}が床几に腰かけていた。「陣借りか。食い詰め者に飯だけ食わせる余裕はない。腕を見せよ」",
+    "傍らで、足軽組頭の{kumi}が木槍を手に、にやにや笑っている。"
+   ],
+   "choices": [
+    {
+     "label": "{kumi}と立ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "accepted",
+      "lose": "eve"
+     }
+    },
+    {
+     "label": "これまでの戦歴を語って売り込む",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "accepted",
+      "lose": "eve"
+     }
+    }
+   ]
+  },
+  "accepted": {
+   "speaker": "taisho",
+   "art": "camp",
+   "text": [
+    "{taisho}は膝を打った。「よかろう。先手の端に加える。手柄を立てれば、殿にお目通りもかなおう」"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "xp": "blade",
+     "n": 1
+    }
+   ],
+   "next": "eve"
+  },
+  "eve": {
+   "speaker": "client",
+   "art": "camp",
+   "text": [
+    "合戦前夜、篝火の陰で{client}が声を落とした。「実は、手柄が目当てではない。向こうの先手に、{kataki}という物頭がおる。三年前、わしの主を闇討ちにした男だ」",
+    "「明日、わしは持ち場を離れて奴の陣へ駆け込む。抜け駆けは軍法破りだが、構わぬ。……助太刀してくれぬか」"
+   ],
+   "choices": [
+    {
+     "label": "助太刀を約す",
+     "effects": [
+      {
+       "flag": "sg_jg_help"
+      }
+     ],
+     "next": "battle",
+     "guide": "抜け駆けは軍法破り。勝っても咎めを受ける"
+    },
+    {
+     "label": "{taisho}に事情を打ち明け、名乗りを上げての仇討ちを願う",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "leave",
+      "lose": "battle"
+     }
+    },
+    {
+     "label": "「持ち場を守れ」と止める",
+     "next": "battle"
+    }
+   ]
+  },
+  "leave": {
+   "speaker": "taisho",
+   "art": "camp",
+   "text": [
+    "{taisho}は腕を組んで長く考えていたが、やがてうなずいた。「主の仇か。陣の前で名乗りを上げ、一騎打ちを挑むなら許そう。それで敵の出鼻をくじけるなら、むしろ好都合だ」"
+   ],
+   "effects": [
+    {
+     "flag": "sg_jg_leave"
+    }
+   ],
+   "next": "battle"
+  },
+  "battle": {
+   "art": "war",
+   "text": [
+    "夜明けとともに法螺貝が鳴り、両軍の鉄砲が火を噴いた。煙の向こうから、{foe}の足軽が槍衾を作って押し寄せてくる。",
+    "敵の先手に、{kataki}の旗印が揺れている。{client}が槍を握り直した。"
+   ],
+   "choices": [
+    {
+     "label": "{client}とともに敵陣へ駆け込む",
+     "if": {
+      "flag": "sg_jg_help"
+     },
+     "next": "duel"
+    },
+    {
+     "label": "陣の前に進み出て、{client}とともに名乗りを上げる",
+     "if": {
+      "flag": "sg_jg_leave"
+     },
+     "next": "duel"
+    },
+    {
+     "label": "持ち場を守り、押し寄せる足軽を食い止める",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_line",
+      "lose": "end_routed"
+     }
+    }
+   ]
+  },
+  "duel": {
+   "speaker": "kataki",
+   "art": "duel",
+   "text": [
+    "{kataki}は馬上からこちらを見下ろし、鼻で笑った。「誰かと思えば、あの時の主なしか。供の分まで、まとめて片づけてやる」",
+    "{kataki}の郎党が左右に開いた。{client}が叫んで突きかかる。"
+   ],
+   "choices": [
+    {
+     "label": "郎党を引き受け、{client}に仇を討たせる",
+     "fight": {
+      "foes": "duelist",
+      "n": 2,
+      "level": 0,
+      "win": "won",
+      "lose": "end_routed"
+     }
+    }
+   ]
+  },
+  "won": {
+   "speaker": "client",
+   "art": "duel",
+   "text": [
+    "{kataki}は{client}の槍に胸を貫かれ、馬から落ちた。{client}は肩で息をしながら、こちらを振り返った。首を取るのは、どちらか。"
+   ],
+   "choices": [
+    {
+     "label": "首は{client}に譲る",
+     "next": "end_revenge"
+    },
+    {
+     "label": "「先に郎党を崩したのはこちらだ」と首を取る",
+     "next": "end_head"
+    }
+   ]
+  },
+  "judge": {
+   "speaker": "taisho",
+   "art": "war",
+   "effects": [
+    {
+     "unflag": "sg_jg_help"
+    }
+   ],
+   "text": [
+    "{client}が首を掻き取ったところへ、{taisho}が馬を寄せてきた。顔は怒りで赤い。「持ち場を捨てて駆けたな。抜け駆けは、手柄があろうと首を刎ねるのが軍法だ」"
+   ],
+   "choices": [
+    {
+     "label": "「物頭の首で敵の先手が崩れた。軍法より戦果を見られよ」と申し開く",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_revenge",
+      "lose": "end_banished"
+     }
+    },
+    {
+     "label": "黙って咎めを受ける",
+     "next": "end_banished"
+    }
+   ]
+  },
+  "end_revenge": {
+   "goto": [
+    {
+     "if": {
+      "flag": "sg_jg_help"
+     },
+     "next": "judge"
+    }
+   ],
+   "speaker": "client",
+   "art": "camp",
+   "text": [
+    "{client}は首を抱き、主の名を三度呼んだ。その日の戦は{land}の勝ちに終わり、{taisho}は「敵の物頭を討った陣借りの二人」を殿に申し上げた。",
+    "{client}は召し抱えられることになった。「この恩は忘れぬ。困ったときは、いつでもわしを訪ねてくれ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_jg_help"
+    },
+    {
+     "unflag": "sg_jg_leave"
+    },
+    {
+     "money": 300
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 15
+    },
+    {
+     "rep": "land",
+     "n": 5
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "陣借りの牢人{client}の仇討ちに助太刀した。"
+    }
+   ],
+   "end": "本懐"
+  },
+  "end_head": {
+   "speaker": "client",
+   "art": "camp",
+   "text": [
+    "首実検で、物頭の首は大きな手柄と認められ、褒美の銀が下された。",
+    "{client}は何も言わなかった。ただその夜、陣から姿を消した。研いだ槍の穂だけが、こちらの寝床の脇に突き立ててあった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_jg_help"
+    },
+    {
+     "unflag": "sg_jg_leave"
+    },
+    {
+     "money": 600
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 20
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "奪った首"
+  },
+  "end_line": {
+   "speaker": "taisho",
+   "art": "camp",
+   "text": [
+    "槍衾を三度押し返し、先手の端は最後まで崩れなかった。戦のあと、{taisho}が手ずから酒を注いだ。「陣借りにしては、よう踏みとどまった」",
+    "{client}も持ち場を離れなかった。「仇は、またいつか討つ」と、遠い敵陣を見つめていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_jg_help"
+    },
+    {
+     "unflag": "sg_jg_leave"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 15
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "end": "持ち場"
+  },
+  "end_routed": {
+   "art": "war",
+   "text": [
+    "槍を折られ、泥の中を這って逃げた。気がつけば陣は崩れ、{client}の行方も知れなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_jg_help"
+    },
+    {
+     "unflag": "sg_jg_leave"
+    },
+    {
+     "hp": -25
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "崩れ"
+  },
+  "end_banished": {
+   "speaker": "taisho",
+   "art": "camp",
+   "text": [
+    "首は刎ねられずに済んだが、二人とも陣を追われた。討った物頭の首は、{taisho}の手柄として帳に載った。",
+    "{client}は陣の外で笑った。「主の仇は討てた。わしはそれで十分だ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sg_jg_help"
+    },
+    {
+     "unflag": "sg_jg_leave"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": -10
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "end": "陣払い"
+  }
+ }
+}
