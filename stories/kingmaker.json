@@ -35,6 +35,7 @@
   "prince": {
    "npc": "王族",
    "sex": "m",
+   "house": "power",
    "pick": [
     {
      "role": "弟君",
