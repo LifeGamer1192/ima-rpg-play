@@ -1,0 +1,469 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_shrine_false_oracle",
+ "kind": "random",
+ "where": "shrine",
+ "hook": "神のお告げを売る男が、{shrine}に居座って参詣の人を食い物にしているのです",
+ "title": "偽りの託宣",
+ "era": "*",
+ "most": 2,
+ "again": 200,
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "town": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "老いた堂守"
+  },
+  "diviner": {
+   "npc": "旅の祈祷師",
+   "sex": "m"
+  },
+  "boss": {
+   "npc": "土地の顔役",
+   "sex": "m"
+  },
+  "girl": {
+   "npc": "買われた娘",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{shrine}の前に、参詣の列ができていた。ひと月前に流れてきた祈祷師の{diviner}が、祭壇の奥から神の声を聞かせ、お告げと霊水を高値で売っているという。",
+    "「病の子に霊水を飲ませた母親が、子を亡くしました。それでも人は並ぶ。わしが追い出そうとしたら、{boss}の手下に打たれました」{client}は痣の残る腕を押さえた。"
+   ],
+   "choices": [
+    {
+     "label": "参詣人にまぎれて、お告げの様子を見る",
+     "next": "rite"
+    },
+    {
+     "label": "霊水を手に入れて調べる",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "water",
+      "lose": "rite"
+     }
+    },
+    {
+     "label": "「祈祷師を叩き出せばいいのだろう」",
+     "next": "drive_out",
+     "guide": "後ろには{boss}がいる"
+    }
+   ]
+  },
+  "rite": {
+   "speaker": "diviner",
+   "art": "faith",
+   "text": [
+    "香の煙が立ちこめる中、{diviner}が祭壇の前で鈴を振ると、奥の暗がりから細い声が響いた。「供えよ。さらば病は去らん」",
+    "参詣人がひれ伏し、銭を投げる。声は若い娘のものに聞こえた。祭壇の裏の板壁に、小さな戸がある。"
+   ],
+   "choices": [
+    {
+     "label": "夜を待ち、祭壇の裏に忍び込む",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "behind",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "参詣人の前で、お告げの矛盾を問いただす",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "debate",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "「わたしにも一口乗せろ」と{diviner}に持ちかける",
+     "next": "join",
+     "guide": "人を食い物にする側に回る"
+    }
+   ]
+  },
+  "water": {
+   "text": [
+    "霊水を舌に乗せると、しびれるような苦みがあった。眠り草の汁を薄めたものだ。痛みは一時やわらぐが、病の子が飲めば眠ったまま目を覚まさぬこともある。",
+    "霊水の瓶には、{town}の薬屋の刻印が残っていた。"
+   ],
+   "effects": [
+    {
+     "flag": "sfo_water"
+    }
+   ],
+   "choices": [
+    {
+     "label": "夜を待ち、祭壇の裏に忍び込む",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "behind",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "参詣人の前で霊水の正体を明かす",
+     "next": "debate"
+    }
+   ]
+  },
+  "behind": {
+   "speaker": "girl",
+   "art": "backroom",
+   "text": [
+    "祭壇の裏の狭い部屋に、痩せた娘が膝を抱えていた。足首には縄。{girl}は、人買いから{boss}に買われ、{diviner}の言うとおりに神の声を出させられているのだという。",
+    "「お告げのたびに、泣いている人の顔が見えるの。もういやだ」"
+   ],
+   "effects": [
+    {
+     "flag": "sfo_girl"
+    }
+   ],
+   "choices": [
+    {
+     "label": "縄を切り、{girl}を連れ出す",
+     "next": "chase"
+    },
+    {
+     "label": "明日のお告げの場で、{girl}に本当のことを言わせる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "debate",
+      "lose": "chase"
+     }
+    }
+   ]
+  },
+  "debate": {
+   "speaker": "diviner",
+   "art": "faith",
+   "text": [
+    "お告げの最中に進み出て、参詣人たちに向かって声を張った。霊水の中身、祭壇の裏の小部屋、神の声の主。",
+    "{diviner}の顔から血の気が引いた。参詣人たちがざわめき、誰かが銭を返せと叫ぶ。"
+   ],
+   "choices": [
+    {
+     "label": "{diviner}を捕らえ、{office}へ突き出す",
+     "next": "end_judged"
+    },
+    {
+     "label": "{diviner}に、取った銭を参詣人に返させる",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "chase",
+      "lose": "caught"
+     }
+    }
+   ]
+  },
+  "caught": {
+   "speaker": "diviner",
+   "art": "war",
+   "text": [
+    "「神を疑う者に罰を」{diviner}が叫ぶと、参詣人にまぎれていた{boss}の手下が三人、こちらを取り囲んだ。"
+   ],
+   "choices": [
+    {
+     "label": "打ち払う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "behind",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "drive_out": {
+   "speaker": "diviner",
+   "art": "war",
+   "text": [
+    "祭壇の前に踏み込み、{diviner}の襟首をつかんだ。参詣人が悲鳴を上げて散る。{diviner}が笛を吹くと、境内の外から{boss}の手下が駆けつけた。"
+   ],
+   "choices": [
+    {
+     "label": "手下ごと叩き出す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "behind",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "chase": {
+   "speaker": "boss",
+   "art": "war",
+   "text": [
+    "日が暮れるころ、{boss}が手下を連れて{shrine}に乗り込んできた。「わしの稼ぎを潰したのはお前か。あの娘は、わしが銭を払って買ったものだ。返してもらう」",
+    "{girl}がこちらの背中にしがみついた。"
+   ],
+   "choices": [
+    {
+     "label": "{girl}を守って戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "end_freed",
+      "lose": "end_beaten"
+     },
+     "guide": "相手は四人。手負いになりやすい"
+    },
+    {
+     "label": "{girl}を連れて{town}へ逃れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "refuge",
+      "lose": "chase_fight"
+     }
+    },
+    {
+     "label": "「人買いの娘を囲っていると{office}に知れたら困るのは誰だ」",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "end_freed",
+      "lose": "chase_fight"
+     }
+    }
+   ]
+  },
+  "chase_fight": {
+   "art": "war",
+   "text": [
+    "{boss}の手下が行く手をふさいだ。もう逃げ道はない。"
+   ],
+   "choices": [
+    {
+     "label": "戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_freed",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "refuge": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{girl}を連れて{town}へ逃れる",
+   "speaker": "girl",
+   "art": "road",
+   "text": [
+    "夜道を駆けて{town}にたどり着いた。{girl}は、ここに遠縁の叔母がいると言った。戸を叩くと、女が飛び出してきて{girl}を抱きしめた。",
+    "「生きていたのかい。人買いに連れて行かれたと聞いて、もう諦めていたのに」"
+   ],
+   "next": "end_home"
+  },
+  "join": {
+   "speaker": "diviner",
+   "text": [
+    "{diviner}はこちらを値踏みし、にやりと笑った。「腕の立つ用心棒がほしかったところだ。あの堂守を黙らせてくれれば、上がりの一割をやろう」"
+   ],
+   "choices": [
+    {
+     "label": "{client}を脅して黙らせる",
+     "next": "end_scam",
+     "guide": "名を落とす"
+    },
+    {
+     "label": "仲間になったふりをして、祭壇の裏を探る",
+     "next": "behind"
+    }
+   ]
+  },
+  "end_freed": {
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{boss}たちは逃げ去り、{diviner}も夜のうちに姿を消した。{shrine}にはまた静けさが戻った。",
+    "{girl}は{client}の手伝いとして{shrine}に残ることになった。「今度は、本当に祈ることを教えましょう」{client}は礼にと、{diviner}の残していった銭の一部を差し出した。"
+   ],
+   "effects": [
+    {
+     "unflag": "sfo_water"
+    },
+    {
+     "unflag": "sfo_girl"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "偽の託宣を売る祈祷師を追い、声を出させられていた娘を救った。"
+    }
+   ],
+   "end": "本当の祈り"
+  },
+  "end_home": {
+   "speaker": "girl",
+   "text": [
+    "{girl}は叔母のもとに引き取られた。{shrine}では、神の声が出なくなった{diviner}が参詣人に袋叩きにされ、町を逃げ出したという。",
+    "叔母は、なけなしの銭と、干した薬草を包んでくれた。「この子を、二度もさらわれずに済みました」"
+   ],
+   "effects": [
+    {
+     "unflag": "sfo_water"
+    },
+    {
+     "unflag": "sfo_girl"
+    },
+    {
+     "money": 50
+    },
+    {
+     "item": "herbs",
+     "n": 2
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "偽の託宣の声を出させられていた娘を、遠縁のもとへ送り届けた。"
+    }
+   ],
+   "end": "叔母の家"
+  },
+  "end_scam": {
+   "text": [
+    "{client}は口をつぐみ、{shrine}を去った。お告げの列は日ごとに長くなり、こちらの懐には上がりの銭が入ってきた。",
+    "ある夜、祭壇の裏から娘のすすり泣きが聞こえたが、聞かなかったことにした。"
+   ],
+   "effects": [
+    {
+     "unflag": "sfo_water"
+    },
+    {
+     "unflag": "sfo_girl"
+    },
+    {
+     "money": 180
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    },
+    {
+     "note": "偽の託宣の用心棒になり、上がりを取った。"
+    }
+   ],
+   "end": "託宣の上がり"
+  },
+  "end_judged": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{diviner}を{here}の{office}へ引き立てる",
+   "speaker": "diviner",
+   "art": "court",
+   "text": [
+    "{office}の庭で、{diviner}はあっさりと口を割った。「わしは雇われただけだ。霊水も娘も、みな{boss}の差し金だ」",
+    "捕り方が{boss}の屋敷に踏み込み、人買いから買われた娘たちが何人も見つかった。{office}からは、訴え出た礼の銭が出た。"
+   ],
+   "effects": [
+    {
+     "unflag": "sfo_water"
+    },
+    {
+     "unflag": "sfo_girl"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "偽の託宣を売る祈祷師を{office}へ突き出し、後ろの顔役まで捕らえさせた。"
+    }
+   ],
+   "end": "暴かれた神の声"
+  },
+  "end_beaten": {
+   "art": "disaster",
+   "text": [
+    "手下たちに打ち倒され、境内の外へ放り出された。翌日も参詣の列は続き、祭壇の奥からは、前より怯えた神の声が響いていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sfo_water"
+    },
+    {
+     "unflag": "sfo_girl"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "続くお告げ"
+  }
+ }
+}

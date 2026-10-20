@@ -1,0 +1,508 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_smithy_false_blade",
+ "kind": "random",
+ "where": "smithy",
+ "hook": "研ぎに預かった名のある一振りが、偽物にすり替わったと責められているのです",
+ "title": "すり替えられた名刃",
+ "era": "*",
+ "most": 2,
+ "again": 200,
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "town": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "研ぎ師"
+  },
+  "warrior": {
+   "npc": "武人",
+   "sex": "m"
+  },
+  "forger": {
+   "npc": "流れの鍛冶",
+   "sex": "m"
+  },
+  "pawn": {
+   "npc": "質屋",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{smithy}の板の間に、抜き身の刃が一振り置かれていた。{client}は肩を落としている。",
+    "「{warrior}さまが、家に伝わる名のある一振りを研ぎに出された。研ぎ上げてお返ししたら、これは偽物だ、本物をすり替えたなと。三日のうちに刃の値を払わねば、{office}へ訴えると言われました」",
+    "求められた額は、{smithy}を売っても足りない。"
+   ],
+   "choices": [
+    {
+     "label": "偽物の刃をよく検める",
+     "check": {
+      "skill": "trade",
+      "dc": 25,
+      "win": "clue",
+      "lose": "clue_vague"
+     }
+    },
+    {
+     "label": "{warrior}に会って、話を聞く",
+     "next": "warrior"
+    },
+    {
+     "label": "「払えるだけ払って、頭を下げるしかない」",
+     "next": "end_paid",
+     "guide": "{client}の暮らしは傾く。真相も分からない"
+    }
+   ]
+  },
+  "clue": {
+   "speaker": "client",
+   "text": [
+    "柄を留める釘の穴がわずかにずれ、鍛え肌にも癖がある。急いで写した仕事だ。だが腕は悪くない。",
+    "{client}の顔色が変わった。「この鍛え目の癖……わしが教えた癖です。三年前に逃げた弟子の{forger}が、{town}で打っていると噂に聞いた」"
+   ],
+   "effects": [
+    {
+     "flag": "sfb_clue"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{town}へ行き、{forger}を探す",
+     "next": "forger"
+    },
+    {
+     "label": "まず{warrior}の様子を探る",
+     "next": "warrior"
+    }
+   ]
+  },
+  "clue_vague": {
+   "text": [
+    "見れば見るほど、本物との違いが分からない。偽物だと言われればそうかとも思える。ただ、柄の中から{town}の市で売られる安い木の削り屑がこぼれた。"
+   ],
+   "choices": [
+    {
+     "label": "{town}の市で、刃を写せる鍛冶を探す",
+     "next": "forger"
+    },
+    {
+     "label": "{warrior}に会って、話を聞く",
+     "next": "warrior"
+    }
+   ]
+  },
+  "warrior": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}の{warrior}の屋敷を訪ねる",
+   "speaker": "warrior",
+   "art": "court",
+   "text": [
+    "{warrior}は軒先で酒をあおっていた。「研ぎ師の使いか。払う気になったか」",
+    "屋敷は広いが、庭は荒れ、門番もいない。奥の間からは借り手の催促らしい声が聞こえた。"
+   ],
+   "choices": [
+    {
+     "label": "「本物はどこで最後にご覧になった」と問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "warrior_slip",
+      "lose": "warrior_angry"
+     }
+    },
+    {
+     "label": "屋敷の帳場に忍び込み、借財の書き付けを探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "pawn_ticket",
+      "lose": "warrior_angry"
+     }
+    },
+    {
+     "label": "黙って辞し、{town}で刃を写した者を探す",
+     "next": "forger"
+    }
+   ]
+  },
+  "warrior_slip": {
+   "speaker": "warrior",
+   "text": [
+    "「最後に見たのは……」{warrior}は言いかけて口をつぐんだ。「いや、研ぎに出す前の晩だ。床の間にあった」",
+    "だが借財の催促に来ていた男が、門を出しなに耳打ちした。「旦那の家の宝なら、{town}の質屋に入ってるよ。ひと月も前からな」"
+   ],
+   "effects": [
+    {
+     "flag": "sfb_pawn"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{town}の質屋へ行く",
+     "next": "pawnshop"
+    }
+   ]
+  },
+  "pawn_ticket": {
+   "text": [
+    "帳場の文箱の底に、{town}の質屋{pawn}の預かり札があった。日付は、研ぎに出すひと月も前だ。品書きには、家に伝わる一振りの名が記されている。",
+    "{warrior}は、質に入れた刃の写しを研ぎに出し、すり替えを言い立てて{client}から銭を絞ろうとしているのだ。"
+   ],
+   "effects": [
+    {
+     "flag": "sfb_pawn"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{town}の質屋へ行く",
+     "next": "pawnshop"
+    }
+   ]
+  },
+  "warrior_angry": {
+   "speaker": "warrior",
+   "art": "war",
+   "text": [
+    "「研ぎ師の手先が、わしを疑うか」{warrior}は刃を取って立ち上がった。家来が二人、棒を手に庭へ下りてくる。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "forger",
+      "lose": "end_paid"
+     }
+    },
+    {
+     "label": "頭を下げて引き下がり、{town}へ向かう",
+     "next": "forger"
+    }
+   ]
+  },
+  "forger": {
+   "at": {
+    "place": "town",
+    "building": "smithy"
+   },
+   "goal": "{town}の{smithy}で、刃を写した者を探す",
+   "speaker": "forger",
+   "art": "backroom",
+   "text": [
+    "町外れの小さな{smithy}で、痩せた男が炉を吹いていた。{client}の名を出すと、{forger}は槌を取り落とした。",
+    "「親方が……責められているのですか。あれは、身分のある旦那に頼まれて写したのです。質に入れた家の刃を、家の者に気づかれぬよう写せと。まさか、親方のところへ持ち込むとは」"
+   ],
+   "choices": [
+    {
+     "label": "「{office}の前で、そのとおり話してくれ」",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "thugs",
+      "lose": "forger_scared"
+     }
+    },
+    {
+     "label": "「頼んだ者の名を書き付けにしてくれ」",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "thugs",
+      "lose": "forger_scared"
+     }
+    }
+   ]
+  },
+  "forger_scared": {
+   "speaker": "forger",
+   "text": [
+    "「できません。言えば、わたしも偽物を打った罪に問われる」{forger}は首を振り、炉の陰に身を縮めた。そのとき、戸口に人の影が差した。"
+   ],
+   "next": "thugs"
+  },
+  "thugs": {
+   "art": "war",
+   "text": [
+    "戸を蹴破って、刃を抜いた男が三人入ってきた。{warrior}の家来だ。「写しを打った鍛冶はお前か。旦那がな、口を閉じておけとさ。永久にな」",
+    "{forger}は壁際に追い詰められ、真っ青になっている。"
+   ],
+   "choices": [
+    {
+     "label": "{forger}の前に立ちはだかる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "saved",
+      "lose": "end_silenced"
+     }
+    },
+    {
+     "label": "炉の灰を撒いて目をくらませ、{forger}を連れて裏から逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 32,
+      "win": "saved",
+      "lose": "thugs_caught"
+     }
+    }
+   ]
+  },
+  "thugs_caught": {
+   "art": "war",
+   "text": [
+    "裏戸には、もう一人が回り込んでいた。逃げ道はない。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "saved",
+      "lose": "end_silenced"
+     }
+    }
+   ]
+  },
+  "saved": {
+   "speaker": "forger",
+   "text": [
+    "{forger}は膝をつき、震える声で言った。「殺されかけて、腹が決まりました。どこでも、本当のことを話します」"
+   ],
+   "choices": [
+    {
+     "label": "{forger}を連れて{office}へ訴え出る",
+     "next": "end_exposed"
+    },
+    {
+     "label": "{town}の質屋で本物を請け出し、{warrior}に突きつける",
+     "if": {
+      "money": 150
+     },
+     "effects": [
+      {
+       "money": -150
+      }
+     ],
+     "next": "end_hushed",
+     "guide": "請け出しに銭が要る。表沙汰にはならない"
+    },
+    {
+     "label": "{warrior}に「黙っていてやる」と銭をせびる",
+     "next": "end_blackmail"
+    }
+   ]
+  },
+  "pawnshop": {
+   "at": {
+    "place": "town",
+    "building": "market"
+   },
+   "goal": "{town}の質屋{pawn}を訪ねる",
+   "speaker": "pawn",
+   "art": "trade",
+   "text": [
+    "{pawn}は札を見ると、奥から布に包んだ刃を出してきた。「たしかにお預かりしています。流れる日も近うございますよ」",
+    "「そういえば、この刃を写させてくれと、町外れの鍛冶が来たことがありました。旦那の言いつけだと」"
+   ],
+   "choices": [
+    {
+     "label": "町外れの鍛冶を訪ねる",
+     "next": "forger"
+    },
+    {
+     "label": "請け出して、{warrior}に突きつける（150{money}）",
+     "if": {
+      "money": 150
+     },
+     "effects": [
+      {
+       "money": -150
+      }
+     ],
+     "next": "end_hushed"
+    }
+   ]
+  },
+  "end_exposed": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で訴え出る",
+   "speaker": "client",
+   "text": [
+    "{forger}の申し立てと質屋の帳面がそろい、{warrior}は偽りの訴えで研ぎ師を強請ろうとした罪に問われた。家に伝わる刃は質から流れ、{warrior}は町を去った。",
+    "{client}は、逃げた弟子の肩に手を置いた。「偽物を打った罰は、うちの炉の前で償え。腕だけは、確かなのだから」"
+   ],
+   "effects": [
+    {
+     "unflag": "sfb_clue"
+    },
+    {
+     "unflag": "sfb_pawn"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "名刃のすり替えを言い立てた武人の企みを暴いた。"
+    }
+   ],
+   "end": "暴かれた写し"
+  },
+  "end_hushed": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "本物を持って{here}の{warrior}の屋敷へ行く",
+   "speaker": "warrior",
+   "text": [
+    "請け出した本物を目の前に置くと、{warrior}は長いあいだ黙っていた。やがて床に手をついた。「……訴えは取り下げる。請け出しの銭も、色をつけて返す。どうか、家の者には言わんでくれ」",
+    "{client}は表沙汰にせずに済んだことを喜び、研ぎ代だけを受け取った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sfb_clue"
+    },
+    {
+     "unflag": "sfb_pawn"
+    },
+    {
+     "money": 260
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "質から名刃を請け出し、武人に訴えを取り下げさせた。"
+    }
+   ],
+   "end": "請け出した一振り"
+  },
+  "end_blackmail": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}の{warrior}の屋敷へ行く",
+   "speaker": "warrior",
+   "text": [
+    "「何でも知っておるぞ」と言っただけで、{warrior}は青くなり、訴えを取り下げたうえに銭袋を投げてよこした。",
+    "{client}は助かった。だが{forger}は、こちらを見る目を変えた。「あなたも、旦那と同じだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "sfb_clue"
+    },
+    {
+     "unflag": "sfb_pawn"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "名刃の一件で武人の弱みを握り、銭を取った。"
+    }
+   ],
+   "end": "口止めの銭"
+  },
+  "end_paid": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "{here}の{smithy}へ戻る",
+   "speaker": "client",
+   "text": [
+    "{client}は道具を売り、借りられるだけ借りて、{warrior}に頭を下げた。{smithy}は残ったが、炉の火は小さくなった。",
+    "「濡れ衣でも、銭で済むなら安いものです」そう言って笑う顔は、ひどく老けて見えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sfb_clue"
+    },
+    {
+     "unflag": "sfb_pawn"
+    },
+    {
+     "fame": -1
+    },
+    {
+     "note": "名刃のすり替えの濡れ衣を、研ぎ師が銭で償った。"
+    }
+   ],
+   "end": "銭で済ませた濡れ衣"
+  },
+  "end_silenced": {
+   "art": "disaster",
+   "text": [
+    "打ち倒され、気がつくと{smithy}は荒らされ、{forger}の姿はなかった。数日後、川に男が浮いたと聞いた。証を失い、{client}は言われたとおりの銭を払うほかなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sfb_clue"
+    },
+    {
+     "unflag": "sfb_pawn"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "消された証人"
+  }
+ }
+}

@@ -269,6 +269,160 @@
    "title": "道連れ"
   },
   {
+   "id": "shop_smithy_night_order",
+   "file": "shop_smithy_night_order.json",
+   "kind": "random",
+   "era": "*",
+   "title": "夜の注文"
+  },
+  {
+   "id": "shop_smithy_false_blade",
+   "file": "shop_smithy_false_blade.json",
+   "kind": "random",
+   "era": "*",
+   "title": "すり替えられた名刃"
+  },
+  {
+   "id": "shop_smithy_bad_coin",
+   "file": "shop_smithy_bad_coin.json",
+   "kind": "random",
+   "era": "*",
+   "title": "鉛の銭"
+  },
+  {
+   "id": "shop_shrine_offering_box",
+   "file": "shop_shrine_offering_box.json",
+   "kind": "random",
+   "era": "*",
+   "title": "消えた供え銭"
+  },
+  {
+   "id": "shop_shrine_false_oracle",
+   "file": "shop_shrine_false_oracle.json",
+   "kind": "random",
+   "era": "*",
+   "title": "偽りの託宣"
+  },
+  {
+   "id": "shop_shrine_hidden_pilgrim",
+   "file": "shop_shrine_hidden_pilgrim.json",
+   "kind": "random",
+   "era": "*",
+   "title": "追われる参詣人"
+  },
+  {
+   "id": "shop_inn_ledger",
+   "file": "shop_inn_ledger.json",
+   "kind": "random",
+   "era": "*",
+   "title": "焼かれる帳簿"
+  },
+  {
+   "id": "shop_inn_sick_guest",
+   "file": "shop_inn_sick_guest.json",
+   "kind": "random",
+   "era": "*",
+   "title": "夕餉の毒"
+  },
+  {
+   "id": "shop_inn_false_inspector",
+   "file": "shop_inn_false_inspector.json",
+   "kind": "random",
+   "era": "*",
+   "title": "居座る検め役"
+  },
+  {
+   "id": "shop_market_weights",
+   "file": "shop_market_weights.json",
+   "kind": "random",
+   "era": "*",
+   "title": "軽い分銅"
+  },
+  {
+   "id": "shop_market_protection",
+   "file": "shop_market_protection.json",
+   "kind": "random",
+   "era": "*",
+   "title": "市の守り料"
+  },
+  {
+   "id": "shop_market_apprentice",
+   "file": "shop_market_apprentice.json",
+   "kind": "random",
+   "era": "*",
+   "title": "逃げた見習い"
+  },
+  {
+   "id": "novice_hen",
+   "file": "novice_hen.json",
+   "kind": "random",
+   "era": "*",
+   "title": "逃げた鶏"
+  },
+  {
+   "id": "novice_letter",
+   "file": "novice_letter.json",
+   "kind": "random",
+   "era": "*",
+   "title": "代筆"
+  },
+  {
+   "id": "novice_child",
+   "file": "novice_child.json",
+   "kind": "random",
+   "era": "*",
+   "title": "迷子"
+  },
+  {
+   "id": "novice_traveler",
+   "file": "novice_traveler.json",
+   "kind": "random",
+   "era": "*",
+   "title": "行き倒れ"
+  },
+  {
+   "id": "novice_herbs",
+   "file": "novice_herbs.json",
+   "kind": "random",
+   "era": "*",
+   "title": "薬草摘み"
+  },
+  {
+   "id": "novice_cart",
+   "file": "novice_cart.json",
+   "kind": "random",
+   "era": "*",
+   "title": "荷下ろし"
+  },
+  {
+   "id": "novice_sweep",
+   "file": "novice_sweep.json",
+   "kind": "random",
+   "era": "*",
+   "title": "庭掃き"
+  },
+  {
+   "id": "novice_bellows",
+   "file": "novice_bellows.json",
+   "kind": "random",
+   "era": "*",
+   "title": "ふいご番"
+  },
+  {
+   "id": "novice_purse",
+   "file": "novice_purse.json",
+   "kind": "random",
+   "era": "*",
+   "title": "酔客の財布"
+  },
+  {
+   "id": "novice_dice",
+   "file": "novice_dice.json",
+   "kind": "random",
+   "era": "*",
+   "title": "賭場の見張り"
+  },
+  {
    "id": "shunju_rank2_shi",
    "file": "shunju_rank2_shi.json",
    "kind": "rank",

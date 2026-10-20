@@ -1,0 +1,185 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "novice_purse",
+ "kind": "random",
+ "where": "inn",
+ "again": 90,
+ "most": 2,
+ "trigger": {
+  "fameMax": 40
+ },
+ "hook": "あの酔ったお客を、部屋まで担ぎ上げてもらえませんか",
+ "title": "酔客の財布",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "宿の主人",
+   "sex": "m"
+  },
+  "drunk": {
+   "npc": "酔った商人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "drunk",
+   "art": "inn",
+   "text": [
+    "土間の隅で、{drunk}が酒甕を抱いたまま眠りこけていた。主人は腰が悪く、ひとりでは運べないという。",
+    "肩を貸して梯子を上がらせ、寝床に転がした。そのとき、懐からずしりと重い財布が床に落ちた。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 10,
+     "cap": 10
+    }
+   ],
+   "choices": [
+    {
+     "label": "財布を枕元に置いて、部屋を出る",
+     "next": "morning"
+    },
+    {
+     "label": "主人を呼び、二人で中身を数えて帳場に預ける",
+     "effects": [
+      {
+       "xp": "trade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "end_honest"
+    },
+    {
+     "label": "数枚だけ抜き取る",
+     "effects": [
+      {
+       "xp": "theft",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "theft",
+      "dc": 10,
+      "win": "end_skim",
+      "lose": "end_shamed"
+     }
+    }
+   ]
+  },
+  "morning": {
+   "speaker": "drunk",
+   "art": "inn",
+   "text": [
+    "翌朝、{drunk}の怒鳴り声で目が覚めた。「財布が軽い！　昨夜わしを運んだのはおまえだな！」宿の客がぞろぞろと集まってくる。"
+   ],
+   "choices": [
+    {
+     "label": "「昨夜いくら使ったか、思い出してみろ」と落ち着いて説く",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 10,
+      "win": "end_thanks",
+      "lose": "end_shamed"
+     }
+    },
+    {
+     "label": "主人に、昨夜の酒代の帳面を出してもらう",
+     "effects": [
+      {
+       "xp": "letters",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 8,
+      "win": "end_thanks",
+      "lose": "end_shamed"
+     }
+    }
+   ]
+  },
+  "end_honest": {
+   "speaker": "client",
+   "text": [
+    "朝になって{drunk}は財布を受け取り、中身が一枚も欠けていないのを確かめると、ばつが悪そうに笑った。「疑う前に礼を言わねばな」",
+    "{client}も「正直な客は宿の宝だ」と、朝飯をただにしてくれた。"
+   ],
+   "effects": [
+    {
+     "money": 12
+    },
+    {
+     "item": "rations",
+     "n": 1
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "end": "帳場に預けた財布"
+  },
+  "end_thanks": {
+   "speaker": "drunk",
+   "text": [
+    "{drunk}は指を折って数え、真っ赤になった。昨夜、隣の卓の者たちに酒をおごり散らしていたのだ。「……すまん。わしの勘違いだ」詫びに、残った酒と小銭を置いていった。"
+   ],
+   "effects": [
+    {
+     "money": 8
+    },
+    {
+     "item": "wine",
+     "n": 1
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "晴れた疑い"
+  },
+  "end_skim": {
+   "text": [
+    "指先で数枚をつまみ出し、財布を元どおり懐に戻した。{drunk}はいびきをかいたまま、寝返りも打たなかった。"
+   ],
+   "effects": [
+    {
+     "money": 15
+    }
+   ],
+   "end": "抜き取った銭"
+  },
+  "end_shamed": {
+   "speaker": "client",
+   "text": [
+    "疑いは晴れなかった。{client}は気の毒そうに、けれどきっぱりと言った。「済まんが、今日のうちに出ていってくれ。客商売なんでな」"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    }
+   ],
+   "end": "疑われて"
+  }
+ }
+}

@@ -1,0 +1,480 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_inn_false_inspector",
+ "kind": "random",
+ "where": "inn",
+ "most": 2,
+ "again": 240,
+ "hook": "お上の検め役だという客が、ひと月も居座って一度も宿代を払わないのです",
+ "title": "居座る検め役",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "宿の主人"
+  },
+  "guest": {
+   "npc": "検め役を名乗る男",
+   "sex": "m"
+  },
+  "keeper": {
+   "npc": "宿の女将",
+   "sex": "f"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{client}は、奥の客間のほうを見やってため息をついた。ひと月前から泊まっている{guest}という男が、{palace}から遣わされた検め役だと名乗り、毎晩酒と肴を並べさせては、一度も代を払わない。",
+    "「宿代のことを言えば、印の押された{letter}を振りかざして、帳簿を検めて店を潰すぞと。本物なら逆らえません。けれど、もう米櫃が空なのです」"
+   ],
+   "choices": [
+    {
+     "label": "その{letter}を見せてもらう",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "forged_seal",
+      "lose": "letter_unsure"
+     }
+    },
+    {
+     "label": "留守のあいだに部屋の荷を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "his_pack",
+      "lose": "pack_caught"
+     }
+    },
+    {
+     "label": "酒の相手をして、口を滑らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "drunk_talk",
+      "lose": "letter_unsure"
+     }
+    },
+    {
+     "label": "「お上の人には逆らわぬことだ。払っておけ」",
+     "next": "end_endure"
+    }
+   ]
+  },
+  "forged_seal": {
+   "art": "backroom",
+   "text": [
+    "{letter}の文は立派だが、印の字が一画足りない。紙も、{office}で使うものより薄い。どこかで見た本物の印を、うろ覚えで彫らせたのだろう。",
+    "偽の検め役だ。"
+   ],
+   "effects": [
+    {
+     "flag": "insp_proof"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "{office}へ訴え出る",
+     "next": "office"
+    },
+    {
+     "label": "その場で問い詰める",
+     "next": "confront"
+    },
+    {
+     "label": "「黙っていてやるから、稼ぎを分けろ」",
+     "next": "end_partner",
+     "guide": "宿の主人は泣き寝入りになる"
+    }
+   ]
+  },
+  "his_pack": {
+   "art": "backroom",
+   "text": [
+    "行李の底から、同じ文面の{letter}が三通出てきた。宛名だけが違う。{near}の宿の名もある。それに、宿ごとの「取り立て」を書きつけた小さな帳面。",
+    "この男は、町から町へ同じ手口を繰り返している。"
+   ],
+   "effects": [
+    {
+     "flag": "insp_proof"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "帳面を持って{office}へ",
+     "next": "office"
+    },
+    {
+     "label": "帳面を突きつけて問い詰める",
+     "next": "confront"
+    },
+    {
+     "label": "「黙っていてやるから、稼ぎを分けろ」",
+     "next": "end_partner",
+     "guide": "宿の主人は泣き寝入りになる"
+    }
+   ]
+  },
+  "pack_caught": {
+   "speaker": "guest",
+   "art": "duel",
+   "text": [
+    "行李の紐を解いたところで、戸が開いた。{guest}が刃物を抜いている。「検め役の荷に手をかけるとは、首が要らんと見える」"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 0,
+      "win": "beaten",
+      "lose": "end_thrown_out"
+     }
+    }
+   ]
+  },
+  "drunk_talk": {
+   "speaker": "guest",
+   "art": "inn",
+   "text": [
+    "五つ目の酒壺を空けたころ、{guest}は上機嫌で膝を叩いた。「検め役というのはな、名乗った者勝ちよ。{near}の宿でも、ひと月ただで飲んだわ」",
+    "そう言って、ごろりと横になった。"
+   ],
+   "choices": [
+    {
+     "label": "{near}の宿で、同じ目に遭った者を探す",
+     "next": "near_witness"
+    },
+    {
+     "label": "寝ているうちに荷を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 18,
+      "win": "his_pack",
+      "lose": "pack_caught"
+     }
+    }
+   ]
+  },
+  "letter_unsure": {
+   "text": [
+    "本物か偽物か、どうにも見分けがつかない。{guest}は鼻を鳴らして客間に引っ込んだ。",
+    "{client}が小声で言う。「そういえば、{near}から来た行商が、あちらの宿にも似た客がいたと」"
+   ],
+   "choices": [
+    {
+     "label": "{near}の宿で噂を確かめる",
+     "next": "near_witness"
+    },
+    {
+     "label": "夜を待って荷を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "his_pack",
+      "lose": "pack_caught"
+     }
+    }
+   ]
+  },
+  "near_witness": {
+   "at": {
+    "place": "near",
+    "building": "inn"
+   },
+   "goal": "{near}の{inn}で話を聞く",
+   "speaker": "keeper",
+   "art": "inn",
+   "text": [
+    "{near}の{inn}の女将{keeper}は、その名を聞くなり顔をしかめた。「去年の夏に、ひと月居座った男です。帰り際に、お上の名で宿代を払わせると書きつけを置いていきました。もちろん、誰も払いに来やしません」",
+    "{keeper}は、その書きつけを渡してくれた。手跡は{guest}のものだ。"
+   ],
+   "effects": [
+    {
+     "flag": "insp_proof"
+    }
+   ],
+   "choices": [
+    {
+     "label": "書きつけを持って{here}の{office}へ",
+     "next": "office"
+    },
+    {
+     "label": "{here}に戻り、書きつけを突きつける",
+     "next": "confront"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で{clerk}に訴える",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は眉をひそめた。「{palace}の検め役だと？　そんな話は聞いておらんが……下手に手を出して本物なら、首が飛ぶのはこちらだ」"
+   ],
+   "choices": [
+    {
+     "label": "集めた証を並べて見せる",
+     "if": {
+      "flag": "insp_proof"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "本物なら先に{office}へ挨拶に来るはずだと説く",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_justice",
+      "lose": "office_ng"
+     }
+    }
+   ]
+  },
+  "office_ng": {
+   "speaker": "clerk",
+   "text": [
+    "「確かな証もなしに、お上の使いを縛れるか」{clerk}は首を振った。どうやら、自分でけりをつけるしかない。"
+   ],
+   "choices": [
+    {
+     "label": "{inn}に戻り、{guest}と対決する",
+     "next": "confront"
+    },
+    {
+     "label": "宿の主人に、払って済ませるよう勧める",
+     "next": "end_endure"
+    }
+   ]
+  },
+  "confront": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で{guest}と対決する",
+   "speaker": "guest",
+   "art": "inn",
+   "text": [
+    "客間の{guest}は、こちらの顔を見て盃を置いた。「宿の者に何を吹き込まれた。検め役に盾突けば、お前も同罪だぞ」",
+    "{guest}が手を打つと、町で雇ったらしい無頼の者が二人、廊下から顔を出した。"
+   ],
+   "choices": [
+    {
+     "label": "証を突きつけ、泊まり客の前で言い負かす",
+     "if": {
+      "flag": "insp_proof"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "beaten",
+      "lose": "confront_fight"
+     }
+    },
+    {
+     "label": "偽物の手口を並べ立て、はったりで押し切る",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "beaten",
+      "lose": "confront_fight"
+     },
+     "guide": "証がない。しくじれば三人を相手にする"
+    },
+    {
+     "label": "刃で黙らせる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "beaten",
+      "lose": "end_thrown_out"
+     }
+    }
+   ]
+  },
+  "confront_fight": {
+   "art": "war",
+   "text": [
+    "「やかましい」{guest}の合図で、無頼の者が棒を振りかざした。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "beaten",
+      "lose": "end_thrown_out"
+     }
+    }
+   ]
+  },
+  "beaten": {
+   "speaker": "guest",
+   "text": [
+    "{guest}は床に手をついた。「わ、悪かった。検め役なんぞ嘘だ。宿代は払う。だから見逃してくれ」"
+   ],
+   "choices": [
+    {
+     "label": "{office}へ引き渡す",
+     "next": "end_justice"
+    },
+    {
+     "label": "宿代を残らず払わせ、町から追い出す",
+     "next": "end_paid"
+    }
+   ]
+  },
+  "end_justice": {
+   "speaker": "client",
+   "text": [
+    "{guest}は{office}の手の者に縄を打たれた。偽の印で{palace}の名を騙った罪は重い。行李から出た銭で、宿代はきれいに払われた。",
+    "「これで米が買えます」{client}は泣き笑いの顔で、礼の銭と酒を包んでくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "insp_proof"
+    },
+    {
+     "money": 90
+    },
+    {
+     "item": "wine",
+     "n": 1
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "note": "{palace}の検め役を騙った{guest}の化けの皮を剥いだ。"
+    }
+   ],
+   "end": "剥がれた化けの皮"
+  },
+  "end_paid": {
+   "speaker": "client",
+   "text": [
+    "{guest}は財布を逆さにして宿代を払い、夜のうちに{here}を出ていった。どこか別の町で、また同じことをするのかもしれない。",
+    "{client}は少しだけ多めに、礼を包んでくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "insp_proof"
+    },
+    {
+     "money": 70
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "end": "払わされた宿代"
+  },
+  "end_partner": {
+   "speaker": "guest",
+   "text": [
+    "{guest}はにやりと笑い、銭の半分を差し出した。「話の分かる奴だ。次の町でも組まんか」",
+    "{client}は、翌月とうとう店を畳んだと聞いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "insp_proof"
+    },
+    {
+     "money": 130
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "note": "偽の検め役と組み、宿から金を巻き上げた。"
+    }
+   ],
+   "end": "騙りの分け前"
+  },
+  "end_thrown_out": {
+   "text": [
+    "打ちのめされ、気がつくと宿の外の泥の中にいた。「検め役に盾突いた無頼者」として、{inn}には出入りを禁じられた。",
+    "{guest}は、まだ奥の客間で酒を飲んでいる。"
+   ],
+   "effects": [
+    {
+     "unflag": "insp_proof"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "叩き出されたのは"
+  },
+  "end_endure": {
+   "speaker": "client",
+   "text": [
+    "{client}はうなだれて、借金をして宿代の帳尻を合わせた。{guest}はさらに十日居座り、満腹の顔で去っていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "insp_proof"
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "泣き寝入り"
+  }
+ }
+}

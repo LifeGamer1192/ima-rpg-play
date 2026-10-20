@@ -1,0 +1,529 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_market_protection",
+ "kind": "random",
+ "where": "market",
+ "most": 2,
+ "again": 240,
+ "hook": "守り料を払えと、毎月無頼の者が来るのです。払わねば店を壊される",
+ "title": "市の守り料",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "市の店主"
+  },
+  "boss": {
+   "npc": "無頼の親分",
+   "sex": "m"
+  },
+  "lackey": {
+   "npc": "取り立て役",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "lackey",
+   "art": "trade",
+   "text": [
+    "{client}の店先に、肩を怒らせた男が三人立った。先頭の{lackey}が、並べた壺を一つ、足で蹴り落とす。「今月の守り料だ。親分の{boss}さまのおかげで、この{market}は平穏無事なんだろうが」",
+    "{client}が袖を引いた。「払えば来月はもっと高くなる。払わなければ、店が壊される。どうか……」"
+   ],
+   "choices": [
+    {
+     "label": "代わりに払ってやる（30{money}）",
+     "if": {
+      "money": 30
+     },
+     "effects": [
+      {
+       "money": -30
+      }
+     ],
+     "next": "paid"
+    },
+    {
+     "label": "「失せろ」",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "beat_collectors",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "{lackey}を言いくるめて帰らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "talked",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "黙って見送り、後をつけて元締めを突き止める",
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "den",
+      "lose": "brawl"
+     }
+    }
+   ]
+  },
+  "paid": {
+   "speaker": "lackey",
+   "text": [
+    "{lackey}は銭を数えて懐に入れ、にやりと笑った。「物分かりがいい。来月は倍だ」三人は隣の店へ向かっていく。"
+   ],
+   "choices": [
+    {
+     "label": "後をつけて、元締めの居所を突き止める",
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "den",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "{market}の店主たちを集める",
+     "next": "organize"
+    }
+   ]
+  },
+  "brawl": {
+   "art": "war",
+   "text": [
+    "「なめた真似を」{lackey}の連れが棒を振りかざした。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "beat_collectors",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "beat_collectors": {
+   "speaker": "lackey",
+   "art": "war",
+   "text": [
+    "三人は地べたを這って逃げ出した。{lackey}が振り返って叫ぶ。「覚えてろ。親分が黙っちゃいねえぞ」",
+    "{client}は青い顔で、割れた壺を拾っている。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "仕返しに備え、店主たちをまとめる",
+     "next": "organize"
+    },
+    {
+     "label": "こちらから元締めの根城に乗り込む",
+     "next": "den"
+    }
+   ]
+  },
+  "talked": {
+   "speaker": "lackey",
+   "text": [
+    "話すうちに、{lackey}の肩から力が抜けた。「……俺だって好きでやってるんじゃねえ。親分に借金があってな。取り立てた銭は、{near}の賭場に全部吸い上げられる」",
+    "{lackey}は連れを促して帰っていった。去り際に、賭場の裏口の場所を小声で言い残した。"
+   ],
+   "effects": [
+    {
+     "flag": "prot_lackey"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{near}の賭場へ向かう",
+     "next": "den"
+    },
+    {
+     "label": "{market}の店主たちを集める",
+     "next": "organize"
+    }
+   ]
+  },
+  "organize": {
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "日が暮れてから、{client}の店の奥に十人ほどの店主が集まった。皆、守り料に泣かされている。だが、口を開けば「仕返しが怖い」ばかりだ。"
+   ],
+   "choices": [
+    {
+     "label": "連名の訴え状を書き、{office}へ出す",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "office",
+      "lose": "organize_fail"
+     }
+    },
+    {
+     "label": "店主たちに棒を持たせ、自分たちで{market}を守らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "defend",
+      "lose": "organize_fail"
+     }
+    }
+   ]
+  },
+  "organize_fail": {
+   "speaker": "client",
+   "text": [
+    "店主たちは一人、また一人と帰っていった。「名を連ねたら、真っ先に店を焼かれる」最後に残った{client}が、うなだれた。"
+   ],
+   "choices": [
+    {
+     "label": "一人で{boss}の根城へ乗り込む",
+     "next": "den"
+    },
+    {
+     "label": "「払い続けるしかあるまい」",
+     "next": "end_resigned"
+    }
+   ]
+  },
+  "defend": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "wait": {
+    "days": 2
+   },
+   "goal": "市の立つ日に{here}の{market}を守る",
+   "art": "war",
+   "text": [
+    "市の立つ朝、{boss}の手下が五、六人、棒を担いで現れた。だが店主たちは店の前に並び、棒を構えて動かない。手下たちの足が止まった。",
+    "前に出たのは、手下の中でいちばん大きな男だ。"
+   ],
+   "choices": [
+    {
+     "label": "店主たちの先頭に立って打ち合う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_freed",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "den": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}で{boss}の根城を探す",
+   "speaker": "boss",
+   "art": "hideout",
+   "text": [
+    "{near}の裏通りの賭場に、{boss}はいた。肥えた男で、銭箱を膝に抱えている。「{here}の{market}で暴れたのはお前か。腕は立つようだな。どうだ、うちで取り立てをやらんか。今の倍は稼げるぞ」"
+   ],
+   "choices": [
+    {
+     "label": "{boss}と子分どもを叩き伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "boss_down",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "{lackey}の手引きで裏から忍び込み、取り立ての帳面を盗む",
+     "if": {
+      "flag": "prot_lackey"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "den_ledger",
+      "lose": "den_caught"
+     }
+    },
+    {
+     "label": "話に乗るふりをして、取り立ての帳面を盗み見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "den_ledger",
+      "lose": "den_caught"
+     },
+     "guide": "見つかれば子分三人を相手にする"
+    },
+    {
+     "label": "「悪くない話だ」",
+     "next": "end_join",
+     "guide": "{market}の店主たちを裏切ることになる"
+    }
+   ]
+  },
+  "den_caught": {
+   "art": "war",
+   "text": [
+    "「帳面に何の用だ」{boss}が銭箱を置いた。子分たちが匕首を抜いて取り囲む。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "boss_down",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "den_ledger": {
+   "art": "hideout",
+   "text": [
+    "帳面には、{market}の店ごとの取り立ての額と、もう一つ、毎月{office}のさる役人に渡している「付け届け」が書いてあった。{boss}が野放しだったわけだ。"
+   ],
+   "effects": [
+    {
+     "flag": "prot_ledger"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "office"
+  },
+  "boss_down": {
+   "speaker": "boss",
+   "art": "war",
+   "text": [
+    "{boss}は銭箱を抱えたまま尻餅をついた。「ま、待て。{here}の{market}からは手を引く。だから命だけは」"
+   ],
+   "choices": [
+    {
+     "label": "{office}に突き出す",
+     "next": "end_justice"
+    },
+    {
+     "label": "取り立てた銭を店主たちに返させ、追い払う",
+     "next": "end_freed"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ訴える",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は書き付けを受け取ると、しばらく黙って目を通した。「守り料か。前から噂はあったが、訴え出る者がいなかった」"
+   ],
+   "choices": [
+    {
+     "label": "{boss}の帳面を差し出す",
+     "if": {
+      "flag": "prot_ledger"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "店主たちの訴えを読み上げ、取り締まりを求める",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "end_justice",
+      "lose": "office_ng"
+     }
+    }
+   ]
+  },
+  "office_ng": {
+   "speaker": "clerk",
+   "text": [
+    "「訴えは預かっておく」{clerk}の目は泳いでいた。この役人も、付け届けを受け取っている一人かもしれない。"
+   ],
+   "choices": [
+    {
+     "label": "自分で{boss}の根城へ乗り込む",
+     "next": "den"
+    },
+    {
+     "label": "「払い続けるしかあるまい」",
+     "next": "end_resigned"
+    }
+   ]
+  },
+  "end_justice": {
+   "speaker": "client",
+   "text": [
+    "{office}の手の者が{near}の賭場を囲み、{boss}と子分たちを引き立てていった。付け届けを受けていた役人も、職を解かれたという。",
+    "{market}の店主たちは、集めた銭を包んでくれた。「来月から、守り料のぶんで品を増やせます」"
+   ],
+   "effects": [
+    {
+     "unflag": "prot_lackey"
+    },
+    {
+     "unflag": "prot_ledger"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "note": "{market}から守り料を取り立てていた{boss}を{office}に裁かせた。"
+    }
+   ],
+   "end": "裁かれた親分"
+  },
+  "end_freed": {
+   "speaker": "client",
+   "text": [
+    "{boss}の手下は、二度と{market}に来なくなった。店主たちは、自分たちで夜回りの組を作った。",
+    "「あなたが先に立ってくれたからです」{client}は店の品と銭を押しつけてきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "prot_lackey"
+    },
+    {
+     "unflag": "prot_ledger"
+    },
+    {
+     "money": 90
+    },
+    {
+     "item": "salt",
+     "n": 1
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{market}の店主たちと守り料の無頼を追い払った。"
+    }
+   ],
+   "end": "取り戻した市"
+  },
+  "end_join": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は上機嫌で酒を注いだ。翌月から、{here}の{market}の取り立ては「腕の立つ新入り」の受け持ちになった。",
+    "{client}の店の前を通るとき、店主は目を伏せた。"
+   ],
+   "effects": [
+    {
+     "unflag": "prot_lackey"
+    },
+    {
+     "unflag": "prot_ledger"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": -5
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "note": "無頼の{boss}の取り立て役になった。"
+    }
+   ],
+   "end": "取り立てる側"
+  },
+  "end_beaten": {
+   "text": [
+    "打ちのめされて{market}の裏に転がされた。翌月から、{client}の守り料は倍になった。"
+   ],
+   "effects": [
+    {
+     "unflag": "prot_lackey"
+    },
+    {
+     "unflag": "prot_ledger"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "倍になった守り料"
+  },
+  "end_resigned": {
+   "speaker": "client",
+   "text": [
+    "{client}はうなずいた。「命あっての商いですから」次の月も、その次の月も、{lackey}は店先に立った。"
+   ],
+   "effects": [
+    {
+     "unflag": "prot_lackey"
+    },
+    {
+     "unflag": "prot_ledger"
+    }
+   ],
+   "end": "払い続ける市"
+  }
+ }
+}

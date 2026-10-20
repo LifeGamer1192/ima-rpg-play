@@ -1,0 +1,503 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_market_weights",
+ "kind": "random",
+ "where": "market",
+ "most": 2,
+ "again": 240,
+ "hook": "あの問屋の分銅は軽いのです。文句を言った者は、裏で殴られる",
+ "title": "軽い分銅",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "市の小商人"
+  },
+  "cheat": {
+   "npc": "穀物問屋",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "市の長老",
+   "sex": "m"
+  },
+  "smith": {
+   "npc": "鍛冶の親方",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{market}の隅で、{client}が声をひそめた。「問屋の{cheat}の分銅は軽いのです。十の目方で買えば九しかない。小さな店にまで客が文句を言いに来ますが、{cheat}の店へ行った者は、帰りに路地で殴られる」",
+    "「{market}の寄り合いも、{cheat}につく者と長老の{elder}さまにつく者とで割れて、誰も手を出せません」"
+   ],
+   "choices": [
+    {
+     "label": "客を装って{cheat}の店で穀物を買い、量り直す",
+     "check": {
+      "skill": "trade",
+      "dc": 22,
+      "win": "weight_proof",
+      "lose": "weight_seen"
+     }
+    },
+    {
+     "label": "長老の{elder}に話を聞く",
+     "next": "elder"
+    },
+    {
+     "label": "分銅を作った職人を探す",
+     "next": "near_smith"
+    },
+    {
+     "label": "「よその揉め事に首は突っ込まん」",
+     "next": "end_left"
+    }
+   ]
+  },
+  "weight_seen": {
+   "art": "war",
+   "text": [
+    "店を出て秤を取り出したところで、{cheat}の手下に囲まれた。「量り直しとは、いい度胸だ。その袋、置いていけ」"
+   ],
+   "choices": [
+    {
+     "label": "袋を抱えたまま叩き伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "weight_proof",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "weight_proof": {
+   "art": "trade",
+   "text": [
+    "買った穀物を、{client}の店の秤で量り直した。十の目方のはずが、九にも足りない。袋には{cheat}の店の焼き印がある。これ以上の証はない。"
+   ],
+   "effects": [
+    {
+     "flag": "wt_proof"
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "{elder}に訴え、寄り合いにかけてもらう",
+     "next": "assembly"
+    },
+    {
+     "label": "{office}へ持ち込む",
+     "next": "office"
+    },
+    {
+     "label": "{cheat}に袋を見せ、口止め料を求める",
+     "next": "blackmail",
+     "guide": "{market}の客は騙され続ける"
+    }
+   ]
+  },
+  "elder": {
+   "speaker": "elder",
+   "art": "trade",
+   "text": [
+    "{elder}は白い髭をしごいた。「分かっておる。だが証がない。寄り合いで{cheat}を責めれば、あちらの者が騒いで終わりだ」",
+    "「分銅は、{near}の鍛冶に作らせたと聞いたことがある。あの親方の口を割らせられれば、話は別だが」"
+   ],
+   "choices": [
+    {
+     "label": "{near}の鍛冶を訪ねる",
+     "next": "near_smith"
+    },
+    {
+     "label": "自分で{cheat}の店の穀物を量り直す",
+     "check": {
+      "skill": "trade",
+      "dc": 22,
+      "win": "weight_proof",
+      "lose": "weight_seen"
+     }
+    }
+   ]
+  },
+  "near_smith": {
+   "at": {
+    "place": "near",
+    "building": "smithy"
+   },
+   "goal": "{near}の{smithy}で分銅の作り手を探す",
+   "speaker": "smith",
+   "art": "trade",
+   "text": [
+    "{near}の{smithy}で、親方の{smith}は槌を止めた。「{cheat}の分銅？　……注文どおりに打っただけだ。重さを決めたのは向こうよ」",
+    "奥の棚に、注文の控えを綴じた束が見える。"
+   ],
+   "choices": [
+    {
+     "label": "「お前も同罪にされるぞ」と説き、証言を頼む",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "smith_testify",
+      "lose": "smith_ng"
+     }
+    },
+    {
+     "label": "注文の控えを買い取る（60{money}）",
+     "if": {
+      "money": 60
+     },
+     "effects": [
+      {
+       "money": -60
+      }
+     ],
+     "next": "smith_testify"
+    },
+    {
+     "label": "親方が炉に向かう隙に、控えを抜き取る",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "smith_testify",
+      "lose": "smith_ng"
+     }
+    }
+   ]
+  },
+  "smith_testify": {
+   "speaker": "smith",
+   "text": [
+    "控えには、{cheat}の名と「一割軽く」の書き込みがあった。{smith}は苦い顔でうなずいた。「寄り合いでも{office}でも、聞かれれば本当のことを言おう」"
+   ],
+   "effects": [
+    {
+     "flag": "wt_smith"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{here}の寄り合いへ",
+     "next": "assembly"
+    },
+    {
+     "label": "{here}の{office}へ",
+     "next": "office"
+    }
+   ]
+  },
+  "smith_ng": {
+   "speaker": "smith",
+   "text": [
+    "「帰ってくれ。{cheat}の旦那を怒らせたら、この{smithy}はやっていけん」{smith}は戸を閉ざした。{cheat}に知らせが走るのも時間の問題だ。"
+   ],
+   "choices": [
+    {
+     "label": "{here}へ戻り、自分で証を取る",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "weight_proof",
+      "lose": "weight_seen"
+     }
+    },
+    {
+     "label": "証のないまま、寄り合いで訴える",
+     "next": "assembly"
+    }
+   ]
+  },
+  "assembly": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}の寄り合いに出る",
+   "speaker": "cheat",
+   "art": "court",
+   "text": [
+    "{market}の寄り合い所に、店主たちが詰めかけた。上座の{elder}の前で、{cheat}が腕を組んでいる。「わしの分銅が軽い？　言いがかりも大概にせい」",
+    "{cheat}の側についた店主たちが、一斉に野次を飛ばした。"
+   ],
+   "choices": [
+    {
+     "label": "量り直した袋を、皆の前の秤にかける",
+     "if": {
+      "flag": "wt_proof"
+     },
+     "next": "end_guild"
+    },
+    {
+     "label": "{smith}の控えを読み上げる",
+     "if": {
+      "flag": "wt_smith"
+     },
+     "next": "end_guild"
+    },
+    {
+     "label": "野次を制し、理を説いて場を収める",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "end_guild",
+      "lose": "assembly_riot"
+     }
+    }
+   ]
+  },
+  "assembly_riot": {
+   "art": "war",
+   "text": [
+    "「黙らせろ」{cheat}の手下が棒を手に飛び出し、寄り合い所はたちまち殴り合いになった。"
+   ],
+   "choices": [
+    {
+     "label": "手下どもを叩き出す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_guild_rough",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ訴える",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}はあくびを噛み殺した。「{market}の秤のことなら、まず寄り合いで話をつけるのが筋だろう。証でもあれば別だがな」"
+   ],
+   "choices": [
+    {
+     "label": "量り直した袋を差し出す",
+     "if": {
+      "flag": "wt_proof"
+     },
+     "next": "end_office"
+    },
+    {
+     "label": "鍛冶の控えを差し出す",
+     "if": {
+      "flag": "wt_smith"
+     },
+     "next": "end_office"
+    },
+    {
+     "label": "寄り合いに任せる",
+     "next": "assembly"
+    }
+   ]
+  },
+  "blackmail": {
+   "speaker": "cheat",
+   "art": "backroom",
+   "text": [
+    "店の奥で袋を見せると、{cheat}は長いこと黙っていた。やがて銭箱を引き寄せる。「いくら欲しい。その代わり、二度とこの店に近づくな」"
+   ],
+   "choices": [
+    {
+     "label": "口止め料を受け取る",
+     "next": "end_blackmail"
+    },
+    {
+     "label": "「気が変わった」寄り合いにかける",
+     "next": "assembly"
+    }
+   ]
+  },
+  "end_guild": {
+   "speaker": "elder",
+   "text": [
+    "秤の皿が傾くのを見て、寄り合い所は静まり返った。{elder}は{cheat}に罰金と、一年の秤の検めを言い渡した。{cheat}についていた店主たちも、黙って頭を垂れた。",
+    "「おかげで{market}が一つにまとまった」{elder}は店主たちから集めた礼を手渡した。"
+   ],
+   "effects": [
+    {
+     "unflag": "wt_proof"
+    },
+    {
+     "unflag": "wt_smith"
+    },
+    {
+     "money": 110
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{market}の{cheat}の軽い分銅を暴き、寄り合いをまとめた。"
+    }
+   ],
+   "end": "正しい秤"
+  },
+  "end_guild_rough": {
+   "speaker": "elder",
+   "text": [
+    "手下が逃げ散ると、{cheat}の味方をする者はいなくなった。{elder}は割れた机を見回して苦笑し、{cheat}の秤を取り上げさせた。",
+    "「荒っぽいやり方だが、筋は通った」礼の銭は少なめだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "wt_proof"
+    },
+    {
+     "unflag": "wt_smith"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 3
+    },
+    {
+     "hp": -5
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "end": "殴り合いの寄り合い"
+  },
+  "end_office": {
+   "speaker": "clerk",
+   "text": [
+    "証を見た{clerk}は、さすがに顔色を変えた。{cheat}の分銅は取り上げられ、罰金が科された。{market}の客は、ようやく正しい量で穀物を買えるようになった。",
+    "{client}は小さな店の売り上げから、礼を包んでくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "wt_proof"
+    },
+    {
+     "unflag": "wt_smith"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "note": "{cheat}の軽い分銅を{office}に訴え、罰させた。"
+    }
+   ],
+   "end": "お上の裁き"
+  },
+  "end_blackmail": {
+   "text": [
+    "{cheat}の銭袋は重かった。{market}では、今日も目方の足りない穀物が売られている。",
+    "{client}は、二度と声をかけてこなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "wt_proof"
+    },
+    {
+     "unflag": "wt_smith"
+    },
+    {
+     "money": 160
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "{cheat}の軽い分銅を見逃し、口止め料を取った。"
+    }
+   ],
+   "end": "口止め料"
+  },
+  "end_beaten": {
+   "text": [
+    "袋は奪われ、路地に倒れた。{cheat}の分銅は、明日も軽いままだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "wt_proof"
+    },
+    {
+     "unflag": "wt_smith"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "路地裏の痛み"
+  },
+  "end_left": {
+   "speaker": "client",
+   "text": [
+    "「……そうですか」{client}は肩を落として店に戻った。{market}の喧騒は、何も変わらない。"
+   ],
+   "effects": [
+    {
+     "unflag": "wt_proof"
+    },
+    {
+     "unflag": "wt_smith"
+    }
+   ],
+   "end": "見て見ぬふり"
+  }
+ }
+}

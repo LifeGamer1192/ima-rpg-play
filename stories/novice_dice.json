@@ -1,0 +1,192 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "novice_dice",
+ "kind": "random",
+ "where": "inn",
+ "again": 90,
+ "most": 2,
+ "trigger": {
+  "fameMax": 40
+ },
+ "hook": "裏で手慰みをやっとる。戸口の見張りを一晩、頼めんかね",
+ "title": "賭場の見張り",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "博打打ち",
+   "sex": "m"
+  },
+  "dealer": {
+   "npc": "胴元",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "backroom",
+   "text": [
+    "{inn}の裏の物置で、灯をしぼって賽が振られていた。{client}が声をひそめる。「見回りの{soldier}が来たら、戸を三つ叩いてくれ。朝まで見張れば、少しは握らせる」",
+    "卓の向こうで、{dealer}が慣れた手つきで壺を伏せている。"
+   ],
+   "choices": [
+    {
+     "label": "戸口の陰に座り、外の気配に耳を澄ます",
+     "effects": [
+      {
+       "xp": "stealth",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "watch"
+    },
+    {
+     "label": "しばらく卓の脇で、賽の振り方を眺める",
+     "effects": [
+      {
+       "xp": "theft",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "dice"
+    }
+   ]
+  },
+  "dice": {
+   "speaker": "dealer",
+   "art": "backroom",
+   "text": [
+    "見ているうちに気づいた。{dealer}は壺を伏せる直前、指の間で賽をすり替えている。客の負けが込むのも道理だ。"
+   ],
+   "choices": [
+    {
+     "label": "「見えたぞ」と{dealer}にささやき、分け前を求める",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 12,
+      "win": "end_cut",
+      "lose": "watch"
+     }
+    },
+    {
+     "label": "黙って戸口に戻る",
+     "next": "watch"
+    }
+   ]
+  },
+  "watch": {
+   "art": "backroom",
+   "text": [
+    "夜半、路地の向こうに灯が揺れた。見回りの{soldier}が二人、こちらへ歩いてくる。"
+   ],
+   "choices": [
+    {
+     "label": "戸を三つ叩き、自分も物陰に身を隠す",
+     "effects": [
+      {
+       "xp": "stealth",
+       "n": 10,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "stealth",
+      "dc": 10,
+      "win": "end_paid",
+      "lose": "end_raid"
+     }
+    },
+    {
+     "label": "道に出て、迷った旅の者のふりで{soldier}を引き留める",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 12,
+      "win": "end_paid",
+      "lose": "end_raid"
+     }
+    },
+    {
+     "label": "{soldier}に、裏で賭場が開かれていると告げる",
+     "next": "end_informer"
+    }
+   ]
+  },
+  "end_paid": {
+   "speaker": "client",
+   "text": [
+    "{soldier}の足音が遠ざかると、物置から安堵の息が漏れた。明け方、{client}は約束どおり銭を握らせた。「いい耳だ。またいつか頼むぜ」"
+   ],
+   "effects": [
+    {
+     "money": 10
+    }
+   ],
+   "end": "朝までの見張り"
+  },
+  "end_raid": {
+   "text": [
+    "戸が蹴破られ、灯が倒れた。客たちは裏の塀を越えて散り散りに逃げ、気がつけば自分も夜の路地を走っていた。駄賃はもらいそこねた。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 10,
+     "cap": 10
+    }
+   ],
+   "end": "手入れ"
+  },
+  "end_cut": {
+   "speaker": "dealer",
+   "text": [
+    "{dealer}は表情ひとつ変えず、卓の下でこちらの手に銭を押しこんだ。「口の堅い奴は嫌いじゃない。見張りはもういい、今夜は帰んな」"
+   ],
+   "effects": [
+    {
+     "money": 20
+    }
+   ],
+   "end": "胴元の口止め"
+  },
+  "end_informer": {
+   "speaker": "{soldier}",
+   "text": [
+    "{soldier}は物置に踏みこみ、賽と銭を押さえた。客たちは散り散りに逃げた。{soldier}はこちらに小銭を投げた。「よく知らせた」",
+    "翌日から、町の博打打ちたちの目つきが冷たい。"
+   ],
+   "effects": [
+    {
+     "money": 6
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "告げ口"
+  }
+ }
+}

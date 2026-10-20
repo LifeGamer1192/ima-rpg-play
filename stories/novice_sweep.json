@@ -1,0 +1,195 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "novice_sweep",
+ "kind": "random",
+ "where": "shrine",
+ "again": 90,
+ "most": 2,
+ "trigger": {
+  "fameMax": 40
+ },
+ "hook": "落ち葉が多くて、年寄りの手では追いつかんのです",
+ "title": "庭掃き",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "庭守の老人",
+   "sex": "m"
+  },
+  "owner": {
+   "npc": "若い女",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{shrine}の庭は、一面の落ち葉に埋もれていた。{client}が竹箒を差し出す。「掃いてくだされば、昼の粥くらいは出せますでな」",
+    "庭の隅には、苔むした古い石碑が立っている。"
+   ],
+   "choices": [
+    {
+     "label": "黙々と掃き集める",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "found"
+    },
+    {
+     "label": "掃きながら、石碑の字を{client}に教わる",
+     "effects": [
+      {
+       "xp": "letters",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "found"
+    }
+   ]
+  },
+  "found": {
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "落ち葉の山を崩すと、下から小さな布袋が出てきた。中には数枚の銭と、木彫りのお守り。誰かが参ったときに落としたのだろう。",
+    "{client}は奥で、昼の支度をしている。"
+   ],
+   "choices": [
+    {
+     "label": "{client}に届ける",
+     "next": "end_shrine"
+    },
+    {
+     "label": "参る人に声をかけ、落とし主を探す",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "owner"
+    },
+    {
+     "label": "そっと懐に入れる",
+     "effects": [
+      {
+       "xp": "theft",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "end_keep"
+    }
+   ]
+  },
+  "owner": {
+   "speaker": "owner",
+   "text": [
+    "しばらくして、{owner}が青い顔で庭に駆けこんできた。「このあたりに、布袋が落ちていませんでしたか。母の形見のお守りが入っているんです」"
+   ],
+   "choices": [
+    {
+     "label": "「お守りはどんな形か」と尋ねて確かめる",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 10,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 10,
+      "win": "end_return",
+      "lose": "end_fake"
+     }
+    },
+    {
+     "label": "そのまま渡す",
+     "next": "end_return"
+    }
+   ]
+  },
+  "end_shrine": {
+   "speaker": "client",
+   "text": [
+    "{client}は袋を押しいただいた。「落とし主が来たら、あなたのことを話しておきましょう」粥のあと、供え物のお下がりを持たせてくれた。"
+   ],
+   "effects": [
+    {
+     "item": "rations",
+     "n": 2
+    },
+    {
+     "item": "wine",
+     "n": 1
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "お供えのお下がり"
+  },
+  "end_return": {
+   "speaker": "owner",
+   "text": [
+    "{owner}は「小さな鳥の形です」と答え、お守りを胸に抱いて泣いた。袋の銭を礼に差し出されたが、受け取ったのは半分だけだった。"
+   ],
+   "effects": [
+    {
+     "money": 6
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "end": "形見のお守り"
+  },
+  "end_fake": {
+   "speaker": "owner",
+   "text": [
+    "女の答えはどうにも曖昧だった。それでも袋をひったくるように受け取り、礼もそこそこに去っていった。夕方、本物の落とし主が泣きながら探しに来た。",
+    "{client}が首を振った。「人を見る目も、修行のうちですな」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 10,
+     "cap": 10
+    },
+    {
+     "item": "rations",
+     "n": 1
+    }
+   ],
+   "end": "偽の落とし主"
+  },
+  "end_keep": {
+   "text": [
+    "袋の銭は、昼の粥より少しましな夕餉になった。木彫りのお守りは、捨てるに捨てられず、荷の底に転がっている。"
+   ],
+   "effects": [
+    {
+     "money": 10
+    }
+   ],
+   "end": "拾った銭"
+  }
+ }
+}

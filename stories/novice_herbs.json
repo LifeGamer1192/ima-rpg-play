@@ -1,0 +1,200 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "novice_herbs",
+ "kind": "random",
+ "where": "road",
+ "again": 90,
+ "most": 2,
+ "trigger": {
+  "fameMax": 40
+ },
+ "hook": "腰が痛うて、土手の下の草まで手が届かんのじゃ",
+ "title": "薬草摘み",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "薬草採りの老人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "道端の土手で、{client}が籠を脇に置いて腰を叩いていた。籠の底には、摘んだ草がまだ少ししかない。",
+    "「この先の土手には、よく効く草が生えとる。手伝うてくれたら、分け前をやろう」"
+   ],
+   "choices": [
+    {
+     "label": "{client}に教わりながら、道端の草を摘む",
+     "effects": [
+      {
+       "xp": "medicine",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "pick"
+    },
+    {
+     "label": "土手を下りて、下の草を摘む",
+     "effects": [
+      {
+       "xp": "stealth",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "cliff"
+    }
+   ]
+  },
+  "pick": {
+   "speaker": "client",
+   "text": [
+    "「葉の裏に白い毛があるのが薬じゃ。よう似て、茎が赤いのは腹を下す。間違えるなよ」",
+    "似た草が、同じ株の陰に並んで生えている。"
+   ],
+   "choices": [
+    {
+     "label": "一本ずつ葉の裏を確かめて摘む",
+     "check": {
+      "skill": "medicine",
+      "dc": 8,
+      "win": "good",
+      "lose": "end_lesson"
+     }
+    }
+   ]
+  },
+  "cliff": {
+   "art": "road",
+   "text": [
+    "土手の下の窪みに手を伸ばしたとき、草むらから唸り声がした。群れからはぐれたらしい痩せた狼が一匹、牙をむいてこちらをにらんでいる。窪みはこの狼のねぐららしい。"
+   ],
+   "choices": [
+    {
+     "label": "棒切れで追い払う",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 2,
+      "free": true,
+      "fled": "end_fled",
+      "win": "good",
+      "lose": "end_fled"
+     }
+    },
+    {
+     "label": "目をそらさず、そろそろと退く",
+     "effects": [
+      {
+       "xp": "stealth",
+       "n": 10,
+       "cap": 10
+      }
+     ],
+     "next": "end_fled"
+    }
+   ]
+  },
+  "good": {
+   "speaker": "client",
+   "text": [
+    "籠はすぐにいっぱいになった。{client}は草をより分け、満足そうにうなずいた。「ようやった。さて、分け前じゃが」"
+   ],
+   "choices": [
+    {
+     "label": "薬草を分けてもらう",
+     "next": "end_herbs"
+    },
+    {
+     "label": "「どこへ持っていけば高く売れるか、教えてくれ」",
+     "effects": [
+      {
+       "xp": "trade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "end_sell"
+    }
+   ]
+  },
+  "end_herbs": {
+   "speaker": "client",
+   "text": [
+    "{client}は薬草を二束、きれいに縛って渡してくれた。「傷を負うたら揉んで貼れ。旅の守りになる」"
+   ],
+   "effects": [
+    {
+     "item": "herbs",
+     "n": 2
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "分け前の薬草"
+  },
+  "end_sell": {
+   "speaker": "client",
+   "text": [
+    "「{market}の薬屋は、干して束ねたものなら倍で買う。生のまま持っていくのは素人じゃ」{client}は笑い、二人で{market}に売りに行った分の銭を分けてくれた。"
+   ],
+   "effects": [
+    {
+     "money": 12
+    }
+   ],
+   "end": "薬草の売り方"
+  },
+  "end_lesson": {
+   "speaker": "client",
+   "text": [
+    "籠をのぞいた{client}が、赤い茎を一本つまみ上げた。「これを煎じたら、厠から出られんぞ」笑いながら、似た草の見分け方をもう一度、ていねいに教えてくれた。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 10,
+     "cap": 10
+    },
+    {
+     "item": "herbs",
+     "n": 1
+    }
+   ],
+   "end": "似て非なる草"
+  },
+  "end_fled": {
+   "speaker": "client",
+   "text": [
+    "狼に追われて土手を駆け上がると、{client}が腹を抱えて笑っていた。「あそこははぐれ狼の寝床じゃ。言い忘れとった」詫びのつもりか、籠から一束を分けてくれた。"
+   ],
+   "effects": [
+    {
+     "item": "herbs",
+     "n": 1
+    }
+   ],
+   "end": "はぐれ狼の寝床"
+  }
+ }
+}

@@ -1,0 +1,523 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_smithy_bad_coin",
+ "kind": "random",
+ "where": "smithy",
+ "hook": "{office}の御用を果たしたのに、払われた銭が鉛まじりの贋金だったのです",
+ "title": "鉛の銭",
+ "era": "*",
+ "most": 2,
+ "again": 200,
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "鍛冶屋の女房"
+  },
+  "smith": {
+   "npc": "鍛冶",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "小役人",
+   "sex": "m"
+  },
+  "caster": {
+   "npc": "銭を鋳る職人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{smithy}の前で、{client}が銭の束を握りしめていた。{office}の御用で鋤の刃を百枚打ち、昨日、{clerk}という小役人が代金を持ってきた。",
+    "「鉄屋に払おうとしたら、突き返されました。鉛まじりの贋金だと。夫の{smith}は、{office}に掛け合いに行くと言って聞きません。お役人に逆らえば、ただでは済まないのに」"
+   ],
+   "choices": [
+    {
+     "label": "{smith}と一緒に{office}へ掛け合いに行く",
+     "next": "complain"
+    },
+    {
+     "label": "贋金をよく見て、出どころを探る",
+     "check": {
+      "skill": "trade",
+      "dc": 25,
+      "win": "trace",
+      "lose": "complain"
+     }
+    },
+    {
+     "label": "「鉄屋への払いは、わたしが立て替えよう」（100{money}）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      }
+     ],
+     "next": "end_covered",
+     "guide": "{smith}は救われるが、贋金を流す者はそのまま"
+    },
+    {
+     "label": "「贋金なら、知らぬ顔で他所で使えばいい」",
+     "next": "pass_on",
+     "guide": "見つかれば今度はこちらが贋金使いだ"
+    }
+   ]
+  },
+  "complain": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ掛け合いに行く",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は{smith}の差し出した銭を手に取ると、大げさに眉を上げた。「これは贋金ではないか。{office}が払ったのは良い銭だ。さては、すり替えて二重に取る気だな」",
+    "{smith}はその場で縄をかけられ、牢へ引かれていった。{clerk}の口元に、薄い笑みが浮かんでいた。"
+   ],
+   "effects": [
+    {
+     "flag": "sbc_jail"
+    }
+   ],
+   "next": "arrested"
+  },
+  "arrested": {
+   "speaker": "client",
+   "art": "jail",
+   "text": [
+    "{smith}は贋金を使った咎で牢に入れられた。{client}は泣きはらした目で言った。「{clerk}さまは、ほかの職人にも同じことをしているのです。でも、誰も口に出せない」",
+    "{clerk}が月に一度、{village}へ出かけていくのを見た者がいるという。"
+   ],
+   "choices": [
+    {
+     "label": "{office}の帳場で、{clerk}の払いの帳面を調べる",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "ledger",
+      "lose": "ledger_fail"
+     }
+    },
+    {
+     "label": "{village}へ行き、{clerk}の行き先を確かめる",
+     "next": "workshop"
+    }
+   ]
+  },
+  "trace": {
+   "text": [
+    "銭の縁に、鋳型の継ぎ目が残っている。鉛の混ぜ方も素人ではない。両替商に見せると、同じ癖の贋金が{village}のあたりから流れてくると言った。",
+    "「出しているのは、あの小役人だという噂でね。役所の良い銭を抜いて、贋金とすり替えているのさ」"
+   ],
+   "choices": [
+    {
+     "label": "{village}へ行き、鋳場を探す",
+     "next": "workshop"
+    },
+    {
+     "label": "{office}の帳場で、{clerk}の帳面を調べる",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "ledger",
+      "lose": "ledger_fail"
+     }
+    }
+   ]
+  },
+  "ledger": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}の帳場で帳面を調べる",
+   "text": [
+    "夜番の書記に酒代を握らせ、帳場の帳面を繰った。{clerk}が受け取った良い銭の額と、職人たちに払ったと記した額が、毎月ぴたりと合わない。差は、{clerk}の懐に消えている。"
+   ],
+   "effects": [
+    {
+     "flag": "sbc_proof"
+    }
+   ],
+   "choices": [
+    {
+     "label": "帳面の写しを{office}の長に差し出す",
+     "next": "end_cleared"
+    },
+    {
+     "label": "帳面をもとに、{village}の鋳場も押さえる",
+     "next": "workshop"
+    }
+   ]
+  },
+  "ledger_fail": {
+   "speaker": "clerk",
+   "text": [
+    "帳面を繰っているところへ、{clerk}が入ってきた。「夜に帳場で何をしておる。……まあよい。見なかったことにしてやる。そのかわり、余計な詮索はやめることだ」{clerk}は鼻で笑って去った。"
+   ],
+   "choices": [
+    {
+     "label": "{village}へ行き、{clerk}の行き先を確かめる",
+     "next": "workshop"
+    }
+   ]
+  },
+  "workshop": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}で{clerk}の通う先を探す",
+   "art": "hideout",
+   "text": [
+    "{village}の裏山の炭焼き小屋から、昼も夜も煙が上がっている。のぞくと、痩せた男たちが鎖につながれて鋳型に湯を流していた。見張りは無頼の者が三人。",
+    "一人の職人がこちらに気づき、声を出さずに口を動かした。「たすけて」"
+   ],
+   "choices": [
+    {
+     "label": "見張りを打ち倒し、職人たちを放つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "freed",
+      "lose": "end_jailed"
+     }
+    },
+    {
+     "label": "夜を待ち、鎖の鍵を盗んで職人たちを逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 32,
+      "win": "freed",
+      "lose": "workshop_alarm"
+     }
+    },
+    {
+     "label": "見張りの頭に「{clerk}の使いだ」と名乗って入り込む",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "freed",
+      "lose": "workshop_alarm"
+     },
+     "guide": "見破られれば囲まれる"
+    }
+   ]
+  },
+  "workshop_alarm": {
+   "art": "war",
+   "text": [
+    "見張りが叫び、炭焼き小屋から棍棒を持った男たちが飛び出してきた。鎖の音の中で、職人たちが壁際に身を寄せる。"
+   ],
+   "choices": [
+    {
+     "label": "戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "freed",
+      "lose": "end_jailed"
+     }
+    }
+   ]
+  },
+  "freed": {
+   "speaker": "caster",
+   "text": [
+    "鎖を外された職人の一人、{caster}が地面に額をつけた。「わたしらは借財の形にさらわれ、半年もここで贋金を鋳らされていました。{clerk}は月に一度、出来た銭を取りに来て、良い銭と入れ替えていくのです」",
+    "小屋の奥には鋳型と、{clerk}の名の入った受け取りの書き付けが残っていた。"
+   ],
+   "effects": [
+    {
+     "flag": "sbc_proof"
+    }
+   ],
+   "choices": [
+    {
+     "label": "鋳型と書き付けを持って{office}へ訴え出る",
+     "next": "end_cleared"
+    },
+    {
+     "label": "{clerk}を待ち伏せ、この場で捕らえる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_caught",
+      "lose": "end_cleared"
+     }
+    },
+    {
+     "label": "鋳型を持ち帰り、{clerk}を強請る",
+     "next": "end_squeeze",
+     "guide": "{smith}は出られるが、{clerk}は罰を受けない"
+    }
+   ]
+  },
+  "pass_on": {
+   "speaker": "client",
+   "text": [
+    "{client}はためらったが、ほかに道はなかった。贋金の束を受け取り、{market}で品を買って回る。",
+    "三軒目の店で、主人が銭を噛んで顔をしかめた。"
+   ],
+   "choices": [
+    {
+     "label": "言いくるめて、そのまま押し通す",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "end_passed",
+      "lose": "pass_caught"
+     }
+    },
+    {
+     "label": "「間違えた」と謝って、銭を引っ込める",
+     "next": "trace"
+    }
+   ]
+  },
+  "pass_caught": {
+   "speaker": "店の主人",
+   "art": "war",
+   "text": [
+    "「贋金使いだ」主人が叫ぶと、{market}の用心棒が二人、棒を手に駆けてきた。"
+   ],
+   "choices": [
+    {
+     "label": "人混みにまぎれて逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "end_passed",
+      "lose": "end_jailed"
+     }
+    },
+    {
+     "label": "用心棒を打ち倒して逃げる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_passed",
+      "lose": "end_jailed"
+     }
+    }
+   ]
+  },
+  "end_cleared": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "証を持って{here}の{office}へ行く",
+   "speaker": "client",
+   "text": [
+    "証を見た{office}の長は顔色を変え、{clerk}を捕らえさせた。{smith}は牢を出され、改めて良い銭で代金が払われた。",
+    "「贋金を鋳らされていた人たちも、家に帰れるそうです」{client}は{smith}と並んで頭を下げ、打ったばかりの鉄を一つ持たせてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sbc_jail"
+    },
+    {
+     "unflag": "sbc_proof"
+    },
+    {
+     "money": 120
+    },
+    {
+     "item": "iron"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "贋金をすり替えていた小役人を暴き、鍛冶を牢から出した。"
+    }
+   ],
+   "end": "良い銭の払い"
+  },
+  "end_caught": {
+   "speaker": "caster",
+   "text": [
+    "銭を取りに来た{clerk}を、その場で取り押さえた。縄を打たれた{clerk}を見て、鎖から放たれた職人たちが声を上げて泣いた。",
+    "{clerk}を{office}へ引き渡すと、{smith}は放たれ、捕らえた手柄に褒美が出た。"
+   ],
+   "effects": [
+    {
+     "unflag": "sbc_jail"
+    },
+    {
+     "unflag": "sbc_proof"
+    },
+    {
+     "money": 180
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "贋金の鋳場を潰し、小役人をその場で捕らえた。"
+    }
+   ],
+   "end": "鋳場の縄"
+  },
+  "end_squeeze": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で{clerk}に会う",
+   "speaker": "clerk",
+   "text": [
+    "鋳型を袖の中でちらつかせると、{clerk}は人払いをした。「……何が望みだ」{smith}はその日のうちに放たれ、こちらの懐にも銭袋が入った。",
+    "{clerk}は今も{office}にいる。新しい鋳場を、どこかに作るのだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "sbc_jail"
+    },
+    {
+     "unflag": "sbc_proof"
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "贋金の小役人を強請って鍛冶を出させ、口止めの銭を取った。"
+    }
+   ],
+   "end": "黙らせた小役人"
+  },
+  "end_covered": {
+   "speaker": "client",
+   "text": [
+    "立て替えた銭で鉄屋への払いは済み、{smith}は{office}へ行くのをやめた。「このご恩は、刃で返します」",
+    "{client}は、手入れした鉄を少しと、礼の銭をいくらか包んでくれた。贋金がどこから来たのかは、誰も知らないままだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "sbc_jail"
+    },
+    {
+     "unflag": "sbc_proof"
+    },
+    {
+     "money": 40
+    },
+    {
+     "item": "iron"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "trade",
+     "n": 1
+    },
+    {
+     "note": "贋金をつかまされた鍛冶の払いを立て替えた。"
+    }
+   ],
+   "end": "立て替えた払い"
+  },
+  "end_passed": {
+   "text": [
+    "贋金は{market}のあちこちに散っていった。{client}はほっとした顔で礼の銭を渡したが、その銭が本物かどうかは確かめなかった。",
+    "近ごろ{market}では、贋金をつかまされた者が増えているという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sbc_jail"
+    },
+    {
+     "unflag": "sbc_proof"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": -2
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "贋金を{market}に流した。"
+    }
+   ],
+   "end": "回る贋金"
+  },
+  "end_jailed": {
+   "art": "jail",
+   "text": [
+    "取り押さえられ、贋金使いの一味として牢に放り込まれた。出されたのは十日も後のことだ。{smith}の一件がどうなったかは、誰も教えてくれなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sbc_jail"
+    },
+    {
+     "unflag": "sbc_proof"
+    },
+    {
+     "fame": -3
+    },
+    {
+     "jail": 10
+    }
+   ],
+   "end": "贋金使いの汚名"
+  }
+ }
+}

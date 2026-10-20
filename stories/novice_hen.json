@@ -1,0 +1,233 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "novice_hen",
+ "kind": "random",
+ "where": "folk",
+ "again": 90,
+ "most": 2,
+ "trigger": {
+  "fameMax": 40
+ },
+ "hook": "鶏が籠を破って逃げたのです。お供えにする大事な鶏なのに",
+ "title": "逃げた鶏",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "農家の娘"
+  },
+  "neighbor": {
+   "npc": "偏屈な隠居",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "道の真ん中で、{client}が空の籠を抱えて泣きべそをかいていた。籠の目が一つ、大きく破れている。",
+    "「{shrine}にお供えする鶏なんです。あっちの路地へ逃げて……追いかけると、もっと逃げるの」路地の奥で、赤いとさかが首をかしげている。"
+   ],
+   "choices": [
+    {
+     "label": "足音を殺して忍び寄り、捕まえる",
+     "effects": [
+      {
+       "xp": "stealth",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "stealth",
+      "dc": 10,
+      "win": "end_caught",
+      "lose": "chase"
+     }
+    },
+    {
+     "label": "走って追い詰める",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "chase"
+    }
+   ]
+  },
+  "chase": {
+   "speaker": "neighbor",
+   "art": "tale",
+   "text": [
+    "鶏は羽をばたつかせて塀を越え、隣の庭に飛び込んだ。戸口から{neighbor}が顔を出し、鶏の首をむんずとつかむ。",
+    "「わしの菜を突つきおった。この鶏はもう、わしのものじゃ。欲しけりゃ十{money}出せ」"
+   ],
+   "choices": [
+    {
+     "label": "「菜の傷みは見ればわずかだ」と話をつける",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 8,
+      "win": "end_caught",
+      "lose": "pay"
+     }
+    },
+    {
+     "label": "隠居が奥へ引っ込んだすきに、塀を越えて取り返す",
+     "effects": [
+      {
+       "xp": "theft",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "end_stolen"
+    },
+    {
+     "label": "十{money}を払って買い戻す",
+     "if": {
+      "money": 10
+     },
+     "effects": [
+      {
+       "money": -10
+      }
+     ],
+     "next": "end_bought"
+    }
+   ]
+  },
+  "pay": {
+   "speaker": "neighbor",
+   "text": [
+    "{neighbor}は鼻で笑った。「口ばかり達者な若造め。銭がないなら、体で払え。裏の薪を割ってゆけば、鶏は返してやる」"
+   ],
+   "choices": [
+    {
+     "label": "薪を割る",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 20,
+       "cap": 10
+      },
+      {
+       "pass": 120
+      }
+     ],
+     "next": "end_worked"
+    },
+    {
+     "label": "夜まで待って、こっそり取り返す",
+     "effects": [
+      {
+       "xp": "stealth",
+       "n": 10,
+       "cap": 10
+      },
+      {
+       "xp": "theft",
+       "n": 10,
+       "cap": 10
+      }
+     ],
+     "next": "end_stolen"
+    }
+   ]
+  },
+  "end_caught": {
+   "speaker": "client",
+   "text": [
+    "鶏はあっけなく腕の中におさまった。{client}は籠の目を藁で繕い、何度も頭を下げた。「これでお供えに間に合います。少ないけど、これを」"
+   ],
+   "effects": [
+    {
+     "money": 5
+    },
+    {
+     "item": "rations",
+     "n": 1
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "鶏が戻った"
+  },
+  "end_worked": {
+   "speaker": "neighbor",
+   "text": [
+    "薪の山が片づくころには、手のひらに豆ができていた。{neighbor}は黙って鶏を籠に戻し、ついでに濁り酒を一杯ついでよこした。「……見かけより根性がある」",
+    "{client}は鶏を抱いて、母に見せに走っていった。"
+   ],
+   "effects": [
+    {
+     "item": "wine",
+     "n": 1
+    },
+    {
+     "money": 3
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "薪割りの代わり"
+  },
+  "end_stolen": {
+   "speaker": "client",
+   "text": [
+    "塀の内側にそっと降り、鶏小屋の脇から鶏を抱えて戻った。{neighbor}はまだ気づいていない。{client}は笑いをこらえながら、小さな包みを差し出した。"
+   ],
+   "effects": [
+    {
+     "money": 4
+    },
+    {
+     "item": "rations",
+     "n": 1
+    }
+   ],
+   "end": "塀越しの鶏"
+  },
+  "end_bought": {
+   "speaker": "client",
+   "text": [
+    "{neighbor}は銭を数えて、ふんと鶏を放った。{client}は「あとで必ずお返しします」と言い、母の焼いた餅を持ってきてくれた。町の者は、親切な旅の者の話をしばらくしていた。"
+   ],
+   "effects": [
+    {
+     "item": "rations",
+     "n": 2
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "trade",
+     "n": 10,
+     "cap": 10
+    }
+   ],
+   "end": "買い戻した鶏"
+  }
+ }
+}

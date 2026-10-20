@@ -1,0 +1,495 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_shrine_offering_box",
+ "kind": "random",
+ "where": "shrine",
+ "hook": "供え銭の箱が盗まれ、わたしが盗んだと言われているのです",
+ "title": "消えた供え銭",
+ "era": "*",
+ "most": 2,
+ "again": 200,
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "堂守"
+  },
+  "elder": {
+   "npc": "町の世話役",
+   "sex": "m"
+  },
+  "boy": {
+   "npc": "貧しい少年",
+   "sex": "m"
+  },
+  "sister": {
+   "npc": "少年の妹",
+   "sex": "f"
+  },
+  "lender": {
+   "npc": "金貸しの手代",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{shrine}の境内で、{client}が人に囲まれていた。祭りに向けて町の者が積み立てた供え銭の箱が、昨夜のうちに消えたのだ。",
+    "世話役の{elder}が声を荒らげる。「鍵を持っているのはお前だけだ。返さぬなら{office}に突き出す」",
+    "{client}は青ざめた顔で、こちらに目を向けた。"
+   ],
+   "choices": [
+    {
+     "label": "箱の置かれていた場所を調べる",
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "tracks",
+      "lose": "tracks_lost"
+     }
+    },
+    {
+     "label": "「調べる時を三日くれ」と{elder}をなだめる",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "tracks",
+      "lose": "elder_angry"
+     }
+    },
+    {
+     "label": "「わたしには関わりのないことだ」と立ち去る",
+     "next": "end_left",
+     "guide": "{client}は濡れ衣を着たまま{office}へ引かれる"
+    }
+   ]
+  },
+  "elder_angry": {
+   "speaker": "elder",
+   "text": [
+    "「よそ者が口を出すな」{elder}は取り合わない。だが人垣が崩れたすきに、床下に小さな泥の足跡が残っているのが見えた。子どもの足だ。"
+   ],
+   "next": "tracks"
+  },
+  "tracks_lost": {
+   "text": [
+    "境内はもう踏み荒らされていた。ただ、裏の垣根の破れ目に、粗末な布の切れ端が引っかかっている。{village}の者がよく着る織りだと、参詣人の一人が言った。"
+   ],
+   "choices": [
+    {
+     "label": "{village}へ行って探す",
+     "next": "village"
+    }
+   ]
+  },
+  "tracks": {
+   "text": [
+    "床下の足跡は小さく、裏の垣根の破れ目へ続いていた。垣根の外には箱の錠前が捨てられ、その先の道は{village}へ向かっている。",
+    "「子どもが……」{client}がつぶやいた。「近ごろ、{village}の男の子がよくお参りに来ていました。妹が病だと言って」"
+   ],
+   "effects": [
+    {
+     "flag": "sob_boy"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{village}へ行って少年を探す",
+     "next": "village"
+    }
+   ]
+  },
+  "village": {
+   "at": {
+    "place": "village",
+    "building": "house"
+   },
+   "goal": "{village}で少年を探す",
+   "speaker": "boy",
+   "art": "tale",
+   "text": [
+    "{village}のはずれのあばら家で、{boy}が寝床の妹{sister}に水を飲ませていた。こちらを見ると、少年は戸口に立ちふさがった。",
+    "「銭はもうない。妹の薬代の借りを返せと、金貸しの手代が毎晩来るんだ。払わなきゃ妹を売るって」",
+    "{sister}は熱にうかされ、浅い息をしている。"
+   ],
+   "choices": [
+    {
+     "label": "{sister}を診る",
+     "check": {
+      "skill": "medicine",
+      "dc": 28,
+      "win": "cured",
+      "lose": "cure_fail"
+     }
+    },
+    {
+     "label": "薬草を煎じて飲ませる（薬草）",
+     "if": {
+      "item": "herbs"
+     },
+     "effects": [
+      {
+       "item": "herbs",
+       "n": -1
+      }
+     ],
+     "next": "cured"
+    },
+    {
+     "label": "「盗みは盗みだ。{office}へ来てもらう」",
+     "next": "end_turned_in",
+     "guide": "箱の銭は戻らず、{sister}は一人残される"
+    },
+    {
+     "label": "手代が来るのを待つ",
+     "next": "lender"
+    }
+   ]
+  },
+  "cure_fail": {
+   "text": [
+    "手は尽くしたが、熱は下がらない。夜が更けると、戸の外に松明の灯りが揺れた。"
+   ],
+   "next": "lender"
+  },
+  "cured": {
+   "speaker": "sister",
+   "text": [
+    "夜半、{sister}の熱が引いた。かすれた声で兄の名を呼ぶ{sister}を、{boy}は泣きながら抱きしめた。",
+    "そのとき、戸を叩く音がした。「小僧、今夜こそ払ってもらうぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "sob_cured"
+    }
+   ],
+   "next": "lender"
+  },
+  "lender": {
+   "speaker": "lender",
+   "art": "backroom",
+   "text": [
+    "{lender}が棒を持った男を二人連れて入ってきた。「供え銭とやらで半分は返してもらった。残りは娘で払ってもらう」",
+    "奪った供え銭は、そのまま{lender}の懐に入ったらしい。"
+   ],
+   "choices": [
+    {
+     "label": "「貸し付けの証文を見せろ」と利息の計算を突く",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "lender_backs",
+      "lose": "lender_fight"
+     }
+    },
+    {
+     "label": "男たちを叩き出す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "lender_backs",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "残りの借りを払ってやる（80{money}）",
+     "if": {
+      "money": 80
+     },
+     "effects": [
+      {
+       "money": -80
+      }
+     ],
+     "next": "lender_paid"
+    }
+   ]
+  },
+  "lender_fight": {
+   "speaker": "lender",
+   "art": "war",
+   "text": [
+    "「証文だと。手代風情に、そんなものが要るか」{lender}が顎をしゃくり、男たちが棒を振り上げた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "lender_backs",
+      "lose": "end_taken"
+     }
+    }
+   ]
+  },
+  "lender_backs": {
+   "speaker": "lender",
+   "text": [
+    "{lender}は尻もちをつき、懐から供え銭の袋を放り出した。「わ、分かった。借りは帳消しだ。これも返す」",
+    "袋の中身は、ほとんど手つかずのまま残っていた。"
+   ],
+   "effects": [
+    {
+     "flag": "sob_money"
+    }
+   ],
+   "next": "back"
+  },
+  "lender_paid": {
+   "speaker": "lender",
+   "text": [
+    "{lender}は銭を数え、つまらなそうに証文を破った。「供え銭のほうは、もう使っちまったよ」そう言って男たちと出ていった。"
+   ],
+   "next": "back"
+  },
+  "back": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{boy}を連れて{here}の{shrine}へ戻る",
+   "speaker": "elder",
+   "art": "faith",
+   "text": [
+    "{boy}を連れて{shrine}に戻ると、{elder}と町の者たちが待っていた。{boy}はうつむいたまま、盗んだのは自分だと言った。",
+    "「子どもの盗みでも、盗みは盗みだ」{elder}が言う。{client}は黙って、こちらと少年を見比べている。"
+   ],
+   "choices": [
+    {
+     "label": "供え銭の袋を返し、少年を許してくれと頼む",
+     "if": {
+      "flag": "sob_money"
+     },
+     "next": "end_returned"
+    },
+    {
+     "label": "「わたしが代わりに供え銭を納める」（120{money}）",
+     "if": {
+      "money": 120
+     },
+     "effects": [
+      {
+       "money": -120
+      }
+     ],
+     "next": "end_paid"
+    },
+    {
+     "label": "「この子は妹のために盗んだ。働いて返させればよい」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_forgiven",
+      "lose": "end_turned_in"
+     }
+    },
+    {
+     "label": "少年を{office}へ引き渡す",
+     "next": "end_turned_in"
+    }
+   ]
+  },
+  "end_returned": {
+   "speaker": "client",
+   "text": [
+    "袋を受け取った{elder}は、ばつが悪そうに{client}に頭を下げた。{boy}は{shrine}の掃除をして罪を償うことになり、{client}は病の癒えた{sister}を引き取って面倒を見ると言った。",
+    "「濡れ衣も晴れ、銭も戻り、子どもも救われた。神のお計らいでしょう」{client}は礼にと、供え物の酒を一つ分けてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sob_boy"
+    },
+    {
+     "unflag": "sob_cured"
+    },
+    {
+     "unflag": "sob_money"
+    },
+    {
+     "money": 60
+    },
+    {
+     "item": "wine"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "note": "供え銭の盗みの濡れ衣を晴らし、盗んだ少年も救った。"
+    }
+   ],
+   "end": "戻った供え銭"
+  },
+  "end_paid": {
+   "speaker": "client",
+   "text": [
+    "自分の懐から銭を出して納めると、町の者たちはどよめいた。{elder}も、それ以上は何も言わなかった。",
+    "{boy}は涙をこらえて頭を下げた。{client}は、いつかこの子が返しに来るでしょうと笑った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sob_boy"
+    },
+    {
+     "unflag": "sob_cured"
+    },
+    {
+     "unflag": "sob_money"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    },
+    {
+     "note": "盗まれた供え銭を自ら納め、少年をかばった。"
+    }
+   ],
+   "end": "肩代わりの供え銭"
+  },
+  "end_forgiven": {
+   "speaker": "elder",
+   "text": [
+    "{elder}は長いあいだ腕を組んでいたが、やがてため息をついた。「祭りまで、毎朝{shrine}の水を汲め。それで勘弁してやる」",
+    "銭は戻らなかったが、町の者が少しずつ出し直すことになった。{client}は少年の頭をなで、こちらに小さな包みを渡した。"
+   ],
+   "effects": [
+    {
+     "unflag": "sob_boy"
+    },
+    {
+     "unflag": "sob_cured"
+    },
+    {
+     "unflag": "sob_money"
+    },
+    {
+     "money": 30
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "供え銭を盗んだ少年の許しを、町の世話役に乞うた。"
+    }
+   ],
+   "end": "水汲みの償い"
+  },
+  "end_turned_in": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{boy}を{here}の{office}へ引き渡す",
+   "speaker": "client",
+   "text": [
+    "{boy}は{office}に引き渡され、{client}の濡れ衣は晴れた。{office}からは、盗人を捕らえた礼の銭が出た。",
+    "「あの子の妹は、どうなるのでしょう」{client}は、受け取った銭を見つめたままつぶやいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sob_boy"
+    },
+    {
+     "unflag": "sob_cured"
+    },
+    {
+     "unflag": "sob_money"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 1
+    },
+    {
+     "favor": 4
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "note": "供え銭を盗んだ少年を{office}へ引き渡した。"
+    }
+   ],
+   "end": "法の裁き"
+  },
+  "end_taken": {
+   "art": "disaster",
+   "text": [
+    "男たちに打ち倒され、気がつくと{sister}の姿はなかった。{boy}は空の寝床の前で声もなく座り込んでいる。",
+    "{client}の濡れ衣も晴れぬまま、{shrine}には新しい堂守が来ることになった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sob_boy"
+    },
+    {
+     "unflag": "sob_cured"
+    },
+    {
+     "unflag": "sob_money"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "売られた妹"
+  },
+  "end_left": {
+   "text": [
+    "{shrine}を後にした。背中で、{client}が縄をかけられる音がした。数日後、供え銭の箱は{village}の溝で空になって見つかったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sob_boy"
+    },
+    {
+     "unflag": "sob_cured"
+    },
+    {
+     "unflag": "sob_money"
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "見ぬふり"
+  }
+ }
+}

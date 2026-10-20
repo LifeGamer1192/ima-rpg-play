@@ -1,0 +1,232 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "novice_letter",
+ "kind": "random",
+ "where": "folk",
+ "again": 90,
+ "most": 2,
+ "trigger": {
+  "fameMax": 40
+ },
+ "hook": "字が書けんのです。故郷の兄に、一筆頼めませんか",
+ "title": "代筆",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "日雇いの男"
+  },
+  "lender": {
+   "npc": "金貸し",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は、どこかで拾ってきた書き物の切れ端と、ちびた筆を握りしめていた。",
+    "「故郷の兄に、少し用立ててくれと頼みたいんで。おれは字が書けねえ。言うとおりに書いてもらえりゃ、それでいい」"
+   ],
+   "choices": [
+    {
+     "label": "言われたとおりに、一字ずつ書く",
+     "effects": [
+      {
+       "xp": "letters",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "written"
+    },
+    {
+     "label": "兄が心を動かすよう、言い回しを整えて書く",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      },
+      {
+       "xp": "letters",
+       "n": 10,
+       "cap": 10
+      }
+     ],
+     "next": "written"
+    }
+   ]
+  },
+  "written": {
+   "speaker": "client",
+   "text": [
+    "書き上げた便りを読み聞かせると、{client}は何度もうなずいた。それから、懐から皺だらけの書付を出した。",
+    "「ついでに、こいつも読んでくれねえか。{lender}から借りたときに、爪印を押したもんだ。利息は月に一割と聞いたんだが」"
+   ],
+   "choices": [
+    {
+     "label": "書付を読み上げる",
+     "effects": [
+      {
+       "xp": "letters",
+       "n": 10,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 10,
+      "win": "trick",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "「難しい字は読めない」と正直に言う",
+     "next": "end_plain"
+    }
+   ]
+  },
+  "trick": {
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "書付には、はっきりと「月に二割」とあった。しかも返せぬときは、家の道具をすべて渡すと書いてある。",
+    "{client}の顔から血の気が引いた。「そんなこと、一言も……」"
+   ],
+   "choices": [
+    {
+     "label": "{client}と一緒に{lender}の家へ掛け合いに行く",
+     "next": "lender"
+    },
+    {
+     "label": "「{office}へ訴え出ろ。書付を持っていけ」と教える",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 10,
+       "cap": 10
+      }
+     ],
+     "next": "end_advice"
+    }
+   ]
+  },
+  "lender": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{client}と{lender}の家へ行く",
+   "speaker": "lender",
+   "art": "backroom",
+   "text": [
+    "{lender}は帳面から顔も上げずに言った。「爪印を押したのはそいつだ。書いてあるとおりに払ってもらう」"
+   ],
+   "choices": [
+    {
+     "label": "「口で言ったことと書いたことが違えば、騙りだ」と迫る",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 12,
+      "win": "end_fixed",
+      "lose": "end_tried"
+     }
+    },
+    {
+     "label": "帳面の写しと書付の字を並べ、食い違いを指さす",
+     "effects": [
+      {
+       "xp": "letters",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 12,
+      "win": "end_fixed",
+      "lose": "end_tried"
+     }
+    }
+   ]
+  },
+  "end_plain": {
+   "speaker": "client",
+   "text": [
+    "{client}は便りを大事そうに懐へしまい、駄賃を握らせてくれた。「字が書けるってのは、たいしたもんだ」"
+   ],
+   "effects": [
+    {
+     "money": 4
+    }
+   ],
+   "end": "故郷への便り"
+  },
+  "end_advice": {
+   "speaker": "client",
+   "text": [
+    "{client}は書付を握りしめて{office}へ向かった。数日後、道で会うと、利息は話のとおりに改められたと言って、旅の糧を分けてくれた。"
+   ],
+   "effects": [
+    {
+     "money": 3
+    },
+    {
+     "item": "rations",
+     "n": 2
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "訴え出る知恵"
+  },
+  "end_fixed": {
+   "speaker": "lender",
+   "text": [
+    "{lender}は舌打ちし、書付に墨を引いて「月に一割」と書き直した。「騒ぎ立てられては商いに障る」",
+    "外へ出ると、{client}は泣き笑いの顔で、なけなしの銭を差し出した。"
+   ],
+   "effects": [
+    {
+     "money": 10
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "end": "書き直された書付"
+  },
+  "end_tried": {
+   "speaker": "client",
+   "text": [
+    "{lender}は「出ていけ」と戸を閉めた。それでも{client}は頭を下げた。「言ってくれただけで、胸がすっとした。あとは{office}にすがってみる」"
+   ],
+   "effects": [
+    {
+     "money": 2
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "閉ざされた戸"
+  }
+ }
+}

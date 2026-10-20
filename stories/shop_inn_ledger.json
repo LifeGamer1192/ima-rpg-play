@@ -1,0 +1,602 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_inn_ledger",
+ "kind": "random",
+ "where": "inn",
+ "most": 2,
+ "again": 240,
+ "hook": "宿の帳簿を書き換えろと脅されているのです。どうか知恵を貸してください",
+ "title": "焼かれる帳簿",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "宿の主人"
+  },
+  "boss": {
+   "npc": "問屋",
+   "sex": "m"
+  },
+  "thug": {
+   "npc": "無頼の頭",
+   "sex": "m"
+  },
+  "girl": {
+   "npc": "名家の娘",
+   "sex": "f"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "backroom",
+   "text": [
+    "{inn}の奥の帳場で、{client}が分厚い帳簿を広げた。半月前の晩、{near}の蔵が破られた夜に、問屋の{boss}の手の者が五人ここに泊まり、夜明け前に荷車を出している。そう書いてある。",
+    "「{boss}さまが、この晩の泊まりを消して書き直せと。断れば店ごと潰すと言うのです。帳簿をいじれば、わたしも盗みの片棒です。どうしたものか」"
+   ],
+   "choices": [
+    {
+     "label": "「書き換えてやろう。跡が残らぬようにな」",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "forged",
+      "lose": "forged_bad"
+     },
+     "guide": "盗みの証を消すことになる"
+    },
+    {
+     "label": "「断れ。何かあれば力になる」",
+     "next": "refuse"
+    },
+    {
+     "label": "「その{boss}とは、どういう男だ」",
+     "next": "ask"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "client",
+   "text": [
+    "「{here}一の問屋です。{office}にも顔が利く。{near}に大きな蔵を持っていて、破られた蔵の荷が、そこに流れているという噂も」",
+    "{client}は声を落とした。「それに、いまは離れに大事なお客がいるのです。名を伏せておられますが、さる名家の娘御、{girl}さまと供の者がひとり。騒ぎだけは起こしたくない」"
+   ],
+   "choices": [
+    {
+     "label": "帳簿を持って{office}へ訴え出る",
+     "next": "office"
+    },
+    {
+     "label": "{near}にある{boss}の蔵を探る",
+     "next": "warehouse"
+    },
+    {
+     "label": "「断れ。何かあれば力になる」",
+     "next": "refuse"
+    }
+   ]
+  },
+  "forged": {
+   "speaker": "thug",
+   "art": "backroom",
+   "text": [
+    "墨を合わせ、紙の古びまで似せて、問題の晩を書き直した。受け取りに来た{boss}の手下の{thug}は、帳簿を灯にかざして満足げにうなずき、銭袋を放ってよこした。",
+    "「よくできた。だが、元を知る者がいる限り、安心はできんな」{thug}はそう言って、{client}の顔をじろりと見た。"
+   ],
+   "choices": [
+    {
+     "label": "謝礼を受け取って口を閉ざす",
+     "next": "end_accomplice"
+    },
+    {
+     "label": "元の帳簿の写しを、ひそかに取っておく",
+     "effects": [
+      {
+       "flag": "ledger_copy"
+      }
+     ],
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "office",
+      "lose": "forged_bad"
+     }
+    }
+   ]
+  },
+  "forged_bad": {
+   "speaker": "thug",
+   "text": [
+    "{thug}は帳簿の一枚をめくり、鼻で笑った。「墨の色が違う。こんなもの、{office}の小役人でも見破るぞ」",
+    "{thug}は手下に目配せして出ていった。去り際の一言が耳に残る。「帳簿ごと、宿ごと、灰にしてしまえば早い」"
+   ],
+   "next": "fire"
+  },
+  "refuse": {
+   "speaker": "thug",
+   "text": [
+    "{client}が首を横に振ると、{boss}の使いの{thug}は帳場の柱を拳で叩いた。「後悔するぞ。この宿は、よく燃えそうだ」",
+    "男たちは出ていった。{client}は青い顔で帳簿を抱きしめている。"
+   ],
+   "choices": [
+    {
+     "label": "帳簿を持って{office}へ急ぐ",
+     "next": "office"
+    },
+    {
+     "label": "{near}にある{boss}の蔵を探る",
+     "next": "warehouse"
+    },
+    {
+     "label": "今夜は宿で寝ずに番をする",
+     "next": "fire"
+    }
+   ]
+  },
+  "warehouse": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}で{boss}の蔵を探る",
+   "art": "hideout",
+   "text": [
+    "{near}の外れに、{boss}の蔵が並んでいた。日暮れに荷を運び込む人足の肩に、見覚えのある荷札が揺れる。破られた蔵の持ち主の印だ。",
+    "蔵の前には、棒を持った見張りが二人。"
+   ],
+   "choices": [
+    {
+     "label": "夜を待って忍び込み、荷札を取る",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "proof",
+      "lose": "warehouse_caught"
+     }
+    },
+    {
+     "label": "荷を買いたい商人を装い、蔵の中を見せてもらう",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "proof",
+      "lose": "warehouse_caught"
+     }
+    }
+   ]
+  },
+  "warehouse_caught": {
+   "art": "war",
+   "text": [
+    "「何を嗅ぎ回っている」見張りの棒が振り下ろされた。奥からもう一人、刃物を持った男が出てくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "proof",
+      "lose": "fire"
+     }
+    }
+   ]
+  },
+  "proof": {
+   "text": [
+    "盗まれた荷の荷札を懐に収めた。蔵の陰で、人足たちが話している。「今夜、{here}の{inn}に火をかけるそうだ。帳簿も主人も、まとめて片づける」",
+    "急がねばならない。あの離れには、{girl}もいる。"
+   ],
+   "effects": [
+    {
+     "flag": "ledger_proof"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "{office}へ駆け込み、荷札を差し出す",
+     "next": "office"
+    },
+    {
+     "label": "まっすぐ{inn}へ戻る",
+     "next": "fire"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で{clerk}に訴える",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は帳簿をめくり、渋い顔をした。「{boss}どのは町の顔役だ。宿の帳簿一冊で、縄をかけるわけにはいかん」"
+   ],
+   "choices": [
+    {
+     "label": "{boss}の蔵で取った荷札を差し出す",
+     "if": {
+      "flag": "ledger_proof"
+     },
+     "next": "office_ok"
+    },
+    {
+     "label": "書き換えた帳簿と、元の写しを並べて見せる",
+     "if": {
+      "flag": "ledger_copy"
+     },
+     "next": "office_ok"
+    },
+    {
+     "label": "泊まりの日と蔵破りの日が重なると説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "office_ok",
+      "lose": "office_ng"
+     }
+    },
+    {
+     "label": "帳簿の筆の跡を一つずつ読み解いて見せる",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "office_ok",
+      "lose": "office_ng"
+     }
+    }
+   ]
+  },
+  "office_ok": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}はしばらく黙り、やがて立ち上がった。「……わかった。今夜、手の者を{inn}に張らせる。お前も行け」"
+   ],
+   "effects": [
+    {
+     "flag": "ledger_told"
+    }
+   ],
+   "next": "fire"
+  },
+  "office_ng": {
+   "speaker": "clerk",
+   "text": [
+    "「帰れ。町の顔役を盗人呼ばわりするなら、それなりの証を持ってこい」{clerk}は帳簿を突き返した。門を出ると、もう日が傾いている。"
+   ],
+   "next": "fire"
+  },
+  "fire": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "夜の{inn}へ戻る",
+   "art": "disaster",
+   "text": [
+    "夜更け、油の匂いがした。裏の薪小屋から火の手が上がり、たちまち軒を舐めていく。黒い影が三つ、松明を手に走り回っている。先頭は{thug}だ。",
+    "泊まり客が転げ出てくる中、離れの窓だけが開かない。中から、細い咳が聞こえた。{girl}だ。"
+   ],
+   "choices": [
+    {
+     "label": "燃える渡り廊下を駆け抜け、離れへ",
+     "next": "girl_room"
+    },
+    {
+     "label": "火を放った{thug}たちを斬る",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "thug_down",
+      "lose": "end_ashes"
+     }
+    },
+    {
+     "label": "関わり合いになるのはごめんだ。逃げる",
+     "next": "end_fled",
+     "guide": "離れの娘も、宿も見捨てることになる"
+    }
+   ]
+  },
+  "thug_down": {
+   "art": "war",
+   "text": [
+    "{thug}を地に組み伏せ、帯で縛り上げた。「{boss}の旦那に言われただけだ」と喚いている。",
+    "だが火は止まらない。離れの屋根が、音を立てて燃え始めた。"
+   ],
+   "effects": [
+    {
+     "flag": "ledger_thug"
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "離れへ走る",
+     "next": "girl_room"
+    }
+   ]
+  },
+  "girl_room": {
+   "art": "disaster",
+   "text": [
+    "煙の立ちこめる離れに飛び込むと、{girl}が床に倒れていた。老いた供の者が、その肩を抱いて泣いている。娘の息は浅い。"
+   ],
+   "choices": [
+    {
+     "label": "口を濡れ布で覆い、息を通わせてから運び出す",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "rescued",
+      "lose": "rescued_hurt"
+     }
+    },
+    {
+     "label": "何も考えず、抱えて火の中を抜ける",
+     "check": {
+      "skill": "blade",
+      "dc": 30,
+      "win": "rescued",
+      "lose": "rescued_hurt"
+     }
+    }
+   ]
+  },
+  "rescued_hurt": {
+   "text": [
+    "焼けた梁が肩に落ちた。それでも娘を放さず、転がるように外へ出た。腕にひどい火傷を負った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "rescued"
+  },
+  "rescued": {
+   "speaker": "girl",
+   "art": "disaster",
+   "text": [
+    "中庭で{girl}は息を吹き返し、煤けた顔で礼を言った。「この御恩は、家の者に必ず伝えます」",
+    "振り向くと、焼け落ちる母屋の前に、まだ{boss}の手下が二人、逃げ道をふさいで立っている。"
+   ],
+   "choices": [
+    {
+     "label": "駆けつけた{office}の手の者に、火付けたちを捕らえさせる",
+     "if": {
+      "flag": "ledger_told"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "縛り上げた{thug}を、夜明けに{office}へ突き出す",
+     "if": {
+      "flag": "ledger_thug"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "手下を斬り払う",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_justice",
+      "lose": "end_rescued"
+     }
+    },
+    {
+     "label": "{girl}と供の者を連れ、裏の垣根から逃れる",
+     "next": "end_rescued"
+    }
+   ]
+  },
+  "end_accomplice": {
+   "speaker": "client",
+   "text": [
+    "帳簿の一晩は消え、{boss}は蔵破りの疑いから逃れた。{client}は店を守れたと礼を言ったが、目を合わせようとはしなかった。",
+    "筆一本で稼いだ銭は、重くも軽くもない。ただ、同じ筆はまた頼まれるだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "ledger_copy"
+    },
+    {
+     "unflag": "ledger_proof"
+    },
+    {
+     "unflag": "ledger_told"
+    },
+    {
+     "unflag": "ledger_thug"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{boss}に頼まれ、{inn}の帳簿を書き換えた。"
+    }
+   ],
+   "end": "書き換えた帳簿"
+  },
+  "end_justice": {
+   "speaker": "clerk",
+   "text": [
+    "捕らえた火付けたちは、{boss}の名を吐いた。{near}の蔵からは盗まれた荷が見つかり、{boss}は縄を打たれた。{inn}は半ば焼けたが、帳簿は{client}の懐で無事だった。",
+    "数日後、{girl}の家から使いが来て、礼の品を置いていった。上等の絹だった。"
+   ],
+   "effects": [
+    {
+     "unflag": "ledger_copy"
+    },
+    {
+     "unflag": "ledger_proof"
+    },
+    {
+     "unflag": "ledger_told"
+    },
+    {
+     "unflag": "ledger_thug"
+    },
+    {
+     "money": 150
+    },
+    {
+     "item": "silk",
+     "n": 1
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{inn}の火付けを捕らえ、{boss}の悪事を暴いた。{girl}を火の中から救った。"
+    }
+   ],
+   "end": "焼け跡の裁き"
+  },
+  "end_rescued": {
+   "speaker": "girl",
+   "text": [
+    "夜明けの道で、{girl}は供の者に支えられながら頭を下げた。「名は明かせませんが、家に戻れば必ずお礼を」",
+    "{inn}は焼け落ち、{boss}は「失火だ」と言い張って知らぬ顔をしている。{client}は焼け跡で、それでも帳簿だけは抱えていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "ledger_copy"
+    },
+    {
+     "unflag": "ledger_proof"
+    },
+    {
+     "unflag": "ledger_told"
+    },
+    {
+     "unflag": "ledger_thug"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "note": "火の中から{girl}を救い出した。{boss}は罰を逃れた。"
+    }
+   ],
+   "end": "名家の恩"
+  },
+  "end_ashes": {
+   "text": [
+    "多勢に打ち倒され、気がつくと焼け跡の灰の中に寝かされていた。{inn}は柱を残して焼け落ち、帳簿も灰になった。",
+    "離れの娘は近所の者が助け出したと、あとで聞いた。{boss}の名は、どこにも出てこなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "ledger_copy"
+    },
+    {
+     "unflag": "ledger_proof"
+    },
+    {
+     "unflag": "ledger_told"
+    },
+    {
+     "unflag": "ledger_thug"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "灰になった帳簿"
+  },
+  "end_fled": {
+   "text": [
+    "振り返らずに夜道を歩いた。背後の空が赤く染まっている。",
+    "翌日、{inn}の焼け跡で{client}が座り込んでいたと聞いた。離れの客がどうなったかは、誰も口にしなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "ledger_copy"
+    },
+    {
+     "unflag": "ledger_proof"
+    },
+    {
+     "unflag": "ledger_told"
+    },
+    {
+     "unflag": "ledger_thug"
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    }
+   ],
+   "end": "見捨てた夜"
+  }
+ }
+}

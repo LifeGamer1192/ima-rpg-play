@@ -1,0 +1,191 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "novice_child",
+ "kind": "random",
+ "where": "folk",
+ "again": 90,
+ "most": 2,
+ "trigger": {
+  "fameMax": 40
+ },
+ "hook": "……おっかあ、どこ？",
+ "title": "迷子",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "迷子",
+   "sex": "m"
+  },
+  "mother": {
+   "npc": "子の母",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "人の行き交う辻で、五つか六つの子が泣いていた。名を呼んでも、しゃくりあげるばかりで答えにならない。",
+    "着物の裾には泥がはねている。手には、どこかで摘んだらしい白い花を握っていた。"
+   ],
+   "choices": [
+    {
+     "label": "しゃがんで目の高さを合わせ、ゆっくり名を聞く",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "ask"
+    },
+    {
+     "label": "裾の泥と手の花を、じっと見る",
+     "effects": [
+      {
+       "xp": "stealth",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "track"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "client",
+   "text": [
+    "ようやく泣きやんだ子は、{client}と名乗った。「うちの前でね、カンカンって音がするの。それと、おっきな木」",
+    "{smithy}の近くに住んでいるらしい。"
+   ],
+   "next": "search"
+  },
+  "track": {
+   "text": [
+    "泥は黒く湿って、川べりの土の匂いがした。白い花は水辺によく咲くものだ。この子は川のほうから歩いてきたのだろう。",
+    "子は少し落ち着いて、{client}と名乗った。"
+   ],
+   "next": "search"
+  },
+  "search": {
+   "speaker": "client",
+   "text": [
+    "子の手を引いて歩き出した。日が傾きかけている。母親もきっと探し回っているはずだ。"
+   ],
+   "choices": [
+    {
+     "label": "{market}の店々に、この子を知らぬかと尋ね回る",
+     "effects": [
+      {
+       "xp": "trade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "home"
+    },
+    {
+     "label": "子を肩車して、母親から見えるように歩く",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "home"
+    }
+   ]
+  },
+  "home": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{client}を家へ送り届ける",
+   "speaker": "mother",
+   "art": "tale",
+   "text": [
+    "戸口から女が飛び出してきて、子を抱きしめた。{mother}だという。「どこへ行ってたの！　あれほど川へ行くなと……！」",
+    "ひとしきり叱ったあと、{mother}はこちらに深く頭を下げた。"
+   ],
+   "choices": [
+    {
+     "label": "礼を受け取る",
+     "next": "end_reward"
+    },
+    {
+     "label": "「無事でよかった。礼はいい」と立ち去る",
+     "next": "end_kind"
+    },
+    {
+     "label": "「叱るのはそのくらいに。この子も怖かったんだ」となだめる",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 10,
+       "cap": 10
+      }
+     ],
+     "next": "end_soothe"
+    }
+   ]
+  },
+  "end_reward": {
+   "speaker": "mother",
+   "text": [
+    "{mother}は小さな銭袋と、旅の糧の包みを持たせてくれた。「ほんの気持ちです」"
+   ],
+   "effects": [
+    {
+     "money": 8
+    },
+    {
+     "item": "rations",
+     "n": 1
+    }
+   ],
+   "end": "母のもとへ"
+  },
+  "end_kind": {
+   "text": [
+    "背中に{client}の「ありがとう」が聞こえた。その晩、迷子を送り届けた旅の者の話が、近所じゅうに広まった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    }
+   ],
+   "end": "名も告げずに"
+  },
+  "end_soothe": {
+   "speaker": "mother",
+   "text": [
+    "{mother}ははっとして、子の頭をなでた。{client}がようやく笑った。「……ほんとうに、ありがとうございました」と、{mother}は夫の酒を一本持たせてくれた。"
+   ],
+   "effects": [
+    {
+     "item": "wine",
+     "n": 1
+    },
+    {
+     "money": 3
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "end": "叱られずにすんだ子"
+  }
+ }
+}

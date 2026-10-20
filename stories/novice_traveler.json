@@ -1,0 +1,219 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "novice_traveler",
+ "kind": "random",
+ "where": "road",
+ "again": 90,
+ "most": 2,
+ "trigger": {
+  "fameMax": 40
+ },
+ "hook": "道の脇に、人が倒れている",
+ "title": "行き倒れ",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "行き倒れの旅人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "街道の脇の草むらに、男がうつぶせに倒れていた。背には小さな行李。息はあるが、唇が乾いてひび割れている。",
+    "日はまだ高い。道に人影はない。"
+   ],
+   "choices": [
+    {
+     "label": "脈をとり、木陰へ運んで水を含ませる",
+     "effects": [
+      {
+       "xp": "medicine",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "tend"
+    },
+    {
+     "label": "懐を探る",
+     "effects": [
+      {
+       "xp": "theft",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "search"
+    },
+    {
+     "label": "次の村へ走り、人を呼んでくる",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "end_called"
+    }
+   ]
+  },
+  "search": {
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "懐から、軽い銭袋と、薬の名を書きつけた古い木札が出てきた。男がうめいて、かすかに目を開けた。"
+   ],
+   "choices": [
+    {
+     "label": "銭袋だけ抜いて立ち去る",
+     "next": "end_thief"
+    },
+    {
+     "label": "思い直して、木陰へ運ぶ",
+     "effects": [
+      {
+       "xp": "medicine",
+       "n": 10,
+       "cap": 10
+      }
+     ],
+     "next": "tend"
+    }
+   ]
+  },
+  "tend": {
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "しばらくすると、男は身を起こした。「暑さにやられた……かたじけない」立とうとして顔をしかめる。倒れたときに足をくじいたらしい。"
+   ],
+   "choices": [
+    {
+     "label": "枝で添え木を当て、布で足首を固める",
+     "effects": [
+      {
+       "xp": "medicine",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "carry"
+    },
+    {
+     "label": "肩を貸して、次の村まで歩く",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 20,
+       "cap": 10
+      },
+      {
+       "pass": 90
+      }
+     ],
+     "next": "carry"
+    }
+   ]
+  },
+  "carry": {
+   "speaker": "client",
+   "text": [
+    "村の入口の木陰に男を座らせると、男は行李を開けた。中には干した草の根や葉が、きちんと包み分けてある。",
+    "「わしは薬売りでな。銭はろくに無いが、礼をさせてくれ」"
+   ],
+   "choices": [
+    {
+     "label": "礼の薬草を受け取る",
+     "next": "end_herbs"
+    },
+    {
+     "label": "「礼はいい。代わりに、その草のことを教えてくれ」",
+     "effects": [
+      {
+       "xp": "medicine",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "end_lesson"
+    }
+   ]
+  },
+  "end_called": {
+   "text": [
+    "村の若い衆が戸板を担いで来て、男を運んでいった。名も聞かずに別れたが、数日のち、村の者から「あの薬売りが礼を言っていた」と、薬草を一束ことづかった。"
+   ],
+   "effects": [
+    {
+     "item": "herbs",
+     "n": 1
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "村の衆を呼ぶ"
+  },
+  "end_thief": {
+   "text": [
+    "銭袋は軽く、中は数えるほどしかなかった。背後で男が何か言った気がしたが、足を速めた。"
+   ],
+   "effects": [
+    {
+     "money": 6
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "軽い銭袋"
+  },
+  "end_herbs": {
+   "speaker": "client",
+   "text": [
+    "男は薬草の包みを二つと、残りわずかな銭を差し出した。「傷にはこれを揉んで貼るといい。命の恩人だ」"
+   ],
+   "effects": [
+    {
+     "item": "herbs",
+     "n": 2
+    },
+    {
+     "money": 3
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "薬売りの礼"
+  },
+  "end_lesson": {
+   "speaker": "client",
+   "text": [
+    "男は日が暮れるまで、草の見分け方、煎じ方、毒になる量を語って聞かせた。別れぎわ、「筋がいい」と一包みを握らせてくれた。"
+   ],
+   "effects": [
+    {
+     "item": "herbs",
+     "n": 1
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "end": "薬売りの教え"
+  }
+ }
+}

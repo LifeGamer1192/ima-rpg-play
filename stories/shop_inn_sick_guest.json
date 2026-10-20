@@ -1,0 +1,480 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_inn_sick_guest",
+ "kind": "random",
+ "where": "inn",
+ "most": 2,
+ "again": 240,
+ "hook": "泊まり客が、夕餉のあとで倒れました。このままでは店が毒を盛ったことにされてしまう",
+ "title": "夕餉の毒",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "宿の主人"
+  },
+  "guest": {
+   "npc": "旅の商人",
+   "sex": "m"
+  },
+  "partner": {
+   "npc": "連れの男",
+   "sex": "m"
+  },
+  "cook": {
+   "npc": "料理番",
+   "sex": "f"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "奥の客間で、旅の商人の{guest}が身を折って呻いていた。唇が紫色で、吐いたものに血が混じっている。",
+    "「同じ鍋の汁を、ほかの客も食べたのです。なのにこの方だけ。連れのお方は、医者を呼ぶと言って出たきり戻りません」{client}は震えている。「死なれたら、{office}はうちが毒を盛ったと言うでしょう」"
+   ],
+   "choices": [
+    {
+     "label": "{guest}の容体を診る",
+     "check": {
+      "skill": "medicine",
+      "dc": 25,
+      "win": "cured",
+      "lose": "dying"
+     }
+    },
+    {
+     "label": "台所を調べる",
+     "next": "kitchen"
+    }
+   ]
+  },
+  "dying": {
+   "text": [
+    "脈は細く、手足が冷えていく。ただの食あたりではない。何の毒か分からなければ、手の打ちようがない。"
+   ],
+   "choices": [
+    {
+     "label": "手持ちの薬草を煎じて飲ませる",
+     "if": {
+      "item": "herbs"
+     },
+     "effects": [
+      {
+       "item": "herbs",
+       "n": -1
+      }
+     ],
+     "next": "cured"
+    },
+    {
+     "label": "台所へ走り、毒の正体を突き止める",
+     "next": "kitchen"
+    },
+    {
+     "label": "もう手遅れだ",
+     "next": "dead_guest"
+    }
+   ]
+  },
+  "kitchen": {
+   "speaker": "cook",
+   "art": "backroom",
+   "text": [
+    "台所では料理番の{cook}が、竈の前で縮こまっていた。流しの灰の中に、紙の包みが一つ捨ててある。中に白い粉が少し残っていた。",
+    "「わ、わたしは何も。ただ、お連れの方が、旦那さまの酒だけは別の酒壺でと言って、ご自分で注いでいかれて……」"
+   ],
+   "choices": [
+    {
+     "label": "粉を舐めて毒を見極め、解毒の手を打つ",
+     "check": {
+      "skill": "medicine",
+      "dc": 20,
+      "win": "cured",
+      "lose": "dead_guest"
+     }
+    },
+    {
+     "label": "{cook}を問い詰める。何か隠している",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "cook_talk",
+      "lose": "dead_guest"
+     }
+    }
+   ]
+  },
+  "cook_talk": {
+   "speaker": "cook",
+   "text": [
+    "{cook}は泣き崩れた。「お連れの方から、台所に入っても見ぬふりをしろと、銭を握らされました。毒だなんて知らなかったのです」",
+    "{partner}は{near}の宿に移ると話していたという。話しているうちに、客間の呻き声が止んだ。"
+   ],
+   "effects": [
+    {
+     "flag": "sick_cook"
+    }
+   ],
+   "next": "dead_guest"
+  },
+  "cured": {
+   "speaker": "guest",
+   "text": [
+    "吐かせ、薬湯を流し込み、夜通し体をさすった。明け方、{guest}は目を開けた。",
+    "「酒を注いだのは{partner}だ。二人で仕入れた荷を、あいつは一人占めする気だったのだろう。荷は、もう{near}へ運ばれているはずだ」"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "{near}へ{partner}を追う",
+     "next": "chase"
+    },
+    {
+     "label": "{guest}を連れて{office}へ訴え出る",
+     "next": "office"
+    }
+   ]
+  },
+  "dead_guest": {
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{guest}は、夜明けを待たずに息を引き取った。{client}は骸の前に座り込み、頭を抱えた。",
+    "「どうか、このことは……夜のうちに裏から運び出して、川にでも。そうすれば誰にも分かりません」"
+   ],
+   "effects": [
+    {
+     "flag": "sick_dead"
+    }
+   ],
+   "choices": [
+    {
+     "label": "「隠せば余計に疑われる」{office}へ届けさせる",
+     "next": "office"
+    },
+    {
+     "label": "夜陰に紛れ、骸を運び出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "end_buried",
+      "lose": "dump_seen"
+     },
+     "guide": "毒を盛った者は野放しになる"
+    },
+    {
+     "label": "{near}へ{partner}を追う",
+     "next": "chase"
+    }
+   ]
+  },
+  "dump_seen": {
+   "text": [
+    "骸を担いで裏木戸を出たところで、夜回りの灯に照らされた。「何を運んでいる」夜が明ける前に、{client}もろとも{office}へ引き立てられた。"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    }
+   ],
+   "next": "office"
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ行く",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は話を聞き終えると、筆の尻で机を叩いた。「客に毒を盛ったのは、宿の者ではないのか。一番怪しいのは、鍋をかき回していた者だろう」"
+   ],
+   "choices": [
+    {
+     "label": "{cook}に、連れの男に銭を握らされたことを申し立てさせる",
+     "if": {
+      "flag": "sick_cook"
+     },
+     "next": "office_ok"
+    },
+    {
+     "label": "息を吹き返した{guest}に、本人の口から申し立てさせる",
+     "if": {
+      "notFlag": "sick_dead"
+     },
+     "next": "office_ok"
+    },
+    {
+     "label": "同じ鍋を食べた客は無事だったと、筋道を立てて説く",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "office_ok",
+      "lose": "office_ng"
+     }
+    },
+    {
+     "label": "宿の主人に代わって袖の下を渡す（80{money}）",
+     "if": {
+      "money": 80,
+      "flag": "sick_dead"
+     },
+     "effects": [
+      {
+       "money": -80
+      }
+     ],
+     "next": "end_hushed",
+     "guide": "毒を盛った者は野放しになる"
+    }
+   ]
+  },
+  "office_ok": {
+   "speaker": "clerk",
+   "text": [
+    "「……なるほど。宿の者なら、わざわざ一人だけを狙うまい」{clerk}は手配の札を書いた。「{partner}とやらを連れてこい。そうすれば宿は咎めぬ」"
+   ],
+   "next": "chase"
+  },
+  "office_ng": {
+   "speaker": "clerk",
+   "text": [
+    "「話にならん。主人は留め置く」{client}は牢に入れられた。宿の汚名を雪ぐには、{partner}を自分の手で連れてくるしかない。"
+   ],
+   "next": "chase"
+  },
+  "chase": {
+   "at": {
+    "place": "near",
+    "building": "inn"
+   },
+   "goal": "{near}の{inn}で{partner}を探す",
+   "speaker": "partner",
+   "art": "inn",
+   "text": [
+    "{near}の{inn}の奥の客間で、{partner}は荷を広げ、酒を飲んでいた。こちらの顔を見ると、盃を置いて立ち上がる。そばには雇われたらしい男が二人。",
+    "「何の用だ。俺は連れが急に病んで、荷を守っているだけだ」"
+   ],
+   "choices": [
+    {
+     "label": "問答は無用。取り押さえる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "caught",
+      "lose": "end_escaped"
+     }
+    },
+    {
+     "label": "宿の客たちの前で、毒の包みのことを問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "caught",
+      "lose": "end_escaped"
+     }
+    },
+    {
+     "label": "寝静まるのを待ち、荷の中から毒の残りを探し出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "caught",
+      "lose": "end_escaped"
+     }
+    }
+   ]
+  },
+  "caught": {
+   "speaker": "partner",
+   "text": [
+    "{partner}は観念して膝をついた。荷の底から、同じ紙の包みがもう一つ出てきた。「荷は返す。銭も出す。だから{office}だけは」"
+   ],
+   "choices": [
+    {
+     "label": "{here}の{office}へ引き立てる",
+     "next": "end_justice"
+    },
+    {
+     "label": "荷と銭を出させて、見逃してやる",
+     "next": "end_deal",
+     "guide": "宿の汚名は晴れぬままになる"
+    }
+   ]
+  },
+  "end_justice": {
+   "speaker": "client",
+   "text": [
+    "{partner}は毒を盛ったことを白状し、{office}に裁かれた。{inn}の咎めは解かれ、{client}はふたたび戸口の灯をともした。",
+    "「店を救ってくださった。せめてこれを」{client}は宿の蔵の酒と、包んだ銭を差し出した。"
+   ],
+   "effects": [
+    {
+     "unflag": "sick_cook"
+    },
+    {
+     "unflag": "sick_dead"
+    },
+    {
+     "money": 100
+    },
+    {
+     "item": "wine",
+     "n": 2
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{guest}に毒を盛った{partner}を捕らえ、{inn}の汚名を雪いだ。"
+    }
+   ],
+   "end": "雪がれた汚名"
+  },
+  "end_deal": {
+   "text": [
+    "{partner}は荷の半分と銭袋を置いて、夜のうちに姿を消した。荷は{guest}の家に送り、銭は懐に収めた。",
+    "{here}では、{inn}で客が倒れたという噂が、いつまでも消えなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sick_cook"
+    },
+    {
+     "unflag": "sick_dead"
+    },
+    {
+     "money": 180
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "毒を盛った{partner}から銭を取り、見逃した。"
+    }
+   ],
+   "end": "毒と取引"
+  },
+  "end_escaped": {
+   "text": [
+    "{partner}は雇い人をけしかけ、その隙に裏口から逃げた。荷車の跡は街道の先で消えていた。",
+    "{inn}の客足は、それからしばらく途絶えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "sick_cook"
+    },
+    {
+     "unflag": "sick_dead"
+    },
+    {
+     "hp": -10
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "逃げた毒"
+  },
+  "end_buried": {
+   "speaker": "client",
+   "text": [
+    "月のない夜、骸は川に沈んだ。翌朝の{inn}は何事もなかったように客を迎えた。{client}は黙って銭を包んでよこした。",
+    "{partner}がどこへ行ったのか、もう誰も問わない。"
+   ],
+   "effects": [
+    {
+     "unflag": "sick_cook"
+    },
+    {
+     "unflag": "sick_dead"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": -3
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "{inn}で死んだ客の骸を、闇に葬った。"
+    }
+   ],
+   "end": "闇に沈めた骸"
+  },
+  "end_hushed": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は銭を袖に落とし、「客は持病で死んだ」と書き付けた。{client}は何度も頭を下げた。",
+    "{partner}は荷を売り払い、どこかで笑っているだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "sick_cook"
+    },
+    {
+     "unflag": "sick_dead"
+    },
+    {
+     "money": 40
+    },
+    {
+     "fame": 1
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "xp": "trade",
+     "n": 1
+    }
+   ],
+   "end": "金で閉じた口"
+  }
+ }
+}

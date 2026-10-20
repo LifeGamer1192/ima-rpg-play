@@ -1,0 +1,246 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "novice_cart",
+ "kind": "random",
+ "where": "market",
+ "again": 90,
+ "most": 2,
+ "trigger": {
+  "fameMax": 40
+ },
+ "hook": "荷車が着いたのに、人足が来ないのです。手を貸してもらえませんか",
+ "title": "荷下ろし",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "市の商人",
+   "sex": "m"
+  },
+  "carter": {
+   "npc": "車引き",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{market}の裏手に、塩俵と酒甕を積んだ荷車が止まっていた。{client}が額の汗をぬぐう。「日が高くなる前に蔵へ入れたいのです。駄賃は出します」",
+    "車引きの{carter}は、車の陰で煙たそうに座りこんでいる。"
+   ],
+   "choices": [
+    {
+     "label": "俵を担いで蔵へ運ぶ",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "unload"
+    },
+    {
+     "label": "帳面を預かり、荷の数を合わせる",
+     "effects": [
+      {
+       "xp": "letters",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "tally"
+    }
+   ]
+  },
+  "unload": {
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "十俵目を担いだとき、肩の重みがほかより軽いことに気づいた。縄の結び目も、ほかの俵と違う。"
+   ],
+   "choices": [
+    {
+     "label": "黙って運び終え、駄賃をもらう",
+     "next": "end_wage"
+    },
+    {
+     "label": "{client}に「売り手が量りをごまかした」と掛け合わせる",
+     "effects": [
+      {
+       "xp": "trade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "trade",
+      "dc": 12,
+      "win": "end_discount",
+      "lose": "end_wage"
+     }
+    },
+    {
+     "label": "{carter}の様子をうかがう",
+     "effects": [
+      {
+       "xp": "stealth",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "stealth",
+      "dc": 10,
+      "win": "found",
+      "lose": "end_wage"
+     }
+    }
+   ]
+  },
+  "tally": {
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "帳面には酒甕が八つとある。だが、荷台から下ろしたのは七つだった。{client}は首をひねっている。「積むときは確かに八つあったはずだが……」"
+   ],
+   "choices": [
+    {
+     "label": "「数え違いでしょう」と流して、駄賃をもらう",
+     "next": "end_wage"
+    },
+    {
+     "label": "帳面の数を盾に、売り手に足りない分を負けさせる",
+     "effects": [
+      {
+       "xp": "trade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "trade",
+      "dc": 12,
+      "win": "end_discount",
+      "lose": "end_wage"
+     }
+    },
+    {
+     "label": "{carter}の様子をうかがう",
+     "effects": [
+      {
+       "xp": "stealth",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "stealth",
+      "dc": 10,
+      "win": "found",
+      "lose": "end_wage"
+     }
+    }
+   ]
+  },
+  "found": {
+   "speaker": "carter",
+   "art": "backroom",
+   "text": [
+    "{carter}が車の陰で、筵の下に何かを押しこむのが見えた。めくると、酒甕と、中身を抜いた塩の小袋が出てきた。",
+    "{carter}は青くなった。「子が熱を出して、薬代がいるんだ。頼む、見逃してくれ」"
+   ],
+   "choices": [
+    {
+     "label": "{client}に突き出す",
+     "next": "end_caught"
+    },
+    {
+     "label": "「黙って荷に戻せ。それで済ませる」と説く",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "end_mercy"
+    }
+   ]
+  },
+  "end_wage": {
+   "speaker": "client",
+   "text": [
+    "荷はすべて蔵に収まった。{client}は約束どおり駄賃を払った。「助かりました。またお願いしますよ」"
+   ],
+   "effects": [
+    {
+     "money": 8
+    }
+   ],
+   "end": "駄賃"
+  },
+  "end_discount": {
+   "speaker": "client",
+   "text": [
+    "足りない分を突きつけると、売り手はしぶしぶ値を引いた。{client}は上機嫌で、駄賃に塩をひとつかみ足してくれた。「あなたは商いの目がある」"
+   ],
+   "effects": [
+    {
+     "money": 10
+    },
+    {
+     "item": "salt",
+     "n": 1
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "量りの目"
+  },
+  "end_caught": {
+   "speaker": "client",
+   "text": [
+    "{client}は荷を取り戻して礼を言った。{carter}は{market}の者に引き立てられていった。礼金は思ったより多かったが、胸のどこかが重かった。"
+   ],
+   "effects": [
+    {
+     "money": 15
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "突き出された車引き"
+  },
+  "end_mercy": {
+   "speaker": "carter",
+   "text": [
+    "{carter}は甕と塩を荷台に戻し、何も言わずに頭を下げた。荷の数は合った。{client}の駄賃を受け取って帰ろうとすると、{carter}が追ってきて、なけなしの酒を一杯分けてくれた。"
+   ],
+   "effects": [
+    {
+     "money": 8
+    },
+    {
+     "item": "wine",
+     "n": 1
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "戻された荷"
+  }
+ }
+}

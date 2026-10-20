@@ -1,0 +1,481 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_market_apprentice",
+ "kind": "random",
+ "where": "market",
+ "most": 2,
+ "again": 240,
+ "hook": "見習いが売り上げを持って逃げました。連れ戻してくだされば礼をします",
+ "title": "逃げた見習い",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "布商人"
+  },
+  "appr": {
+   "npc": "見習い",
+   "sex": "m"
+  },
+  "mother": {
+   "npc": "見習いの母",
+   "sex": "f"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{market}の布商人{client}は、空の銭箱を叩いてみせた。「見習いの{appr}が、昨日の売り上げを持って消えた。二百{money}だ。{near}に母親がいるから、そこへ逃げたに違いない」",
+    "「連れ戻してくれれば、八十{money}出そう。銭が戻れば、もっと出してもいい」"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "chase"
+    },
+    {
+     "label": "引き受ける前に、店の品をひととおり見せてもらう",
+     "check": {
+      "skill": "trade",
+      "dc": 25,
+      "win": "fake_seen",
+      "lose": "chase"
+     }
+    }
+   ]
+  },
+  "fake_seen": {
+   "art": "trade",
+   "text": [
+    "棚の絹を一反手に取り、端をめくった。表の数巻きだけが絹で、芯のほうは染めた麻だ。{client}は慌てて反物を棚に戻した。「それは、まだ検めていない品で」"
+   ],
+   "effects": [
+    {
+     "flag": "appr_fake"
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "next": "chase"
+  },
+  "chase": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}で{appr}を探す",
+   "speaker": "appr",
+   "art": "road",
+   "text": [
+    "{near}の外れの粗末な家で、{appr}は母親の枕元に座っていた。{mother}は熱にうかされ、浅い息をしている。",
+    "{appr}は逃げなかった。「銭は、三年分のただ働きの代わりです。旦那は麻を絹と偽って売り、わたしが嫌だと言うと殴った。母の薬代も出してくれなかった」"
+   ],
+   "choices": [
+    {
+     "label": "「言い分は{client}の前でしろ」",
+     "next": "back_shop"
+    },
+    {
+     "label": "{mother}を診る",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "mother_ok",
+      "lose": "mother_bad"
+     }
+    },
+    {
+     "label": "「偽の絹の証はあるか」",
+     "next": "appr_proof"
+    },
+    {
+     "label": "「銭をこちらへ渡せ。悪いようにはせん」",
+     "next": "end_pocket",
+     "guide": "銭を懐に入れることになる"
+    }
+   ]
+  },
+  "appr_proof": {
+   "speaker": "appr",
+   "text": [
+    "{appr}は懐から、端切れと小さな帳面を出した。芯が麻の反物の切れ端と、それを絹として売りつけた客の名の控えだ。「いつか、誰かに見てもらおうと思って」"
+   ],
+   "effects": [
+    {
+     "flag": "appr_proof"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{appr}を連れて{here}へ戻る",
+     "next": "back_shop"
+    },
+    {
+     "label": "先に{mother}を診る",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "mother_ok",
+      "lose": "mother_bad"
+     }
+    }
+   ]
+  },
+  "mother_bad": {
+   "text": [
+    "熱は下がらない。病は重く、この家にある物では手当てもできない。"
+   ],
+   "choices": [
+    {
+     "label": "手持ちの薬草を煎じて飲ませる",
+     "if": {
+      "item": "herbs"
+     },
+     "effects": [
+      {
+       "item": "herbs",
+       "n": -1
+      }
+     ],
+     "next": "mother_ok"
+    },
+    {
+     "label": "医者を呼ぶ銭を置いていく（50{money}）",
+     "if": {
+      "money": 50
+     },
+     "effects": [
+      {
+       "money": -50
+      },
+      {
+       "fame": 1
+      }
+     ],
+     "next": "mother_ok"
+    },
+    {
+     "label": "{appr}を連れて{here}へ戻る",
+     "next": "back_shop"
+    }
+   ]
+  },
+  "mother_ok": {
+   "speaker": "mother",
+   "text": [
+    "夜半、{mother}の熱が引いた。かすれた声で礼を言い、息子の手を握る。{appr}は涙をぬぐい、懐から端切れと帳面を出した。「偽の絹の証です。あなたになら預けられる」"
+   ],
+   "effects": [
+    {
+     "flag": "appr_proof"
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "{appr}を連れて{here}へ戻る",
+     "next": "back_shop"
+    },
+    {
+     "label": "「銭を持って、母と遠くへ行け」",
+     "next": "end_let_go"
+    }
+   ]
+  },
+  "back_shop": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{appr}を連れて{here}の{market}へ戻る",
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}は{appr}の顔を見るなり、帳場から飛び出してきた。「この恩知らずが。銭を返せ。それから{office}に突き出してやる」",
+    "{appr}はうつむいたまま、懐の銭袋を握っている。"
+   ],
+   "choices": [
+    {
+     "label": "偽の絹の証を持って{office}へ訴える",
+     "if": {
+      "flag": "appr_proof"
+     },
+     "next": "office"
+    },
+    {
+     "label": "「偽物の件を黙っている代わりに、{appr}を許せ」",
+     "if": {
+      "flag": "appr_fake"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "end_settled",
+      "lose": "shop_thugs"
+     }
+    },
+    {
+     "label": "「ただ働きの代を払っていないなら、お互いさまだ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_settled",
+      "lose": "shop_thugs"
+     }
+    },
+    {
+     "label": "約束どおり{appr}を引き渡す",
+     "next": "end_handed"
+    }
+   ]
+  },
+  "shop_thugs": {
+   "art": "war",
+   "text": [
+    "「余所者が口を出すな」{client}が手を叩くと、荷運びの男が二人、棒を持って出てきた。"
+   ],
+   "choices": [
+    {
+     "label": "{appr}をかばって打ち合う",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_settled",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ訴える",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は端切れをつまみ上げた。「麻に見えんこともない。だが{client}は{market}の古株だぞ。見習いの言うことを信じろと？」"
+   ],
+   "choices": [
+    {
+     "label": "端切れの織りをほどき、絹と麻の違いを見せる",
+     "check": {
+      "skill": "trade",
+      "dc": 25,
+      "win": "end_exposed",
+      "lose": "office_ng"
+     }
+    },
+    {
+     "label": "控えにある客の名を挙げ、呼んで確かめるよう説く",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "end_exposed",
+      "lose": "office_ng"
+     }
+    }
+   ]
+  },
+  "office_ng": {
+   "speaker": "clerk",
+   "text": [
+    "「話はわかった。だが証としては弱い」{clerk}は端切れを返した。{client}が店先から、こちらを睨んでいる。{appr}がこの町に残れば、ただでは済むまい。"
+   ],
+   "choices": [
+    {
+     "label": "{appr}に銭を持たせて、町から逃がす",
+     "next": "end_let_go"
+    },
+    {
+     "label": "これ以上は手に負えぬ。{appr}を{client}に返す",
+     "next": "end_handed"
+    }
+   ]
+  },
+  "end_exposed": {
+   "speaker": "clerk",
+   "text": [
+    "呼ばれた客たちが買った反物を持ち寄ると、どれも芯が麻だった。{client}は罰金を科され、騙した客に代を返すよう命じられた。{appr}の持ち出した銭は、ただ働きの代として認められた。",
+    "{appr}は母を{here}に呼び寄せ、別の店で働き口を見つけた。礼にと、なけなしの銭と、本物の絹の端切れを縫った袋をくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "appr_fake"
+    },
+    {
+     "unflag": "appr_proof"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "{client}の偽の絹を暴き、見習いの{appr}を救った。"
+    }
+   ],
+   "end": "芯の麻"
+  },
+  "end_settled": {
+   "speaker": "client",
+   "text": [
+    "{client}は苦い顔で黙り込み、やがて吐き捨てた。「……銭は持っていけ。そのかわり、二度と店に来るな」",
+    "{appr}は深く頭を下げ、母のもとへ帰っていった。{client}は約束の礼を渋々半分だけ払った。"
+   ],
+   "effects": [
+    {
+     "unflag": "appr_fake"
+    },
+    {
+     "unflag": "appr_proof"
+    },
+    {
+     "money": 40
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{client}と見習いの{appr}の揉め事を収めた。"
+    }
+   ],
+   "end": "手打ち"
+  },
+  "end_handed": {
+   "speaker": "client",
+   "text": [
+    "{client}は銭袋を取り上げ、約束の礼を数えてよこした。{appr}は{office}に突き出され、鞭で打たれたと聞いた。",
+    "{market}の棚には、今日も芯の麻の反物が並んでいる。"
+   ],
+   "effects": [
+    {
+     "unflag": "appr_fake"
+    },
+    {
+     "unflag": "appr_proof"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "引き渡した見習い"
+  },
+  "end_let_go": {
+   "speaker": "appr",
+   "text": [
+    "{appr}は母を背負い、夜明け前に街道を去っていった。「この恩は忘れません」",
+    "{client}には「見つからなかった」と告げた。礼は出なかったが、足取りは軽い。"
+   ],
+   "effects": [
+    {
+     "unflag": "appr_fake"
+    },
+    {
+     "unflag": "appr_proof"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "medicine",
+     "n": 1
+    },
+    {
+     "note": "見習いの{appr}と母を逃がした。"
+    }
+   ],
+   "end": "母を背負って"
+  },
+  "end_pocket": {
+   "speaker": "appr",
+   "text": [
+    "{appr}はおずおずと銭袋を差し出した。袋は重かった。{client}には「もう使い込まれていた」と言えばいい。",
+    "{mother}の咳が、戸の外まで追いかけてきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "appr_fake"
+    },
+    {
+     "unflag": "appr_proof"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "note": "見習いの{appr}から銭を取り上げ、懐に入れた。"
+    }
+   ],
+   "end": "懐の二百"
+  },
+  "end_beaten": {
+   "text": [
+    "棒で打ち倒された。{appr}は店の奥に引きずられていき、銭袋は{client}の手に戻った。礼は出なかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "appr_fake"
+    },
+    {
+     "unflag": "appr_proof"
+    },
+    {
+     "hp": -15
+    }
+   ],
+   "end": "届かなかった庇い立て"
+  }
+ }
+}

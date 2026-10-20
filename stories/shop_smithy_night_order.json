@@ -1,0 +1,572 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_smithy_night_order",
+ "kind": "random",
+ "where": "smithy",
+ "hook": "夜ごとに打っている穂先が、どこへ行くのか分かってしまったのです",
+ "title": "夜の注文",
+ "era": "*",
+ "most": 2,
+ "again": 200,
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "鍛冶の親方"
+  },
+  "broker": {
+   "npc": "仲買",
+   "sex": "m"
+  },
+  "boy": {
+   "npc": "鍛冶の弟子",
+   "sex": "m"
+  },
+  "officer": {
+   "npc": "捕り方の頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "炉の火を落とした{smithy}の奥で、{client}が声をひそめた。ひと月前、{broker}という仲買が槍の穂先を五十、矢じりを三百、前金をはずんで頼んでいった。",
+    "「ところが昨夜、受け取りに来た荷車の男たちが話しているのを聞いてしまった。{village}の街道で、隊商を襲う段取りでした。わしの打った刃で、人が殺されるのです」",
+    "残りの品の引き渡しは三日後。断れば{smithy}に火をかけると、{broker}は笑って言ったという。"
+   ],
+   "choices": [
+    {
+     "label": "「断れ。脅しに来たら、わたしが相手をする」",
+     "next": "refuse"
+    },
+    {
+     "label": "「{office}に知らせ、引き渡しの場で捕らえさせよう」",
+     "next": "office"
+    },
+    {
+     "label": "「わざと脆く鍛えた穂先を渡せばいい」",
+     "next": "brittle"
+    },
+    {
+     "label": "「前金はもらったのだろう。黙って納めて、儲けを分けよう」",
+     "next": "deliver",
+     "guide": "刃は隊商を襲うのに使われる。名を落とす"
+    }
+   ]
+  },
+  "refuse": {
+   "speaker": "broker",
+   "art": "backroom",
+   "text": [
+    "三日目の夕方、{broker}は棒を持った男を三人連れて現れた。{client}が品は渡せぬと告げると、{broker}は炉の脇の金床を足で蹴った。",
+    "「前金を返せとは言わん。品を出せと言っておる。出さぬなら、この{smithy}は今夜で終いだ」"
+   ],
+   "choices": [
+    {
+     "label": "男たちを叩き出す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "taken",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "「お前の顔は覚えた。{office}に名を出されたいか」と脅し返す",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "taken",
+      "lose": "refuse_fight"
+     }
+    }
+   ]
+  },
+  "refuse_fight": {
+   "speaker": "broker",
+   "art": "war",
+   "text": [
+    "「口だけは達者だな」{broker}が顎をしゃくると、男たちが棒を振り上げて踏み込んできた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "taken",
+      "lose": "end_burned"
+     }
+    }
+   ]
+  },
+  "taken": {
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{broker}たちは捨て台詞を吐いて逃げた。だが翌朝、{client}が青い顔で駆けてきた。炭を買いに出た弟子の{boy}が戻らない。",
+    "戸口に結び文が挟んであった。「小僧を返してほしくば、品を荷車に積んで{village}の外れの空き小屋へ。役人を連れてくれば、小僧の指を一本ずつ落とす」"
+   ],
+   "effects": [
+    {
+     "flag": "sno_boy"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{village}へ行き、{boy}を取り戻す",
+     "next": "hut"
+    },
+    {
+     "label": "品を積んで行き、引き換えにする",
+     "next": "hut_trade"
+    }
+   ]
+  },
+  "hut": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の外れの空き小屋へ行く",
+   "art": "hideout",
+   "text": [
+    "{village}の外れ、刈り入れの済んだ畑の向こうに、屋根の傾いた小屋がある。戸口で二人が見張り、中から子どものすすり泣きが聞こえる。",
+    "裏手には薪の山が積まれ、壁板のすき間から灯りが漏れている。"
+   ],
+   "choices": [
+    {
+     "label": "裏手の壁板を外し、{boy}をそっと連れ出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "end_rescued",
+      "lose": "hut_alarm"
+     }
+    },
+    {
+     "label": "正面から踏み込む",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "end_burned"
+     },
+     "guide": "相手は四人。手負いになりやすい"
+    },
+    {
+     "label": "見張りに酒を差し入れ、酔わせてから入る（酒）",
+     "if": {
+      "item": "wine"
+     },
+     "effects": [
+      {
+       "item": "wine",
+       "n": -1
+      }
+     ],
+     "next": "end_rescued"
+    }
+   ]
+  },
+  "hut_trade": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の外れの空き小屋へ品を届ける",
+   "speaker": "broker",
+   "art": "hideout",
+   "text": [
+    "荷車を小屋の前に止めると、{broker}が縄をかけた{boy}を引いて出てきた。男たちが荷を検める。",
+    "「これでいい。だが、お前たちはもう顔を見すぎた」{broker}の目が細くなった。小屋の陰で、別の男が刃を抜く気配がする。"
+   ],
+   "choices": [
+    {
+     "label": "{boy}を引き寄せ、斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_ransom",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "「わたしを殺せば、次の注文は誰が打つ」と言いくるめる",
+     "check": {
+      "skill": "trade",
+      "dc": 32,
+      "win": "end_ransom",
+      "lose": "hut_alarm"
+     }
+    }
+   ]
+  },
+  "hut_alarm": {
+   "art": "war",
+   "text": [
+    "物音に気づいた男たちが、刃を抜いて取り囲んだ。{boy}が縄をかけられたまま、柱の陰で震えている。"
+   ],
+   "choices": [
+    {
+     "label": "{boy}を背にかばって戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_rescued",
+      "lose": "end_burned"
+     }
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で訴える",
+   "speaker": "officer",
+   "art": "court",
+   "text": [
+    "{officer}は話を聞くと、顎をなでた。「その{bandit}どもには、こちらも手を焼いておった。だが、ただの鍛冶の話だけでは人は出せん」",
+    "「引き渡しの日と場所が確かなら、捕り方を伏せてやる。証になるものはあるか」"
+   ],
+   "choices": [
+    {
+     "label": "{client}の受け取った注文の書き付けを読み解いて示す",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "ambush",
+      "lose": "office_doubt"
+     }
+    },
+    {
+     "label": "「引き渡しの場に、わたしも出る。捕り方は後ろで待てばよい」",
+     "next": "ambush"
+    }
+   ]
+  },
+  "office_doubt": {
+   "speaker": "officer",
+   "text": [
+    "「符丁ばかりで、何のことやら分からん」{officer}は書き付けを突き返した。「出せるのは二人だけだ。あとはお前の腕でなんとかしろ」"
+   ],
+   "choices": [
+    {
+     "label": "それでいい。引き渡しの場へ行く",
+     "next": "ambush"
+    }
+   ]
+  },
+  "ambush": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "{here}の{smithy}で引き渡しを待つ",
+   "speaker": "broker",
+   "art": "war",
+   "text": [
+    "約束の夜、{broker}は荷車と男たちを連れて来た。品を確かめようと荷に手をかけたところで、物陰から捕り方が飛び出す。",
+    "「謀ったな」{broker}は刃を抜き、男たちが{client}に向かって走った。"
+   ],
+   "choices": [
+    {
+     "label": "{client}をかばい、男たちを打ち倒す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_trap",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "逃げる{broker}を追って、背後から組み伏せる",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "end_trap",
+      "lose": "ambush_melee"
+     }
+    }
+   ]
+  },
+  "ambush_melee": {
+   "art": "war",
+   "text": [
+    "{broker}は振り向きざまに刃を払い、男たちの後ろへ逃げ込んだ。捕り方と男たちが入り乱れる。"
+   ],
+   "choices": [
+    {
+     "label": "男たちを打ち倒し、{broker}を追い詰める",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_trap",
+      "lose": "end_burned"
+     }
+    }
+   ]
+  },
+  "brittle": {
+   "speaker": "client",
+   "text": [
+    "{client}はしばらく黙っていたが、やがて笑った。「焼き入れの水を一度ぬるくすれば、見た目は同じで、ひと突きで折れる穂先になる。だが向こうにも目利きがおる。ばれれば終わりだ」",
+    "三日のあいだ、二人で炉の前に立った。"
+   ],
+   "choices": [
+    {
+     "label": "引き渡しの場で、検める男の目をそらす",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "end_brittle",
+      "lose": "brittle_found"
+     }
+    },
+    {
+     "label": "検めの前に、折れやすい品を良い品の下に紛れ込ませる",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "end_brittle",
+      "lose": "brittle_found"
+     }
+    }
+   ]
+  },
+  "brittle_found": {
+   "speaker": "broker",
+   "art": "war",
+   "text": [
+    "検めの男が穂先を石に打ちつけると、ぽきりと折れた。{broker}の顔から笑みが消える。「なめた真似をしてくれたな」"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_brittle",
+      "lose": "end_burned"
+     }
+    }
+   ]
+  },
+  "deliver": {
+   "speaker": "broker",
+   "art": "trade",
+   "text": [
+    "品を荷車に積むと、{broker}は上機嫌で残りの代金を数えた。「話の分かる者がいて助かる。また頼む」",
+    "{client}は黙って銭を受け取り、半分をこちらに押しやった。目は合わせなかった。"
+   ],
+   "choices": [
+    {
+     "label": "銭を受け取る",
+     "next": "end_profit"
+    },
+    {
+     "label": "「やはり、こんな銭は受け取れん」と荷車を追う",
+     "next": "office"
+    }
+   ]
+  },
+  "end_rescued": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "{boy}を連れて{here}の{smithy}へ戻る",
+   "speaker": "client",
+   "text": [
+    "縄をほどくと、{boy}はしゃくり上げながらしがみついてきた。{smithy}に連れ帰ると、{client}は弟子を抱きしめ、それから炉の脇の品をすべて槌で叩き割った。",
+    "「もう二度と、行き先の分からぬ刃は打たん」礼にと渡されたのは、なけなしの銭と、手ずから仕立てた革の胸当てだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "sno_boy"
+    },
+    {
+     "money": 120
+    },
+    {
+     "item": "leather"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "{bandit}の武器を打たされていた鍛冶を助け、さらわれた弟子を取り戻した。"
+    }
+   ],
+   "end": "取り戻した弟子"
+  },
+  "end_ransom": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "{boy}を連れて{here}の{smithy}へ戻る",
+   "speaker": "client",
+   "text": [
+    "{boy}は戻ったが、穂先と矢じりは{bandit}の手に渡った。ひと月もしないうちに、{village}の街道で隊商が襲われたと噂が流れた。",
+    "「弟子の命には代えられなかった」{client}はそう言って、受け取った前金の残りを差し出した。"
+   ],
+   "effects": [
+    {
+     "unflag": "sno_boy"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "弟子と引き換えに、{bandit}へ武器を渡した。"
+    }
+   ],
+   "end": "引き換えの刃"
+  },
+  "end_trap": {
+   "speaker": "officer",
+   "text": [
+    "{broker}は縄を打たれ、荷車ごと{office}へ引かれていった。吐かせた白状をもとに、捕り方は{village}の隠れ家も押さえたという。",
+    "「鍛冶の口から{bandit}が割れるとはな」{officer}は褒美の銭を置いていった。{client}は品を溶かし、鍬の刃に打ち直すと言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "sno_boy"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{bandit}の仲買を、引き渡しの場で捕らえさせた。"
+    }
+   ],
+   "end": "伏せた捕り方"
+  },
+  "end_brittle": {
+   "speaker": "client",
+   "text": [
+    "{broker}は何も知らずに品を運んでいった。半月後、{village}の街道で隊商を襲った{bandit}が、穂先が次々に折れて総崩れになり、護衛に追い散らされたと聞いた。",
+    "{client}は前金を数え、その半分をこちらに握らせた。「悪い刃を打ったのは、生まれて初めてだ。妙に胸がすく」"
+   ],
+   "effects": [
+    {
+     "unflag": "sno_boy"
+    },
+    {
+     "money": 140
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "{bandit}にわざと折れる穂先をつかませた。"
+    }
+   ],
+   "end": "折れる穂先"
+  },
+  "end_profit": {
+   "text": [
+    "懐は重くなった。だがひと月後、{village}の街道で隊商が襲われ、何人も死んだと聞いた。死体に刺さっていた矢じりには、{client}の刻み目があったという。",
+    "{smithy}の前を通るたび、炉の火が前より暗く見える。"
+   ],
+   "effects": [
+    {
+     "unflag": "sno_boy"
+    },
+    {
+     "money": 220
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "{bandit}に武器を納め、分け前を取った。"
+    }
+   ],
+   "end": "血の分け前"
+  },
+  "end_burned": {
+   "art": "disaster",
+   "text": [
+    "多勢に押され、打ち倒された。{bandit}の仕返しは早かった。その夜、{smithy}の屋根から火の粉が上がり、{client}は焼け跡で、ゆがんだ金床をいつまでも撫でていた。",
+    "{bandit}の手には、打ち上がった穂先がそっくり渡ったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "sno_boy"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "火の落ちた炉"
+  }
+ }
+}

@@ -1,0 +1,220 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "novice_bellows",
+ "kind": "random",
+ "where": "smithy",
+ "again": 90,
+ "most": 2,
+ "trigger": {
+  "fameMax": 40
+ },
+ "hook": "弟子が寝込んでしもうて、ふいごを踏む者がおらんのだ",
+ "title": "ふいご番",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "鍛冶の親方",
+   "sex": "m"
+  },
+  "seller": {
+   "npc": "炭売り",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{smithy}の奥は、昼でも炉の火で赤かった。{client}が、ふいごの踏み板を顎で示す。「強すぎても弱すぎてもいかん。火の色を見て、息をするように踏め」",
+    "炉の脇には、今朝届いたばかりの炭俵が積んである。"
+   ],
+   "choices": [
+    {
+     "label": "火の色を見ながら、一定の調子で踏む",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 10,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "blade",
+      "dc": 8,
+      "win": "end_lesson",
+      "lose": "burnt"
+     }
+    },
+    {
+     "label": "力いっぱい、速く踏む",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "burnt"
+    },
+    {
+     "label": "炭の減りが早いのに気づき、{client}に炭の質を尋ねる",
+     "effects": [
+      {
+       "xp": "trade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "charcoal"
+    }
+   ]
+  },
+  "burnt": {
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "火が噴き上がり、鉄が白くなりすぎた。{client}が打った刃が、水に入れた途端にぐにゃりと反る。飛んだ火の粉で、{client}の腕に赤い火ぶくれができた。",
+    "「……ばかもんが」"
+   ],
+   "choices": [
+    {
+     "label": "詫びて、日暮れまで踏み続ける",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 20,
+       "cap": 10
+      },
+      {
+       "pass": 240
+      }
+     ],
+     "next": "end_scolded"
+    },
+    {
+     "label": "水で冷やし、親方の火傷を手当てする",
+     "effects": [
+      {
+       "xp": "medicine",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "next": "end_burn"
+    }
+   ]
+  },
+  "charcoal": {
+   "speaker": "seller",
+   "art": "trade",
+   "text": [
+    "{client}は炭を一本割って、うなった。「芯が湿っとる。重さで売る炭に水を吸わせたな」ちょうど{seller}が、次の俵を担いで入ってきた。",
+    "{client}は口下手だ。こちらを見て、目で頼んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "割った炭を見せて、値引きを掛け合う",
+     "effects": [
+      {
+       "xp": "speech",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 10,
+      "win": "end_charcoal",
+      "lose": "end_scolded"
+     }
+    },
+    {
+     "label": "重さを量り比べて、湿った分を突きつける",
+     "effects": [
+      {
+       "xp": "trade",
+       "n": 20,
+       "cap": 10
+      }
+     ],
+     "check": {
+      "skill": "trade",
+      "dc": 10,
+      "win": "end_charcoal",
+      "lose": "end_scolded"
+     }
+    }
+   ]
+  },
+  "end_lesson": {
+   "speaker": "client",
+   "text": [
+    "日が傾くころ、一振りが仕上がった。{client}は刃を拭い、柄をこちらに向けて差し出した。「握ってみい。指は締めすぎず、小指で持つ。……そうだ、それでいい」",
+    "駄賃と一緒に、刃の振り方まで教わった。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 20,
+     "cap": 10
+    },
+    {
+     "money": 10
+    }
+   ],
+   "end": "刃の握り方"
+  },
+  "end_scolded": {
+   "speaker": "client",
+   "text": [
+    "{client}は最後まで仏頂面だったが、帰りぎわ、黙って駄賃を投げてよこした。「明日も来るなら、今日よりましに踏め」"
+   ],
+   "effects": [
+    {
+     "money": 4
+    }
+   ],
+   "end": "叱られ駄賃"
+  },
+  "end_burn": {
+   "speaker": "client",
+   "text": [
+    "冷やした腕に布を巻くと、{client}は照れくさそうに鼻を鳴らした。「鍛冶より薬師のほうが向いとるかもしれんな」駄賃のほかに、棚の薬草を一束くれた。"
+   ],
+   "effects": [
+    {
+     "money": 6
+    },
+    {
+     "item": "herbs",
+     "n": 1
+    }
+   ],
+   "end": "親方の火傷"
+  },
+  "end_charcoal": {
+   "speaker": "seller",
+   "text": [
+    "{seller}はしぶしぶ湿った分の銭を返した。{client}はにやりとして、浮いた分をそっくりこちらへ回してくれた。「おまえさん、口が立つのう」"
+   ],
+   "effects": [
+    {
+     "money": 12
+    },
+    {
+     "fame": 1
+    }
+   ],
+   "end": "湿った炭"
+  }
+ }
+}

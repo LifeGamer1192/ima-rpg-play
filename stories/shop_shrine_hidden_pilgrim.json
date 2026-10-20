@@ -1,0 +1,476 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shop_shrine_hidden_pilgrim",
+ "kind": "random",
+ "where": "shrine",
+ "hook": "{shrine}にかくまっている参詣の娘を、追っ手が探し回っているのです",
+ "title": "追われる参詣人",
+ "era": "*",
+ "most": 2,
+ "again": 200,
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "town": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "堂守"
+  },
+  "lady": {
+   "npc": "旧家の娘",
+   "sex": "f"
+  },
+  "captain": {
+   "npc": "追っ手の頭",
+   "sex": "m"
+  },
+  "kin": {
+   "npc": "娘の母方の伯父",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{client}に手招きされ、{shrine}の奥の納戸をのぞくと、旅の装束の娘が身を固くしていた。{lady}という。参詣人のなりをしているが、手は荒れていない。",
+    "「町に、この方を探す男たちが入りました。家の者だと名乗っています。ですが、この方は家に戻れば殺されると言うのです」"
+   ],
+   "choices": [
+    {
+     "label": "{lady}から事情を聞く",
+     "next": "story"
+    },
+    {
+     "label": "男たちのほうに話を聞きに行く",
+     "next": "captain"
+    },
+    {
+     "label": "「関わりたくない」と断る",
+     "next": "refused",
+     "guide": "{client}は一人で娘をかばうことになる"
+    }
+   ]
+  },
+  "story": {
+   "speaker": "lady",
+   "text": [
+    "「父が亡くなって、家は叔父が預かりました。けれど家の跡目を継ぐのは、本当はわたしなのです。ある晩、叔父の家来が、わたしの部屋の前で刃を研いでいるのを見ました」",
+    "「{town}に、母方の伯父の{kin}がおります。そこまで行ければ、伯父が守ってくれます」"
+   ],
+   "effects": [
+    {
+     "flag": "shp_story"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{town}まで送っていく",
+     "next": "road"
+    },
+    {
+     "label": "追っ手が去るまで、ここにかくまう",
+     "next": "search"
+    },
+    {
+     "label": "追っ手の言い分も聞いてみる",
+     "next": "captain"
+    }
+   ]
+  },
+  "refused": {
+   "speaker": "client",
+   "text": [
+    "{client}は肩を落としたが、引き止めはしなかった。だが{shrine}の門を出たところで、刃を帯びた男たちが境内へ入っていくのとすれ違った。"
+   ],
+   "choices": [
+    {
+     "label": "引き返す",
+     "next": "search"
+    },
+    {
+     "label": "そのまま立ち去る",
+     "next": "end_ignored"
+    }
+   ]
+  },
+  "captain": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で追っ手の男たちに会う",
+   "speaker": "captain",
+   "art": "inn",
+   "text": [
+    "{inn}の奥で、{captain}が仲間と酒を飲んでいた。「お嬢さまは心を病んで、家を飛び出されたのだ。見つけてくれれば、礼ははずむ」",
+    "{captain}は銭袋を卓に置いた。だが、その手の甲には、家の者らしからぬ{bandit}の入れ墨がのぞいている。"
+   ],
+   "choices": [
+    {
+     "label": "「その娘なら、{shrine}にいる」と教える",
+     "next": "end_sold",
+     "guide": "銭は入る。だが本当に家の者なのか"
+    },
+    {
+     "label": "酒をすすめて、雇い主を探る",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "truth",
+      "lose": "search"
+     }
+    },
+    {
+     "label": "{captain}の懐から、書き付けを抜き取る",
+     "check": {
+      "skill": "theft",
+      "dc": 30,
+      "win": "truth",
+      "lose": "search"
+     }
+    }
+   ]
+  },
+  "truth": {
+   "text": [
+    "{captain}の懐にあったのは、娘の叔父からの書き付けだった。「道中にて病没のこととせよ。始末の代は、首を見てから払う」",
+    "男たちは家の者などではない。叔父に雇われた{bandit}あがりの刺客だ。"
+   ],
+   "effects": [
+    {
+     "flag": "shp_truth"
+    }
+   ],
+   "choices": [
+    {
+     "label": "書き付けを持って{office}に訴える",
+     "next": "office"
+    },
+    {
+     "label": "すぐに{lady}を連れて{town}へ発つ",
+     "next": "road"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で刺客のことを訴える",
+   "speaker": "{office}の役人",
+   "art": "court",
+   "text": [
+    "役人は書き付けを読み、眉をひそめた。「よその家の跡目争いに口を出すのは、面倒だが……人を殺めようという書き付けとなれば、放ってはおけん」"
+   ],
+   "choices": [
+    {
+     "label": "「刺客を捕らえる手を貸してほしい」と頼む",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "end_law",
+      "lose": "search"
+     }
+    },
+    {
+     "label": "役人を待たず、{shrine}へ急ぐ",
+     "next": "search"
+    }
+   ]
+  },
+  "search": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の{shrine}へ急ぐ",
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "夕暮れ、{captain}たちが刃を抜いて{shrine}に踏み込んできた。{client}が両手を広げて立ちふさがる。「ここは神の前です。刃をお納めなさい」",
+    "「どけ」{captain}が{client}を突き飛ばし、奥の納戸へ向かう。"
+   ],
+   "choices": [
+    {
+     "label": "{client}と{lady}の前に立ちはだかる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_guarded",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "{lady}を床下に隠し、知らぬふりを通す",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "road",
+      "lose": "search_fight"
+     }
+    }
+   ]
+  },
+  "search_fight": {
+   "art": "war",
+   "text": [
+    "床下から衣の裾がのぞいていた。{captain}がにやりと笑い、仲間を呼んだ。"
+   ],
+   "choices": [
+    {
+     "label": "戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_guarded",
+      "lose": "end_taken"
+     }
+    }
+   ]
+  },
+  "road": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{lady}を{town}の{kin}のもとへ送る",
+   "speaker": "lady",
+   "art": "road",
+   "text": [
+    "夜明け前に{shrine}を出て、街道を急いだ。{town}の手前の林で、後ろから馬蹄の音が迫ってくる。{captain}たちが追いついたのだ。",
+    "{lady}が袖をつかむ。「もう少しです。あの丘の向こうが伯父の家です」"
+   ],
+   "choices": [
+    {
+     "label": "林に{lady}を隠し、追っ手を迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_kin",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "藪を抜ける脇道で追っ手をまく",
+     "check": {
+      "skill": "stealth",
+      "dc": 32,
+      "win": "end_kin",
+      "lose": "road_fight"
+     }
+    },
+    {
+     "label": "弓で先頭の馬を射すくめる",
+     "check": {
+      "skill": "bow",
+      "dc": 30,
+      "win": "end_kin",
+      "lose": "road_fight"
+     }
+    }
+   ]
+  },
+  "road_fight": {
+   "art": "war",
+   "text": [
+    "脇道の先で、回り込んだ男たちが待ち構えていた。"
+   ],
+   "choices": [
+    {
+     "label": "{lady}を背に斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_kin",
+      "lose": "end_taken"
+     }
+    }
+   ]
+  },
+  "end_kin": {
+   "speaker": "kin",
+   "text": [
+    "丘の上の屋敷から{kin}が家人を連れて駆け下りてきた。{lady}を抱きとめると、{kin}は深く頭を下げた。「姪の命の恩人だ。叔父の企みは、わしが必ず明るみに出す」",
+    "{kin}は、礼の銭と、蔵から出した絹をひと巻き持たせてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "shp_story"
+    },
+    {
+     "unflag": "shp_truth"
+    },
+    {
+     "money": 200
+    },
+    {
+     "item": "silk"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    },
+    {
+     "note": "刺客に追われる旧家の娘を、母方の伯父のもとへ送り届けた。"
+    }
+   ],
+   "end": "伯父の屋敷"
+  },
+  "end_guarded": {
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "男たちは傷を負って逃げ去った。翌日、{lady}は{client}の書いた添え状を持ち、{town}の伯父のもとへ発った。",
+    "{client}は、神前での流血を清めながら言った。「神も、きっとお許しくださいます」"
+   ],
+   "effects": [
+    {
+     "unflag": "shp_story"
+    },
+    {
+     "unflag": "shp_truth"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{shrine}に踏み込んだ刺客から旧家の娘を守った。"
+    }
+   ],
+   "end": "神前の守り"
+  },
+  "end_law": {
+   "speaker": "{office}の役人",
+   "text": [
+    "捕り方が{inn}を囲み、{captain}たちは刃を抜く間もなく縄を打たれた。役人は叔父の書き付けを添えて、娘の家のある国へ知らせを送ると言った。",
+    "{lady}は{client}と並んで、何度も頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "shp_story"
+    },
+    {
+     "unflag": "shp_truth"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "旧家の娘を狙う刺客を{office}に捕らえさせた。"
+    }
+   ],
+   "end": "縄を打たれた刺客"
+  },
+  "end_sold": {
+   "speaker": "captain",
+   "text": [
+    "{captain}は銭袋を放ってよこし、仲間を連れて出ていった。その夜、{shrine}から女の悲鳴が聞こえたという者がいた。",
+    "数日後、街道の脇で若い娘の亡骸が見つかった。{client}は、二度とこちらと目を合わせなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "shp_story"
+    },
+    {
+     "unflag": "shp_truth"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "note": "旧家の娘の居場所を、追っ手に売った。"
+    }
+   ],
+   "end": "血の礼金"
+  },
+  "end_taken": {
+   "art": "disaster",
+   "text": [
+    "打ち倒され、地に伏した目の前で、{lady}が男たちに引きずられていった。{client}の泣き声だけが、{shrine}にいつまでも響いていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "shp_story"
+    },
+    {
+     "unflag": "shp_truth"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "end": "連れ去られた娘"
+  },
+  "end_ignored": {
+   "text": [
+    "振り返らずに町を出た。後で、{shrine}の堂守が刃傷を負い、かくまっていた娘が連れ去られたと噂に聞いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "shp_story"
+    },
+    {
+     "unflag": "shp_truth"
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "閉ざした耳"
+  }
+ }
+}
