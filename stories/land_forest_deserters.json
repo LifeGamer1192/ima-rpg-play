@@ -1,0 +1,459 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_forest_deserters",
+ "kind": "random",
+ "where": "road",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "forest"
+  ]
+ },
+ "hook": "森の道に、刃を持った男たちが立ちふさがった",
+ "title": "森の逃亡兵",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "leader": {
+   "npc": "逃亡兵の頭",
+   "sex": "m"
+  },
+  "lad": {
+   "npc": "若い逃亡兵",
+   "sex": "m"
+  },
+  "captain": {
+   "npc": "追っ手の隊長",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "leader",
+   "art": "road",
+   "text": [
+    "森の道が細くなったところで、倒木が行く手をふさいでいた。藪から男が五人、錆びた刃を手に出てくる。痩せこけ、破れた衣の下に{soldier}の古い胴当てが見えた。",
+    "頭らしい男、{leader}が言った。「持ち物を置いていけ。命までは取らん」その声は、脅すというより疲れ切っていた。"
+   ],
+   "choices": [
+    {
+     "label": "刃を抜いて押し通る",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "beaten",
+      "lose": "robbed"
+     }
+    },
+    {
+     "label": "「その胴当て、{soldier}だな。逃げてきたのか」と話しかける",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "camp",
+      "lose": "robbed"
+     }
+    },
+    {
+     "label": "黙って{money}を少し差し出す（30{money}）",
+     "if": {
+      "money": 30
+     },
+     "effects": [
+      {
+       "money": -30
+      }
+     ],
+     "next": "camp"
+    }
+   ]
+  },
+  "beaten": {
+   "speaker": "leader",
+   "art": "war",
+   "text": [
+    "男たちは呆気なく崩れた。刃を突きつけられた{leader}は、地に額をつけた。「おれたちは、無理に兵に取られた村の者だ。戦に出る前に逃げた。森の奥には、熱を出した仲間が寝ている」",
+    "{near}の方には、逃亡兵を狩る隊が来ているはずだ。首には賞金が懸かっているだろう。"
+   ],
+   "choices": [
+    {
+     "label": "「仲間のところへ案内しろ」",
+     "next": "camp"
+    },
+    {
+     "label": "{leader}を縛り、{near}の追っ手に突き出す",
+     "effects": [
+      {
+       "flag": "des_sold"
+      }
+     ],
+     "next": "captain"
+    }
+   ]
+  },
+  "robbed": {
+   "art": "road",
+   "text": [
+    "頭を打たれて目が覚めると、荷が軽くなっていた。男たちの姿はない。だが、湿った落ち葉の上に、何人もの足跡が森の奥へ続いている。"
+   ],
+   "effects": [
+    {
+     "money": -40
+    }
+   ],
+   "choices": [
+    {
+     "label": "足跡をたどって奪われた物を取り返しに行く",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "camp",
+      "lose": "end_robbed"
+     }
+    },
+    {
+     "label": "{near}へ行き、追っ手の隊に知らせる",
+     "next": "captain"
+    }
+   ]
+  },
+  "camp": {
+   "speaker": "lad",
+   "art": "hideout",
+   "text": [
+    "森の奥の窪地に、枝を組んだ粗末な小屋があった。火の気はない。若い{lad}が、熱にうかされて藁の上で震えている。傷が膿んでいるのだ。",
+    "{leader}がうつむいた。「薬もない。食い物は木の実と蛙だけだ。こいつだけでも、助けてやりたい」"
+   ],
+   "choices": [
+    {
+     "label": "傷口を洗い、膿を出して手当てする",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "healed",
+      "lose": "camp2"
+     }
+    },
+    {
+     "label": "持っていた保存食を分けてやる",
+     "if": {
+      "item": "rations"
+     },
+     "effects": [
+      {
+       "item": "rations",
+       "n": -1
+      },
+      {
+       "fame": 1
+      }
+     ],
+     "next": "camp2"
+    },
+    {
+     "label": "何もせず、話だけ聞く",
+     "next": "camp2"
+    }
+   ]
+  },
+  "healed": {
+   "speaker": "lad",
+   "text": [
+    "熱は夜半に下がった。{lad}はかすれた声で礼を言い、{leader}は黙ってこちらの手を握った。男たちの目つきが変わった。"
+   ],
+   "effects": [
+    {
+     "flag": "des_healed"
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "next": "camp2"
+  },
+  "camp2": {
+   "speaker": "leader",
+   "art": "camp",
+   "text": [
+    "「追っ手が{near}に陣を張ったと聞いた。森を抜けて隣の国へ行きたいが、道を知らん」{leader}は言った。",
+    "逃がせば、この国の掟に背く。差し出せば、賞金が手に入る。"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れ、追っ手の見張りの外を抜けて案内する",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "end_escaped",
+      "lose": "ambush"
+     },
+     "guide": "この国の掟に背くことになる"
+    },
+    {
+     "label": "「隠れていても飢えるだけだ。名乗り出ろ。命乞いはしてやる」",
+     "effects": [
+      {
+       "flag": "des_surrender"
+      }
+     ],
+     "next": "captain"
+    },
+    {
+     "label": "ひそかに抜け出し、隠れ場を追っ手に売る",
+     "effects": [
+      {
+       "flag": "des_sold"
+      }
+     ],
+     "next": "captain"
+    }
+   ]
+  },
+  "ambush": {
+   "art": "war",
+   "text": [
+    "森の出口で松明が一斉に灯った。「そこまでだ」追っ手の兵が道をふさいでいる。"
+   ],
+   "choices": [
+    {
+     "label": "兵を斬り払い、男たちを逃がす",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "free": true,
+      "win": "end_escaped",
+      "lose": "end_hanged",
+      "fled": "end_hanged"
+     }
+    }
+   ]
+  },
+  "captain": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}で追っ手の{captain}に会う",
+   "speaker": "captain",
+   "art": "camp",
+   "text": [
+    "{near}の外れの陣で、{captain}が地図を広げていた。「森の逃亡兵か。見せしめに吊るすつもりで来た。居所を知っているなら言え」"
+   ],
+   "choices": [
+    {
+     "label": "賞金と引き換えに、隠れ場を教える",
+     "if": {
+      "flag": "des_sold"
+     },
+     "next": "end_sold"
+    },
+    {
+     "label": "「熱で死にかけた若いのを、この手で助けた。あれは兵ではない、ただの百姓だ」",
+     "if": {
+      "flag": "des_healed",
+      "notFlag": "des_sold"
+     },
+     "next": "end_pardon"
+    },
+    {
+     "label": "「自ら名乗り出る者を吊るせば、次からは誰も戻らん」と説く",
+     "if": {
+      "flag": "des_surrender"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_pardon",
+      "lose": "end_hanged"
+     }
+    },
+    {
+     "label": "奪われた物の仕返しに、隊を森へ導く",
+     "if": {
+      "notFlag": "des_surrender"
+     },
+     "next": "end_sold"
+    }
+   ]
+  },
+  "end_escaped": {
+   "speaker": "leader",
+   "text": [
+    "夜明け前、男たちは国境の尾根を越えていった。{leader}は振り返り、背負っていた革の胴当てを外して置いていった。「おれにはもう要らん」",
+    "追っ手は空になった小屋を見つけて、さぞ悔しがっただろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "des_healed"
+    },
+    {
+     "unflag": "des_surrender"
+    },
+    {
+     "unflag": "des_sold"
+    },
+    {
+     "item": "leather",
+     "n": 1
+    },
+    {
+     "fame": 2
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "森に隠れた逃亡兵たちを、国の外へ逃がした。"
+    }
+   ],
+   "end": "森を抜けた者たち"
+  },
+  "end_pardon": {
+   "speaker": "captain",
+   "text": [
+    "{captain}は長いこと黙っていたが、やがて言った。「よかろう。鞭打ちのうえ、隊に戻す。逃げた罪は、次の戦で返させる」",
+    "男たちは縄を打たれながらも、生きて森を出た。{captain}は「骨のある奴だ」と、こちらにも少しの礼をよこした。"
+   ],
+   "effects": [
+    {
+     "unflag": "des_healed"
+    },
+    {
+     "unflag": "des_surrender"
+    },
+    {
+     "unflag": "des_sold"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 4
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "森の逃亡兵たちの命乞いをし、赦しを得た。"
+    }
+   ],
+   "end": "森からの帰参"
+  },
+  "end_sold": {
+   "speaker": "captain",
+   "text": [
+    "翌朝、兵が森を囲んだ。男たちはほとんど手向かいもせずに捕らえられ、{near}の辻に吊るされた。",
+    "{captain}は約束の賞金を数えて渡した。「よく知らせてくれた。国のためだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "des_healed"
+    },
+    {
+     "unflag": "des_surrender"
+    },
+    {
+     "unflag": "des_sold"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": -2
+    },
+    {
+     "favor": 3
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "note": "森の逃亡兵たちの隠れ場を追っ手に教え、賞金を得た。"
+    }
+   ],
+   "end": "辻の見せしめ"
+  },
+  "end_hanged": {
+   "text": [
+    "男たちは捕らえられ、吊るされた。こちらも手引きを疑われ、さんざん打たれてから放り出された。",
+    "森の小屋は焼かれ、何も残らなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "des_healed"
+    },
+    {
+     "unflag": "des_surrender"
+    },
+    {
+     "unflag": "des_sold"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "note": "森の逃亡兵たちを救えなかった。"
+    }
+   ],
+   "end": "焼かれた小屋"
+  },
+  "end_robbed": {
+   "text": [
+    "足跡は沢で途切れた。森は深く、男たちの気配はどこにもない。奪われた物は、二度と戻らなかった。",
+    "あの痩せた顔を思い出すと、腹を立てる気にもなれなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "des_healed"
+    },
+    {
+     "unflag": "des_surrender"
+    },
+    {
+     "unflag": "des_sold"
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "森に消えた者たち"
+  }
+ }
+}

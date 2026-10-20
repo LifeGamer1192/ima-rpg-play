@@ -1,0 +1,345 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_dry_bones",
+ "kind": "random",
+ "where": "shrine",
+ "most": 2,
+ "again": 300,
+ "trigger": {
+  "terrain": [
+   "dry"
+  ]
+ },
+ "hook": "荒れ野の骨を掘り返す者たちがいる。死者を眠らせてやってほしい",
+ "title": "荒れ野の白骨",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "堂守"
+  },
+  "elder": {
+   "npc": "古老",
+   "sex": "m"
+  },
+  "digger": {
+   "npc": "墓あばきの頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{shrine}の{client}が、乾いた風に揺れる灯明を見つめていた。「春の大風で、{near}へ向かう荒れ野の砂がえぐられ、白い骨がいくつも出てきたのです。鎧の切れ端もある。昔の戦で死んだ兵たちでしょう」",
+    "「ところが、夜な夜な人が来て、骨を掘り散らしている。宝が埋まっていると噂が立ったのです。死者をあのままにしてはおけません」"
+   ],
+   "choices": [
+    {
+     "label": "まず{inn}の古老に、昔の戦のことを聞く",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "lore",
+      "lose": "field"
+     }
+    },
+    {
+     "label": "すぐに荒れ野へ向かう",
+     "next": "field"
+    }
+   ]
+  },
+  "lore": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で古老の話を聞く",
+   "speaker": "elder",
+   "art": "inn",
+   "text": [
+    "{elder}は杯を置いて、遠い目をした。「わしの祖父の若いころの話だ。敗れた一軍が荒れ野で水を失い、ことごとく渇き死んだ。将は、兵に払うはずの給金の箱を抱いたまま倒れたという」",
+    "「箱には兵の名を書いた帳面も入っていたそうだ。家族は今も、どこで死んだのかさえ知らん」"
+   ],
+   "effects": [
+    {
+     "flag": "bones_lore"
+    }
+   ],
+   "next": "field"
+  },
+  "field": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}へ向かう荒れ野の骨の原へ行く",
+   "speaker": "digger",
+   "art": "ruins",
+   "text": [
+    "月明かりの荒れ野に、白い骨が点々と散らばっていた。その真ん中で、男たちが鋤を振るっている。頭の{digger}が、こちらに気づいて鋤を構えた。",
+    "「横取りに来たか。ここはおれたちが先に見つけたんだ」"
+   ],
+   "choices": [
+    {
+     "label": "「死者の眠りを荒らすな」と斬りかかる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "chest",
+      "lose": "end_robbed"
+     }
+    },
+    {
+     "label": "「掘るなら手伝う。山分けにしよう」と持ちかける",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "deal",
+      "lose": "end_robbed"
+     }
+    },
+    {
+     "label": "物陰に潜み、連中が箱を掘り当てるのを待つ",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "chest_stolen",
+      "lose": "end_robbed"
+     }
+    }
+   ]
+  },
+  "deal": {
+   "speaker": "digger",
+   "art": "ruins",
+   "text": [
+    "明け方、鋤の先が固い物に当たった。朽ちかけた木の箱だ。中には黒ずんだ{money}が詰まり、底に油紙で包んだ帳面が入っていた。",
+    "{digger}は目を輝かせた。「約束どおり山分けだ。帳面なんぞ要らん、焚きつけにしちまえ」"
+   ],
+   "choices": [
+    {
+     "label": "分け前を受け取る",
+     "next": "end_share"
+    },
+    {
+     "label": "「おれの分は要らん。その代わり、帳面と骨は{shrine}に返せ」",
+     "next": "rebury"
+    }
+   ]
+  },
+  "chest_stolen": {
+   "art": "hideout",
+   "text": [
+    "男たちが箱を掘り出し、酒を回して浮かれている隙に、箱を抱えて闇へ走った。背後で怒鳴り声が上がったが、追ってくる足音はやがて遠のいた。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "next": "chest"
+  },
+  "chest": {
+   "art": "ruins",
+   "text": [
+    "朽ちかけた木の箱には、黒ずんだ{money}がぎっしりと詰まっていた。底には、油紙に包まれた帳面。開くと、細かな字で兵の名と生まれ里が並んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "箱ごと持ち去る",
+     "next": "end_hoard",
+     "guide": "死者の給金を懐に入れることになる"
+    },
+    {
+     "label": "箱と帳面を{shrine}に届け、骨を葬り直してもらう",
+     "next": "rebury"
+    }
+   ]
+  },
+  "rebury": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の{shrine}へ箱と帳面を届ける",
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{client}は町の者を集め、荒れ野の骨を一つ残らず拾わせて、{shrine}の裏に塚を築いた。弔いの祈りの声が、乾いた風に流れていく。",
+    "「この帳面の名を、家族に届けてやれたら」{client}が呟いた。"
+   ],
+   "choices": [
+    {
+     "label": "帳面の生まれ里を読み解き、子孫を探して給金を届ける",
+     "if": {
+      "flag": "bones_lore"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_kin",
+      "lose": "end_rebury"
+     }
+    },
+    {
+     "label": "近くの{market}の商人たちに、帳面の里の名を尋ね回る",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "end_kin",
+      "lose": "end_rebury"
+     }
+    },
+    {
+     "label": "箱は{shrine}に納め、塚の守りに使ってもらう",
+     "next": "end_rebury"
+    }
+   ]
+  },
+  "end_share": {
+   "speaker": "digger",
+   "text": [
+    "{digger}たちは分け前を担いで去っていった。帳面は焚き火の中で丸まり、灰になった。",
+    "{money}は重かった。荒れ野の骨は、また風に晒されている。"
+   ],
+   "effects": [
+    {
+     "unflag": "bones_lore"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "note": "荒れ野の白骨の中から、墓あばきと給金の箱を掘り出して山分けした。"
+    }
+   ],
+   "end": "墓あばきの分け前"
+  },
+  "end_hoard": {
+   "text": [
+    "箱は重く、中身は思ったより多かった。帳面は砂に埋めた。",
+    "それから幾晩か、乾いた風の音が人の呻きのように聞こえた。{shrine}の前を通るたび、なぜか足が速くなる。"
+   ],
+   "effects": [
+    {
+     "unflag": "bones_lore"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "note": "荒れ野の白骨と共に埋まっていた給金の箱を、ひとりで持ち去った。"
+    }
+   ],
+   "end": "死者の給金"
+  },
+  "end_rebury": {
+   "speaker": "client",
+   "text": [
+    "塚の前に、町の者たちが花と水を供えた。{client}は箱の一部を手間賃として、こちらに差し出した。「死者もきっと喜んでいます」",
+    "その夜から、荒れ野で人影を見る者はいなくなった。"
+   ],
+   "effects": [
+    {
+     "unflag": "bones_lore"
+    },
+    {
+     "money": 40
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "note": "荒れ野に晒された昔の兵の骨を、{shrine}に葬り直させた。"
+    }
+   ],
+   "end": "荒れ野の塚"
+  },
+  "end_kin": {
+   "speaker": "client",
+   "text": [
+    "帳面の里の名をたどり、ひと月かけて三つの村に子孫を見つけた。曾祖父がどこで死んだのかを知って、老人たちは泣いた。残りの給金は、名のあった家々に分けて届けられた。",
+    "{client}は塚のそばに、兵の名を刻んだ石を立てた。その端に、届け人として自分の名もあった。"
+   ],
+   "effects": [
+    {
+     "unflag": "bones_lore"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 2
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "荒れ野の白骨の給金を、帳面の名をたどって兵の子孫に届けた。"
+    }
+   ],
+   "end": "届いた給金"
+  },
+  "end_robbed": {
+   "text": [
+    "鋤の柄で殴り倒され、気がつくと骨の間に転がっていた。男たちの姿も、掘り返した穴の中の物も消えている。",
+    "{shrine}に戻って事の次第を話すと、{client}は黙って傷に薬を塗ってくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "bones_lore"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "掘り返された荒れ野"
+  }
+ }
+}

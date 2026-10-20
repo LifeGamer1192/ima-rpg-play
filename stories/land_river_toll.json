@@ -1,0 +1,468 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_river_toll",
+ "kind": "random",
+ "where": "market",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "river"
+  ]
+ },
+ "hook": "川下の曲がりに鎖を張られて、舟が通れないのです",
+ "title": "川筋の鎖",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "舟持ちの商人",
+   "sex": "m"
+  },
+  "chief": {
+   "npc": "川筋の親分",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{market}の荷揚げ場で、{client}が帳面を叩いていた。「{near}の下手の曲がりに、ひと月前から鉄の鎖が張られている。舟一艘ごとに通り銭を払えと。払わねば舟ごと沈めると脅すんです」",
+    "「連中は{office}の許しだと言う。だが、そんな触れは聞いたことがない。積み荷の塩も絹も、川の上で腐っていくばかりだ」"
+   ],
+   "choices": [
+    {
+     "label": "{office}へ行き、そんな通り銭があるのか確かめる",
+     "next": "office"
+    },
+    {
+     "label": "{client}の舟に乗り、{near}の曲がりへ下る",
+     "next": "bend"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で通り銭のことを確かめる",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "応対に出た{clerk}は、川の話になると妙に早口になった。「川筋のことは、こちらの預かりではない。下手の者どもが勝手にやっているなら、勝手に払えばよかろう」"
+   ],
+   "choices": [
+    {
+     "label": "触れの控えを出させ、通り銭の許しがないことを確かめる",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "nolevy",
+      "lose": "bend"
+     }
+    },
+    {
+     "label": "{clerk}が席を外した隙に、机の私の帳面を覗く",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "clerkbook",
+      "lose": "bend"
+     },
+     "guide": "見つかれば役人を敵に回す"
+    }
+   ]
+  },
+  "nolevy": {
+   "effects": [
+    {
+     "flag": "toll_false"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "text": [
+    "控えを一年分めくっても、川の通り銭を許した触れはどこにもなかった。鎖の連中が言う「許し」は、真っ赤な嘘だ。"
+   ],
+   "next": "bend"
+  },
+  "clerkbook": {
+   "effects": [
+    {
+     "flag": "toll_false"
+    },
+    {
+     "flag": "toll_clerk"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "text": [
+    "机の下の帳面には、月ごとの銭の受け取りが書きつけてあった。「川下より、通り銭の二割」",
+    "{clerk}自身が、鎖の分け前を取っている。"
+   ],
+   "next": "bend"
+  },
+  "bend": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}の川の曲がりへ下る",
+   "speaker": "chief",
+   "art": "voyage",
+   "text": [
+    "大河が大きく曲がる所で、岸の杭から杭へ、太い鉄の鎖が水面すれすれに張られていた。手前に十艘ほどの舟が足止めを食っている。",
+    "岸の小屋から、腕の太い{chief}が出てきた。「舟一艘、銀ひと粒。{office}のお許しを頂いた正しい通り銭だ。払えねえなら引き返しな」"
+   ],
+   "choices": [
+    {
+     "label": "言われるままに払う",
+     "if": {
+      "money": 40
+     },
+     "effects": [
+      {
+       "money": -40
+      }
+     ],
+     "next": "end_paid"
+    },
+    {
+     "label": "足止めの舟をまとめ、まとめて値切る",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "end_haggled",
+      "lose": "bend_fight"
+     }
+    },
+    {
+     "label": "「そんな触れは{office}のどこにもない」と突きつける",
+     "if": {
+      "flag": "toll_false"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "bluff",
+      "lose": "bend_fight"
+     }
+    },
+    {
+     "label": "夜を待ち、鎖の留め金を外す",
+     "check": {
+      "skill": "theft",
+      "dc": 28,
+      "win": "cut",
+      "lose": "bend_fight"
+     }
+    },
+    {
+     "label": "刀を抜く",
+     "next": "bend_fight"
+    }
+   ]
+  },
+  "bend_fight": {
+   "art": "war",
+   "text": [
+    "{chief}が指を鳴らすと、小屋から棒を持った男たちがわらわらと出てきた。「川に放りこんでやれ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り結ぶ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "cut",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "bluff": {
+   "speaker": "chief",
+   "text": [
+    "岸に集まった舟乗りたちがざわめいた。{chief}は顔を赤くしたが、すぐに笑い出した。「なるほど、ただの旅の者じゃねえな」",
+    "男は声を落とした。「どうだ、仲間にならねえか。鎖番をしてくれりゃ、通り銭の一割をやる。{office}にだって、話の通じる旦那はいるんだ」"
+   ],
+   "choices": [
+    {
+     "label": "話に乗る",
+     "next": "end_joined",
+     "guide": "川筋の舟乗りたちを敵に回すことになる"
+    },
+    {
+     "label": "断り、鎖を外させる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "cut",
+      "lose": "bend_fight"
+     }
+    },
+    {
+     "label": "断って、刀に手をかける",
+     "next": "bend_fight"
+    }
+   ]
+  },
+  "cut": {
+   "art": "voyage",
+   "effects": [
+    {
+     "flag": "toll_cut"
+    }
+   ],
+   "text": [
+    "重い鎖が水に沈み、足止めされていた舟が次々に曲がりを抜けていった。舟乗りたちの歓声が、川面を渡っていく。",
+    "だが鎖の杭は残っている。{chief}の後ろ盾がいる限り、ひと月もすればまた張られるだろう。"
+   ],
+   "choices": [
+    {
+     "label": "{office}へ戻り、鎖のことを訴える",
+     "next": "report"
+    },
+    {
+     "label": "舟を見送って、それでよしとする",
+     "next": "end_free"
+    }
+   ]
+  },
+  "report": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ戻って訴える",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は話を聞くと、目を逸らした。「鎖のことは、調べておく」それきり、筆を取ろうともしない。"
+   ],
+   "choices": [
+    {
+     "label": "「川下より、通り銭の二割」と書いた帳面のことを、上役の前で口にする",
+     "if": {
+      "flag": "toll_clerk"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "足止めされた舟主たちを連れて、上役に訴え出る",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "end_justice",
+      "lose": "end_free"
+     }
+    },
+    {
+     "label": "これ以上は言わずに引き上げる",
+     "next": "end_free"
+    }
+   ]
+  },
+  "end_paid": {
+   "speaker": "client",
+   "text": [
+    "銀を払うと、鎖が少しだけ緩められ、舟は曲がりを抜けた。{client}はため息をついて、駄賃を差し出した。「荷が腐るよりはましだ。だが、来月もこれでは、商いになりません」"
+   ],
+   "effects": [
+    {
+     "unflag": "toll_false"
+    },
+    {
+     "unflag": "toll_clerk"
+    },
+    {
+     "unflag": "toll_cut"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "払った通り銭"
+  },
+  "end_haggled": {
+   "speaker": "client",
+   "text": [
+    "十艘まとめて半値にさせた。{chief}は渋い顔をしたが、川に舟を溜めておいても何の得にもならない。",
+    "{client}は感心して言った。「あなたは商いの口がある。次の荷も、ぜひ頼みたい」"
+   ],
+   "effects": [
+    {
+     "unflag": "toll_false"
+    },
+    {
+     "unflag": "toll_clerk"
+    },
+    {
+     "unflag": "toll_cut"
+    },
+    {
+     "money": 70
+    },
+    {
+     "fame": 1
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "end": "半値の鎖"
+  },
+  "end_free": {
+   "speaker": "client",
+   "text": [
+    "舟は川を下っていった。{client}は荷が間に合ったと喜び、約束の礼をはずんでくれた。",
+    "川筋の舟乗りたちのあいだで、鎖を沈めた者の話がしばらく噂になった。"
+   ],
+   "effects": [
+    {
+     "unflag": "toll_false"
+    },
+    {
+     "unflag": "toll_clerk"
+    },
+    {
+     "unflag": "toll_cut"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "note": "{near}の川の曲がりに張られた鎖を沈め、舟を通した。"
+    }
+   ],
+   "end": "沈んだ鎖"
+  },
+  "end_justice": {
+   "speaker": "clerk",
+   "text": [
+    "上役は{clerk}の机を改めさせ、帳面を見つけた。{clerk}は職を追われ、{soldier}が{near}の曲がりへ出て、{chief}と手下を捕らえた。杭も残らず引き抜かれた。",
+    "{client}は川沿いの舟主たちを代表して、礼の包みを持ってきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "toll_false"
+    },
+    {
+     "unflag": "toll_clerk"
+    },
+    {
+     "unflag": "toll_cut"
+    },
+    {
+     "money": 130
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "note": "川の鎖で通り銭を取る一味と、分け前を取っていた{clerk}を暴いた。"
+    }
+   ],
+   "end": "抜かれた杭"
+  },
+  "end_joined": {
+   "speaker": "chief",
+   "text": [
+    "{chief}は肩を叩き、銀の粒を握らせた。「話のわかる人だ。これからは、川はおれたちのものだ」",
+    "鎖の上を、恨めしげな舟乗りたちの目が通り過ぎていく。{client}は、二度と声をかけてこなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "toll_false"
+    },
+    {
+     "unflag": "toll_clerk"
+    },
+    {
+     "unflag": "toll_cut"
+    },
+    {
+     "money": 140
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "note": "{near}の川筋で、通り銭を取る一味の鎖番になった。"
+    }
+   ],
+   "end": "鎖番"
+  },
+  "end_beaten": {
+   "text": [
+    "棒で打ち据えられ、川へ放りこまれた。下手の浅瀬で這い上がったときには、日が暮れていた。",
+    "鎖は、相変わらず川を横切っている。"
+   ],
+   "effects": [
+    {
+     "unflag": "toll_false"
+    },
+    {
+     "unflag": "toll_clerk"
+    },
+    {
+     "unflag": "toll_cut"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "川に落ちた日"
+  }
+ }
+}

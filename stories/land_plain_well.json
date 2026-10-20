@@ -1,0 +1,399 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_plain_well",
+ "kind": "random",
+ "where": "inn",
+ "most": 2,
+ "again": 300,
+ "trigger": {
+  "terrain": [
+   "plain"
+  ]
+ },
+ "hook": "隣の村の取り入れの祭りで、人手が要るそうですよ",
+ "title": "祭りの井戸",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "宿の女将",
+   "sex": "f"
+  },
+  "headman": {
+   "npc": "村の長",
+   "sex": "m"
+  },
+  "drifter": {
+   "npc": "流れ者",
+   "sex": "m"
+  },
+  "steward": {
+   "npc": "地主の家宰",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "「平野の穫り入れが済んで、{near}の村は明日が祭りなんです」{inn}の{client}が言った。「酒も餅も出る。力仕事を手伝えば、たらふく食べさせてもらえますよ」",
+    "暇を持て余した旅人が何人か、もう出かける支度をしている。"
+   ],
+   "next": "feast"
+  },
+  "feast": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}の取り入れの祭りへ行く",
+   "speaker": "headman",
+   "art": "feast",
+   "text": [
+    "{near}の広場には麦束が積まれ、笛と太鼓が鳴っていた。ところが日が傾くころ、井戸の水で割った酒を飲んだ者たちが、一人、また一人と腹を抱えて倒れ始めた。",
+    "「毒だ」誰かが叫んだ。村の者たちが、井戸のそばにいた見慣れぬ{drifter}を取り押さえる。村の長の{headman}は青ざめて立ち尽くしている。"
+   ],
+   "choices": [
+    {
+     "label": "倒れた者たちの手当てに回る",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "tended",
+      "lose": "lynch"
+     }
+    },
+    {
+     "label": "「証もなく人を吊るす気か」と村人を止める",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "drifter",
+      "lose": "lynch"
+     }
+    }
+   ]
+  },
+  "tended": {
+   "art": "feast",
+   "text": [
+    "吐かせ、水を飲ませ、塩を舐めさせた。倒れた者たちは息を吹き返していく。吐いたものに、細かく砕いた根の欠片が混じっていた。野に生える毒草の根だ。井戸に投げ込まれたに違いない。"
+   ],
+   "effects": [
+    {
+     "flag": "well_root"
+    },
+    {
+     "flag": "well_tended"
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "取り押さえられた{drifter}の話を聞く",
+     "next": "drifter"
+    },
+    {
+     "label": "すぐに井戸を調べる",
+     "next": "well"
+    }
+   ]
+  },
+  "lynch": {
+   "art": "war",
+   "text": [
+    "倒れた年寄りの一人が、そのまま息を引き取った。泣き声が上がり、村人の怒りは{drifter}に向かう。「吊るせ」",
+    "{drifter}は縄をかけられ、広場の楡の木の下へ引きずられていく。「おれじゃねえ、おれは見ただけだ」と叫んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "縄に飛びつき、刃で断ち切る",
+     "check": {
+      "skill": "blade",
+      "dc": 28,
+      "win": "drifter",
+      "lose": "end_lynched"
+     }
+    },
+    {
+     "label": "関わり合いになるのはやめる",
+     "next": "end_lynched"
+    }
+   ]
+  },
+  "drifter": {
+   "speaker": "drifter",
+   "text": [
+    "縄を解かれた{drifter}は震えながら言った。「夜明け前、井戸のそばで男が袋を逆さにしてたんだ。上等な靴を履いた奴だった。地主の家に入っていくのを見た」",
+    "村の長の{headman}が呻いた。「家宰の{steward}さまだ……あの方は、この村の者を追い出して牧にしたいと言っておられた」"
+   ],
+   "next": "well"
+  },
+  "well": {
+   "art": "tale",
+   "text": [
+    "井戸の底をさらうと、桶に破れた布袋が引っかかって上がってきた。中に、砕いた根がまだ残っている。袋の口には、地主の家の紋の縫い取りがあった。"
+   ],
+   "effects": [
+    {
+     "flag": "well_root"
+    }
+   ],
+   "choices": [
+    {
+     "label": "袋を手に、地主の屋敷の{steward}を問い詰める",
+     "next": "steward"
+    },
+    {
+     "label": "袋を持って{here}の{office}へ訴え出る",
+     "next": "office"
+    }
+   ]
+  },
+  "steward": {
+   "at": {
+    "place": "near",
+    "building": "house"
+   },
+   "goal": "{near}の地主の屋敷で{steward}に会う",
+   "speaker": "steward",
+   "art": "backroom",
+   "text": [
+    "{steward}は袋を一瞥し、薄く笑った。「どこにでもある袋だ。だが、あんたが利口なら、それはなかったことにできる」",
+    "卓の上に、ずしりと重い包みが置かれた。"
+   ],
+   "choices": [
+    {
+     "label": "包みを受け取り、袋を渡す",
+     "next": "end_bribed",
+     "guide": "村の者たちは土地を追われる"
+    },
+    {
+     "label": "村の者たちを屋敷の前に集め、皆の前で問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_confess",
+      "lose": "steward_men"
+     }
+    }
+   ]
+  },
+  "steward_men": {
+   "art": "war",
+   "text": [
+    "「つまみ出せ」{steward}の声に、屋敷の奉公人たちが棒を手に飛び出してきた。"
+   ],
+   "choices": [
+    {
+     "label": "打ち払って{steward}を捕らえる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_confess",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ訴え出る",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は布袋の紋を見て、眉をひそめた。「地主どのの家の者を訴えるのか。袋一つでは弱い」"
+   ],
+   "choices": [
+    {
+     "label": "毒草の根のこと、倒れた者たちの様子を、書き付けにして差し出す",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "end_justice",
+      "lose": "steward"
+     }
+    },
+    {
+     "label": "手当てした者として、毒の見立てを話す",
+     "if": {
+      "flag": "well_tended"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "end_justice",
+      "lose": "steward"
+     }
+    }
+   ]
+  },
+  "end_justice": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は人を出して{steward}を捕らえた。地主は家宰の企みを知らなかったと言い張ったが、村の者を追い出す話は立ち消えになった。",
+    "{near}では、井戸を浚い直してあらためて祭りが開かれた。{headman}は礼の品と、祭りの酒をどっさり持たせてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "well_root"
+    },
+    {
+     "unflag": "well_tended"
+    },
+    {
+     "money": 80
+    },
+    {
+     "item": "wine",
+     "n": 2
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 3
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "note": "{near}の祭りの井戸に毒を入れた家宰{steward}を{office}に訴え、捕らえさせた。"
+    }
+   ],
+   "end": "浚われた井戸"
+  },
+  "end_confess": {
+   "speaker": "headman",
+   "text": [
+    "村の者たちに取り囲まれ、{steward}はついに膝をついた。「地主さまの牧を広げれば、取り立てていただけると思ったのだ」",
+    "{steward}は村人に縛られて{office}へ送られた。{headman}は祭りの残りの酒を開け、こちらの杯に何度も注いだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "well_root"
+    },
+    {
+     "unflag": "well_tended"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{near}の祭りの井戸に毒を入れた家宰{steward}に、村人の前で罪を認めさせた。"
+    }
+   ],
+   "end": "楡の木の下の白状"
+  },
+  "end_bribed": {
+   "speaker": "steward",
+   "text": [
+    "{steward}は袋を炉にくべた。「流れ者がやったことだ。そうだろう」",
+    "半年ののち、{near}の村の者たちは「水の悪い土地」を捨てて散っていき、跡は地主の牧になったと聞いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "well_root"
+    },
+    {
+     "unflag": "well_tended"
+    },
+    {
+     "money": 180
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "note": "{near}の井戸の毒の証を、家宰{steward}に売った。"
+    }
+   ],
+   "end": "牧になった村"
+  },
+  "end_lynched": {
+   "text": [
+    "{drifter}は楡の木に吊るされた。村の者たちは胸のつかえが下りたような顔をしていたが、井戸の水は、それから半月のあいだ苦いままだった。",
+    "本当に毒を入れたのが誰だったのか、知る者はいない。"
+   ],
+   "effects": [
+    {
+     "unflag": "well_root"
+    },
+    {
+     "unflag": "well_tended"
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "note": "{near}の祭りで、井戸の毒の咎で流れ者が吊るされた。"
+    }
+   ],
+   "end": "楡の木の流れ者"
+  },
+  "end_beaten": {
+   "text": [
+    "多勢に叩きのめされ、屋敷の門の外へ放り出された。袋は取り上げられ、{steward}は何事もなかったように門を閉ざした。"
+   ],
+   "effects": [
+    {
+     "unflag": "well_root"
+    },
+    {
+     "unflag": "well_tended"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "閉ざされた門"
+  }
+ }
+}

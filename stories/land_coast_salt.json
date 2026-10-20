@@ -1,0 +1,436 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_coast_salt",
+ "kind": "random",
+ "where": "market",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "coast"
+  ]
+ },
+ "hook": "うちの塩だけ、市で売るなと言われたのです。塩浜も踏み荒らされて……",
+ "title": "塩浜の争い",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "塩売り",
+   "sex": "f"
+  },
+  "dealer": {
+   "npc": "塩問屋",
+   "sex": "m"
+  },
+  "thug": {
+   "npc": "人足頭",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{market}の端で、{client}が塩の籠を前に座りこんでいた。誰も買いに来ない。籠の脇には、売り場を取り上げるという札が立てられている。",
+    "「{near}の浜で、父の代から塩を焼いてきました。それが先月、塩問屋の{dealer}が{office}のお墨付きを持ってきて、浜の塩は全部自分が買い上げると。断ったら、夜のうちに塩田を踏み荒らされたのです」"
+   ],
+   "choices": [
+    {
+     "label": "{office}へ行き、そのお墨付きを確かめる",
+     "next": "writ"
+    },
+    {
+     "label": "{near}の塩浜で、夜の見張りに立つ",
+     "next": "pans"
+    },
+    {
+     "label": "籠の塩を預かり、よその商人に売りさばく",
+     "check": {
+      "skill": "trade",
+      "dc": 25,
+      "win": "end_sold",
+      "lose": "pans"
+     }
+    }
+   ]
+  },
+  "writ": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、塩のお墨付きを確かめる",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は控えの綴りを出してきた。「{dealer}どのへの塩の買い上げ許し、たしかに写しがある」",
+    "写しの紙は新しく、印の朱がやけに鮮やかだった。"
+   ],
+   "choices": [
+    {
+     "label": "写しの文字と印を、ほかの控えと引き比べる",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "forged",
+      "lose": "writ_ng"
+     }
+    },
+    {
+     "label": "{clerk}に、いつ誰がこれを出したのか問いただす",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "forged",
+      "lose": "writ_ng"
+     }
+    }
+   ]
+  },
+  "forged": {
+   "speaker": "clerk",
+   "effects": [
+    {
+     "flag": "salt_forged"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "text": [
+    "並べてみると、印の欠けが違う。日付の頃、その役の者は都へ出ていて留守だった。{clerk}の顔から血の気が引いた。「……これは、誰かが勝手に綴りへ差しこんだものだ」"
+   ],
+   "next": "pans"
+  },
+  "writ_ng": {
+   "speaker": "clerk",
+   "text": [
+    "「お墨付きに難癖をつけるなら、それなりの覚悟をしてもらう」{clerk}は綴りを閉じた。紙の上では、{dealer}が正しいことになっている。"
+   ],
+   "next": "pans"
+  },
+  "pans": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}の塩浜で夜を待つ",
+   "art": "hideout",
+   "text": [
+    "{near}の塩浜は、平らにならした砂の田が海沿いに並び、潮を汲む桶と釜屋が点々と建っていた。{client}の家の田だけが、足跡で無残に崩れている。",
+    "夜更け、松明を持った男たちが五人、鍬を担いでやってきた。先頭は{dealer}の{thug}だ。"
+   ],
+   "choices": [
+    {
+     "label": "飛び出して斬りかかる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "caught",
+      "lose": "end_ruined"
+     }
+    },
+    {
+     "label": "物陰でやり過ごし、帰る後をつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "store",
+      "lose": "pans_found"
+     }
+    },
+    {
+     "label": "{thug}を呼び止め、銭で口を割らせる",
+     "if": {
+      "money": 40
+     },
+     "effects": [
+      {
+       "money": -40
+      }
+     ],
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "caught",
+      "lose": "pans_found"
+     }
+    }
+   ]
+  },
+  "pans_found": {
+   "art": "war",
+   "text": [
+    "「誰だ」松明がこちらへ向いた。男たちが鍬を振りかざして囲んでくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "caught",
+      "lose": "end_ruined"
+     }
+    }
+   ]
+  },
+  "caught": {
+   "speaker": "thug",
+   "effects": [
+    {
+     "flag": "salt_thug"
+    }
+   ],
+   "text": [
+    "{thug}は砂の上に座りこみ、観念したように言った。「{dealer}の旦那に、日当で頼まれただけだ。塩浜をひとつずつ潰せば、浜の塩は旦那の言い値になる。{office}で証言しろというなら、するさ」"
+   ],
+   "next": "hearing"
+  },
+  "store": {
+   "art": "backroom",
+   "effects": [
+    {
+     "flag": "salt_ledger"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "text": [
+    "男たちは{dealer}の塩蔵に入っていった。裏の窓から覗くと、{dealer}が男たちに日当を払い、帳面に書きつけている。「塩田潰し、五人、一晩」",
+    "男たちが去ったあと、帳場にそっと忍びこみ、その帳面を懐に入れた。{office}の誰かへの付け届けの額まで、細かく書いてある。"
+   ],
+   "next": "hearing"
+  },
+  "hearing": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、{dealer}と向き合う",
+   "speaker": "dealer",
+   "art": "court",
+   "text": [
+    "{office}の土間で、{dealer}は扇を使いながら笑っていた。「塩売りの娘ひとりのために、ご苦労なことだ」",
+    "{clerk}が見守る前で、{dealer}は声を落とした。「どうだ。手を引けば、浜の塩の一割を毎年回してやる。悪い話ではあるまい」"
+   ],
+   "choices": [
+    {
+     "label": "お墨付きの写しが偽物だと示す",
+     "if": {
+      "flag": "salt_forged"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "{thug}を土間に引き出し、証言させる",
+     "if": {
+      "flag": "salt_thug"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "盗み出した帳面を{clerk}の前に開く",
+     "if": {
+      "flag": "salt_ledger"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "浜の者みなの暮らしを説いて、許しの取り消しを願う",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "end_justice",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "{dealer}の申し出を受ける",
+     "next": "end_bought",
+     "guide": "塩売りの家を見捨てることになる"
+    }
+   ]
+  },
+  "end_justice": {
+   "speaker": "client",
+   "text": [
+    "{clerk}は{dealer}の許しを取り消し、塩田を踏み荒らした分を償わせると言い渡した。{dealer}は扇を握りつぶし、何も言わずに出ていった。",
+    "{client}は{market}の売り場を取り戻した。礼にと、焼きたての塩をひと袋押しつけてきた。「浜の皆が、あなたの名を覚えておくそうです」"
+   ],
+   "effects": [
+    {
+     "unflag": "salt_forged"
+    },
+    {
+     "unflag": "salt_thug"
+    },
+    {
+     "unflag": "salt_ledger"
+    },
+    {
+     "money": 80
+    },
+    {
+     "item": "salt",
+     "n": 2
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 4
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "note": "{near}の塩浜を潰そうとした{dealer}の企みを、{office}で破った。"
+    }
+   ],
+   "end": "取り戻した塩浜"
+  },
+  "end_bought": {
+   "speaker": "dealer",
+   "text": [
+    "{dealer}は満足げに銀の包みを置いた。「話のわかる人だ」",
+    "{market}を通りかかると、{client}の売り場はもう別の者の物になっていた。浜では、塩の値が少しずつ上がり始めているという。"
+   ],
+   "effects": [
+    {
+     "unflag": "salt_forged"
+    },
+    {
+     "unflag": "salt_thug"
+    },
+    {
+     "unflag": "salt_ledger"
+    },
+    {
+     "money": 160
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "塩問屋{dealer}から口止めの銀を受け取った。"
+    }
+   ],
+   "end": "一割の塩"
+  },
+  "end_sold": {
+   "speaker": "client",
+   "text": [
+    "{client}の塩を、{dealer}の手の届かない旅の商人に、相場より高く売りつけた。{client}は銭を数え、ようやく笑った。",
+    "「これで冬は越せます。浜のことは、また考えます」争いが片づいたわけではない。だが、一家はひとまず息をついた。"
+   ],
+   "effects": [
+    {
+     "unflag": "salt_forged"
+    },
+    {
+     "unflag": "salt_thug"
+    },
+    {
+     "unflag": "salt_ledger"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "note": "{client}の塩を、よその商人に売りさばいてやった。"
+    }
+   ],
+   "end": "浜を離れた塩"
+  },
+  "end_ruined": {
+   "text": [
+    "鍬の柄で打ち倒され、砂の上で朝を迎えた。{client}の家の塩田は、残らず掘り返されていた。",
+    "{client}は黙って、崩れた田を素手でならし始めた。"
+   ],
+   "effects": [
+    {
+     "unflag": "salt_forged"
+    },
+    {
+     "unflag": "salt_thug"
+    },
+    {
+     "unflag": "salt_ledger"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "崩された塩田"
+  },
+  "end_lost": {
+   "speaker": "clerk",
+   "text": [
+    "「お墨付きはお墨付きだ」{clerk}はそう言って、話を打ち切った。{dealer}は扇の陰で笑っていた。",
+    "{client}は浜を手放し、遠い親類を頼って出ていくという。見送りのとき、それでも頭を下げられたのがつらかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "salt_forged"
+    },
+    {
+     "unflag": "salt_thug"
+    },
+    {
+     "unflag": "salt_ledger"
+    },
+    {
+     "fame": -1
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    }
+   ],
+   "end": "紙に負けた浜"
+  }
+ }
+}

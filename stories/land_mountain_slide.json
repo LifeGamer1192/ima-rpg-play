@@ -1,0 +1,455 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_mountain_slide",
+ "kind": "random",
+ "where": "road",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "mountain"
+  ]
+ },
+ "hook": "峠で山が崩れて、人が埋まっているんです。手を貸してください",
+ "title": "崩れた峠道",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "荷担ぎ",
+   "sex": "m"
+  },
+  "master": {
+   "npc": "隊商の頭",
+   "sex": "m"
+  },
+  "girl": {
+   "npc": "旅の娘",
+   "sex": "f"
+  },
+  "leader": {
+   "npc": "山里の男",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "山道を、泥まみれの男が転げるように下りてきた。荷担ぎの{client}だという。",
+    "「{near}へ越える峠で、山がまるごと崩れました。隊商の荷駄も、旅の人も、土の下です。まだ声が聞こえる。早く、早く」"
+   ],
+   "choices": [
+    {
+     "label": "そのまま峠へ駆け上がる",
+     "next": "slide"
+    },
+    {
+     "label": "麓の家々を回り、鍬と人手を集めてから行く",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "help",
+      "lose": "slide"
+     }
+    }
+   ]
+  },
+  "help": {
+   "effects": [
+    {
+     "flag": "slide_help"
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "text": [
+    "麓の男たちが鍬や畚を担いで、七、八人ついてきた。「峠が塞がれちゃ、こっちも干上がる」と口々に言う。"
+   ],
+   "next": "slide"
+  },
+  "slide": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}への峠で、崩れた土を掘る",
+   "speaker": "master",
+   "art": "disaster",
+   "text": [
+    "峠道は、山肌ごと谷へ削ぎ落とされていた。岩と倒木の山の下から、くぐもった声がする。土の端から、荷駄の馬の脚が突き出ていた。",
+    "隊商の頭の{master}が、こちらの腕をつかんだ。「荷駄の鉄箱に、仕入れの銀が入っている。先にあれを掘り出してくれ。礼は弾む。人は、あとでもいい」"
+   ],
+   "choices": [
+    {
+     "label": "声のするほうから掘る",
+     "if": {
+      "flag": "slide_help"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 18,
+      "win": "dug",
+      "lose": "dug_late"
+     }
+    },
+    {
+     "label": "ひとりで岩をどけ、声のするほうから掘る",
+     "check": {
+      "skill": "blade",
+      "dc": 26,
+      "win": "dug",
+      "lose": "dug_late"
+     }
+    },
+    {
+     "label": "掘り出された怪我人の手当てに回る",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "dug",
+      "lose": "dug_late"
+     }
+    },
+    {
+     "label": "{master}の言うとおり、鉄箱を先に掘る",
+     "next": "box",
+     "guide": "埋まった人を後回しにすることになる"
+    }
+   ]
+  },
+  "dug": {
+   "speaker": "girl",
+   "effects": [
+    {
+     "flag": "slide_saved"
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "text": [
+    "倒木をどけると、土の隙間に老人と娘が身を寄せ合っていた。引き出された{girl}は泥を吐き、祖父の手を放さなかった。",
+    "日暮れまでに、埋まっていた五人のうち四人を掘り出した。"
+   ],
+   "next": "night"
+  },
+  "dug_late": {
+   "effects": [
+    {
+     "flag": "slide_saved"
+    },
+    {
+     "hp": -8
+    }
+   ],
+   "text": [
+    "岩が崩れ、手をはさまれた。それでも掘り続け、{girl}だけは引き出した。土の奥の声は、いつの間にか止んでいた。"
+   ],
+   "next": "night"
+  },
+  "box": {
+   "speaker": "master",
+   "effects": [
+    {
+     "flag": "slide_box"
+    }
+   ],
+   "text": [
+    "荷駄の脇を掘ると、鉄の帯を巻いた箱が出てきた。{master}は箱を抱きしめるようにして蓋を確かめた。",
+    "振り返ると、土の下の声は弱くなっていた。麓から来た者が、ようやく娘をひとり掘り出したところだった。"
+   ],
+   "next": "night"
+  },
+  "night": {
+   "art": "camp",
+   "text": [
+    "日が落ち、崩れた峠に焚き火を囲んだ。夜半、岩陰に人の気配がした。痩せた男たちが十人ほど、手に手に鎌や棒を持って、銀の箱のほうへにじり寄ってくる。",
+    "先頭の男の着物は、裾まで泥に汚れていた。"
+   ],
+   "choices": [
+    {
+     "label": "焚き火から飛び出して斬りかかる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "dawn",
+      "lose": "end_robbed"
+     }
+    },
+    {
+     "label": "箱と怪我人を岩陰に隠し、やり過ごす",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "dawn",
+      "lose": "night_fight"
+     }
+    },
+    {
+     "label": "「何者だ。何が欲しい」と声をかける",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "talk",
+      "lose": "night_fight"
+     }
+    }
+   ]
+  },
+  "night_fight": {
+   "art": "war",
+   "text": [
+    "男たちは叫び声を上げて駆け寄ってきた。もう話の通じる気配はない。"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "dawn",
+      "lose": "end_robbed"
+     }
+    }
+   ]
+  },
+  "talk": {
+   "speaker": "leader",
+   "art": "camp",
+   "text": [
+    "{leader}と名乗った男は、鎌を下ろした。「峠の上の山里の者だ。昨日の崩れで、段々の畑がそっくり谷へ落ちた。冬を越す麦もない」",
+    "「隊商の銀があれば、麓で麦が買える。盗人になるつもりはなかった。だが子どもが飢えている」"
+   ],
+   "choices": [
+    {
+     "label": "銀の一部を里に回すよう、{master}を説き伏せる",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "end_shared",
+      "lose": "night_fight"
+     }
+    },
+    {
+     "label": "「気の毒だが、銀は渡せない」と追い返す",
+     "next": "dawn"
+    }
+   ]
+  },
+  "dawn": {
+   "speaker": "master",
+   "art": "road",
+   "text": [
+    "夜が明けた。崩れた峠の向こうに朝日が差し、谷に霧が流れていく。{master}は銀の箱の上に座りこみ、眠そうな目でこちらを見ていた。"
+   ],
+   "choices": [
+    {
+     "label": "掘り出した人々を連れて、麓まで送り届ける",
+     "if": {
+      "flag": "slide_saved"
+     },
+     "next": "end_rescuer"
+    },
+    {
+     "label": "銀の箱を{master}に返し、礼を受け取る",
+     "if": {
+      "flag": "slide_box"
+     },
+     "next": "end_silver"
+    },
+    {
+     "label": "{master}が眠りこんだ隙に、箱の銀をくすねる",
+     "check": {
+      "skill": "theft",
+      "dc": 24,
+      "win": "end_thief",
+      "lose": "end_silver"
+     },
+     "guide": "盗みを働くことになる"
+    }
+   ]
+  },
+  "end_rescuer": {
+   "speaker": "girl",
+   "text": [
+    "怪我人を背負い、手を引いて、半日かけて麓へ下りた。{girl}は別れ際、祖父と並んで深く頭を下げた。",
+    "{master}も、しぶしぶながら礼の銀を置いていった。峠の道は、麓の者たちが十日がかりで開け直すという。"
+   ],
+   "effects": [
+    {
+     "unflag": "slide_help"
+    },
+    {
+     "unflag": "slide_saved"
+    },
+    {
+     "unflag": "slide_box"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "note": "{near}への峠の山崩れで、埋まった旅人たちを掘り出した。"
+    }
+   ],
+   "end": "土の下の声"
+  },
+  "end_silver": {
+   "speaker": "master",
+   "text": [
+    "{master}は箱の銀を数え、ひと掴みを差し出した。「助かった。これで仕入れの借りが返せる」",
+    "峠の土の下には、まだ掘り出されない者がいた。その名を、{master}は一度も口にしなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "slide_help"
+    },
+    {
+     "unflag": "slide_saved"
+    },
+    {
+     "unflag": "slide_box"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": -2
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "峠の山崩れで、隊商の銀を掘り出してやった。"
+    }
+   ],
+   "end": "鉄箱の銀"
+  },
+  "end_thief": {
+   "text": [
+    "銀の粒を布に包み、何食わぬ顔で峠を下りた。目を覚ました{master}の怒鳴り声が、谷にこだましていた。",
+    "盗んだのが誰か、{master}にはわかっているだろう。{here}の{market}で、しばらくは顔を上げて歩けそうにない。"
+   ],
+   "effects": [
+    {
+     "unflag": "slide_help"
+    },
+    {
+     "unflag": "slide_saved"
+    },
+    {
+     "unflag": "slide_box"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": -5
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "xp": "theft",
+     "n": 2
+    },
+    {
+     "note": "峠の山崩れのどさくさに、隊商の銀をくすねた。"
+    }
+   ],
+   "end": "崩れのどさくさ"
+  },
+  "end_shared": {
+   "speaker": "leader",
+   "text": [
+    "{master}は散々渋ったが、「飢えた者に峠で襲われるよりはましだ」と言い含めると、銀の三割を麦代として{leader}に貸すことを承知した。",
+    "{leader}は膝をついた。「春になったら、里の者総出で峠道を開ける。それで返させてくれ」"
+   ],
+   "effects": [
+    {
+     "unflag": "slide_help"
+    },
+    {
+     "unflag": "slide_saved"
+    },
+    {
+     "unflag": "slide_box"
+    },
+    {
+     "money": 30
+    },
+    {
+     "item": "rations",
+     "n": 2
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "山崩れで畑を失った山里に、隊商の銀を回させた。"
+    }
+   ],
+   "end": "峠の貸し"
+  },
+  "end_robbed": {
+   "text": [
+    "多勢に押し倒され、頭を打った。気がつくと焚き火は消え、銀の箱も、男たちの姿もなかった。",
+    "{master}は崩れた峠に座りこみ、空を仰いでいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "slide_help"
+    },
+    {
+     "unflag": "slide_saved"
+    },
+    {
+     "unflag": "slide_box"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "闇の峠"
+  }
+ }
+}

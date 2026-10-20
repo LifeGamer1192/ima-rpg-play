@@ -1,0 +1,400 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_dry_dust",
+ "kind": "random",
+ "where": "road",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "dry"
+  ]
+ },
+ "hook": "砂嵐で隊商がちりぢりに……娘が、後ろの荷車に乗っていたのです",
+ "title": "砂嵐の隊商",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "隊商の主",
+   "sex": "m"
+  },
+  "daughter": {
+   "npc": "隊商の娘",
+   "sex": "f"
+  },
+  "guide": {
+   "npc": "道案内",
+   "sex": "m"
+  },
+  "raider": {
+   "npc": "荒れ地の賊の頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "空が黄色く濁ったと思うと、乾いた風が砂と礫を叩きつけてきた。目も開けていられない。風の切れ間に、荷車を一台だけ引いた男がよろめき出てきた。隊商の主の{client}だ。",
+    "「嵐で隊がちりぢりになった。後ろの荷車に、娘の{daughter}が乗っていたんだ」そばで道案内の{guide}が、しきりに西を指している。「西の窪地に逃げ込めば助かる。急げ」"
+   ],
+   "choices": [
+    {
+     "label": "岩陰で嵐が弱まるのを待つ",
+     "next": "shelter"
+    },
+    {
+     "label": "布で口と鼻を覆い、今すぐ嵐の中へ探しに出る",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "search",
+      "lose": "search_hurt"
+     }
+    },
+    {
+     "label": "「隊商のことは知らん」と、自分だけ{near}へ急ぐ",
+     "next": "end_left",
+     "guide": "娘も隊商も見捨てることになる"
+    }
+   ]
+  },
+  "search_hurt": {
+   "text": [
+    "砂が目と喉を焼いた。咳き込みながら、轍の跡を手で探って進む。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "search"
+  },
+  "shelter": {
+   "speaker": "guide",
+   "art": "road",
+   "text": [
+    "岩陰で風をしのぐあいだも、{guide}は落ち着きなく西を見ていた。「早く窪地へ。娘さんもきっとそこにいる」",
+    "だが、嵐の前、この男が見知らぬ騎り手と何やら話し込んでいたのを思い出した。"
+   ],
+   "choices": [
+    {
+     "label": "眠ったふりをして、{guide}の動きを見張る",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "guide_caught",
+      "lose": "search"
+     }
+    },
+    {
+     "label": "{guide}の言うとおり、西の窪地へ向かう",
+     "next": "raiders_trap"
+    }
+   ]
+  },
+  "guide_caught": {
+   "speaker": "guide",
+   "art": "camp",
+   "text": [
+    "夜半、{guide}がそっと抜け出し、火打ち石で合図の火を上げようとした。腕をねじり上げると、男はあっさり白状した。「{raider}の一味に、隊商の道筋を売ったんだ。窪地で待ち伏せている」",
+    "娘の荷車は、嵐で東へ流されたはずだという。夜明けとともに東へ向かい、半ば砂に埋もれた荷車を見つけた。"
+   ],
+   "effects": [
+    {
+     "flag": "dust_guide"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "girl"
+  },
+  "search": {
+   "art": "road",
+   "text": [
+    "半ば埋もれた轍をたどると、砂に傾いた荷車が見えた。幌の中で、{daughter}がうずくまっている。水袋は空で、唇がひび割れていた。"
+   ],
+   "next": "girl"
+  },
+  "girl": {
+   "speaker": "daughter",
+   "art": "disaster",
+   "text": [
+    "{daughter}は熱い息をしていた。照りつける日の下、このままでは保たない。"
+   ],
+   "choices": [
+    {
+     "label": "日陰を作り、塩を溶いた水を少しずつ飲ませる",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "girl_saved",
+      "lose": "girl_weak"
+     }
+    },
+    {
+     "label": "背に負い、日が高くなる前に{near}へ急ぐ",
+     "next": "girl_weak"
+    }
+   ]
+  },
+  "girl_saved": {
+   "speaker": "daughter",
+   "text": [
+    "やがて{daughter}は目を開け、かすれ声で言った。「嵐の前の晩、道案内の人が、馬に乗った男たちと話していました。窪地で荷を分ける、って」"
+   ],
+   "effects": [
+    {
+     "flag": "dust_told"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "near"
+  },
+  "girl_weak": {
+   "text": [
+    "ぐったりした{daughter}を背負って歩いた。足は砂に沈み、汗はすぐに乾く。肩に食い込む重みが、生きている証だった。"
+   ],
+   "effects": [
+    {
+     "hp": -8
+    }
+   ],
+   "next": "near"
+  },
+  "raiders_trap": {
+   "speaker": "raider",
+   "art": "war",
+   "text": [
+    "窪地に下りたとたん、岩の上に騎り手が並んだ。頭の{raider}が笑う。「荷を置いていけ。それとも、ここで骨になるか」{guide}は、いつのまにか姿を消していた。"
+   ],
+   "choices": [
+    {
+     "label": "{client}たちを守って斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "near",
+      "lose": "end_stripped"
+     }
+    }
+   ]
+  },
+  "near": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}へたどり着く",
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{near}の井戸端で、散った隊商がようやく集まった。{client}は娘を抱きしめて泣いた。だが町の者の話では、{raider}の一味がまだ町の外をうろつき、隊商が出るのを待っているという。"
+   ],
+   "choices": [
+    {
+     "label": "白状した{guide}を、{near}の{office}へ引き渡す",
+     "if": {
+      "flag": "dust_guide"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "娘の話から待ち伏せの場所を割り出し、逆に弓で待ち伏せる",
+     "if": {
+      "flag": "dust_told"
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 28,
+      "win": "end_ambush",
+      "lose": "end_stripped"
+     }
+    },
+    {
+     "label": "{raider}と掛け合い、通り賃で手を打つ",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "end_paid",
+      "lose": "end_stripped"
+     }
+    },
+    {
+     "label": "一味のねぐらに斬り込む",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_ambush",
+      "lose": "end_stripped"
+     }
+    }
+   ]
+  },
+  "end_justice": {
+   "speaker": "client",
+   "text": [
+    "{guide}は{office}で一味の隠れ場をすべて吐き、翌朝、兵が出て{raider}たちを追い散らした。",
+    "{client}は荷の中から絹を一反取り出した。「娘の命と、隊の命の礼です。少なすぎるくらいだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "dust_told"
+    },
+    {
+     "unflag": "dust_guide"
+    },
+    {
+     "money": 90
+    },
+    {
+     "item": "silk",
+     "n": 1
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 2
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "note": "砂嵐の隊商を救い、賊に道を売った道案内{guide}を引き渡した。"
+    }
+   ],
+   "end": "裁かれた道案内"
+  },
+  "end_ambush": {
+   "speaker": "client",
+   "text": [
+    "岩陰から放った矢と刃に、{raider}の一味は荷も取らずに逃げ散った。隊商は無事に{near}を発った。",
+    "{client}は「次にこの道を通るときも、あなたに頼みたい」と、たっぷりの礼をくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "dust_told"
+    },
+    {
+     "unflag": "dust_guide"
+    },
+    {
+     "money": 140
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "bow",
+     "n": 3
+    },
+    {
+     "note": "砂嵐の隊商を救い、荒れ地の賊{raider}を退けた。"
+    }
+   ],
+   "end": "岩陰の矢"
+  },
+  "end_paid": {
+   "speaker": "raider",
+   "text": [
+    "{raider}は値を吊り上げたが、最後は荷の一割で手を打った。「話のわかる奴だ。また通るなら、同じ値で通してやる」",
+    "{client}は苦い顔で荷を分けたが、娘と隊が無事ならと、こちらにも礼を払った。"
+   ],
+   "effects": [
+    {
+     "unflag": "dust_told"
+    },
+    {
+     "unflag": "dust_guide"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 1
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "note": "砂嵐の隊商のため、荒れ地の賊{raider}と通り賃で話をつけた。"
+    }
+   ],
+   "end": "一割の通り賃"
+  },
+  "end_stripped": {
+   "text": [
+    "賊は多く、荷はあらかた奪われた。こちらも打ち倒され、砂の上で日に焼かれて目を覚ました。",
+    "{client}の一行は命だけは助かった。{client}は「命があっただけましだ」と、力なく笑った。"
+   ],
+   "effects": [
+    {
+     "unflag": "dust_told"
+    },
+    {
+     "unflag": "dust_guide"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "fame": -1
+    },
+    {
+     "money": -20
+    }
+   ],
+   "end": "奪われた荷"
+  },
+  "end_left": {
+   "text": [
+    "振り返らずに歩いた。嵐の音の中に、誰かの呼ぶ声が混じっていた気がする。",
+    "{near}に着いて数日後、荒れ地で隊商の荷車が焼かれて見つかったと聞いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "dust_told"
+    },
+    {
+     "unflag": "dust_guide"
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    }
+   ],
+   "end": "砂に消えた隊商"
+  }
+ }
+}

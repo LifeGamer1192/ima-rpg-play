@@ -1,0 +1,458 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_forest_felling",
+ "kind": "random",
+ "where": "inn",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "forest"
+  ]
+ },
+ "hook": "明日、隣の村のきこりどもと斧で決着をつけることになった",
+ "title": "斧の境",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "きこりの頭",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "隣村のきこりの頭",
+   "sex": "m"
+  },
+  "dealer": {
+   "npc": "材木商",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{inn}の土間で、きこりの頭の{client}が斧の刃を研いでいた。{here}と{near}の間に、百年を越える大木の森がある。昔から{here}の者が伐ってきたのに、近ごろ{near}の{rival}たちが勝手に入り込んでいるという。",
+    "「明日の朝、若い者を連れて森へ行く。話してわからねえなら、斧で教えるまでだ」"
+   ],
+   "choices": [
+    {
+     "label": "{office}で、森の伐り分けの古い証文を探してみる",
+     "next": "office"
+    },
+    {
+     "label": "「伐った木は、誰が買っている」",
+     "next": "market"
+    },
+    {
+     "label": "今すぐ{near}へ行き、{rival}と話をつける",
+     "next": "rival"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で森の証文を探す",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は面倒そうに、埃をかぶった書き付けの束を顎で示した。「勝手に探せ。わしには読む暇がない」",
+    "紙は虫に食われ、墨は薄れている。"
+   ],
+   "choices": [
+    {
+     "label": "古い文字を一枚ずつ読み解く",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "deed_ok",
+      "lose": "rival"
+     }
+    },
+    {
+     "label": "{clerk}に心づけを渡して、心当たりを聞く（30{money}）",
+     "if": {
+      "money": 30
+     },
+     "effects": [
+      {
+       "money": -30
+      }
+     ],
+     "next": "deed_ok"
+    }
+   ]
+  },
+  "deed_ok": {
+   "art": "court",
+   "text": [
+    "見つけた。祖父の代に交わされた伐り分けの証文だ。森は沢を境に二つに分けられ、大木のある東は{here}、西の雑木は{near}のものと記してある。",
+    "{near}の者たちは、沢の流れが変わったのをいいことに境を越えていたらしい。"
+   ],
+   "effects": [
+    {
+     "flag": "fell_deed"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "rival"
+  },
+  "market": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で材木の買い手を探る",
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "{market}の材木置き場で、商人の{dealer}が帳面をつけていた。{here}の丸太にも{near}の丸太にも、同じ買い付けの印が押してある。",
+    "{dealer}はこちらの目つきに気づくと、愛想よく笑った。「森のもめごとかね。長引けば長引くほど、両方とも安く売ってくれる。あんたも一口乗らんか。双方の頭を煽ってくれれば礼は弾む」"
+   ],
+   "choices": [
+    {
+     "label": "話に乗るふりをして、帳場の書き付けを盗み見る",
+     "check": {
+      "skill": "theft",
+      "dc": 26,
+      "win": "dealer_proof",
+      "lose": "dealer_thugs"
+     }
+    },
+    {
+     "label": "夜まで待ち、{dealer}が誰と会うのか見張る",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "dealer_proof",
+      "lose": "dealer_thugs"
+     }
+    },
+    {
+     "label": "礼を受け取り、争いを煽る",
+     "next": "end_sold",
+     "guide": "きこりたちの血が流れることになる"
+    }
+   ]
+  },
+  "dealer_thugs": {
+   "art": "war",
+   "text": [
+    "「嗅ぎ回る犬め」{dealer}の雇った荒くれが二人、材木の陰から棒を手に出てきた。"
+   ],
+   "choices": [
+    {
+     "label": "叩き伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "dealer_proof",
+      "lose": "rival"
+     }
+    }
+   ]
+  },
+  "dealer_proof": {
+   "art": "backroom",
+   "text": [
+    "{dealer}の書き付けには、{near}の若い者に「森の東は誰のものでもない」と吹き込ませた礼金の額まで記されていた。争いの火元は、この男だ。"
+   ],
+   "effects": [
+    {
+     "flag": "fell_dealer"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "next": "rival"
+  },
+  "rival": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}へ行き、{rival}と会う",
+   "speaker": "rival",
+   "art": "tale",
+   "text": [
+    "{near}の村はずれでは、{rival}と若い者たちが斧を手に集まっていた。「{here}の連中が来るなら、受けて立つ。森は誰のものでもねえ。先に伐った者のものだ」",
+    "背後の森からは、すでに大木の倒れる音が響いている。"
+   ],
+   "choices": [
+    {
+     "label": "証文を広げ、沢の境を示す",
+     "if": {
+      "flag": "fell_deed"
+     },
+     "next": "end_deed"
+    },
+    {
+     "label": "{dealer}の書き付けを見せ、誰が得をしているか教える",
+     "if": {
+      "flag": "fell_dealer"
+     },
+     "next": "end_united"
+    },
+    {
+     "label": "「森を二つに割って、互いに伐る年を決めろ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_split",
+      "lose": "clash"
+     }
+    },
+    {
+     "label": "黙って成り行きを見守る",
+     "next": "clash"
+    }
+   ]
+  },
+  "clash": {
+   "art": "war",
+   "text": [
+    "{here}の者たちが森に着き、怒号が上がった。斧の背が肩を打ち、誰かが倒れて動かなくなる。このままでは死人が出る。"
+   ],
+   "choices": [
+    {
+     "label": "両者の間に割って入り、斧を叩き落とす",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "talk": true,
+      "win": "end_split",
+      "lose": "end_blood"
+     }
+    },
+    {
+     "label": "倒れた者の手当てに走り、皆の目をそちらへ向ける",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "end_tended",
+      "lose": "end_blood"
+     }
+    }
+   ]
+  },
+  "end_deed": {
+   "speaker": "rival",
+   "text": [
+    "{rival}は証文を長いこと睨み、やがて斧を下ろした。「祖父さんの判じゃ、文句は言えねえ」西の雑木だけで我慢するという。",
+    "{client}は大喜びで礼をくれたが、{near}の者たちの目は冷たかった。境の森には、まだしこりが残っている。"
+   ],
+   "effects": [
+    {
+     "unflag": "fell_deed"
+    },
+    {
+     "unflag": "fell_dealer"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 2
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "古い証文で、{here}と{near}のきこりの森の境を正した。"
+    }
+   ],
+   "end": "祖父の証文"
+  },
+  "end_united": {
+   "speaker": "client",
+   "text": [
+    "書き付けを見た{rival}は真っ赤になり、駆けつけた{client}と顔を見合わせた。両村のきこりはその足で{market}へ押しかけ、{dealer}に二度と丸太を売らぬと告げた。",
+    "{dealer}は町から姿を消した。両方の頭から、揃いの礼が届いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "fell_deed"
+    },
+    {
+     "unflag": "fell_dealer"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{here}と{near}のきこりの争いを煽っていた材木商{dealer}の企みを暴いた。"
+    }
+   ],
+   "end": "斧を収めた両村"
+  },
+  "end_split": {
+   "speaker": "client",
+   "text": [
+    "{client}と{rival}は、渋々ながら森を二つに割ることで手を打った。大木は一年ごとに互いが伐り、若木は伐らずに残す。",
+    "「あんたがいなけりゃ、今ごろ誰かの葬式だった」{client}はそう言って、少しばかりの{money}を握らせてきた。"
+   ],
+   "effects": [
+    {
+     "unflag": "fell_deed"
+    },
+    {
+     "unflag": "fell_dealer"
+    },
+    {
+     "money": 40
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{here}と{near}のきこりに森を分けさせ、争いを収めた。"
+    }
+   ],
+   "end": "分けた森"
+  },
+  "end_tended": {
+   "text": [
+    "血を流して倒れた若者の傷を縛り、息を吹き返させた。それを見て、両方のきこりが斧を下ろした。人が死にかけたことで、ようやく頭が冷えたのだ。",
+    "境のことは、日を改めて年寄り同士で話すことになった。"
+   ],
+   "effects": [
+    {
+     "unflag": "fell_deed"
+    },
+    {
+     "unflag": "fell_dealer"
+    },
+    {
+     "money": 20
+    },
+    {
+     "fame": 2
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "note": "森のきこりの争いで、倒れた者を手当てした。"
+    }
+   ],
+   "end": "血止めの手"
+  },
+  "end_blood": {
+   "text": [
+    "乱闘は日暮れまで続き、二人が死んだ。こちらも斧の柄で打たれ、気がつくと泥の中に倒れていた。",
+    "森には、伐りかけの大木が何本も残された。それを安く買い叩いたのは、{dealer}だった。"
+   ],
+   "effects": [
+    {
+     "unflag": "fell_deed"
+    },
+    {
+     "unflag": "fell_dealer"
+    },
+    {
+     "hp": -12
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "note": "森のきこりの争いを止められず、血が流れた。"
+    }
+   ],
+   "end": "血の森"
+  },
+  "end_sold": {
+   "speaker": "dealer",
+   "text": [
+    "{client}には「{near}の連中は大木を根こそぎ伐る気だ」と吹き込み、{near}にも同じことを言った。三日後、森で血が流れた。",
+    "{dealer}は両方から安く丸太を買い、約束の礼をくれた。重い袋だった。"
+   ],
+   "effects": [
+    {
+     "unflag": "fell_deed"
+    },
+    {
+     "unflag": "fell_dealer"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "材木商{dealer}に雇われ、きこりの争いを煽った。"
+    }
+   ],
+   "end": "売られた森"
+  }
+ }
+}

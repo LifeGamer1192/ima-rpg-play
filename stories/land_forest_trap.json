@@ -1,0 +1,426 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_forest_trap",
+ "kind": "random",
+ "where": "folk",
+ "most": 2,
+ "again": 200,
+ "trigger": {
+  "terrain": [
+   "forest"
+  ]
+ },
+ "hook": "息子が森へ薪を拾いに行ったきり、戻らないのです",
+ "title": "森の罠",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "子の母",
+   "sex": "f"
+  },
+  "boy": {
+   "npc": "子",
+   "sex": "m"
+  },
+  "hunter": {
+   "npc": "猟師",
+   "sex": "m"
+  },
+  "warden": {
+   "npc": "森番",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "町はずれで、{client}が森の方を見つめて立ち尽くしていた。朝のうちに薪拾いに出た息子の{boy}が、日が傾いても戻らないという。",
+    "「あの子はいつも浅い所までしか行かないのに。この先は殿さまの狩り場で、入れば咎められるのです。どうか、探してください」"
+   ],
+   "choices": [
+    {
+     "label": "薪を出しに来るきこりたちに、子を見なかったか聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "inn_hint",
+      "lose": "woods"
+     }
+    },
+    {
+     "label": "すぐに森へ入り、子の足跡をたどる",
+     "next": "woods"
+    }
+   ]
+  },
+  "inn_hint": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}できこりの話を聞く",
+   "speaker": "きこり",
+   "art": "inn",
+   "text": [
+    "{inn}で酒をあおっていたきこりが、声を落とした。「坊主なら昼ごろ、狩り場の柵の破れ目をくぐって行ったよ。栗の木が並ぶ谷の方だ」",
+    "「あそこは近ごろ、{hunter}って男がこっそり罠を掛けてる。森番に知れたら首が飛ぶのにな」"
+   ],
+   "effects": [
+    {
+     "flag": "trap_path"
+    }
+   ],
+   "next": "woods"
+  },
+  "woods": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}へ向かう道の森で{boy}を探す",
+   "art": "road",
+   "text": [
+    "木々は深く、日の光は梢でちぎれていた。踏み分け道は狩り場の柵で途切れ、その先は獣の通う細い筋が幾つも分かれている。",
+    "遠くで、狼の遠吠えが一つ上がった。"
+   ],
+   "choices": [
+    {
+     "label": "栗の木の谷へまっすぐ向かう",
+     "if": {
+      "flag": "trap_path"
+     },
+     "next": "found"
+    },
+    {
+     "label": "折れた小枝と、土に残る小さな足跡を追う",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "found",
+      "lose": "wolves"
+     }
+    },
+    {
+     "label": "大声で{boy}の名を呼びながら歩く",
+     "next": "wolves"
+    }
+   ]
+  },
+  "wolves": {
+   "art": "war",
+   "text": [
+    "茂みが揺れ、灰色の影が三つ、四つと道に出てきた。痩せた狼が牙を剥き、低く唸りながら輪を縮めてくる。その向こうから、子どもの泣き声がかすかに聞こえた。"
+   ],
+   "choices": [
+    {
+     "label": "矢を射かけて先頭の一頭を倒し、群れを散らす",
+     "check": {
+      "skill": "bow",
+      "dc": 25,
+      "win": "found",
+      "lose": "found_hurt"
+     }
+    },
+    {
+     "label": "刃を抜いて狼を迎え撃つ",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 0,
+      "win": "found",
+      "lose": "found_hurt"
+     }
+    }
+   ]
+  },
+  "found_hurt": {
+   "text": [
+    "牙が腕を裂いた。血を流しながらも枝を振り回し、どうにか群れを追い払った。泣き声の方へ、よろめきながら進む。"
+   ],
+   "effects": [
+    {
+     "hp": -12
+    }
+   ],
+   "next": "found"
+  },
+  "found": {
+   "speaker": "boy",
+   "art": "tale",
+   "text": [
+    "栗の木の根もとで、{boy}がうずくまっていた。右の足首に、鉄の顎を持つ罠が食い込んでいる。顔は涙と泥で汚れ、唇が青い。",
+    "「おっかあには言わないで。柵をくぐったの、叱られる」"
+   ],
+   "choices": [
+    {
+     "label": "ばねの仕組みを見定め、傷を広げないように外す",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "freed",
+      "lose": "freed_bad"
+     }
+    },
+    {
+     "label": "刃を顎の間にねじ込み、力ずくでこじ開ける",
+     "check": {
+      "skill": "blade",
+      "dc": 28,
+      "win": "freed",
+      "lose": "freed_bad"
+     }
+    }
+   ]
+  },
+  "freed_bad": {
+   "text": [
+    "鉄の顎が跳ね返り、{boy}が悲鳴を上げた。ようやく足を抜いたものの、骨にひびが入ったらしい。しばらくは歩けまい。"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    }
+   ],
+   "next": "freed"
+  },
+  "freed": {
+   "speaker": "hunter",
+   "art": "tale",
+   "text": [
+    "布で足を縛っていると、弓を背負った男が藪から出てきて、青ざめた。猟師の{hunter}だ。「おれの罠だ……まさか子どもが」",
+    "男は膝をついた。「狩り場で獲らなきゃ、うちの三人の子が飢えるんだ。森番の{warden}に知れたら縛り首だ。頼む、見逃してくれ」遠くで、森番の手の者らしい呼び声がする。"
+   ],
+   "choices": [
+    {
+     "label": "{hunter}を縛り、{warden}に突き出す",
+     "next": "warden"
+    },
+    {
+     "label": "「この子を背負って家まで運べ。詫びもしろ」",
+     "check": {
+      "skill": "speech",
+      "dc": 25,
+      "win": "end_oath",
+      "lose": "warden"
+     }
+    },
+    {
+     "label": "森番の目を盗んで、{hunter}を逃がしてやる",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "end_hidden",
+      "lose": "end_caught"
+     },
+     "guide": "見つかれば、自分も密猟の仲間だと思われる"
+    }
+   ]
+  },
+  "warden": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ{hunter}を連れていく",
+   "speaker": "warden",
+   "art": "court",
+   "text": [
+    "{office}の庭で、森番の{warden}が罠を手に取り、満足げにうなずいた。「狩り場荒らしは見せしめにせねばならん。礼はたっぷり出そう」",
+    "縄を打たれた{hunter}が、黙ってこちらを見ている。"
+   ],
+   "choices": [
+    {
+     "label": "礼を受け取る",
+     "next": "end_bounty"
+    },
+    {
+     "label": "「子が罠にかかったのは柵が破れていたからだ。番の不行き届きでもある」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_pardon",
+      "lose": "end_bounty"
+     }
+    },
+    {
+     "label": "狩り場の掟の書き付けを読み、初めての咎は鞭で済むはずだと示す",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "end_pardon",
+      "lose": "end_bounty"
+     }
+    }
+   ]
+  },
+  "end_bounty": {
+   "speaker": "warden",
+   "text": [
+    "{hunter}は牢へ引かれていった。{warden}は約束どおり礼をくれ、{client}は息子を抱いて泣いた。",
+    "数日後、{hunter}の家の戸が閉ざされたままだと聞いた。三人の子がどこへ行ったのかは、誰も知らない。"
+   ],
+   "effects": [
+    {
+     "unflag": "trap_path"
+    },
+    {
+     "money": 80
+    },
+    {
+     "favor": 2
+    },
+    {
+     "fame": -1
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "森の罠にかかった{boy}を救い、密猟の{hunter}を森番に引き渡した。"
+    }
+   ],
+   "end": "狩り場の掟"
+  },
+  "end_pardon": {
+   "speaker": "client",
+   "text": [
+    "{warden}は渋い顔で、{hunter}を鞭打ち十で放した。破れた柵は直させるという。{client}は、息子の足が治るまでの薬代だと、なけなしの{money}を差し出してきた。",
+    "{hunter}は黙って頭を下げ、以来、狩り場には入らなくなったそうだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "trap_path"
+    },
+    {
+     "money": 30
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "罠にかかった{boy}を救い、密猟の{hunter}の命乞いをした。"
+    }
+   ],
+   "end": "鞭十の赦し"
+  },
+  "end_hidden": {
+   "speaker": "hunter",
+   "text": [
+    "森番の手の者を沢の方へ引きつけ、その隙に{hunter}を獣道から逃がした。別れ際、男は背の荷から鞣した革を一枚押しつけてきた。「恩は忘れねえ」",
+    "{boy}は無事に母のもとへ戻った。罠の持ち主はわからずじまいになった。"
+   ],
+   "effects": [
+    {
+     "unflag": "trap_path"
+    },
+    {
+     "item": "leather",
+     "n": 1
+    },
+    {
+     "fame": 2
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "罠にかかった{boy}を救い、密猟の{hunter}を森番から逃がした。"
+    }
+   ],
+   "end": "獣道の恩"
+  },
+  "end_oath": {
+   "speaker": "client",
+   "text": [
+    "{hunter}は{boy}を背負って森を出た。戸口で{client}に土下座し、薬代を払い、二度と狩り場に罠は掛けないと誓った。",
+    "{client}は怒りと安堵の入りまじった顔で、礼にと干し肉と薬草を包んでくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "trap_path"
+    },
+    {
+     "money": 40
+    },
+    {
+     "item": "herbs",
+     "n": 1
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "note": "罠にかかった{boy}を救い、猟師{hunter}に詫びを入れさせた。"
+    }
+   ],
+   "end": "猟師の誓い"
+  },
+  "end_caught": {
+   "speaker": "warden",
+   "text": [
+    "藪を抜けたところで、森番の手の者に囲まれた。{hunter}は縄を打たれ、こちらも密猟の手引きと疑われて、{office}でさんざん絞られた。",
+    "{boy}が無事に家へ帰れたことだけが救いだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "trap_path"
+    },
+    {
+     "money": -30
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "note": "密猟の{hunter}を逃がそうとして、森番に捕まった。"
+    }
+   ],
+   "end": "共に縄目"
+  }
+ }
+}

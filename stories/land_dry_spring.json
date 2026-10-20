@@ -1,0 +1,372 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_dry_spring",
+ "kind": "random",
+ "where": "folk",
+ "most": 2,
+ "again": 300,
+ "trigger": {
+  "terrain": [
+   "dry"
+  ]
+ },
+ "hook": "井戸がみんな涸れてしまいました。水を持っているのは、あの家だけ",
+ "title": "涸れ井戸と秘密の泉",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "水汲みの女",
+   "sex": "f"
+  },
+  "granny": {
+   "npc": "老婆",
+   "sex": "f"
+  },
+  "grandson": {
+   "npc": "老婆の孫",
+   "sex": "m"
+  },
+  "boss": {
+   "npc": "土地の顔役",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "{client}が空の桶を下げて、ひび割れた井戸の縁に座り込んでいた。この夏、雨は一滴も降らず、町の井戸はみな底を見せている。",
+    "「水があるのは{granny}婆さんの家だけです。孫の{grandson}が夜明け前にどこかから汲んできて、一杯いくらで売っている。泉の場所は誰にも教えない。顔役の{boss}さまが、力ずくで聞き出すと息巻いています」"
+   ],
+   "choices": [
+    {
+     "label": "{granny}の家を訪ね、話を聞く",
+     "next": "granny"
+    },
+    {
+     "label": "夜明け前、{grandson}のあとをつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "spring",
+      "lose": "caught_follow"
+     }
+    },
+    {
+     "label": "古い川筋を調べ、新しく井戸を掘れる所を探す",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "newwell",
+      "lose": "granny"
+     }
+    }
+   ]
+  },
+  "caught_follow": {
+   "speaker": "grandson",
+   "text": [
+    "乾いた谷へ入ったところで、{grandson}が振り向いた。「つけてきたな」少年は水瓶を抱えて駆け戻っていく。行き先は、祖母の家だ。"
+   ],
+   "next": "granny"
+  },
+  "granny": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}で{granny}の家を訪ねる",
+   "speaker": "granny",
+   "art": "tale",
+   "text": [
+    "土壁の家の奥で、{granny}は糸を紡いでいた。「あの泉は、わしの爺さまの爺さまが見つけたものじゃ。小さな泉でな、町じゅうで汲めばすぐ涸れる。場所が知れれば{boss}が囲って、水一杯に今の十倍の値をつけるじゃろう」",
+    "「わしが高く売るのは、汲みすぎを防ぐためでもある。それを、皆は欲張りと言う」"
+   ],
+   "choices": [
+    {
+     "label": "「汲む量を町で決めれば涸れない。皆を説き伏せる」と約束する",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "pact",
+      "lose": "boss_comes"
+     }
+    },
+    {
+     "label": "「{boss}が来ても、おれが守る」",
+     "next": "pact"
+    }
+   ]
+  },
+  "spring": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}へ向かう乾いた谷で、泉を見つける",
+   "art": "tale",
+   "text": [
+    "{near}へ向かう乾いた谷の奥、岩の割れ目の下に、手のひらほどの水たまりがあった。底から細く水が湧いている。{grandson}はそれを瓢箪で静かに汲み、苔をかぶせて隠して帰っていった。",
+    "この小さな泉で、町じゅうの喉を潤せるとは思えない。"
+   ],
+   "choices": [
+    {
+     "label": "泉の場所を{boss}に売る",
+     "next": "boss",
+     "guide": "泉は顔役に囲われる"
+    },
+    {
+     "label": "{granny}の家へ行き、見たことを打ち明ける",
+     "next": "granny"
+    }
+   ]
+  },
+  "pact": {
+   "speaker": "granny",
+   "text": [
+    "{granny}はしばらく黙り、やがてうなずいた。「よかろう。一軒に一日瓢箪一つ。病人と子のある家が先じゃ。それを町が守るなら、場所を教える」",
+    "その晩、話はたちまち町に広まった。そして当然、{boss}の耳にも入った。"
+   ],
+   "effects": [
+    {
+     "flag": "spring_pact"
+    }
+   ],
+   "next": "boss_comes"
+  },
+  "boss_comes": {
+   "speaker": "boss",
+   "art": "war",
+   "text": [
+    "翌朝、{boss}が手下を連れて{granny}の家の前に立った。「泉は町の物だ。わしが預かって、皆に公平に売ってやる。婆さん、場所を言え」",
+    "手下の手には棍棒がある。"
+   ],
+   "choices": [
+    {
+     "label": "手下を叩き伏せ、{boss}を追い返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_shared",
+      "lose": "end_seized"
+     }
+    },
+    {
+     "label": "{office}へ駆け込み、水の分け方の掟を定めてもらう",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "end_office",
+      "lose": "end_seized"
+     }
+    },
+    {
+     "label": "集まった町の者たちに、汲み分けの約束を示して味方につける",
+     "if": {
+      "flag": "spring_pact"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "end_shared",
+      "lose": "end_seized"
+     }
+    }
+   ]
+  },
+  "boss": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で{boss}に会う",
+   "speaker": "boss",
+   "art": "trade",
+   "text": [
+    "{boss}は話を聞くと、手を打って喜んだ。「でかした。礼は弾むぞ。あの婆さんには、もう水は売らせん」"
+   ],
+   "next": "end_sold"
+  },
+  "newwell": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}へ向かう古い川筋を調べる",
+   "art": "tale",
+   "text": [
+    "古い書き付けには、百年前まで町のそばを川が流れていたとある。その川筋の跡、柳の古株が並ぶあたりの砂を掘ると、手首ほどの深さで砂が湿ってきた。",
+    "町の男たちを集め、三日かけて掘り下げた。四日目の朝、底から濁った水が湧き上がった。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "next": "end_newwell"
+  },
+  "end_shared": {
+   "speaker": "granny",
+   "text": [
+    "{boss}は唾を吐いて引き上げていった。その日から、泉の水は一軒に一日瓢箪一つずつ、町の者が順に汲むことになった。",
+    "{granny}は「爺さまの泉が、ようやく皆のものになった」と言って、乾した木の実の袋と、わずかな{money}を握らせてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "spring_pact"
+    },
+    {
+     "money": 40
+    },
+    {
+     "item": "rations",
+     "n": 2
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "涸れ井戸の町で、{granny}の泉を顔役{boss}から守り、皆で分けるようにした。"
+    }
+   ],
+   "end": "分け合う泉"
+  },
+  "end_office": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は古い掟の書き付けを確かめ、日照りの年の水は誰の物でもない、と触れを出した。泉は役所の預かりとなり、{granny}の家が番をすることになった。",
+    "{boss}は面白くなさそうに引き下がった。{clerk}は「よく掟を調べてきた」と褒美をくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "spring_pact"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 3
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "涸れ井戸の町で、泉の水の分け方を{office}に定めさせた。"
+    }
+   ],
+   "end": "日照りの掟"
+  },
+  "end_seized": {
+   "text": [
+    "{boss}の手下が{granny}を締め上げ、泉の場所を吐かせた。谷の入り口には柵が立ち、水は一杯ごとに{boss}の手の者が売るようになった。",
+    "値は前の十倍だった。{granny}の家の戸は、その日から閉ざされたままだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "spring_pact"
+    },
+    {
+     "hp": -10
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "note": "涸れ井戸の町で、泉を顔役{boss}に奪われた。"
+    }
+   ],
+   "end": "囲われた泉"
+  },
+  "end_sold": {
+   "speaker": "boss",
+   "text": [
+    "谷の入り口に柵が立ち、泉は{boss}のものになった。{boss}は約束どおり重い袋をくれた。",
+    "小さな泉は、汲みすぎて一月で涸れたと聞いた。{granny}の家は、町を出ていったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "spring_pact"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "note": "涸れ井戸の町で、{granny}の泉の場所を顔役{boss}に売った。"
+    }
+   ],
+   "end": "売られた泉"
+  },
+  "end_newwell": {
+   "speaker": "client",
+   "text": [
+    "新しい井戸の水は、二日もすると澄んだ。{client}は桶いっぱいの水を抱えて笑い、町の者たちは井戸の縁に名を刻もうと言い出した。",
+    "{granny}の泉は、そのまま{granny}の家のものとして残された。{boss}は、取り上げる理由をなくした。"
+   ],
+   "effects": [
+    {
+     "unflag": "spring_pact"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "note": "涸れ井戸の町で、古い川筋に新しい井戸を掘り当てた。"
+    }
+   ],
+   "end": "川筋の井戸"
+  }
+ }
+}

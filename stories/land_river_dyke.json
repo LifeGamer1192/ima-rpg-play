@@ -1,0 +1,707 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_river_dyke",
+ "kind": "random",
+ "where": "folk",
+ "most": 2,
+ "again": 300,
+ "trigger": {
+  "terrain": [
+   "river"
+  ]
+ },
+ "hook": "堤が切れます。このまま雨が続けば、三日ともちません",
+ "title": "切れかけた堤",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "堤守の老人",
+   "sex": "m"
+  },
+  "official": {
+   "npc": "治水の役人",
+   "sex": "m"
+  },
+  "headman": {
+   "npc": "村の長",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "雨は十日も降りやまない。濁った大河は岸すれすれまで膨れ、流木が渦を巻いて流れていく。",
+    "{client}が泥だらけの手で袖をつかんだ。「{near}の上手の堤に、ひびが走っております。去年築き直したばかりの堤が、です。{office}の{official}さまに申し上げても、去年の普請に抜かりはないの一点張りで」"
+   ],
+   "choices": [
+    {
+     "label": "{near}の堤を見に行く",
+     "next": "dyke"
+    },
+    {
+     "label": "{office}へ行き、{official}に掛け合う",
+     "next": "office"
+    }
+   ]
+  },
+  "dyke": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}の上手の堤を見に行く",
+   "speaker": "headman",
+   "art": "disaster",
+   "text": [
+    "堤の腹から、茶色い水が糸のように噴き出していた。崩れた土の中から、腐った藁束がのぞいている。石を詰めるはずの所だ。",
+    "{headman}が青い顔で言った。「去年の普請で、石を運ぶ人足は半分しか来なかった。残りの銭がどこへ行ったか、村の者はみな知っておりますよ」"
+   ],
+   "choices": [
+    {
+     "label": "崩れた土を掘り、普請の手抜きを確かめる",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "fraud",
+      "lose": "fraud_ng"
+     }
+    },
+    {
+     "label": "村の者を集め、土嚢を積ませる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "bags",
+      "lose": "flood"
+     }
+    },
+    {
+     "label": "{office}へ急ぎ戻る",
+     "next": "office"
+    }
+   ]
+  },
+  "fraud": {
+   "effects": [
+    {
+     "flag": "dyke_fraud"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "text": [
+    "堤の芯を掘ってみると、石は表の一列だけで、その奥は藁と砂だった。普請の帳面に記された石の数の、三分の一もない。崩れた藁を一束、証に包んだ。"
+   ],
+   "choices": [
+    {
+     "label": "村の者を集め、土嚢を積ませる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "bags",
+      "lose": "flood"
+     }
+    },
+    {
+     "label": "藁束を持って、{office}の{official}を問い詰める",
+     "next": "office"
+    }
+   ]
+  },
+  "fraud_ng": {
+   "text": [
+    "掘るほどに泥が崩れ、何が何やらわからなくなった。雨脚がまた強くなる。"
+   ],
+   "choices": [
+    {
+     "label": "村の者を集め、土嚢を積ませる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "bags",
+      "lose": "flood"
+     }
+    },
+    {
+     "label": "夜を待たず、堤の上で番に立つ",
+     "next": "flood"
+    }
+   ]
+  },
+  "bags": {
+   "speaker": "headman",
+   "effects": [
+    {
+     "flag": "dyke_bags"
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "text": [
+    "村の男も女も、俵に土を詰めて堤へ運んだ。ひびの前に土嚢の壁が三重に積み上がる。{headman}が濡れた顔で言った。「これで、ひと晩はもつかもしれません」"
+   ],
+   "next": "flood"
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で{official}に掛け合う",
+   "speaker": "official",
+   "art": "court",
+   "text": [
+    "{official}は温かい火鉢の前から動こうとしなかった。「堤守の爺の言うことを真に受けたのか。去年の普請は、わしがこの目で見届けた」"
+   ],
+   "choices": [
+    {
+     "label": "「町の低い所の者だけでも、高台へ移させてほしい」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "warned",
+      "lose": "office_ng"
+     }
+    },
+    {
+     "label": "堤の芯から出た藁束を突きつける",
+     "if": {
+      "flag": "dyke_fraud"
+     },
+     "next": "bribe"
+    }
+   ]
+  },
+  "warned": {
+   "speaker": "official",
+   "effects": [
+    {
+     "flag": "dyke_warned"
+    }
+   ],
+   "text": [
+    "{official}は舌打ちして、触れを出すよう下役に命じた。「騒ぎが空振りに終われば、責めはお前が負うのだぞ」町の低い所の者たちが、荷車に家財を積み始めた。"
+   ],
+   "next": "flood"
+  },
+  "office_ng": {
+   "speaker": "official",
+   "text": [
+    "「雨で気が立っておるのだろう。帰って寝ろ」{official}は取り合わなかった。外では、雨がいっそう激しくなっていた。"
+   ],
+   "next": "flood"
+  },
+  "bribe": {
+   "speaker": "official",
+   "art": "backroom",
+   "text": [
+    "藁束を見た{official}は、しばらく黙っていた。それから人払いをし、袖の下から重い包みを出した。",
+    "「堤が切れれば、すべて水の底だ。藁があったかどうかなど、誰にもわからなくなる。お前も黙っておれば、悪いようにはせん」"
+   ],
+   "choices": [
+    {
+     "label": "包みを受け取る",
+     "effects": [
+      {
+       "flag": "dyke_bribed"
+      },
+      {
+       "money": 120
+      }
+     ],
+     "next": "flood",
+     "guide": "手抜きの普請を見逃すことになる"
+    },
+    {
+     "label": "包みを突き返し、「触れを出さねば上に訴える」と言い置いて堤へ戻る",
+     "effects": [
+      {
+       "flag": "dyke_warned"
+      }
+     ],
+     "next": "flood"
+    }
+   ]
+  },
+  "flood": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "雨の夜、{near}の堤へ向かう",
+   "art": "disaster",
+   "text": [
+    "夜半、地の底から響くような音がした。堤のひびが裂け目になり、泥水が滝のように噴き出す。下手には、村の低い家々と、{office}の米を納めた倉が並んでいる。",
+    "すべては救えない。"
+   ],
+   "choices": [
+    {
+     "label": "土嚢の壁に取りつき、裂け目をふさぐ",
+     "if": {
+      "flag": "dyke_bags"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 24,
+      "win": "held",
+      "lose": "people"
+     }
+    },
+    {
+     "label": "低い家の者はもう高台へ逃げた。皆で裂け目に杭を打つ",
+     "if": {
+      "flag": "dyke_warned"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 26,
+      "win": "held",
+      "lose": "people"
+     }
+    },
+    {
+     "label": "裂け目に杭を打ちこみ、身ひとつで支える",
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "held",
+      "lose": "people"
+     }
+    },
+    {
+     "label": "低い家々を回り、逃げ遅れた者を高台へ運ぶ",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "people",
+      "lose": "people_hurt"
+     }
+    },
+    {
+     "label": "倉の米俵を運び出させる",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "granary",
+      "lose": "people_hurt"
+     }
+    }
+   ]
+  },
+  "held": {
+   "effects": [
+    {
+     "flag": "dyke_held"
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "art": "disaster",
+   "text": [
+    "杭が鳴り、土嚢が軋んだ。夜明けまで泥にまみれて支え続けると、川の水はわずかに引き始めた。裂け目は、人の背丈ほどで止まった。"
+   ],
+   "next": "after"
+  },
+  "people_hurt": {
+   "text": [
+    "濁流に足をすくわれ、流木に腕を打たれた。それでも、屋根に取り残された子どもを抱えて高台へ這い上がった。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "people"
+  },
+  "people": {
+   "effects": [
+    {
+     "flag": "dyke_people"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "art": "disaster",
+   "text": [
+    "堤は切れ、低い家々は屋根まで水に沈んだ。だが高台には、助け出した者たちが身を寄せ合っていた。冷えた年寄りをさすり、泣く子に乾いた布をかけて朝を待った。"
+   ],
+   "next": "after"
+  },
+  "granary": {
+   "effects": [
+    {
+     "flag": "dyke_granary"
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    }
+   ],
+   "art": "disaster",
+   "text": [
+    "倉の米俵を人足に担がせ、荷車で高台へ運び上げた。最後の俵が出たとき、倉は濁流に呑まれた。冬を越す米は残った。だが、低い家々の何軒かは、屋根ごと流されていった。"
+   ],
+   "next": "after"
+  },
+  "after": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "水が引いたら、{here}の{office}へ",
+   "speaker": "official",
+   "art": "court",
+   "goto": [
+    {
+     "if": {
+      "flag": "dyke_bribed"
+     },
+     "next": "end_bribed"
+    }
+   ],
+   "text": [
+    "水が引いた三日後、{office}には上の役所から検めの役人が来ていた。{official}は落ち着き払って言った。「堤守の爺が見回りを怠ったゆえの災いでございます」",
+    "{client}が土間で縮こまっている。"
+   ],
+   "choices": [
+    {
+     "label": "堤の芯から出た藁束を検めの役人に差し出す",
+     "if": {
+      "flag": "dyke_fraud"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_justice",
+      "lose": "end_blamed"
+     }
+    },
+    {
+     "label": "普請の帳面と、来なかった人足の数を突き合わせよと説く",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "end_justice",
+      "lose": "end_blamed"
+     }
+    },
+    {
+     "label": "何も言わず、堤を守った礼だけを受ける",
+     "if": {
+      "flag": "dyke_held"
+     },
+     "next": "end_held"
+    },
+    {
+     "label": "何も言わず、救われた者たちのもとへ戻る",
+     "if": {
+      "flag": "dyke_people"
+     },
+     "next": "end_people"
+    },
+    {
+     "label": "何も言わず、米を救った礼だけを受ける",
+     "if": {
+      "flag": "dyke_granary"
+     },
+     "next": "end_granary"
+    }
+   ]
+  },
+  "end_held": {
+   "speaker": "headman",
+   "text": [
+    "堤は持ちこたえた。村の者たちは泥だらけの土嚢の前で酒を酌み交わし、{headman}は何度も頭を下げた。",
+    "{official}は「普請が良かったからだ」と言いふらしているらしい。それでも、あの夜を見た者は知っている。"
+   ],
+   "effects": [
+    {
+     "unflag": "dyke_fraud"
+    },
+    {
+     "unflag": "dyke_warned"
+    },
+    {
+     "unflag": "dyke_bags"
+    },
+    {
+     "unflag": "dyke_bribed"
+    },
+    {
+     "unflag": "dyke_held"
+    },
+    {
+     "unflag": "dyke_people"
+    },
+    {
+     "unflag": "dyke_granary"
+    },
+    {
+     "money": 80
+    },
+    {
+     "item": "wine",
+     "n": 1
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "note": "{near}の堤を、大水の夜に支え抜いた。"
+    }
+   ],
+   "end": "持ちこたえた堤"
+  },
+  "end_people": {
+   "speaker": "client",
+   "text": [
+    "水の引いた村には、泥と流木しか残っていなかった。だが、死んだ者はほとんどいなかった。",
+    "{client}が言った。「家はまた建てられます。人は建てられません」助けた者たちは、乏しい中から米と銭を持ち寄ってくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "dyke_fraud"
+    },
+    {
+     "unflag": "dyke_warned"
+    },
+    {
+     "unflag": "dyke_bags"
+    },
+    {
+     "unflag": "dyke_bribed"
+    },
+    {
+     "unflag": "dyke_held"
+    },
+    {
+     "unflag": "dyke_people"
+    },
+    {
+     "unflag": "dyke_granary"
+    },
+    {
+     "money": 40
+    },
+    {
+     "item": "rations",
+     "n": 2
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "note": "{near}の大水で、逃げ遅れた者たちを救った。"
+    }
+   ],
+   "end": "高台の朝"
+  },
+  "end_granary": {
+   "speaker": "official",
+   "text": [
+    "{official}は米が残ったことを大いに喜び、礼の銀を包んだ。「上には、わしの采配で米を守ったと申し上げておく」",
+    "高台から見下ろすと、流された家の跡で、村の者が泥を掻いていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "dyke_fraud"
+    },
+    {
+     "unflag": "dyke_warned"
+    },
+    {
+     "unflag": "dyke_bags"
+    },
+    {
+     "unflag": "dyke_bribed"
+    },
+    {
+     "unflag": "dyke_held"
+    },
+    {
+     "unflag": "dyke_people"
+    },
+    {
+     "unflag": "dyke_granary"
+    },
+    {
+     "money": 120
+    },
+    {
+     "fame": 2
+    },
+    {
+     "favor": 4
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "note": "{near}の大水で、{office}の倉の米を救った。"
+    }
+   ],
+   "end": "残った米"
+  },
+  "end_justice": {
+   "speaker": "client",
+   "text": [
+    "検めの役人は普請の帳面を取り寄せ、藁の詰まった堤の芯を自ら見に行った。{official}は職を解かれ、懐に入れた普請の銭を吐き出させられた。",
+    "{client}は罪を解かれた。「今度こそ、石の堤を築きます」と、皺だらけの顔で笑った。"
+   ],
+   "effects": [
+    {
+     "unflag": "dyke_fraud"
+    },
+    {
+     "unflag": "dyke_warned"
+    },
+    {
+     "unflag": "dyke_bags"
+    },
+    {
+     "unflag": "dyke_bribed"
+    },
+    {
+     "unflag": "dyke_held"
+    },
+    {
+     "unflag": "dyke_people"
+    },
+    {
+     "unflag": "dyke_granary"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 7
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "realm",
+     "n": 5
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "堤の普請の銭をくすねた{official}を暴いた。"
+    }
+   ],
+   "end": "藁の堤"
+  },
+  "end_blamed": {
+   "speaker": "official",
+   "text": [
+    "検めの役人は{official}の言い分を取った。{client}は堤守を解かれ、「騒ぎ立てた余所者」として、こちらまで白い目で見られることになった。",
+    "{here}を出る朝、{client}がそっと見送りに来た。「あの夜のことは、わしが知っております」"
+   ],
+   "effects": [
+    {
+     "unflag": "dyke_fraud"
+    },
+    {
+     "unflag": "dyke_warned"
+    },
+    {
+     "unflag": "dyke_bags"
+    },
+    {
+     "unflag": "dyke_bribed"
+    },
+    {
+     "unflag": "dyke_held"
+    },
+    {
+     "unflag": "dyke_people"
+    },
+    {
+     "unflag": "dyke_granary"
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    }
+   ],
+   "end": "負わされた咎"
+  },
+  "end_bribed": {
+   "speaker": "official",
+   "text": [
+    "{official}はこちらを見ると、目だけで笑った。検めの役人には、堤守の怠りが災いのもとだと告げられ、{client}は堤守を解かれた。",
+    "懐の銀は重かった。上手の堤は、来年もまた藁で築き直されるのだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "dyke_fraud"
+    },
+    {
+     "unflag": "dyke_warned"
+    },
+    {
+     "unflag": "dyke_bags"
+    },
+    {
+     "unflag": "dyke_bribed"
+    },
+    {
+     "unflag": "dyke_held"
+    },
+    {
+     "unflag": "dyke_people"
+    },
+    {
+     "unflag": "dyke_granary"
+    },
+    {
+     "fame": -5
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "note": "堤の普請の手抜きを、銀と引き換えに見逃した。"
+    }
+   ],
+   "end": "水に流した藁"
+  }
+ }
+}

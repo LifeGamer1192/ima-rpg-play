@@ -1,0 +1,499 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_coast_wreck",
+ "kind": "random",
+ "where": "folk",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "coast"
+  ]
+ },
+ "hook": "岩場に船が打ち上げられたんです。浜の者がみんな荷を漁りに走っていって……",
+ "title": "岩礁の難破船",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "浜の漁師"
+  },
+  "master": {
+   "npc": "船頭",
+   "sex": "m"
+  },
+  "boss": {
+   "npc": "浜の顔役",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "voyage",
+   "text": [
+    "夜明けの浜に、人が駆けていく。沖の岩礁に、帆柱の折れた大きな船が腹を見せて傾いていた。波が打ちつけるたび、木の裂ける音がここまで届く。",
+    "{client}が息を切らして言った。「荷を拾った者の物だと、みんな籠を担いで走っていきました。でも、まだ船に人が残っているはずなんです。昨夜は海も荒れていなかったのに、どうしてあんな所に」"
+   ],
+   "choices": [
+    {
+     "label": "岩場へ走り、残った船乗りを助ける",
+     "next": "beach"
+    },
+    {
+     "label": "荷を拾いに、浜の者に混じる",
+     "next": "loot",
+     "guide": "溺れかけた者を見捨てることになるかもしれない"
+    },
+    {
+     "label": "「荒れてもいないのに、なぜ岩に乗り上げた」",
+     "next": "ask"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "client",
+   "text": [
+    "{client}は声を落とした。「夜中に、岬の上で灯が揺れていたんです。あそこは灯をともす所じゃない。船からは、港の灯に見えたかもしれません」",
+    "「岬の向こうの{near}には、{boss}という顔役がいます。難破船の荷が、いつもあの男の蔵に集まるんです」"
+   ],
+   "choices": [
+    {
+     "label": "まず岩場へ。人の命が先だ",
+     "next": "beach"
+    },
+    {
+     "label": "{near}の岬へ登り、灯の跡を探る",
+     "next": "headland"
+    }
+   ]
+  },
+  "beach": {
+   "art": "disaster",
+   "text": [
+    "岩場の先で、船乗りが三人、砕けた舷にしがみついていた。潮は満ちてくる。浜の者たちは荷を拾うのに夢中で、誰も見向きもしない。",
+    "ひとりはもう手を放しかけている。年かさの男が「船頭だ、船頭を先に」と叫んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "弓で縄つきの矢を岩に射こみ、綱を渡す",
+     "check": {
+      "skill": "bow",
+      "dc": 25,
+      "win": "saved",
+      "lose": "saved_hurt"
+     }
+    },
+    {
+     "label": "波の引く間を見て、泳いで取りつく",
+     "check": {
+      "skill": "blade",
+      "dc": 28,
+      "win": "saved",
+      "lose": "saved_hurt"
+     }
+    },
+    {
+     "label": "浜の者に呼びかけ、人手を集める",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "saved",
+      "lose": "saved_hurt"
+     }
+    }
+   ]
+  },
+  "saved_hurt": {
+   "art": "disaster",
+   "text": [
+    "大波に呑まれ、岩に体を打ちつけた。それでも二人を浜へ引き上げた。三人目の姿は、もう波間に見えなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -12
+    }
+   ],
+   "next": "master"
+  },
+  "saved": {
+   "text": [
+    "綱をつたって、三人とも浜へ引き上げた。砂の上で水を吐き、船乗りたちは泣きながら手を合わせた。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "next": "master"
+  },
+  "master": {
+   "speaker": "master",
+   "effects": [
+    {
+     "flag": "wreck_crew"
+    }
+   ],
+   "text": [
+    "船頭の{master}は肩で息をしながら、浜にむらがる人影をにらんだ。「港の灯だと思って舵を切った。そうしたら岩だ。誰かが、わざと灯を出しやがった」",
+    "それから、声を落とした。「頼みがある。船倉の奥に、封をした箱がある。あれだけは役人に見られたくない。取ってきてくれれば、礼ははずむ」"
+   ],
+   "choices": [
+    {
+     "label": "箱を取りに船へ戻る",
+     "next": "box"
+    },
+    {
+     "label": "偽の灯をともした者を探しに、{near}の岬へ",
+     "next": "headland"
+    },
+    {
+     "label": "{office}へ届け出て、浜の荒らしを止めさせる",
+     "next": "office"
+    }
+   ]
+  },
+  "loot": {
+   "art": "trade",
+   "text": [
+    "傾いた船倉には、絹の反物が濡れて積み重なっていた。浜の者が奪い合い、殴り合っている。奥に、鉄の帯を巻いた重い箱がひとつ。封には、どこの印もない。",
+    "そのとき、板一枚向こうから、かすかなうめき声がした。"
+   ],
+   "choices": [
+    {
+     "label": "絹をひと抱え取って、さっさと引き上げる",
+     "effects": [
+      {
+       "item": "silk",
+       "n": 1
+      }
+     ],
+     "next": "end_looter"
+    },
+    {
+     "label": "鉄の箱をこじ開ける",
+     "check": {
+      "skill": "theft",
+      "dc": 22,
+      "win": "box",
+      "lose": "box"
+     }
+    },
+    {
+     "label": "声のするほうへ板を剥がす",
+     "next": "beach"
+    }
+   ]
+  },
+  "box": {
+   "art": "backroom",
+   "effects": [
+    {
+     "flag": "wreck_box"
+    }
+   ],
+   "text": [
+    "箱の中は、油紙に包んだ鉄の延べ板だった。どこの{office}の印もない。関を通さずに運んできた品だ。",
+    "見つかれば船ごと没収、船乗りは牢だろう。だが、船を岩へ導いた者がいることも確かだった。"
+   ],
+   "choices": [
+    {
+     "label": "箱を船頭の{master}に渡して、礼を受け取る",
+     "next": "end_smuggler",
+     "guide": "抜け荷の片棒を担ぐことになる"
+    },
+    {
+     "label": "箱ごと{office}へ届け出る",
+     "next": "office"
+    },
+    {
+     "label": "箱は砂に埋めて隠し、先に{near}の岬を調べる",
+     "next": "headland"
+    }
+   ]
+  },
+  "headland": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}の岬で偽の灯の跡を探る",
+   "art": "hideout",
+   "text": [
+    "岬の上の岩陰に、油を焚いた跡があった。煤けた鉄の籠と、まだ新しい油壺。坂の下の小屋から、男たちの笑い声が聞こえる。「今度の船は絹だとよ。{boss}の旦那もご機嫌だ」"
+   ],
+   "choices": [
+    {
+     "label": "小屋に忍び寄り、油壺と男たちの話を押さえる",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "proof",
+      "lose": "headland_fight"
+     }
+    },
+    {
+     "label": "灯の跡から、籠の鍛冶の刻印を読み取る",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "proof",
+      "lose": "headland_fight"
+     }
+    }
+   ]
+  },
+  "headland_fight": {
+   "art": "war",
+   "text": [
+    "足元の石が鳴った。小屋から男が四人、銛と棒を手に飛び出してくる。「見られたぞ、海へ叩き落とせ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り結ぶ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "proof",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "proof": {
+   "effects": [
+    {
+     "flag": "wreck_proof"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "text": [
+    "油壺と煤けた籠を布に包んだ。籠には{boss}の屋号が焼き込まれている。これで、浜の騒ぎがただの拾い物ではないと示せる。"
+   ],
+   "next": "office"
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で{clerk}に訴える",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は面倒そうに顔を上げた。「難破船の荷は、昔から浜の者の拾い得だ。今さら騒ぎ立てても仕方あるまい」"
+   ],
+   "choices": [
+    {
+     "label": "岬で押さえた油壺と籠を差し出す",
+     "if": {
+      "flag": "wreck_proof"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "「船は偽の灯で岩へ導かれた。人も死んだ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_justice",
+      "lose": "end_saved"
+     }
+    },
+    {
+     "label": "助けた船乗りたちを証人に立てる",
+     "if": {
+      "flag": "wreck_crew"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "end_justice",
+      "lose": "end_saved"
+     }
+    }
+   ]
+  },
+  "end_looter": {
+   "text": [
+    "濡れた絹を担いで浜を離れた。背後で、岩場の船がまたひとつ大きく軋んだ。うめき声の主がどうなったかは、知らない。",
+    "翌日、{boss}の手の者が浜を回り、拾った荷を安く買い叩いていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "wreck_crew"
+    },
+    {
+     "unflag": "wreck_proof"
+    },
+    {
+     "unflag": "wreck_box"
+    },
+    {
+     "money": 40
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "note": "{here}の浜で、難破船の荷を漁った。"
+    }
+   ],
+   "end": "拾い得の絹"
+  },
+  "end_smuggler": {
+   "speaker": "master",
+   "text": [
+    "{master}は箱を受け取ると、浜の外れで待たせていた小舟に積み、拝むようにして銀を握らせた。「この恩は忘れん。また浜で会ったら、酒をおごらせてくれ」",
+    "箱の行き先は聞かなかった。偽の灯の主も、そのまま闇の中だ。"
+   ],
+   "effects": [
+    {
+     "unflag": "wreck_crew"
+    },
+    {
+     "unflag": "wreck_proof"
+    },
+    {
+     "unflag": "wreck_box"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "難破船の抜け荷を、船頭のために運び出した。"
+    }
+   ],
+   "end": "封の箱"
+  },
+  "end_justice": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}の顔色が変わった。その日のうちに{soldier}が{near}へ走り、{boss}と手下は縄を打たれた。蔵からは、これまでの難破船の荷が山のように出てきたという。",
+    "浜の者は拾った荷を返し、生き残った船乗りたちは、礼にと乏しい路銀を分けてくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "wreck_crew"
+    },
+    {
+     "unflag": "wreck_proof"
+    },
+    {
+     "unflag": "wreck_box"
+    },
+    {
+     "money": 90
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{near}の岬で偽の灯をともした{boss}を暴いた。"
+    }
+   ],
+   "end": "岬の灯"
+  },
+  "end_saved": {
+   "text": [
+    "{office}は動かなかった。偽の灯の話は、浜の噂のひとつで終わった。",
+    "それでも、波から引き上げた船乗りたちは生きている。彼らは浜の小屋で傷を癒やし、出ていくときに何度も頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "wreck_crew"
+    },
+    {
+     "unflag": "wreck_proof"
+    },
+    {
+     "unflag": "wreck_box"
+    },
+    {
+     "money": 30
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "note": "{here}の浜で、難破船の船乗りを救った。"
+    }
+   ],
+   "end": "波から引いた命"
+  },
+  "end_beaten": {
+   "text": [
+    "銛の柄で頭を打たれ、気がつくと岬の下の岩場に転がっていた。潮が足もとまで来ている。這い上がったときには、小屋はもぬけの殻だった。"
+   ],
+   "effects": [
+    {
+     "unflag": "wreck_crew"
+    },
+    {
+     "unflag": "wreck_proof"
+    },
+    {
+     "unflag": "wreck_box"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "岬の闇"
+  }
+ }
+}

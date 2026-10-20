@@ -1,0 +1,472 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_plain_locusts",
+ "kind": "random",
+ "where": "market",
+ "most": 2,
+ "again": 300,
+ "trigger": {
+  "terrain": [
+   "plain"
+  ]
+ },
+ "hook": "穀物の値が三日で倍になりました。このままでは皆、飢えてしまう",
+ "title": "蝗と穀物問屋",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "市の小商人"
+  },
+  "dealer": {
+   "npc": "穀物問屋",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "農夫の長",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{market}の穀物の棚が、ほとんど空になっていた。{client}が乾いた声で言う。「蝗の群れが平野を食い尽くしたのです。ところが問屋の{dealer}さまは、{near}の蔵に去年の穀物を山ほど抱えて、出し惜しみしている」",
+    "「値が上がりきるのを待っているのですよ。農家の者たちは、蔵を打ち壊すと息巻いています」"
+   ],
+   "choices": [
+    {
+     "label": "平野の畑を見に行き、農夫たちと話す",
+     "next": "fields"
+    },
+    {
+     "label": "{dealer}に会って、値を下げるよう掛け合う",
+     "next": "dealer"
+    },
+    {
+     "label": "{office}に訴え出る",
+     "next": "office"
+    }
+   ]
+  },
+  "fields": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}へ続く平野の畑を見に行く",
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "見渡すかぎりの畑が、茎ばかりになっていた。空はまだ時おり、羽音を立てる黒い雲に覆われる。農夫の長の{elder}が、鍬を杖にして立っていた。",
+    "「次の群れが来れば、残った畑もやられる。それに、子どもらに食わせる物がない。{dealer}の蔵を打ち壊すしかない、と若い者は言っている」"
+   ],
+   "choices": [
+    {
+     "label": "溝を掘って蝗を追い込み、火で焼く古いやり方を教える",
+     "check": {
+      "skill": "letters",
+      "dc": 25,
+      "win": "saved",
+      "lose": "riot"
+     }
+    },
+    {
+     "label": "{dealer}の蔵を見てくる、と言って一人で向かう",
+     "next": "store"
+    },
+    {
+     "label": "「やるなら、おれが先頭に立とう」",
+     "next": "riot",
+     "guide": "{soldier}が出てくれば、血が流れる"
+    }
+   ]
+  },
+  "saved": {
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "男も女も総出で畑のはずれに長い溝を掘り、群れを追い込んで枯れ草で焼いた。煙の向こうで、残った畑の青い穂が揺れている。",
+    "「これで秋には少しは穫れる」{elder}は煤けた顔で笑った。「蔵の穀物が値を保てるのも、今のうちだけだな」"
+   ],
+   "effects": [
+    {
+     "flag": "loc_saved"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "dealer"
+  },
+  "store": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}にある{dealer}の蔵を探る",
+   "art": "hideout",
+   "text": [
+    "{near}の外れに、{dealer}の蔵が三つ並んでいた。戸には新しい錠前、見張りは二人。床下の通気口から、穀物の匂いが漂ってくる。"
+   ],
+   "choices": [
+    {
+     "label": "夜、通気口から忍び込み、俵の数を確かめる",
+     "check": {
+      "skill": "stealth",
+      "dc": 27,
+      "win": "proof",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "見張りに酒代を握らせ、中を覗かせてもらう",
+     "check": {
+      "skill": "trade",
+      "dc": 25,
+      "win": "proof",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "proof": {
+   "art": "backroom",
+   "text": [
+    "蔵の中には、天井まで俵が積まれていた。蔵役の帳面には、去年の秋から一俵も売っていないと記されている。飢えを待って値を吊り上げているのは明らかだ。"
+   ],
+   "effects": [
+    {
+     "flag": "loc_proof"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "帳面の写しを持って{office}へ",
+     "next": "office"
+    },
+    {
+     "label": "{dealer}本人に突きつける",
+     "next": "dealer"
+    }
+   ]
+  },
+  "dealer": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で{dealer}に会う",
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "{dealer}は肥えた指で算盤代わりの石を弾いた。「穀物は天からの授かり物ではない。わしが買い、わしが蓄えたものだ。いくらで売ろうと勝手だろう」",
+    "そして声を落とした。「あんた、腕が立ちそうだ。蔵の番をしてくれれば、儲けの一分を分けてやる」"
+   ],
+   "choices": [
+    {
+     "label": "「畑は焼き払いで救った。秋には値が崩れる。売るなら今だ」",
+     "if": {
+      "flag": "loc_saved"
+     },
+     "next": "end_fair"
+    },
+    {
+     "label": "蔵の帳面の写しを見せ、{office}に出すと言う",
+     "if": {
+      "flag": "loc_proof"
+     },
+     "next": "end_fair"
+    },
+    {
+     "label": "相場の先行きを説いて、値を下げさせる",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "end_fair",
+      "lose": "riot"
+     }
+    },
+    {
+     "label": "話に乗り、蔵の番を引き受ける",
+     "next": "end_partner",
+     "guide": "飢えた者たちを敵に回すことになる"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で{clerk}に訴える",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は書き物から目を上げずに言った。「売り惜しみを罰する掟はある。だが{dealer}は町の顔役だ。確かな証がなければ動けん」"
+   ],
+   "choices": [
+    {
+     "label": "蔵の帳面の写しを差し出す",
+     "if": {
+      "flag": "loc_proof"
+     },
+     "next": "end_opened"
+    },
+    {
+     "label": "飢饉の年に蔵を開かせた昔の例を引き、願い書を書く",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "end_opened",
+      "lose": "riot"
+     }
+    }
+   ]
+  },
+  "riot": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}の蔵の前へ急ぐ",
+   "art": "war",
+   "text": [
+    "日暮れ、鍬や棒を手にした農夫たちが{dealer}の蔵を取り巻いた。錠前が叩き壊される音がする。そこへ、{soldier}の一隊が駆けつけてきた。"
+   ],
+   "choices": [
+    {
+     "label": "農夫たちの先に立ち、兵を食い止める",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_riot",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "両者の間に立ち、「蔵は役所が開かせる」と叫んで鎮める",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_calm",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "end_opened": {
+   "speaker": "clerk",
+   "text": [
+    "{office}の命で{dealer}の蔵は封を解かれ、穀物は去年の値で売り出された。{market}には長い列ができ、{client}は泣いて喜んだ。",
+    "{dealer}は罰として蔵の一つを召し上げられた。{clerk}は「よく調べた」と、褒美を渡してくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "loc_saved"
+    },
+    {
+     "unflag": "loc_proof"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 3
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    },
+    {
+     "note": "蝗の年に、穀物問屋{dealer}の売り惜しみを{office}に訴えて蔵を開かせた。"
+    }
+   ],
+   "end": "開かれた蔵"
+  },
+  "end_fair": {
+   "speaker": "dealer",
+   "text": [
+    "{dealer}は苦い顔でうなずいた。「わかった、わかった。去年の値に二割乗せて売る。それ以上は負けんぞ」",
+    "{market}にまた穀物が並んだ。{client}は礼にと、店の売り上げから幾らかを包んでくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "loc_saved"
+    },
+    {
+     "unflag": "loc_proof"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "note": "蝗の年に、穀物問屋{dealer}に穀物を売り出させた。"
+    }
+   ],
+   "end": "二割増しの穀物"
+  },
+  "end_partner": {
+   "speaker": "dealer",
+   "text": [
+    "蔵の番をして一月。穀物の値は四倍になり、{dealer}は約束どおり儲けの一分をくれた。",
+    "{near}では、子どもと年寄りが何人も死んだと聞いた。町を歩くと、背中に冷たい目が刺さる。"
+   ],
+   "effects": [
+    {
+     "unflag": "loc_saved"
+    },
+    {
+     "unflag": "loc_proof"
+    },
+    {
+     "money": 220
+    },
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "note": "蝗の年に、穀物問屋{dealer}の蔵の番をして儲けた。"
+    }
+   ],
+   "end": "飢えを売る蔵"
+  },
+  "end_riot": {
+   "speaker": "elder",
+   "text": [
+    "兵は退き、蔵は破られた。農夫たちは俵を担いで闇に消え、{elder}は一袋をこちらに押しつけた。「あんたの分だ」",
+    "だが翌日から、{office}は打ち壊しの首謀者を探し始めた。この土地には、しばらく近寄らない方がよさそうだ。"
+   ],
+   "effects": [
+    {
+     "unflag": "loc_saved"
+    },
+    {
+     "unflag": "loc_proof"
+    },
+    {
+     "item": "rations",
+     "n": 3
+    },
+    {
+     "fame": 2
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "蝗の年に、農夫たちと穀物問屋{dealer}の蔵を打ち壊した。"
+    }
+   ],
+   "end": "打ち壊し"
+  },
+  "end_calm": {
+   "speaker": "elder",
+   "text": [
+    "叫ぶ声に、鍬が一本、また一本と下ろされた。兵の頭も刃を収めた。騒ぎを聞いた{office}は翌日、蔵の穀物の半分を常の値で売らせると触れを出した。",
+    "{elder}は「あんたに止められなきゃ、今ごろ吊るされていた」と苦笑いした。"
+   ],
+   "effects": [
+    {
+     "unflag": "loc_saved"
+    },
+    {
+     "unflag": "loc_proof"
+    },
+    {
+     "money": 30
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 2
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "蝗の年の打ち壊しを鎮め、蔵の穀物を売り出させた。"
+    }
+   ],
+   "end": "鎮まった平野"
+  },
+  "end_beaten": {
+   "text": [
+    "多勢に打ちのめされ、気がつくと畑の畦に転がされていた。蔵は固く閉ざされたまま、穀物の値は上がり続けている。"
+   ],
+   "effects": [
+    {
+     "unflag": "loc_saved"
+    },
+    {
+     "unflag": "loc_proof"
+    },
+    {
+     "hp": -15
+    },
+    {
+     "fame": -1
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    }
+   ],
+   "end": "閉ざされた蔵"
+  }
+ }
+}

@@ -1,0 +1,376 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_plain_mare",
+ "kind": "random",
+ "where": "folk",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "plain"
+  ]
+ },
+ "hook": "ゆうべ、うちの栗毛の牝馬が盗まれたのです",
+ "title": "草原の盗み馬",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "馬飼い",
+   "sex": "f"
+  },
+  "thief": {
+   "npc": "馬盗人の頭",
+   "sex": "m"
+  },
+  "dealer": {
+   "npc": "馬商人",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "町はずれの牧で、{client}が切られた手綱を握りしめていた。夜のうちに柵が外され、いちばん大事にしていた栗毛の牝馬が連れ去られたという。額に白い星のある、四つになったばかりの馬だ。",
+    "「この平野には、馬を盗んでは焼き印を押し直して売る一味がいるんです。早くしないと、どこかへ売られてしまう」"
+   ],
+   "choices": [
+    {
+     "label": "草の倒れ方と蹄の跡を追う",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "tracks",
+      "lose": "lost_trail"
+     }
+    },
+    {
+     "label": "{inn}で、近ごろ馬を売りに来た者がいないか聞き込む",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "rumor",
+      "lose": "lost_trail"
+     }
+    }
+   ]
+  },
+  "tracks": {
+   "art": "road",
+   "text": [
+    "蹄の跡は草原を西へ、{near}の方へまっすぐ延びていた。日の暮れるころ、低い丘の陰に焚き火の煙が見えた。男が四人、馬が六頭。その中に、額に星のある栗毛がいる。"
+   ],
+   "choices": [
+    {
+     "label": "丘の上から矢を射かけ、一味を追い散らす",
+     "check": {
+      "skill": "bow",
+      "dc": 28,
+      "win": "camp_won",
+      "lose": "camp_fight"
+     }
+    },
+    {
+     "label": "闇に紛れて近づき、栗毛の綱だけを切る",
+     "check": {
+      "skill": "theft",
+      "dc": 26,
+      "win": "end_stolen_back",
+      "lose": "camp_fight"
+     }
+    },
+    {
+     "label": "正面から斬り込む",
+     "next": "camp_fight"
+    }
+   ]
+  },
+  "camp_fight": {
+   "speaker": "thief",
+   "art": "war",
+   "text": [
+    "「何だ、てめえは」頭の{thief}が刃を抜き、手下たちが火の周りから立ち上がった。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "camp_won",
+      "lose": "end_trampled"
+     }
+    }
+   ]
+  },
+  "camp_won": {
+   "art": "camp",
+   "text": [
+    "一味は馬を置いて暗い草原へ逃げ散った。だが、栗毛の姿がない。焚き火のそばに落ちていた木の札には、刻み目と「{near}、{dealer}へ」の文字があった。盗んだ馬の売り渡しの控えだ。",
+    "栗毛は夕方のうちに、先に引かれていったらしい。"
+   ],
+   "effects": [
+    {
+     "flag": "mare_tally"
+    },
+    {
+     "xp": "bow",
+     "n": 2
+    }
+   ],
+   "next": "market"
+  },
+  "rumor": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で聞き込む",
+   "speaker": "馬方",
+   "art": "inn",
+   "text": [
+    "{inn}の隅で飲んでいた馬方が、指で卓を叩いた。「{near}の{market}の{dealer}だな。あいつの売る馬はやけに安い。焼き印の跡が妙に新しいんだ」"
+   ],
+   "next": "market"
+  },
+  "lost_trail": {
+   "speaker": "client",
+   "text": [
+    "跡は川べりの砂利で消え、聞き込んでも誰も知らないと言う。{client}が唇を噛んだ。「このあたりで馬が売られるのは、{near}の{market}くらいです。行ってみるしかない」"
+   ],
+   "next": "market"
+  },
+  "market": {
+   "at": {
+    "place": "near",
+    "building": "market"
+   },
+   "goal": "{near}の{market}で栗毛を探す",
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "{near}の馬市の柵の中に、額に星のある栗毛がいた。腰の焼き印は新しく押し直され、毛が焦げている。馬商人の{dealer}がにこやかに近づいてきた。",
+    "「お目が高い。四つの牝馬、よく走りますよ。百五十でいかがです」追いついた{client}が、息を呑んで柵にすがりついた。"
+   ],
+   "choices": [
+    {
+     "label": "盗人の売り渡しの札を突きつけ、役人を呼ぶ",
+     "if": {
+      "flag": "mare_tally"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "{client}に名を呼ばせ、馬が誰に懐くか皆に見せる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_justice",
+      "lose": "dealer_men"
+     }
+    },
+    {
+     "label": "値切りに値切って買い戻す",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "end_bought",
+      "lose": "dealer_men"
+     }
+    },
+    {
+     "label": "夜を待ち、柵から栗毛を連れ出す",
+     "check": {
+      "skill": "theft",
+      "dc": 30,
+      "win": "end_stolen_back",
+      "lose": "dealer_men"
+     }
+    },
+    {
+     "label": "盗人の札を{dealer}に売りつけ、黙っていてやる",
+     "if": {
+      "flag": "mare_tally"
+     },
+     "next": "end_hushed",
+     "guide": "{client}の馬は戻らない"
+    }
+   ]
+  },
+  "dealer_men": {
+   "art": "war",
+   "text": [
+    "{dealer}の顔から笑いが消えた。「言いがかりをつける気か」馬市の裏から、棍棒を持った男たちが出てくる。"
+   ],
+   "choices": [
+    {
+     "label": "男たちを打ち倒し、栗毛を取り戻す",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_stolen_back",
+      "lose": "end_trampled"
+     }
+    }
+   ]
+  },
+  "end_justice": {
+   "speaker": "clerk",
+   "text": [
+    "騒ぎに駆けつけた役人の{clerk}が焼き印を検め、{dealer}に縄を打った。馬市の柵の中から、ほかに五頭の盗み馬が見つかった。",
+    "栗毛は{client}の手に頬をすり寄せた。{client}は涙を拭い、牧の売り上げから礼をくれた。{clerk}も、盗人一味を突き止めた褒美を出してくれた。"
+   ],
+   "effects": [
+    {
+     "unflag": "mare_tally"
+    },
+    {
+     "money": 110
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 3
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{client}の盗まれた牝馬を取り戻し、盗み馬を売る{dealer}を捕らえさせた。"
+    }
+   ],
+   "end": "星の栗毛"
+  },
+  "end_bought": {
+   "speaker": "client",
+   "text": [
+    "半値まで値切って、栗毛を買い戻した。{client}は「この子が戻るなら」と、払った分に礼を足して返してくれた。",
+    "{dealer}は何食わぬ顔で、次の客に別の馬を勧めている。あの男の馬市は、まだ続くのだろう。"
+   ],
+   "effects": [
+    {
+     "unflag": "mare_tally"
+    },
+    {
+     "money": 40
+    },
+    {
+     "fame": 2
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "note": "盗まれた{client}の牝馬を、馬市で買い戻した。"
+    }
+   ],
+   "end": "買い戻した馬"
+  },
+  "end_stolen_back": {
+   "speaker": "client",
+   "text": [
+    "栗毛を連れて夜の草原を駆けた。{client}は牧の柵の前で馬の首を抱き、何度も礼を言った。",
+    "ただ、盗人の一味も{dealer}も無事なままだ。「あの連中、顔を覚えたでしょうね」{client}は少し不安そうに言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "mare_tally"
+    },
+    {
+     "money": 60
+    },
+    {
+     "fame": 2
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "xp": "theft",
+     "n": 3
+    },
+    {
+     "note": "盗まれた{client}の牝馬を、力ずくで取り戻した。"
+    }
+   ],
+   "end": "夜の草原"
+  },
+  "end_trampled": {
+   "text": [
+    "多勢に囲まれて打ちのめされ、気がつくと草の上に倒れていた。蹄の音はとうに遠ざかっている。",
+    "{client}の栗毛が、その後どこへ売られていったのかはわからない。"
+   ],
+   "effects": [
+    {
+     "unflag": "mare_tally"
+    },
+    {
+     "hp": -18
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "遠ざかる蹄"
+  },
+  "end_hushed": {
+   "speaker": "dealer",
+   "text": [
+    "{dealer}は札を受け取ると、黙って重い袋を寄こした。「話のわかるお人だ」",
+    "振り返ると、{client}が柵の前に立ち尽くしていた。栗毛は、その日のうちに遠くの客に売られていった。"
+   ],
+   "effects": [
+    {
+     "unflag": "mare_tally"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "note": "盗み馬の証を馬商人{dealer}に売り、口をつぐんだ。"
+    }
+   ],
+   "end": "口止めの袋"
+  }
+ }
+}

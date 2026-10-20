@@ -423,6 +423,132 @@
    "title": "賭場の見張り"
   },
   {
+   "id": "land_forest_trap",
+   "file": "land_forest_trap.json",
+   "kind": "random",
+   "era": "*",
+   "title": "森の罠"
+  },
+  {
+   "id": "land_forest_felling",
+   "file": "land_forest_felling.json",
+   "kind": "random",
+   "era": "*",
+   "title": "斧の境"
+  },
+  {
+   "id": "land_forest_deserters",
+   "file": "land_forest_deserters.json",
+   "kind": "random",
+   "era": "*",
+   "title": "森の逃亡兵"
+  },
+  {
+   "id": "land_plain_locusts",
+   "file": "land_plain_locusts.json",
+   "kind": "random",
+   "era": "*",
+   "title": "蝗と穀物問屋"
+  },
+  {
+   "id": "land_plain_mare",
+   "file": "land_plain_mare.json",
+   "kind": "random",
+   "era": "*",
+   "title": "草原の盗み馬"
+  },
+  {
+   "id": "land_plain_well",
+   "file": "land_plain_well.json",
+   "kind": "random",
+   "era": "*",
+   "title": "祭りの井戸"
+  },
+  {
+   "id": "land_dry_dust",
+   "file": "land_dry_dust.json",
+   "kind": "random",
+   "era": "*",
+   "title": "砂嵐の隊商"
+  },
+  {
+   "id": "land_dry_spring",
+   "file": "land_dry_spring.json",
+   "kind": "random",
+   "era": "*",
+   "title": "涸れ井戸と秘密の泉"
+  },
+  {
+   "id": "land_dry_bones",
+   "file": "land_dry_bones.json",
+   "kind": "random",
+   "era": "*",
+   "title": "荒れ野の白骨"
+  },
+  {
+   "id": "land_coast_wreck",
+   "file": "land_coast_wreck.json",
+   "kind": "random",
+   "era": "*",
+   "title": "岩礁の難破船"
+  },
+  {
+   "id": "land_coast_pirates",
+   "file": "land_coast_pirates.json",
+   "kind": "random",
+   "era": "*",
+   "title": "新月の浜"
+  },
+  {
+   "id": "land_coast_salt",
+   "file": "land_coast_salt.json",
+   "kind": "random",
+   "era": "*",
+   "title": "塩浜の争い"
+  },
+  {
+   "id": "land_river_dyke",
+   "file": "land_river_dyke.json",
+   "kind": "random",
+   "era": "*",
+   "title": "切れかけた堤"
+  },
+  {
+   "id": "land_river_ferry",
+   "file": "land_river_ferry.json",
+   "kind": "random",
+   "era": "*",
+   "title": "渡し守の舟"
+  },
+  {
+   "id": "land_river_toll",
+   "file": "land_river_toll.json",
+   "kind": "random",
+   "era": "*",
+   "title": "川筋の鎖"
+  },
+  {
+   "id": "land_mountain_slide",
+   "file": "land_mountain_slide.json",
+   "kind": "random",
+   "era": "*",
+   "title": "崩れた峠道"
+  },
+  {
+   "id": "land_mountain_mine",
+   "file": "land_mountain_mine.json",
+   "kind": "random",
+   "era": "*",
+   "title": "谷の奥の坑"
+  },
+  {
+   "id": "land_mountain_hermit",
+   "file": "land_mountain_hermit.json",
+   "kind": "random",
+   "era": "*",
+   "title": "山の薬師"
+  },
+  {
    "id": "shunju_rank2_shi",
    "file": "shunju_rank2_shi.json",
    "kind": "rank",

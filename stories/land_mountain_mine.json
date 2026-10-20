@@ -1,0 +1,543 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_mountain_mine",
+ "kind": "random",
+ "where": "inn",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "mountain"
+  ]
+ },
+ "hook": "谷の奥の坑に、兄がまだ繋がれているのです",
+ "title": "谷の奥の坑",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "逃げてきた坑夫",
+   "sex": "m"
+  },
+  "brother": {
+   "npc": "坑夫",
+   "sex": "m"
+  },
+  "boss": {
+   "npc": "坑の親方",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{inn}の土間の隅で、若い男が粥をかきこんでいた。足首に、枷の擦れた痕が赤黒く残っている。{client}と名乗った。",
+    "「{near}の谷の奥に、古い鉄の坑があります。親方の{boss}に前借りで雇われたら、飯代も灯の油代もみな借りにされて、何年働いても借りが減らない。逃げようとした者は枷をはめられる。兄の{brother}が、まだ中にいるんです」"
+   ],
+   "choices": [
+    {
+     "label": "{office}へ行き、坑を改めさせる",
+     "next": "office"
+    },
+    {
+     "label": "人足に化けて、坑に雇われる",
+     "next": "gate"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で坑のことを訴える",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は渋い顔をした。「{boss}の坑は、毎年鉄をきちんと納めている。借りのある者が働いて返すのは当たり前ではないか」"
+   ],
+   "choices": [
+    {
+     "label": "枷の痕を見せ、改めの書付を出してほしいと説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "writ",
+      "lose": "gate"
+     }
+    },
+    {
+     "label": "前借りの証文を書き写させ、利の計算が法外だと示す",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "writ",
+      "lose": "gate"
+     }
+    }
+   ]
+  },
+  "writ": {
+   "speaker": "clerk",
+   "effects": [
+    {
+     "flag": "mine_writ"
+    }
+   ],
+   "text": [
+    "{clerk}はしばらく唸ってから、一枚の{letter}に印を押した。「坑の帳面を改める許しだ。ただし、わしは行かん。何かあっても知らんぞ」"
+   ],
+   "next": "gate"
+  },
+  "gate": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}の谷の奥の坑へ行く",
+   "speaker": "boss",
+   "art": "camp",
+   "text": [
+    "谷の奥、切り立った崖の下に坑の口が黒く開いていた。煙を吐く炉のまわりで、やせた男たちが鉄の塊を運んでいる。見張りの男が鞭を下げて立っていた。",
+    "小屋から出てきた{boss}が、こちらを品定めするように眺めた。「働き口を探しているのか」"
+   ],
+   "choices": [
+    {
+     "label": "印の押された{letter}を突きつけ、帳面を改める",
+     "if": {
+      "flag": "mine_writ"
+     },
+     "next": "inspect"
+    },
+    {
+     "label": "「働かせてくれ」と頭を下げ、坑に入る",
+     "next": "inside"
+    },
+    {
+     "label": "夜を待ち、崖づたいに忍びこむ",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "inside",
+      "lose": "gate_fight"
+     }
+    }
+   ]
+  },
+  "gate_fight": {
+   "art": "war",
+   "text": [
+    "崖の石が崩れ、見張りの松明がこちらを照らした。「逃げた坑夫の仲間か」鞭と棒を持った男たちが駆け寄ってくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "inside",
+      "lose": "end_caught"
+     }
+    }
+   ]
+  },
+  "inspect": {
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{letter}を見た{boss}は、帳面を出すかわりに、銀の包みを差し出した。「役人の書付ひとつで、坑は止まらん。それより、うちで見張りの頭をやらんか。手当は今の倍出す」"
+   ],
+   "choices": [
+    {
+     "label": "包みを払いのけ、帳面を出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_law",
+      "lose": "inside"
+     }
+    },
+    {
+     "label": "見張りの頭を引き受ける",
+     "next": "end_overseer",
+     "guide": "坑夫たちを鞭で追う側に回ることになる"
+    }
+   ]
+  },
+  "inside": {
+   "speaker": "brother",
+   "art": "jail",
+   "text": [
+    "坑の奥は、油の煙と鉄の匂いで息が詰まりそうだった。筵の上で、{brother}が咳きこんでいた。弟の名を出すと、目に涙を浮かべた。",
+    "坑の口の小屋には、坑夫ひとりひとりの借りを刻んだ木札が、壁一面に吊るされている。"
+   ],
+   "choices": [
+    {
+     "label": "夜のうちに借りの木札を下ろし、炉にくべる",
+     "check": {
+      "skill": "theft",
+      "dc": 26,
+      "win": "tally",
+      "lose": "escape"
+     }
+    },
+    {
+     "label": "{brother}の胸の病を診て、薬を煎じる",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "tend",
+      "lose": "escape"
+     }
+    },
+    {
+     "label": "坑夫たちに、ともに立とうと呼びかける",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "rouse",
+      "lose": "escape"
+     }
+    }
+   ]
+  },
+  "tally": {
+   "effects": [
+    {
+     "flag": "mine_tally"
+    },
+    {
+     "xp": "theft",
+     "n": 2
+    }
+   ],
+   "text": [
+    "木札は炉の中で音を立てて燃えた。何年分もの借りが、ひと晩で灰になった。灰を見つめる坑夫たちの目が、少しずつ変わっていく。"
+   ],
+   "next": "escape"
+  },
+  "tend": {
+   "effects": [
+    {
+     "flag": "mine_brother"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "text": [
+    "煎じた薬を飲ませると、{brother}の咳は少し落ち着いた。「これなら、歩ける。山を下りられる」"
+   ],
+   "next": "escape"
+  },
+  "rouse": {
+   "effects": [
+    {
+     "flag": "mine_rouse"
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "text": [
+    "坑の奥の暗がりで、坑夫たちは鶴嘴を握りしめてうなずいた。「借りで縛られて死ぬより、ましだ」"
+   ],
+   "next": "escape"
+  },
+  "escape": {
+   "art": "hideout",
+   "text": [
+    "夜半。見張りは炉の火のそばでうたた寝をしている。坑の口から谷の道までは、ひと息に駆ければ届く距離だ。"
+   ],
+   "choices": [
+    {
+     "label": "坑夫たちを率いて、見張りに立ち向かう",
+     "if": {
+      "flag": "mine_rouse"
+     },
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_rising",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "借りの消えた坑夫たちを、ひとりずつ静かに外へ出す",
+     "if": {
+      "flag": "mine_tally"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_escape",
+      "lose": "escape_fight"
+     }
+    },
+    {
+     "label": "{brother}を支えて、二人だけで抜け出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "end_brother",
+      "lose": "escape_fight"
+     }
+    }
+   ]
+  },
+  "escape_fight": {
+   "art": "war",
+   "text": [
+    "見張りが目を覚ました。「逃げるぞ」鞭が空を裂き、{boss}が手下を連れて小屋から飛び出してくる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り結ぶ",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_brother",
+      "lose": "end_caught"
+     }
+    }
+   ]
+  },
+  "end_law": {
+   "speaker": "client",
+   "text": [
+    "{boss}はしぶしぶ帳面を出した。利に利を重ねた書き方は、誰の目にも明らかだった。{office}は坑を改め、借りの半分を棒引きにさせ、枷を外させた。",
+    "{here}の{inn}で、{client}は兄と抱き合った。「これで、胸を張って家に帰れる」"
+   ],
+   "effects": [
+    {
+     "unflag": "mine_writ"
+    },
+    {
+     "unflag": "mine_tally"
+    },
+    {
+     "unflag": "mine_brother"
+    },
+    {
+     "unflag": "mine_rouse"
+    },
+    {
+     "money": 80
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 4
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "note": "{near}の坑の親方{boss}の不当な借りを、{office}の書付で改めさせた。"
+    }
+   ],
+   "end": "改められた坑"
+  },
+  "end_escape": {
+   "speaker": "brother",
+   "text": [
+    "星明かりの谷を、坑夫たちが一列になって下りていった。誰も声を上げなかった。夜が明けたとき、坑の口に残っていたのは、{boss}と見張りだけだった。",
+    "{brother}は弟の肩を抱いて言った。「みな、生まれた里へ帰る。あんたの名は、里ごとに語り継がれるだろう」"
+   ],
+   "effects": [
+    {
+     "unflag": "mine_writ"
+    },
+    {
+     "unflag": "mine_tally"
+    },
+    {
+     "unflag": "mine_brother"
+    },
+    {
+     "unflag": "mine_rouse"
+    },
+    {
+     "money": 40
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "note": "{near}の坑で借りの木札を焼き、坑夫たちを逃がした。"
+    }
+   ],
+   "end": "星明かりの谷"
+  },
+  "end_rising": {
+   "text": [
+    "鶴嘴と棒を手にした坑夫たちが、見張りを炉の前に押し倒した。{boss}は崖の小道から逃げ出し、坑には坑夫たちだけが残った。",
+    "「この坑は、これからおれたちで掘る」{brother}がそう言うと、男たちは鉄の塊を一つ差し出した。"
+   ],
+   "effects": [
+    {
+     "unflag": "mine_writ"
+    },
+    {
+     "unflag": "mine_tally"
+    },
+    {
+     "unflag": "mine_brother"
+    },
+    {
+     "unflag": "mine_rouse"
+    },
+    {
+     "money": 60
+    },
+    {
+     "item": "iron",
+     "n": 1
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{near}の坑で、坑夫たちとともに立ち、親方{boss}を追い出した。"
+    }
+   ],
+   "end": "坑夫の坑"
+  },
+  "end_brother": {
+   "speaker": "client",
+   "text": [
+    "{brother}を背負うようにして谷を下り、{here}の{inn}へたどり着いた。{client}は兄の手を握って泣いた。",
+    "坑には、まだ大勢が残っている。それでも、この兄弟にとっては、何より大きな一夜だった。"
+   ],
+   "effects": [
+    {
+     "unflag": "mine_writ"
+    },
+    {
+     "unflag": "mine_tally"
+    },
+    {
+     "unflag": "mine_brother"
+    },
+    {
+     "unflag": "mine_rouse"
+    },
+    {
+     "money": 30
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "note": "{near}の坑から、{client}の兄{brother}を連れ出した。"
+    }
+   ],
+   "end": "連れ戻した兄"
+  },
+  "end_caught": {
+   "text": [
+    "多勢に打ち倒され、気がつくと坑の奥の筵の上だった。足首に冷たい枷がはまっている。三日目の夜、{brother}が枷の留め釘を緩めてくれ、ひとりで谷を逃げ下りた。"
+   ],
+   "effects": [
+    {
+     "unflag": "mine_writ"
+    },
+    {
+     "unflag": "mine_tally"
+    },
+    {
+     "unflag": "mine_brother"
+    },
+    {
+     "unflag": "mine_rouse"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -2
+    },
+    {
+     "pass": 4320
+    }
+   ],
+   "end": "枷の三日"
+  },
+  "end_overseer": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は満足げに笑い、鞭を一本手渡した。「坑夫は甘やかすと逃げる。そこをよく覚えておけ」",
+    "翌朝、{here}の{inn}で待っていた{client}のもとへは、誰も帰らなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "mine_writ"
+    },
+    {
+     "unflag": "mine_tally"
+    },
+    {
+     "unflag": "mine_brother"
+    },
+    {
+     "unflag": "mine_rouse"
+    },
+    {
+     "money": 150
+    },
+    {
+     "fame": -5
+    },
+    {
+     "rep": "realm",
+     "n": -3
+    },
+    {
+     "note": "{near}の坑で、親方{boss}の見張りの頭になった。"
+    }
+   ],
+   "end": "鞭の手当"
+  }
+ }
+}

@@ -1,0 +1,524 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_coast_pirates",
+ "kind": "random",
+ "where": "inn",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "coast"
+  ]
+ },
+ "hook": "新月の夜になると、海から賊が来るのです。村を守ってはもらえませんか",
+ "title": "新月の浜",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "網元"
+  },
+  "chief": {
+   "npc": "賊の頭",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "漁村の老婆",
+   "sex": "f"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{inn}の隅で、日焼けした{client}が酒にも手をつけずに座っていた。「{near}の浜の網元をしております。新月の夜ごとに、{pirate}が舟で乗りつけて、干し魚も網も、娘までさらっていく。次の新月は七日後です」",
+    "「{office}には何度も頼みました。だが海のことは浜の者でやれと言われるばかりで」"
+   ],
+   "choices": [
+    {
+     "label": "{near}の浜へ行き、守りを固める",
+     "next": "village"
+    },
+    {
+     "label": "{office}へ掛け合い、{soldier}を出させる",
+     "next": "office"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で{clerk}に掛け合う",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は帳面から目も上げなかった。「漁村ひとつのために{soldier}を割く余裕はない。網元が自分の銭で人を雇えばよかろう」"
+   ],
+   "choices": [
+    {
+     "label": "「浜が荒れれば、塩も魚も{market}に来なくなる」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "office_ok",
+      "lose": "office_ng"
+     }
+    },
+    {
+     "label": "過去の襲撃を書き上げ、届け書にして差し出す",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "office_ok",
+      "lose": "office_ng"
+     }
+    }
+   ]
+  },
+  "office_ok": {
+   "speaker": "clerk",
+   "effects": [
+    {
+     "flag": "pir_soldiers"
+    }
+   ],
+   "text": [
+    "{clerk}は渋い顔のまま筆を取った。「……新月の夜だけだ。{soldier}を十人、浜へ回す。それ以上は出せん」"
+   ],
+   "next": "village"
+  },
+  "office_ng": {
+   "speaker": "clerk",
+   "text": [
+    "「帰れ。浜の揉め事に、いちいち付き合っておれん」{clerk}は手を振った。あとは浜の者だけでやるしかない。"
+   ],
+   "next": "village"
+  },
+  "village": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}の漁村へ行く",
+   "speaker": "elder",
+   "art": "voyage",
+   "text": [
+    "{near}の浜には、焼けた舟が二艘、波打ち際に転がっていた。男たちは網を繕う手を止め、怯えた目でこちらを見る。",
+    "{elder}が杖をついて寄ってきた。「賊どもは東の入り江から来る。あの頭は、昔この村にいた男だよ。網元に聞いてごらん、なぜ出ていったのか」"
+   ],
+   "choices": [
+    {
+     "label": "漁師たちに棒と銛の構えを教える",
+     "check": {
+      "skill": "blade",
+      "dc": 25,
+      "win": "drilled",
+      "lose": "raid"
+     }
+    },
+    {
+     "label": "浜に網を張り、舟を引っかける罠を仕掛ける",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "trapped",
+      "lose": "raid"
+     }
+    },
+    {
+     "label": "東の入り江へ、賊の舟を探りに行く",
+     "next": "cove"
+    }
+   ]
+  },
+  "drilled": {
+   "effects": [
+    {
+     "flag": "pir_drill"
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    }
+   ],
+   "text": [
+    "五日のあいだ、浜で男たちに銛の突き方を教えた。へっぴり腰だった若者も、最後には声を揃えて突き出せるようになった。"
+   ],
+   "next": "raid"
+  },
+  "trapped": {
+   "effects": [
+    {
+     "flag": "pir_trap"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "text": [
+    "古い網を何枚もつなぎ、浅瀬の杭に渡した。満ち潮になれば水の下に隠れる。舟が乗り上げれば、櫂も舵も絡め取られるはずだ。"
+   ],
+   "next": "raid"
+  },
+  "cove": {
+   "art": "hideout",
+   "text": [
+    "入り江の奥の洞に、舟が三艘つないであった。焚き火のまわりで、男たちが干し魚をかじっている。皆、やせこけていた。"
+   ],
+   "choices": [
+    {
+     "label": "岩陰に忍び寄り、話を盗み聞く",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "truth",
+      "lose": "cove_fight"
+     }
+    },
+    {
+     "label": "舟の底に穴をあけておく",
+     "check": {
+      "skill": "theft",
+      "dc": 28,
+      "win": "trapped",
+      "lose": "cove_fight"
+     }
+    }
+   ]
+  },
+  "cove_fight": {
+   "art": "war",
+   "text": [
+    "見張りに見つかった。「網元の犬か」叫び声とともに、男たちが銛を手に立ち上がる。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜けて逃れる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "raid",
+      "lose": "end_burned"
+     }
+    }
+   ]
+  },
+  "truth": {
+   "speaker": "chief",
+   "effects": [
+    {
+     "flag": "pir_truth"
+    }
+   ],
+   "text": [
+    "焚き火のそばで、頭の{chief}が吐き捨てるように言った。「網元の借りは、利に利が積もって、返しても返しても減らねえ。舟を取られ、家を取られ、それでも足りねえと女房まで連れていかれた」",
+    "「だから奪い返してるだけだ。新月の晩、網元の蔵ごといただく」"
+   ],
+   "next": "raid"
+  },
+  "raid": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "新月の夜、{near}の浜で待つ",
+   "art": "war",
+   "text": [
+    "新月の夜。黒い海から櫂の音が近づいてくる。三艘の舟の先頭に、{chief}が立っていた。村の男たちは震える手で銛を握り、網元の{client}は蔵の前で青い顔をしている。"
+   ],
+   "choices": [
+    {
+     "label": "{office}の{soldier}に合図し、浜で迎え撃つ",
+     "if": {
+      "flag": "pir_soldiers"
+     },
+     "next": "held"
+    },
+    {
+     "label": "網の罠に舟が絡んだところへ斬りこむ",
+     "if": {
+      "flag": "pir_trap"
+     },
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "held",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "鍛えた漁師たちと並び、銛を揃えて迎え撃つ",
+     "if": {
+      "flag": "pir_drill"
+     },
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "held",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "舟に向かって叫ぶ。「{chief}、網元の借りの話をしよう」",
+     "if": {
+      "flag": "pir_truth"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "parley",
+      "lose": "raid_fight"
+     }
+    },
+    {
+     "label": "網元の銭で手を打つよう持ちかける",
+     "check": {
+      "skill": "trade",
+      "dc": 28,
+      "win": "end_paid",
+      "lose": "raid_fight"
+     }
+    },
+    {
+     "label": "ひとりで浜に立ちはだかる",
+     "next": "raid_fight"
+    }
+   ]
+  },
+  "raid_fight": {
+   "art": "war",
+   "text": [
+    "舟が浜に乗り上げ、男たちが雄叫びを上げて飛び降りてきた。"
+   ],
+   "choices": [
+    {
+     "label": "斬り結ぶ",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 0,
+      "win": "held",
+      "lose": "end_burned"
+     }
+    }
+   ]
+  },
+  "held": {
+   "art": "war",
+   "text": [
+    "浜に倒れた賊が呻き、残りは舟を押して闇の海へ逃げていった。{chief}は膝をつき、縛られた。",
+    "村の者が松明を掲げて集まってくる。{client}が駆け寄ってきて、「首を刎ねてしまえ」と怒鳴った。"
+   ],
+   "choices": [
+    {
+     "label": "{chief}を{office}へ突き出す",
+     "next": "end_held"
+    },
+    {
+     "label": "網元の借りの証文を、村の者の前で読み上げさせる",
+     "if": {
+      "flag": "pir_truth"
+     },
+     "next": "parley"
+    }
+   ]
+  },
+  "parley": {
+   "speaker": "chief",
+   "art": "tale",
+   "text": [
+    "{client}は村の者の目に囲まれ、しぶしぶ証文の束を出した。読み上げると、同じ借りが三度も書き換えられ、利が元の五倍にふくれていた。浜がざわめいた。",
+    "{chief}が低く言った。「借りが消えるなら、舟を捨ててもいい。おれたちは漁師に戻りたいだけだ」"
+   ],
+   "choices": [
+    {
+     "label": "証文を焼かせ、賊を村に戻す",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "end_settled",
+      "lose": "end_held"
+     }
+    },
+    {
+     "label": "帳面の書き換えを一つずつ示し、網元を黙らせる",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "end_settled",
+      "lose": "end_held"
+     }
+    }
+   ]
+  },
+  "end_held": {
+   "speaker": "client",
+   "text": [
+    "{chief}は縄を打たれ、{here}へ引かれていった。浜には久しぶりに静かな朝が来た。{client}は銀を包んで差し出し、村の者は干し魚を持たせてくれた。",
+    "ただ、引かれていく{chief}の目は、最後まで網元の蔵を見ていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "pir_soldiers"
+    },
+    {
+     "unflag": "pir_drill"
+    },
+    {
+     "unflag": "pir_trap"
+    },
+    {
+     "unflag": "pir_truth"
+    },
+    {
+     "money": 120
+    },
+    {
+     "item": "rations",
+     "n": 2
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 3
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "note": "{near}の浜で、新月の夜に{pirate}を退けた。"
+    }
+   ],
+   "end": "守られた浜"
+  },
+  "end_settled": {
+   "speaker": "elder",
+   "text": [
+    "証文の束が焚き火に投げこまれ、夜空に火の粉が舞った。{chief}と手下たちは舟を浜に引き上げ、翌朝から網を繕い始めた。",
+    "{elder}が笑った。「賊が漁師に戻った浜なんて、聞いたことがないよ」網元の{client}だけが、恨めしそうに灰を見ていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "pir_soldiers"
+    },
+    {
+     "unflag": "pir_drill"
+    },
+    {
+     "unflag": "pir_trap"
+    },
+    {
+     "unflag": "pir_truth"
+    },
+    {
+     "money": 40
+    },
+    {
+     "fame": 7
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{near}の浜で、網元の借りを焼かせ、{pirate}を漁師に戻した。"
+    }
+   ],
+   "end": "焼けた証文"
+  },
+  "end_paid": {
+   "speaker": "chief",
+   "text": [
+    "{client}の銀袋を舟へ放ると、{chief}はそれを量るように手の上で弾ませた。「今度の新月は、休んでやる」",
+    "舟は闇へ消えた。浜は焼かれずに済んだ。だが、その次の新月がどうなるかは誰にもわからない。"
+   ],
+   "effects": [
+    {
+     "unflag": "pir_soldiers"
+    },
+    {
+     "unflag": "pir_drill"
+    },
+    {
+     "unflag": "pir_trap"
+    },
+    {
+     "unflag": "pir_truth"
+    },
+    {
+     "money": 30
+    },
+    {
+     "fame": 1
+    },
+    {
+     "xp": "trade",
+     "n": 2
+    },
+    {
+     "note": "{near}の浜の{pirate}を、銀で引き下がらせた。"
+    }
+   ],
+   "end": "一夜の手打ち"
+  },
+  "end_burned": {
+   "text": [
+    "多勢に押し返され、砂の上に倒れた。気がついたときには、網元の蔵と舟小屋が燃え落ちていた。",
+    "{elder}が黙って傷に布を巻いてくれた。責める言葉は、ひとつもなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "pir_soldiers"
+    },
+    {
+     "unflag": "pir_drill"
+    },
+    {
+     "unflag": "pir_trap"
+    },
+    {
+     "unflag": "pir_truth"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    }
+   ],
+   "end": "燃えた浜"
+  }
+ }
+}

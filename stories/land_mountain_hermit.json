@@ -1,0 +1,545 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_mountain_hermit",
+ "kind": "random",
+ "where": "shrine",
+ "most": 2,
+ "again": 200,
+ "trigger": {
+  "terrain": [
+   "mountain"
+  ]
+ },
+ "hook": "子の熱が下がらないのです。山の上の薬師さまなら、と言われましたが……",
+ "title": "山の薬師",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "祈りに来た母親",
+   "sex": "f"
+  },
+  "child": {
+   "npc": "幼子",
+   "sex": "m"
+  },
+  "doctor": {
+   "npc": "町の医者",
+   "sex": "m"
+  },
+  "hermit": {
+   "npc": "山の薬師",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{shrine}の前で、{client}が額を地につけて祈っていた。顔を上げると、泣き腫らした目でこちらを見た。",
+    "「息子の{child}が、七日も熱にうなされています。町のお医者の薬は効かない。{near}の上の山に、薬草に通じたお年寄りが住んでいると聞きました。でも、近ごろ山道に狼が出て、もう三人も噛まれたのです」"
+   ],
+   "choices": [
+    {
+     "label": "山へ薬師を訪ねに行く",
+     "next": "path"
+    },
+    {
+     "label": "まず町の医者に、子の病を聞く",
+     "next": "doctor"
+    }
+   ]
+  },
+  "doctor": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}の医者の家を訪ねる",
+   "speaker": "doctor",
+   "art": "backroom",
+   "text": [
+    "{doctor}は薬棚の前で鼻を鳴らした。「山の爺は毒使いだ。あんな者の草を飲ませたら、子は死ぬぞ」",
+    "それから、声を落とした。「だが、あの爺の書きためた薬の書には値打ちがある。山へ行くなら、盗んできてくれ。銀を弾もう」"
+   ],
+   "choices": [
+    {
+     "label": "話に乗るふりをして引き受ける",
+     "effects": [
+      {
+       "flag": "herb_deal"
+      }
+     ],
+     "next": "path"
+    },
+    {
+     "label": "{doctor}が子に出した薬を見せてもらう",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "wrong",
+      "lose": "path"
+     }
+    },
+    {
+     "label": "断って山へ向かう",
+     "next": "path"
+    }
+   ]
+  },
+  "wrong": {
+   "effects": [
+    {
+     "flag": "herb_wrong"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "text": [
+    "薬包みを開いてみると、熱を冷ます草ではなく、ただの胃の薬だった。しかも量が多すぎる。{doctor}は子の病を見立て違えたまま、高い薬代を取っていたのだ。"
+   ],
+   "next": "path"
+  },
+  "path": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}から山道を登る",
+   "art": "road",
+   "text": [
+    "{near}の外れから、細い山道が杉の森へ延びていた。中腹まで登ったとき、藪がざわりと鳴った。",
+    "道の先に、灰色の大きな狼が一頭、こちらをにらんで低く唸っている。口のまわりが赤い。"
+   ],
+   "choices": [
+    {
+     "label": "刀を抜いて迎え撃つ",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 0,
+      "win": "hut",
+      "lose": "end_mauled"
+     }
+    },
+    {
+     "label": "矢を射かけて追い払う",
+     "check": {
+      "skill": "bow",
+      "dc": 26,
+      "win": "hut",
+      "lose": "path_fight"
+     }
+    },
+    {
+     "label": "風下へ回り、獣道を抜けて遠回りする",
+     "check": {
+      "skill": "stealth",
+      "dc": 25,
+      "win": "hut",
+      "lose": "path_fight"
+     }
+    }
+   ]
+  },
+  "path_fight": {
+   "art": "war",
+   "text": [
+    "狼が跳んだ。避ける間もなく、牙が目の前に迫る。"
+   ],
+   "choices": [
+    {
+     "label": "組み合う",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 0,
+      "win": "hut",
+      "lose": "end_mauled"
+     }
+    }
+   ]
+  },
+  "hut": {
+   "at": {
+    "place": "near",
+    "building": "house"
+   },
+   "goal": "山の上の薬師の庵を訪ねる",
+   "speaker": "hermit",
+   "art": "tale",
+   "text": [
+    "岩棚の上の小さな庵で、白髪の{hermit}が草を干していた。話を聞くと、皺の奥の目でこちらをじっと見た。",
+    "「熱冷ましの根は、この崖の上にしか生えておらん。わしの足では、もう採りに行けぬ。採ってくるか、それともこの棚の草から、正しい一つを選んでみるか」",
+    "庵の奥の文机に、紐で綴じた古い書が積まれている。"
+   ],
+   "choices": [
+    {
+     "label": "崖をよじ登り、根を採ってくる",
+     "check": {
+      "skill": "blade",
+      "dc": 25,
+      "win": "cure",
+      "lose": "cure_hurt"
+     }
+    },
+    {
+     "label": "棚の草を見比べ、熱冷ましの根を言い当てる",
+     "check": {
+      "skill": "medicine",
+      "dc": 26,
+      "win": "cure",
+      "lose": "cure_hurt"
+     }
+    },
+    {
+     "label": "{hermit}が崖を見ている隙に、文机の書を懐に入れる",
+     "if": {
+      "flag": "herb_deal"
+     },
+     "check": {
+      "skill": "theft",
+      "dc": 28,
+      "win": "book",
+      "lose": "book_caught"
+     },
+     "guide": "恩人から盗むことになる"
+    }
+   ]
+  },
+  "cure_hurt": {
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "text": [
+    "足を滑らせ、岩で膝を裂いた。{hermit}はため息をついて、自ら杖をついて崖の下まで下り、根を一本掘ってきてくれた。「若い者が無茶をする」"
+   ],
+   "next": "cure"
+  },
+  "cure": {
+   "speaker": "hermit",
+   "effects": [
+    {
+     "flag": "herb_cure"
+    },
+    {
+     "item": "herbs",
+     "n": 1
+    }
+   ],
+   "text": [
+    "{hermit}は根を刻んで包み、煎じ方を三度繰り返して教えた。「一日に三度。量を違えるな。違えれば、薬も毒になる。町の医者にも、そう伝えておけ」"
+   ],
+   "next": "return"
+  },
+  "book": {
+   "effects": [
+    {
+     "flag": "herb_book"
+    },
+    {
+     "flag": "herb_cure"
+    },
+    {
+     "item": "herbs",
+     "n": 1
+    }
+   ],
+   "text": [
+    "書を一冊、着物の下に滑りこませた。{hermit}は何も気づかぬ様子で、根の包みを手渡してくれた。山を下りる足が、妙に重かった。"
+   ],
+   "next": "return"
+  },
+  "book_caught": {
+   "speaker": "hermit",
+   "text": [
+    "「その書は、町の医者に頼まれたのじゃろう」{hermit}は振り返りもせずに言った。手が止まった。",
+    "「持っていくがよい。中身はとうに頭に入っておる。ただ、子の薬だけは忘れるな」{hermit}は書と一緒に、根の包みを差し出した。"
+   ],
+   "choices": [
+    {
+     "label": "書を返し、頭を下げて薬だけを受け取る",
+     "effects": [
+      {
+       "unflag": "herb_deal"
+      }
+     ],
+     "next": "cure"
+    },
+    {
+     "label": "書も薬も受け取る",
+     "next": "book"
+    }
+   ]
+  },
+  "return": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の{shrine}へ戻り、母子のもとへ",
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{shrine}の脇の小屋で、{child}はまだ熱にうなされていた。{client}がすがるような目でこちらを見る。"
+   ],
+   "choices": [
+    {
+     "label": "教わったとおりに根を煎じて飲ませる",
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "cured",
+      "lose": "end_slow"
+     }
+    },
+    {
+     "label": "{client}に煎じ方を教え、母の手で飲ませる",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "cured",
+      "lose": "end_slow"
+     }
+    }
+   ]
+  },
+  "cured": {
+   "speaker": "client",
+   "text": [
+    "夜半、{child}の額に汗が浮き、熱が引いていった。明け方には、母の膝の上で粥をすすっていた。{client}は声を殺して泣いた。"
+   ],
+   "choices": [
+    {
+     "label": "母子の喜ぶ顔を見て、静かに立ち去る",
+     "next": "end_cured"
+    },
+    {
+     "label": "{doctor}の見立て違いを、町の者の前で明かす",
+     "if": {
+      "flag": "herb_wrong"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "end_exposed",
+      "lose": "end_cured"
+     }
+    },
+    {
+     "label": "町の者を集め、{doctor}の薬と山の薬を並べて見せる",
+     "check": {
+      "skill": "medicine",
+      "dc": 32,
+      "win": "end_exposed",
+      "lose": "end_cured"
+     }
+    },
+    {
+     "label": "盗んだ書を{doctor}に届けて銀を受け取る",
+     "if": {
+      "flag": "herb_book"
+     },
+     "next": "end_sold",
+     "guide": "山の薬師の書を、売り渡すことになる"
+    }
+   ]
+  },
+  "end_cured": {
+   "speaker": "client",
+   "text": [
+    "{client}は{child}を抱いて、何度も頭を下げた。礼にと差し出されたのは、なけなしの銭と、手縫いの小さな守り袋だった。",
+    "{shrine}の巫が言った。「山の薬師さまに、春になったらお礼に行きましょう」"
+   ],
+   "effects": [
+    {
+     "unflag": "herb_deal"
+    },
+    {
+     "unflag": "herb_wrong"
+    },
+    {
+     "unflag": "herb_cure"
+    },
+    {
+     "unflag": "herb_book"
+    },
+    {
+     "money": 30
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "note": "{near}の山の薬師に薬を求め、{child}の熱を下げた。"
+    }
+   ],
+   "end": "下がった熱"
+  },
+  "end_exposed": {
+   "speaker": "doctor",
+   "text": [
+    "{doctor}の薬包みを{shrine}の前で開き、町の者に見せた。熱の子に胃の薬を、それも山ほど。人々の顔色が変わり、{doctor}は言い訳もそこそこに家へ逃げこんだ。",
+    "それから町の者は、病のたびに山の{hermit}を頼るようになったという。山道の狼も、もう出ない。"
+   ],
+   "effects": [
+    {
+     "unflag": "herb_deal"
+    },
+    {
+     "unflag": "herb_wrong"
+    },
+    {
+     "unflag": "herb_cure"
+    },
+    {
+     "unflag": "herb_book"
+    },
+    {
+     "money": 50
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "note": "{here}の医者{doctor}の見立て違いを暴いた。"
+    }
+   ],
+   "end": "薬師の名"
+  },
+  "end_sold": {
+   "speaker": "doctor",
+   "text": [
+    "{doctor}は書をめくり、目を輝かせた。「これだ、これがあれば」銀の包みが机に置かれた。",
+    "{child}の熱は下がった。だが山の庵の文机に、書は一冊足りないままだ。{hermit}は、それを責めには来なかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "herb_deal"
+    },
+    {
+     "unflag": "herb_wrong"
+    },
+    {
+     "unflag": "herb_cure"
+    },
+    {
+     "unflag": "herb_book"
+    },
+    {
+     "money": 140
+    },
+    {
+     "fame": -3
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "xp": "theft",
+     "n": 2
+    },
+    {
+     "note": "山の薬師の書を盗み、{here}の医者{doctor}に売った。"
+    }
+   ],
+   "end": "一冊足りない文机"
+  },
+  "end_slow": {
+   "speaker": "client",
+   "text": [
+    "量を違えたのか、{child}の熱は一度ぶり返した。三日三晩、{client}と交代で額を冷やし続け、ようやく熱は引いた。",
+    "{client}はやつれた顔で笑った。「生きていてくれれば、それで」"
+   ],
+   "effects": [
+    {
+     "unflag": "herb_deal"
+    },
+    {
+     "unflag": "herb_wrong"
+    },
+    {
+     "unflag": "herb_cure"
+    },
+    {
+     "unflag": "herb_book"
+    },
+    {
+     "money": 15
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "pass": 2880
+    }
+   ],
+   "end": "三晩の看病"
+  },
+  "end_mauled": {
+   "text": [
+    "狼の牙が腕に食いこみ、山道を転げ落ちた。{near}の者に担がれて麓まで下りたが、山の庵にはたどり着けなかった。",
+    "{child}の熱は、母の祈りが届いたのか、十日目にようやく下がったと、あとで聞いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "herb_deal"
+    },
+    {
+     "unflag": "herb_wrong"
+    },
+    {
+     "unflag": "herb_cure"
+    },
+    {
+     "unflag": "herb_book"
+    },
+    {
+     "hp": -25
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "山道の牙"
+  }
+ }
+}

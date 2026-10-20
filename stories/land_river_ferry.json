@@ -1,0 +1,547 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "land_river_ferry",
+ "kind": "random",
+ "where": "road",
+ "most": 2,
+ "again": 240,
+ "trigger": {
+  "terrain": [
+   "river"
+  ]
+ },
+ "hook": "夫が渡し舟に乗ったきり、向こう岸に着いていないのです",
+ "title": "渡し守の舟",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "near": {
+   "place": "near:here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "旅の女",
+   "sex": "f"
+  },
+  "husband": {
+   "npc": "行商人",
+   "sex": "m"
+  },
+  "ferryman": {
+   "npc": "渡し守",
+   "sex": "m"
+  },
+  "keeper": {
+   "npc": "宿の主人",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "役人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "川沿いの道で、旅姿の女が石に腰かけて泣いていた。{client}と名乗った。",
+    "「夫の{husband}は行商の帰りに、{near}の渡しで舟に乗りました。わたしは次の舟を待っていたのですが、向こう岸の宿に、夫は来ていないのです。渡し守は確かに降ろしたと言うばかりで」"
+   ],
+   "choices": [
+    {
+     "label": "{near}の渡し場へ行ってみる",
+     "next": "ferry"
+    },
+    {
+     "label": "先に{here}の{inn}で、渡しの噂を聞く",
+     "next": "inn"
+    }
+   ]
+  },
+  "inn": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で渡しの噂を聞く",
+   "speaker": "keeper",
+   "art": "inn",
+   "text": [
+    "{keeper}は声をひそめた。「あの渡しで、懐の重い客が消えるという話は前からありますよ。渡し守の{ferryman}は、近ごろ{market}で羽振りがいい。けれど{office}の役人と飲み仲間でね、誰も口に出せないんです」"
+   ],
+   "choices": [
+    {
+     "label": "酒をおごって、もっと詳しく聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "rumor",
+      "lose": "ferry"
+     }
+    },
+    {
+     "label": "礼を言って渡し場へ向かう",
+     "next": "ferry"
+    }
+   ]
+  },
+  "rumor": {
+   "speaker": "keeper",
+   "effects": [
+    {
+     "flag": "ferry_rumor"
+    }
+   ],
+   "text": [
+    "「渡し守は、川の中ほどの瀬で、いつも舟を止めるそうです。流れが速くて、落ちたら岸からは見えない。それと、下手の葦原に、あいつの物置小屋があります」"
+   ],
+   "next": "ferry"
+  },
+  "ferry": {
+   "at": {
+    "place": "near"
+   },
+   "goal": "{near}の渡し場へ行く",
+   "speaker": "ferryman",
+   "art": "voyage",
+   "text": [
+    "渡し場では、赤ら顔の{ferryman}が竿にもたれていた。「旦那、渡りますかい。今日は水が速いが、おれの舟なら安心だ」",
+    "舟底には、なぜか真新しい筵が敷いてある。"
+   ],
+   "choices": [
+    {
+     "label": "重そうな銭袋を見せびらかし、ひとりで舟に乗る",
+     "next": "crossing"
+    },
+    {
+     "label": "{ferryman}が客を送るあいだに、下手の小屋を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "hut",
+      "lose": "hut_caught"
+     }
+    },
+    {
+     "label": "{husband}の人相を告げ、問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "slip",
+      "lose": "crossing"
+     }
+    }
+   ]
+  },
+  "slip": {
+   "speaker": "ferryman",
+   "text": [
+    "「そ、そんな男は知らねえ。いや、乗せたかもしれねえが、ちゃんと向こうで……」{ferryman}の目が、ちらりと下手の葦原へ泳いだ。嘘をつき慣れた者の目ではなかった。"
+   ],
+   "choices": [
+    {
+     "label": "葦原の小屋を調べる",
+     "next": "hut"
+    },
+    {
+     "label": "いったん引き下がり、舟に乗って様子を見る",
+     "next": "crossing"
+    }
+   ]
+  },
+  "hut_caught": {
+   "art": "war",
+   "text": [
+    "葦を分けて小屋に近づいたところで、背後から竿が唸った。戻ってきた{ferryman}だ。手には、舟底から抜いた鉈が光っている。"
+   ],
+   "choices": [
+    {
+     "label": "鉈を受け止める",
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 0,
+      "win": "caught",
+      "lose": "end_swept"
+     }
+    }
+   ]
+  },
+  "hut": {
+   "art": "hideout",
+   "effects": [
+    {
+     "flag": "ferry_proof"
+    },
+    {
+     "xp": "stealth",
+     "n": 2
+    }
+   ],
+   "text": [
+    "小屋の奥の甕に、銭袋がいくつも押しこまれていた。中に、{client}が言っていた刺繍の帯が混じっている。",
+    "葦原のさらに奥から、かすかな咳が聞こえた。"
+   ],
+   "choices": [
+    {
+     "label": "咳のするほうへ葦をかき分ける",
+     "next": "reeds"
+    },
+    {
+     "label": "帯と銭袋を持って{office}へ",
+     "next": "office"
+    }
+   ]
+  },
+  "crossing": {
+   "art": "voyage",
+   "text": [
+    "舟が川の中ほどの瀬に差しかかると、{ferryman}は竿を止めた。「旦那、舟底に水が入ってる。ちょいと見てくだせえ」",
+    "屈みこんだ背に、気配が走った。"
+   ],
+   "choices": [
+    {
+     "label": "振り向きざまに組みつく",
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 0,
+      "win": "caught",
+      "lose": "end_swept"
+     }
+    },
+    {
+     "label": "屈むふりをして、竿の先をかわす",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "caught",
+      "lose": "swept"
+     }
+    }
+   ]
+  },
+  "swept": {
+   "art": "disaster",
+   "text": [
+    "竿に突かれ、濁った流れに落ちた。水を飲み、岩に打たれながら、下手の葦原へ流れ着いた。泥の中で咳きこむと、すぐ近くで、もうひとつ咳が聞こえた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    }
+   ],
+   "next": "reeds"
+  },
+  "caught": {
+   "speaker": "ferryman",
+   "art": "war",
+   "effects": [
+    {
+     "flag": "ferry_caught"
+    }
+   ],
+   "text": [
+    "{ferryman}を舟底に押さえつけ、竿の縄で縛り上げた。「殺さないでくれ。頼まれたんだ、{office}の旦那に分け前を渡せば、見逃してもらえるって」",
+    "「行商の男なら、生きてるかもしれねえ。泳ぎのうまいやつで、葦原のほうへ流れていった」"
+   ],
+   "choices": [
+    {
+     "label": "葦原へ{husband}を探しに行く",
+     "next": "reeds"
+    },
+    {
+     "label": "{ferryman}を{office}へ引き立てる",
+     "next": "office"
+    },
+    {
+     "label": "川に沈められた者たちの分だ。この場で斬る",
+     "next": "end_revenge",
+     "guide": "裁きを経ずに人を殺すことになる"
+    }
+   ]
+  },
+  "reeds": {
+   "art": "tale",
+   "speaker": "husband",
+   "text": [
+    "葦の根元に、痩せこけた男が横たわっていた。{husband}だ。足が腫れ上がり、熱で唇がひび割れている。何日も、川の水だけで生き延びていたらしい。"
+   ],
+   "choices": [
+    {
+     "label": "傷を洗い、熱を下げる手当てをする",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "end_reunion",
+      "lose": "end_mourning"
+     }
+    },
+    {
+     "label": "背負って、急いで{here}へ運ぶ",
+     "check": {
+      "skill": "blade",
+      "dc": 28,
+      "win": "end_reunion",
+      "lose": "end_mourning"
+     }
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}へ訴え出る",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は眉ひとつ動かさなかった。「渡し守が客を殺めたなどと、何の証がある。川で人が落ちるのは、よくあることだ」"
+   ],
+   "choices": [
+    {
+     "label": "葦原の小屋で見つけた銭袋と帯を並べる",
+     "if": {
+      "flag": "ferry_proof"
+     },
+     "next": "end_justice"
+    },
+    {
+     "label": "縛った{ferryman}に、分け前の話を白状させる",
+     "if": {
+      "flag": "ferry_caught"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "end_justice",
+      "lose": "end_freed"
+     }
+    },
+    {
+     "label": "{inn}の噂と、消えた客の数を並べて説く",
+     "if": {
+      "flag": "ferry_rumor"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_justice",
+      "lose": "end_freed"
+     }
+    },
+    {
+     "label": "「調べぬなら、上へ訴える」と迫る",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "end_justice",
+      "lose": "end_freed"
+     }
+    }
+   ]
+  },
+  "end_reunion": {
+   "speaker": "client",
+   "text": [
+    "熱は三日で下がった。{inn}の一間で、{client}は{husband}の手を握ったまま、声を上げて泣いた。",
+    "{husband}はかすれた声で礼を言い、行商の残りの品だという薬草の包みを差し出した。「命の代わりには安すぎるが」"
+   ],
+   "effects": [
+    {
+     "unflag": "ferry_rumor"
+    },
+    {
+     "unflag": "ferry_proof"
+    },
+    {
+     "unflag": "ferry_caught"
+    },
+    {
+     "money": 60
+    },
+    {
+     "item": "herbs",
+     "n": 2
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "note": "{near}の渡しで消えた{husband}を、葦原で見つけ出した。"
+    }
+   ],
+   "end": "葦原の再会"
+  },
+  "end_mourning": {
+   "speaker": "client",
+   "text": [
+    "{husband}は{here}に着く前に、背の上で静かに息を引き取った。{client}は亡骸にすがり、長いあいだ動かなかった。",
+    "「最後に、会えました」それだけ言って、{client}は深く頭を下げた。"
+   ],
+   "effects": [
+    {
+     "unflag": "ferry_rumor"
+    },
+    {
+     "unflag": "ferry_proof"
+    },
+    {
+     "unflag": "ferry_caught"
+    },
+    {
+     "money": 20
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "{near}の渡しで消えた{husband}を見つけたが、救えなかった。"
+    }
+   ],
+   "end": "川辺の弔い"
+  },
+  "end_justice": {
+   "speaker": "clerk",
+   "text": [
+    "証を突きつけられ、{clerk}は顔色を失った。上の役所から人が来て、{ferryman}は縄を打たれ、分け前を受け取っていた{clerk}も職を追われた。",
+    "甕の銭袋は、持ち主の家族を探して返されることになった。{client}は、夫の帯を胸に抱いていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "ferry_rumor"
+    },
+    {
+     "unflag": "ferry_proof"
+    },
+    {
+     "unflag": "ferry_caught"
+    },
+    {
+     "money": 90
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 4
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "note": "{near}の渡しで客を沈めていた{ferryman}と、それをかばう{clerk}を暴いた。"
+    }
+   ],
+   "end": "渡しの裁き"
+  },
+  "end_revenge": {
+   "text": [
+    "刃を振るうと、{ferryman}は声もなく川へ落ち、濁流に呑まれていった。川が呑んだ者たちと、同じように。",
+    "渡し場には、主のない舟だけが揺れていた。{client}は黙って礼を言い、それ以上は何も聞かなかった。"
+   ],
+   "effects": [
+    {
+     "unflag": "ferry_rumor"
+    },
+    {
+     "unflag": "ferry_proof"
+    },
+    {
+     "unflag": "ferry_caught"
+    },
+    {
+     "money": 30
+    },
+    {
+     "fame": 1
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{near}の渡し守を、川の上で斬った。"
+    }
+   ],
+   "end": "川の仇"
+  },
+  "end_swept": {
+   "text": [
+    "打ち倒され、川に落ちた。気がつくと、ずっと下手の浅瀬に打ち上げられていた。銭袋はなくなっていた。",
+    "{near}の渡しに戻ると、{ferryman}は何事もなかったように客を乗せていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "ferry_rumor"
+    },
+    {
+     "unflag": "ferry_proof"
+    },
+    {
+     "unflag": "ferry_caught"
+    },
+    {
+     "hp": -20
+    },
+    {
+     "money": -20
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "流された旅"
+  },
+  "end_freed": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は「証が足りぬ」と言い、{ferryman}の縄を解かせた。渡し守はこちらをにらみつけて出ていった。",
+    "せめてもと、{here}の{inn}や{market}に、あの渡しを使うなと触れて回った。客の減った渡し場で、{ferryman}がいつまで竿を握っていられるか。"
+   ],
+   "effects": [
+    {
+     "unflag": "ferry_rumor"
+    },
+    {
+     "unflag": "ferry_proof"
+    },
+    {
+     "unflag": "ferry_caught"
+    },
+    {
+     "fame": 1
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    }
+   ],
+   "end": "解かれた縄"
+  }
+ }
+}
