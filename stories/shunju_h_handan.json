@@ -27,7 +27,10 @@
   "s5talk",
   "s6",
   "s6ok",
-  "s6ng"
+  "s6ng",
+  "self_s1",
+  "self_storm",
+  "self_storm_ng"
  ],
  "onFired": "late",
  "cast": {
@@ -65,7 +68,8 @@
    "scnPerson": "晋鄙"
   },
   "baiqi": {
-   "scnPerson": "白起"
+   "scnPerson": "白起",
+   "self": true
   }
  },
  "start": "s1",
@@ -76,6 +80,14 @@
    },
    "goal": "{city}へ行く",
    "art": "war",
+   "goto": [
+    {
+     "if": {
+      "me": "baiqi"
+     },
+     "next": "self_s1"
+    }
+   ],
    "text": [
     "{city}の城門は昼でも半ば閉ざされていた。西の丘には{qin}の軍旗が林のように並び、夜ごとに篝火の数が増えていく。長平で四十万が穴に埋められてから、まだ三年と経っていない。",
     "城内の辻に、{pingyuan}の門下が高札を掲げていた。「楚へ救いを求める使いを出す。文武を備えた食客を二十人選ぶ。腕に覚えのある者は宮城へ来たれ」"
@@ -838,9 +850,173 @@
    ],
    "end": "囊中の錐"
   },
+  "self_s1": {
+   "speaker": "{qin}の使者",
+   "art": "camp",
+   "text": [
+    "{city}の西の丘、本陣から離れた小さな幕舎に、{player}は病と称して籠もっていた。長平で四十万を埋めてから三年。いま{city}を囲む兵の将は、{player}ではない。",
+    "咸陽から使者が来た。「王はふたたび仰せです。武安君、ただちに将として出られよ、と」使者は目を伏せたまま続けた。「三度目のお断りは、王もお許しにならぬでしょう」",
+    "{player}は知っている。{zhao}は楚と魏に救いを求め、魏の公子{xinling}は諸侯に名高い。いま攻めても勝てぬ。だが、勝てぬと言いつづけた将の行く末も、また知っている。"
+   ],
+   "choices": [
+    {
+     "label": "筆を取り、王に詫びの書を送る",
+     "turn": true,
+     "effects": [
+      {
+       "flag": "h_handan_baiqi"
+      },
+      {
+       "note": "{player}は王に詫びの書を送った。"
+      }
+     ],
+     "next": "self_wait"
+    },
+    {
+     "label": "王命に従って陣頭に立ち、城内の内応の者に西門を開かせる",
+     "turn": true,
+     "check": {
+      "skill": "stealth",
+      "dc": 32,
+      "win": "self_storm",
+      "lose": "self_storm_ng"
+     }
+    },
+    {
+     "label": "「いま攻めても勝てぬ」と、三たび断る",
+     "effects": [
+      {
+       "note": "{player}は病と称し、三たび将となることを拒んだ。"
+      }
+     ],
+     "next": "self_wait"
+    }
+   ]
+  },
+  "self_storm": {
+   "art": "war",
+   "text": [
+    "{player}は幕舎を出て、鎧を着けた。城内には、三年の囲みに飢えた者が幾人もいる。銭と約束を持たせた間者が、夜ごとに城壁の下へ通った。",
+    "月のない夜、西門の閂を守る兵に酒が回った。閂が外れる音は、遠くの本陣までは届かなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_handan_betray"
+    },
+    {
+     "rep": "qin",
+     "n": 15
+    },
+    {
+     "rep": "zhao",
+     "n": -30
+    },
+    {
+     "note": "{player}は将として出て、{city}の内に手引きの者を作った。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_storm_ng": {
+   "art": "war",
+   "text": [
+    "城内に放った間者は、三人とも首を城壁に晒された。{zhao}の兵は痩せていても、門だけは固く守っている。{player}は丘の上から、それを黙って見上げた。"
+   ],
+   "effects": [
+    {
+     "note": "{city}の内に手引きの者を作ろうとして、しくじった。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_wait": {
+   "goal": "{city}の囲みの行く末を見届ける",
+   "wait": {
+    "settled": "handan_saved"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "handan_falls"
+     },
+     "next": "self_fall"
+    },
+    {
+     "if": {
+      "branch": "handan_baiqi"
+     },
+     "next": "self_spared"
+    },
+    {
+     "next": "self_sword"
+    }
+   ]
+  },
+  "self_fall": {
+   "art": "war",
+   "text": [
+    "夜明け、西門から{qin}の兵がなだれ込んだ。{pingyuan}は数十騎に守られて北門から落ちていったという。",
+    "咸陽からの使いは、剣ではなく爵を運んできた。勝った将を、王は殺さぬ。{player}は焼け残った辻を馬で進んだ。長平の穴の数を、もう誰も数えてはいない。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "qin",
+     "n": 10
+    },
+    {
+     "unflag": "h_handan_betray"
+    },
+    {
+     "note": "{city}は落ちた。{player}は剣を賜らずにすんだ。"
+    }
+   ],
+   "end": "武安君の凱旋"
+  },
+  "self_spared": {
+   "art": "tale",
+   "text": [
+    "楚の援軍が南から、{xinling}の魏軍が東から迫り、{qin}の軍は{city}の囲みを解いて西へ退いた。{player}の言ったとおりになった。",
+    "詫びの書は王に届いた。剣を下げ渡すはずの使いは、途中で呼び戻されたという。{player}は封地へ退き、二度と戦場には出なかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{city}の囲みは解けた。{player}は詫びの書によって死を賜らずにすんだ。"
+    }
+   ],
+   "end": "退いた老将"
+  },
+  "self_sword": {
+   "art": "tale",
+   "text": [
+    "楚の援軍と{xinling}の魏軍が迫り、{qin}の軍は{city}の囲みを解いて西へ退いた。「いま攻めても勝てぬ」――{player}の言葉どおりだった。",
+    "咸陽を出て杜郵まで来たとき、王の使いが追いついた。差し出されたのは、一振りの剣である。{player}は剣を受け取り、長いあいだ東の空を見ていた。長平で降った趙兵の数を、指で数えるように。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "note": "{city}の囲みは解けた。王の使いが{player}に剣を届けた。"
+    }
+   ],
+   "end": "杜郵の剣"
+  },
   "late": {
    "text": [],
    "goto": [
+    {
+     "if": {
+      "me": "baiqi"
+     },
+     "next": "self_wait"
+    },
     {
      "if": {
       "branch": "handan_baiqi"

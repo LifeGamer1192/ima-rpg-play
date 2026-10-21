@@ -21,7 +21,10 @@
   "f6",
   "f6move",
   "f6ng",
-  "f6pd"
+  "f6pd",
+  "self_f1",
+  "self_wall",
+  "self_wallng"
  ],
  "onFired": "late",
  "cast": {
@@ -41,7 +44,8 @@
    "scnRealm": "shu"
   },
   "guanyu": {
-   "scnPerson": "関羽"
+   "scnPerson": "関羽",
+   "self": true
   },
   "yujin": {
    "scnPerson": "于禁"
@@ -67,6 +71,14 @@
    "goal": "{jl}の{inn}で、北伐の噂を聞く",
    "speaker": "boatman",
    "art": "inn",
+   "goto": [
+    {
+     "if": {
+      "me": "guanyu"
+     },
+     "next": "self_f1"
+    }
+   ],
    "text": [
     "{jl}の{inn}は、北へ下る兵と舟人で溢れていた。{guanyu}将軍が荊州の兵を挙げ、漢水を遡って樊城の{caoren}を囲むのだという。",
     "隅の卓で、日に焼けた老人が濁り酒を舐めていた。漢水で五十年、舟を操ってきたという{boatman}である。「今年は梅雨が明けても空が重い。秋に長雨が来る年の空だ。漢水があふれりゃ、樊城の北の低い原は湖になる」",
@@ -634,6 +646,12 @@
    "goto": [
     {
      "if": {
+      "me": "guanyu"
+     },
+     "next": "self_late"
+    },
+    {
+     "if": {
       "branch": "fan_high"
      },
      "next": "late_high"
@@ -706,6 +724,185 @@
     }
    ],
    "end": "間に合わなかった"
+  },
+  "self_f1": {
+   "at": {
+    "place": "city",
+    "building": "barracks"
+   },
+   "goal": "{city}の{barracks}で、樊城攻めの軍議を開く",
+   "speaker": "boatman",
+   "art": "camp",
+   "text": [
+    "漢水の南岸の陣で、{player}は灯の下に左氏伝を広げていた。樊城は川向こう、目と鼻の先にある。だが{caoren}は守りの上手い男で、陸から攻めても埒が明かない。",
+    "部将が、漢水で五十年舟を操ってきたという{boatman}を連れてきた。老人は北の空を顎で指した。「あの雲は十日は居座る。漢水があふれりゃ、北の低い原は湖よ。{yujin}の七軍は、そこに陣を張っとる」",
+    "「それに樊城の壁は版築の土壁だ。十日も雨に打たれりゃ、北東の隅から溶けて崩れる。城の中の者は、まだ気づいとらんだろうがな」"
+   ],
+   "choices": [
+    {
+     "label": "雨の夜、自ら小舟を出して樊城の北東の壁を確かめる",
+     "turn": true,
+     "guide": "将みずから城の下へ忍ぶ。見つかれば矢の雨を浴びる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "self_wall",
+      "lose": "self_wallng"
+     }
+    },
+    {
+     "label": "舟を集めさせ、水が来るのを待つ",
+     "effects": [
+      {
+       "note": "漢水の長雨を待ち、{yujin}の七軍を舟で囲む手筈を整えた。"
+      }
+     ],
+     "next": "self_wait"
+    }
+   ]
+  },
+  "self_wall": {
+   "art": "war",
+   "text": [
+    "雨の闇に紛れて、{player}の小舟は樊城の北東の隅に漕ぎ寄せた。老船頭の言うとおりだった。雨を吸った土壁が膨らみ、指で押すと泥が崩れる。",
+    "{player}は崩れかけた壁の下に印の縄を垂らさせ、陣に戻って地図に朱を入れた。「水が来た夜、舟はここへ集めよ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_fan_wall"
+    },
+    {
+     "flag": "h_fan_fall"
+    },
+    {
+     "rep": "shu",
+     "n": 5
+    },
+    {
+     "note": "樊城の北東の城壁が雨で崩れかけているのを、自ら確かめた。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_wallng": {
+   "text": [
+    "水門の近くで、城楼の松明が小舟を照らした。矢が雨音に混じって降ってくる。{player}は舟を返させ、確かめぬまま陣へ戻った。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_wait": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、長雨を待つ",
+   "wait": {
+    "settled": "fan"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "fan_fall"
+     },
+     "next": "self_fall"
+    },
+    {
+     "next": "self_flood"
+    }
+   ]
+  },
+  "self_fall": {
+   "speaker": "caoren",
+   "art": "war",
+   "text": [
+    "漢水があふれた夜、樊城の北東の隅が音を立てて崩れた。印の縄の下に、{player}の舟が次々と漕ぎ寄せた。",
+    "夜明け、{player}は城の楼に旗を立てた。{caoren}はわずかな兵と北へ逃れ、低い原の七軍は水の中で降った。許の都では、魏王が都を移すことを口にしたという。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "rep": "shu",
+     "n": 20
+    },
+    {
+     "rep": "cao",
+     "n": -15
+    },
+    {
+     "unflag": "h_fan_fall"
+    },
+    {
+     "unflag": "h_fan_wall"
+    },
+    {
+     "note": "樊城の戦い。崩れた城壁から兵を入れ、樊城を落とした。"
+    }
+   ],
+   "end": "楼の上の髯"
+  },
+  "self_flood": {
+   "speaker": "yujin",
+   "art": "war",
+   "text": [
+    "十日目の夜、漢水があふれた。夜明け、北の原は一面の湖になり、七軍の陣は柵の先だけを覗かせていた。{player}の舟が四方から漕ぎ出していく。",
+    "{yujin}は舟の上の{player}に向かって兜を脱いだ。{pangde}だけは降らず、斬られた。威名は中原を震わせたが、樊城の楼には、まだ{caoren}の旗が立っていた。南の{jl}の守りが手薄になっていることを、{player}は気にとめなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "shu",
+     "n": 15
+    },
+    {
+     "rep": "cao",
+     "n": -10
+    },
+    {
+     "unflag": "h_fan_wall"
+    },
+    {
+     "unflag": "h_fan_fall"
+    },
+    {
+     "note": "樊城の戦い。漢水の水で{yujin}の七軍を降した。"
+    }
+   ],
+   "end": "七軍を呑む水"
+  },
+  "self_late": {
+   "text": [
+    "漢水の長雨は、{player}が陣を空けているあいだに来た。留守の諸将が舟を出し、{yujin}の七軍は水の中で降ったという。報せを聞いた{player}は、黙って鬚をしごいた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_fan_cao"
+    },
+    {
+     "unflag": "h_fan_pangde"
+    },
+    {
+     "unflag": "h_fan_wall"
+    },
+    {
+     "unflag": "h_fan_fall"
+    },
+    {
+     "unflag": "h_fan_high"
+    },
+    {
+     "note": "陣を空けているあいだに、樊城の水攻めは終わっていた。"
+    }
+   ],
+   "end": "留守の陣の報せ"
   }
  },
  "branches": [

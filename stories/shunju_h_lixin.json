@@ -8,6 +8,9 @@
  "event": "li_xin",
  "lead": 10,
  "before": [
+  "gate",
+  "self_s1",
+  "self_front",
   "s1",
   "s1brave",
   "s1wj_ng",
@@ -44,7 +47,8 @@
    "scnPerson": "王翦"
   },
   "xiangyan": {
-   "scnPerson": "項燕"
+   "scnPerson": "項燕",
+   "self": true
   },
   "mengtian": {
    "scnPerson": "蒙恬"
@@ -53,8 +57,23 @@
    "place": "near:xy"
   }
  },
- "start": "s1",
+ "start": "gate",
  "scenes": {
+  "gate": {
+   "goal": "{xy}の宮城の朝議に出る",
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "me": "xiangyan"
+     },
+     "next": "self_s1"
+    },
+    {
+     "next": "s1"
+    }
+   ]
+  },
   "s1": {
    "at": {
     "place": "xy",
@@ -735,9 +754,164 @@
    ],
    "end": "敗走"
   },
+  "self_s1": {
+   "speaker": "楚の斥候",
+   "art": "war",
+   "text": [
+    "北から斥候が戻った。「{qin}の朝議で、若い{lixin}が二十万で楚を取ると申し、老将{wangjian}は六十万なくてはならぬと申して退けられたとのこと。二十万が南へ下ります」",
+    "{player}は笑った。「六十万と言った老人を退けたか。秦の王も、勝ちつづけて目が曇ったとみえる」",
+    "楚は広く、楚の人は負けを認めぬ。退くと見せて、背後につけばよい。"
+   ],
+   "choices": [
+    {
+     "label": "兵を率いて{front}の野へ向かう",
+     "effects": [
+      {
+       "note": "{qin}の{lixin}が二十万で楚へ攻め入る。{player}は兵を率いて北へ向かう。"
+      }
+     ],
+     "next": "self_front"
+    }
+   ]
+  },
+  "self_front": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "{front}の野で{lixin}の軍を待つ",
+   "speaker": "楚の斥候",
+   "art": "war",
+   "text": [
+    "{lixin}は平輿を、{mengtian}は寝を攻め、どちらも楚の兵を破った。秦の陣は勝ち戦の酒に沸いている。楚の兵は退いたが、散ってはいない。",
+    "林の中で、{player}の兵は炊煙を立てずに休んでいた。秦の軍の背後を、一日遅れでついてゆく。「将軍、秦の軍は城父へ向かう支度を始めました」"
+   ],
+   "choices": [
+    {
+     "label": "三日三晩、眠らせずに追う",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "self_chase",
+      "lose": "self_chase_ng"
+     }
+    },
+    {
+     "label": "城父の手前で待ち構え、正面から当たる",
+     "next": "self_chase_ng"
+    }
+   ]
+  },
+  "self_chase": {
+   "art": "war",
+   "text": [
+    "三日三晩、{player}は兵を休ませず、秦の軍の後ろについて走らせた。四日目の夜、二つの壁を破った。秦の陣は内から崩れ、七人の都尉が討たれた。",
+    "{lixin}の旗が西へ逃げてゆく。勝ったと思った軍ほど、夜に脆いものはない。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "chu",
+     "n": 10
+    },
+    {
+     "rep": "qin",
+     "n": -10
+    },
+    {
+     "note": "{player}は三日三晩、{lixin}の軍を追った。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_chase_ng": {
+   "art": "war",
+   "text": [
+    "秦の兵は思いのほか固かった。{player}の兵は二度押し返され、林へ退いた。それでも楚の兵は散らなかった。秦の軍の後ろに、まだ楚の旗がある。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "note": "{player}は{lixin}の軍に当たったが、崩しきれなかった。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_wait": {
+   "goal": "{lixin}の軍の行方を見届ける",
+   "wait": {
+    "settled": "li_xin"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lx_wangjian"
+     },
+     "next": "self_wj"
+    },
+    {
+     "if": {
+      "branch": "lx_noking"
+     },
+     "next": "self_noking"
+    },
+    {
+     "next": "self_won"
+    }
+   ]
+  },
+  "self_won": {
+   "art": "war",
+   "text": [
+    "{lixin}の二十万は崩れ、西へ散った。{player}の名は楚の隅々まで届いた。",
+    "だが北から、また知らせが来る。{qin}の王が自ら{home}へ馬を走らせ、老将{wangjian}に詫びたという。今度は六十万が来る。{player}は勝ち戦の酒を、半分だけ飲んで杯を伏せた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "note": "{lixin}は{player}に大敗した。"
+    }
+   ],
+   "end": "三日三晩の追撃"
+  },
+  "self_wj": {
+   "art": "war",
+   "text": [
+    "来たのは二十万ではなく、{wangjian}の六十万だった。老将は陣を固めて一年動かず、兵は石を投げて遊んでいた。",
+    "痺れを切らして東へ兵を動かした日、{player}は背後から全軍に襲われた。楚の王は捕らえられた。{player}は残った兵を率いて、南へ落ちた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{wangjian}の六十万が楚を破った。"
+    }
+   ],
+   "end": "動かぬ六十万"
+  },
+  "self_noking": {
+   "art": "tale",
+   "text": [
+    "王を失った{qin}の軍は、楚との境で兵を止めた。{player}の兵は林の中で、来ない敵を待ちつづけた。"
+   ],
+   "end": "来なかった敵"
+  },
   "late": {
    "text": [],
    "goto": [
+    {
+     "if": {
+      "me": "xiangyan"
+     },
+     "next": "self_wait"
+    },
     {
      "if": {
       "branch": "lx_wangjian"

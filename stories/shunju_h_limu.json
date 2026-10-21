@@ -15,7 +15,10 @@
   "s4revolt",
   "s4rv_ng",
   "s5",
-  "s5saved_ng"
+  "s5saved_ng",
+  "self_s1",
+  "self_camp",
+  "self_court_ng"
  ],
  "onFired": "late",
  "cast": {
@@ -32,7 +35,8 @@
    "person": "ruler:zhao"
   },
   "limu": {
-   "scnPerson": "李牧"
+   "scnPerson": "李牧",
+   "self": true
   },
   "guokai": {
    "scnPerson": "郭開"
@@ -58,6 +62,14 @@
    "goal": "{city}の客舎で趙の将に会う",
    "speaker": "sima",
    "art": "tale",
+   "goto": [
+    {
+     "if": {
+      "me": "limu"
+     },
+     "next": "self_s1"
+    }
+   ],
    "text": [
     "邯鄲の客舎の奥。肩に古傷のある武人が、{player}の向かいに腰を下ろした。趙の将、{sima}と名乗った。",
     "「近ごろ、秦の商人がやたらと金をばらまいている。行き先は{guokai}の屋敷だ。{guokai}は王の寵臣、口ひとつで将の首をすげ替えられる男よ」",
@@ -911,9 +923,234 @@
    ],
    "end": "名将の死を見送る"
   },
+  "self_s1": {
+   "speaker": "sima",
+   "art": "tale",
+   "text": [
+    "邯鄲の客舎の奥。{sima}が声を落として、{player}の向かいに腰を下ろした。「将軍、北の陣を空けて都へ来られるとは。噂は耳に入っておりましょう」",
+    "「秦の商人が金をばらまき、行き先は{guokai}の屋敷です。『李牧は秦と通じ、兵を率いて王に背く』――酒場ではもう、子どもまでがそう言っております」",
+    "「秦の王翦はすぐそこまで来ている。将軍、どうなさる」"
+   ],
+   "choices": [
+    {
+     "label": "{guokai}の屋敷に流れる秦の金を押さえ、王の前に積む",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "self_court",
+      "lose": "self_court_ng"
+     }
+    },
+    {
+     "label": "北の陣へ戻り、兵とともに先を決める",
+     "next": "self_camp"
+    }
+   ]
+  },
+  "self_court": {
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{sima}の手の者が{guokai}の蔵を押さえ、秦の印の押された書簡と金の延べ板を宮へ運び込んだ。{player}はそれを玉座の前に積ませ、ひとこともつけ加えなかった。",
+    "{king}は長いあいだ黙っていた。やがて衛士を呼び、寵臣の名を口にした。"
+   ],
+   "effects": [
+    {
+     "flag": "h_limu_saved"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "rep": "qin",
+     "n": -15
+    },
+    {
+     "note": "{player}は{guokai}の買収を王の前で暴いた。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_court_ng": {
+   "speaker": "guokai",
+   "art": "court",
+   "text": [
+    "宮の廊下で、{guokai}が笑って待っていた。「将軍が兵を離れて都へ来られるとは。王は、それをこそ案じておられる」{player}は王の前に出ることも許されず、北の陣へ戻るほかなかった。"
+   ],
+   "next": "self_camp"
+  },
+  "self_camp": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の陣へ戻る",
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "陣は静まり返っていた。兵は飯を炊き、矢を削り、誰も無駄口を叩かない。三十年、{player}が鍛えてきた兵である。",
+    "{sima}が言った。「王命が来れば、将軍は兵を渡さねばなりませぬ。渡さねば謀反、渡せば趙の長城が崩れる。……兵たちは、将軍が一言いえば、邯鄲へでも向かいましょう」"
+   ],
+   "choices": [
+    {
+     "label": "兵を率いて邯鄲へ入り、王の耳を塞ぐ{guokai}を討つ",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "self_revolt",
+      "lose": "self_hold"
+     }
+    },
+    {
+     "label": "王命が来ても兵を離れず、秦を防ぐ",
+     "next": "self_hold"
+    }
+   ]
+  },
+  "self_revolt": {
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "{player}は全軍の前に立った。「わしは王に剣を向けるのではない。王の耳を塞いでいる者を除くのだ。秦と戦うのは、それからだ」",
+    "兵たちは黙って槍を立てた。{sima}が先鋒の旗を揚げた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_limu_revolt"
+    },
+    {
+     "rep": "zhao",
+     "n": -10
+    },
+    {
+     "note": "{player}は兵を率いて邯鄲へ向かった。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_hold": {
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "{player}は地図の前に座り、王翦の陣の位置に石を置いた。「わしは将だ。逃げ道を探すのは将の仕事ではない」{sima}は何も言わず、頭を下げて幕舎を出た。"
+   ],
+   "effects": [
+    {
+     "note": "{player}は王命を待ち、北の陣に留まった。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_wait": {
+   "goal": "{zhao}の王の命を待つ",
+   "wait": {
+    "settled": "li_mu_dies"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "limu_saved"
+     },
+     "next": "self_saved"
+    },
+    {
+     "if": {
+      "branch": "limu_revolt"
+     },
+     "next": "self_revolted"
+    },
+    {
+     "if": {
+      "branch": "limu_noguokai"
+     },
+     "next": "self_noguokai"
+    },
+    {
+     "next": "self_order"
+    }
+   ]
+  },
+  "self_saved": {
+   "speaker": "sima",
+   "art": "war",
+   "text": [
+    "{guokai}は市で斬られた。趙蔥と顔聚は宮に留め置かれ、北の陣に代わりの将は来なかった。",
+    "{sima}が酒を注いだ。「将軍が生きていても、趙が生き延びるとは限りませぬ。ですが、自分で長城を崩すことだけはなくなった」{player}は杯を干し、また地図に目を落とした。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_limu_saved"
+    },
+    {
+     "note": "{guokai}は斬られ、{player}は北の陣に留まった。"
+    }
+   ],
+   "end": "長城は自ら崩れず"
+  },
+  "self_revolted": {
+   "art": "war",
+   "text": [
+    "{player}の軍は三日で{city}に入った。門を開いたのは、王の近衛だった。{guokai}は宮の井戸に隠れていたところを引きずり出され、その日のうちに斬られた。{king}は北の離宮へ移された。",
+    "{player}は玉座には座らず、その脇に立った。王を退けた将は、いずれ王になるか、王に殺されるかだ。だがいまは、秦を防ぐ間だけ、ここに立つ。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "unflag": "h_limu_revolt"
+    },
+    {
+     "note": "{player}は{city}に入り、{king}を退けた。"
+    }
+   ],
+   "end": "玉座の脇に立つ"
+  },
+  "self_noguokai": {
+   "art": "war",
+   "text": [
+    "讒言する寵臣は、もういなかった。秦の金は宛先を失い、{player}は北の陣で王翦と睨み合いを続けている。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "end": "宛先なき金"
+  },
+  "self_order": {
+   "speaker": "趙王の使い",
+   "art": "war",
+   "text": [
+    "王命が届いた。将の任を解き、兵を趙蔥と顔聚に渡せという。{sima}も将を解かれた。",
+    "「渡さぬ」{player}はそれだけ言った。使いは頭を下げて退いたが、その夜、陣の外に見慣れぬ兵の松明が並んだ。{player}は剣を外し、幕舎の外へ出た。"
+   ],
+   "effects": [
+    {
+     "note": "王命が届き、{player}は兵を渡さなかった。"
+    }
+   ],
+   "end": "兵を渡さぬ将"
+  },
   "late": {
    "text": [],
    "goto": [
+    {
+     "if": {
+      "me": "limu"
+     },
+     "next": "self_wait"
+    },
     {
      "if": {
       "branch": "limu_noguokai"

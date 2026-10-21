@@ -14,7 +14,10 @@
   "s2qin_ng",
   "s3",
   "s3ok",
-  "s3ng"
+  "s3ng",
+  "self_s1",
+  "self_wa",
+  "self_beat"
  ],
  "onFired": "late",
  "cast": {
@@ -34,7 +37,8 @@
    "scnRealm": "qin"
   },
   "lianpo": {
-   "scnPerson": "廉頗"
+   "scnPerson": "廉頗",
+   "self": true
   },
   "guokai": {
    "scnPerson": "郭開"
@@ -62,6 +66,14 @@
    "goal": "{city}の客舎で老将の噂を聞く",
    "speaker": "aide",
    "art": "tale",
+   "goto": [
+    {
+     "if": {
+      "me": "lianpo"
+     },
+     "next": "self_s1"
+    }
+   ],
    "text": [
     "{city}の客舎は、宮中の噂で持ちきりだった。王は病が重く、太子が立てば、老将{lianpo}から将印を取り上げて楽乗に与えるという。",
     "隅の卓で酒をあおっていた男が、{player}に目を留めた。{lianpo}の舎人、{aide}と名乗った。「将軍は長平の前から{zhao}の壁だった。燕の六十万を退けたのも将軍だ。それを、宮中の口先ひとつで退けるという」",
@@ -830,9 +842,282 @@
    ],
    "end": "老将の影"
   },
+  "self_s1": {
+   "speaker": "aide",
+   "art": "camp",
+   "text": [
+    "客舎の奥の卓で、舎人の{aide}が{player}の杯に酒を注いだ。「将軍、宮から竹簡が参りました。新しい王の命です。将印を楽乗に渡せ、と」",
+    "「秦の客も、また来ております。秦王は将軍を年で量らぬ、一軍をお任せすると」{aide}は声をひそめた。「楽乗の兵は、もう明日にも陣の前に並びましょう」",
+    "{player}は七十を越えた。それでも腕は丸太のように太い。斉を破り、魏を破り、燕を都の下まで追った腕である。"
+   ],
+   "choices": [
+    {
+     "label": "楽乗を陣に招き、将印を譲って副将に退くと申し出る",
+     "turn": true,
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "self_wa",
+      "lose": "self_beat"
+     }
+    },
+    {
+     "label": "秦の客の誘いを受け、西へ行く",
+     "turn": true,
+     "effects": [
+      {
+       "flag": "h_lp_qin"
+      },
+      {
+       "rep": "qin",
+       "n": 15
+      },
+      {
+       "rep": "zhao",
+       "n": -20
+      },
+      {
+       "note": "{player}は秦の誘いを受けた。"
+      }
+     ],
+     "next": "self_wait"
+    },
+    {
+     "label": "太鼓を打たせ、楽乗を打ち払う",
+     "next": "self_beat"
+    }
+   ]
+  },
+  "self_wa": {
+   "art": "feast",
+   "text": [
+    "楽乗は陣の前で馬を下り、{player}に深く礼をした。{player}は将印を卓に置いた。「印はくれてやる。だが兵は、わしの声を覚えておる。副えて使え」",
+    "昔、荊を負うて藺相如の門に詫びたことがある。あれに比べれば、印ひとつ渡すくらい何ほどのことでもない。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lp_reconcile"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "zhao",
+     "n": 10
+    },
+    {
+     "note": "{player}は将印を楽乗に譲り、副将として残ると決めた。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_beat": {
+   "art": "war",
+   "text": [
+    "楽乗の兵が陣の前に並んだ。使いが王の命を読み上げる。{player}は最後まで聞かず、太鼓を打たせた。「この陣はわしの陣だ。欲しければ、取りに来い」",
+    "楽乗の兵は、老将の一撃に崩れて逃げた。だが勝ってしまった以上、もう{zhao}に居場所はない。"
+   ],
+   "effects": [
+    {
+     "note": "{player}は楽乗を打ち払った。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_wait": {
+   "goal": "{city}で事の成り行きを見届ける",
+   "wait": {
+    "settled": "lianpo_flees"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lp_reconcile"
+     },
+     "next": "self_reconciled"
+    },
+    {
+     "if": {
+      "branch": "lp_qin"
+     },
+     "next": "self_toqin"
+    },
+    {
+     "next": "self_daliang"
+    }
+   ]
+  },
+  "self_reconciled": {
+   "art": "feast",
+   "text": [
+    "{player}は副将として陣に残った。宮中の者たちは拍子抜けしたように黙った。酒の席で、楽乗が{player}の杯に酒を注いだ。",
+    "国が二つに割れれば、喜ぶのは秦だけだ。藺相如が生きていたら、同じことを言っただろう。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "unflag": "h_lp_reconcile"
+    },
+    {
+     "note": "{player}は楽乗と和し、{zhao}に留まった。"
+    }
+   ],
+   "end": "荊を負わずして"
+  },
+  "self_toqin": {
+   "speaker": "qinke",
+   "art": "road",
+   "text": [
+    "函谷関の秦の兵は、{player}の車を見ると道を開けて礼をした。{qinke}が馬を寄せた。「秦は、将軍を待っておりました」",
+    "{player}は振り返らなかった。趙の兵を斬るつもりはない。だが、捨てられた犬が拾ってくれた家の門を守って、何が悪い。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lp_qin"
+    },
+    {
+     "note": "{player}は{zhao}を去り、{qin}へ奔った。"
+    }
+   ],
+   "end": "西の門を守る"
+  },
+  "self_daliang": {
+   "at": {
+    "place": "daliang",
+    "building": "house"
+   },
+   "goal": "{daliang}へ逃れ、{zhao}からの便りを待つ",
+   "speaker": "aide",
+   "art": "tale",
+   "text": [
+    "魏王は{player}を迎えはしたが、兵は一人も預けなかった。客として養う、という。年が改まり、秦の攻めに苦しむ{zhao}の王が、使者をよこして{player}がまだ使えるかを見させるという。",
+    "{aide}が声をひそめた。「使者は{envoy}という男です。{city}を発つ前の晩、{guokai}の屋敷に呼ばれております」"
+   ],
+   "goto": [
+    {
+     "if": {
+      "settled": "lianpo_old"
+     },
+     "next": "self_wait2"
+    }
+   ],
+   "choices": [
+    {
+     "label": "使者の前で一斗の飯と十斤の肉を平らげ、馬で庭を三度めぐる",
+     "next": "self_wait2"
+    },
+    {
+     "label": "{aide}に使者の行李を改めさせ、{guokai}の金と書付を王へ届けさせる",
+     "turn": true,
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "self_truth",
+      "lose": "self_wait2"
+     }
+    }
+   ]
+  },
+  "self_truth": {
+   "speaker": "aide",
+   "art": "backroom",
+   "text": [
+    "{envoy}の行李の底に、布に包んだ金の板が二十枚あった。書付にはこうある。「廉頗はすでに老い、用うるに足らず。そう申せ」",
+    "{player}は書付に一筆を添えた。「わしはまだ食える。趙の兵を使わせよ」{aide}がそれを懐に、夜のうちに北へ発った。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lpo_truth"
+    },
+    {
+     "note": "{guokai}に買われた使者の偽りを、{zhao}の王へ知らせた。"
+    }
+   ],
+   "next": "self_wait2"
+  },
+  "self_wait2": {
+   "goal": "{zhao}の王の答えを待つ",
+   "wait": {
+    "settled": "lianpo_old"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lianpo_back"
+     },
+     "next": "self_back"
+    },
+    {
+     "if": {
+      "branch": "lianpo_guokai"
+     },
+     "next": "self_back"
+    },
+    {
+     "next": "self_old"
+    }
+   ]
+  },
+  "self_back": {
+   "at": {
+    "place": "daliang"
+   },
+   "speaker": "aide",
+   "art": "road",
+   "text": [
+    "迎えの車が{daliang}の門に着いた。{player}は朝から鎧を着て待っていた。「三度も厠に立つ年寄りを、王は迎えに来られたか」笑ったが、目は濡れていた。",
+    "趙の兵を、もう一度使える。この恩は、秦の首で返そう。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "zhao",
+     "n": 15
+    },
+    {
+     "unflag": "h_lpo_truth"
+    },
+    {
+     "note": "{player}は{zhao}に呼び戻された。"
+    }
+   ],
+   "end": "老将ふたたび"
+  },
+  "self_old": {
+   "at": {
+    "place": "daliang"
+   },
+   "speaker": "aide",
+   "art": "tale",
+   "text": [
+    "{city}から届いた噂は短かった。使者は王にこう申し上げたという。「廉将軍はなお健やかですが、わたしと座っているうちに三度も厠に立たれました」王は、廉頗は老いたと言って、呼び戻さなかった。",
+    "{player}は天井を仰いで笑った。笑い声は、しまいに咳に変わった。「三度か。よう数えたものだ。……わしは、趙の兵を使いたかった」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{player}は老いたとされ、{zhao}に呼び戻されなかった。"
+    }
+   ],
+   "end": "三度の厠"
+  },
   "late": {
    "text": [],
    "goto": [
+    {
+     "if": {
+      "me": "lianpo"
+     },
+     "next": "self_wait"
+    },
     {
      "if": {
       "branch": "lp_nolianpo"

@@ -18,7 +18,9 @@
   "s3guest",
   "s4",
   "s4ok",
-  "s4ng"
+  "s4ng",
+  "self_s1",
+  "self_spare_ng"
  ],
  "onFired": "late",
  "cast": {
@@ -41,7 +43,8 @@
    "person": "ruler:lu"
   },
   "chunshen": {
-   "scnPerson": "春申君"
+   "scnPerson": "春申君",
+   "self": true
   },
   "priest": {
    "npc": "周公廟の祝",
@@ -62,6 +65,14 @@
    "goal": "{city}の周公の廟を訪ねる",
    "speaker": "priest",
    "art": "faith",
+   "goto": [
+    {
+     "if": {
+      "me": "chunshen"
+     },
+     "next": "self_s1"
+    }
+   ],
    "text": [
     "{city}の周公の廟は、柱の朱がところどころ剥げ、屋根の瓦も幾枚か落ちていた。それでも庭は掃き清められ、香の煙は絶えていない。",
     "年老いた{priest}が、{player}に茶を勧めた。「周公旦さまが封ぜられてから八百年、この廟の火は一度も消えたことがない。孔子さまも、この庭で礼を問われた」",
@@ -526,9 +537,188 @@
    ],
    "end": "絶えた祀り"
   },
+  "self_s1": {
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "楚の相が{city}の周公の廟を見に来る――その知らせに、{priest}は朝から庭を掃き清めていた。柱の朱はところどころ剥げ、屋根の瓦も幾枚か落ちている。それでも香の煙は絶えていない。",
+    "{priest}は{player}の前に跪いた。「周公旦さまが封ぜられてから八百年、この廟の火は一度も消えたことがございませぬ。魯が楚の県となっても、どうか祀りだけは」",
+    "供の食客たちが目を見交わした。城が一つ、廟が一つ、昔話がいくつか。県にして令を置けば、民も楽になろう。そのつもりで、{player}はここへ来た。"
+   ],
+   "choices": [
+    {
+     "label": "「廟一つ残して天下の口が塞げるなら、安いものだ」と、魯の宗廟を残す",
+     "turn": true,
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "self_spare",
+      "lose": "self_spare_ng"
+     }
+    },
+    {
+     "label": "「祭器は郢へ運べ。廟は残すが、祀る者は置かぬ」と命じる",
+     "effects": [
+      {
+       "rep": "lu",
+       "n": -10
+      },
+      {
+       "note": "{player}は魯を楚の県とし、祭器を郢へ運ばせると決めた。"
+      }
+     ],
+     "next": "self_wait"
+    }
+   ]
+  },
+  "self_spare": {
+   "art": "court",
+   "text": [
+    "{player}は書記を呼び、魯に向かう将に使いを出させた。「魯の君を城に留め、宗廟の祀りを続けさせよ。楚は北の諸侯の盟主になる。盟主は、周公の祀りを守った国でなくてはならぬ」",
+    "{priest}は額を土につけたまま、しばらく顔を上げなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_lu_saved"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "rep": "lu",
+     "n": 15
+    },
+    {
+     "note": "{player}は魯の祀りを残すと決めた。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_spare_ng": {
+   "art": "court",
+   "text": [
+    "郢から急使が来た。楚王は魯を併せることを急いでおられる、と。食客たちも口々に言った。「小国一つ取りきれずに、何の盟主か」{player}は扇を閉じ、黙って廟を出た。"
+   ],
+   "effects": [
+    {
+     "note": "{player}は魯の祀りを残そうとしたが、王命に押し切られた。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_wait": {
+   "goal": "魯の行く末を見届ける",
+   "wait": {
+    "settled": "chu_lu"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "lu_saved"
+     },
+     "next": "self_saved"
+    },
+    {
+     "if": {
+      "branch": "lu_qi"
+     },
+     "next": "self_toqi"
+    },
+    {
+     "next": "self_annex"
+    }
+   ]
+  },
+  "self_saved": {
+   "art": "faith",
+   "text": [
+    "楚の兵は泗水を越えたが、{city}の城門の前で止まった。周公の祀りを憚ったとも、小国一つ取りきれなかったとも、諸侯は噂した。",
+    "{player}は三千の食客の前で笑ってみせた。「八百年と一年。一年でもよい。火は消さずにおくものだ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lu_saved"
+    },
+    {
+     "unflag": "h_lu_qi"
+    },
+    {
+     "unflag": "h_lu_vessels"
+    },
+    {
+     "unflag": "h_lu_guest"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "魯は滅ばず、周公の祀りは続いた。"
+    }
+   ],
+   "end": "相国の扇"
+  },
+  "self_toqi": {
+   "art": "court",
+   "text": [
+    "楚の兵が着く前に、斉の兵が北から{city}に入っていた。城の旗は斉のものに替わった。{player}は報せを聞いて、扇で卓を一つ打った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lu_saved"
+    },
+    {
+     "unflag": "h_lu_qi"
+    },
+    {
+     "unflag": "h_lu_vessels"
+    },
+    {
+     "unflag": "h_lu_guest"
+    },
+    {
+     "note": "魯は斉に帰した。"
+    }
+   ],
+   "end": "先を越された相国"
+  },
+  "self_annex": {
+   "art": "tale",
+   "text": [
+    "楚の兵が{city}に入った。戦らしい戦はなかった。{king}は冠を脱いで東の小さな邑へ移され、廟の祭器は車に積まれて南へ運ばれていった。",
+    "{player}は郢へ向かう荷車の列を見送った。積まれているのは、魯の八百年である。楚の県が一つ増えた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_lu_saved"
+    },
+    {
+     "unflag": "h_lu_qi"
+    },
+    {
+     "unflag": "h_lu_vessels"
+    },
+    {
+     "unflag": "h_lu_guest"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "{player}の手で、魯は楚の県となった。"
+    }
+   ],
+   "end": "楚の県ひとつ"
+  },
   "late": {
    "text": [],
    "goto": [
+    {
+     "if": {
+      "me": "chunshen"
+     },
+     "next": "self_wait"
+    },
     {
      "next": "late_rec"
     }

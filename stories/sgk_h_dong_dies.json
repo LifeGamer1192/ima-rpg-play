@@ -21,7 +21,10 @@
   "s4stub",
   "s5",
   "s5ok",
-  "s5ng"
+  "s5ng",
+  "self_s1",
+  "self_s1leak",
+  "self_s1ng"
  ],
  "onFired": "late",
  "cast": {
@@ -38,7 +41,8 @@
    "person": "ruler:han"
   },
   "dong": {
-   "scnPerson": "董卓"
+   "scnPerson": "董卓",
+   "self": true
   },
   "wangyun": {
    "scnPerson": "王允"
@@ -63,6 +67,14 @@
    "goal": "{city}の{inn}で、司徒の家人の話を聞く",
    "speaker": "司徒の家人",
    "art": "inn",
+   "goto": [
+    {
+     "if": {
+      "me": "dong"
+     },
+     "next": "self_s1"
+    }
+   ],
    "text": [
     "{city}の{inn}では、誰も大きな声で話さなかった。相国{dong}の兵が、酒の席の陰口ひとつで人を引き立てていくからである。銭は董卓の鋳た薄い小銭ばかりで、米一石が数十万銭にもなっていた。",
     "隅の卓で、身なりのよい老僕が{player}に目配せした。「司徒の{wangyun}さまが、腕の立つ方を探しておいでです。口の堅い方を」",
@@ -717,6 +729,12 @@
    "goto": [
     {
      "if": {
+      "me": "dong"
+     },
+     "next": "self_late"
+    },
+    {
+     "if": {
       "branch": "dd_leak"
      },
      "next": "late_leak"
@@ -804,6 +822,175 @@
     }
    ],
    "end": "間に合わなかった"
+  },
+  "self_s1": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の相国府で、宴を開く",
+   "speaker": "lubu",
+   "art": "feast",
+   "text": [
+    "相国府の宴は夜通し続いた。{player}が降った北地の兵の舌を抜かせると、居並ぶ公卿は箸を落とした。{player}は平然と盃を干した。",
+    "宴の端で、養子の{lubu}が黙って盃を見つめていた。前の日、{player}は些細なことで怒り、手戟を投げつけている。{lubu}が退出するとき、司徒{wangyun}の家人がその袖にそっと何かを滑り込ませたのを、{player}の目は見逃さなかった。"
+   ],
+   "choices": [
+    {
+     "label": "{lubu}を呼び戻し、袖のものを問い詰める",
+     "turn": true,
+     "guide": "養子を疑う。外れれば、奉先の心はいよいよ離れる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "self_s1leak",
+      "lose": "self_s1ng"
+     }
+    },
+    {
+     "label": "気のせいだと笑い、盃を重ねる",
+     "next": "self_wait"
+    }
+   ]
+  },
+  "self_s1leak": {
+   "speaker": "lubu",
+   "art": "court",
+   "text": [
+    "{lubu}は大きな体を縮め、やがて袖から書を取り出した。{wangyun}の手である。「父上、わしは……」",
+    "{player}は書を灯にかざして笑った。「わしの子が、わしを刺すか。面白い」その夜のうちに、司徒の屋敷は相国府の兵に囲まれた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_dd_leak"
+    },
+    {
+     "rep": "han",
+     "n": -10
+    },
+    {
+     "note": "{wangyun}が{lubu}に送った書を見つけ、企てを暴いた。"
+    }
+   ],
+   "next": "self_wait"
+  },
+  "self_s1ng": {
+   "speaker": "lubu",
+   "text": [
+    "「袖には何も」{lubu}は空の袖を振ってみせた。その目は、子どものように落ち着かなかった。{player}は鼻で笑って下がらせた。"
+   ],
+   "next": "self_wait"
+  },
+  "self_wait": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、宮城へ参内する日を待つ",
+   "wait": {
+    "settled": "dong_dies"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dd_leak"
+     },
+     "next": "self_leak"
+    },
+    {
+     "next": "self_gate"
+    }
+   ]
+  },
+  "self_leak": {
+   "art": "court",
+   "text": [
+    "司徒{wangyun}は市で斬られた。{lubu}は数百騎を率いて{city}を脱け出し、東へ逃れたという。",
+    "{player}は郿の城塞から戻り、前よりも多くの兵に囲まれて宮城へ通った。車の窓から見る{city}の民は、誰も顔を上げなかった。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "rep": "han",
+     "n": -10
+    },
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "{wangyun}の企ては潰え、相国の座は揺るがなかった。"
+    }
+   ],
+   "end": "郿から戻る車"
+  },
+  "self_gate": {
+   "speaker": "lubu",
+   "art": "war",
+   "text": [
+    "{player}の車が北掖門をくぐったとき、門の脇から戟が突き出された。鎧に阻まれて車から転げ落ち、{player}は叫んだ。「奉先はどこだ」",
+    "{lubu}が進み出た。その手には戟があった。「詔によって賊臣を討つ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "北掖門で、{lubu}の戟が向けられた。"
+    }
+   ],
+   "end": "北掖門の車"
+  },
+  "self_late": {
+   "text": [
+    "{player}が{city}を離れているあいだに、司徒{wangyun}と{lubu}の企ては動いていた。相国府に残した者たちから、ちぎれた報せが届いた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dd_plot"
+    },
+    {
+     "unflag": "h_dd_guard"
+    },
+    {
+     "unflag": "h_dd_leak"
+    },
+    {
+     "unflag": "h_dd_pardon_ok"
+    },
+    {
+     "unflag": "h_dd_pardon"
+    },
+    {
+     "note": "{city}を離れているあいだに、長安の事は動いていた。"
+    }
+   ],
+   "end": "届かなかった報せ"
   }
  },
  "branches": [

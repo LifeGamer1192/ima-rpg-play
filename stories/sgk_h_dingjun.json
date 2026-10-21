@@ -22,7 +22,9 @@
   "d6z",
   "d6fire",
   "d6caught",
-  "d6hurt"
+  "d6hurt",
+  "self_d1",
+  "self_d2"
  ],
  "onFired": "late",
  "cast": {
@@ -45,7 +47,8 @@
    "scnPerson": "黄忠"
   },
   "xiahou": {
-   "scnPerson": "夏侯淵"
+   "scnPerson": "夏侯淵",
+   "self": true
   },
   "fazheng": {
    "scnPerson": "法正"
@@ -68,6 +71,14 @@
    "goal": "{hz}の{inn}で、漢中の戦の噂を聞く",
    "speaker": "guide",
    "art": "inn",
+   "goto": [
+    {
+     "if": {
+      "me": "xiahou"
+     },
+     "next": "self_d1"
+    }
+   ],
    "text": [
     "{hz}の{inn}の土間で、薪を背負った樵が粟の粥をすすっていた。米倉山で四十年、木を伐ってきたという{guide}である。",
     "「{liubei}様の軍は、陽平関の前でもう一年も睨み合いよ。関を守るのは{xiahou}将軍、三日で五百里、六日で千里を駆けるという魏王の一族だ。どっちも退かん」",
@@ -651,6 +662,12 @@
    "goto": [
     {
      "if": {
+      "me": "xiahou"
+     },
+     "next": "self_late"
+    },
+    {
+     "if": {
       "branch": "dgj_xiahou"
      },
      "next": "late_x"
@@ -703,6 +720,160 @@
     }
    ],
    "end": "間に合わなかった"
+  },
+  "self_d1": {
+   "at": {
+    "place": "hz",
+    "building": "palace"
+   },
+   "goal": "{hz}の{palace}で、魏王の書状を読む",
+   "speaker": "zhanghe",
+   "art": "court",
+   "text": [
+    "魏王からの書状が届いた。「将たる者、怯むときもなければならぬ。ただ勇を恃んではならぬ」。{player}は笑って書状を卓に置いた。怯むのは昔から苦手である。",
+    "{zhanghe}が地図を広げた。「{liubei}が沔水を南へ渡り、定軍山に陣を移しました。高みを取られれば、こちらは山の下で戦うしかありませぬ。わしが東を支えます。将軍は南の鹿角を」"
+   ],
+   "choices": [
+    {
+     "label": "南の陣へ出て、鹿角の守りを固める",
+     "effects": [
+      {
+       "note": "{liubei}が定軍山に上がった。南の陣の鹿角を固めに出た。"
+      }
+     ],
+     "next": "self_d2"
+    }
+   ]
+  },
+  "self_d2": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}の麓の陣で、鹿角を守る",
+   "speaker": "南の陣の部将",
+   "art": "war",
+   "text": [
+    "夜半、東の鹿角が燃え上がった。山の上から火矢が雨のように降り、乾いた逆茂木は見る間に炎の壁になった。南の柵にも火が移りはじめている。",
+    "{player}は鎧も半ばのまま幕舎を飛び出し、斧を一本つかんだ。部将が袖を引いた。「将軍、山の上の暗がりに旗の影が。柵は兵に繕わせ、陣の内に」",
+    "山の上で、太鼓が一つ、鳴った気がした。"
+   ],
+   "choices": [
+    {
+     "label": "斧を置き、柵は兵に繕わせて陣の内で弓を構える",
+     "effects": [
+      {
+       "flag": "h_dgj_xiahou"
+      },
+      {
+       "rep": "cao",
+       "n": 5
+      },
+      {
+       "note": "燃える鹿角を自ら繕いに出ず、陣の内で待った。"
+      }
+     ],
+     "next": "self_wait"
+    },
+    {
+     "label": "「怯めるか」と四百を連れ、自ら南の柵を繕いに出る",
+     "effects": [
+      {
+       "note": "燃える鹿角を、自ら斧を取って繕いに出た。"
+      }
+     ],
+     "next": "self_wait"
+    }
+   ]
+  },
+  "self_wait": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}で、山の太鼓が鳴るのを待つ",
+   "wait": {
+    "settled": "dingjun"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "dgj_xiahou"
+     },
+     "next": "self_held"
+    },
+    {
+     "next": "self_fence"
+    }
+   ]
+  },
+  "self_held": {
+   "speaker": "zhanghe",
+   "art": "war",
+   "text": [
+    "太鼓が鳴り、白い鬚の老将{huang}が山を駆け下りてきた。だが南の柵の内で待っていたのは、弓を構えた三千の兵だった。老将の突撃は柵の前で止まり、山へ押し戻された。",
+    "それでも漢中は守り切れなかった。兵糧の尽きる前に、{player}は陣を払って陽平関から北へ退いた。{zhanghe}が馬を並べて言った。「怯むことを覚えられましたな」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "cao",
+     "n": 10
+    },
+    {
+     "unflag": "h_dgj_xiahou"
+    },
+    {
+     "note": "定軍山の戦い。柵の内で{huang}を退け、兵をまとめて漢中から退いた。"
+    }
+   ],
+   "end": "怯むことを知った将"
+  },
+  "self_fence": {
+   "art": "war",
+   "text": [
+    "南の柵の火を、{player}は自ら斧で叩き落としていた。そのとき、山の上で太鼓が鳴った。白い鬚の老将が、まっすぐこちらへ駆け下りてくる。",
+    "振り向いたときには、もう{huang}の刀が届く間合いだった。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dgj_xiahou"
+    },
+    {
+     "note": "定軍山の戦い。燃える柵の前で、{huang}の突撃を受けた。"
+    }
+   ],
+   "end": "燃える柵の斧"
+  },
+  "self_late": {
+   "text": [
+    "{player}が陣を離れているあいだに、定軍山の太鼓は鳴っていた。{huang}が山を駆け下り、留守の陣は破られ、漢中は{liubei}のものになったという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_dgj_cao"
+    },
+    {
+     "unflag": "h_dgj_path"
+    },
+    {
+     "unflag": "h_dgj_huang"
+    },
+    {
+     "unflag": "h_dgj_follow"
+    },
+    {
+     "unflag": "h_dgj_grain"
+    },
+    {
+     "unflag": "h_dgj_xiahou"
+    },
+    {
+     "note": "陣を離れているあいだに、漢中は失われた。"
+    }
+   ],
+   "end": "留守の漢中"
   }
  },
  "branches": [
