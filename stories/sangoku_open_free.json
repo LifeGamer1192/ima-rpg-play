@@ -1,0 +1,313 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sangoku_open_free",
+ "kind": "main",
+ "title": "天下を説く",
+ "era": "sangoku",
+ "trigger": {
+  "persona": [
+   "person"
+  ],
+  "king": false,
+  "free": true
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "powercap": {
+   "place": "capital:power"
+  },
+  "powerking": {
+   "person": "ruler:power"
+  },
+  "powermin": {
+   "person": "minister:power"
+  },
+  "weak": {
+   "realm": "weakest"
+  },
+  "weakcap": {
+   "place": "capital:weak"
+  },
+  "weakking": {
+   "person": "ruler:weak"
+  },
+  "envoy": {
+   "npc": "使者",
+   "sex": "m"
+  },
+  "friend": {
+   "npc": "旧知",
+   "sex": "m"
+  }
+ },
+ "start": "f1",
+ "scenes": {
+  "f1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の宿で、届いた書状を開く",
+   "goto": [
+    {
+     "if": {
+      "free": false
+     },
+     "next": "fServed"
+    }
+   ],
+   "speaker": "friend",
+   "art": "inn",
+   "text": [
+    "宿に、二通の書状が届いていた。一通は{power}の{powermin}から。「{player}殿の名は{powercap}にも聞こえております。ぜひ我が主のもとへお迎えしたい」",
+    "もう一通は、{weak}の{envoy}が自ら携えてきた。「{power}の兵が国境に迫っております。どうか{weakking}様にお力添えを」",
+    "同席していた{friend}が腕を組んだ。「強い方につくのが世の常だ。だが、弱い方を見捨てるのは、お主の流儀ではあるまい」"
+   ],
+   "choices": [
+    {
+     "label": "まず{powercap}へ行き、{powerking}に会う",
+     "next": "f2"
+    }
+   ]
+  },
+  "f2": {
+   "at": {
+    "place": "powercap",
+    "building": "palace"
+   },
+   "goal": "{powercap}の宮城で、{powerking}に天下の策を説く",
+   "goto": [
+    {
+     "if": {
+      "free": false
+     },
+     "next": "fServed"
+    }
+   ],
+   "speaker": "powerking",
+   "art": "court",
+   "text": [
+    "{powerking}は上座から身を乗り出した。「割れた天下を、どうすれば一つにできる。そなたの策を聞かせてもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "北の策を説く：「まず北を平らげ、のちに南を図るべし」",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "f2ok",
+      "lose": "f2ng"
+     }
+    },
+    {
+     "label": "屯田の策を説く：「兵を養い、蔵を満たしてから動くべし」",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "f2ok",
+      "lose": "f2ng"
+     }
+    }
+   ]
+  },
+  "f2ok": {
+   "speaker": "powerking",
+   "text": [
+    "{powerking}は膝を打った。「なるほど、そうか」{powermin}は満足げにうなずいた。{power}の宮廷に、{player}の名が刻まれた。"
+   ],
+   "effects": [
+    {
+     "flag": "skf_power"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "power",
+     "n": 20
+    },
+    {
+     "realmFx": "power",
+     "add": "prestige",
+     "n": 3
+    }
+   ],
+   "next": "f3"
+  },
+  "f2ng": {
+   "text": [
+    "{powerking}はあくびをかみ殺した。「そなたの策は、どこかで聞いたような話だな」{player}は丁重に送り出された。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    }
+   ],
+   "next": "f3"
+  },
+  "f3": {
+   "at": {
+    "place": "weakcap",
+    "building": "palace"
+   },
+   "goal": "{weakcap}の宮城で、{weakking}に天下の策を説く",
+   "goto": [
+    {
+     "if": {
+      "free": false
+     },
+     "next": "fServed"
+    }
+   ],
+   "speaker": "weakking",
+   "art": "court",
+   "text": [
+    "{weakcap}の宮城は、どこか寒々としていた。{weakking}はやつれた顔で{player}を迎えた。「{power}に呑まれるのを、ただ待つしかないのか」"
+   ],
+   "choices": [
+    {
+     "label": "三分の策を説く：「他国と結び、天下を三つに分けて立つべし」",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "f3ok",
+      "lose": "f3ng"
+     }
+    },
+    {
+     "label": "守りの策を説く：「険しい地を恃み、民を養えば、国は落ちませぬ」",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "f3ok",
+      "lose": "f3ng"
+     }
+    }
+   ]
+  },
+  "f3ok": {
+   "speaker": "weakking",
+   "text": [
+    "{weakking}の目に光が戻った。「そなたの言葉で、目が覚めた」{weak}の宮廷に、久しぶりに笑い声が響いた。"
+   ],
+   "effects": [
+    {
+     "flag": "skf_weak"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "rep": "weak",
+     "n": 25
+    },
+    {
+     "realmFx": "weak",
+     "add": "stability",
+     "n": 5
+    }
+   ],
+   "next": "f4"
+  },
+  "f3ng": {
+   "text": [
+    "{weakking}は力なく首を振った。「理はわかる。だが、それをする力が我が国にはないのだ」"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    }
+   ],
+   "next": "f4"
+  },
+  "f4": {
+   "speaker": "friend",
+   "art": "tale",
+   "text": [
+    "{weakcap}を発つ朝、{friend}が見送りに来ていた。「さて、どうする。{power}に仕えるか、{weak}を扶けるか。それとも、どこにも仕えず晴耕雨読の暮らしに戻るか」"
+   ],
+   "choices": [
+    {
+     "label": "{power}に仕え、天下を一つにする手助けをする",
+     "effects": [
+      {
+       "enlist": "power"
+      },
+      {
+       "rank": 2
+      }
+     ],
+     "next": "fPower"
+    },
+    {
+     "label": "{weak}に仕え、強国に抗う",
+     "effects": [
+      {
+       "enlist": "weak"
+      },
+      {
+       "rank": 3
+      }
+     ],
+     "next": "fWeak"
+    },
+    {
+     "label": "どこにも仕えず、野にあって名を上げる",
+     "next": "fFree"
+    }
+   ]
+  },
+  "fPower": {
+   "speaker": "powermin",
+   "text": [
+    "{powermin}は門まで出迎えた。「よくぞ来てくださった」{player}は{power}に仕え、天下統一の策を練る日々が始まった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    }
+   ],
+   "end": "天下の策"
+  },
+  "fWeak": {
+   "speaker": "weakking",
+   "text": [
+    "{weakking}は自ら階を降りて{player}を迎えた。「{player}殿がいてくだされば、{weak}はまだ戦える」勝ち目の薄い戦いが、{player}の新しい道になった。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    }
+   ],
+   "end": "弱きを扶く"
+  },
+  "fFree": {
+   "speaker": "friend",
+   "text": [
+    "「お主らしい」{friend}は笑った。{player}はどの国の門もくぐらず、草廬に戻って書を読み、畑を耕した。それでも、その名を慕って訪ねてくる者は絶えなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "xp": "letters",
+     "n": 10
+    }
+   ],
+   "end": "晴耕雨読"
+  },
+  "fServed": {
+   "text": [
+    "{player}はすでに一国に仕える身となっていた。諸国を巡る旅は、別の形で続いていく。"
+   ],
+   "end": "流転"
+  }
+ }
+}

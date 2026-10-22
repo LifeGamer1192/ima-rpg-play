@@ -1,0 +1,441 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_open_serve",
+ "kind": "main",
+ "title": "御下命",
+ "era": "sengoku",
+ "trigger": {
+  "persona": [
+   "person"
+  ],
+  "king": false,
+  "patron": true
+ },
+ "cast": {
+  "realm": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:realm"
+  },
+  "lord": {
+   "person": "ruler:realm"
+  },
+  "foe": {
+   "realm": "enemy:realm"
+  },
+  "foecap": {
+   "place": "capital:foe"
+  },
+  "foeminister": {
+   "person": "minister:foe"
+  },
+  "border": {
+   "place": "border:realm"
+  },
+  "schemer": {
+   "npc": "佞臣",
+   "sex": "m"
+  }
+ },
+ "start": "s0",
+ "scenes": {
+  "s0": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の城へ、{lord}の召しに応じて参上する",
+   "goto": [
+    {
+     "if": {
+      "free": true
+     },
+     "next": "sLost"
+    },
+    {
+     "if": {
+      "role": [
+       "general"
+      ]
+     },
+     "next": "s1gen"
+    },
+    {
+     "next": "s1min"
+    }
+   ],
+   "text": [
+    "{lord}のお召しである。"
+   ],
+   "next": "s1min"
+  },
+  "s1gen": {
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "{lord}は絵図の一点を扇で指した。「{border}の城の外に、{foe}の兵が集まっておる。そなたに城番を申しつける」",
+    "「あの城が落ちれば、{capital}まで遮るものはない。頼んだぞ」"
+   ],
+   "choices": [
+    {
+     "label": "「この命に代えましても」{border}へ向かう",
+     "next": "s2gen"
+    }
+   ]
+  },
+  "s1min": {
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "{lord}は声を落とした。「{foe}の腹の内が読めぬ。そなたが使者として{foecap}へ参り、確かめてまいれ」",
+    "「和睦が成るなら、それもよし。だが、侮られてはならぬぞ」"
+   ],
+   "choices": [
+    {
+     "label": "「ははっ、謹んで」{foecap}へ向かう",
+     "next": "s2min"
+    }
+   ]
+  },
+  "s2gen": {
+   "at": {
+    "place": "border"
+   },
+   "goal": "境目の{border}の城を守る",
+   "goto": [
+    {
+     "if": {
+      "free": true
+     },
+     "next": "sLost"
+    }
+   ],
+   "speaker": "物見の足軽",
+   "art": "war",
+   "text": [
+    "{border}の城に入って三日目の夜、物見が駆け込んできた。「{foe}の兵が、夜討ちをかけてまいりまする！」",
+    "松明の列が、闇の中を蛇のように近づいてくる。"
+   ],
+   "choices": [
+    {
+     "label": "城門を開いて打って出る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s2genWin",
+      "lose": "s2genHold"
+     }
+    },
+    {
+     "label": "谷間に伏兵を置き、敵を誘い込む",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "s2genAmbush",
+      "lose": "s2genHold"
+     }
+    },
+    {
+     "label": "城門を固く閉ざし、夜明けまで守り抜く",
+     "next": "s2genHold"
+    }
+   ]
+  },
+  "s2genWin": {
+   "text": [
+    "乱戦の末、{foe}の兵は算を乱して退いた。夜明けの城に、勝鬨が響いた。"
+   ],
+   "effects": [
+    {
+     "flag": "sgs_deed"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 30
+    }
+   ],
+   "next": "s3"
+  },
+  "s2genAmbush": {
+   "text": [
+    "谷間に誘い込まれた{foe}の兵は、左右から鉄砲と矢を浴びて潰走した。味方の損は、ほとんどなかった。足軽たちは{player}を見る目を変えた。"
+   ],
+   "effects": [
+    {
+     "flag": "sgs_deed"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 40
+    },
+    {
+     "xp": "letters",
+     "n": 8
+    }
+   ],
+   "next": "s3"
+  },
+  "s2genHold": {
+   "text": [
+    "夜通し矢玉が飛び交ったが、城は落ちなかった。夜明け、{foe}の兵は引き上げていった。守りきった。だが、大きな手柄とは言えない。"
+   ],
+   "effects": [
+    {
+     "favor": 10
+    }
+   ],
+   "next": "s3"
+  },
+  "s2min": {
+   "at": {
+    "place": "foecap",
+    "building": "palace"
+   },
+   "goal": "{foecap}の城で、{foe}の真意を探る",
+   "goto": [
+    {
+     "if": {
+      "free": true
+     },
+     "next": "sLost"
+    }
+   ],
+   "speaker": "foeminister",
+   "art": "court",
+   "text": [
+    "{foe}の広間は、値踏みするような目で{player}を迎えた。{foeminister}が口を開く。「{realm}の使者か。和睦を乞いに参ったか、それとも脅しに参ったか」"
+   ],
+   "choices": [
+    {
+     "label": "和睦を説く：「両家が争えば、漁夫の利を得るのは他家にござる」",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "s2minPeace",
+      "lose": "s2minCold"
+     }
+    },
+    {
+     "label": "脅しをかける：「{realm}の兵は、すでに境目に揃うておりまする」",
+     "check": {
+      "skill": "speech",
+      "dc": 55,
+      "win": "s2minCow",
+      "lose": "s2minAngry"
+     }
+    },
+    {
+     "label": "饗応の夜、密かに{foe}の内情を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "s2minSpy",
+      "lose": "s2minCold"
+     }
+    }
+   ]
+  },
+  "s2minPeace": {
+   "text": [
+    "{foeminister}は長く黙り込んだのち、起請文に血判を押した。「よかろう。ただし、そなたの顔を立ててのことじゃ」"
+   ],
+   "effects": [
+    {
+     "flag": "sgs_deed"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 30
+    },
+    {
+     "rep": "foe",
+     "n": 15
+    }
+   ],
+   "next": "s3"
+  },
+  "s2minCow": {
+   "text": [
+    "{foeminister}の顔色が変わった。「……兵は退かせよう」{foe}は境目から兵を引いた。だが、その目には恨みの色があった。"
+   ],
+   "effects": [
+    {
+     "flag": "sgs_deed"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 30
+    },
+    {
+     "rep": "foe",
+     "n": -15
+    }
+   ],
+   "next": "s3"
+  },
+  "s2minAngry": {
+   "text": [
+    "「脅しか。{realm}も舐められたものよ」{foeminister}は席を立った。{player}は追い出されるように{foecap}を後にした。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "rep": "foe",
+     "n": -20
+    }
+   ],
+   "next": "s3"
+  },
+  "s2minSpy": {
+   "text": [
+    "饗応の夜、酔った近習の口から、{foe}の兵糧と鉄砲の玉薬が乏しいことを聞き出した。{foe}は当分、大きな戦はできまい。"
+   ],
+   "effects": [
+    {
+     "flag": "sgs_deed"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 30
+    },
+    {
+     "xp": "stealth",
+     "n": 8
+    }
+   ],
+   "next": "s3"
+  },
+  "s2minCold": {
+   "text": [
+    "{foe}の広間は最後まで冷ややかだった。和睦は成らず、腹の内も読めぬまま、{player}は帰途についた。"
+   ],
+   "effects": [
+    {
+     "favor": 5
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の城へ戻り、{lord}に御下命の次第を言上する",
+   "wait": {
+    "days": 10
+   },
+   "goto": [
+    {
+     "if": {
+      "free": true
+     },
+     "next": "sLost"
+    }
+   ],
+   "speaker": "schemer",
+   "art": "court",
+   "text": [
+    "{lord}の前に進み出ると、{schemer}という者が先に口を開いた。",
+    "「お待ちくだされ。{player}殿は{foe}に内通しておりまする。あまりに手際が良すぎた。裏で何を約したか、知れたものではござらぬ」",
+    "{lord}の目が、{player}に向けられた。"
+   ],
+   "choices": [
+    {
+     "label": "{lord}の前で、御下命の次第を一つ一つ申し開く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "sClear",
+      "lose": "sDoubt"
+     }
+    },
+    {
+     "label": "夜のうちに{schemer}の屋敷を探り、証を差し出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "sClear",
+      "lose": "sDoubt"
+     }
+    },
+    {
+     "label": "何も言わず、自ら暇を願い出る",
+     "guide": "{realm}を離れ、牢人の身になる",
+     "next": "sLeave"
+    }
+   ]
+  },
+  "sClear": {
+   "speaker": "lord",
+   "text": [
+    "{schemer}の屋敷から、{foe}と交わした内応の書状が見つかった。謀反を企てていたのは{schemer}の方だった。{schemer}はその夜のうちに城下から逐電した。",
+    "{lord}は{player}の手を取った。「疑うてすまなんだ。そなたこそ、{realm}の柱じゃ」"
+   ],
+   "effects": [
+    {
+     "promote": 1
+    },
+    {
+     "favor": 30
+    },
+    {
+     "fame": 5
+    }
+   ],
+   "end": "家中の柱"
+  },
+  "sDoubt": {
+   "speaker": "lord",
+   "text": [
+    "{lord}は「疑いは晴れた」と言った。だが、その目の奥に残った影は消えなかった。",
+    "{schemer}はほどなく謀反の企みが露見して逐電した。{player}は変わらず仕え続けた。二心なきことを、いつか分かってもらえる日まで。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "end": "二心なし"
+  },
+  "sLeave": {
+   "text": [
+    "{player}は暇を願い出て、城の門を出た。「疑われて仕えるより、牢人となって己を恥じぬ方がよい」",
+    "{schemer}の得意は長くは続かなかった。謀反の企みが露見し、城下から逐電したと聞いたのは、それから一年ほど後のことだった。"
+   ],
+   "effects": [
+    {
+     "fall": true
+    },
+    {
+     "fame": 4
+    }
+   ],
+   "end": "牢人となる"
+  },
+  "sLost": {
+   "text": [
+    "{player}が仕えた家の事情は変わってしまった。御下命は果たされぬまま、戦国の波に流れた。"
+   ],
+   "end": "流転"
+  }
+ }
+}

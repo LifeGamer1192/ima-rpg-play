@@ -1,0 +1,364 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sengoku_open_king",
+ "kind": "main",
+ "title": "家中の舵",
+ "era": "sengoku",
+ "trigger": {
+  "persona": [
+   "person"
+  ],
+  "king": true
+ },
+ "cast": {
+  "realm": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:realm"
+  },
+  "minister": {
+   "person": "minister:realm"
+  },
+  "general": {
+   "person": "general:realm"
+  },
+  "foe": {
+   "realm": "enemy:realm"
+  },
+  "third": {
+   "realm": "second"
+  },
+  "thirdcap": {
+   "place": "capital:third"
+  },
+  "schemer": {
+   "npc": "佞臣",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "城下の古老",
+   "sex": "m"
+  }
+ },
+ "start": "k1",
+ "scenes": {
+  "k1": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の城で、評定に臨む",
+   "goto": [
+    {
+     "if": {
+      "king": false
+     },
+     "next": "kLost"
+    }
+   ],
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "評定の間に、重臣たちが居並んだ。口火を切ったのは{minister}だった。「{foe}の動きが怪しゅうござる。いまは検地を進め、国を富ますべきかと」",
+    "{general}が膝を進める。「守ってばかりでは、いずれ呑まれまする。先に兵を出し、{foe}の出鼻をくじくべし」",
+    "一同の目が、上座の{player}に集まった。"
+   ],
+   "choices": [
+    {
+     "label": "「{general}、兵を率いて境目へ出よ」",
+     "effects": [
+      {
+       "flag": "sgk_war"
+      },
+      {
+       "realmFx": "realm",
+       "add": "prestige",
+       "n": 4
+      },
+      {
+       "realmFx": "realm",
+       "add": "stability",
+       "n": -3
+      }
+     ],
+     "next": "k1war"
+    },
+    {
+     "label": "「{minister}、検地を進め、城下に楽市を開け」",
+     "effects": [
+      {
+       "flag": "sgk_rich"
+      },
+      {
+       "realmFx": "realm",
+       "add": "treasury",
+       "n": 80
+      },
+      {
+       "realmFx": "realm",
+       "add": "stability",
+       "n": 5
+      }
+     ],
+     "next": "k1rich"
+    },
+    {
+     "label": "「{third}と縁組を結び、盟とする」",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "k1ally",
+      "lose": "k1noally"
+     }
+    }
+   ]
+  },
+  "k1war": {
+   "speaker": "general",
+   "text": [
+    "「必ずや、{foe}に一泡吹かせてご覧に入れまする」{general}は勇んで退出した。{minister}は黙って目を伏せた。"
+   ],
+   "next": "k2"
+  },
+  "k1rich": {
+   "speaker": "minister",
+   "text": [
+    "「ははっ」{minister}は深く頭を下げた。{general}は不満げに鼻を鳴らしたが、殿の命には逆らわなかった。"
+   ],
+   "next": "k2"
+  },
+  "k1ally": {
+   "text": [
+    "{thirdcap}へ送った使者は、縁組の約定を携えて戻った。{foe}は両面に敵を抱える形になった。家中は{player}の手並みに舌を巻いた。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_ally"
+    },
+    {
+     "realmFx": "realm",
+     "ally": "third"
+    },
+    {
+     "realmFx": "realm",
+     "add": "prestige",
+     "n": 3
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "k2"
+  },
+  "k1noally": {
+   "text": [
+    "{third}は使者を冷たくあしらった。「虎の尾を踏む気はござらぬ」。縁組は成らなかったが、少なくとも{third}の腹の内は知れた。"
+   ],
+   "next": "k2"
+  },
+  "k2": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "頬かむりをして身をやつし、{capital}の城下を歩く",
+   "wait": {
+    "days": 10
+   },
+   "goto": [
+    {
+     "if": {
+      "king": false
+     },
+     "next": "kLost"
+    }
+   ],
+   "speaker": "elder",
+   "art": "trade",
+   "text": [
+    "粗末な小袖に着替え、供を一人だけ連れて城下に出た。誰も、目の前の男が殿様だとは気づかない。",
+    "茶屋の縁台で、{elder}がぼやいていた。「年貢がまた上がった。足軽に取られた倅は帰ってこん。……それにな、お城には{schemer}という者がおって、殿様の耳に毒を吹き込んでおるそうな」"
+   ],
+   "choices": [
+    {
+     "label": "旅の商人のふりをして、{schemer}のことを聞き出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "k2know",
+      "lose": "k2seen"
+     }
+    },
+    {
+     "label": "酒をおごり、{elder}の愚痴に耳を傾ける",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "k2know",
+      "lose": "k2plain"
+     }
+    },
+    {
+     "label": "何も言わずに城へ戻る",
+     "next": "k2plain"
+    }
+   ]
+  },
+  "k2know": {
+   "text": [
+    "酔いの回った{elder}は声をひそめた。「{schemer}は{minister}様を追い落とそうとしておる。夜な夜な{foe}の商人と会っておるのを、うちの孫が見たそうじゃ。謀反の噂もある」",
+    "{player}は黙って盃を干し、銭を多めに置いて席を立った。"
+   ],
+   "effects": [
+    {
+     "flag": "sgk_know"
+    },
+    {
+     "xp": "stealth",
+     "n": 10
+    }
+   ],
+   "next": "k3"
+  },
+  "k2seen": {
+   "text": [
+    "聞き込みが過ぎた。「おい、あの侍、どこかで……殿様じゃねえか？」城下がざわめき、{player}は供に袖を引かれて城へ逃げ帰った。噂は城下に広まった。"
+   ],
+   "effects": [
+    {
+     "fame": -3
+    }
+   ],
+   "next": "k3"
+  },
+  "k2plain": {
+   "text": [
+    "民の暮らしは、天守から見えるものよりずっと苦しかった。{player}はそれだけを胸に刻んで、城へ戻った。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 6
+    }
+   ],
+   "next": "k3"
+  },
+  "k3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の城で、{schemer}の訴えを聞く",
+   "wait": {
+    "days": 15
+   },
+   "goto": [
+    {
+     "if": {
+      "king": false
+     },
+     "next": "kLost"
+    }
+   ],
+   "speaker": "schemer",
+   "art": "court",
+   "text": [
+    "{schemer}が平伏した。「申し上げまする。{minister}殿は{foe}に内通し、謀反を企てておりまする。これが、その証の書状にござる」",
+    "{minister}の顔から血の気が引いた。一同が息をのむ。裁くのは、{player}ただ一人だ。"
+   ],
+   "choices": [
+    {
+     "label": "{minister}を捕らえ、処断する",
+     "next": "kLonely"
+    },
+    {
+     "label": "「その書状、改めさせよ」自ら調べる（城下で聞いた話がある）",
+     "if": {
+      "flag": "sgk_know"
+     },
+     "next": "kWise"
+    },
+    {
+     "label": "「その書状、改めさせよ」自ら調べる",
+     "if": {
+      "notFlag": "sgk_know"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "kWise",
+      "lose": "kLonely"
+     }
+    },
+    {
+     "label": "{minister}も{schemer}も、ともに遠ざける",
+     "next": "kAlone"
+    }
+   ]
+  },
+  "kWise": {
+   "speaker": "minister",
+   "text": [
+    "書状の筆跡は{minister}のものではなかった。謀反を企てていたのは{schemer}の方だった。問い詰められた{schemer}は、その夜のうちに城下から逐電した。",
+    "{minister}は畳に額をすりつけた。「この老骨、命ある限りお仕えいたしまする」家中は、上座の主を見る目を改めた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "realmFx": "realm",
+     "add": "stability",
+     "n": 6
+    },
+    {
+     "realmFx": "realm",
+     "add": "prestige",
+     "n": 3
+    }
+   ],
+   "end": "名君の器"
+  },
+  "kLonely": {
+   "text": [
+    "{minister}は蟄居を命じられ、{schemer}がその座に就いた。城は静かになった。誰も、殿に本当のことを言わなくなった。",
+    "……やがて{schemer}の謀反の企みが露見し、{schemer}は一族郎党を連れて城下から逐電した。広間には、空いた席ばかりが残った。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "realmFx": "realm",
+     "add": "stability",
+     "n": -6
+    }
+   ],
+   "end": "孤独な天守"
+  },
+  "kAlone": {
+   "text": [
+    "「疑わしき者は、誰であれ傍に置かぬ」{minister}は隠居を命じられ、{schemer}は領外へ追われた。",
+    "{player}は政を自らの手に握った。夜更けまで帳面に向かう殿を、家中は恐れ、そして少しずつ敬うようになった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "letters",
+     "n": 12
+    }
+   ],
+   "end": "独り立つ当主"
+  },
+  "kLost": {
+   "text": [
+    "家督は、もはや{player}のものではなかった。戦国の波は、大名の運命すら呑み込んでいく。"
+   ],
+   "end": "流転"
+  }
+ }
+}

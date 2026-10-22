@@ -941,6 +941,27 @@
    "title": "槍一本の夢"
   },
   {
+   "id": "sengoku_open_king",
+   "file": "sengoku_open_king.json",
+   "kind": "main",
+   "era": "sengoku",
+   "title": "家中の舵"
+  },
+  {
+   "id": "sengoku_open_serve",
+   "file": "sengoku_open_serve.json",
+   "kind": "main",
+   "era": "sengoku",
+   "title": "御下命"
+  },
+  {
+   "id": "sengoku_open_free",
+   "file": "sengoku_open_free.json",
+   "kind": "main",
+   "era": "sengoku",
+   "title": "諸国遍歴"
+  },
+  {
    "id": "sengoku_kenjutsu",
    "file": "sengoku_kenjutsu.json",
    "kind": "school",
@@ -1450,6 +1471,27 @@
    "kind": "main",
    "era": "sangoku",
    "title": "鼎の行方"
+  },
+  {
+   "id": "sangoku_open_king",
+   "file": "sangoku_open_king.json",
+   "kind": "main",
+   "era": "sangoku",
+   "title": "鼎の一脚"
+  },
+  {
+   "id": "sangoku_open_serve",
+   "file": "sangoku_open_serve.json",
+   "kind": "main",
+   "era": "sangoku",
+   "title": "受命"
+  },
+  {
+   "id": "sangoku_open_free",
+   "file": "sangoku_open_free.json",
+   "kind": "main",
+   "era": "sangoku",
+   "title": "天下を説く"
   },
   {
    "id": "sangoku_taixue",
