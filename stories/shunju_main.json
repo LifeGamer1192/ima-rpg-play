@@ -5,6 +5,12 @@
  "kind": "main",
  "title": "乱世の食客",
  "era": "shunju",
+ "trigger": {
+  "persona": [
+   "none",
+   "folk"
+  ]
+ },
  "cast": {
   "home": {
    "place": "home"

@@ -5,6 +5,12 @@
  "kind": "main",
  "title": "槍一本の夢",
  "era": "sengoku",
+ "trigger": {
+  "persona": [
+   "none",
+   "folk"
+  ]
+ },
  "cast": {
   "home": {
    "place": "home"

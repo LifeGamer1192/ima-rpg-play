@@ -7,7 +7,12 @@
  "title": "天命",
  "era": "shunju",
  "trigger": {
-  "storyDone": "shunju_main",
+  "storyDone": [
+   "shunju_main",
+   "shunju_open_king",
+   "shunju_open_serve",
+   "shunju_open_free"
+  ],
   "notFeat": "main"
  },
  "cast": {
@@ -21,7 +26,8 @@
    "place": "capital:power"
   },
   "ruler": {
-   "person": "ruler:power"
+   "person": "ruler:power",
+   "self": true
   },
   "schemer": {
    "npc": "讒臣",
@@ -44,6 +50,14 @@
     "building": "inn"
    },
    "goal": "{here}の宿で、老師の旧友の便りを受け取る",
+   "goto": [
+    {
+     "if": {
+      "me": "ruler"
+     },
+     "next": "m1self"
+    }
+   ],
    "speaker": "old",
    "art": "inn",
    "text": [
@@ -53,6 +67,20 @@
    "choices": [
     {
      "label": "{capital}へ向かう",
+     "next": "m2"
+    }
+   ]
+  },
+  "m1self": {
+   "speaker": "old",
+   "art": "inn",
+   "text": [
+    "{old}は、震える手で竹簡を差し出した。「あの{schemer}が生きております。都を追われたあと死士を養い、{capital}に潜り込んだとか」",
+    "「狙いは王、あなた様のお命。宮城の誰が通じているか分かりませぬ。どうか、ご自身の目で確かめられますよう」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ戻る",
      "next": "m2"
     }
    ]
@@ -197,6 +225,14 @@
    "next": "m6"
   },
   "m6": {
+   "goto": [
+    {
+     "if": {
+      "me": "ruler"
+     },
+     "next": "m6self"
+    }
+   ],
    "speaker": "ruler",
    "art": "court",
    "text": [
@@ -222,6 +258,69 @@
      }
     }
    ]
+  },
+  "m6self": {
+   "art": "court",
+   "text": [
+    "捕らえられた{schemer}が、玉座の前に引き据えられた。重臣たちが{player}の顔をうかがう。命を狙われたのは王その人。裁くのも、王その人だ。"
+   ],
+   "choices": [
+    {
+     "label": "法に照らして裁き、その理を群臣に示す",
+     "check": {
+      "skill": "letters",
+      "dc": 78,
+      "win": "mself_law",
+      "lose": "mself_fail"
+     }
+    },
+    {
+     "label": "命を助けて辺境へ流し、王の度量を示す",
+     "check": {
+      "skill": "speech",
+      "dc": 78,
+      "win": "mself_mercy",
+      "lose": "mself_fail"
+     }
+    }
+   ]
+  },
+  "mself_law": {
+   "art": "court",
+   "text": [
+    "{player}は法を読み上げ、ひとつひとつ罪を示した。群臣は息をのみ、やがて深く頭を垂れた。王の怒りではなく、法が裁いた。その夜、乱世の最後の火種が消えた。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "天命"
+  },
+  "mself_mercy": {
+   "art": "court",
+   "text": [
+    "「命は取らぬ。だが二度と都の土は踏ませぬ」{player}の言葉に、群臣はどよめいた。己の命を狙った者を赦す王に、人々は天命を見た。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "天命"
+  },
+  "mself_fail": {
+   "art": "court",
+   "text": [
+    "言葉は群臣の胸に届かなかった。王は私怨で裁いたと噂が立ち、裁きは重臣たちに委ねられた。……いつか、もう一度。"
+   ],
+   "end": "天命いまだ至らず"
   },
   "mwin_law": {
    "speaker": "ruler",
@@ -256,9 +355,29 @@
    "end": "天命"
   },
   "mfail": {
+   "goto": [
+    {
+     "if": {
+      "me": "ruler"
+     },
+     "next": "mfail_self"
+    }
+   ],
    "art": "war",
    "text": [
     "{player}は深手を負って倒れた。{ruler}は辛うじて逃れたが、{schemer}は闇に消えた。……傷が癒えたら、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -40
+    }
+   ],
+   "end": "天命いまだ至らず"
+  },
+  "mfail_self": {
+   "art": "war",
+   "text": [
+    "{player}は深手を負いながらも、近衛に守られて辛うじて逃れた。{schemer}は闇に消えた。……傷が癒えたら、もう一度。"
    ],
    "effects": [
     {

@@ -1,0 +1,364 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "shunju_open_king",
+ "kind": "main",
+ "title": "社稷の重み",
+ "era": "shunju",
+ "trigger": {
+  "persona": [
+   "person"
+  ],
+  "king": true
+ },
+ "cast": {
+  "realm": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:realm"
+  },
+  "minister": {
+   "person": "minister:realm"
+  },
+  "general": {
+   "person": "general:realm"
+  },
+  "foe": {
+   "realm": "enemy:realm"
+  },
+  "third": {
+   "realm": "second"
+  },
+  "thirdcap": {
+   "place": "capital:third"
+  },
+  "schemer": {
+   "npc": "讒臣",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "市の古老",
+   "sex": "m"
+  }
+ },
+ "start": "k1",
+ "scenes": {
+  "k1": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の宮城で、朝議に臨む",
+   "goto": [
+    {
+     "if": {
+      "king": false
+     },
+     "next": "kLost"
+    }
+   ],
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "朝議の間に、群臣が居並んだ。口火を切ったのは{minister}だった。「{foe}の動きが怪しゅうございます。いまは国を富まし、守りを固める時かと」",
+    "{general}が進み出る。「守ってばかりでは、いずれ呑まれます。先に兵を出し、{foe}の出鼻をくじくべきです」",
+    "群臣の目が、玉座の{player}に集まった。"
+   ],
+   "choices": [
+    {
+     "label": "「{general}、兵を率いて国境へ出よ」",
+     "effects": [
+      {
+       "flag": "kgok_war"
+      },
+      {
+       "realmFx": "realm",
+       "add": "prestige",
+       "n": 4
+      },
+      {
+       "realmFx": "realm",
+       "add": "stability",
+       "n": -3
+      }
+     ],
+     "next": "k1war"
+    },
+    {
+     "label": "「{minister}、田を開き、蔵を満たせ」",
+     "effects": [
+      {
+       "flag": "kgok_rich"
+      },
+      {
+       "realmFx": "realm",
+       "add": "treasury",
+       "n": 80
+      },
+      {
+       "realmFx": "realm",
+       "add": "stability",
+       "n": 5
+      }
+     ],
+     "next": "k1rich"
+    },
+    {
+     "label": "「{third}へ使いを出し、盟を結ぶ」",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "k1ally",
+      "lose": "k1noally"
+     }
+    }
+   ]
+  },
+  "k1war": {
+   "speaker": "general",
+   "text": [
+    "「必ずや、{foe}の鼻を明かしてご覧に入れます」{general}は意気揚々と退出した。{minister}は黙って目を伏せた。"
+   ],
+   "next": "k2"
+  },
+  "k1rich": {
+   "speaker": "minister",
+   "text": [
+    "「仰せのとおりに」{minister}は深く頭を下げた。{general}は不満げに鼻を鳴らしたが、王命には逆らわなかった。"
+   ],
+   "next": "k2"
+  },
+  "k1ally": {
+   "text": [
+    "{thirdcap}へ送った使いは、盟約の竹簡を携えて戻った。{foe}は東西から睨まれる形になった。群臣は{player}の手並みに舌を巻いた。"
+   ],
+   "effects": [
+    {
+     "flag": "kgok_ally"
+    },
+    {
+     "realmFx": "realm",
+     "ally": "third"
+    },
+    {
+     "realmFx": "realm",
+     "add": "prestige",
+     "n": 3
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "k2"
+  },
+  "k1noally": {
+   "text": [
+    "{third}は使いを冷たくあしらった。「虎の尾を踏む気はない」。盟は成らなかったが、少なくとも{third}の腹の内は知れた。"
+   ],
+   "next": "k2"
+  },
+  "k2": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "王の衣を脱ぎ、身をやつして{capital}の市を歩く",
+   "wait": {
+    "days": 10
+   },
+   "goto": [
+    {
+     "if": {
+      "king": false
+     },
+     "next": "kLost"
+    }
+   ],
+   "speaker": "elder",
+   "art": "trade",
+   "text": [
+    "粗末な衣に着替え、供を一人だけ連れて市に出た。誰も、目の前の男が王だとは気づかない。",
+    "酒肆の隅で、{elder}がぼやいていた。「税がまた上がった。兵に取られた倅は帰ってこん。……それにな、宮城には{schemer}という男がおって、王の耳に毒を吹き込んでおるそうな」"
+   ],
+   "choices": [
+    {
+     "label": "旅の商人のふりをして、{schemer}のことを聞き出す",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "k2know",
+      "lose": "k2seen"
+     }
+    },
+    {
+     "label": "酒をおごり、{elder}の愚痴に耳を傾ける",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "k2know",
+      "lose": "k2plain"
+     }
+    },
+    {
+     "label": "何も言わずに宮城へ戻る",
+     "next": "k2plain"
+    }
+   ]
+  },
+  "k2know": {
+   "text": [
+    "酔いの回った{elder}は声をひそめた。「{schemer}は{minister}様を追い落とそうとしておる。{foe}の商人と夜な夜な会っておるのを、うちの娘が見たそうだ」",
+    "{player}は黙って酒を干し、銭を多めに置いて席を立った。"
+   ],
+   "effects": [
+    {
+     "flag": "kgok_know"
+    },
+    {
+     "xp": "stealth",
+     "n": 10
+    }
+   ],
+   "next": "k3"
+  },
+  "k2seen": {
+   "text": [
+    "聞き込みが過ぎた。「おい、あの男、どこかで……王様じゃねえか？」市がざわめき、{player}は供に袖を引かれて宮城へ逃げ帰った。噂は都に広まった。"
+   ],
+   "effects": [
+    {
+     "fame": -3
+    }
+   ],
+   "next": "k3"
+  },
+  "k2plain": {
+   "text": [
+    "民の暮らしは、玉座から見えるものよりずっと苦しかった。{player}はそれだけを胸に刻んで、宮城へ戻った。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 6
+    }
+   ],
+   "next": "k3"
+  },
+  "k3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の宮城で、{schemer}の訴えを聞く",
+   "wait": {
+    "days": 15
+   },
+   "goto": [
+    {
+     "if": {
+      "king": false
+     },
+     "next": "kLost"
+    }
+   ],
+   "speaker": "schemer",
+   "art": "court",
+   "text": [
+    "{schemer}が玉座の前にひれ伏した。「申し上げます。{minister}は{foe}と通じ、国を売ろうとしております。これが、その証の文にございます」",
+    "{minister}の顔から血の気が引いた。群臣が息をのむ。裁くのは、{player}ただ一人だ。"
+   ],
+   "choices": [
+    {
+     "label": "{minister}を捕らえ、罰する",
+     "next": "kLonely"
+    },
+    {
+     "label": "「その文、改めさせよ」自ら調べる（市で聞いた話がある）",
+     "if": {
+      "flag": "kgok_know"
+     },
+     "next": "kWise"
+    },
+    {
+     "label": "「その文、改めさせよ」自ら調べる",
+     "if": {
+      "notFlag": "kgok_know"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "kWise",
+      "lose": "kLonely"
+     }
+    },
+    {
+     "label": "{minister}も{schemer}も、ともに遠ざける",
+     "next": "kAlone"
+    }
+   ]
+  },
+  "kWise": {
+   "speaker": "minister",
+   "text": [
+    "文の筆跡は{minister}のものではなかった。問い詰められた{schemer}は青ざめ、その夜のうちに都から姿を消した。",
+    "{minister}は涙を浮かべて額を床につけた。「この老骨、命ある限りお仕えいたします」群臣は、玉座の主を見る目を改めた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "realmFx": "realm",
+     "add": "stability",
+     "n": 6
+    },
+    {
+     "realmFx": "realm",
+     "add": "prestige",
+     "n": 3
+    }
+   ],
+   "end": "名君の器"
+  },
+  "kLonely": {
+   "text": [
+    "{minister}は獄に下り、{schemer}がその座に就いた。宮城は静かになった。誰も、王に本当のことを言わなくなった。",
+    "……やがて{schemer}の専横は目に余るものとなり、ある夜、私財を抱えて都から姿を消した。玉座の周りには、空いた席ばかりが残った。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "realmFx": "realm",
+     "add": "stability",
+     "n": -6
+    }
+   ],
+   "end": "孤独な玉座"
+  },
+  "kAlone": {
+   "text": [
+    "「疑わしき者は、誰であれ傍に置かぬ」{minister}は故郷へ帰され、{schemer}は都を追われた。",
+    "{player}は政を自らの手に握った。眠る間も惜しんで竹簡に向かう王を、群臣は恐れ、そして少しずつ敬うようになった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "letters",
+     "n": 12
+    }
+   ],
+   "end": "独り立つ王"
+  },
+  "kLost": {
+   "text": [
+    "玉座は、もはや{player}のものではなかった。乱世の波は、王の運命すら呑み込んでいく。"
+   ],
+   "end": "流転"
+  }
+ }
+}

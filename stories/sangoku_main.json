@@ -5,6 +5,12 @@
  "kind": "main",
  "title": "鼎の行方",
  "era": "sangoku",
+ "trigger": {
+  "persona": [
+   "none",
+   "folk"
+  ]
+ },
  "cast": {
   "home": {
    "place": "home"

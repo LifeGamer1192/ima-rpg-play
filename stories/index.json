@@ -10,6 +10,27 @@
    "title": "乱世の食客"
   },
   {
+   "id": "shunju_open_king",
+   "file": "shunju_open_king.json",
+   "kind": "main",
+   "era": "shunju",
+   "title": "社稷の重み"
+  },
+  {
+   "id": "shunju_open_serve",
+   "file": "shunju_open_serve.json",
+   "kind": "main",
+   "era": "shunju",
+   "title": "主命"
+  },
+  {
+   "id": "shunju_open_free",
+   "file": "shunju_open_free.json",
+   "kind": "main",
+   "era": "shunju",
+   "title": "遊説"
+  },
+  {
    "id": "shunju_ru",
    "file": "shunju_ru.json",
    "kind": "school",
