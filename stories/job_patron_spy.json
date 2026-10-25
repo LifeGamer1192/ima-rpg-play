@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_spy",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "spy",
+ "target": "enemy-town",
+ "title": "{place}の内情を探れ",
+ "desc": "{realm}の{place}に入り込み、兵の数と兵糧の蓄えを探ってこい。宿、市、役所、軍営、どこから探るかは任せる。見つかれば命はないと思え。",
+ "reward": {
+  "base": 260,
+  "perDay": 10
+ },
+ "favor": 35,
+ "fame": 6,
+ "deadline": {
+  "base": 40,
+  "perDay": 2
+ }
+}

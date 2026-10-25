@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_plague",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "plague",
+ "target": "own-town",
+ "title": "{place}の疫病を鎮めよ",
+ "desc": "{place}で病が広がっている。民を見捨てては国の恥だ。町を回り、手を尽くして鎮めてこい。",
+ "reward": {
+  "base": 150,
+  "perDay": 8
+ },
+ "favor": 20,
+ "fame": 6,
+ "deadline": {
+  "base": 30,
+  "perDay": 2
+ }
+}

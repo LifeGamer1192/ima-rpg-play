@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_graft",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "graft",
+ "target": "own-town",
+ "title": "{place}の不正役人を暴け",
+ "desc": "{place}の役人が市税を掠めているとの訴えがあった。町で証拠を二つ揃え、報告せよ。",
+ "reward": {
+  "base": 160,
+  "perDay": 8
+ },
+ "favor": 22,
+ "fame": 3,
+ "deadline": {
+  "base": 30,
+  "perDay": 2
+ }
+}

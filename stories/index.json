@@ -1982,6 +1982,48 @@
    "kind": "job",
    "era": "*",
    "title": "{realm}への遊説"
+  },
+  {
+   "id": "job_patron_spy",
+   "file": "job_patron_spy.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の内情を探れ"
+  },
+  {
+   "id": "job_patron_rescue",
+   "file": "job_patron_rescue.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}に囚われた使者を救え"
+  },
+  {
+   "id": "job_patron_subvert",
+   "file": "job_patron_subvert.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の役人を内応させよ"
+  },
+  {
+   "id": "job_patron_unrest",
+   "file": "job_patron_unrest.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の無頼を鎮めよ"
+  },
+  {
+   "id": "job_patron_graft",
+   "file": "job_patron_graft.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の不正役人を暴け"
+  },
+  {
+   "id": "job_patron_plague",
+   "file": "job_patron_plague.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の疫病を鎮めよ"
   }
  ]
 }

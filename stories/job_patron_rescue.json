@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_rescue",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "rescue",
+ "target": "enemy-town",
+ "title": "{place}に囚われた使者を救え",
+ "desc": "{realm}の{place}で、我が国の使者が捕らえられた。町に入って居場所を突き止め、救い出してこい。",
+ "reward": {
+  "base": 320,
+  "perDay": 10
+ },
+ "favor": 45,
+ "fame": 8,
+ "deadline": {
+  "base": 45,
+  "perDay": 2
+ }
+}

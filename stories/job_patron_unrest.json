@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_unrest",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "unrest",
+ "target": "own-town",
+ "title": "{place}の無頼を鎮めよ",
+ "desc": "我が領の{place}で、無頼どもが町を荒らしている。根城を突き止めて鎮めてこい。手立ては問わぬ。",
+ "reward": {
+  "base": 140,
+  "perDay": 8
+ },
+ "favor": 18,
+ "fame": 4,
+ "deadline": {
+  "base": 25,
+  "perDay": 2
+ }
+}
