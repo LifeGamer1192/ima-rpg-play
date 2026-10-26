@@ -15,11 +15,18 @@
    "client": "門吏"
   },
   "teacher": {
-   "npc": "村塾の師",
+   "folk": "村塾の師",
+   "tags": [
+    "学"
+   ],
    "sex": "m"
   },
   "magistrate": {
-   "npc": "県令",
+   "folk": "県令",
+   "tags": [
+    "官"
+   ],
+   "minStation": 40,
    "sex": "m"
   }
  },

@@ -17,11 +17,17 @@
    "client": "旅の商人"
   },
   "owner": {
-   "npc": "絹商人",
+   "folk": "絹商人",
+   "tags": [
+    "商"
+   ],
    "sex": "m"
   },
   "chief": {
-   "npc": "亭長",
+   "folk": "亭長",
+   "tags": [
+    "官"
+   ],
    "sex": "m"
   },
   "town": {

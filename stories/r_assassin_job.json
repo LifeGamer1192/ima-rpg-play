@@ -15,7 +15,11 @@
    "client": "黒衣の客"
   },
   "target": {
-   "npc": "県令",
+   "folk": "県令",
+   "tags": [
+    "官"
+   ],
+   "minStation": 40,
    "sex": "m"
   },
   "town": {

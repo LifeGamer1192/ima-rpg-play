@@ -15,15 +15,24 @@
    "client": "商人の妻"
   },
   "merchant": {
-   "npc": "絹商人",
+   "folk": "絹商人",
+   "tags": [
+    "商"
+   ],
    "sex": "m"
   },
   "rival": {
-   "npc": "絹問屋",
+   "folk": "絹問屋",
+   "tags": [
+    "商"
+   ],
    "sex": "m"
   },
   "jailer": {
-   "npc": "獄吏",
+   "folk": "獄吏",
+   "tags": [
+    "兵"
+   ],
    "sex": "m"
   }
  },
@@ -339,6 +348,13 @@
     },
     {
      "note": "{merchant}の冤罪を晴らした。"
+    },
+    {
+     "bond": "merchant",
+     "know": 20,
+     "like": 35,
+     "debt": 40,
+     "memo": "盗みの濡れ衣を晴らしてもらった"
     }
    ],
    "end": "晴れた冤罪"
@@ -368,6 +384,20 @@
     },
     {
      "note": "{rival}に罪を認めさせ、{merchant}の冤罪を晴らした。"
+    },
+    {
+     "bond": "merchant",
+     "know": 20,
+     "like": 35,
+     "debt": 40,
+     "memo": "濡れ衣を晴らしてもらった"
+    },
+    {
+     "bond": "rival",
+     "know": 15,
+     "like": -40,
+     "grudge": 45,
+     "memo": "罪を暴かれた"
     }
    ],
    "end": "名乗り出た問屋"
@@ -397,6 +427,13 @@
     },
     {
      "note": "偽りの証人を翻らせ、{merchant}の冤罪を晴らした。"
+    },
+    {
+     "bond": "merchant",
+     "know": 20,
+     "like": 35,
+     "debt": 40,
+     "memo": "濡れ衣を晴らしてもらった"
     }
    ],
    "end": "翻った証言"
@@ -423,6 +460,20 @@
     },
     {
      "note": "{rival}を強請って{merchant}を出させた。"
+    },
+    {
+     "bond": "rival",
+     "know": 15,
+     "like": -50,
+     "grudge": 55,
+     "memo": "強請られて銭を出した"
+    },
+    {
+     "bond": "merchant",
+     "know": 10,
+     "like": 15,
+     "debt": 20,
+     "memo": "牢から出してもらった"
     }
    ],
    "end": "金で買った赦免"
@@ -451,6 +502,13 @@
     },
     {
      "note": "弁舌で{merchant}の裁きをやり直させた。"
+    },
+    {
+     "bond": "merchant",
+     "know": 15,
+     "like": 30,
+     "debt": 30,
+     "memo": "裁きをやり直させてもらった"
     }
    ],
    "end": "法の正しさ"
@@ -500,6 +558,20 @@
     },
     {
      "note": "{merchant}の牢破りを手伝った。"
+    },
+    {
+     "bond": "merchant",
+     "know": 15,
+     "like": 25,
+     "debt": 50,
+     "memo": "牢を破るのを手伝ってもらった"
+    },
+    {
+     "bond": "jailer",
+     "know": 10,
+     "like": -35,
+     "grudge": 40,
+     "memo": "牢を破られた"
     }
    ],
    "end": "闇夜の牢破り"
@@ -528,6 +600,13 @@
     },
     {
      "note": "{merchant}をひそかに牢から連れ出した。"
+    },
+    {
+     "bond": "merchant",
+     "know": 15,
+     "like": 25,
+     "debt": 50,
+     "memo": "ひそかに牢から出してもらった"
     }
    ],
    "end": "溝をくぐる夜"
