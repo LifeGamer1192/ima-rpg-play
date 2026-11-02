@@ -1,0 +1,28 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_fief_border",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "border",
+ "target": "fief",
+ "when": {
+  "rankMin": 3
+ },
+ "title": "{place}と隣領の境を定めよ",
+ "desc": "おぬしの知行と隣の領で、境の言い分が合わぬという訴えが届いた。自分の地のことだ、自分で収めてこい。贔屓が過ぎれば耳に入るぞ。",
+ "reward": {
+  "base": 260,
+  "perDay": 10
+ },
+ "favor": 24,
+ "fame": 4,
+ "deadline": {
+  "base": 34,
+  "perDay": 2
+ },
+ "world": {
+  "unrest": -0.04
+ }
+}

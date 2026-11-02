@@ -1,0 +1,25 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_rout",
+ "kind": "job",
+ "era": "*",
+ "giver": "office",
+ "mechanism": "bandits",
+ "target": "gang-near",
+ "when": {
+  "war": true
+ },
+ "title": "{place}を荒らす落ち武者を鎮める",
+ "desc": "負け戦から落ちてきた兵が、刃を持ったまま里に居ついた。飢えて民の粟を奪っている。放っておけば{bandit}になる。",
+ "reward": {
+  "base": 160,
+  "perDay": 16
+ },
+ "favor": 14,
+ "fame": 4,
+ "deadline": {
+  "base": 20,
+  "perDay": 2
+ }
+}

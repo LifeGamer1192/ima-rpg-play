@@ -1,0 +1,27 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_cede_sangoku",
+ "kind": "job",
+ "era": "sangoku",
+ "giver": "patron",
+ "mechanism": "covenant",
+ "target": "enemy-town",
+ "when": {
+  "rankMin": 6,
+  "war": true
+ },
+ "world": {
+  "cede": true
+ },
+ "title": "{realm}に{place}を献じさせよ",
+ "desc": "{realm}の朝廷は内に割れている。使者として入り、城を一つ献じて和を請うほうが利だと説け。兵を動かさずに郡を得れば、功は戦に勝る。",
+ "reward": {
+  "base": 900
+ },
+ "favor": 90,
+ "fame": 20,
+ "deadline": {
+  "base": 60
+ }
+}

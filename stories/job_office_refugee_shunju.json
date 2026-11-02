@@ -1,0 +1,24 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_refugee_shunju",
+ "kind": "job",
+ "era": "shunju",
+ "giver": "office",
+ "mechanism": "refugee",
+ "target": "here",
+ "title": "{place}に流れ着いた民を住まわせる",
+ "desc": "他国から逃げてきた者が城門の外に寝ている。追い返せば野に死ぬ。荒れ地を割り当て、種と屋根を与えて住まわせよ。",
+ "reward": {
+  "base": 190
+ },
+ "favor": 14,
+ "fame": 3,
+ "deadline": {
+  "base": 36
+ },
+ "world": {
+  "pop": 0.03,
+  "prosperity": 0.02
+ }
+}

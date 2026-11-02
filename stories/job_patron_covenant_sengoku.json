@@ -1,0 +1,26 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_covenant_sengoku",
+ "kind": "job",
+ "era": "sengoku",
+ "giver": "patron",
+ "mechanism": "covenant",
+ "target": "neutral-realm",
+ "when": {
+  "rankMin": 6
+ },
+ "title": "{realm}を仲介に和睦をまとめよ",
+ "desc": "{realm}はいずれにも付いておらぬ。あの家を頼んで取次を立て、三家の起請文を交わさせよ。境目の国衆も、これで腰を据える。",
+ "reward": {
+  "base": 700
+ },
+ "favor": 70,
+ "fame": 16,
+ "deadline": {
+  "base": 70
+ },
+ "world": {
+  "unrest": -0.05
+ }
+}

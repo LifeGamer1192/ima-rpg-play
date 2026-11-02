@@ -1,0 +1,27 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_burnt",
+ "kind": "job",
+ "era": "*",
+ "giver": "office",
+ "mechanism": "works",
+ "target": "here",
+ "when": {
+  "war": true
+ },
+ "title": "兵火に焼かれた{place}を立て直す",
+ "desc": "兵が通ったあとだ。橋は落ち、井は埋められ、焼けた家が片づかぬまま冬が来る。人手と材を集めて直してくれ。",
+ "reward": {
+  "base": 200
+ },
+ "favor": 14,
+ "fame": 3,
+ "deadline": {
+  "base": 32
+ },
+ "world": {
+  "prosperity": 0.02,
+  "devastation": -0.04
+ }
+}

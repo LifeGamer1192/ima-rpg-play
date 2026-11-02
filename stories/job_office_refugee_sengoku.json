@@ -1,0 +1,24 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_refugee_sengoku",
+ "kind": "job",
+ "era": "sengoku",
+ "giver": "office",
+ "mechanism": "refugee",
+ "target": "here",
+ "title": "{place}へ落ちてきた百姓を住みつかせる",
+ "desc": "戦で村を焼かれた百姓が、家財を背負って城下へ流れてきた。荒れ地を割り当て、種籾と屋根を世話して、田に戻してやってくれ。",
+ "reward": {
+  "base": 190
+ },
+ "favor": 14,
+ "fame": 3,
+ "deadline": {
+  "base": 36
+ },
+ "world": {
+  "pop": 0.03,
+  "prosperity": 0.02
+ }
+}

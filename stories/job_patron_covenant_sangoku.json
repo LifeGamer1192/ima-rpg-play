@@ -1,0 +1,26 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_covenant_sangoku",
+ "kind": "job",
+ "era": "sangoku",
+ "giver": "patron",
+ "mechanism": "covenant",
+ "target": "neutral-realm",
+ "when": {
+  "rankMin": 6
+ },
+ "title": "{realm}と盟を結び、三つ巴を均せ",
+ "desc": "二国が噛み合えば、残る一国が漁夫の利を得る。{realm}の朝堂に入り、我が国と結ぶのが利だと説け。盟書は古礼に則って整えよ。",
+ "reward": {
+  "base": 700
+ },
+ "favor": 70,
+ "fame": 16,
+ "deadline": {
+  "base": 70
+ },
+ "world": {
+  "unrest": -0.05
+ }
+}

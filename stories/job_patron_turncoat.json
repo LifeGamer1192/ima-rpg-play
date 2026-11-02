@@ -1,0 +1,27 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_turncoat",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "subvert",
+ "target": "enemy-town",
+ "when": {
+  "rankMin": 6,
+  "war": true
+ },
+ "world": {
+  "cede": true
+ },
+ "title": "{place}の守りを調略し、城ごと寝返らせよ",
+ "desc": "{place}を預かる者は、{realm}の朝堂で軽んじられていると聞く。不満を掬い、城ごとこちらへ付かせよ。攻めずに取れば、城も民も傷まぬ。",
+ "reward": {
+  "base": 800
+ },
+ "favor": 85,
+ "fame": 18,
+ "deadline": {
+  "base": 50
+ }
+}

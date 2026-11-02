@@ -1,0 +1,23 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_neutral_road",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "persuade",
+ "target": "neutral-realm",
+ "when": {
+  "rankMin": 4
+ },
+ "title": "{realm}に道を借りよ",
+ "desc": "{realm}の地を通れれば、敵の背に出られる。兵を通す許しを取り付けてこい。疑われれば、こちらの肚まで読まれるぞ。",
+ "reward": {
+  "base": 360
+ },
+ "favor": 36,
+ "fame": 7,
+ "deadline": {
+  "base": 50
+ }
+}

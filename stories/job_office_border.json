@@ -1,0 +1,25 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_border",
+ "kind": "job",
+ "era": "*",
+ "giver": "office",
+ "mechanism": "border",
+ "target": "realm-near",
+ "title": "{place}の境の争いを裁く",
+ "desc": "{place}と隣の里が、河原の田の境で鍬を持って向かい合っている。官が出れば角が立つ。外の者として調べ、双方に呑ませてくれ。",
+ "reward": {
+  "base": 180,
+  "perDay": 10
+ },
+ "favor": 12,
+ "fame": 3,
+ "deadline": {
+  "base": 30,
+  "perDay": 2
+ },
+ "world": {
+  "unrest": -0.03
+ }
+}

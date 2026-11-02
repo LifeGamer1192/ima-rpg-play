@@ -1,0 +1,27 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_refugee",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "refugee",
+ "target": "own-town",
+ "when": {
+  "rankMin": 3
+ },
+ "title": "{place}の荒れ地に民を入れよ",
+ "desc": "国の田は人手が足りず、城下には食えぬ流れ者があふれている。荒れ地に入れて耕させよ。民が増えれば税も兵も増える。",
+ "reward": {
+  "base": 300
+ },
+ "favor": 28,
+ "fame": 4,
+ "deadline": {
+  "base": 40
+ },
+ "world": {
+  "pop": 0.05,
+  "prosperity": 0.03
+ }
+}

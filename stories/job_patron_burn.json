@@ -1,0 +1,27 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_burn",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "burn",
+ "target": "enemy-town",
+ "when": {
+  "rankMin": 3,
+  "war": true
+ },
+ "title": "{realm}の兵糧を焼け",
+ "desc": "{place}に{realm}の兵糧が集まっている。あれが前線へ出る前に失われれば、この秋の戦はこちらのものだ。手段は問わぬ。",
+ "reward": {
+  "base": 420
+ },
+ "favor": 40,
+ "fame": 8,
+ "deadline": {
+  "base": 30
+ },
+ "world": {
+  "prosperity": -0.04
+ }
+}

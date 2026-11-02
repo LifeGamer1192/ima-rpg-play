@@ -1,0 +1,25 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_rival_survey",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "survey",
+ "target": "rival",
+ "when": {
+  "rankMin": 3
+ },
+ "title": "{place}の戸と田を、もう一人より先に数えよ",
+ "desc": "同じ務めを、おぬしと同じ日に別の者へも申しつけた。{place}の帳を先に仕上げたほうを賞する。遅いほうは、それだけのことだ。",
+ "reward": {
+  "base": 320,
+  "perDay": 10
+ },
+ "favor": 30,
+ "fame": 5,
+ "deadline": {
+  "base": 30,
+  "perDay": 2
+ }
+}

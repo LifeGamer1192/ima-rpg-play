@@ -1,0 +1,27 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_cede_shunju",
+ "kind": "job",
+ "era": "shunju",
+ "giver": "patron",
+ "mechanism": "covenant",
+ "target": "enemy-town",
+ "when": {
+  "rankMin": 6,
+  "war": true
+ },
+ "world": {
+  "cede": true
+ },
+ "title": "{realm}に{place}を割かせよ",
+ "desc": "{realm}はいま、北の守りで手一杯だ。使者として朝堂に立ち、{place}の地を割いて盟を結ばせよ。一兵も損なわずに城を得るのが上策だ。",
+ "reward": {
+  "base": 900
+ },
+ "favor": 90,
+ "fame": 20,
+ "deadline": {
+  "base": 60
+ }
+}

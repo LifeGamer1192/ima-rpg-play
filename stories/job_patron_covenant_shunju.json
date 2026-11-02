@@ -1,0 +1,26 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_covenant_shunju",
+ "kind": "job",
+ "era": "shunju",
+ "giver": "patron",
+ "mechanism": "covenant",
+ "target": "neutral-realm",
+ "when": {
+  "rankMin": 6
+ },
+ "title": "{realm}で会盟を取りまとめよ",
+ "desc": "大国が睨み合うあいだ、小国の田は毎年踏み荒らされる。{realm}を場として諸侯を会し、兵を止める盟を結べ。牛耳を執るのは我が国だ。",
+ "reward": {
+  "base": 700
+ },
+ "favor": 70,
+ "fame": 16,
+ "deadline": {
+  "base": 70
+ },
+ "world": {
+  "unrest": -0.05
+ }
+}

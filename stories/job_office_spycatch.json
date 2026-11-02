@@ -1,0 +1,23 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_spycatch",
+ "kind": "job",
+ "era": "*",
+ "giver": "office",
+ "mechanism": "spycatch",
+ "target": "here",
+ "when": {
+  "war": true
+ },
+ "title": "{place}に入り込んだ間者を狩る",
+ "desc": "戦が始まってから、城の高さを目で測る者、門の出入りを数える者が町にいる。官では顔が割れている。余所者の目で探してくれ。",
+ "reward": {
+  "base": 210
+ },
+ "favor": 14,
+ "fame": 4,
+ "deadline": {
+  "base": 26
+ }
+}

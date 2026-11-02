@@ -1,0 +1,27 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_cede_sengoku",
+ "kind": "job",
+ "era": "sengoku",
+ "giver": "patron",
+ "mechanism": "covenant",
+ "target": "enemy-town",
+ "when": {
+  "rankMin": 6,
+  "war": true
+ },
+ "world": {
+  "cede": true
+ },
+ "title": "{realm}と国分を結び、{place}を取れ",
+ "desc": "力攻めでは双方が痩せるだけだ。取次を立てて{realm}と国分を詰め、{place}をこちらの境に入れさせよ。起請文と人質まで整えて初めて成る。",
+ "reward": {
+  "base": 900
+ },
+ "favor": 90,
+ "fame": 20,
+ "deadline": {
+  "base": 60
+ }
+}

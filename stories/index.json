@@ -2047,6 +2047,153 @@
    "title": "{place}の戸と田を調べる"
   },
   {
+   "id": "job_office_spycatch",
+   "file": "job_office_spycatch.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}に入り込んだ間者を狩る"
+  },
+  {
+   "id": "job_office_rout",
+   "file": "job_office_rout.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}を荒らす落ち武者を鎮める"
+  },
+  {
+   "id": "job_office_burnt",
+   "file": "job_office_burnt.json",
+   "kind": "job",
+   "era": "*",
+   "title": "兵火に焼かれた{place}を立て直す"
+  },
+  {
+   "id": "job_office_refugee_shunju",
+   "file": "job_office_refugee_shunju.json",
+   "kind": "job",
+   "era": "shunju",
+   "title": "{place}に流れ着いた民を住まわせる"
+  },
+  {
+   "id": "job_office_refugee_sengoku",
+   "file": "job_office_refugee_sengoku.json",
+   "kind": "job",
+   "era": "sengoku",
+   "title": "{place}へ落ちてきた百姓を住みつかせる"
+  },
+  {
+   "id": "job_office_refugee_sangoku",
+   "file": "job_office_refugee_sangoku.json",
+   "kind": "job",
+   "era": "sangoku",
+   "title": "{place}の流民を屯田に入れる"
+  },
+  {
+   "id": "job_office_border",
+   "file": "job_office_border.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の境の争いを裁く"
+  },
+  {
+   "id": "job_patron_spycatch",
+   "file": "job_patron_spycatch.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の間者を狩れ"
+  },
+  {
+   "id": "job_patron_refugee",
+   "file": "job_patron_refugee.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の荒れ地に民を入れよ"
+  },
+  {
+   "id": "job_patron_fief_border",
+   "file": "job_patron_fief_border.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}と隣領の境を定めよ"
+  },
+  {
+   "id": "job_patron_rival_survey",
+   "file": "job_patron_rival_survey.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の戸と田を、もう一人より先に数えよ"
+  },
+  {
+   "id": "job_patron_burn",
+   "file": "job_patron_burn.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{realm}の兵糧を焼け"
+  },
+  {
+   "id": "job_patron_neutral_grain",
+   "file": "job_patron_neutral_grain.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{realm}と糧の約を結べ"
+  },
+  {
+   "id": "job_patron_neutral_road",
+   "file": "job_patron_neutral_road.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{realm}に道を借りよ"
+  },
+  {
+   "id": "job_patron_covenant_shunju",
+   "file": "job_patron_covenant_shunju.json",
+   "kind": "job",
+   "era": "shunju",
+   "title": "{realm}で会盟を取りまとめよ"
+  },
+  {
+   "id": "job_patron_covenant_sengoku",
+   "file": "job_patron_covenant_sengoku.json",
+   "kind": "job",
+   "era": "sengoku",
+   "title": "{realm}を仲介に和睦をまとめよ"
+  },
+  {
+   "id": "job_patron_covenant_sangoku",
+   "file": "job_patron_covenant_sangoku.json",
+   "kind": "job",
+   "era": "sangoku",
+   "title": "{realm}と盟を結び、三つ巴を均せ"
+  },
+  {
+   "id": "job_patron_cede_shunju",
+   "file": "job_patron_cede_shunju.json",
+   "kind": "job",
+   "era": "shunju",
+   "title": "{realm}に{place}を割かせよ"
+  },
+  {
+   "id": "job_patron_cede_sengoku",
+   "file": "job_patron_cede_sengoku.json",
+   "kind": "job",
+   "era": "sengoku",
+   "title": "{realm}と国分を結び、{place}を取れ"
+  },
+  {
+   "id": "job_patron_cede_sangoku",
+   "file": "job_patron_cede_sangoku.json",
+   "kind": "job",
+   "era": "sangoku",
+   "title": "{realm}に{place}を献じさせよ"
+  },
+  {
+   "id": "job_patron_turncoat",
+   "file": "job_patron_turncoat.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の守りを調略し、城ごと寝返らせよ"
+  },
+  {
    "id": "job_patron_war",
    "file": "job_patron_war.json",
    "kind": "job",

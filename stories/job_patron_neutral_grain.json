@@ -1,0 +1,23 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_neutral_grain",
+ "kind": "job",
+ "era": "*",
+ "giver": "patron",
+ "mechanism": "persuade",
+ "target": "neutral-realm",
+ "when": {
+  "rankMin": 3
+ },
+ "title": "{realm}と糧の約を結べ",
+ "desc": "{realm}は戦に加わっておらぬ。蔵は満ちているはずだ。礼を厚くし、米と馬を売る約を取り付けてこい。戦をせずに兵を養うのも将の務めだ。",
+ "reward": {
+  "base": 300
+ },
+ "favor": 30,
+ "fame": 5,
+ "deadline": {
+  "base": 50
+ }
+}
