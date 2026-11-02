@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_beast_shunju",
+ "kind": "job",
+ "era": "shunju",
+ "giver": "office",
+ "mechanism": "beast",
+ "target": "realm-near",
+ "title": "{place}の人を食う虎を狩る",
+ "desc": "{place}の里で、虎が三人を食った。畑に出る者がいなくなり、田が荒れはじめている。通い路を探り、狩ってほしい。",
+ "reward": {
+  "base": 220,
+  "perDay": 14
+ },
+ "favor": 14,
+ "fame": 5,
+ "deadline": {
+  "base": 26,
+  "perDay": 2
+ }
+}

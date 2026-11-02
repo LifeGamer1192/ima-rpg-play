@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_beast_sengoku",
+ "kind": "job",
+ "era": "sengoku",
+ "giver": "office",
+ "mechanism": "beast",
+ "target": "realm-near",
+ "title": "{place}を荒らす狼を狩る",
+ "desc": "{place}の村で、狼の群れが仔牛と童を襲った。夜になると誰も外に出られぬという。寝床を探して仕留めてくれ。",
+ "reward": {
+  "base": 220,
+  "perDay": 14
+ },
+ "favor": 14,
+ "fame": 5,
+ "deadline": {
+  "base": 26,
+  "perDay": 2
+ }
+}

@@ -1956,11 +1956,32 @@
    "title": "{place}の{bandit}討伐"
   },
   {
-   "id": "job_office_letter",
-   "file": "job_office_letter.json",
+   "id": "job_office_beast_shunju",
+   "file": "job_office_beast_shunju.json",
+   "kind": "job",
+   "era": "shunju",
+   "title": "{place}の人を食う虎を狩る"
+  },
+  {
+   "id": "job_office_beast_sengoku",
+   "file": "job_office_beast_sengoku.json",
+   "kind": "job",
+   "era": "sengoku",
+   "title": "{place}を荒らす狼を狩る"
+  },
+  {
+   "id": "job_office_beast_sangoku",
+   "file": "job_office_beast_sangoku.json",
+   "kind": "job",
+   "era": "sangoku",
+   "title": "{place}の虎を狩る"
+  },
+  {
+   "id": "job_office_fraud",
+   "file": "job_office_fraud.json",
    "kind": "job",
    "era": "*",
-   "title": "{place}へ書状を届ける"
+   "title": "{place}の市の不正を正す"
   },
   {
    "id": "job_office_unrest",

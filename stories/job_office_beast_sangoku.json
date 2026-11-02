@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_beast_sangoku",
+ "kind": "job",
+ "era": "sangoku",
+ "giver": "office",
+ "mechanism": "beast",
+ "target": "realm-near",
+ "title": "{place}の虎を狩る",
+ "desc": "{place}の山で虎が人を襲っている。流民が山に入って薪を取るゆえ、これからも出るだろう。狩って里を静めてほしい。",
+ "reward": {
+  "base": 220,
+  "perDay": 14
+ },
+ "favor": 14,
+ "fame": 5,
+ "deadline": {
+  "base": 26,
+  "perDay": 2
+ }
+}

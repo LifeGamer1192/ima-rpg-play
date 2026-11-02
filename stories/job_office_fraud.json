@@ -1,0 +1,20 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_fraud",
+ "kind": "job",
+ "era": "*",
+ "giver": "office",
+ "mechanism": "fraud",
+ "target": "here",
+ "title": "{place}の市の不正を正す",
+ "desc": "{place}の市で、升の底を上げて売る店があるという。こちらが出れば証を隠される。買い手の顔で入り、証を揃えてほしい。",
+ "reward": {
+  "base": 190
+ },
+ "favor": 12,
+ "fame": 3,
+ "deadline": {
+  "base": 28
+ }
+}
