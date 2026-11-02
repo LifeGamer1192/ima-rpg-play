@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_graft",
+ "kind": "job",
+ "era": "*",
+ "giver": "office",
+ "mechanism": "graft",
+ "target": "realm-near",
+ "title": "{place}の役人を調べる",
+ "desc": "{place}の収めた分が帳と合わぬ。役人が懐に入れていると見るが、こちらが動けば隠される。外の者として調べてほしい。",
+ "reward": {
+  "base": 160,
+  "perDay": 10
+ },
+ "favor": 12,
+ "fame": 2,
+ "deadline": {
+  "base": 26,
+  "perDay": 2
+ }
+}

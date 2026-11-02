@@ -1,0 +1,20 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_unrest",
+ "kind": "job",
+ "era": "*",
+ "giver": "office",
+ "mechanism": "unrest",
+ "target": "here",
+ "title": "{place}の無頼を鎮める",
+ "desc": "{place}の市に無頼が居つき、店から銭を巻き上げている。役人の手には余る。根城を突き止めて鎮めてほしい。",
+ "reward": {
+  "base": 150
+ },
+ "favor": 10,
+ "fame": 2,
+ "deadline": {
+  "base": 24
+ }
+}

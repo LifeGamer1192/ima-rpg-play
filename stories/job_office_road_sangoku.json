@@ -1,0 +1,20 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_road_sangoku",
+ "kind": "job",
+ "era": "sangoku",
+ "giver": "office",
+ "mechanism": "works",
+ "target": "here",
+ "title": "{place}の道と水路の修繕",
+ "desc": "{place}の道が水に流され、水路も詰まっている。里の者を募って人手を集め、直してくれ。",
+ "reward": {
+  "base": 140
+ },
+ "favor": 10,
+ "fame": 1,
+ "deadline": {
+  "base": 30
+ }
+}

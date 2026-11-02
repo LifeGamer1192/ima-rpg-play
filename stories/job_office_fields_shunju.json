@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_fields_shunju",
+ "kind": "job",
+ "era": "shunju",
+ "giver": "office",
+ "mechanism": "survey",
+ "target": "realm-near",
+ "title": "{place}の田と戸を数える",
+ "desc": "{place}から上がってくる帳が当てにならぬ。田の数と戸の数を自分の目で数えて報せてほしい。",
+ "reward": {
+  "base": 130,
+  "perDay": 10
+ },
+ "favor": 10,
+ "fame": 1,
+ "deadline": {
+  "base": 28,
+  "perDay": 2
+ }
+}

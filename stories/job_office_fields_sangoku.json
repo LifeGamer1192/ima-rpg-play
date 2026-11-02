@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_fields_sangoku",
+ "kind": "job",
+ "era": "sangoku",
+ "giver": "office",
+ "mechanism": "survey",
+ "target": "realm-near",
+ "title": "{place}の戸と田を調べる",
+ "desc": "{place}は流民が入り、戸籍も乱れている。戸と田を調べ直し、荒れた地がどれほどあるか報せてほしい。",
+ "reward": {
+  "base": 130,
+  "perDay": 10
+ },
+ "favor": 10,
+ "fame": 1,
+ "deadline": {
+  "base": 28,
+  "perDay": 2
+ }
+}

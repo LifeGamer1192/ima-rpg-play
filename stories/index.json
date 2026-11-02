@@ -1956,6 +1956,76 @@
    "title": "{place}の{bandit}討伐"
   },
   {
+   "id": "job_office_letter",
+   "file": "job_office_letter.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}へ書状を届ける"
+  },
+  {
+   "id": "job_office_unrest",
+   "file": "job_office_unrest.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の無頼を鎮める"
+  },
+  {
+   "id": "job_office_plague",
+   "file": "job_office_plague.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の疫を抑える"
+  },
+  {
+   "id": "job_office_graft",
+   "file": "job_office_graft.json",
+   "kind": "job",
+   "era": "*",
+   "title": "{place}の役人を調べる"
+  },
+  {
+   "id": "job_office_road_shunju",
+   "file": "job_office_road_shunju.json",
+   "kind": "job",
+   "era": "shunju",
+   "title": "{place}の道と溝の普請"
+  },
+  {
+   "id": "job_office_road_sengoku",
+   "file": "job_office_road_sengoku.json",
+   "kind": "job",
+   "era": "sengoku",
+   "title": "{place}の道普請"
+  },
+  {
+   "id": "job_office_road_sangoku",
+   "file": "job_office_road_sangoku.json",
+   "kind": "job",
+   "era": "sangoku",
+   "title": "{place}の道と水路の修繕"
+  },
+  {
+   "id": "job_office_fields_shunju",
+   "file": "job_office_fields_shunju.json",
+   "kind": "job",
+   "era": "shunju",
+   "title": "{place}の田と戸を数える"
+  },
+  {
+   "id": "job_office_fields_sengoku",
+   "file": "job_office_fields_sengoku.json",
+   "kind": "job",
+   "era": "sengoku",
+   "title": "{place}の田を改める"
+  },
+  {
+   "id": "job_office_fields_sangoku",
+   "file": "job_office_fields_sangoku.json",
+   "kind": "job",
+   "era": "sangoku",
+   "title": "{place}の戸と田を調べる"
+  },
+  {
    "id": "job_patron_war",
    "file": "job_patron_war.json",
    "kind": "job",

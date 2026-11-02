@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_letter",
+ "kind": "job",
+ "era": "*",
+ "giver": "office",
+ "mechanism": "deliver",
+ "target": "realm-near",
+ "title": "{place}へ書状を届ける",
+ "desc": "{place}の役所へ渡す書状がある。急ぎではないが、途中で失くされては困る。道中は気をつけてくれ。",
+ "reward": {
+  "base": 70,
+  "perDay": 14
+ },
+ "favor": 5,
+ "fame": 1,
+ "deadline": {
+  "base": 14,
+  "perDay": 3
+ }
+}

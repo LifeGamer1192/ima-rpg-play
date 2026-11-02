@@ -1,0 +1,20 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_road_sengoku",
+ "kind": "job",
+ "era": "sengoku",
+ "giver": "office",
+ "mechanism": "works",
+ "target": "here",
+ "title": "{place}の道普請",
+ "desc": "{place}の街道が崩れ、荷も通らぬ。村々に話を通し、人足と材木を集めて普請を進めてほしい。",
+ "reward": {
+  "base": 140
+ },
+ "favor": 10,
+ "fame": 1,
+ "deadline": {
+  "base": 30
+ }
+}

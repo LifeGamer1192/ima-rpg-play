@@ -1,0 +1,20 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_road_shunju",
+ "kind": "job",
+ "era": "shunju",
+ "giver": "office",
+ "mechanism": "works",
+ "target": "here",
+ "title": "{place}の道と溝の普請",
+ "desc": "{place}の道が雨で崩れ、田へ引く溝も埋まった。里の長老に話を通し、人手と材を集めて直してくれ。",
+ "reward": {
+  "base": 140
+ },
+ "favor": 10,
+ "fame": 1,
+ "deadline": {
+  "base": 30
+ }
+}

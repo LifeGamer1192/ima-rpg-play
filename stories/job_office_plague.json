@@ -1,0 +1,20 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_plague",
+ "kind": "job",
+ "era": "*",
+ "giver": "office",
+ "mechanism": "plague",
+ "target": "here",
+ "title": "{place}の疫を抑える",
+ "desc": "{place}で病が広がりはじめた。井を調べ、薬を配り、人の行き来を按配してくれ。手が足りぬのだ。",
+ "reward": {
+  "base": 180
+ },
+ "favor": 12,
+ "fame": 2,
+ "deadline": {
+  "base": 30
+ }
+}
