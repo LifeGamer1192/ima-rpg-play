@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_grain_shunju",
+ "kind": "job",
+ "era": "shunju",
+ "giver": "patron",
+ "mechanism": "grain",
+ "target": "own-town",
+ "title": "{place}で糧秣を集め、陣へ送れ",
+ "desc": "前線の兵糧が尽きかけている。{place}で粟を集め、荷車か舟で陣まで送り届けよ。遅れれば兵が飢える。",
+ "reward": {
+  "base": 200,
+  "perDay": 10
+ },
+ "favor": 28,
+ "fame": 5,
+ "deadline": {
+  "base": 30,
+  "perDay": 2
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_works_shunju",
+ "kind": "job",
+ "era": "shunju",
+ "giver": "patron",
+ "mechanism": "works",
+ "target": "own-town",
+ "title": "{place}の城と溝洫の普請",
+ "desc": "{place}の城壁が崩れ、田の溝も埋まったままだ。司空の役に代わって人夫を集め、材を揃え、普請を進めよ。",
+ "reward": {
+  "base": 180,
+  "perDay": 9
+ },
+ "favor": 24,
+ "fame": 4,
+ "deadline": {
+  "base": 35,
+  "perDay": 2
+ }
+}

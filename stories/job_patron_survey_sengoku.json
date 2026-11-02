@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_survey_sengoku",
+ "kind": "job",
+ "era": "sengoku",
+ "giver": "patron",
+ "mechanism": "survey",
+ "target": "own-town",
+ "title": "{place}の検地",
+ "desc": "{place}の田の反別と戸数を改める。村から差出を取り、隠し田があれば明らかにせよ。",
+ "reward": {
+  "base": 170,
+  "perDay": 9
+ },
+ "favor": 26,
+ "fame": 3,
+ "deadline": {
+  "base": 40,
+  "perDay": 2
+ }
+}

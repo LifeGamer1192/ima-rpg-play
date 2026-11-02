@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_survey_shunju",
+ "kind": "job",
+ "era": "shunju",
+ "giver": "patron",
+ "mechanism": "survey",
+ "target": "own-town",
+ "title": "{place}の料民",
+ "desc": "{place}の戸と田を数えよ。先代からの帳面が当てにならぬ。隠し田も洗い出し、ありのままを報せよ。",
+ "reward": {
+  "base": 170,
+  "perDay": 9
+ },
+ "favor": 26,
+ "fame": 3,
+ "deadline": {
+  "base": 40,
+  "perDay": 2
+ }
+}

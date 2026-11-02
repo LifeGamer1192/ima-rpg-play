@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_survey_sangoku",
+ "kind": "job",
+ "era": "sangoku",
+ "giver": "patron",
+ "mechanism": "survey",
+ "target": "own-town",
+ "title": "{place}の戸籍を改めよ",
+ "desc": "{place}の戸籍は乱れ、流民の数も知れぬ。戸と田を調べ直し、屯田に割く地を見定めよ。",
+ "reward": {
+  "base": 170,
+  "perDay": 9
+ },
+ "favor": 26,
+ "fame": 3,
+ "deadline": {
+  "base": 40,
+  "perDay": 2
+ }
+}

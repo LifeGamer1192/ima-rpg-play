@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_works_sengoku",
+ "kind": "job",
+ "era": "sengoku",
+ "giver": "patron",
+ "mechanism": "works",
+ "target": "own-town",
+ "title": "{place}の大普請",
+ "desc": "{place}の曲輪と堤を直す。村々に普請役を触れ、人足と材木を揃えて普請を進めよ。",
+ "reward": {
+  "base": 180,
+  "perDay": 9
+ },
+ "favor": 24,
+ "fame": 4,
+ "deadline": {
+  "base": 35,
+  "perDay": 2
+ }
+}

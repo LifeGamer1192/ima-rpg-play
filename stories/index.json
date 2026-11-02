@@ -2024,6 +2024,69 @@
    "kind": "job",
    "era": "*",
    "title": "{place}の疫病を鎮めよ"
+  },
+  {
+   "id": "job_patron_works_shunju",
+   "file": "job_patron_works_shunju.json",
+   "kind": "job",
+   "era": "shunju",
+   "title": "{place}の城と溝洫の普請"
+  },
+  {
+   "id": "job_patron_works_sengoku",
+   "file": "job_patron_works_sengoku.json",
+   "kind": "job",
+   "era": "sengoku",
+   "title": "{place}の大普請"
+  },
+  {
+   "id": "job_patron_works_sangoku",
+   "file": "job_patron_works_sangoku.json",
+   "kind": "job",
+   "era": "sangoku",
+   "title": "{place}の陂池と城壁の修築"
+  },
+  {
+   "id": "job_patron_survey_shunju",
+   "file": "job_patron_survey_shunju.json",
+   "kind": "job",
+   "era": "shunju",
+   "title": "{place}の料民"
+  },
+  {
+   "id": "job_patron_survey_sengoku",
+   "file": "job_patron_survey_sengoku.json",
+   "kind": "job",
+   "era": "sengoku",
+   "title": "{place}の検地"
+  },
+  {
+   "id": "job_patron_survey_sangoku",
+   "file": "job_patron_survey_sangoku.json",
+   "kind": "job",
+   "era": "sangoku",
+   "title": "{place}の戸籍を改めよ"
+  },
+  {
+   "id": "job_patron_grain_shunju",
+   "file": "job_patron_grain_shunju.json",
+   "kind": "job",
+   "era": "shunju",
+   "title": "{place}で糧秣を集め、陣へ送れ"
+  },
+  {
+   "id": "job_patron_grain_sengoku",
+   "file": "job_patron_grain_sengoku.json",
+   "kind": "job",
+   "era": "sengoku",
+   "title": "{place}の兵糧米を調えよ"
+  },
+  {
+   "id": "job_patron_grain_sangoku",
+   "file": "job_patron_grain_sangoku.json",
+   "kind": "job",
+   "era": "sangoku",
+   "title": "{place}から軍糧を漕げ"
   }
  ]
 }

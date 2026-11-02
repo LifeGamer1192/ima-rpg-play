@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_works_sangoku",
+ "kind": "job",
+ "era": "sangoku",
+ "giver": "patron",
+ "mechanism": "works",
+ "target": "own-town",
+ "title": "{place}の陂池と城壁の修築",
+ "desc": "{place}の陂池が涸れ、城壁も崩れている。民を募って人手を集め、水利と壁を直せ。",
+ "reward": {
+  "base": 180,
+  "perDay": 9
+ },
+ "favor": 24,
+ "fame": 4,
+ "deadline": {
+  "base": 35,
+  "perDay": 2
+ }
+}
