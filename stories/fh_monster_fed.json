@@ -1,0 +1,269 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fh_monster_fed",
+ "kind": "random",
+ "where": "office",
+ "hook": "村に魔物が出る。退治してほしい",
+ "title": "魔物退治",
+ "era": "fantasy",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "clerk": {
+   "npc": "組合の書記",
+   "sex": "f"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "boy": {
+   "npc": "村の子",
+   "sex": "m"
+  },
+  "seller": {
+   "npc": "護符を売る男",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "tale",
+   "text": [
+    "{clerk}が紙を剥がして渡した。「{village}です。夜ごと、家の裏まで来ると」"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "village"
+    }
+   ]
+  },
+  "village": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}で夜を待つ",
+   "art": "tale",
+   "text": [
+    "{village}は、柵も門も壊れていなかった。畑も荒らされていない。",
+    "出るのは決まって家の裏手で、決まって同じ時刻だという。"
+   ],
+   "choices": [
+    {
+     "label": "家の裏で夜を張る",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "watch",
+      "lose": "fight"
+     }
+    },
+    {
+     "label": "出た跡を昼のうちに見る",
+     "check": {
+      "skill": "medicine",
+      "dc": 35,
+      "win": "traces",
+      "lose": "fight"
+     }
+    },
+    {
+     "label": "夜に出てきたところを討つ",
+     "next": "fight"
+    }
+   ]
+  },
+  "traces": {
+   "art": "tale",
+   "text": [
+    "足跡のまわりに、魚の骨と、粥の器が伏せてあった。器は割れていない。置いた者がいる。",
+    "器の底に、家の印が彫ってある。{village}の、いちばん小さな家の印だ。"
+   ],
+   "effects": [
+    {
+     "flag": "fhf_know"
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    }
+   ],
+   "next": "watch"
+  },
+  "watch": {
+   "speaker": "boy",
+   "art": "tale",
+   "text": [
+    "夜半、家の裏に小さな影が出た。魔物ではない。{boy}だ。粥の器を置き、少し下がって座り込む。",
+    "やがて、藪から二つ出てきた。痩せている。{boy}は逃げなかった。",
+    "「父ちゃんが死んでから、こいつらだけ来るんだ」"
+   ],
+   "choices": [
+    {
+     "label": "{boy}を抱えて下がり、二つを討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 0,
+      "win": "end_killed",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "{boy}と一緒に、餌を森の奥へ移していく",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "end_moved",
+      "lose": "fight"
+     }
+    },
+    {
+     "label": "村の者を起こして、見せる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_told",
+      "lose": "end_blamed"
+     }
+    }
+   ]
+  },
+  "fight": {
+   "art": "war",
+   "text": [
+    "藪が揺れた。出てきたのは二つ。痩せているが、牙はある。"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 0,
+      "win": "end_killed",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "end_killed": {
+   "text": [
+    "二つとも倒した。{boy}は声も出さずに、器の割れたのを拾って家に入った。",
+    "村は静かになった。{clerk}は報酬を払い、「よい手際で」と言った。"
+   ],
+   "effects": [
+    {
+     "money": 180
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "{village}に来ていた魔物を討った。餌をやっていたのは子どもだった。"
+    }
+   ],
+   "end": "拾われた器"
+  },
+  "end_moved": {
+   "text": [
+    "七日かけて、餌を置く場所を少しずつ森の奥へ移した。七日めには、村の裏まで来なくなった。",
+    "{boy}は最後の夜、森の入口で手を振っていた。{clerk}には「森へ移した」とだけ報せた。"
+   ],
+   "effects": [
+    {
+     "money": 160
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "note": "{village}の子が餌を置いていた。餌場を森の奥へ移した。"
+    }
+   ],
+   "end": "七日かけて移す"
+  },
+  "end_told": {
+   "text": [
+    "村の者を起こし、裏手を見せた。叱る声より先に、年寄りが一人、{boy}の肩に手を置いた。",
+    "翌日から、餌は村の決まりごとになった。森の入口に、月に二度。近すぎず、遠すぎない場所に。"
+   ],
+   "effects": [
+    {
+     "money": 140
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{village}の餌やりを村の決まりごとに変えさせた。"
+    }
+   ],
+   "end": "月に二度"
+  },
+  "end_blamed": {
+   "text": [
+    "村の者は{boy}を責めた。母親が謝り続け、{boy}は泣かなかった。",
+    "魔物は来なくなった。{boy}も、裏手に出てこなくなった。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 1
+    },
+    {
+     "favor": 4
+    },
+    {
+     "note": "{village}の餌やりを暴き、子が責められた。"
+    }
+   ],
+   "end": "泣かなかった"
+  },
+  "lost": {
+   "text": [
+    "牙をかわしきれなかった。{boy}が村の者を呼びに走り、どうにか助けられた。"
+   ],
+   "effects": [
+    {
+     "hp": -26
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "呼びに走る子"
+  }
+ }
+}

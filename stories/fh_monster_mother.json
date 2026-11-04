@@ -1,0 +1,330 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fh_monster_mother",
+ "kind": "random",
+ "where": "office",
+ "hook": "村に魔物が出る。退治してほしい",
+ "title": "魔物退治",
+ "era": "fantasy",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "clerk": {
+   "npc": "組合の書記",
+   "sex": "f"
+  },
+  "pens": {
+   "place": "near:here"
+  },
+  "shepherd": {
+   "npc": "羊飼い",
+   "sex": "f"
+  },
+  "woodman": {
+   "npc": "木を伐った請負",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "tale",
+   "text": [
+    "{clerk}が紙を渡した。「{pens}です。羊が五頭。いつも一頭だけ持っていって、残りには手をつけないとか」"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "pens"
+    }
+   ]
+  },
+  "pens": {
+   "at": {
+    "place": "pens"
+   },
+   "goal": "{pens}の囲いを見る",
+   "speaker": "shepherd",
+   "art": "road",
+   "text": [
+    "囲いの柵は、押し倒されてはいなかった。跨いで入り、跨いで出た跡がある。",
+    "{shepherd}が言った。「一頭だけなんです。毎晩でもない。四日に一度くらい」",
+    "谷の向こうの斜面が、春に丸ごと伐られて、切り株だらけになっていた。"
+   ],
+   "choices": [
+    {
+     "label": "夜を張って討つ",
+     "next": "fight"
+    },
+    {
+     "label": "跡をたどって、どこへ運んでいるか見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "den",
+      "lose": "fight"
+     }
+    },
+    {
+     "label": "伐られた斜面のことを聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "wood",
+      "lose": "den"
+     }
+    }
+   ]
+  },
+  "wood": {
+   "speaker": "woodman",
+   "art": "tale",
+   "text": [
+    "請負の{woodman}は悪びれなかった。「城の普請でね。春に全部伐った。三十年ぶんだ」",
+    "「あそこには実のなる木が多かったが……まあ、木は木だ」",
+    "{shepherd}が後ろで小さく言った。「羊が持っていかれるようになったの、夏からです」"
+   ],
+   "effects": [
+    {
+     "flag": "fhm_wood"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "den"
+  },
+  "den": {
+   "at": {
+    "place": "pens"
+   },
+   "goal": "跡をたどる",
+   "art": "ruins",
+   "text": [
+    "跡は、切り株の斜面を越えた先の窪みに続いていた。窪みの底に、三つ。小さい。",
+    "その真ん中に、羊の骨がきれいに割って並べてあった。並べたのは、親だ。",
+    "背後の藪が揺れた。"
+   ],
+   "choices": [
+    {
+     "label": "親を討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 14,
+      "win": "end_killed",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "下がって、窪みから離れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "back",
+      "lose": "fight"
+     }
+    }
+   ]
+  },
+  "fight": {
+   "art": "war",
+   "text": [
+    "夜半、囲いの柵を跨ぐ影があった。大きい。こちらを見て、動きを止めた。"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 14,
+      "win": "end_killed",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "一頭やって、追わずに見送る",
+     "next": "back"
+    }
+   ]
+  },
+  "back": {
+   "speaker": "shepherd",
+   "art": "tale",
+   "text": [
+    "追わずに下がった。{shepherd}は囲いの前で待っていた。「討たないんですか」",
+    "「四日に一度、一頭だ。群れは四十頭ある」——そう言うと、{shepherd}はしばらく考えていた。",
+    "「……冬までなら、保ちます。冬からは、保ちません」"
+   ],
+   "choices": [
+    {
+     "label": "谷の餌場を戻す算段をする（木の実の若木を植えさせる）",
+     "if": {
+      "flag": "fhm_wood"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_wood",
+      "lose": "end_pay"
+     }
+    },
+    {
+     "label": "村が四日に一度出す羊の代を、組合に出させる",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_pay",
+      "lose": "end_killed2"
+     }
+    },
+    {
+     "label": "結局、討つ",
+     "next": "fight2"
+    }
+   ]
+  },
+  "fight2": {
+   "art": "war",
+   "text": [
+    "次の夜、柵の前で待った。影は同じ刻に来た。"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 14,
+      "win": "end_killed",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "end_killed": {
+   "text": [
+    "親を討った。{clerk}は報酬を払い、羊は持っていかれなくなった。",
+    "半月後、切り株の斜面の向こうの窪みで、小さいのが三つ死んでいるのが見つかった。{shepherd}は、そのことを誰にも言わなかった。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "note": "{pens}の羊をさらっていた親を討った。"
+    }
+   ],
+   "end": "窪みの三つ"
+  },
+  "end_killed2": {
+   "text": [
+    "話はまとまらず、結局、次の夜に討った。羊は守られた。それ以上のことは、誰も知らない。"
+   ],
+   "effects": [
+    {
+     "money": 180
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "{pens}の件は、結局討って終わった。"
+    }
+   ],
+   "end": "誰も知らない"
+  },
+  "end_pay": {
+   "text": [
+    "四日に一度の羊の代を、組合の積立から出させた。{clerk}は渋ったが、討ち手を毎月雇うより安いと帳面が言った。",
+    "冬まで、それで持った。冬には雪で窪みが埋まり、親子は山の向こうへ移っていった。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 7
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{pens}では、羊の代を組合に出させて冬まで持たせた。"
+    }
+   ],
+   "end": "帳面が言った"
+  },
+  "end_wood": {
+   "text": [
+    "{woodman}に、伐った斜面へ実のなる若木を植えさせた。請負の銭には、城の普請の余りを回した。",
+    "三年かかる。三年のあいだ、羊は四日に一度持っていかれる。三年めの秋、斜面に実がついた。",
+    "{shepherd}はその年、羊を一頭も失わなかった。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 12
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 7
+    },
+    {
+     "note": "{pens}の谷に若木を植えさせ、餌場を戻した。"
+    }
+   ],
+   "end": "三年めの秋"
+  },
+  "lost": {
+   "text": [
+    "爪が肩から胸へ走った。囲いの柵まで這い戻ったところで、{shepherd}に引きずり込まれた。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "引きずり込まれる"
+  }
+ }
+}

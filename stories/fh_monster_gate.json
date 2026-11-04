@@ -1,0 +1,289 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fh_monster_gate",
+ "kind": "random",
+ "where": "office",
+ "hook": "村に魔物が出る。退治してほしい",
+ "title": "魔物退治",
+ "era": "fantasy",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "clerk": {
+   "npc": "組合の書記",
+   "sex": "f"
+  },
+  "ring": {
+   "place": "near:here"
+  },
+  "magus": {
+   "npc": "学院の使い",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "tale",
+   "text": [
+    "{clerk}が紙を渡した。「{ring}の辺りです。今月で四件め。毎回、違う形のものが出ます」"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "ring"
+    },
+    {
+     "label": "「違う形、とは」と聞く",
+     "next": "ask"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は帳面を開いた。「一件めは鼠のようなもの。二件めは犬のようなもの。三件めは……絵が描いてあります」",
+    "絵は、どの獣にも似ていなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "fhg_odd"
+    }
+   ],
+   "next": "ring"
+  },
+  "ring": {
+   "at": {
+    "place": "ring"
+   },
+   "goal": "{ring}で魔物を討つ",
+   "art": "ruins",
+   "text": [
+    "野の真ん中に、立石の環があった。中央に、枠だけの石の門。向こう側の草の色が、こちら側と少し違う。",
+    "環のまわりの草は、みな同じ方向に倒れている。出てきたものが通った跡だ。"
+   ],
+   "choices": [
+    {
+     "label": "出てきたものを討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 10,
+      "win": "after",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "環の石を調べる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "read",
+      "lose": "after2"
+     }
+    },
+    {
+     "label": "学院へ使いを出してから手を打つ",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "magus",
+      "lose": "after2"
+     }
+    }
+   ]
+  },
+  "after2": {
+   "art": "war",
+   "text": [
+    "調べているうちに、門の向こうから影が一つ、こちらへ渡ってきた。"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 10,
+      "win": "after",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "read": {
+   "art": "ruins",
+   "text": [
+    "立石の内側に、欠けた封じの石が嵌まっていた。八つのうち、三つが割れている。",
+    "割れ方は古い。十年、誰も見ていなかったのだ。"
+   ],
+   "effects": [
+    {
+     "flag": "fhg_know"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "next": "after"
+  },
+  "magus": {
+   "speaker": "magus",
+   "art": "lecture",
+   "text": [
+    "三日で{magus}が来た。封じの石を八つ、袋から出して並べる。「据えるあいだ、出てくるものを止めてください」",
+    "「四半刻です。……四半刻が、こういうときは長い」"
+   ],
+   "effects": [
+    {
+     "flag": "fhg_magus"
+    }
+   ],
+   "choices": [
+    {
+     "label": "環の中に立って守る",
+     "fight": {
+      "foes": "beast",
+      "n": 3,
+      "level": 14,
+      "win": "end_sealed",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "門の正面を外し、横から射る",
+     "check": {
+      "skill": "bow",
+      "dc": 45,
+      "win": "end_sealed",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "after": {
+   "art": "ruins",
+   "text": [
+    "出てきた分は片づけた。門は、開いたままだ。"
+   ],
+   "choices": [
+    {
+     "label": "石の割れたところに、自分で石を詰めてみる",
+     "if": {
+      "flag": "fhg_know"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_patched",
+      "lose": "end_killed"
+     }
+    },
+    {
+     "label": "学院に報せ、封じを頼む",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "magus",
+      "lose": "end_killed"
+     }
+    },
+    {
+     "label": "討った分を報告して帰る",
+     "next": "end_killed"
+    }
+   ]
+  },
+  "end_sealed": {
+   "speaker": "magus",
+   "text": [
+    "最後の石が嵌まると、門の向こうの色が、こちらと同じになった。音も光もない。",
+    "{magus}は汗を拭った。「半年は保ちます。半年ごとに、誰かが来ればよいのです」",
+    "{clerk}は帳面の「{ring}」の行に、はじめて「済」ではなく「封」と書いた。"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "fame": 9
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "note": "{ring}の門を学院の石で封じた。"
+    }
+   ],
+   "end": "帳面に「封」"
+  },
+  "end_patched": {
+   "text": [
+    "割れた石の隙間に、手近な石を削って詰めた。素人の仕事だ。それでも、門の色は少しだけ戻った。",
+    "学院の者に後で見せると、顔をしかめて言った。「三月は保ちます。三月で、必ず来てください」"
+   ],
+   "effects": [
+    {
+     "money": 260
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{ring}の封じの石を、手ずから詰め直した。"
+    }
+   ],
+   "end": "三月は保つ"
+  },
+  "end_killed": {
+   "text": [
+    "討った分を報せ、報酬を受け取った。{clerk}は「今月で四件め」と言いながら、五件めの紙を書いていた。",
+    "門は開いたままだ。開いたままのものは、だいたい、そのうち大きいものを通す。"
+   ],
+   "effects": [
+    {
+     "money": 170
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 5
+    },
+    {
+     "note": "{ring}から出てきた分を討った。門は開いたまま。"
+    }
+   ],
+   "end": "五件めの紙"
+  },
+  "lost": {
+   "text": [
+    "門から出てきたものは、形が定まらなかった。腕と脇腹をやられ、草の上を這って逃げた。"
+   ],
+   "effects": [
+    {
+     "hp": -34
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "形の定まらぬもの"
+  }
+ }
+}

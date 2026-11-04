@@ -1,0 +1,303 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fh_monster_common",
+ "kind": "random",
+ "where": "office",
+ "weight": 3,
+ "hook": "村に魔物が出る。退治してほしい",
+ "title": "魔物退治",
+ "era": "fantasy",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "clerk": {
+   "npc": "組合の書記",
+   "sex": "f"
+  },
+  "den": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "tale",
+   "text": [
+    "{clerk}が地図を広げた。「{den}の窪地に魔物が居着いて、畑が三枚やられた。衛兵は出せません。腕の立つ方を探しております」"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "den"
+    }
+   ]
+  },
+  "den": {
+   "at": {
+    "place": "den"
+   },
+   "goal": "{den}の窪地で魔物を討つ",
+   "art": "ruins",
+   "text": [
+    "窪地の底に、食い散らかした跡と骨が積んであった。奥の岩の陰で、何かが動いている。"
+   ],
+   "choices": [
+    {
+     "label": "斬り込む",
+     "fight": {
+      "foes": "beast",
+      "n": 3,
+      "level": 0,
+      "win": "after",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "羊の肉を置いて、一頭ずつ誘い出す",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "lured",
+      "lose": "den_ng"
+     }
+    },
+    {
+     "label": "岩陰に伏せて、数と寝床を見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "scout",
+      "lose": "scout_seen"
+     }
+    }
+   ]
+  },
+  "den_ng": {
+   "text": [
+    "肉の匂いに、思っていたより多くが出てきた。四つ。囲まれる前に動かねばならない。"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "beast",
+      "n": 4,
+      "level": 0,
+      "win": "after",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "scout_seen": {
+   "text": [
+    "足元の小石が落ちた。窪地じゅうの頭が、一斉にこちらを向く。"
+   ],
+   "choices": [
+    {
+     "label": "囲みを破る",
+     "guide": "寝ていたものまで起きて四つ。腕に自信がないと危うい",
+     "fight": {
+      "foes": "beast",
+      "n": 4,
+      "level": 0,
+      "win": "after",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "斜面を駆け上がり、上から一つずつ",
+     "check": {
+      "skill": "bow",
+      "dc": 45,
+      "win": "after",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "scout": {
+   "art": "ruins",
+   "text": [
+    "日が落ちるまで伏せていた。数は六。寝床は岩の裂け目の奥で、出入り口は一つきりだ。",
+    "骨の山に、村の鍬が一本混じっていた。人も獲られている。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "出入り口を塞いで、火と煙で追い出す",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 0,
+      "win": "after",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "裂け目の前で待ち伏せ、出てくる端から射る",
+     "guide": "弓の腕が要る。当たれば一つも逃がさない",
+     "check": {
+      "skill": "bow",
+      "dc": 50,
+      "win": "clean",
+      "lose": "den_ng"
+     }
+    },
+    {
+     "label": "夜のうちに骨の山から鍬を取り返し、村へ知らせる",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "warned",
+      "lose": "scout_seen"
+     }
+    }
+   ]
+  },
+  "clean": {
+   "text": [
+    "裂け目から出てくる端から射た。六つ。最後の一つが倒れたとき、矢は二本しか残っていなかった。"
+   ],
+   "effects": [
+    {
+     "xp": "bow",
+     "n": 4
+    }
+   ],
+   "next": "after"
+  },
+  "warned": {
+   "text": [
+    "村に鍬を返すと、持ち主の女が泣き崩れた。亭主は半月前に戻らなかったのだという。",
+    "村の男が四人、鍬と鎌を持って集まった。「一緒に行きます」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "choices": [
+    {
+     "label": "村の者と一緒に窪地へ向かう",
+     "fight": {
+      "foes": "beast",
+      "n": 3,
+      "level": 0,
+      "win": "after",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "「留守を頼む」と言って、一人で行く",
+     "fight": {
+      "foes": "beast",
+      "n": 4,
+      "level": 0,
+      "win": "after",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "after": {
+   "text": [
+    "残りは窪地を捨てて散った。骨の山の下から、銅貨の袋と、どこかの隊商の荷札が出てきた。"
+   ],
+   "choices": [
+    {
+     "label": "荷札ごと{here}へ持ち帰る",
+     "next": "won"
+    },
+    {
+     "label": "銅貨は懐に入れ、荷札だけ届ける",
+     "next": "pocket"
+    }
+   ]
+  },
+  "won": {
+   "text": [
+    "荷を担いで{here}へ戻ると、{clerk}が約束の銭を数えた。荷札の持ち主の家にも、報せが行くという。"
+   ],
+   "effects": [
+    {
+     "money": 180
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    }
+   ],
+   "end": "窪地は静かになった"
+  },
+  "pocket": {
+   "text": [
+    "懐は重くなった。{clerk}は荷札と目録を見比べて首をかしげたが、何も言わずに報酬を払った。"
+   ],
+   "effects": [
+    {
+     "money": 240
+    },
+    {
+     "fame": 1
+    },
+    {
+     "favor": -3
+    }
+   ],
+   "end": "袋はいただいた"
+  },
+  "lured": {
+   "text": [
+    "肉で一頭ずつ誘い出し、順に片づけた。日が暮れるころには、窪地に動くものはいなくなっていた。"
+   ],
+   "effects": [
+    {
+     "money": 160
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "end": "一頭ずつ"
+  },
+  "lost": {
+   "text": [
+    "牙が腕を裂いた。血を流しながら斜面を這い上がり、どうにか村まで戻った。窪地には、まだいる。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "追い返された"
+  }
+ }
+}

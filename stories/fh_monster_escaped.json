@@ -1,0 +1,343 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fh_monster_escaped",
+ "kind": "random",
+ "where": "office",
+ "hook": "村に魔物が出る。退治してほしい",
+ "title": "魔物退治",
+ "era": "fantasy",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "clerk": {
+   "npc": "組合の書記",
+   "sex": "f"
+  },
+  "field": {
+   "place": "near:here"
+  },
+  "steward": {
+   "npc": "館の家令",
+   "sex": "m"
+  },
+  "keeper": {
+   "npc": "檻の番人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "clerk",
+   "art": "tale",
+   "text": [
+    "{clerk}が紙を渡した。「{field}です。畑を踏み荒らすだけで、人は襲っておりません。それが、かえって気味が悪いと」"
+   ],
+   "choices": [
+    {
+     "label": "「引き受けよう」",
+     "next": "field"
+    }
+   ]
+  },
+  "field": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}で魔物を探す",
+   "art": "road",
+   "text": [
+    "麦畑に、大きな足跡が一筋。畑の真ん中で止まり、そこで長いこと動かなかったらしい。",
+    "足首のあたりに、擦り切れた革の輪が落ちていた。鈴がついている。"
+   ],
+   "choices": [
+    {
+     "label": "鈴の革輪を調べる",
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "collar",
+      "lose": "track"
+     }
+    },
+    {
+     "label": "足跡を追う",
+     "next": "track"
+    },
+    {
+     "label": "夜まで待って、出てきたところを討つ",
+     "next": "fight"
+    }
+   ]
+  },
+  "collar": {
+   "art": "trade",
+   "text": [
+    "革輪の内側に、焼き印があった。この地を治める家の紋だ。飼われていたものが、逃げたのだ。",
+    "逃げたものを討てば、飼い主の面目は保たれる。生きたまま返せば、保たれるのは面目ではなく、別のものだ。"
+   ],
+   "effects": [
+    {
+     "flag": "fhe_know"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "track"
+  },
+  "track": {
+   "art": "road",
+   "text": [
+    "足跡は川原の洞に続いていた。洞の中で、それは膝を抱えるようにして丸くなっていた。",
+    "痩せている。人を襲っていないのは、襲い方を知らないからかもしれない。"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 12,
+      "win": "end_killed",
+      "lose": "lost"
+     }
+    },
+    {
+     "label": "縄と肉で、生きたまま捕らえる",
+     "check": {
+      "skill": "medicine",
+      "dc": 45,
+      "win": "caught",
+      "lose": "fight"
+     }
+    },
+    {
+     "label": "館へ行き、飼い主と話す",
+     "if": {
+      "flag": "fhe_know"
+     },
+     "next": "house"
+    }
+   ]
+  },
+  "fight": {
+   "art": "war",
+   "text": [
+    "縄を投げたが、浅かった。洞の奥から、それが立ち上がる。"
+   ],
+   "choices": [
+    {
+     "label": "討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 12,
+      "win": "end_killed",
+      "lose": "lost"
+     }
+    }
+   ]
+  },
+  "caught": {
+   "art": "tale",
+   "text": [
+    "肉を投げ、縄を二重に掛けた。暴れたのは最初だけで、あとは引かれるままについてきた。"
+   ],
+   "effects": [
+    {
+     "flag": "fhe_alive"
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    }
+   ],
+   "next": "house"
+  },
+  "house": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "館で家令と話す",
+   "speaker": "steward",
+   "art": "court",
+   "text": [
+    "館の{steward}は、話の半ばで扉を閉めさせた。「……檻の鍵は、番人が開けました」",
+    "「殿は見世物にしておられた。酒の席で、鎖を引かせて」",
+    "「返していただけるなら、礼は出します。ただし、この話はここで終わりに」"
+   ],
+   "choices": [
+    {
+     "label": "生きたまま返し、礼を受け取る",
+     "if": {
+      "flag": "fhe_alive"
+     },
+     "next": "end_returned"
+    },
+    {
+     "label": "「檻に戻すなら返さぬ」と言う",
+     "if": {
+      "flag": "fhe_alive"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_freed",
+      "lose": "end_returned"
+     }
+    },
+    {
+     "label": "番人に話を聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "keeper",
+      "lose": "end_returned"
+     }
+    }
+   ]
+  },
+  "keeper": {
+   "speaker": "keeper",
+   "art": "backroom",
+   "text": [
+    "{keeper}は厩の裏で、声を落とした。「わたしが開けました。……あれは、鎖を引かれるたびに鳴くのです」",
+    "「殿はそれを面白がられた。わたしは、面白くなかった」"
+   ],
+   "effects": [
+    {
+     "flag": "fhe_keeper"
+    }
+   ],
+   "choices": [
+    {
+     "label": "番人をかばって、家令に「檻の戸は壊れていた」と告げる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_covered",
+      "lose": "end_returned"
+     }
+    },
+    {
+     "label": "見たままを告げる",
+     "next": "end_returned"
+    }
+   ]
+  },
+  "end_killed": {
+   "text": [
+    "討った。革輪の鈴は、洞の砂に埋めた。{clerk}には「畑を荒らすものを片づけた」とだけ報せた。",
+    "半月後、館から使いが来て、何も言わずに金貨を置いていった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "note": "{field}を荒らしていたものを討った。首輪には館の紋があった。"
+    }
+   ],
+   "end": "砂に埋めた鈴"
+  },
+  "end_returned": {
+   "text": [
+    "生きたまま館へ返した。{steward}は礼を払い、扉を閉めた。檻の鍵は新しくなったという。",
+    "鈴の音は、しばらく頭から離れなかった。"
+   ],
+   "effects": [
+    {
+     "money": 350
+    },
+    {
+     "fame": 3
+    },
+    {
+     "favor": 8
+    },
+    {
+     "note": "{field}の魔物を生け捕りにし、館へ返した。"
+    }
+   ],
+   "end": "新しい鍵"
+  },
+  "end_freed": {
+   "text": [
+    "「檻に戻すなら返さぬ」と言い切った。{steward}は長く黙り、やがて言った。「……どこへ放つおつもりか」",
+    "川を三つ越えた先の谷へ放した。館からは、何も出なかった。畑は、もう荒らされていない。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": -6
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{field}の魔物を館に返さず、遠い谷へ放した。"
+    }
+   ],
+   "end": "川を三つ越えて"
+  },
+  "end_covered": {
+   "text": [
+    "「檻の戸は、もともと腐っておりました」——そう告げた。{steward}は信じなかったが、信じた顔をした。",
+    "{keeper}は職を失わずに済んだ。半年後、館の見世物はやめになったと聞いた。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{field}の魔物を返し、檻を開けた番人をかばった。"
+    }
+   ],
+   "end": "腐っていた戸"
+  },
+  "lost": {
+   "text": [
+    "洞の中は狭すぎた。肩を打たれ、川原まで転がった。それは川を渡って、どこかへ行った。"
+   ],
+   "effects": [
+    {
+     "hp": -28
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "川を渡っていった"
+  }
+ }
+}

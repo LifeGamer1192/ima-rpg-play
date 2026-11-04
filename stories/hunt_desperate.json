@@ -8,6 +8,9 @@
  "hook": "山の盗賊を討ってほしい。報酬ははずむ",
  "title": "盗賊討伐",
  "era": "*",
+ "notEra": [
+  "fantasy"
+ ],
  "cast": {
   "here": {
    "place": "here"

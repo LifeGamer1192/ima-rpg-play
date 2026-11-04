@@ -8,6 +8,9 @@
  "hook": "山に人食い虎が出て、樵が三人やられました",
  "title": "虎退治",
  "era": "*",
+ "notEra": [
+  "fantasy"
+ ],
  "cast": {
   "here": {
    "place": "here"
