@@ -1,0 +1,480 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_philo",
+ "kind": "school",
+ "title": "柱廊と園",
+ "era": "rome",
+ "school": "philo",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "ギリシア人の学頭",
+   "sex": "m"
+  },
+  "peer": {
+   "npc": "園の学徒",
+   "sex": "f"
+  },
+  "soldier": {
+   "npc": "駐屯の百人隊長",
+   "sex": "m"
+  },
+  "widow": {
+   "folk": "子を失った女",
+   "tags": [
+    "女"
+   ],
+   "at": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  }
+ },
+ "start": "p1",
+ "scenes": {
+  "p1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の柱廊の学堂へ行く",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "柱廊の日陰に、十人ほどが腰を下ろしていた。{master}は裸足で、話しながら歩き回る癖があった。",
+    "「わたしたちは二つの問いを扱う。何が自分の手の内にあるか。手の外にあるものに、どう向き合うか」",
+    "「向かいの園では、別の答えを出している。苦しみを減らし、友と静かに暮らせ、と。……どちらも、戦のさなかには役に立たんと言われる」"
+   ],
+   "choices": [
+    {
+     "label": "柱廊に座る――運命を受け、務めを果たす道",
+     "effects": [
+      {
+       "flag": "rp_stoa"
+      }
+     ],
+     "next": "p1in"
+    },
+    {
+     "label": "園へ行く――苦しみを減らし、友と静かに",
+     "effects": [
+      {
+       "flag": "rp_garden"
+      }
+     ],
+     "next": "p1in"
+    },
+    {
+     "label": "両方を聞いてから決めたい",
+     "next": "p1both"
+    }
+   ]
+  },
+  "p1in": {
+   "speaker": "master",
+   "text": [
+    "{master}は手を叩いた。「選んだか。では、最初の務めだ。明日から、炊事を手伝いなさい」",
+    "「それが学びですか」",
+    "「手の内にあることから始める。炊事は手の内にある」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "philo"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "{here}の学堂に入った。"
+    }
+   ],
+   "next": "p2"
+  },
+  "p1both": {
+   "speaker": "peer",
+   "text": [
+    "園の{peer}が、水を持ってきてくれた。「うちは庭で豆を作っています。食べて、話して、それだけ」",
+    "「柱廊は立派なことを言います。でも、立派なことを言う人は、だいたい疲れています」{peer}は笑った。「どちらにも顔を出せばいいんです。先生たちも、本当は仲が悪くない」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "philo"
+    },
+    {
+     "bond": "peer",
+     "know": 30,
+     "like": 20,
+     "memo": "園で水をもらった"
+    },
+    {
+     "note": "{here}の学堂に入った。"
+    }
+   ],
+   "next": "p2"
+  },
+  "p2": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の学堂で、問答に加わる",
+   "art": "lecture",
+   "wait": {
+    "days": 8
+   },
+   "text": [
+    "問いは「国が負けたとき、人はどうあるべきか」だった。",
+    "若い者が勇ましいことを言い、年配の者が黙っていた。{master}が{player}を指した。"
+   ],
+   "choices": [
+    {
+     "label": "「負けは手の外にある。どう耐えるかが手の内だ」",
+     "if": {
+      "flag": "rp_stoa"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 20,
+      "win": "p2good",
+      "lose": "p2plain"
+     }
+    },
+    {
+     "label": "「まず恐れを減らすこと。恐れた者から、おかしな決定をする」",
+     "if": {
+      "flag": "rp_garden"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "p2good",
+      "lose": "p2plain"
+     }
+    },
+    {
+     "label": "「負けた国で、人はまず飯を食わねばなりません」",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "p2good",
+      "lose": "p2plain"
+     }
+    }
+   ]
+  },
+  "p2good": {
+   "speaker": "master",
+   "text": [
+    "{master}は歩き回るのをやめた。「いまの、もう一度言いなさい。皆に書き取らせる」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "schoolRank": 1
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "next": "p3"
+  },
+  "p2plain": {
+   "text": [
+    "{player}の答えは、途中で絡まった。年配の者が助け舟を出し、話は別の方向へ流れていった。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "p3"
+  },
+  "p3": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "{here}が囲まれる。学堂に留まるか決める",
+   "speaker": "soldier",
+   "art": "war",
+   "wait": {
+    "days": 14
+   },
+   "text": [
+    "町が囲まれた。{soldier}が学堂に来て、建物を兵の宿にすると告げた。",
+    "「本はどうなります」と{peer}が聞いた。「薪になる」と{soldier}は答えた。"
+   ],
+   "choices": [
+    {
+     "label": "本を運び出す手筈を整える",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "p3books",
+      "lose": "p3burn"
+     }
+    },
+    {
+     "label": "{soldier}と話し、学堂を残させる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "p3keep",
+      "lose": "p3burn"
+     }
+    },
+    {
+     "label": "本は諦め、学徒を町の外へ逃がす",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "p3people",
+      "lose": "p3burn"
+     }
+    }
+   ]
+  },
+  "p3books": {
+   "text": [
+    "夜のうちに、三十巻を地下の水槽に沈めた。油布に包み、蝋で封じて。囲みが解けたとき、無事だったのは二十八巻だった。"
+   ],
+   "effects": [
+    {
+     "flag": "rp_books"
+    },
+    {
+     "xp": "stealth",
+     "n": 6
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "p4"
+  },
+  "p3keep": {
+   "speaker": "soldier",
+   "text": [
+    "{soldier}は譲った。「柱廊の半分は使う。奥は触らん」理由を聞くと、「おれの倅も、こういう所に通わせたかった」と言った。"
+   ],
+   "effects": [
+    {
+     "flag": "rp_books"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "p4"
+  },
+  "p3people": {
+   "text": [
+    "本は焼かれたが、学徒は一人も死ななかった。{master}は焼け跡で言った。「本は書き直せる。人は書き直せない」"
+   ],
+   "effects": [
+    {
+     "flag": "rp_people"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "p4"
+  },
+  "p3burn": {
+   "text": [
+    "学堂は兵の宿になり、本は薪になった。暖かい冬だったと、誰かが言った。誰も笑わなかった。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "p4"
+  },
+  "p4": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で、子を失った女に問われる",
+   "speaker": "widow",
+   "art": "trade",
+   "wait": {
+    "days": 16
+   },
+   "text": [
+    "囲みが解けたあと、{widow}が{player}の袖をつかんだ。息子を二人、城壁で失った人である。",
+    "「あなたは、哲学を学んでいると聞きました」{widow}は言った。「教えてください。これに、何の意味があるのですか」"
+   ],
+   "choices": [
+    {
+     "label": "意味はない、と正直に答える",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "p4true",
+      "lose": "p4hollow"
+     }
+    },
+    {
+     "label": "手の内と手の外の話をする",
+     "if": {
+      "flag": "rp_stoa"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "p4true",
+      "lose": "p4hollow"
+     }
+    },
+    {
+     "label": "何も言わず、隣に座る",
+     "next": "p4sit"
+    }
+   ]
+  },
+  "p4true": {
+   "text": [
+    "「意味はありません」と{player}は言った。「意味があると言う者がいたら、疑ってください」",
+    "「……そう言われたのは、初めてです」{widow}はしばらく黙り、それから初めて泣いた。"
+   ],
+   "effects": [
+    {
+     "flag": "rp_honest"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "schoolRank": 3
+    },
+    {
+     "bond": "widow",
+     "know": 40,
+     "like": 30,
+     "memo": "市で、答えのない問いに正直に答えた"
+    }
+   ],
+   "next": "p5"
+  },
+  "p4hollow": {
+   "text": [
+    "{player}の言葉は、立派だったが、空だった。{widow}は礼を言って去った。礼を言われたことが、こたえた。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "p5"
+  },
+  "p4sit": {
+   "text": [
+    "{player}は隣に座った。半刻、何も言わずに。やがて{widow}が立ち上がり、「ありがとう」と言った。何に対する礼なのかは、分からなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "rp_honest"
+    },
+    {
+     "schoolRank": 3
+    }
+   ],
+   "next": "p5"
+  },
+  "p5": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の学堂へ戻る",
+   "speaker": "master",
+   "art": "lecture",
+   "wait": {
+    "days": 10
+   },
+   "text": [
+    "{master}は、焼けたか焼けなかった柱廊の前に立っていた。"
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "rp_honest"
+     },
+     "next": "endHonest"
+    },
+    {
+     "if": {
+      "flag": "rp_books"
+     },
+     "next": "endBooks"
+    },
+    {
+     "if": {
+      "flag": "rp_people"
+     },
+     "next": "endPeople"
+    },
+    {
+     "next": "endPlain"
+    }
+   ]
+  },
+  "endHonest": {
+   "speaker": "master",
+   "text": [
+    "{master}は市での話を聞いていた。「よく、意味はないと言えたな」",
+    "「言ってよかったのでしょうか」",
+    "「よい。慰めは嘘でもできる。嘘をつかずに隣に座るのは、学んだ者にしかできん。……それがこの学問の、たぶん唯一の役に立つところだ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    }
+   ],
+   "end": "隣に座る"
+  },
+  "endBooks": {
+   "text": [
+    "二十八巻は戻った。欠けた二巻は、誰も題名を覚えていなかった。",
+    "{master}は新しい写しを始めた。「欠けたところは、わたしの言葉で埋める。何百年かあとの者が、どちらがどちらか分からなくなればよい」"
+   ],
+   "end": "埋めた二巻"
+  },
+  "endPeople": {
+   "text": [
+    "学徒は全員生きていた。本はない。{master}は記憶から口述し、学徒が書き取った。間違っているところもあるだろう、と{master}は笑った。"
+   ],
+   "end": "口から出た本"
+  },
+  "endPlain": {
+   "speaker": "master",
+   "text": [
+    "「学んだことを、忘れるな、とは言わぬ」{master}は言った。「忘れたころに、ふと出てくる。それが学問だ」"
+   ],
+   "end": "ふと出てくる"
+  }
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_road_rome",
+ "kind": "job",
+ "era": "rome",
+ "giver": "office",
+ "mechanism": "works",
+ "target": "here",
+ "title": "{place}の街道と水道の修繕",
+ "desc": "{place}の石畳が軍の往来で割れ、水道の樋も漏れている。人手を募って直してくれ。道が死ねば兵も糧も動かぬ。",
+ "reward": {
+  "base": 140
+ },
+ "favor": 10,
+ "fame": 1,
+ "deadline": {
+  "base": 30
+ }
+}

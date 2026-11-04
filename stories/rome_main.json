@@ -1,0 +1,814 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_main",
+ "kind": "main",
+ "title": "庇護者の家",
+ "era": "rome",
+ "trigger": {
+  "persona": [
+   "none",
+   "folk"
+  ]
+ },
+ "cast": {
+  "home": {
+   "place": "home"
+  },
+  "mentor": {
+   "npc": "老いた書記",
+   "sex": "m"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "lord": {
+   "person": "minister:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "rival": {
+   "realm": "enemy:power"
+  },
+  "rivalcap": {
+   "place": "capital:rival"
+  },
+  "third": {
+   "realm": "second"
+  },
+  "thirdcap": {
+   "place": "capital:third"
+  },
+  "front": {
+   "place": "border:power"
+  },
+  "schemer": {
+   "npc": "敵対する家の者",
+   "sex": "m"
+  }
+ },
+ "start": "c1",
+ "scenes": {
+  "c1": {
+   "at": {
+    "place": "home",
+    "building": "inn"
+   },
+   "goal": "{home}の{inn}で、人に会う",
+   "speaker": "mentor",
+   "art": "inn",
+   "text": [
+    "{inn}の隅で、蝋板を抱えた老人が手招きした。{home}で契約の文を書いて暮らしている{mentor}だ。",
+    "「{player}よ。この町で荷を担いで終わる器ではあるまい。いま最も力のあるのは{power}だ。{capital}の{lord}の家は、朝ごとに門を開けて、才のある者なら生まれを問わず迎えると聞く」",
+    "老人は蝋板に文字を刻み、紐で綴じて封をした。「若いころ、あの家の先代に雇われた縁がある。この紹介状を{lord}に届けよ。……庇護を受けるというのは、頭を下げるということだ。それが嫌なら、やめておけ」"
+   ],
+   "choices": [
+    {
+     "label": "紹介状を受け取る",
+     "effects": [
+      {
+       "item": "letter"
+      },
+      {
+       "note": "{mentor}から{lord}への紹介状を託された。"
+      }
+     ],
+     "next": "c2"
+    },
+    {
+     "label": "「まだ早い」と断る",
+     "next": "c1b"
+    }
+   ]
+  },
+  "c1b": {
+   "speaker": "mentor",
+   "text": [
+    "{mentor}は綴じた蝋板を{player}の荷にねじ込んだ。「持っておけ。腹が減ったときに思い出す」"
+   ],
+   "effects": [
+    {
+     "item": "letter"
+    }
+   ],
+   "next": "c2"
+  },
+  "c2": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}で{lord}に紹介状を渡す",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "夜明け前から、{lord}の家の前に行列ができていた。被護民たちが、庇護者に朝の挨拶をしに来るのである。順番が回ってくるころには日が高かった。",
+    "{lord}は蝋板の封を切り、二行読んで顔を上げた。「{mentor}か。生きておったか」",
+    "「うちの門をくぐる者は多い。毎朝、この行列だ」{lord}は行列を顎で指した。「その中から、わたしが名前を覚えるのは年に二人か三人だ。覚えられたければ、覚えられるようなことをしなさい」"
+   ],
+   "choices": [
+    {
+     "label": "被護民として家に入る",
+     "effects": [
+      {
+       "item": "letter",
+       "n": -1
+      },
+      {
+       "enlist": "power"
+      },
+      {
+       "fame": 3
+      },
+      {
+       "note": "{lord}の被護民となった。"
+      }
+     ],
+     "next": "c3"
+    },
+    {
+     "label": "「考えさせてください」と答える",
+     "next": "c2later"
+    }
+   ]
+  },
+  "c2later": {
+   "goal": "どこにも仕えていない身で、ひと月ののちに{capital}の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
+   "wait": {
+    "days": 30,
+    "free": true
+   },
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "ひと月後、行列の後ろにまた{player}の姿があった。{lord}は覚えていた。「考えがまとまったか」"
+   ],
+   "choices": [
+    {
+     "label": "被護民として家に入る",
+     "effects": [
+      {
+       "item": "letter",
+       "n": -1
+      },
+      {
+       "enlist": "power"
+      },
+      {
+       "note": "{lord}の被護民となった。"
+      }
+     ],
+     "next": "c3"
+    },
+    {
+     "label": "今日も断る",
+     "next": "c2retry"
+    }
+   ]
+  },
+  "c2retry": {
+   "goal": "名声を10まで上げて、{capital}の{lord}を再び訪ねる（ほかの国に仕えている間は待つ）",
+   "wait": {
+    "fame": 10,
+    "free": true
+   },
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "三度目に訪ねたとき、{lord}は行列を待たせて{player}を先に入れた。「名を聞くようになった。今度はこちらから言おう。うちに来なさい」"
+   ],
+   "choices": [
+    {
+     "label": "被護民として家に入る",
+     "effects": [
+      {
+       "item": "letter",
+       "n": -1
+      },
+      {
+       "enlist": "power"
+      },
+      {
+       "note": "{lord}の被護民となった。"
+      }
+     ],
+     "next": "c3"
+    }
+   ]
+  },
+  "c3": {
+   "goal": "{power}の務めを3つ果たし、{lord}に報告する（公会所の布告や、主君の任務）",
+   "wait": {
+    "jobs": 3
+   },
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "三つの務めを終えて戻ると、{lord}は帳面を繰って{player}の名のところで指を止めた。",
+    "「道の普請、穀の差配、それに賊の始末か。おもしろいのは、どれも報告が正直なことだ。うまくいかなかったところを、うまくいったように書いていない」",
+    "「うちの被護民には、今日から朝の行列に並ばなくてよい者が何人かいる。お前もその一人だ」"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 20
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "c4"
+  },
+  "c4": {
+   "at": {
+    "place": "rivalcap"
+   },
+   "goal": "{lord}の供として{rivalcap}へ向かう",
+   "speaker": "lord",
+   "art": "voyage",
+   "text": [
+    "使節は三人だった。{lord}と、書記と、{player}。{rival}の都へ、捕虜の交換を談判しに行くのである。",
+    "「わたしは言葉を選ぶ。お前は数を数えろ」と{lord}は言った。「港に軍船が何隻あるか。城壁の工事がどこまで進んでいるか。市で穀物が一升いくらか。……使節は、半分は目で来るものだ」"
+   ],
+   "choices": [
+    {
+     "label": "港と市を歩き、数を数える",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "c4ok",
+      "lose": "c4bad"
+     }
+    },
+    {
+     "label": "夜のうちに城壁の工事場へ忍び込む",
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "c4ok",
+      "lose": "c4fight"
+     }
+    },
+    {
+     "label": "談判の席で{lord}の後ろに控える",
+     "next": "c4home"
+    }
+   ]
+  },
+  "c4fight": {
+   "text": [
+    "工事場の番兵に見咎められた。言い逃れのきく場所ではなかった。"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "c4ok",
+      "lose": "c4bad"
+     }
+    }
+   ]
+  },
+  "c4bad": {
+   "speaker": "lord",
+   "text": [
+    "{player}は何も持ち帰れなかった。{lord}は咎めなかった。「使節が全員、物を持って帰れるわけではない。帰れただけでよい」"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "c4home"
+  },
+  "c4ok": {
+   "speaker": "lord",
+   "text": [
+    "{player}の蝋板には、軍船の数と、城壁の未完の区間と、穀物の値が並んでいた。{lord}は最後の数字を二度見た。",
+    "「穀物が高い。あちらは外から買っている。……この一行で、談判の値段が変わる」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "favor": 15
+    },
+    {
+     "note": "{rivalcap}で{rival}の内情を掴んだ。"
+    }
+   ],
+   "next": "c4home"
+  },
+  "c4home": {
+   "at": {
+    "place": "capital"
+   },
+   "goal": "{lord}とともに{capital}へ帰る",
+   "speaker": "schemer",
+   "art": "court",
+   "text": [
+    "帰った{capital}の広場で、別の家の者が{lord}を呼び止めた。{schemer}である。",
+    "「敵の都で、ずいぶん長く話し込んでおられたとか。捕虜の数が合わぬという噂もある」{schemer}は笑っていた。「噂です。噂ですとも」",
+    "{lord}は何も答えずに通り過ぎた。角を曲がってから、低い声で言った。「あの家とうちは、祖父の代から争っている。覚えておけ」"
+   ],
+   "next": "c5"
+  },
+  "c5": {
+   "at": {
+    "place": "thirdcap",
+    "building": "palace"
+   },
+   "goal": "{thirdcap}へ行き、{third}に{power}との同盟を説く",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "次の役目は、どちらにも付いていない{third}を味方に引き入れることだった。{lord}は病で動けず、{player}が代わりに行くことになった。",
+    "{thirdcap}の評議の広間で、長老たちは{player}の年齢を見てから、話を聞きはじめた。"
+   ],
+   "choices": [
+    {
+     "label": "「勝つ側に付くのが利だ」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "c5ok",
+      "lose": "c5ng"
+     }
+    },
+    {
+     "label": "穀物と船の取り決めを持ち出し、損得で説く",
+     "check": {
+      "skill": "trade",
+      "dc": 38,
+      "win": "c5ok",
+      "lose": "c5ng"
+     }
+    },
+    {
+     "label": "両国の過去の条約を読み上げ、筋道で説く",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "c5ok",
+      "lose": "c5ng"
+     }
+    }
+   ]
+  },
+  "c5ok": {
+   "text": [
+    "採決は賛成が多かった。{third}は{power}と誓いを交わした。{player}の名が、初めて他国の記録に残った。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 25
+    },
+    {
+     "rep": "third",
+     "n": 15
+    },
+    {
+     "realmFx": "power",
+     "ally": "third"
+    },
+    {
+     "note": "{third}を{power}と結ばせた。"
+    }
+   ],
+   "next": "c6"
+  },
+  "c5ng": {
+   "text": [
+    "長老たちは「今しばらく様子を見る」と言った。それは断りの言い方だった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "next": "c6"
+  },
+  "c6": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "境の{front}へ出陣する",
+   "art": "war",
+   "text": [
+    "{front}で両軍が向かい合った。{player}は百人隊の後ろに付けられた。",
+    "前の列が崩れかけたとき、隊を率いる士官が落馬した。号令を出す者がいなくなった。"
+   ],
+   "choices": [
+    {
+     "label": "声を張り上げ、列を立て直す",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "c6win",
+      "lose": "c6lose"
+     }
+    },
+    {
+     "label": "前へ出て、崩れ口を自分で塞ぐ",
+     "check": {
+      "skill": "blade",
+      "dc": 38,
+      "win": "c6win",
+      "lose": "c6lose"
+     }
+    },
+    {
+     "label": "落馬した士官を担いで下がる",
+     "check": {
+      "skill": "medicine",
+      "dc": 32,
+      "win": "c6win",
+      "lose": "c6lose"
+     }
+    }
+   ]
+  },
+  "c6win": {
+   "text": [
+    "列は持ちこたえた。日が暮れるころ、敵は引いた。将は{player}の名を帳面に書かせ、城壁冠に値すると言った者もいた。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 40
+    },
+    {
+     "rank": 3
+    }
+   ],
+   "next": "c7"
+  },
+  "c6lose": {
+   "text": [
+    "列は崩れた。{player}は押し流され、気がついたときには川のそばにいた。味方の旗は、まだ立っていた。それだけが救いだった。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "next": "c7"
+  },
+  "c7": {
+   "at": {
+    "place": "capital",
+    "building": "office"
+   },
+   "goal": "{capital}へ戻る",
+   "speaker": "schemer",
+   "art": "court",
+   "text": [
+    "{capital}に戻ると、{lord}が告発されていた。敵国との談判で私腹を肥やした、という訴えである。訴えたのは{schemer}の家だった。",
+    "「証人がいる」と{schemer}は言った。「あのとき使節にいた者だ。……お前だよ」",
+    "{lord}は何も言わずに{player}を見ていた。"
+   ],
+   "choices": [
+    {
+     "label": "法廷で{lord}のために証言する",
+     "turn": true,
+     "guide": "勝っている側の家を敵に回す",
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "c7clear",
+      "lose": "c7exile"
+     }
+    },
+    {
+     "label": "蝋板の控えを全部出し、数字で潔白を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "c7clear",
+      "lose": "c7exile"
+     }
+    },
+    {
+     "label": "{schemer}の側につき、証言する",
+     "effects": [
+      {
+       "flag": "main_betray"
+      },
+      {
+       "money": 3000
+      },
+      {
+       "rel": -60
+      }
+     ],
+     "next": "c7exile"
+    },
+    {
+     "label": "都を離れ、何も言わない",
+     "next": "c7home"
+    }
+   ]
+  },
+  "c7clear": {
+   "speaker": "lord",
+   "text": [
+    "{player}が読み上げたのは、あの日の蝋板だった。軍船の数、城壁の区間、穀物の値。日付と、書いた刻限まで。",
+    "「この数字を書いた者が、同じ日に賄賂を受け取る暇はありません」",
+    "告発は退けられた。家に戻ると、{lord}は{player}に古い指輪を一つ渡した。「うちの家の印だ。朝の行列には、もう並ばなくてよい」"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "favor": 40
+    },
+    {
+     "rel": 30
+    },
+    {
+     "note": "法廷で{lord}の潔白を示した。"
+    }
+   ],
+   "next": "c8"
+  },
+  "c7exile": {
+   "speaker": "lord",
+   "text": [
+    "告発は通らなかったが、{lord}は職を退いた。「わたしは年だ。お前はまだ年ではない」別れ際に、{lord}はそれだけ言った。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rel": -10
+    }
+   ],
+   "next": "c8"
+  },
+  "c7home": {
+   "at": {
+    "place": "home"
+   },
+   "goal": "故郷の{home}へ帰る",
+   "speaker": "mentor",
+   "art": "inn",
+   "text": [
+    "{home}へ帰ると、{mentor}はまだ契約の文を書いていた。「都はどうだった」と聞かれ、{player}は答えに詰まった。"
+   ],
+   "next": "c7recall"
+  },
+  "c7recall": {
+   "at": {
+    "place": "capital"
+   },
+   "goal": "30日ほど故郷で過ごしたのち、{capital}へ戻る",
+   "wait": {
+    "days": 30
+   },
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "使いが来た。{lord}の家からである。「告発は退けられた。戻ってこい、とのことです」"
+   ],
+   "effects": [
+    {
+     "favor": 10
+    }
+   ],
+   "next": "c8"
+  },
+  "c8": {
+   "at": {
+    "place": "rivalcap"
+   },
+   "goal": "{rival}の都{rivalcap}を囲む陣へ向かう",
+   "art": "war",
+   "text": [
+    "戦は終わりに近づいていた。{rivalcap}は二重の土塁に囲まれ、城内では穀物が尽きかけている。",
+    "将は三つの案を並べた。明日の夜明けに城壁を越えるか、降伏の談判をするか、飢えるまで待つか。"
+   ],
+   "choices": [
+    {
+     "label": "城壁を越える隊に加わる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 1,
+      "win": "c8storm",
+      "lose": "c8mercy"
+     }
+    },
+    {
+     "label": "降伏の談判に立つ",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "c8parley",
+      "lose": "c8storm"
+     }
+    },
+    {
+     "label": "城内の者を逃がす抜け道を黙認する",
+     "effects": [
+      {
+       "flag": "main_mercy"
+      }
+     ],
+     "next": "c8mercy"
+    }
+   ]
+  },
+  "c8storm": {
+   "text": [
+    "夜明けに梯子がかかった。城壁の上の戦いは短く、町は日の高いうちに落ちた。{player}の手にも、分け前が渡された。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "money": 800
+    },
+    {
+     "favor": 20
+    },
+    {
+     "hp": -15
+    }
+   ],
+   "next": "c9"
+  },
+  "c8parley": {
+   "text": [
+    "談判はまとまった。門は開かれ、町は焼かれず、城内の者は財の半分を失って生き延びた。将は不満そうだったが、元老院は喜んだ。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "favor": 30
+    },
+    {
+     "flag": "main_mercy"
+    }
+   ],
+   "next": "c9"
+  },
+  "c8mercy": {
+   "text": [
+    "夜のうちに、女と子どもが抜け道から出ていった。{player}は見張りの向きを変えただけだった。誰にも言わなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    }
+   ],
+   "next": "c9"
+  },
+  "c9": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}で{ruler}に会う",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は、職を退く前の最後の数日を数えていた。この国では、最も高い職も一年で終わる。",
+    "「この戦のあと、国はどうあるべきだと思う」{ruler}は{player}に尋ねた。「海の向こうまで取るか。取った土地をどう治めるか。それとも、このあたりで満足するか」"
+   ],
+   "choices": [
+    {
+     "label": "「海の向こうまで取り、属州として治めるべきです」",
+     "effects": [
+      {
+       "flag": "main_expand"
+      },
+      {
+       "favor": 20
+      }
+     ],
+     "next": "c10"
+    },
+    {
+     "label": "「取った土地に法と道を敷き、これ以上は広げぬことです」",
+     "effects": [
+      {
+       "flag": "main_law"
+      }
+     ],
+     "next": "c10"
+    },
+    {
+     "label": "「わたしの役目は終わりました。畑に帰らせてください」",
+     "effects": [
+      {
+       "flag": "main_farm"
+      }
+     ],
+     "next": "c10"
+    }
+   ]
+  },
+  "c10": {
+   "text": [
+    "……それから幾年かが過ぎた。"
+   ],
+   "choices": [
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "main_farm"
+     },
+     "next": "endFarm"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "main_betray"
+     },
+     "next": "endBetray"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "main_expand",
+      "stands": "power"
+     },
+     "next": "endExpand"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "main_law"
+     },
+     "next": "endLaw"
+    },
+    {
+     "label": "つづき",
+     "next": "endFall"
+    }
+   ]
+  },
+  "endFarm": {
+   "speaker": "mentor",
+   "text": [
+    "{home}の近くの、石の多い畑を買った。葡萄が三列と、オリーブが数本。{mentor}は死に、その蝋板は{player}の棚にある。",
+    "ときおり都から使いが来る。そのたびに{player}は首を振って、搾ったばかりの油を持たせて帰す。"
+   ],
+   "end": "石の多い畑"
+  },
+  "endExpand": {
+   "speaker": "ruler",
+   "text": [
+    "{power}の旗は海を越えた。{player}は属州の帳簿を抱えて港から港へ回り、税と道と水道の算段をした。",
+    "凱旋式の行列を、{player}は沿道から見た。車の上の将の後ろで、奴隷が囁いている。「お前も人間だと忘れるな」。{player}はその言葉を、帳簿の裏に書き写した。"
+   ],
+   "end": "帳簿の裏の言葉"
+  },
+  "endLaw": {
+   "text": [
+    "戦は終わり、{player}は取った土地に道と法を敷く仕事に回された。地味な仕事だった。",
+    "二十年後、その道を荷車が往き来し、その法で土地の争いが裁かれていた。{player}の名は、どの石にも刻まれていない。"
+   ],
+   "end": "名のない道"
+  },
+  "endBetray": {
+   "text": [
+    "{schemer}の家は{player}を取り立てたが、覚えてもいた。証言で人を売った者は、二度目も売る。そう見られる。",
+    "銭はある。家もある。朝の行列に並ぶ者もいる。ただ、名を呼ぶ声に、いつも少しの間がある。"
+   ],
+   "end": "間のある呼び名"
+  },
+  "endFall": {
+   "text": [
+    "{player}が仕えた家は傾いた。{player}はまた一人の旅人に戻った。手元に残ったのは、{mentor}の蝋板の写しと、幾つかの傷だけだった。"
+   ],
+   "end": "流転"
+  }
+ }
+}

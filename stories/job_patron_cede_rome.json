@@ -1,0 +1,27 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_cede_rome",
+ "kind": "job",
+ "era": "rome",
+ "giver": "patron",
+ "mechanism": "covenant",
+ "target": "enemy-town",
+ "when": {
+  "rankMin": 6,
+  "war": true
+ },
+ "world": {
+  "cede": true
+ },
+ "title": "{realm}に{place}を明け渡させよ",
+ "desc": "{place}の有力者は、敵に付いたことを今になって悔いている。使者として入り、門を開けば以前の取り決めを戻すと説け。囲まずに町を得れば、功は戦に勝る。",
+ "reward": {
+  "base": 900
+ },
+ "favor": 90,
+ "fame": 20,
+ "deadline": {
+  "base": 60
+ }
+}

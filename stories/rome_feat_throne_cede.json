@@ -1,0 +1,272 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_feat_throne_cede",
+ "kind": "feat",
+ "feat": "career",
+ "title": "選挙の日",
+ "era": "rome",
+ "trigger": {
+  "patron": true,
+  "bySize": {
+   "realm": "patron",
+   "rank": [
+    4,
+    6,
+    7
+   ]
+  },
+  "king": false,
+  "notFeat": "career"
+ },
+ "cast": {
+  "power": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "elder": {
+   "npc": "古参の元老",
+   "sex": "m"
+  },
+  "general": {
+   "person": "general:power"
+  },
+  "broker": {
+   "npc": "票を束ねる者",
+   "sex": "m"
+  }
+ },
+ "start": "c1",
+ "scenes": {
+  "c1": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、{ruler}に意を伝える",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は任期の残りを数えていた。「この席に座りたいか」と、前置きもなく聞いた。",
+    "「座りたい者は多い。座れる者は二人だけだ。わたしは推すことはできる。だが、入れるのは票だ。票は、わたしのものではない」"
+   ],
+   "choices": [
+    {
+     "label": "「立ちます」と告げる",
+     "next": "c2"
+    },
+    {
+     "label": "「まだ時ではありません」",
+     "next": "cdecline"
+    }
+   ]
+  },
+  "c2": {
+   "at": {
+    "place": "capital",
+    "building": "office"
+   },
+   "goal": "{capital}の{office}で、古参の者たちの支持を取り付ける",
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "{elder}は{player}を上から下まで眺めた。「家が古くない。財も中くらい。……それで、この席に座ろうと」"
+   ],
+   "choices": [
+    {
+     "label": "先例を並べ、家柄によらず選ばれた者を挙げる",
+     "check": {
+      "skill": "letters",
+      "dc": 68,
+      "scale": "power",
+      "win": "c3",
+      "lose": "c2ng"
+     }
+    },
+    {
+     "label": "一人ずつ家を訪ね、朝の挨拶から始める",
+     "check": {
+      "skill": "speech",
+      "dc": 70,
+      "scale": "power",
+      "win": "c3",
+      "lose": "c2ng"
+     }
+    }
+   ]
+  },
+  "c2ng": {
+   "speaker": "broker",
+   "art": "backroom",
+   "text": [
+    "古参の者たちは動かなかった。その夜、{broker}が宿に来た。「票は束で動きます。一束でいくら、と決まっている。……汚いとは思いますが、皆やっていることです」"
+   ],
+   "choices": [
+    {
+     "label": "票を買う（30000）",
+     "if": {
+      "money": 30000
+     },
+     "effects": [
+      {
+       "money": -30000
+      },
+      {
+       "fame": -5
+      },
+      {
+       "flag": "rc_bought"
+      }
+     ],
+     "next": "c3"
+    },
+    {
+     "label": "買わずに退く",
+     "next": "cfail"
+    }
+   ]
+  },
+  "c3": {
+   "at": {
+    "place": "capital",
+    "building": "barracks"
+   },
+   "goal": "{capital}の{barracks}で、{general}に認めさせる",
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "{general}は腕を組んだまま動かない。「兵は役職に従うのではない。勝たせる者に従う。その器があるか、見せてもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "次の戦の陣立てを地面に描いて示す",
+     "check": {
+      "skill": "letters",
+      "dc": 72,
+      "scale": "power",
+      "win": "c4",
+      "lose": "c3fight"
+     }
+    },
+    {
+     "label": "練兵場で、選ばれた兵と立ち合う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 60,
+      "scale": "power",
+      "win": "c4",
+      "lose": "cfail"
+     }
+    }
+   ]
+  },
+  "c3fight": {
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "「口は回るな。だが兵は口では動かぬ」{general}は顎で練兵場を示した。"
+   ],
+   "choices": [
+    {
+     "label": "兵と立ち合う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 60,
+      "scale": "power",
+      "win": "c4",
+      "lose": "cfail"
+     }
+    }
+   ]
+  },
+  "c4": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の広場で、選挙の日に立つ",
+   "art": "court",
+   "text": [
+    "選挙の日、広場は人で埋まった。投票は組ごとに行われ、組の数だけ結果が読み上げられていく。",
+    "{player}は白く晒した外套を着て、壇の下に立った。あとは、これまで自分が何をしてきたかが数えられるだけである。"
+   ],
+   "choices": [
+    {
+     "label": "最後にひと言、群衆に述べる",
+     "check": {
+      "skill": "speech",
+      "dc": 70,
+      "scale": "power",
+      "win": "cwin",
+      "lose": "cfail_day"
+     }
+    },
+    {
+     "label": "何も言わず、読み上げを聞く",
+     "check": {
+      "skill": "letters",
+      "dc": 74,
+      "scale": "power",
+      "win": "cwin",
+      "lose": "cfail_day"
+     }
+    }
+   ]
+  },
+  "cwin": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "組の票が過半を越えたとき、広場がどよめいた。読み上げの者が{player}の名を告げ、ラッパが鳴った。",
+    "{ruler}は自ら歩み寄り、{player}の肩に手を置いた。「席は一年だ。一年で何ができるかを、ずっと考えてきた者だけが、何かを残す」"
+   ],
+   "effects": [
+    {
+     "fame": 30
+    },
+    {
+     "throne": "power",
+     "how": "選挙"
+    },
+    {
+     "feat": "career"
+    }
+   ],
+   "end": "読み上げられた名"
+  },
+  "cdecline": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は頷いた。「急がぬがよい。心が決まったら、また来なさい」"
+   ],
+   "end": "いまだ時ならず"
+  },
+  "cfail": {
+   "art": "court",
+   "text": [
+    "支持は集まらなかった。……ひと月ほどして、また風向きが変わるかもしれない。"
+   ],
+   "end": "いまだ時ならず"
+  },
+  "cfail_day": {
+   "art": "court",
+   "text": [
+    "読み上げが進むにつれ、広場の声が小さくなった。{player}の名は、過半に届かなかった。……次の年がある。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    }
+   ],
+   "end": "いまだ時ならず"
+  }
+ }
+}

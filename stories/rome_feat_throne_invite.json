@@ -1,0 +1,244 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_feat_throne_invite",
+ "kind": "feat",
+ "feat": "career",
+ "title": "招かれた席",
+ "era": "rome",
+ "trigger": {
+  "patron": true,
+  "bySize": {
+   "realm": "weakestOther",
+   "rank": [
+    3,
+    6,
+    7
+   ],
+   "fame": [
+    60,
+    100,
+    150
+   ]
+  },
+  "king": false,
+  "notFeat": "career"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "small": {
+   "realm": "weakestOther"
+  },
+  "smallcap": {
+   "place": "capital:small"
+  },
+  "envoy": {
+   "npc": "使者",
+   "sex": "m"
+  },
+  "noble": {
+   "npc": "土地の長老の筆頭",
+   "sex": "m"
+  },
+  "nephew": {
+   "npc": "先代の甥",
+   "sex": "m"
+  }
+ },
+ "start": "i1",
+ "scenes": {
+  "i1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で、{small}からの使者に会う",
+   "speaker": "envoy",
+   "art": "road",
+   "text": [
+    "旅装の{envoy}が膝をついた。「{small}の主が、跡を決めぬまま亡くなりました。今わの際に、名の聞こえた{player}様に託せと仰せられたのです。隣の国は、すでに境に兵を寄せております」",
+    "「長老も民も、{player}様を迎えたいと申しております。小さな国ではございますが……」"
+   ],
+   "choices": [
+    {
+     "label": "{smallcap}へ向かう",
+     "guide": "主になれば、いま仕えている国を去ることになる",
+     "next": "i2"
+    },
+    {
+     "label": "断る",
+     "next": "idecline"
+    }
+   ]
+  },
+  "i2": {
+   "at": {
+    "place": "smallcap",
+    "building": "palace"
+   },
+   "goal": "{smallcap}の{palace}で、長老たちに会う",
+   "speaker": "noble",
+   "art": "court",
+   "text": [
+    "{noble}は値踏みするように{player}を見た。「名は聞いております。だが、大国に挟まれたこの国を、どう守り、どう食わせるおつもりか。それを伺いたい」"
+   ],
+   "choices": [
+    {
+     "label": "小国が大国の間で生き延びる道を説く",
+     "check": {
+      "skill": "letters",
+      "dc": 60,
+      "scale": "small",
+      "win": "i3",
+      "lose": "i2b"
+     }
+    },
+    {
+     "label": "長老の家を一軒ずつ訪ね、心を掴む",
+     "check": {
+      "skill": "speech",
+      "dc": 62,
+      "scale": "small",
+      "win": "i3",
+      "lose": "i2b"
+     }
+    }
+   ]
+  },
+  "i2b": {
+   "speaker": "noble",
+   "art": "court",
+   "text": [
+    "長老たちの半分は首をかしげている。もう一押しが要る。"
+   ],
+   "choices": [
+    {
+     "label": "国の蔵に私財を入れる（10000）",
+     "if": {
+      "money": 10000
+     },
+     "effects": [
+      {
+       "money": -10000
+      }
+     ],
+     "next": "i3"
+    },
+    {
+     "label": "言葉を尽くしてもう一度説く",
+     "check": {
+      "skill": "speech",
+      "dc": 66,
+      "scale": "small",
+      "win": "i3",
+      "lose": "ifail"
+     }
+    }
+   ]
+  },
+  "i3": {
+   "at": {
+    "place": "smallcap",
+    "building": "barracks"
+   },
+   "goal": "{smallcap}の{barracks}で、席を狙う{nephew}と対する",
+   "speaker": "nephew",
+   "art": "duel",
+   "text": [
+    "{barracks}の前で、{nephew}が剣を抜いた。「よそ者に国を渡すものか。この国の主は、血を引くわたしだ」兵たちが成り行きを見ている。"
+   ],
+   "choices": [
+    {
+     "label": "一騎打ちに応じる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 60,
+      "scale": "small",
+      "win": "i4",
+      "lose": "ifail"
+     }
+    },
+    {
+     "label": "兵に向かって、どちらが国を守れるかを説く",
+     "check": {
+      "skill": "speech",
+      "dc": 66,
+      "scale": "small",
+      "win": "i4talk",
+      "lose": "i3fight"
+     }
+    }
+   ]
+  },
+  "i3fight": {
+   "speaker": "nephew",
+   "art": "duel",
+   "text": [
+    "兵は迷っている。{nephew}が斬りかかってきた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 60,
+      "scale": "small",
+      "win": "i4",
+      "lose": "ifail"
+     }
+    }
+   ]
+  },
+  "i4talk": {
+   "art": "camp",
+   "text": [
+    "兵の列から声が上がった。{nephew}は剣を落とし、うなだれて去った。"
+   ],
+   "next": "i4"
+  },
+  "i4": {
+   "at": {
+    "place": "smallcap",
+    "building": "palace"
+   },
+   "goal": "{smallcap}の{palace}で、席に就く",
+   "art": "court",
+   "text": [
+    "小さな広間。だが、居並ぶ者の目は真剣だった。{player}は先代の像の前で誓いを立て、上座に就いた。",
+    "{noble}が低い声で言った。「よそから来た主は、はじめの三年が長い。三年持てば、あとはこの国の者になります」"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "throne": "small",
+     "how": "招聘"
+    },
+    {
+     "feat": "career"
+    }
+   ],
+   "end": "招かれた席"
+  },
+  "idecline": {
+   "speaker": "envoy",
+   "art": "road",
+   "text": [
+    "{envoy}は肩を落として帰っていった。"
+   ],
+   "end": "いまだ時ならず"
+  },
+  "ifail": {
+   "art": "court",
+   "text": [
+    "話はまとまらなかった。{player}は{smallcap}を去った。……ひと月もすれば、あの国はまた誰かを探すだろう。"
+   ],
+   "end": "いまだ時ならず"
+  }
+ }
+}

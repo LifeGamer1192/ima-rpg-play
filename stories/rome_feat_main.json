@@ -1,0 +1,398 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_feat_main",
+ "kind": "feat",
+ "feat": "main",
+ "title": "運命",
+ "era": "rome",
+ "trigger": {
+  "storyDone": [
+   "rome_main",
+   "rome_open_king",
+   "rome_open_serve",
+   "rome_open_free"
+  ],
+  "notFeat": "main"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power",
+   "self": true
+  },
+  "schemer": {
+   "npc": "家を潰された男",
+   "sex": "m"
+  },
+  "champ": {
+   "npc": "雇われた剣闘士の頭",
+   "sex": "m"
+  },
+  "old": {
+   "npc": "老いた旧友",
+   "sex": "m"
+  }
+ },
+ "start": "m1",
+ "scenes": {
+  "m1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goto": [
+    {
+     "if": {
+      "me": "ruler"
+     },
+     "next": "m1self"
+    }
+   ],
+   "goal": "{here}の{inn}で、旧友の便りを受け取る",
+   "speaker": "old",
+   "art": "inn",
+   "text": [
+    "{old}は震える手で蝋板を差し出した。「あのとき法廷で敗れた{schemer}が生きておる。闘技場あがりの男を何人も雇って、{capital}に入ったらしい」",
+    "「大祭の夜に、{ruler}の家に火を放つつもりだ。あの戦をぜんぶ見てきたお前にしか頼めぬ。これが最後の務めになろう」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ向かう",
+     "next": "m2"
+    }
+   ]
+  },
+  "m1self": {
+   "speaker": "old",
+   "art": "inn",
+   "text": [
+    "{old}は震える手で蝋板を差し出した。「あのとき法廷で敗れた{schemer}が生きております。闘技場あがりの男を雇い、{capital}に入ったとか」",
+    "「狙いは、あなた様のお命です。家の中に通じている者がいるやもしれませぬ。どうか、ご自分の目で」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ戻る",
+     "next": "m2"
+    }
+   ]
+  },
+  "m2": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の{market}で、一味の動きを探る",
+   "art": "trade",
+   "text": [
+    "市の賑わいの陰で、見慣れぬ男たちが油と松脂を買い集めている。神殿の夜回りの交代の刻を、しきりに尋ねる者もいる。"
+   ],
+   "choices": [
+    {
+     "label": "男たちの後をつけ、決行の夜を突き止める",
+     "check": {
+      "skill": "stealth",
+      "dc": 72,
+      "win": "m3know",
+      "lose": "m3blind"
+     }
+    },
+    {
+     "label": "顔見知りの店に銭を置いて聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 75,
+      "win": "m3know",
+      "lose": "m3blind"
+     }
+    }
+   ]
+  },
+  "m3know": {
+   "art": "hideout",
+   "text": [
+    "決行は三日後、夜明け前。墓地のほうから二十人が入る手筈だと分かった。"
+   ],
+   "effects": [
+    {
+     "flag": "rfm_know"
+    }
+   ],
+   "next": "m4"
+  },
+  "m3blind": {
+   "art": "hideout",
+   "text": [
+    "男たちは路地で消えた。いつ来るのかは分からない。神殿に泊まり込み、夜ごと見張るしかない。"
+   ],
+   "next": "m4"
+  },
+  "m4": {
+   "at": {
+    "place": "capital",
+    "building": "shrine"
+   },
+   "goal": "{capital}の{shrine}で、襲撃を迎え撃つ",
+   "art": "war",
+   "text": [
+    "夜明け前。墓地のほうから、松明を手にした影がいくつも塀を越えてきた。"
+   ],
+   "choices": [
+    {
+     "label": "伏せておいた者たちと、裏手で迎え撃つ",
+     "if": {
+      "flag": "rfm_know"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 62,
+      "win": "m5",
+      "lose": "mfail"
+     }
+    },
+    {
+     "label": "寝所の前に立ちはだかる",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 70,
+      "win": "m5",
+      "lose": "mfail"
+     }
+    }
+   ]
+  },
+  "m5": {
+   "art": "duel",
+   "speaker": "champ",
+   "text": [
+    "雇われた者たちが倒れると、最後に一人、大柄な男が短剣と網を構えた。「{schemer}に拾われた命だ。ここで返す」"
+   ],
+   "choices": [
+    {
+     "label": "一騎打ちに応じる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 80,
+      "win": "m6",
+      "lose": "mfail"
+     }
+    },
+    {
+     "label": "「あの男は、お前を捨て駒にした」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 82,
+      "win": "m6talk",
+      "lose": "m5fight"
+     }
+    }
+   ]
+  },
+  "m5fight": {
+   "art": "duel",
+   "text": [
+    "男は耳を貸さず、踏み込んできた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 80,
+      "win": "m6",
+      "lose": "mfail"
+     }
+    }
+   ]
+  },
+  "m6talk": {
+   "art": "duel",
+   "text": [
+    "男の網が下がった。「……あの人は、港で船を待っている。逃げる気だ」男は短剣を捨て、膝をついた。"
+   ],
+   "next": "m6"
+  },
+  "m6": {
+   "goto": [
+    {
+     "if": {
+      "me": "ruler"
+     },
+     "next": "m6self"
+    }
+   ],
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "縄をかけられた{schemer}が、{ruler}の前に引き据えられた。{ruler}は{player}を見た。「この者の裁き、お前に任せる。あの戦を見てきた目で、裁いてみよ」"
+   ],
+   "choices": [
+    {
+     "label": "法に照らして裁くよう説く",
+     "check": {
+      "skill": "letters",
+      "dc": 78,
+      "win": "mwin_law",
+      "lose": "mfail_court"
+     }
+    },
+    {
+     "label": "命は取らず、海の向こうの町へ追放するよう説く",
+     "check": {
+      "skill": "speech",
+      "dc": 78,
+      "win": "mwin_mercy",
+      "lose": "mfail_court"
+     }
+    }
+   ]
+  },
+  "m6self": {
+   "art": "court",
+   "text": [
+    "縄をかけられた{schemer}が、階の下に引き据えられた。居並ぶ者が{player}の顔色をうかがう。命を狙われたのは本人。裁くのも本人である。"
+   ],
+   "choices": [
+    {
+     "label": "法を読み上げ、その理を人々に示す",
+     "check": {
+      "skill": "letters",
+      "dc": 78,
+      "win": "mself_law",
+      "lose": "mself_fail"
+     }
+    },
+    {
+     "label": "命を助けて追放し、器を示す",
+     "check": {
+      "skill": "speech",
+      "dc": 78,
+      "win": "mself_mercy",
+      "lose": "mself_fail"
+     }
+    }
+   ]
+  },
+  "mself_law": {
+   "art": "court",
+   "text": [
+    "{player}は法の条を一つずつ読み上げ、罪を示した。人々は息をのみ、やがて深く頭を下げた。主の怒りではなく、法が裁いた。その朝、長い戦の最後の火種が消えた。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "運命"
+  },
+  "mself_mercy": {
+   "art": "court",
+   "text": [
+    "「命は取らぬ。ただし二度とこの町の土は踏ませぬ」その言葉に、広間がどよめいた。自分を狙った者を赦す主に、人々は何かを見た。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "運命"
+  },
+  "mself_fail": {
+   "art": "court",
+   "text": [
+    "言葉は人々の胸に届かなかった。私怨で裁いたという噂が立ち、裁きは法廷に委ねられた。……いつか、もう一度。"
+   ],
+   "end": "運命いまだ至らず"
+  },
+  "mwin_law": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は深く頷いた。「法は、主のためにあるのではない。国のためにある。……お前の言うとおりだ」その朝、長い戦の最後の火種が消えた。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "運命"
+  },
+  "mwin_mercy": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は長く黙っていたが、やがて笑った。「血で始まった戦を、情けで閉じるか。お前らしい」{schemer}は海の向こうの町へ送られ、二度と戻らなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "運命"
+  },
+  "mfail": {
+   "goto": [
+    {
+     "if": {
+      "me": "ruler"
+     },
+     "next": "mfail_self"
+    }
+   ],
+   "art": "war",
+   "text": [
+    "{player}は深手を負って倒れた。{ruler}は辛うじて逃れたが、{schemer}は夜の中に消えた。……傷が癒えたら、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -40
+    }
+   ],
+   "end": "運命いまだ至らず"
+  },
+  "mfail_self": {
+   "art": "war",
+   "text": [
+    "{player}は深手を負いながら、衛兵に守られて辛うじて逃れた。{schemer}は闇に消えた。……傷が癒えたら、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -40
+    }
+   ],
+   "end": "運命いまだ至らず"
+  },
+  "mfail_court": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は首を振った。「お前の言葉には、まだ重みが足りぬ」裁きは法廷に委ねられた。……いつか、もう一度。"
+   ],
+   "end": "運命いまだ至らず"
+  }
+ }
+}

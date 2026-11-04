@@ -1,0 +1,444 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_augur",
+ "kind": "school",
+ "title": "兆しを読む者",
+ "era": "rome",
+ "school": "augur",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "老いた鳥占官",
+   "sex": "m"
+  },
+  "peer": {
+   "npc": "同門の若者",
+   "sex": "f"
+  },
+  "general": {
+   "person": "general:power"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "front": {
+   "place": "border:power"
+  }
+ },
+ "start": "a1",
+ "scenes": {
+  "a1": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の{shrine}で、鳥占官に会う",
+   "speaker": "master",
+   "art": "faith",
+   "text": [
+    "{master}は曲がった杖を持ち、空の一角を杖で四角く区切ってみせた。",
+    "「ここを見る。ここに入ってきた鳥の、数と、向きと、鳴き方を見る。それだけだ」",
+    "「よいか。わたしたちは、神の心を当てるのではない。神に問い、断られたか許されたかを聞く。当てる者は占い師だ。わたしたちは、尋ねる者だ」"
+   ],
+   "choices": [
+    {
+     "label": "空の四角を見つめ、鳥を待つ",
+     "check": {
+      "skill": "letters",
+      "dc": 10,
+      "win": "a1good",
+      "lose": "a1plain"
+     }
+    },
+    {
+     "label": "「断られたら、どうするのです」と問う",
+     "next": "a1ask"
+    }
+   ]
+  },
+  "a1good": {
+   "speaker": "master",
+   "text": [
+    "半刻ののち、鴉が二羽、左から右へ渡った。{player}は数と向きを言った。{master}は頷いた。「見えたな。見えたと言える者は少ない」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "augur"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}の鳥占官の館に入った。"
+    }
+   ],
+   "next": "a2"
+  },
+  "a1ask": {
+   "speaker": "master",
+   "text": [
+    "「断られたら、その日は何もせぬ」{master}は言った。「それが本来だ。……いまは、断られたら、もう一度問う者が多い。許されるまで問う」",
+    "「それは尋ねているのか、ねだっているのか。わたしには分からぬ」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "augur"
+    },
+    {
+     "note": "{here}の鳥占官の館に入った。"
+    }
+   ],
+   "next": "a2"
+  },
+  "a1plain": {
+   "text": [
+    "一刻待ったが、鳥は来なかった。「来ぬのも答えだ」と{master}は言って、帰り支度を始めた。"
+   ],
+   "effects": [
+    {
+     "joinSchool": "augur"
+    },
+    {
+     "note": "{here}の鳥占官の館に入った。"
+    }
+   ],
+   "next": "a2"
+  },
+  "a2": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}で、犠牲の臓を読む",
+   "speaker": "peer",
+   "art": "faith",
+   "wait": {
+    "days": 8
+   },
+   "text": [
+    "羊が一頭、台に載せられた。{peer}が手早く捌き、肝を取り出して{player}に見せた。",
+    "「ここが頭。ここが割れ目。病んだ肝は色が違う。……読むのは、ほとんど肝の健康を読むことです」{peer}は声を落とした。「先生はそう言いませんけど」"
+   ],
+   "choices": [
+    {
+     "label": "肝の色と形を、見たとおりに述べる",
+     "check": {
+      "skill": "medicine",
+      "dc": 20,
+      "win": "a2true",
+      "lose": "a2miss"
+     }
+    },
+    {
+     "label": "書にある形に当てはめて述べる",
+     "check": {
+      "skill": "letters",
+      "dc": 20,
+      "win": "a2book",
+      "lose": "a2miss"
+     }
+    }
+   ]
+  },
+  "a2true": {
+   "speaker": "peer",
+   "text": [
+    "「色が悪い。この羊は病んでいました」{player}の言葉に、{peer}が小さく笑った。「正解です。でも、人前では言わないほうがいい」"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "schoolRank": 1
+    },
+    {
+     "bond": "peer",
+     "know": 30,
+     "like": 20,
+     "memo": "肝を一緒に読んだ"
+    }
+   ],
+   "next": "a3"
+  },
+  "a2book": {
+   "text": [
+    "書の形に当てはめた読みは、よどみなかった。{master}は満足げだった。{peer}は何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "a3"
+  },
+  "a2miss": {
+   "text": [
+    "{player}の読みは外れた。{master}は「外れたと分かるなら、よい」と言った。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 4
+    }
+   ],
+   "next": "a3"
+  },
+  "a3": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、市の日取りを決める",
+   "art": "court",
+   "wait": {
+    "days": 10
+   },
+   "text": [
+    "役所が、祭の日取りを決めるのに兆しを求めてきた。本来は簡単な役目である。",
+    "ところが、商人たちは市を早く立てたがり、神官たちは遅らせたがっていた。どちらも、{player}に先に会いに来た。"
+   ],
+   "choices": [
+    {
+     "label": "見たとおりを述べ、どちらにも寄らない",
+     "effects": [
+      {
+       "flag": "ra_straight"
+      },
+      {
+       "fame": 2
+      }
+     ],
+     "next": "a4"
+    },
+    {
+     "label": "商人の側に寄せて読む",
+     "effects": [
+      {
+       "money": 500
+      },
+      {
+       "flag": "ra_bent"
+      }
+     ],
+     "next": "a4"
+    },
+    {
+     "label": "神官の側に寄せて読む",
+     "effects": [
+      {
+       "flag": "ra_bent"
+      },
+      {
+       "rep": "power",
+       "n": 3
+      }
+     ],
+     "next": "a4"
+    }
+   ]
+  },
+  "a4": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "{front}の陣で、出陣の兆しを求められる",
+   "speaker": "general",
+   "art": "camp",
+   "wait": {
+    "days": 16
+   },
+   "text": [
+    "陣に呼ばれた。{general}は明日、出撃したがっている。平地で、敵の騎兵は倍である。",
+    "{player}は夜明けに鳥を見た。四角の中に入ってきたのは、右から左へ渡る一羽だけだった。読みは明らかに、否である。",
+    "{general}は{player}の顔を見て言った。「よい兆しだったと聞きたいのだが」"
+   ],
+   "choices": [
+    {
+     "label": "否と告げ、理由を述べる",
+     "turn": true,
+     "guide": "将軍の前で、出るなと言う",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "a4no",
+      "lose": "a4pressed"
+     }
+    },
+    {
+     "label": "否と告げ、吉日を三日後に示す",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "a4delay",
+      "lose": "a4pressed"
+     }
+    },
+    {
+     "label": "吉と告げる",
+     "effects": [
+      {
+       "flag": "ra_lied"
+      },
+      {
+       "rel": 10
+      }
+     ],
+     "next": "a5"
+    }
+   ]
+  },
+  "a4no": {
+   "speaker": "general",
+   "text": [
+    "{general}は長いこと黙っていた。「……お前は、わたしに恥をかかせた」",
+    "「いいえ」と{player}は言った。「かかせていません。まだ、何も起きていませんから」",
+    "出撃は見送られた。三日後、敵の騎兵が平地から移動したと斥候が報せてきた。"
+   ],
+   "effects": [
+    {
+     "flag": "ra_held"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "schoolRank": 3
+    },
+    {
+     "rep": "power",
+     "n": 10
+    }
+   ],
+   "next": "a5"
+  },
+  "a4delay": {
+   "text": [
+    "三日後が吉と示した。{general}は渋々受け入れた。三日のあいだに敵の陣立てが変わり、結局、戦は起きなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "ra_held"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "a5"
+  },
+  "a4pressed": {
+   "text": [
+    "{general}は{player}の読みを聞かず、別の者を呼んだ。別の者は吉と読んだ。軍は出た。"
+   ],
+   "effects": [
+    {
+     "flag": "ra_outvoted"
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "a5"
+  },
+  "a5": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}へ戻り、{master}に報告する",
+   "speaker": "master",
+   "art": "faith",
+   "wait": {
+    "days": 12
+   },
+   "text": [
+    "{master}は{player}の話を、口を挟まずに聞いた。"
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "ra_lied"
+     },
+     "next": "endLied"
+    },
+    {
+     "if": {
+      "flag": "ra_held"
+     },
+     "next": "endHeld"
+    },
+    {
+     "if": {
+      "flag": "ra_outvoted"
+     },
+     "next": "endOut"
+    },
+    {
+     "next": "endPlain"
+    }
+   ]
+  },
+  "endHeld": {
+   "speaker": "master",
+   "text": [
+    "「よくやった」{master}は言った。「兆しは、兵を止めるためにある。昔からそうだ。神が止めたことにすれば、将軍の面目が立つ」",
+    "「……それでは、兆しは方便ですか」",
+    "「方便だと思うなら、方便だ。だが、方便で何千人かが生きている」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    }
+   ],
+   "end": "止めるための兆し"
+  },
+  "endLied": {
+   "speaker": "master",
+   "text": [
+    "{master}は杖で床を叩いた。「一度やると、二度めは楽になる。三度めは、自分でも嘘だと思わなくなる」",
+    "「そうなったら、お前はもう尋ねる者ではない。ねだる者ですらない。売る者だ」",
+    "{player}は何も言えなかった。{general}の軍は、その戦で三百を失った。"
+   ],
+   "effects": [
+    {
+     "fame": -3
+    }
+   ],
+   "end": "二度めは楽になる"
+  },
+  "endOut": {
+   "text": [
+    "別の読み手が吉と告げ、軍は出て、負けた。誰も{player}の名を出さなかった。出す必要がなかった。",
+    "{master}は言った。「読みが通らなかったことは、覚えておけ。通らなかった読みを覚えている者が、いつか通す」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    }
+   ],
+   "end": "通らなかった読み"
+  },
+  "endPlain": {
+   "speaker": "master",
+   "text": [
+    "「鳥を見ろ。毎日見ろ」{master}は言った。「毎日見ている者だけが、おかしな日に気づく。それが、この仕事のすべてだ」"
+   ],
+   "end": "毎日見る"
+  }
+ }
+}

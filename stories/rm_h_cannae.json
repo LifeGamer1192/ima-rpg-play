@@ -1,0 +1,600 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_h_cannae",
+ "kind": "history",
+ "title": "カンナエの日",
+ "lore": {
+  "title": "カンナエの戦い（ポリュビオス 第3巻・リウィウス 第22巻）",
+  "text": [
+   "前216年8月、二人の執政官ルキウス・アエミリウス・パウッルスとガイウス・テレンティウス・ウァロは、八万を超える軍を率いてアプリアのカンナエでハンニバルと会した。指揮権は一日交代だった。",
+   "ハンニバルは中央を弓なりに前へ張り出し、押されるに任せて後退させた。深く入り込んだローマ軍の両側から、残しておいた重装歩兵が閉じ、背後をヌミディアとイベリアの騎兵が塞いだ。身動きの取れぬまま、一日で五万以上が死んだ。パウッルスも、前年の独裁官ミヌキウスも、八十人の元老も倒れた。",
+   "騎兵長マハルバルは「四日後には君はローマの丘で食事をしている、すぐ進め」と勧めたが、ハンニバルはためらった。マハルバルは言った。「あなたは勝ち方を知っているが、勝ちの使い方を知らない」。「カンナエ」は、以後ずっと包囲殲滅の代名詞である。"
+  ]
+ },
+ "era": "rome",
+ "event": "cannae",
+ "lead": 5,
+ "before": [
+  "s1",
+  "s2",
+  "s2urge",
+  "s2fail"
+ ],
+ "onFired": "late",
+ "cast": {
+  "field": {
+   "scnPlace": "cannae"
+  },
+  "town": {
+   "scnPlace": "venusia"
+  },
+  "rome": {
+   "scnRealm": "rome"
+  },
+  "punic": {
+   "scnRealm": "carthage"
+  },
+  "paullus": {
+   "scnPerson": "ルキウス・アエミリウス・パウッルス"
+  },
+  "varro": {
+   "scnPerson": "ガイウス・テレンティウス・ウァロ"
+  },
+  "hannibal": {
+   "person": "ruler:carthage"
+  },
+  "maharbal": {
+   "scnPerson": "マハルバル"
+  },
+  "tribune": {
+   "npc": "軍団付士官",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "town",
+    "building": "market"
+   },
+   "goal": "{town}の{market}で、集まる兵を見る",
+   "speaker": "徴募の書記",
+   "art": "trade",
+   "text": [
+    "{town}の広場に、イタリアじゅうから徴された男たちが並んでいた。八個軍団、同盟市の兵を合わせて八万。これほどの軍を一度に出したことは、国の歴史にない。",
+    "書記が{player}の名を板に刻みながら言った。「今年の執政官は二人とも戦う気だ。いや、一人は半分そうでもないか。{paullus}さまは慎重なお方で、{varro}さまは……まあ、民が選んだお方だ」",
+    "「指揮は一日交代でな。偶数の日はこちら、奇数の日はあちら。戦の仕方まで日によって変わる。あんた、どちらの日に当たるかね」"
+   ],
+   "effects": [
+    {
+     "note": "{rome}が八万の軍を集めた。指揮は二人の執政官が一日交代で執る。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{rome}の軍に入る",
+     "next": "s2"
+    },
+    {
+     "label": "{punic}の陣へ回る",
+     "effects": [
+      {
+       "flag": "h_cn_punic"
+      },
+      {
+       "note": "{punic}の陣に加わることにした。"
+      }
+     ],
+     "next": "s3punic"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "field",
+    "building": "barracks"
+   },
+   "goal": "{field}の陣で、二人の執政官の評定を聞く",
+   "speaker": "paullus",
+   "art": "court",
+   "text": [
+    "{field}の陣は、アウフィドゥス川のそばの平らな土地にあった。{paullus}は地図の上で手を広げた。「ここは平らすぎる。敵の騎兵は我らの倍だ。平らな土地は騎兵のものだ」",
+    "「丘の多い土地へ動かし、敵の糧を細らせるべきです」{paullus}は言った。{varro}が鼻で笑った。「また老人の策か。民は丘の上で何年眺めていればよいのだ」",
+    "{tribune}が{player}に囁いた。「明日は{varro}さまの日だ。明日、戦になる」"
+   ],
+   "choices": [
+    {
+     "label": "{paullus}の側に立ち、平地を避けるよう諸将を説く",
+     "turn": true,
+     "guide": "八万の兵を前に、戦わぬ理由を述べる",
+     "check": {
+      "skill": "speech",
+      "dc": 46,
+      "win": "s2urge",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "川の浅瀬と風向きを調べ、{paullus}に報せる",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s2urge",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "何も言わず、自分の隊へ戻る",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2urge": {
+   "speaker": "paullus",
+   "text": [
+    "{player}が述べたのは地形のことだけだった。川の曲がり。午後に砂を運ぶ南東の風。騎兵が回り込める幅。",
+    "{paullus}は長いこと黙っていた。「同じことを考えていた。だが、わたしが言えば臆病と呼ばれる。他人の口から出れば、それは報告だ」",
+    "諸将の何人かが頷いた。{varro}は顔を赤くしたが、その場では何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_cn_wait"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "rome",
+     "n": 10
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "{paullus}に平地の不利を説き、諸将の幾人かが頷いた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fail": {
+   "speaker": "varro",
+   "text": [
+    "「兵を集めるだけ集めて、使わぬのか」{varro}の声が幕舎に響いた。「明日はわしの日だ。わしは戦う。恐ろしい者は荷駄のそばにいればよい」"
+   ],
+   "effects": [
+    {
+     "rep": "rome",
+     "n": -2
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}で、その日を迎える",
+   "wait": {
+    "settled": "cannae"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "cn_wait"
+     },
+     "next": "waited"
+    },
+    {
+     "next": "battle"
+    }
+   ]
+  },
+  "s3punic": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}の{punic}の陣で、その日を迎える",
+   "wait": {
+    "settled": "cannae"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "cn_wait"
+     },
+     "next": "waited_punic"
+    },
+    {
+     "next": "punic_win"
+    }
+   ]
+  },
+  "waited": {
+   "speaker": "paullus",
+   "art": "camp",
+   "text": [
+    "{varro}の日、軍は動かなかった。諸将がそろって平地での会戦に反対し、{varro}は押し切れなかった。軍は川沿いを離れ、丘の多い土地へ移った。",
+    "{punic}の軍は平野に残され、糧を探して動き回るほかなくなった。小競り合いが続き、どちらも大きな損を出さなかった。",
+    "「わたしは今日、臆病者と呼ばれた」{paullus}は言った。「それで八万の命が残るなら、安いものだ」"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "rep": "rome",
+     "n": 20
+    },
+    {
+     "money": 400
+    },
+    {
+     "unflag": "h_cn_wait"
+    },
+    {
+     "unflag": "h_cn_punic"
+    },
+    {
+     "unflag": "h_cn_left"
+    },
+    {
+     "note": "{field}での会戦は避けられ、八万の軍は失われなかった。"
+    }
+   ],
+   "end": "戦われなかった日"
+  },
+  "waited_punic": {
+   "speaker": "hannibal",
+   "art": "camp",
+   "text": [
+    "ローマ軍は平野を離れ、丘へ退いた。{hannibal}は長いこと空の陣地を眺めていた。",
+    "「あちらに、物の分かる者がいる」{hannibal}は言った。「困ったことだ。わたしは、分からぬ者と戦いたい」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "punic",
+     "n": 8
+    },
+    {
+     "unflag": "h_cn_wait"
+    },
+    {
+     "unflag": "h_cn_punic"
+    },
+    {
+     "unflag": "h_cn_left"
+    },
+    {
+     "note": "{rome}の軍は会戦を避け、丘へ退いた。"
+    }
+   ],
+   "end": "空になった陣地"
+  },
+  "battle": {
+   "speaker": "tribune",
+   "art": "war",
+   "text": [
+    "{varro}の日。八万が川沿いの平地に、いつもより深く、密に並べられた。押し切るための陣立てだった。午後の風が砂を目に吹きつけた。",
+    "敵の中央は弓なりに前へ出ていた。押すと、下がった。さらに押すと、また下がった。兵は喊声を上げて進んだ。進むほどに、左右の肩が何かに触れるようになった。",
+    "気づいたときには、槍を構える幅もなかった。両側から鎧の壁が閉じ、背後で蹄の音が回り込んだ。{tribune}が{player}の腕を掴んで叫んだが、その声も聞こえなかった。"
+   ],
+   "choices": [
+    {
+     "label": "前へ――敵の中央を突き破る",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 1,
+      "win": "end_through",
+      "lose": "end_down"
+     }
+    },
+    {
+     "label": "味方を押しのけ、川のほうへ道を開ける",
+     "check": {
+      "skill": "blade",
+      "dc": 34,
+      "win": "end_river",
+      "lose": "end_down"
+     }
+    },
+    {
+     "label": "倒れた者の下に伏せ、日の暮れるのを待つ",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "end_night",
+      "lose": "end_down"
+     }
+    },
+    {
+     "label": "{paullus}のもとへ行き、最後まで旗のそばにいる",
+     "next": "end_consul"
+    }
+   ]
+  },
+  "punic_win": {
+   "speaker": "maharbal",
+   "art": "war",
+   "text": [
+    "中央が下がれと命じられたとき、{player}にも意味が分からなかった。敵は喜んで押してきた。押されて下がり、下がってはまた下がった。",
+    "角笛が鳴った。左右に残しておいた重装の列が、内側へ向きを変えて閉じた。{maharbal}の騎兵が敵の背後に回り、袋の口を縛った。",
+    "午後いっぱいかかった。終わったとき、平地には立っている者がほとんどいなかった。"
+   ],
+   "choices": [
+    {
+     "label": "倒れた騎士たちの指から指輪を集める",
+     "effects": [
+      {
+       "money": 500
+      },
+      {
+       "rep": "punic",
+       "n": 5
+      }
+     ],
+     "next": "end_rings"
+    },
+    {
+     "label": "{hannibal}の幕へ行き、マハルバルの言い分を聞く",
+     "next": "end_maharbal"
+    },
+    {
+     "label": "生き残った者を捕虜として縄にかける",
+     "effects": [
+      {
+       "money": 250
+      }
+     ],
+     "next": "end_rings"
+    }
+   ]
+  },
+  "end_through": {
+   "text": [
+    "前の壁を突き、さらに突いて、五百人ほどが敵の中央を抜けた。振り返ると、抜けてきた穴はもう閉じていた。",
+    "歩き通して{town}に辿り着いたのは夜明けだった。城門の番兵は、泥と血の塊のような一団を見て、しばらく声も出なかった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "rome",
+     "n": 10
+    },
+    {
+     "hp": -25
+    },
+    {
+     "unflag": "h_cn_wait"
+    },
+    {
+     "unflag": "h_cn_punic"
+    },
+    {
+     "unflag": "h_cn_left"
+    },
+    {
+     "note": "{field}の囲みを突き破り、{town}へ逃れた。"
+    }
+   ],
+   "end": "抜けた五百"
+  },
+  "end_river": {
+   "text": [
+    "味方を押しのけ、怒鳴り、川のほうへ道を作った。その道を何十人かが逃げた。{player}自身は腰まで水に浸かり、流されながら岸に這い上がった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "rome",
+     "n": 8
+    },
+    {
+     "hp": -18
+    },
+    {
+     "unflag": "h_cn_wait"
+    },
+    {
+     "unflag": "h_cn_punic"
+    },
+    {
+     "unflag": "h_cn_left"
+    },
+    {
+     "note": "{field}の囲みから、川へ逃げ道を開けた。"
+    }
+   ],
+   "end": "アウフィドゥスの水"
+  },
+  "end_night": {
+   "text": [
+    "倒れた者の下で、日が傾くのを待った。重みと匂いと、まだ息のある者の声。夜になると、略奪する者たちの灯が平地を巡りはじめた。",
+    "{player}は這い出し、星を頼りに歩いた。朝、同じように這い出してきた者と出くわし、どちらも何も言わずに並んで歩いた。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "unflag": "h_cn_wait"
+    },
+    {
+     "unflag": "h_cn_punic"
+    },
+    {
+     "unflag": "h_cn_left"
+    },
+    {
+     "note": "{field}の屍の下で日の暮れるのを待ち、生き延びた。"
+    }
+   ],
+   "end": "屍の下の一日"
+  },
+  "end_consul": {
+   "speaker": "paullus",
+   "text": [
+    "{paullus}は血まみれで石に腰かけていた。通りかかった騎士が馬を降り、執政官に差し出した。{paullus}は首を振った。",
+    "「{varro}に伝えてくれ。ローマを守れ、城壁を固めろと。……わたしのことは言わなくてよい」",
+    "敵が来たとき、{paullus}は立ち上がった。{player}も立った。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "rep": "rome",
+     "n": 18
+    },
+    {
+     "hp": -30
+    },
+    {
+     "unflag": "h_cn_wait"
+    },
+    {
+     "unflag": "h_cn_punic"
+    },
+    {
+     "unflag": "h_cn_left"
+    },
+    {
+     "note": "{field}で{paullus}の旗のそばに最後まで立った。"
+    }
+   ],
+   "end": "執政官の最後の命"
+  },
+  "end_down": {
+   "text": [
+    "押され、転び、踏まれた。気がついたのは夜で、体のどこが自分のものか、しばらく分からなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -35
+    },
+    {
+     "unflag": "h_cn_wait"
+    },
+    {
+     "unflag": "h_cn_punic"
+    },
+    {
+     "unflag": "h_cn_left"
+    },
+    {
+     "note": "{field}で深手を負い、夜まで倒れていた。"
+    }
+   ],
+   "end": "踏まれた土"
+  },
+  "end_rings": {
+   "text": [
+    "翌日、平地から集められた金の指輪が枡に入れられ、カルタゴへ送られることになった。騎士の身分の者だけが嵌める指輪である。枡はいくつも必要だった。",
+    "「これを評議会の床にぶちまけてくるのだ」と、マゴという名の若い将が笑った。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "punic",
+     "n": 10
+    },
+    {
+     "unflag": "h_cn_wait"
+    },
+    {
+     "unflag": "h_cn_punic"
+    },
+    {
+     "unflag": "h_cn_left"
+    },
+    {
+     "note": "{field}の勝利のあと、騎士たちの指輪を集めた。"
+    }
+   ],
+   "end": "枡の中の指輪"
+  },
+  "end_maharbal": {
+   "speaker": "maharbal",
+   "text": [
+    "{maharbal}は馬から降りもせずに言った。「騎兵を先に行かせてください。四日後には、あなたはローマの丘で食事をしている」",
+    "{hannibal}は地図から目を上げなかった。「考える時間が要る」",
+    "{maharbal}は馬首を返しながら、誰にともなく言った。「あなたは勝ち方を知っているが、勝ちの使い方を知らない」{player}はその言葉を、生涯覚えていることになる。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "punic",
+     "n": 8
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "unflag": "h_cn_wait"
+    },
+    {
+     "unflag": "h_cn_punic"
+    },
+    {
+     "unflag": "h_cn_left"
+    },
+    {
+     "note": "{field}の勝利の夜、{maharbal}と{hannibal}のやりとりを聞いた。"
+    }
+   ],
+   "end": "勝ちの使い方"
+  },
+  "late": {
+   "text": [
+    "道中で聞いた。アプリアの平地で、八万の軍が一日で消えたという。",
+    "「五万とも六万とも言う」と宿の主が言った。「数えた者が生きていないのさ」"
+   ],
+   "effects": [
+    {
+     "unflag": "h_cn_wait"
+    },
+    {
+     "unflag": "h_cn_punic"
+    },
+    {
+     "unflag": "h_cn_left"
+    },
+    {
+     "note": "{field}で{rome}の軍が壊滅したと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "cn_wait",
+   "event": "cannae",
+   "order": 1,
+   "why": "主人公が平地の不利を説き、諸将が会戦に反対した",
+   "when": {
+    "flag": "h_cn_wait"
+   },
+   "then": "delay",
+   "months": 6,
+   "note": "カンナエの平地での会戦は、諸将の反対で見送られた。[[n:rome]]の軍は丘の多い地へ移り、[[p:ハンニバル]]は糧を求めて動くほかなくなった。"
+  }
+ ]
+}

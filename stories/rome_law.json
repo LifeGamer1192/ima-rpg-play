@@ -1,0 +1,498 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_law",
+ "kind": "school",
+ "title": "一字の違い",
+ "era": "rome",
+ "school": "law",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "法を知る老人",
+   "sex": "m"
+  },
+  "clerk": {
+   "folk": "書記",
+   "tags": [
+    "官"
+   ],
+   "at": "here"
+  },
+  "farmer": {
+   "folk": "畑を取られた者",
+   "tags": [
+    "農"
+   ],
+   "at": "here"
+  },
+  "priest": {
+   "npc": "祭司団の一人",
+   "sex": "m"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  }
+ },
+ "start": "l1",
+ "scenes": {
+  "l1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の法学の家で、老人に会う",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}の家の壁には、十二の表の写しが掛けてあった。字は大きく、所々が欠けている。",
+    "「法は短い」{master}は言った。「短いから、言い方が決まっている。訴えるときは、決まった言葉を、決まった順で言う。一字でも違えば、訴えは消える」",
+    "「理不尽か。理不尽だ。だが、決まっていなければ、強い者の言い分だけが通る」"
+   ],
+   "choices": [
+    {
+     "label": "十二の表を声に出して読む",
+     "check": {
+      "skill": "letters",
+      "dc": 10,
+      "win": "l1good",
+      "lose": "l1plain"
+     }
+    },
+    {
+     "label": "「なぜ一字で消えるのです」と問う",
+     "next": "l1ask"
+    }
+   ]
+  },
+  "l1good": {
+   "speaker": "master",
+   "text": [
+    "{master}は目を細めた。「欠けたところを飛ばさずに、間を置いて読んだな。……読める者より、間の取れる者のほうが少ない」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "law"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}の法学の家に入った。"
+    }
+   ],
+   "next": "l2"
+  },
+  "l1ask": {
+   "speaker": "master",
+   "text": [
+    "「問うのはよい」{master}は言った。「答えは、昔これが神事だったからだ。神に申し上げる言葉を間違えれば、届かぬ。それだけのことが、千年残っている」",
+    "「わたしは、それを変えたいと思って学んだ。……四十年経つが、まだ変わらん」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "law"
+    },
+    {
+     "note": "{here}の法学の家に入った。"
+    }
+   ],
+   "next": "l2"
+  },
+  "l1plain": {
+   "speaker": "master",
+   "text": [
+    "読みは詰まった。{master}は咎めなかった。「読めぬ者ほど、あとで強くなる。読める者は、読めたところで満足する」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "law"
+    },
+    {
+     "note": "{here}の法学の家に入った。"
+    }
+   ],
+   "next": "l2"
+  },
+  "l2": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、畑の訴えに付き添う",
+   "speaker": "farmer",
+   "art": "court",
+   "wait": {
+    "days": 6
+   },
+   "text": [
+    "{farmer}の訴えは単純だった。兵に取られているあいだに、隣人が畑の半分を自分のものとして耕していた。",
+    "法廷で、{player}は{farmer}に代わって決まりの言葉を述べた。"
+   ],
+   "choices": [
+    {
+     "label": "言葉を一字ずつ確かめてから述べる",
+     "check": {
+      "skill": "letters",
+      "dc": 20,
+      "win": "l2win",
+      "lose": "l2slip"
+     }
+    },
+    {
+     "label": "事の筋を先に述べ、形式はあとで整える",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "l2win",
+      "lose": "l2slip"
+     }
+    }
+   ]
+  },
+  "l2win": {
+   "text": [
+    "訴えは通った。畑は戻った。{farmer}は、持ってきた鶏を置いて帰ろうとして、{player}に突き返され、三度断ってから持ち帰った。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "schoolRank": 1
+    },
+    {
+     "bond": "farmer",
+     "know": 30,
+     "like": 25,
+     "memo": "畑を取り戻す訴えを助けた"
+    }
+   ],
+   "next": "l3"
+  },
+  "l2slip": {
+   "speaker": "clerk",
+   "text": [
+    "「葡萄の木」と言うべきところを、{player}は「木」と言った。相手方がすかさず異議を述べた。訴えはその場で消えた。",
+    "{clerk}が書き物から目も上げずに言った。「次は正しく言いなさい。次がある人は、まだ恵まれている」",
+    "{farmer}は何も言わなかった。それが一番こたえた。"
+   ],
+   "effects": [
+    {
+     "flag": "rl_slip"
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "l3"
+  },
+  "l3": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の家で、書式の帳を写す",
+   "speaker": "master",
+   "art": "lecture",
+   "wait": {
+    "days": 12
+   },
+   "text": [
+    "{master}は古い綴りを出してきた。訴えの形がすべて書いてある。もとは祭司団の持ち物で、外へ出した者は罰されたという。",
+    "「写せ」{master}は言った。「写して、覚えて、それから考えなさい。これを人に配るべきかどうかを」"
+   ],
+   "choices": [
+    {
+     "label": "黙々と写す",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "l3copy",
+      "lose": "l3slow"
+     }
+    },
+    {
+     "label": "写しながら、読みやすい並びに直す",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "l3better",
+      "lose": "l3slow"
+     }
+    }
+   ]
+  },
+  "l3copy": {
+   "text": [
+    "二十日かけて写し終えた。手が痛み、字が自分のものでなくなったように見えた。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 8
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "flag": "rl_book"
+    }
+   ],
+   "next": "l4"
+  },
+  "l3better": {
+   "text": [
+    "{player}は並びを変えた。訴えの種類ごとに分け、よく使うものを先に置き、言い換えてはならぬ言葉に印を付けた。",
+    "{master}は写しを見て、長いこと黙っていた。「……わたしが四十年やらなかったことを、二十日でやったな」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 10
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "flag": "rl_book"
+    },
+    {
+     "flag": "rl_better"
+    }
+   ],
+   "next": "l4"
+  },
+  "l3slow": {
+   "text": [
+    "写しは途中で止まった。{master}は急かさなかった。「急いで写した法は、急いで忘れる」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "l4"
+  },
+  "l4": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の{shrine}で、祭司団の者に呼ばれる",
+   "speaker": "priest",
+   "art": "faith",
+   "wait": {
+    "days": 10
+   },
+   "text": [
+    "{priest}は丁重だった。丁重に、こう言った。「あの綴りを写した者がいると聞いた。写しは、こちらでお預かりしたい」",
+    "「法の言葉は、神々に申し上げる言葉でもある。誰でも唱えてよいものではない」"
+   ],
+   "choices": [
+    {
+     "label": "写しを渡す",
+     "effects": [
+      {
+       "flag": "rl_gave"
+      }
+     ],
+     "next": "l5"
+    },
+    {
+     "label": "渡さず、「法は人のものだ」と述べる",
+     "turn": true,
+     "guide": "祭司団を敵に回す",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "l4keep",
+      "lose": "l4pressed"
+     }
+    },
+    {
+     "label": "渡すと答え、写しの写しを作っておく",
+     "if": {
+      "flag": "rl_book"
+     },
+     "effects": [
+      {
+       "flag": "rl_copy2"
+      }
+     ],
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "l4sly",
+      "lose": "l4pressed"
+     }
+    }
+   ]
+  },
+  "l4keep": {
+   "speaker": "priest",
+   "text": [
+    "{player}は、十二の表そのものが人々の前に立てられている事実から話を始めた。あれを立てたのは誰か。何のために立てたのか。",
+    "{priest}は最後まで丁重だった。「……持っておられるがよい。ただし、お名前は覚えておきます」"
+   ],
+   "effects": [
+    {
+     "flag": "rl_kept"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "schoolRank": 3
+    }
+   ],
+   "next": "l5"
+  },
+  "l4sly": {
+   "text": [
+    "写しは渡した。渡す前の夜に、もう一つ写した。{master}は何も聞かなかった。聞かないことも、教えの一つらしかった。"
+   ],
+   "effects": [
+    {
+     "flag": "rl_kept"
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "schoolRank": 3
+    }
+   ],
+   "next": "l5"
+  },
+  "l4pressed": {
+   "text": [
+    "写しは持っていかれた。{master}は「そういうものだ」と言った。そういうものだ、で終わらせたくないと、{player}は思った。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "l5"
+  },
+  "l5": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で、訴えの書き方を教える",
+   "art": "trade",
+   "wait": {
+    "days": 14
+   },
+   "text": [
+    "市の隅に、台を一つ置いた。訴えたいが言葉を知らぬ者が、一人、二人と来た。",
+    "言うべき言葉を紙に書いて渡し、声に出して三度言わせる。それだけのことで、通る訴えがあった。"
+   ],
+   "choices": [
+    {
+     "label": "ただで教える",
+     "effects": [
+      {
+       "flag": "rl_free"
+      }
+     ],
+     "next": "l6"
+    },
+    {
+     "label": "一人いくらと決めて教える",
+     "effects": [
+      {
+       "money": 600
+      }
+     ],
+     "next": "l6"
+    },
+    {
+     "label": "台を畳む。目立ちすぎた",
+     "next": "l6"
+    }
+   ]
+  },
+  "l6": {
+   "goto": [
+    {
+     "if": {
+      "flag": "rl_free"
+     },
+     "next": "endFree"
+    },
+    {
+     "if": {
+      "flag": "rl_kept"
+     },
+     "next": "endKept"
+    },
+    {
+     "next": "endPlain"
+    }
+   ],
+   "text": [
+    "……季節が二つ、過ぎた。"
+   ]
+  },
+  "endFree": {
+   "speaker": "master",
+   "text": [
+    "市の台には、いつも誰かが並ぶようになった。{master}が一度だけ見に来て、何も言わずに帰った。",
+    "後日、{master}は言った。「祭司団は、わたしを四十年にらんでいる。お前は二年で同じところに来た。……早い」",
+    "「褒めておられますか」",
+    "「褒めている。心配もしている」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    }
+   ],
+   "end": "市の隅の台"
+  },
+  "endKept": {
+   "text": [
+    "写しは{player}の手元にある。読む者は少ないが、読んだ者は、言葉を間違えなくなる。",
+    "一字の違いで消える訴えが、この町では少し減った。それだけのことに、二年かかった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    }
+   ],
+   "end": "減った一字"
+  },
+  "endPlain": {
+   "speaker": "master",
+   "text": [
+    "「法を学ぶ者は、たいてい途中でやめる」{master}は言った。「面白くないからだ。面白くないものを続けた者だけが、人を助けられる」"
+   ],
+   "end": "面白くないもの"
+  }
+ }
+}

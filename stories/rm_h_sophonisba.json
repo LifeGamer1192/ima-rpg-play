@@ -1,0 +1,432 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_h_sophonisba",
+ "kind": "history",
+ "title": "一日の婚礼",
+ "lore": {
+  "title": "ソフォニスバの杯（リウィウス 第30巻・ポリュビオス 第14巻）",
+  "text": [
+   "カルタゴの将ハスドルバル・ギスコは、娘ソフォニスバをマサエシュリ王シュファクスに嫁がせ、ローマに傾いていたその王をカルタゴ側に引き戻した。ソフォニスバはもともと、マッシュリ族の王子マシニッサに約束されていたという。",
+   "前203年、ローマとマシニッサはシュファクスを破ってキルタを取った。マシニッサは王宮でソフォニスバに会い、その日のうちに婚礼を挙げた。捕虜をローマに渡さずに済ませるためだったとも、昔の約束のためだったとも言われる。",
+   "スキピオは、捕虜はローマ国民のものであり、妃も例外ではないと告げた。マシニッサは天幕で泣いたのち、使いに毒の杯を持たせて送った。ソフォニスバは「婚礼の贈り物をありがたく受けます。夫が妻に何もしてやれないのなら」と言って飲み干したと伝えられる。"
+  ]
+ },
+ "era": "rome",
+ "event": "sophonisba",
+ "lead": 8,
+ "before": [
+  "s1",
+  "s2",
+  "s2syphax",
+  "s2mas",
+  "s2fail"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "cirta"
+  },
+  "west": {
+   "scnPlace": "siga"
+  },
+  "rome": {
+   "scnRealm": "rome"
+  },
+  "punic": {
+   "scnRealm": "carthage"
+  },
+  "massylii": {
+   "scnRealm": "massylii"
+  },
+  "masaesyli": {
+   "scnRealm": "masaesyli"
+  },
+  "sophonisba": {
+   "scnPerson": "ソフォニスバ",
+   "sex": "f"
+  },
+  "gisco": {
+   "scnPerson": "ハスドルバル・ギスコ"
+  },
+  "masinissa": {
+   "person": "ruler:massylii"
+  },
+  "syphax": {
+   "person": "ruler:masaesyli"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "city",
+    "building": "market"
+   },
+   "goal": "{city}の{market}で、西の婚礼の噂を聞く",
+   "speaker": "隊商の書記",
+   "art": "trade",
+   "text": [
+    "{city}はヌミディアの要で、西の{west}から来る隊商がいつも何かの噂を持ち込んでくる。",
+    "「西の王が妃を迎えた。{punic}の将軍の娘御だ」と書記が言った。「{gisco}さまの姫。琴を弾き、歌を作る。ローマ人の使者が何人も西へ通っていたが、婚礼が決まってからは、みな帰ってしまった」",
+    "「王はもともとローマと誼を通じておられた。それが、ひと月で変わった」書記は声を落とした。「あの姫は兵一万に匹敵する、というのが宮廷の言い方だ」"
+   ],
+   "effects": [
+    {
+     "note": "{punic}の将の娘{sophonisba}が{syphax}に嫁ぎ、{masaesyli}はカルタゴ側についた。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "西へ向かう隊商に加わり、{masaesyli}の王に仕える",
+     "effects": [
+      {
+       "flag": "h_so_syphax"
+      }
+     ],
+     "next": "s2syphax"
+    },
+    {
+     "label": "東から来る{massylii}の王子を待つ",
+     "next": "s2mas"
+    },
+    {
+     "label": "{rome}の使者の供として{city}に残る",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "goal": "{city}で、二人の王の戦の行方を見る",
+   "art": "road",
+   "wait": {
+    "days": 20
+   },
+   "text": [
+    "二人のヌミディアの王が争った。東の{masinissa}はローマと組み、西の{syphax}はカルタゴと組んだ。砂の上の戦は速く、決着も速かった。",
+    "{syphax}は破れて縄を打たれ、{city}の王宮には東の王子が入った。",
+    "王宮の階で、{sophonisba}が{masinissa}を迎えたという。かつて、彼女を約束されていた男を。"
+   ],
+   "next": "s3"
+  },
+  "s2syphax": {
+   "speaker": "syphax",
+   "art": "court",
+   "wait": {
+    "days": 10
+   },
+   "text": [
+    "{syphax}が{city}に来た。大柄で、気のいい男だった。{player}に酒を注がせながら、よく笑った。",
+    "「わしはな、ローマとカルタゴの両方と誼を通じておった。賢いだろう」王は言った。「それが、妃を迎えてから、片方としか話せなくなった」",
+    "王は杯を置いて、低い声で言った。「あれは兵一万に値する。だが、兵一万は王を縛らぬ。妃は縛る」"
+   ],
+   "effects": [
+    {
+     "note": "{syphax}に仕えた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2mas": {
+   "speaker": "masinissa",
+   "art": "camp",
+   "wait": {
+    "days": 10
+   },
+   "text": [
+    "{masinissa}の先触れが{city}の外に天幕を張った。鞍も轡もない馬に跨がった、三十を少し過ぎたくらいの、乾いた顔の男だった。",
+    "「あの娘は、わたしに約束されていた」{masinissa}は言った。それだけを言って、しばらく黙った。",
+    "「ローマと組む。{syphax}を倒す。キルタを取る。そのあとのことは、そのとき考える」"
+   ],
+   "effects": [
+    {
+     "bond": "masinissa",
+     "know": 30,
+     "like": 10,
+     "memo": "砂の上で、約束された娘のことを聞いた"
+    },
+    {
+     "note": "{masinissa}に従うことにした。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の{palace}で、婚礼のあとの談判に立ち会う",
+   "speaker": "masinissa",
+   "art": "court",
+   "wait": {
+    "days": 3
+   },
+   "text": [
+    "{masinissa}は{city}に入ったその日に婚礼を挙げた。ローマの陣から使いが来るまで、半日もかからなかった。",
+    "使いの言葉は短かった。「捕虜はローマ国民のものである。妃も例外ではない。凱旋式に引かれることになる」",
+    "{masinissa}は天幕に入り、誰も入れなかった。中から声がした。泣いているのだとも、怒っているのだとも聞こえた。やがて{player}が呼ばれた。"
+   ],
+   "choices": [
+    {
+     "label": "妃をローマへ渡さぬよう、将軍に掛け合うと申し出る",
+     "turn": true,
+     "guide": "勝った側の掟に、例外を作らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 46,
+      "win": "s2plead",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "夜のうちに妃を西へ逃がす算段をする",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "s2flee",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "毒の杯を運ぶ役を引き受ける",
+     "next": "s4"
+    },
+    {
+     "label": "何も引き受けず、天幕を出る",
+     "next": "s4"
+    }
+   ]
+  },
+  "s2plead": {
+   "text": [
+    "{player}はローマの陣で、将軍の前に立った。述べたのは情ではなく、算段だった。ヌミディアの騎兵がこの戦の帰趨を決めること。その王を辱めれば、騎兵は砂へ帰ること。",
+    "将軍は長いこと黙っていた。「妃は、この町から出ぬこと。ローマへは引かぬ。……王がそれで満足するなら」"
+   ],
+   "effects": [
+    {
+     "flag": "h_so_plead"
+    },
+    {
+     "fame": 12
+    },
+    {
+     "rep": "rome",
+     "n": 10
+    },
+    {
+     "rep": "massylii",
+     "n": 20
+    },
+    {
+     "note": "{sophonisba}を凱旋式に引かぬという約束を取り付けた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s2flee": {
+   "text": [
+    "月のない夜、{player}は厩から馬を三頭引き出し、西の門の番兵に酒を飲ませた。",
+    "{sophonisba}は供を一人だけ連れて来た。「父のところへは行きません」と彼女は言った。「カルタゴも、わたしを使うでしょう。山へ行きます」"
+   ],
+   "effects": [
+    {
+     "flag": "h_so_flee"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "rome",
+     "n": -8
+    },
+    {
+     "rep": "massylii",
+     "n": 10
+    },
+    {
+     "note": "{sophonisba}を夜のうちに{city}から逃がした。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s2fail": {
+   "text": [
+    "掛け合いは通らなかった。夜、王の天幕から使いが一人出ていった。小さな杯を布に包んで持っていた。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}で、ことの終わりを見届ける",
+   "wait": {
+    "settled": "sophonisba"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "so_spared"
+     },
+     "next": "spared"
+    },
+    {
+     "if": {
+      "flag": "h_so_flee"
+     },
+     "next": "fled"
+    },
+    {
+     "next": "cup"
+    }
+   ]
+  },
+  "spared": {
+   "speaker": "sophonisba",
+   "art": "court",
+   "text": [
+    "{sophonisba}は{city}に残った。凱旋式に引かれることもなく、王宮の奥で琴を弾いて暮らした。",
+    "「わたしは兵一万と言われました」と、彼女は一度だけ{player}に言った。「一万の兵なら、降ることも、逃げることもできます。わたしにはそれがなかった」",
+    "{masinissa}はヌミディアの王となり、その騎兵は最後までローマの側で戦った。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "rep": "massylii",
+     "n": 25
+    },
+    {
+     "money": 400
+    },
+    {
+     "unflag": "h_so_plead"
+    },
+    {
+     "unflag": "h_so_flee"
+    },
+    {
+     "unflag": "h_so_syphax"
+    },
+    {
+     "note": "{sophonisba}は{city}に残り、凱旋式に引かれずに済んだ。"
+    }
+   ],
+   "end": "引かれなかった妃"
+  },
+  "fled": {
+   "art": "road",
+   "text": [
+    "明け方、西の街道に馬の蹄の跡が三つ残っていた。追っ手は出されたが、砂が風でならされていた。",
+    "その後のことは誰も知らない。山の村に、琴の上手な女がいるという話を、{player}は何年かあとに聞いた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "unflag": "h_so_plead"
+    },
+    {
+     "unflag": "h_so_flee"
+    },
+    {
+     "unflag": "h_so_syphax"
+    },
+    {
+     "note": "{sophonisba}は{city}から姿を消した。"
+    }
+   ],
+   "end": "風がならした蹄の跡"
+  },
+  "cup": {
+   "speaker": "sophonisba",
+   "art": "disaster",
+   "text": [
+    "使いは小さな杯を持って、王宮の奥へ入っていった。{player}はその戸の外にいた。",
+    "中から、落ち着いた声が聞こえた。「婚礼の贈り物を、ありがたく受けます。夫が妻に、ほかに何もしてやれないのなら」",
+    "{masinissa}はその日、誰とも口をきかなかった。翌日には馬に乗り、南の砂へ出ていった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "h_so_plead"
+    },
+    {
+     "unflag": "h_so_flee"
+    },
+    {
+     "unflag": "h_so_syphax"
+    },
+    {
+     "note": "{sophonisba}は毒の杯を飲んだ。"
+    }
+   ],
+   "end": "婚礼の贈り物"
+  },
+  "late": {
+   "text": [
+    "道中で聞いた。キルタで、ヌミディアの王が一日で婚礼を挙げ、その妃が毒を仰いだという。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_so_plead"
+    },
+    {
+     "unflag": "h_so_flee"
+    },
+    {
+     "unflag": "h_so_syphax"
+    },
+    {
+     "note": "{sophonisba}が毒を仰いだと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "so_spared",
+   "event": "sophonisba",
+   "order": 1,
+   "why": "主人公が、妃を凱旋式に引かぬ約束を取り付けた",
+   "when": {
+    "anyFlag": [
+     "h_so_plead"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "マシニッサはキルタでソフォニスバと婚礼を挙げた。[[n:rome]]の将は、ヌミディアの騎兵を失うことを恐れ、妃を凱旋式に引かぬことを認めた。妃はキルタの王宮に残った。",
+    "do": [
+     [
+      "add",
+      "massylii",
+      "stability",
+      5
+     ],
+     [
+      "add",
+      "rome",
+      "prestige",
+      -2
+     ]
+    ],
+    "imp": 2,
+    "at": "cirta"
+   },
+   "people": [
+    {
+     "spare": "ソフォニスバ",
+     "years": 20
+    }
+   ]
+  }
+ ]
+}

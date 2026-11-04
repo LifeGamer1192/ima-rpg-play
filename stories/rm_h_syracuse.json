@@ -1,0 +1,525 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_h_syracuse",
+ "kind": "history",
+ "title": "砂の上の図形",
+ "lore": {
+  "title": "シュラクサイ陥落とアルキメデスの死（プルタルコス マルケッルス伝・リウィウス 第25巻）",
+  "text": [
+   "前213年から二年、ローマの将マルケッルスはシュラクサイを囲んだが、アルキメデスの作った器械に阻まれた。城壁から伸びる鉤が船の舳先を吊り上げて沈め、投石機が遠近を撃ち分けたため、ローマ兵は城壁から縄が垂れただけで逃げたという。",
+   "前212年、アルテミスの祭りの夜、守兵が酒に酔ったところを突かれ、城壁の一角が奪われて町は落ちた。マルケッルスはアルキメデスを捕らえて厚遇するよう命じていたが、砂に図形を描いていた老人は、兵に「わたしの円を壊すな」と言って斬られたと伝えられる。",
+   "マルケッルスはその死を悼み、墓に円柱と球を刻ませた。百三十年後、キケロが草に埋もれたその墓を見つけている。陽光を鏡で集めて船を焼いたという話は、後世に付け加えられたものらしい。"
+  ]
+ },
+ "era": "rome",
+ "event": "syracuse_falls",
+ "lead": 5,
+ "before": [
+  "s1",
+  "s2",
+  "s2work",
+  "s2fail",
+  "s3",
+  "s3rome",
+  "s3warn"
+ ],
+ "onFired": "late",
+ "cast": {
+  "city": {
+   "scnPlace": "syracusae"
+  },
+  "port": {
+   "scnPlace": "messana"
+  },
+  "rome": {
+   "scnRealm": "rome"
+  },
+  "greek": {
+   "scnRealm": "syracuse"
+  },
+  "archimedes": {
+   "scnPerson": "アルキメデス"
+  },
+  "epicydes": {
+   "scnPerson": "エピキュデス"
+  },
+  "marcellus": {
+   "scnPerson": "マルクス・クラウディウス・マルケッルス"
+  },
+  "soldier": {
+   "npc": "兵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "port",
+    "building": "inn"
+   },
+   "goal": "{port}の{inn}で、囲みの話を聞く",
+   "speaker": "船乗り",
+   "art": "inn",
+   "text": [
+    "{port}の{inn}には、{city}の囲みから戻った水夫が何人もいた。みな同じ話をする。",
+    "「城壁から鉤が降りてくるんだ。船の舳先に引っかけて、こう、吊り上げる。それから放す。船は折れる」水夫は手で形を作ってみせた。「石も飛んでくる。遠いときは大きいのが、近づくと小さいのが、間断なく」",
+    "「老人が一人いるんだとさ。それが全部こしらえた。……将軍は、城壁に縄が一本垂れただけで兵が逃げると嘆いているそうだ」"
+   ],
+   "effects": [
+    {
+     "note": "{city}が{rome}に囲まれて二年になる。器械を作った老人がいるという。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{city}へ入り、老人の仕事場を訪ねる",
+     "next": "s2"
+    },
+    {
+     "label": "囲みの陣に加わる",
+     "effects": [
+      {
+       "flag": "h_sy_rome"
+      },
+      {
+       "note": "{city}を囲む{rome}の陣に加わった。"
+      }
+     ],
+     "next": "s3rome"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "city",
+    "building": "smithy"
+   },
+   "goal": "{city}の{smithy}で、{archimedes}に会う",
+   "speaker": "archimedes",
+   "art": "lecture",
+   "text": [
+    "仕事場の床は砂で覆われ、その砂に図形が描かれていた。{archimedes}は七十を越えた小柄な老人で、{player}が入ってきても顔を上げなかった。",
+    "「そこを踏むな」とだけ言った。しばらくして、「何の用だ」",
+    "梁からは縄と滑車が下がり、隅には真鍮の歯車が積んである。「鉤のことなら、わたしは作っただけだ。使うのは兵だ」{archimedes}は砂に新しい円を描いた。「本当はこういうものを考えていたい。球と、それを包む円柱の比だ。三対二になる。美しいだろう」"
+   ],
+   "choices": [
+    {
+     "label": "滑車と梃子の工夫を手伝い、教わる",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s2work",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "城壁の守りの手薄なところを調べる",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "s2work",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "礼を言って立ち去る",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2work": {
+   "speaker": "archimedes",
+   "text": [
+    "{player}は一日、仕事場で縄を引いた。{archimedes}は手を動かしながら喋り続けた。重さと距離の比。水に沈めた物の目方。砂粒の数を書き表す方法。",
+    "「この町は、祭りの日に酒を飲む」と老人はふと言った。「毎年そうだ。器械は眠らないが、人は眠る。……わたしの言うことではないがね」",
+    "帰りがけ、{archimedes}は{player}に粘土板を一枚くれた。円柱に球が収まった図が刻んであった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_sy_guard"
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "fame": 3
+    },
+    {
+     "bond": "archimedes",
+     "know": 50,
+     "like": 20,
+     "memo": "仕事場で縄を引き、円柱と球の比を教わった"
+    },
+    {
+     "note": "{archimedes}の仕事場を手伝い、祭りの夜の守りが手薄になることを知った。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fail": {
+   "text": [
+    "{archimedes}は途中で{player}の存在を忘れてしまったようだった。日が暮れるころ、弟子が来て「もうお帰りください」と言った。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "city",
+    "building": "palace"
+   },
+   "goal": "{city}の{palace}で、祭りの支度を見る",
+   "speaker": "epicydes",
+   "art": "court",
+   "wait": {
+    "days": 2
+   },
+   "text": [
+    "{epicydes}は{greek}の政を握っている男で、祭りの支度に忙しかった。「囲まれていようと、女神の祭りは絶やさぬ。士気の問題だ」",
+    "城壁の当番表が壁に貼ってある。祭りの三日間、北の塔の当番は半分に減らされていた。"
+   ],
+   "choices": [
+    {
+     "label": "当番を減らすなと{epicydes}に説く",
+     "turn": true,
+     "guide": "祭りを削れと言う。神と人の両方を敵に回す",
+     "if": {
+      "flag": "h_sy_guard"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s3warn",
+      "lose": "s3fail"
+     }
+    },
+    {
+     "label": "自分で北の塔に立つと申し出る",
+     "effects": [
+      {
+       "flag": "h_sy_warn"
+      },
+      {
+       "rep": "greek",
+       "n": 5
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "何も言わない",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3warn": {
+   "speaker": "epicydes",
+   "text": [
+    "{player}は当番表の前で、北の塔の壁の高さと、外の斜面の角度と、そこから城内までの道のりを述べた。それだけだった。",
+    "{epicydes}は長く黙っていたあと、書記を呼んだ。「北の塔は祭りのあいだも定数のままとする。酒は配るな」",
+    "「祭りを半分にした政治家が好かれたためしはない」{epicydes}は苦笑した。「だが、落ちた町の政治家は、好かれるも何もない」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sy_warn"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "greek",
+     "n": 15
+    },
+    {
+     "note": "{city}の祭りの夜も、北の塔の守りは減らされないことになった。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3fail": {
+   "text": [
+    "「祭りを削れと言うのか」{epicydes}は手を振った。「女神が怒る。兵より怖い」"
+   ],
+   "next": "s4"
+  },
+  "s3rome": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の囲みの陣で、祭りの夜を待つ",
+   "speaker": "marcellus",
+   "art": "camp",
+   "text": [
+    "{marcellus}の陣は、二年のあいだに町のようになっていた。将軍は{player}に城壁を指して言った。",
+    "「あの老人一人に、わたしは二年を使った。艦隊も梯子も、あの鉤の前では玩具だ。……だが器械は眠らないが、人は眠る。祭りの日取りを調べさせている」",
+    "「町が落ちたら、まずあの老人を探せ。傷一つ付けるな。これは軍令だ」"
+   ],
+   "effects": [
+    {
+     "note": "{marcellus}から、町が落ちたら{archimedes}を無事に連れてくるよう命じられた。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "city"
+   },
+   "goal": "{city}の祭りの夜を見届ける",
+   "wait": {
+    "settled": "syracuse_falls"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "sy_held"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "flag": "h_sy_rome"
+     },
+     "next": "inside"
+    },
+    {
+     "next": "fell"
+    }
+   ]
+  },
+  "held": {
+   "speaker": "epicydes",
+   "art": "war",
+   "text": [
+    "祭りの三日目の夜、北の塔の下で縄が投げ上げられた。塔の上には、酔っていない兵が定数だけいた。",
+    "最初の一人が壁の上に顔を出したところで、警鐘が鳴った。{rome}の兵は斜面を転がるように退き、城壁の鉤がまた働きはじめた。",
+    "{archimedes}は騒ぎのあいだも仕事場にいた。朝になって事情を聞くと、「ふむ」と言っただけで、また砂に図形を描いた。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "rep": "greek",
+     "n": 20
+    },
+    {
+     "money": 400
+    },
+    {
+     "unflag": "h_sy_guard"
+    },
+    {
+     "unflag": "h_sy_warn"
+    },
+    {
+     "unflag": "h_sy_rome"
+    },
+    {
+     "note": "{city}は祭りの夜の奇襲を凌ぎ、落ちなかった。"
+    }
+   ],
+   "end": "鳴った警鐘"
+  },
+  "inside": {
+   "speaker": "soldier",
+   "art": "war",
+   "text": [
+    "祭りの三日目の夜、北の塔の守りは半分で、その半分も酔っていた。縄が上がり、壁の一角が取られ、夜明けには門が内から開いた。",
+    "{player}は将軍の命を胸に、仕事場のある区画へ走った。砂の床の家はすぐに分かった。扉は開いていた。"
+   ],
+   "choices": [
+    {
+     "label": "中へ駆け込み、老人を止める",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "end_saved",
+      "lose": "end_late"
+     }
+    },
+    {
+     "label": "外の兵を先に止める",
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "end_saved",
+      "lose": "end_late"
+     }
+    },
+    {
+     "label": "略奪の列に加わる",
+     "effects": [
+      {
+       "money": 600
+      },
+      {
+       "rep": "rome",
+       "n": 3
+      }
+     ],
+     "next": "end_loot"
+    }
+   ]
+  },
+  "fell": {
+   "art": "war",
+   "text": [
+    "祭りの三日目の夜に、町は落ちた。朝の光の中で、{player}は砂の床の仕事場の前を通った。",
+    "扉は開いていた。砂の上に円が描かれ、その真ん中に、老人がうつ伏せに倒れていた。円は、足跡でほとんど消えていた。",
+    "通りかかった百人隊長が舌打ちした。「将軍が傷一つ付けるなと言ったのに。……この爺さん、剣を向けられて何と言ったと思う。『わたしの円を壊すな』だそうだ」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "unflag": "h_sy_guard"
+    },
+    {
+     "unflag": "h_sy_warn"
+    },
+    {
+     "unflag": "h_sy_rome"
+    },
+    {
+     "note": "{city}は落ち、{archimedes}は兵に斬られた。"
+    }
+   ],
+   "end": "消えた円"
+  },
+  "end_saved": {
+   "speaker": "archimedes",
+   "text": [
+    "兵が剣を抜いたとき、{player}は間に入った。「将軍の命だ。この人に傷を付けるな」",
+    "{archimedes}は顔も上げずに「その砂を踏むな」と言った。兵は唖然として剣を下ろした。",
+    "{marcellus}は老人を丁重に扱い、町の学者たちをその家に集めた。{archimedes}は死ぬまで砂に図形を描き続け、墓には円柱と球が刻まれた。"
+   ],
+   "effects": [
+    {
+     "fame": 16
+    },
+    {
+     "rep": "rome",
+     "n": 20
+    },
+    {
+     "money": 500
+    },
+    {
+     "spare": "archimedes",
+     "years": 6
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "unflag": "h_sy_guard"
+    },
+    {
+     "unflag": "h_sy_warn"
+    },
+    {
+     "unflag": "h_sy_rome"
+    },
+    {
+     "note": "{city}の陥落の朝、{archimedes}を兵から救った。"
+    }
+   ],
+   "end": "踏まれなかった砂"
+  },
+  "end_late": {
+   "text": [
+    "{player}が扉をくぐったとき、兵はもう剣を引き抜いていた。砂の上の円が足で乱され、老人はその中に倒れていた。",
+    "{marcellus}は報せを聞いて、しばらく何も言わなかった。それから、墓に円柱と球を刻ませた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "rep": "rome",
+     "n": 5
+    },
+    {
+     "unflag": "h_sy_guard"
+    },
+    {
+     "unflag": "h_sy_warn"
+    },
+    {
+     "unflag": "h_sy_rome"
+    },
+    {
+     "note": "{city}の陥落の朝、{archimedes}の死に間に合わなかった。"
+    }
+   ],
+   "end": "間に合わなかった扉"
+  },
+  "end_loot": {
+   "text": [
+    "{city}は二年の囲みのぶんだけ豊かだった。青銅の像、銀の皿、ギリシアの絵。荷車が列をなして港へ下りていった。",
+    "夕方、{player}は砂の床の家の前を通った。中で誰かが円を描いた砂を掃き出していた。"
+   ],
+   "effects": [
+    {
+     "rep": "rome",
+     "n": 3
+    },
+    {
+     "unflag": "h_sy_guard"
+    },
+    {
+     "unflag": "h_sy_warn"
+    },
+    {
+     "unflag": "h_sy_rome"
+    },
+    {
+     "note": "{city}の陥落で略奪に加わった。"
+    }
+   ],
+   "end": "港へ下る荷車"
+  },
+  "late": {
+   "text": [
+    "道中で聞いた。二年持ちこたえた{city}が、祭りの夜に落ちたという。器械を作った老人も死んだ。「砂に絵を描いていたそうだ」と、話した男は不思議そうに言った。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sy_guard"
+    },
+    {
+     "unflag": "h_sy_warn"
+    },
+    {
+     "unflag": "h_sy_rome"
+    },
+    {
+     "note": "{city}が落ち、{archimedes}が死んだと聞いた。"
+    }
+   ],
+   "end": "間に合わなかった"
+  }
+ },
+ "branches": [
+  {
+   "id": "sy_held",
+   "event": "syracuse_falls",
+   "order": 1,
+   "why": "主人公が祭りの夜の守りを減らさせなかった",
+   "when": {
+    "anyFlag": [
+     "h_sy_warn"
+    ]
+   },
+   "then": "delay",
+   "months": 10,
+   "note": "祭りの夜の奇襲は、北の塔の守りが減らされていなかったため失敗した。シュラクサイの囲みはなお続いた。"
+  }
+ ]
+}

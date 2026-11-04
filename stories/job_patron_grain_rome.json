@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_grain_rome",
+ "kind": "job",
+ "era": "rome",
+ "giver": "patron",
+ "mechanism": "grain",
+ "target": "own-town",
+ "title": "{place}から軍の糧を送れ",
+ "desc": "前線の糧が細っている。{place}で麦を買い集め、船と荷車を仕立てて陣へ届けよ。海には敵の船も出る。",
+ "reward": {
+  "base": 200,
+  "perDay": 10
+ },
+ "favor": 28,
+ "fame": 5,
+ "deadline": {
+  "base": 30,
+  "perDay": 2
+ }
+}

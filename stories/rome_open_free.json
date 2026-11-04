@@ -1,0 +1,335 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_open_free",
+ "kind": "main",
+ "title": "内海を説く",
+ "era": "rome",
+ "trigger": {
+  "persona": [
+   "person"
+  ],
+  "king": false,
+  "free": true
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "powercap": {
+   "place": "capital:power"
+  },
+  "powerking": {
+   "person": "ruler:power"
+  },
+  "powermin": {
+   "person": "minister:power"
+  },
+  "weak": {
+   "realm": "weakest"
+  },
+  "weakcap": {
+   "place": "capital:weak"
+  },
+  "weakking": {
+   "person": "ruler:weak"
+  },
+  "envoy": {
+   "npc": "使者",
+   "sex": "m"
+  },
+  "friend": {
+   "npc": "旧知",
+   "sex": "m"
+  }
+ },
+ "start": "f1",
+ "scenes": {
+  "f1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で、届いた二通を読む",
+   "goto": [
+    {
+     "if": {
+      "free": false
+     },
+     "next": "fServed"
+    }
+   ],
+   "speaker": "friend",
+   "art": "inn",
+   "text": [
+    "宿に、二通の書簡が届いていた。一通は{power}の{powermin}から。「{player}殿の名は{powercap}にも聞こえております。ぜひ我らの席にお迎えしたい」",
+    "もう一通は、{weak}の{envoy}が自ら海を渡って持ってきた。「{power}の船が我らの港の沖に見えております。どうか{weakking}様にお力添えを」",
+    "同席していた{friend}が肩をすくめた。「強いほうに付くのが世の常だ。だが、弱いほうを見捨てるのは、お主の流儀ではあるまい」"
+   ],
+   "choices": [
+    {
+     "label": "まず{powercap}へ行き、{powerking}に会う",
+     "next": "f2"
+    }
+   ]
+  },
+  "f2": {
+   "at": {
+    "place": "powercap",
+    "building": "palace"
+   },
+   "goal": "{powercap}の{palace}で、{powerking}に内海の策を説く",
+   "goto": [
+    {
+     "if": {
+      "free": false
+     },
+     "next": "fServed"
+    }
+   ],
+   "speaker": "powerking",
+   "art": "court",
+   "text": [
+    "{powerking}は海図を広げていた。「この海を、どうすればよいと思う。そなたの考えを聞かせてもらおう」"
+   ],
+   "choices": [
+    {
+     "label": "「海を一つの手に収め、海賊と戦を同時に終わらせるべきです」",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "f2ok",
+      "lose": "f2ng"
+     }
+    },
+    {
+     "label": "「港と穀物の取り決めを先に。兵より船荷が国を養います」",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "f2ok",
+      "lose": "f2ng"
+     }
+    }
+   ]
+  },
+  "f2ok": {
+   "speaker": "powerking",
+   "text": [
+    "{powerking}は海図から顔を上げた。「なるほど、そう来るか」{powermin}が満足げに頷いた。{powercap}の広間に、{player}の名が残った。"
+   ],
+   "effects": [
+    {
+     "flag": "rf_power"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "power",
+     "n": 20
+    },
+    {
+     "realmFx": "power",
+     "add": "prestige",
+     "n": 3
+    }
+   ],
+   "next": "f3"
+  },
+  "f2ng": {
+   "text": [
+    "広間の者たちは丁重だったが、{powerking}は海図に目を戻した。それで話は終わりだった。"
+   ],
+   "next": "f3"
+  },
+  "f3": {
+   "at": {
+    "place": "weakcap",
+    "building": "palace"
+   },
+   "goal": "{weakcap}の{palace}で、{weakking}に会う",
+   "goto": [
+    {
+     "if": {
+      "free": false
+     },
+     "next": "fServed"
+    }
+   ],
+   "speaker": "weakking",
+   "art": "court",
+   "text": [
+    "{weakcap}の広間は小さく、柱の漆喰が剥げていた。{weakking}は率直な人だった。",
+    "「我らは小さい。兵は出せぬ。船は十隻しかない。それでも、この町を明け渡せとは言われたくない」",
+    "「どうすればよい。降るのか、戦うのか、それとも別の道があるのか」"
+   ],
+   "choices": [
+    {
+     "label": "「降らず、戦わず、港を開いて中立を買いなさい」",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "f3ok",
+      "lose": "f3ng"
+     }
+    },
+    {
+     "label": "「城壁と水と糧を整えなさい。囲まれて三月持てば、条件が変わります」",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "f3ok",
+      "lose": "f3ng"
+     }
+    },
+    {
+     "label": "「降りなさい。残るものを数えれば、それが一番多い」",
+     "effects": [
+      {
+       "flag": "rf_bow"
+      },
+      {
+       "rep": "weak",
+       "n": 5
+      }
+     ],
+     "next": "f4"
+    }
+   ]
+  },
+  "f3ok": {
+   "speaker": "weakking",
+   "text": [
+    "{weakking}は長いこと考えてから、頷いた。「やってみよう。……あなたは、強いほうの広間でも同じことを言ったのか」",
+    "「同じことを言いました」と{player}は答えた。「順番が違うだけです」"
+   ],
+   "effects": [
+    {
+     "flag": "rf_weak"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "weak",
+     "n": 20
+    },
+    {
+     "realmFx": "weak",
+     "add": "stability",
+     "n": 5
+    }
+   ],
+   "next": "f4"
+  },
+  "f3ng": {
+   "text": [
+    "広間の者たちは{player}の言葉を聞いたが、誰も動かなかった。小さな国には、策を実行する手すら足りないことがある。"
+   ],
+   "next": "f4"
+  },
+  "f4": {
+   "goal": "どちらに付くかを決める（あるいは、どちらにも付かない）",
+   "wait": {
+    "days": 20
+   },
+   "speaker": "friend",
+   "art": "inn",
+   "text": [
+    "宿に戻ると、{friend}が待っていた。「で、どうする。{power}に行くか、{weak}に残るか、それともまた旅に出るか」",
+    "「どれを選んでも、選ばなかったほうの町で、人が死ぬ」{friend}は言った。「それを承知で選ぶのが、お主のような者の役目だ」"
+   ],
+   "choices": [
+    {
+     "label": "{power}に仕える",
+     "effects": [
+      {
+       "enlist": "power"
+      },
+      {
+       "flag": "rf_join_power"
+      }
+     ],
+     "next": "f5"
+    },
+    {
+     "label": "{weak}に仕える",
+     "effects": [
+      {
+       "enlist": "weak"
+      },
+      {
+       "flag": "rf_join_weak"
+      }
+     ],
+     "next": "f5"
+    },
+    {
+     "label": "どちらにも付かず、旅を続ける",
+     "effects": [
+      {
+       "flag": "rf_none"
+      }
+     ],
+     "next": "f5"
+    }
+   ]
+  },
+  "f5": {
+   "text": [
+    "……それから幾年かが過ぎた。"
+   ],
+   "choices": [
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "rf_join_power"
+     },
+     "next": "endPower"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "rf_join_weak"
+     },
+     "next": "endWeak"
+    },
+    {
+     "label": "つづき",
+     "next": "endFree"
+    }
+   ]
+  },
+  "endPower": {
+   "text": [
+    "{power}の広間で、{player}は海図の前に立ち続けた。港の取り決め、穀物の値、属州の税。地味な仕事が、海の形を変えていった。",
+    "ときおり、{weakcap}の剥げた漆喰を思い出す。あの町が今どうなっているかは、帳面に書いてある。"
+   ],
+   "end": "海図の前"
+  },
+  "endWeak": {
+   "text": [
+    "{player}は小さな町に残った。城壁は直り、糧は積まれ、港は開いたままになった。囲まれた三月を、町は持ちこたえた。",
+    "条件は変わった。町は残った。それだけのことに、十年かかった。"
+   ],
+   "end": "残った小さな町"
+  },
+  "endFree": {
+   "text": [
+    "どちらにも付かず、{player}は歩き続けた。頼まれれば説き、頼まれなければ黙って通り過ぎた。",
+    "「あの人はどちらの味方でもない」と言われた。「だから、どちらの門も開く」とも言われた。"
+   ],
+   "end": "どちらの門も"
+  },
+  "fServed": {
+   "text": [
+    "いつの間にか、{player}はどこかの国に仕える身になっていた。説いて回る旅は、そこで終わった。"
+   ],
+   "end": "旅の終わり"
+  }
+ }
+}

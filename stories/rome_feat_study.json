@@ -1,0 +1,338 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_feat_study",
+ "kind": "feat",
+ "feat": "study",
+ "title": "内海の論",
+ "era": "rome",
+ "trigger": {
+  "schoolRank": 3,
+  "notFeat": "study"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "master": {
+   "npc": "老いた師",
+   "sex": "m"
+  },
+  "champ": {
+   "npc": "他派の第一人者",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の学び舎で、老いた師の言葉を聞く",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は寝台から{player}の手を取った。「{ruler}が{capital}に諸派の師を集め、その前で道を競わせるという。わたしは行けぬ。お前が行きなさい」",
+    "「勝てば、我らの道が海じゅうの道と呼ばれる。負ければ、百年は埋もれる」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ向かう",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、論の第一席に臨む",
+   "art": "court",
+   "text": [
+    "広間に諸派の師が居並ぶ。弁論も、法も、卜占も、哲学も、医も、剣も。それぞれが人々の前で己の道を示し、残った者だけが次の席へ進む。"
+   ],
+   "choices": [
+    {
+     "label": "即興の弁論を一つ、途切れずに述べる",
+     "if": {
+      "school": "rhetor"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "古い訴訟の記録を読み解き、判じ方を示す",
+     "if": {
+      "school": "law"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "鳥の飛びようと犠牲の臓を、人々の前で読んでみせる",
+     "if": {
+      "school": "augur"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "運命と心の平静について、ギリシアの言葉で説く",
+     "if": {
+      "school": "philo"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "古傷を負った衛兵をその場で診て、痛みを取る",
+     "if": {
+      "school": "medicus"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "庭で、木剣の型を最後まで崩さずに演じる",
+     "if": {
+      "school": "ludus"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "己の道の心を、言葉で説く",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、{champ}と競う",
+   "speaker": "champ",
+   "art": "court",
+   "text": [
+    "残ったのは二人。{champ}は蝋板を置いた。「あなたの道は見事だ。だが、見事なだけでは国は治まらない」居並ぶ者が息を呑む。"
+   ],
+   "choices": [
+    {
+     "label": "同じ主題で、交互に弁論して競う",
+     "if": {
+      "school": "rhetor"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "同じ訴えを、どちらがより筋よく裁くかを競う",
+     "if": {
+      "school": "law"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "同じ兆しを、どちらがより正しく読むかを競う",
+     "if": {
+      "school": "augur"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "幸いとは何かを、問答で競う",
+     "if": {
+      "school": "philo"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "同じ病人を診て、どちらの見立てが当たるかを競う",
+     "if": {
+      "school": "medicus"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "木剣で、相手の第一人者と立ち合う",
+     "if": {
+      "school": "ludus"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "理で押し切る",
+     "check": {
+      "skill": "speech",
+      "dc": 84,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "年代記の実例で、道の力を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 84,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    }
+   ]
+  },
+  "s3b": {
+   "speaker": "champ",
+   "art": "court",
+   "text": [
+    "{champ}の道が一枚上を行った。広間がざわめく。もう一度だけ、示す機会がある。"
+   ],
+   "choices": [
+    {
+     "label": "己の道の奥を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 86,
+      "win": "s4",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "己の言葉で、道の心を示す",
+     "check": {
+      "skill": "speech",
+      "dc": 86,
+      "win": "s4",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}が身を乗り出した。「では問おう。十五年の戦で荒れたこの国を、あなたの道はどう建て直す。ひと言で答えよ」"
+   ],
+   "choices": [
+    {
+     "label": "学んだすべてをひと言に込める",
+     "check": {
+      "skill": "letters",
+      "dc": 80,
+      "win": "swin",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "相手の目を見て、己の言葉で答える",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "swin",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "swin": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "長い沈黙のあと、{ruler}は席を降りて{player}に歩み寄り、手を取った。「先生」",
+    "そのひと言で、論は決した。{capital}には、{player}の門を叩こうという若者が列をなした。"
+   ],
+   "effects": [
+    {
+     "fame": 25
+    },
+    {
+     "feat": "study"
+    }
+   ],
+   "end": "学頭"
+  },
+  "sfail": {
+   "art": "lecture",
+   "text": [
+    "道は及ばなかった。{player}は一礼して広間を辞した。……学び直して、また次の論に。"
+   ],
+   "effects": [
+    {
+     "fame": -5
+    }
+   ],
+   "end": "論いまだ至らず"
+  }
+ }
+}

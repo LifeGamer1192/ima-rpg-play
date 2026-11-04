@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_works_rome",
+ "kind": "job",
+ "era": "rome",
+ "giver": "patron",
+ "mechanism": "works",
+ "target": "own-town",
+ "title": "{place}の城壁と水道の修築",
+ "desc": "{place}の城壁は古く、水道の橋脚も傾いている。人手を募り、石を焼き、囲まれても水の絶えぬようにせよ。",
+ "reward": {
+  "base": 180,
+  "perDay": 9
+ },
+ "favor": 24,
+ "fame": 4,
+ "deadline": {
+  "base": 35,
+  "perDay": 2
+ }
+}

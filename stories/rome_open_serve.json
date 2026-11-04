@@ -1,0 +1,419 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_open_serve",
+ "kind": "main",
+ "title": "預かった印",
+ "era": "rome",
+ "trigger": {
+  "persona": [
+   "person"
+  ],
+  "king": false,
+  "patron": true
+ },
+ "cast": {
+  "realm": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:realm"
+  },
+  "lord": {
+   "person": "ruler:realm"
+  },
+  "foe": {
+   "realm": "enemy:realm"
+  },
+  "foecap": {
+   "place": "capital:foe"
+  },
+  "foeminister": {
+   "person": "minister:foe"
+  },
+  "border": {
+   "place": "border:realm"
+  },
+  "schemer": {
+   "npc": "讒言する者",
+   "sex": "m"
+  }
+ },
+ "start": "s0",
+ "scenes": {
+  "s0": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}へ、{lord}の召しに応じて参る",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "{lord}は卓の上に二つの物を置いた。一つは封をする指輪、もう一つは国境の関の鍵である。",
+    "「{foe}との戦は長い。長い戦には、二つのやり方がある。守って痩せさせるか、話して終わらせるかだ」",
+    "「どちらを預かる。関か、印か」"
+   ],
+   "choices": [
+    {
+     "label": "関の鍵を預かり、{border}を守る",
+     "effects": [
+      {
+       "flag": "rs_border"
+      }
+     ],
+     "next": "s1gen"
+    },
+    {
+     "label": "封の指輪を預かり、{foecap}へ使いに立つ",
+     "effects": [
+      {
+       "flag": "rs_envoy"
+      }
+     ],
+     "next": "s1min"
+    }
+   ]
+  },
+  "s1gen": {
+   "speaker": "lord",
+   "text": [
+    "「関は国の喉だ」{lord}は言った。「落とされれば、都まで一本道だ。……兵は足りぬ。足りぬなりにやってくれ」"
+   ],
+   "next": "s2gen"
+  },
+  "s1min": {
+   "speaker": "lord",
+   "text": [
+    "「敵の都で何を言うかは任せる」{lord}は言った。「ただし、戻ってこい。帰らぬ使者は、裏切った使者と同じに数えられる」"
+   ],
+   "next": "s2min"
+  },
+  "s2gen": {
+   "at": {
+    "place": "border"
+   },
+   "goal": "{border}の関を守る",
+   "art": "camp",
+   "text": [
+    "関は谷の狭いところにあり、石の壁と木の門でできていた。兵は定数の半分。糧は二月ぶん。",
+    "十日目、{foe}の軍が谷の口に現れた。数は三倍ある。"
+   ],
+   "choices": [
+    {
+     "label": "壁を直し、水を溜め、籠って守る",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "s2hold",
+      "lose": "s2hard"
+     }
+    },
+    {
+     "label": "夜討ちをかけて、敵の糧を焼く",
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "s2hold",
+      "lose": "s2hard"
+     }
+    },
+    {
+     "label": "使者を出し、通行の値を談判する",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s2deal",
+      "lose": "s2hard"
+     }
+    }
+   ]
+  },
+  "s2hold": {
+   "text": [
+    "十二日持ちこたえた。十三日目の朝、敵は谷を出ていった。糧が尽きたのである。関の兵は、一人も{player}の名を忘れなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "rs_held"
+    },
+    {
+     "fame": 10
+    },
+    {
+     "favor": 30
+    },
+    {
+     "rep": "realm",
+     "n": 15
+    }
+   ],
+   "next": "s3"
+  },
+  "s2deal": {
+   "text": [
+    "{player}は谷の口で敵の将と会い、三月の休戦と、関を通らぬ代わりの銭を取り決めた。血は流れなかった。",
+    "「都の者は、これを弱腰と呼ぶかもしれません」と副官が言った。「呼ばせておけ」と{player}は答えた。"
+   ],
+   "effects": [
+    {
+     "flag": "rs_deal"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "money": 600
+    },
+    {
+     "favor": 15
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hard": {
+   "text": [
+    "門は破られかけ、{player}も傷を負った。それでも関は落ちなかった。敵は糧が尽きて引いた。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 10
+    }
+   ],
+   "next": "s3"
+  },
+  "s2min": {
+   "at": {
+    "place": "foecap",
+    "building": "palace"
+   },
+   "goal": "{foecap}の{palace}で、{foe}の腹を探る",
+   "speaker": "foeminister",
+   "art": "court",
+   "text": [
+    "{foecap}の評議の間で、{foeminister}が{player}を迎えた。丁重だったが、言葉の一つ一つが秤に載っていた。",
+    "「和の話をしに来られたか。それとも、我らの蔵の中を見に来られたか」"
+   ],
+   "choices": [
+    {
+     "label": "和の条件を率直に述べる",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s2peace",
+      "lose": "s2cold"
+     }
+    },
+    {
+     "label": "港と市を歩き、相手の台所を測る",
+     "check": {
+      "skill": "trade",
+      "dc": 36,
+      "win": "s2spy",
+      "lose": "s2cold"
+     }
+    },
+    {
+     "label": "評議の割れ目を探し、和を望む側に近づく",
+     "check": {
+      "skill": "stealth",
+      "dc": 38,
+      "win": "s2spy",
+      "lose": "s2cold"
+     }
+    }
+   ]
+  },
+  "s2peace": {
+   "text": [
+    "条件は持ち帰られることになった。即答はない。だが{foeminister}は門まで送りに出て、低い声で言った。「こちらにも、戦に倦んだ者はおります」"
+   ],
+   "effects": [
+    {
+     "flag": "rs_peace"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 25
+    }
+   ],
+   "next": "s3"
+  },
+  "s2spy": {
+   "text": [
+    "穀物の値、軍船の数、傭兵への支払いの遅れ。{player}の蝋板は、帰りの船で一度も手から離れなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "rs_spy"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 25
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2cold": {
+   "text": [
+    "{foeminister}は最後まで微笑んでいた。微笑んだまま、何も渡さなかった。{player}は手ぶらで船に乗った。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}へ戻り、{lord}に次第を報告する",
+   "speaker": "schemer",
+   "art": "court",
+   "text": [
+    "報告の席には、{schemer}が待っていた。{player}が戻る前から、別の話を吹き込んでいたらしい。",
+    "「関で敵と談判したとか」「敵の都で長居をされたとか」。{schemer}は言葉の尻を上げて、疑問の形で言う。断定しないのが、この手の者のやり方である。",
+    "{lord}は{player}を見た。「申せ」"
+   ],
+   "choices": [
+    {
+     "label": "数と日付で、したことを一つずつ述べる",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "s3ok",
+      "lose": "s3bad"
+     }
+    },
+    {
+     "label": "{schemer}の言い分の矛盾を突く",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "s3ok",
+      "lose": "s3bad"
+     }
+    },
+    {
+     "label": "何も弁解せず、預かった印と鍵を返す",
+     "effects": [
+      {
+       "flag": "rs_quit"
+      }
+     ],
+     "next": "s3quit"
+    }
+   ]
+  },
+  "s3ok": {
+   "speaker": "lord",
+   "text": [
+    "{lord}は最後まで黙って聞き、それから{schemer}のほうを向いた。「次は、自分で関へ行ってもらおう」",
+    "{schemer}は何も言わずに退がった。{lord}は{player}に指輪を戻した。「預けたままにしておく」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 30
+    },
+    {
+     "rel": 25
+    }
+   ],
+   "next": "s4"
+  },
+  "s3bad": {
+   "text": [
+    "弁解は途中で遮られた。{lord}は「よい」とだけ言った。咎めはなかったが、次の役目は来なかった。"
+   ],
+   "effects": [
+    {
+     "rel": -15
+    }
+   ],
+   "next": "s4"
+  },
+  "s3quit": {
+   "speaker": "lord",
+   "text": [
+    "{player}は指輪と鍵を卓に置いて退がった。{lord}は止めなかった。止めない人である。"
+   ],
+   "effects": [
+    {
+     "fall": true
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "text": [
+    "……それからしばらくが過ぎた。"
+   ],
+   "choices": [
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "rs_quit"
+     },
+     "next": "endQuit"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "rs_peace"
+     },
+     "next": "endPeace"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "rs_held"
+     },
+     "next": "endHeld"
+    },
+    {
+     "label": "つづき",
+     "next": "endPlain"
+    }
+   ]
+  },
+  "endHeld": {
+   "text": [
+    "関は落ちなかった。あの十二日のことを、関の村では祭りの日に語る。{player}の名も、そこに混じっている。"
+   ],
+   "end": "落ちなかった関"
+  },
+  "endPeace": {
+   "text": [
+    "和の話は、すぐには実らなかった。だが、道は開いたままになった。こういう道は、閉じるのは一日、開けるのは十年である。"
+   ],
+   "end": "開いたままの道"
+  },
+  "endQuit": {
+   "text": [
+    "印も鍵も返した。{player}は一人の旅人になった。身軽だった。身軽すぎて、しばらくは落ち着かなかった。"
+   ],
+   "end": "返した印"
+  },
+  "endPlain": {
+   "text": [
+    "役目は終わった。次の役目が来るかどうかは、来てみなければ分からない。それがこの国の仕え方である。"
+   ],
+   "end": "次の召し"
+  }
+ }
+}

@@ -1,0 +1,521 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_ludus",
+ "kind": "school",
+ "title": "砂の上",
+ "era": "rome",
+ "school": "ludus",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "養成所の主",
+   "sex": "m"
+  },
+  "peer": {
+   "npc": "同じ組の闘士",
+   "sex": "m"
+  },
+  "patron": {
+   "folk": "葬礼を出す家の者",
+   "tags": [
+    "官"
+   ],
+   "at": "here"
+  },
+  "rival": {
+   "npc": "他所の組の闘士",
+   "sex": "f"
+  }
+ },
+ "start": "u1",
+ "scenes": {
+  "u1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の養成所の門をくぐる",
+   "speaker": "master",
+   "art": "duel",
+   "text": [
+    "養成所の中庭は、踏み固めた砂だった。木剣を打ち合う音が、途切れずに続いている。",
+    "{master}は左手の指が二本なかった。「ここには三種類の者が来る。買われた者、借金で来た者、好きで来た者だ」",
+    "「好きで来た者が、いちばん早く死ぬ。……お前はどれだ」"
+   ],
+   "choices": [
+    {
+     "label": "木剣を取り、黙って構えてみせる",
+     "check": {
+      "skill": "blade",
+      "dc": 12,
+      "win": "u1good",
+      "lose": "u1plain"
+     }
+    },
+    {
+     "label": "「強くなりたい。それだけです」と答える",
+     "next": "u1plain"
+    },
+    {
+     "label": "「人の死に方を知りたい」と答える",
+     "next": "u1odd"
+    }
+   ]
+  },
+  "u1good": {
+   "speaker": "master",
+   "text": [
+    "{master}は{player}の構えを横から見て、膝を木剣で軽く叩いた。「ここが伸びている。伸びた膝は、砂で滑る」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "ludus"
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "{here}の養成所に入った。"
+    }
+   ],
+   "next": "u2"
+  },
+  "u1plain": {
+   "speaker": "master",
+   "text": [
+    "「強くなりたい者は多い」{master}は言った。「痛いのを毎日続けられる者は少ない。明日の朝、日の出に来い。来たら教える」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "ludus"
+    },
+    {
+     "note": "{here}の養成所に入った。"
+    }
+   ],
+   "next": "u2"
+  },
+  "u1odd": {
+   "speaker": "master",
+   "text": [
+    "{master}は初めて{player}の顔をまともに見た。「……変わった答えだ。だが、嘘ではないな。入れ」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "ludus"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{here}の養成所に入った。"
+    }
+   ],
+   "next": "u2"
+  },
+  "u2": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の中庭で、稽古を重ねる",
+   "speaker": "peer",
+   "art": "duel",
+   "wait": {
+    "days": 8
+   },
+   "text": [
+    "稽古は型と、重い木剣の素振りと、走り込みだった。{peer}は買われてきた者で、ガリアの生まれだという。",
+    "「本番は、相手を見るな」と{peer}は言った。「客を見ろ。客が飽きると、終わらせに来る。だから、飽きさせない」"
+   ],
+   "choices": [
+    {
+     "label": "盾の使い方を徹底して習う",
+     "check": {
+      "skill": "blade",
+      "dc": 20,
+      "win": "u2good",
+      "lose": "u2plain"
+     }
+    },
+    {
+     "label": "客の見方――間の取り方を習う",
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "u2crowd",
+      "lose": "u2plain"
+     }
+    }
+   ]
+  },
+  "u2good": {
+   "text": [
+    "盾は武器だと{master}は言った。縁で殴り、面で押し、下げない。十日で、{player}の左腕は二回り太くなった。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 7
+    },
+    {
+     "schoolRank": 1
+    },
+    {
+     "bond": "peer",
+     "know": 30,
+     "like": 15,
+     "memo": "同じ組で稽古した"
+    }
+   ],
+   "next": "u3"
+  },
+  "u2crowd": {
+   "text": [
+    "{peer}は客の見方を教えた。声が変わる瞬間。静かになる間。「そこで一歩下がる。下がると、客が前に出る」"
+   ],
+   "effects": [
+    {
+     "flag": "ru_crowd"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "schoolRank": 1
+    },
+    {
+     "bond": "peer",
+     "know": 30,
+     "like": 20,
+     "memo": "客の見方を教わった"
+    }
+   ],
+   "next": "u3"
+  },
+  "u2plain": {
+   "text": [
+    "型は身につかず、体ばかり痛んだ。{master}は「痛いのは、間違っているからだ」と言って、同じ型をもう一度やらせた。"
+   ],
+   "effects": [
+    {
+     "hp": -8
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    }
+   ],
+   "next": "u3"
+  },
+  "u3": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{here}の葬礼の供えの立ち合いに出る",
+   "speaker": "patron",
+   "art": "duel",
+   "wait": {
+    "days": 12
+   },
+   "text": [
+    "{patron}の家が、父の葬礼に供えの立ち合いを出すという。もとは死者に捧げる血だった。いまは見世物でもある。",
+    "相手は他所の組の{rival}。網と三叉の矛を使う、評判の立つ闘士である。"
+   ],
+   "choices": [
+    {
+     "label": "正面から打ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 40,
+      "win": "u3win",
+      "lose": "u3lose"
+     }
+    },
+    {
+     "label": "客の間を読み、見せ場を作ってから決める",
+     "if": {
+      "flag": "ru_crowd"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "u3show",
+      "lose": "u3lose"
+     }
+    }
+   ]
+  },
+  "u3win": {
+   "text": [
+    "{player}は{rival}の網をかわし、矛の柄を踏んで組み伏せた。客が立ち上がった。{patron}が指を上げ、{rival}は生きて砂を出た。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 400
+    },
+    {
+     "xp": "blade",
+     "n": 8
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "u4"
+  },
+  "u3show": {
+   "text": [
+    "{player}は押され、下がり、起き上がり、また下がった。客の声が変わるところで前に出た。終わったとき、名を呼ぶ声が止まなかった。",
+    "{rival}は息を切らしながら言った。「上手い。……あんた、客と戦ってたね」"
+   ],
+   "effects": [
+    {
+     "fame": 9
+    },
+    {
+     "money": 500
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "bond": "rival",
+     "know": 30,
+     "like": 20,
+     "memo": "砂の上で向き合った"
+    }
+   ],
+   "next": "u4"
+  },
+  "u3lose": {
+   "text": [
+    "網をかぶせられ、砂に倒れた。矛の先が喉の前で止まった。客は親指を上げた。生きて出られた。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "fame": 2
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "u4"
+  },
+  "u4": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の養成所で、木剣を授かるかどうか",
+   "speaker": "master",
+   "art": "duel",
+   "wait": {
+    "days": 16
+   },
+   "text": [
+    "{master}が木剣を一本、卓に置いた。授けられれば自由の身、二度と砂に立たなくてよいという印である。",
+    "「お前には、まだ早い」{master}は言った。「だが、もう一つ話がある。次の立ち合いの相手が決まった」",
+    "相手は{peer}だった。組の中から二人出せと言われ、くじで決まったのだという。"
+   ],
+   "choices": [
+    {
+     "label": "{patron}に掛け合い、組み合わせを変えさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "u4swap",
+      "lose": "u4fight"
+     }
+    },
+    {
+     "label": "二人で示し合わせ、見せ場だけ作って引き分ける",
+     "if": {
+      "flag": "ru_crowd"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "u4draw",
+      "lose": "u4fight"
+     }
+    },
+    {
+     "label": "受ける",
+     "next": "u4fight"
+    }
+   ]
+  },
+  "u4swap": {
+   "text": [
+    "{patron}は渋ったが、客は新しい顔のほうが喜ぶ、という{player}の理屈に乗った。組み合わせは変わった。"
+   ],
+   "effects": [
+    {
+     "flag": "ru_saved"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "schoolRank": 3
+    }
+   ],
+   "next": "u5"
+  },
+  "u4draw": {
+   "text": [
+    "二人は示し合わせた。打ち、受け、転がり、起き上がる。客は沸いた。どちらも倒れないまま、日が暮れた。",
+    "{master}だけが見抜いていた。何も言わなかったが、その晩、二人の皿に肉が多かった。"
+   ],
+   "effects": [
+    {
+     "flag": "ru_saved"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "schoolRank": 3
+    }
+   ],
+   "next": "u5"
+  },
+  "u4fight": {
+   "speaker": "peer",
+   "art": "duel",
+   "text": [
+    "砂の上で向き合った。{peer}は小さく言った。「手加減するな。した者から死ぬ」"
+   ],
+   "choices": [
+    {
+     "label": "全力で打ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 50,
+      "win": "u4won",
+      "lose": "u4lost"
+     }
+    }
+   ]
+  },
+  "u4won": {
+   "text": [
+    "{peer}は膝をついた。客は指を下げる者と上げる者に割れた。{patron}が上げた。",
+    "{peer}は生きて砂を出た。その夜、どちらも何も喋らなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "money": 400
+    },
+    {
+     "schoolRank": 3
+    }
+   ],
+   "next": "u5"
+  },
+  "u4lost": {
+   "text": [
+    "{player}が倒れた。{peer}の矛が止まり、{patron}の指が上がった。砂の味を、{player}は長く覚えていた。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "fame": 3
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "u5"
+  },
+  "u5": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}で、{master}の話を聞く",
+   "speaker": "master",
+   "art": "duel",
+   "wait": {
+    "days": 10
+   },
+   "text": [
+    "{master}は左手の、指のないところを撫でながら言った。"
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "ru_saved"
+     },
+     "next": "endSaved"
+    },
+    {
+     "if": {
+      "flag": "ru_crowd"
+     },
+     "next": "endCrowd"
+    },
+    {
+     "next": "endPlain"
+    }
+   ]
+  },
+  "endSaved": {
+   "speaker": "master",
+   "text": [
+    "「わしは一度、同じ組の男とやった」{master}は言った。「勝った。木剣をもらった。指は、そのときに置いてきた」",
+    "「お前は、勝たずに済ませた。……そのほうが難しい。覚えておけ」",
+    "卓の木剣が、{player}のほうへ押し出された。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "item": "gladius"
+    }
+   ],
+   "end": "押し出された木剣"
+  },
+  "endCrowd": {
+   "text": [
+    "「客は三千人いる」{master}は言った。「三千人を一度に相手にして、生きて帰る。それができる者は、砂の外でも生きられる」",
+    "{player}は砂を踏む音を、しばらく忘れなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    }
+   ],
+   "end": "三千人の相手"
+  },
+  "endPlain": {
+   "speaker": "master",
+   "text": [
+    "「ここで学べるのは一つだ」{master}は言った。「痛いのに慣れる。慣れても、痛いことは変わらん。それだけは忘れるな」"
+   ],
+   "end": "慣れても痛い"
+  }
+ }
+}

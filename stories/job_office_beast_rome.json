@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_beast_rome",
+ "kind": "job",
+ "era": "rome",
+ "giver": "office",
+ "mechanism": "beast",
+ "target": "realm-near",
+ "title": "{place}の狼を狩る",
+ "desc": "{place}の牧で狼が羊と牧童を襲った。戦で男手が出払い、追う者がいない。塒を探して仕留めてほしい。",
+ "reward": {
+  "base": 220,
+  "perDay": 14
+ },
+ "favor": 14,
+ "fame": 5,
+ "deadline": {
+  "base": 26,
+  "perDay": 2
+ }
+}

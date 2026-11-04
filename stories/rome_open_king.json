@@ -1,0 +1,382 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_open_king",
+ "kind": "main",
+ "title": "一年の職",
+ "era": "rome",
+ "trigger": {
+  "persona": [
+   "person"
+  ],
+  "king": true
+ },
+ "cast": {
+  "realm": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:realm"
+  },
+  "minister": {
+   "person": "minister:realm"
+  },
+  "general": {
+   "person": "general:realm"
+  },
+  "foe": {
+   "realm": "enemy:realm"
+  },
+  "third": {
+   "realm": "second"
+  },
+  "thirdcap": {
+   "place": "capital:third"
+  },
+  "schemer": {
+   "npc": "書簡を偽る者",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "市の古老",
+   "sex": "m"
+  }
+ },
+ "start": "k1",
+ "scenes": {
+  "k1": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、評定に臨む",
+   "goto": [
+    {
+     "if": {
+      "king": false
+     },
+     "next": "kLost"
+    }
+   ],
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "評定の席に、文武の者が居並んだ。口火を切ったのは{minister}だった。「{foe}を侮ってはなりませぬ。いまは蔵を満たし、城壁と水道を直す時です」",
+    "{general}が卓を叩いた。「いま討たねば、{foe}はますます大きくなる。兵を出すべきです」",
+    "一同の目が、上座の{player}に集まった。この国でいちばん高い席であり、この国でいちばん短い席でもある。"
+   ],
+   "choices": [
+    {
+     "label": "「{general}、兵を率いて{foe}を討て」",
+     "effects": [
+      {
+       "flag": "rk_war"
+      },
+      {
+       "realmFx": "realm",
+       "add": "prestige",
+       "n": 4
+      },
+      {
+       "realmFx": "realm",
+       "add": "stability",
+       "n": -3
+      }
+     ],
+     "next": "k1war"
+    },
+    {
+     "label": "「{minister}、蔵を満たし、壁と水道を直せ」",
+     "effects": [
+      {
+       "flag": "rk_rich"
+      },
+      {
+       "realmFx": "realm",
+       "add": "treasury",
+       "n": 80
+      },
+      {
+       "realmFx": "realm",
+       "add": "stability",
+       "n": 5
+      }
+     ],
+     "next": "k1rich"
+    },
+    {
+     "label": "「{third}へ使者を出し、同盟を結ぶ」",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "k1ally",
+      "lose": "k1noally"
+     }
+    }
+   ]
+  },
+  "k1war": {
+   "speaker": "general",
+   "text": [
+    "{general}は深く頭を下げ、その夜のうちに兵を集めはじめた。{minister}は何も言わなかったが、帳面を閉じる音が大きかった。"
+   ],
+   "next": "k2"
+  },
+  "k1rich": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は満足げに帳面を開いた。「蔵が満ちれば、兵はいつでも出せます。逆はできませぬ」{general}は席を立つとき、床を強く踏んだ。"
+   ],
+   "next": "k2"
+  },
+  "k1ally": {
+   "text": [
+    "使者は{thirdcap}で歓待され、誓いの文が交わされた。{foe}は一人で二つの国と向き合うことになった。"
+   ],
+   "effects": [
+    {
+     "flag": "rk_ally"
+    },
+    {
+     "realmFx": "realm",
+     "ally": "third"
+    },
+    {
+     "fame": 6
+    }
+   ],
+   "next": "k2"
+  },
+  "k1noally": {
+   "text": [
+    "{third}の評議は、どちらにも付かぬと答えた。「様子を見る」というのが、断りの言い方であることは誰もが知っていた。"
+   ],
+   "next": "k2"
+  },
+  "k2": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の{market}を、地味な外套で歩く",
+   "speaker": "elder",
+   "art": "trade",
+   "text": [
+    "紫の縁も、先導の者も付けずに市へ出た。高い職にある者が自分の町で何を言われているかは、評定の席では決して分からない。",
+    "{elder}が{player}を見て、相手が誰か気づかぬまま喋った。「上の決めたことは、まあ、よろしい。問題は書簡のほうだ」",
+    "「このところ、上の名で出た書簡がやたらに多い。穀物を安く買い上げろ、人を出せ、と。……本当に上が出しているのかね。わしは字が読めんが、蝋の印が妙だと言う者がいる」"
+   ],
+   "choices": [
+    {
+     "label": "書簡を一通、手に入れて印を検める",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "k2found",
+      "lose": "k2vague"
+     }
+    },
+    {
+     "label": "市の者に聞き回り、誰が書簡を持ってきたかを辿る",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "k2found",
+      "lose": "k2vague"
+     }
+    },
+    {
+     "label": "聞かなかったことにして宮へ戻る",
+     "next": "k3"
+    }
+   ]
+  },
+  "k2found": {
+   "text": [
+    "書簡は粉屋の棚にあった。文面は{player}のものを真似てあり、印は本物に似せて彫り直したものだった。彫りの甘いところが二箇所ある。",
+    "運んできたのは、評定にも出入りしている男だという。{schemer}。"
+   ],
+   "effects": [
+    {
+     "flag": "rk_knew"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "{player}の名を騙った書簡が出回っている。運んでいるのは{schemer}。"
+    }
+   ],
+   "next": "k3"
+  },
+  "k2vague": {
+   "text": [
+    "はっきりしたことは掴めなかった。ただ、市の者が上の名を口にするとき、どこか用心深くなっていることだけは分かった。"
+   ],
+   "next": "k3"
+  },
+  "k3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、訴えを裁く",
+   "goto": [
+    {
+     "if": {
+      "king": false
+     },
+     "next": "kLost"
+    }
+   ],
+   "speaker": "schemer",
+   "art": "court",
+   "wait": {
+    "days": 5
+   },
+   "text": [
+    "{schemer}が、{minister}を訴えて出た。敵国と通じ、国の穀物を横流ししている、という訴えである。証拠として差し出されたのは、{minister}の名で書かれた書簡の束だった。",
+    "{minister}は蒼白だった。「私は書いておりません」",
+    "広間は静まった。裁くのは{player}である。"
+   ],
+   "choices": [
+    {
+     "label": "書簡の印を人々の前で検め、偽りを暴く",
+     "turn": true,
+     "guide": "偽りだと示せなければ、裁きが揺らぐ",
+     "if": {
+      "flag": "rk_knew"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "k3clear",
+      "lose": "k3doubt"
+     }
+    },
+    {
+     "label": "{schemer}を問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "k3clear",
+      "lose": "k3doubt"
+     }
+    },
+    {
+     "label": "{minister}を退け、訴えを容れる",
+     "effects": [
+      {
+       "flag": "rk_purge"
+      },
+      {
+       "realmFx": "realm",
+       "add": "stability",
+       "n": -5
+      }
+     ],
+     "next": "k4"
+    },
+    {
+     "label": "両者とも退け、裁きを先に延ばす",
+     "effects": [
+      {
+       "flag": "rk_delay"
+      }
+     ],
+     "next": "k4"
+    }
+   ]
+  },
+  "k3clear": {
+   "speaker": "minister",
+   "text": [
+    "{player}は書簡の蝋の印を高く掲げ、本物の指輪を押した蝋と並べて見せた。彫りの甘いところが二箇所。広間がどよめいた。",
+    "{schemer}は言い逃れようとして、途中で口をつぐみ、人垣の隙間から出ていった。追う者はいなかった。",
+    "{minister}は深く頭を下げた。「この国に、印を検める目があってよかった」"
+   ],
+   "effects": [
+    {
+     "flag": "rk_cleared"
+    },
+    {
+     "fame": 10
+    },
+    {
+     "realmFx": "realm",
+     "add": "stability",
+     "n": 6
+    },
+    {
+     "note": "偽の書簡を暴き、{minister}の濡れ衣を晴らした。"
+    }
+   ],
+   "next": "k4"
+  },
+  "k3doubt": {
+   "text": [
+    "どちらの言い分にも穴があった。{player}は裁きを保留した。{minister}は職に留まったが、広間を出ていく背中が小さく見えた。"
+   ],
+   "effects": [
+    {
+     "flag": "rk_delay"
+    }
+   ],
+   "next": "k4"
+  },
+  "k4": {
+   "text": [
+    "……その年が終わろうとしている。"
+   ],
+   "choices": [
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "rk_cleared"
+     },
+     "next": "endClear"
+    },
+    {
+     "label": "つづき",
+     "if": {
+      "flag": "rk_purge"
+     },
+     "next": "endPurge"
+    },
+    {
+     "label": "つづき",
+     "next": "endPlain"
+    }
+   ]
+  },
+  "endClear": {
+   "speaker": "minister",
+   "text": [
+    "任期の終わりに、{minister}が帳面を持ってきた。「この一年の勘定です。蔵も、壁も、兵も、はじめより良い」",
+    "「高い職は一年で終わります」{minister}は言った。「終わってなお、名を呼ばれる者はわずかです。あなたはそのわずかな一人になるでしょう」"
+   ],
+   "end": "印を検める目"
+  },
+  "endPurge": {
+   "text": [
+    "{minister}は退けられ、その家は財を失った。{schemer}は新しい職を得て、今度は別の誰かの書簡を運んでいる。",
+    "国は静かになった。静かになりすぎたのかもしれない、と{player}は思った。誰も、本当のことを言いに来なくなった。"
+   ],
+   "end": "静かになった広間"
+  },
+  "endPlain": {
+   "text": [
+    "一年が終わった。{player}は職を退き、ただの人として市を歩いた。誰も{player}を見なかった。",
+    "それがこの国の仕組みである。高い席は一年で空ける。空けた者は、また行列に並ぶ。"
+   ],
+   "end": "空けた席"
+  },
+  "kLost": {
+   "text": [
+    "国を率いる職は、{player}の手を離れていた。評定の広間には、別の者が座っている。"
+   ],
+   "end": "離れた席"
+  }
+ }
+}

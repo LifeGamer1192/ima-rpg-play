@@ -1,0 +1,226 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_feat_bandit",
+ "kind": "feat",
+ "feat": "bandit",
+ "title": "内海の海賊の王",
+ "era": "rome",
+ "trigger": {
+  "guildRank": 4,
+  "notFeat": "bandit"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "elder": {
+   "npc": "一味の古参",
+   "sex": "m"
+  },
+  "keeper": {
+   "npc": "蔵の番人",
+   "sex": "m"
+  }
+ },
+ "start": "b1",
+ "scenes": {
+  "b1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏部屋で、一味の古参に会う",
+   "speaker": "elder",
+   "art": "backroom",
+   "text": [
+    "{elder}は灯を細くした。「この世でまだ誰も手を付けていない物が一つある。{capital}の神殿の下の蔵だ。戦で取った金銀と、軍団の鷲章が積んである」",
+    "「あそこを抜いた者は、ただの盗人ではない。内海じゅうの港で名を呼ばれる」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "next": "b2"
+    }
+   ]
+  },
+  "b2": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の{market}で、神殿の下の様子を探る",
+   "art": "trade",
+   "text": [
+    "神殿の周りは昼も夜も人が通る。蔵は基壇の下、石を積んだ部屋だという。鍵は二つに分けて預けられている。"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れて基壇の石を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 75,
+      "win": "b3",
+      "lose": "b2ng"
+     }
+    },
+    {
+     "label": "{keeper}に近づき、酒で口を軽くする",
+     "check": {
+      "skill": "speech",
+      "dc": 75,
+      "win": "b3",
+      "lose": "b2ng"
+     }
+    }
+   ]
+  },
+  "b2ng": {
+   "art": "war",
+   "text": [
+    "夜回りに見咎められた。「そこで何をしている！」"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 66,
+      "win": "b3",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "b3": {
+   "at": {
+    "place": "capital",
+    "building": "shrine"
+   },
+   "goal": "{capital}の神殿の下の蔵に忍び込む",
+   "art": "hideout",
+   "text": [
+    "月のない夜、基壇の通気口から下りた。二つの錠、床にばらまかれた砂、眠らぬ番犬。そのすべての奥に、積まれた箱がある。"
+   ],
+   "choices": [
+    {
+     "label": "錠を外し、砂を踏まずに渡る",
+     "check": {
+      "skill": "theft",
+      "dc": 85,
+      "win": "b4",
+      "lose": "b3alarm"
+     }
+    }
+   ]
+  },
+  "b3alarm": {
+   "art": "war",
+   "text": [
+    "犬が吠えた。神殿の上でラッパが鳴る。箱の中身はもう袋の中だ。あとは、生きて出るだけ。"
+   ],
+   "choices": [
+    {
+     "label": "押し寄せる兵を振り払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 74,
+      "win": "b4",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "b4": {
+   "art": "road",
+   "text": [
+    "門は閉ざされ、街道には早馬が出た。{capital}から出なければならない。"
+   ],
+   "choices": [
+    {
+     "label": "下水の暗渠をくぐって城外へ",
+     "check": {
+      "skill": "stealth",
+      "dc": 78,
+      "win": "bwin",
+      "lose": "b4fight"
+     }
+    },
+    {
+     "label": "夜明けの門を、行商に化けて抜ける",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "bwin",
+      "lose": "b4fight"
+     }
+    }
+   ]
+  },
+  "b4fight": {
+   "art": "war",
+   "text": [
+    "見つかった。追っ手が迫る。"
+   ],
+   "choices": [
+    {
+     "label": "追っ手を振り切る",
+     "fight": {
+      "foes": "soldier",
+      "n": 5,
+      "level": 76,
+      "win": "bwin",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "bwin": {
+   "art": "hideout",
+   "text": [
+    "朝日の中で、{player}は袋の口を開けた。金貨と、銀の竿の先に付いた鷲が一つ。鷲のほうは、どこの市でも売れない。売れないものを持っていることが、名になる。",
+    "その日から、どの港の裏でも、一つの名が畏れとともに囁かれるようになった。"
+   ],
+   "effects": [
+    {
+     "money": 50000
+    },
+    {
+     "fame": 15
+    },
+    {
+     "wanted": "capital",
+     "n": 40
+    },
+    {
+     "feat": "bandit"
+    }
+   ],
+   "end": "内海の海賊の王"
+  },
+  "bfail": {
+   "art": "jail",
+   "text": [
+    "深手を負い、何も持たずに闇へ逃れた。{power}は街道じゅうに触れを出した。……傷が癒えたら、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -50
+    },
+    {
+     "wanted": "capital",
+     "n": 50
+    }
+   ],
+   "end": "王にはなれず"
+  }
+ }
+}

@@ -1,0 +1,273 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_feat_throne_seize",
+ "kind": "feat",
+ "feat": "career",
+ "title": "境を越える",
+ "era": "rome",
+ "trigger": {
+  "patron": true,
+  "bySize": {
+   "realm": "patron",
+   "rank": [
+    2,
+    5,
+    7
+   ],
+   "men": [
+    0,
+    100,
+    300
+   ]
+  },
+  "king": false,
+  "notFeat": "career"
+ },
+ "cast": {
+  "power": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "captain": {
+   "npc": "衛兵の長",
+   "sex": "m"
+  },
+  "aide": {
+   "npc": "腹心の副官",
+   "sex": "m"
+  }
+ },
+ "start": "u1",
+ "scenes": {
+  "u1": {
+   "at": {
+    "place": "capital",
+    "building": "barracks"
+   },
+   "goal": "{capital}の{barracks}で、腹心と謀る",
+   "speaker": "aide",
+   "art": "camp",
+   "text": [
+    "{aide}は声を潜めた。「兵はあなたに付きます。{ruler}は戦に負け、税ばかり重くする。いま入れば、民も兵もあなたを呼ぶでしょう」",
+    "「ただし、武装した軍を都へ入れるのは、この国で最も重い禁です。漏れれば、我らは神々の前で呪われた者として裁かれます」"
+   ],
+   "choices": [
+    {
+     "label": "兵を入れる",
+     "guide": "後戻りはできない。しくじれば国の敵として追われる",
+     "next": "u2"
+    },
+    {
+     "label": "まだ早い",
+     "next": "udecline"
+    }
+   ]
+  },
+  "u2": {
+   "art": "hideout",
+   "text": [
+    "決行までの十日、密議を重ねる。都の耳は多い。"
+   ],
+   "choices": [
+    {
+     "label": "夜ごと場所を変え、密かに手筈を整える",
+     "check": {
+      "skill": "stealth",
+      "dc": 70,
+      "scale": "power",
+      "win": "u3",
+      "lose": "u2leak"
+     }
+    },
+    {
+     "label": "門の書記を買収して、目と耳を塞ぐ（20000）",
+     "if": {
+      "money": 20000
+     },
+     "effects": [
+      {
+       "money": -20000
+      }
+     ],
+     "next": "u3"
+    }
+   ]
+  },
+  "u2leak": {
+   "art": "war",
+   "text": [
+    "密議が漏れた。夜明け前、{ruler}の兵が宿舎を囲んだ。もはや、待つことはできない。"
+   ],
+   "choices": [
+    {
+     "label": "囲みを破って{capital}へ向かう",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 68,
+      "scale": "power",
+      "win": "u3",
+      "lose": "ufail"
+     }
+    }
+   ]
+  },
+  "u3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の門をくぐり、{palace}へ向かう",
+   "art": "war",
+   "text": [
+    "松明の列が都の門に近づいた。城壁の上から石と投槍が降ってくる。神官が門の前に立ち、禁を読み上げている。"
+   ],
+   "choices": [
+    {
+     "label": "先頭に立って門を破る",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 70,
+      "scale": "power",
+      "win": "u4",
+      "lose": "ufail"
+     }
+    },
+    {
+     "label": "門の兵に呼びかけ、開けさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 78,
+      "scale": "power",
+      "win": "u4",
+      "lose": "u3fight"
+     }
+    }
+   ]
+  },
+  "u3fight": {
+   "art": "war",
+   "text": [
+    "門の兵は応えず、投槍で返事をした。"
+   ],
+   "choices": [
+    {
+     "label": "門を破る",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 70,
+      "scale": "power",
+      "win": "u4",
+      "lose": "ufail"
+     }
+    }
+   ]
+  },
+  "u4": {
+   "speaker": "captain",
+   "art": "duel",
+   "text": [
+    "{palace}の階段の下に、{captain}がただ一人立っていた。「ここから先は、わたしの持ち場だ。通りたければ斬れ」"
+   ],
+   "choices": [
+    {
+     "label": "斬り結ぶ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 78,
+      "scale": "power",
+      "win": "u5",
+      "lose": "ufail"
+     }
+    }
+   ]
+  },
+  "u5": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "広間の奥で、{ruler}は座ったままだった。「座りたいなら座れ。……この席は一年で終わる。お前が入れた兵は、一年では出ていかぬぞ」"
+   ],
+   "choices": [
+    {
+     "label": "命は助け、遠い属州の職に移す",
+     "effects": [
+      {
+       "fame": 10
+      }
+     ],
+     "next": "uwin"
+    },
+    {
+     "label": "名簿を作り、敵対した者を処断する",
+     "effects": [
+      {
+       "fame": -12
+      },
+      {
+       "flag": "feat_seize_blood"
+      }
+     ],
+     "next": "uwin"
+    }
+   ]
+  },
+  "uwin": {
+   "art": "court",
+   "text": [
+    "夜が明けると、広場に軍の旗が立っていた。元老たちは恐る恐る階を上り、新しい主の前に座を取った。",
+    "誰も「選ばれた」とは言わなかった。言わないことが、この日からの作法になった。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "throne": "power",
+     "how": "武力",
+     "force": true
+    },
+    {
+     "feat": "career"
+    }
+   ],
+   "end": "越えた境"
+  },
+  "udecline": {
+   "speaker": "aide",
+   "art": "camp",
+   "text": [
+    "{aide}は黙って頭を下げた。「お心が決まれば、いつでも」"
+   ],
+   "end": "いまだ時ならず"
+  },
+  "ufail": {
+   "art": "war",
+   "text": [
+    "兵は散り、{player}は血に濡れて都を落ち延びた。{power}は国の敵として触れを出した。……生き延びて、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -50
+    },
+    {
+     "favor": -200
+    },
+    {
+     "wanted": "power",
+     "n": 60
+    }
+   ],
+   "end": "越えられなかった境"
+  }
+ }
+}

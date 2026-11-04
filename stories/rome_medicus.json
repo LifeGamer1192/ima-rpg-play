@@ -1,0 +1,501 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_medicus",
+ "kind": "school",
+ "title": "手を洗う",
+ "era": "rome",
+ "school": "medicus",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "ギリシア人の医師",
+   "sex": "m"
+  },
+  "peer": {
+   "npc": "弟子の解放奴隷",
+   "sex": "f"
+  },
+  "officer": {
+   "npc": "矢傷の士官",
+   "sex": "m"
+  },
+  "elder": {
+   "folk": "町の有力者",
+   "tags": [
+    "官"
+   ],
+   "at": "here"
+  },
+  "front": {
+   "place": "near:here"
+  }
+ },
+ "start": "m1",
+ "scenes": {
+  "m1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の施療の家を訪ねる",
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "施療の家は、通りの奥の、日当たりの悪い一間だった。{master}は手を洗いながら話す癖があった。話が長くなると、何度も洗う。",
+    "「この町の人は、わたしを呼ぶ。呼んでおいて、軽蔑する。報酬を取る医者は商人だと言うのだ」{master}は言った。「それでよい。軽蔑されても、治ればよい」",
+    "「学びたいなら、まず手を洗え。それから、この人の脈を取ってみなさい」"
+   ],
+   "choices": [
+    {
+     "label": "脈を取る",
+     "check": {
+      "skill": "medicine",
+      "dc": 10,
+      "win": "m1good",
+      "lose": "m1plain"
+     }
+    },
+    {
+     "label": "なぜそう何度も手を洗うのかと問う",
+     "next": "m1ask"
+    }
+   ]
+  },
+  "m1good": {
+   "speaker": "master",
+   "text": [
+    "「速い、と言ったな。そのとおりだ」{master}は頷いた。「この人は昨日から熱がある。……指が素直だ。筋はある」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "medicus"
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    },
+    {
+     "note": "{here}の施療の家に入った。"
+    }
+   ],
+   "next": "m2"
+  },
+  "m1ask": {
+   "speaker": "master",
+   "text": [
+    "「理由は知らぬ」{master}は正直に言った。「わたしの師がそうしていた。洗った日の傷は膿みにくい、と師は言った。なぜかは分からぬ」",
+    "「分からぬことを、分からぬまま続ける。医術の半分はそれだ」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "medicus"
+    },
+    {
+     "note": "{here}の施療の家に入った。"
+    }
+   ],
+   "next": "m2"
+  },
+  "m1plain": {
+   "text": [
+    "脈は速いのか遅いのか、{player}には分からなかった。{master}は「十日、毎朝わたしの脈を取れ。比べれば分かる」と言った。"
+   ],
+   "effects": [
+    {
+     "joinSchool": "medicus"
+    },
+    {
+     "note": "{here}の施療の家に入った。"
+    }
+   ],
+   "next": "m2"
+  },
+  "m2": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}で、矢傷の士官を手当てする",
+   "speaker": "officer",
+   "art": "tale",
+   "wait": {
+    "days": 8
+   },
+   "text": [
+    "{officer}が運び込まれた。腿に矢。鏃は返しが付いていて、抜けば肉を裂く。",
+    "{peer}が器具を並べながら言った。「先生は昨日から高熱です。あなたがやるしかありません」"
+   ],
+   "choices": [
+    {
+     "label": "傷口を広げ、鏃の返しをかわして抜く",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "m2win",
+      "lose": "m2hard"
+     }
+    },
+    {
+     "label": "押し通して反対側から出す",
+     "check": {
+      "skill": "blade",
+      "dc": 24,
+      "win": "m2win",
+      "lose": "m2hard"
+     }
+    }
+   ]
+  },
+  "m2win": {
+   "speaker": "officer",
+   "text": [
+    "鏃は出た。{officer}は気を失ったが、朝には目を覚まし、水を飲んだ。「……ギリシア人かと思ったら、違うのか」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 7
+    },
+    {
+     "schoolRank": 1
+    },
+    {
+     "bond": "officer",
+     "know": 30,
+     "debt": 20,
+     "memo": "矢傷を手当てした"
+    }
+   ],
+   "next": "m3"
+  },
+  "m2hard": {
+   "text": [
+    "血が止まらず、{peer}と二人がかりで押さえた。脚は残ったが、{officer}は二度と走れない。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 5
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "m3"
+  },
+  "m3": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}の貧しい区画で、熱病を抑える",
+   "speaker": "peer",
+   "art": "disaster",
+   "wait": {
+    "days": 12
+   },
+   "text": [
+    "三階建ての集合住宅で、熱が広がっていた。水は一階の共同の桶から汲む。厠は路地の端。",
+    "{peer}が言った。「薬はありません。あっても足りません。……できることは、たぶん別のことです」"
+   ],
+   "choices": [
+    {
+     "label": "桶の水を替えさせ、汲む順を決める",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "m3water",
+      "lose": "m3hard"
+     }
+    },
+    {
+     "label": "病人を上の階に集め、ほかを下ろす",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "m3sep",
+      "lose": "m3hard"
+     }
+    },
+    {
+     "label": "薬草を買い集めて配る",
+     "if": {
+      "money": 400
+     },
+     "effects": [
+      {
+       "money": -400
+      }
+     ],
+     "next": "m3herb"
+    }
+   ]
+  },
+  "m3water": {
+   "text": [
+    "桶を洗い、朝に新しい水を入れ、汲む順を決めた。それだけで、十日後には新しい病人が出なくなった。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_water"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "m4"
+  },
+  "m3sep": {
+   "text": [
+    "病人を上に、まだ熱のない者を下に分けた。階段で一日中言い争いが起きたが、三日で収まり、広がりは止まった。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_water"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "m4"
+  },
+  "m3herb": {
+   "text": [
+    "薬草は十日で尽きた。熱は少し下がり、また上がった。{peer}は「薬は、水に勝てません」と言った。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 4
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "m4"
+  },
+  "m3hard": {
+   "text": [
+    "手は足りず、熱は広がった。{player}は三日眠らなかった。それでも、死んだ者の数は数えられるほどだった、と{peer}は言った。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "m4"
+  },
+  "m4": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、師の追放の議を聞く",
+   "speaker": "elder",
+   "art": "court",
+   "wait": {
+    "days": 14
+   },
+   "text": [
+    "{elder}が町の議で、{master}の追放を求めた。報酬を取って治すのは市民の務めに反する、外国人を信じすぎる、というのである。",
+    "本当の理由は、{elder}の甥が{master}の手当ての甲斐なく死んだことだと、誰もが知っていた。"
+   ],
+   "choices": [
+    {
+     "label": "議の場で、治った者の数を並べて反論する",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "m4stay",
+      "lose": "m4exile"
+     }
+    },
+    {
+     "label": "{elder}に会い、甥の死の次第を一つずつ説明する",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "m4stay",
+      "lose": "m4exile"
+     }
+    },
+    {
+     "label": "何も言わない",
+     "next": "m4exile"
+    }
+   ]
+  },
+  "m4stay": {
+   "text": [
+    "追放の議は通らなかった。{master}は礼を言わなかった。「当たり前のことをしただけだ」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_stay"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "schoolRank": 3
+    }
+   ],
+   "next": "m5"
+  },
+  "m4exile": {
+   "text": [
+    "{master}は町を出た。荷は薬箱一つだった。「南の町に知り合いがいる」と言って、振り返らなかった。",
+    "施療の家は{player}と{peer}に残された。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_gone"
+    },
+    {
+     "schoolRank": 3
+    }
+   ],
+   "next": "m5"
+  },
+  "m5": {
+   "at": {
+    "place": "here",
+    "building": "house"
+   },
+   "goal": "{here}で、呼ばれた家へ行く",
+   "speaker": "elder",
+   "art": "tale",
+   "wait": {
+    "days": 16
+   },
+   "text": [
+    "使いが来た。{elder}が倒れたという。胸を押さえ、息が浅い。",
+    "呼びに来た下男は、気まずそうに言った。「ほかに、診られる者がおりませんで」"
+   ],
+   "choices": [
+    {
+     "label": "行って、診る",
+     "effects": [
+      {
+       "flag": "rm_treated"
+      }
+     ],
+     "check": {
+      "skill": "medicine",
+      "dc": 30,
+      "win": "m5win",
+      "lose": "m5lose"
+     }
+    },
+    {
+     "label": "断る",
+     "next": "endRefuse"
+    }
+   ]
+  },
+  "m5win": {
+   "speaker": "elder",
+   "text": [
+    "{player}は夜じゅう付き添った。朝、{elder}は目を覚まし、水を飲んだ。",
+    "「……なぜ来た」と{elder}は聞いた。",
+    "「呼ばれたからです」と{player}は答えた。それ以上の答えは、持ち合わせていなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "xp": "medicine",
+     "n": 8
+    }
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "rm_gone"
+     },
+     "next": "endBack"
+    },
+    {
+     "next": "endStay"
+    }
+   ]
+  },
+  "m5lose": {
+   "text": [
+    "手は尽くした。{elder}は夜明け前に死んだ。家の者は{player}を責めなかった。責められるより、そのほうがこたえた。"
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "rm_gone"
+     },
+     "next": "endGone"
+    },
+    {
+     "next": "endStay"
+    }
+   ]
+  },
+  "endBack": {
+   "text": [
+    "{elder}は、追放の議を取り消す書状を町に出した。{master}が戻ってきたのは、その三月後である。",
+    "「待っていたのか」と{master}は聞いた。「いいえ」と{player}は答えた。「毎日、手を洗っていました」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    }
+   ],
+   "end": "毎日、手を洗っていました"
+  },
+  "endStay": {
+   "speaker": "master",
+   "text": [
+    "{master}は何も言わず、{player}の手を見た。爪の間まで洗ってある手だった。「……よろしい」"
+   ],
+   "end": "爪の間まで"
+  },
+  "endGone": {
+   "text": [
+    "{master}は戻らなかった。施療の家は、{player}と{peer}が続けている。報酬は取る。取らねば続かない。",
+    "軽蔑もされる。それでも、扉は毎朝叩かれる。"
+   ],
+   "end": "毎朝叩かれる扉"
+  },
+  "endRefuse": {
+   "text": [
+    "{player}は行かなかった。{elder}はその夜に死んだ。",
+    "{peer}は何も言わなかった。{player}も何も言わなかった。だが翌朝、{peer}は{player}より先に手を洗っていた。"
+   ],
+   "end": "先に洗われた手"
+  }
+ }
+}

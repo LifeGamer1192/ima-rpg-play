@@ -1,0 +1,546 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_rhetor",
+ "kind": "school",
+ "title": "立って語る",
+ "era": "rome",
+ "school": "rhetor",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "ギリシア人の師",
+   "sex": "m"
+  },
+  "peer": {
+   "npc": "同門の第一人者",
+   "sex": "m"
+  },
+  "widow": {
+   "folk": "隣家の女",
+   "tags": [
+    "女"
+   ],
+   "at": "here"
+  },
+  "accused": {
+   "npc": "訴えられた男",
+   "sex": "m"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  }
+ },
+ "start": "r1",
+ "scenes": {
+  "r1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の弁論の学校で、師に会う",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "学校といっても、柱廊の奥の広い一間に、石の腰掛けが並んでいるだけである。{master}はギリシア人で、ローマ人の発音をいちいち直す癖があった。",
+    "「ここでは三つを教える。何を言うか。どの順で言うか。どう立つか」{master}は言った。「三つめが一番難しい。……そこに立って、何か言ってみなさい」"
+   ],
+   "choices": [
+    {
+     "label": "即興で、今朝の市の値について述べる",
+     "check": {
+      "skill": "speech",
+      "dc": 10,
+      "win": "r1good",
+      "lose": "r1plain"
+     }
+    },
+    {
+     "label": "黙って立ち、人々の顔を見渡してから話し出す",
+     "check": {
+      "skill": "letters",
+      "dc": 10,
+      "win": "r1good",
+      "lose": "r1plain"
+     }
+    },
+    {
+     "label": "「何も思いつきません」と正直に言う",
+     "next": "r1plain"
+    }
+   ]
+  },
+  "r1good": {
+   "speaker": "master",
+   "text": [
+    "{player}が話し終えると、{master}は小さく頷いた。「悪くない。だが、三度『その』と言った。数えておいた」",
+    "隅の腰掛けで、{peer}が笑った。「先生は何でも数えます。わたしは最初、七度でした」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "rhetor"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}の弁論の学校に入った。"
+    }
+   ],
+   "next": "r2"
+  },
+  "r1plain": {
+   "speaker": "master",
+   "text": [
+    "「思いつかぬのは、見ていないからだ」{master}は言った。「明日から、市へ行って一刻、人を見てきなさい。話はそれからだ」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "rhetor"
+    },
+    {
+     "note": "{here}の弁論の学校に入った。"
+    }
+   ],
+   "next": "r2"
+  },
+  "r2": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、隣家の女の訴えを代弁する",
+   "speaker": "widow",
+   "art": "court",
+   "wait": {
+    "days": 6
+   },
+   "text": [
+    "最初の仕事は、隣の{widow}の小さな訴えだった。借りた土地の境の杭を、隣の男が一尺動かしたという。",
+    "「一尺です」と{widow}は言った。「一尺でも、うちの畑は狭くなります。わたしは、人前では声が出ないのです」"
+   ],
+   "choices": [
+    {
+     "label": "古い測量の記録を調べ、数字で示す",
+     "check": {
+      "skill": "letters",
+      "dc": 18,
+      "win": "r2win",
+      "lose": "r2lose"
+     }
+    },
+    {
+     "label": "一尺の重みを、人々に分かる言葉で語る",
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "r2win",
+      "lose": "r2lose"
+     }
+    },
+    {
+     "label": "相手の男と話し、杭を戻させる",
+     "check": {
+      "skill": "trade",
+      "dc": 18,
+      "win": "r2deal",
+      "lose": "r2lose"
+     }
+    }
+   ]
+  },
+  "r2win": {
+   "text": [
+    "役人は杭を元に戻すよう命じた。{widow}は何度も頭を下げ、籠いっぱいの豆を置いていった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "schoolRank": 1
+    },
+    {
+     "bond": "widow",
+     "know": 30,
+     "like": 25,
+     "memo": "境の杭の訴えを代弁した"
+    }
+   ],
+   "next": "r3"
+  },
+  "r2deal": {
+   "text": [
+    "法廷に出るまでもなかった。{player}が男と二度話し、杭は夜のうちに戻っていた。{master}は「それも弁論だ」と言った。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "r3"
+  },
+  "r2lose": {
+   "text": [
+    "訴えは退けられた。{widow}は「仕方ありません」と言ったが、帰り道の背中が小さかった。{player}は、自分の言葉のどこが足りなかったかを、夜じゅう考えた。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "r3"
+  },
+  "r3": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の学校で、第一人者と競う",
+   "speaker": "peer",
+   "art": "lecture",
+   "wait": {
+    "days": 10
+   },
+   "text": [
+    "{master}が二人を立たせた。題は「将軍が独断で和を結んだ。これを裁くべきか」。{peer}が裁くべしの側、{player}が裁くべからずの側である。",
+    "{peer}は型どおりに、きれいに積み上げてきた。隙がない。ただ、一度も{player}の顔を見なかった。"
+   ],
+   "choices": [
+    {
+     "label": "相手の型そのものを突く――「紙の上の将軍を裁いている」",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "r3win",
+      "lose": "r3lose"
+     }
+    },
+    {
+     "label": "先例を三つ並べ、法の筋で押す",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "r3win",
+      "lose": "r3lose"
+     }
+    }
+   ]
+  },
+  "r3win": {
+   "speaker": "master",
+   "text": [
+    "{master}は手を叩いた。「勝ったのは{player}だ。理由は一つ。聞いている者のほうを向いていた」",
+    "{peer}は悔しそうだったが、終わってから手を出した。「次は負けない」"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "bond": "peer",
+     "know": 35,
+     "like": 15,
+     "memo": "学校の競いで一度勝った"
+    }
+   ],
+   "next": "r4"
+  },
+  "r3lose": {
+   "speaker": "master",
+   "text": [
+    "{peer}の積み上げは崩れなかった。{master}は{player}に言った。「悔しいか。悔しいなら、まだ伸びる」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "r4"
+  },
+  "r4": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の{office}で、誰も引き受けない弁護を考える",
+   "speaker": "accused",
+   "art": "jail",
+   "wait": {
+    "days": 12
+   },
+   "text": [
+    "牢の格子の向こうに、痩せた男がいた。{accused}。穀物蔵から麦を盗んだ廉で訴えられている。盗んだのは本当だという。",
+    "「子が三人いる。妻は死んだ。盗んだのは一袋だ」{accused}は言った。「誰も引き受けてくれん。……あんたも帰るだろう」",
+    "{master}は言った。「勝てぬ弁護だ。引き受ければ、お前の名に傷がつく。引き受けぬのも、一つの判断だ」"
+   ],
+   "choices": [
+    {
+     "label": "引き受け、盗みは認めたうえで罰の軽減を求める",
+     "effects": [
+      {
+       "flag": "rr_take"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "r4mercy",
+      "lose": "r4hard"
+     }
+    },
+    {
+     "label": "引き受け、蔵の帳簿の不正を暴いて筋を変える",
+     "effects": [
+      {
+       "flag": "rr_take"
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "r4twist",
+      "lose": "r4hard"
+     }
+    },
+    {
+     "label": "引き受けず、名を守る",
+     "effects": [
+      {
+       "flag": "rr_pass"
+      }
+     ],
+     "next": "r5"
+    }
+   ]
+  },
+  "r4mercy": {
+   "text": [
+    "{player}は盗みを認めた。認めたうえで、一袋の麦の値と、三人の子を養う費えと、牢に入れておく費えを並べて述べた。",
+    "法廷は笑わなかった。罰は鞭打ちから、蔵での労役に変えられた。{accused}は子に会える。"
+   ],
+   "effects": [
+    {
+     "flag": "rr_mercy"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "speech",
+     "n": 8
+    },
+    {
+     "schoolRank": 3
+    }
+   ],
+   "next": "r5"
+  },
+  "r4twist": {
+   "text": [
+    "帳簿を一晩読んで、{player}は気づいた。蔵の記録では、盗まれた麦は一袋ではなく三十袋になっている。",
+    "法廷の筋が変わった。裁かれたのは蔵の書記のほうだった。{accused}は鞭打ち十、それで済んだ。"
+   ],
+   "effects": [
+    {
+     "flag": "rr_mercy"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "letters",
+     "n": 8
+    },
+    {
+     "schoolRank": 3
+    }
+   ],
+   "next": "r5"
+  },
+  "r4hard": {
+   "text": [
+    "弁護は通らなかった。{accused}は鞭を受け、海の向こうの鉱山へ送られた。{player}は子どもたちの顔を見に行けなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "r5"
+  },
+  "r5": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、評定の前に述べる",
+   "speaker": "ruler",
+   "art": "court",
+   "wait": {
+    "days": 20
+   },
+   "text": [
+    "{master}の推挙で、{player}は{capital}へ呼ばれた。議題は、囲まれている同盟市に援軍を出すかどうか。出せば本国が薄くなる。",
+    "{ruler}が{player}を見た。「学校の者か。述べてみよ。短くな」"
+   ],
+   "choices": [
+    {
+     "label": "援軍を出すべしと説く――同盟は一度破れば戻らない",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "r5win",
+      "lose": "r5plain"
+     }
+    },
+    {
+     "label": "出すべからずと説く――守れぬ約束は、約束より悪い",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "r5win",
+      "lose": "r5plain"
+     }
+    }
+   ]
+  },
+  "r5win": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "述べ終わると、広間が静かになった。{ruler}は少し考えてから言った。「名を書きとめておけ」",
+    "書記が蝋板に{player}の名を刻む音が、やけに大きく聞こえた。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "xp": "speech",
+     "n": 10
+    },
+    {
+     "schoolRank": 3
+    },
+    {
+     "rep": "power",
+     "n": 10
+    }
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "rr_mercy"
+     },
+     "next": "endBoth"
+    },
+    {
+     "if": {
+      "flag": "rr_pass"
+     },
+     "next": "endName"
+    },
+    {
+     "next": "endPlain"
+    }
+   ]
+  },
+  "r5plain": {
+   "text": [
+    "{player}の言葉は、広間の壁に吸い込まれた。{ruler}は頷きもしなかった。帰り道で、{master}が言った。「一度で通ると思うな。わたしは十一度目だった」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 6
+    }
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "rr_mercy"
+     },
+     "next": "endMercy"
+    },
+    {
+     "next": "endPlain"
+    }
+   ]
+  },
+  "endBoth": {
+   "speaker": "master",
+   "text": [
+    "{master}は帰りの道で、めずらしく褒めた。「お前は、勝てぬ弁護を引き受けた。そして評定でも通った。順番が逆でなくてよかった」",
+    "「逆だと、どうなるのです」",
+    "「評定で名を上げた者は、勝てぬ弁護を引き受けなくなる。それだけだ」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    }
+   ],
+   "end": "逆でなくてよかった"
+  },
+  "endMercy": {
+   "text": [
+    "評定では通らなかった。だが、{accused}の子どもたちは、いまも{here}の路地にいる。",
+    "上の子が時々、{player}の家の前を掃いていく。礼だと言って、受け取ろうとしない。"
+   ],
+   "end": "掃かれた門口"
+  },
+  "endName": {
+   "text": [
+    "{player}の名は{capital}の帳面に残った。傷のない名である。",
+    "ときおり、牢の格子の向こうの顔を思い出す。思い出すだけなら、誰にも咎められない。"
+   ],
+   "end": "傷のない名"
+  },
+  "endPlain": {
+   "speaker": "master",
+   "text": [
+    "「ここで学べることは、だいたい教えた」{master}は言った。「あとは、立つ回数だ。立った数だけ上手くなる。それ以外の道はない」"
+   ],
+   "end": "立った数だけ"
+  }
+ }
+}
