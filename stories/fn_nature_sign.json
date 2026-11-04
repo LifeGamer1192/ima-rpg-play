@@ -1,0 +1,276 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_nature_sign",
+ "kind": "random",
+ "where": "shrine",
+ "era": "fantasy",
+ "again": 160,
+ "onNews": {
+  "tags": [
+   "nature"
+  ],
+  "within": 110
+ },
+ "hook": "土地が妙なことをしております。意味を言う人が、三人おります",
+ "title": "三通りの読み",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "神殿の者"
+  },
+  "seer": {
+   "npc": "占い師",
+   "sex": "f"
+  },
+  "scholar": {
+   "npc": "学院の学徒",
+   "sex": "m"
+  },
+  "farmer": {
+   "npc": "土地の古老",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{client}が供え物を並べながら言った。「{struck}のことです。お聞きになりましたか」",
+    "「——{struck:news}」",
+    "「意味を言う方が三人おいでです。占い師と、学院の方と、土地の古老。三人とも違うことを言っております」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "三人の言い分をここで聞く",
+     "next": "three"
+    },
+    {
+     "label": "放っておく",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "three": {
+   "speaker": "client",
+   "text": [
+    "「占い師は『凶兆。供え物を増やせ』と。学院の方は『地の下の水が動いた。測れば分かる』と」",
+    "「古老は『三十年前にも同じことがあった。あのときは、二年で元に戻った』と」",
+    "「供え物を増やすのに、村は金貨二百を出すことになっております」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_sign_three"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}へ行く",
+   "speaker": "seer",
+   "art": "tale",
+   "text": [
+    "{struck}の広場に、三人が別々の場所に立っていた。人は{seer}のまわりに一番多い。",
+    "{seer}が言った。「兆しです。地が怒っております。供えを増やさねば、次は人です」",
+    "{scholar}は地面に杭を打っている。{farmer}は切り株に座って、何も言わない。"
+   ],
+   "choices": [
+    {
+     "label": "{scholar}の測りを手伝う",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "measured",
+      "lose": "noisy"
+     }
+    },
+    {
+     "label": "{farmer}に、三十年前の話を聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "memory",
+      "lose": "noisy"
+     }
+    },
+    {
+     "label": "供えを増やす段取りを手伝う",
+     "next": "end_offer"
+    }
+   ]
+  },
+  "measured": {
+   "speaker": "scholar",
+   "art": "lecture",
+   "text": [
+    "杭を十二本打ち、三日かけて水位を測った。地の下の水が、東へ抜けている。抜け先は、三里先の谷。",
+    "{scholar}が紙に図を描いた。「谷に池ができているはずです。見に行けば、はっきりします」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_sign_water"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "next": "valley"
+  },
+  "memory": {
+   "speaker": "farmer",
+   "art": "tale",
+   "text": [
+    "{farmer}は三十年前を、昨日のことのように話した。「東の谷に、池ができましたな。二年で、また消えました」",
+    "「あのときも、占いの方がおいででしたよ。供えを増やして、二年たって、『効いた』と言うておられました」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_sign_water"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "next": "valley"
+  },
+  "noisy": {
+   "art": "tale",
+   "text": [
+    "人の声が大きく、話は進まなかった。{seer}のまわりの輪が、また一回り大きくなった。"
+   ],
+   "next": "end_offer"
+  },
+  "valley": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "東の谷を見に行く",
+   "art": "road",
+   "text": [
+    "三里歩いて、谷に下りた。新しい池があった。濁っていて、まだ落ち着いていない。水際に、鹿の足跡。",
+    "水は、消えたのではない。移っただけだ。"
+   ],
+   "choices": [
+    {
+     "label": "村に戻って、そのまま伝える",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_told",
+      "lose": "end_offer"
+     }
+    },
+    {
+     "label": "池から村へ、水を引く段取りを立てる",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "end_canal",
+      "lose": "end_told"
+     }
+    }
+   ]
+  },
+  "end_told": {
+   "text": [
+    "村に戻って、谷の池のことを話した。信じた者は半分。{seer}は「水が移ったのも兆しです」と言い、輪は少し小さくなった。",
+    "二年後、池は消え、村の井戸は戻った。{farmer}は何も言わなかった。言う必要が無かった。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "money": 150
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{struck}の水は、消えたのではなく移ったのだと示した。"
+    }
+   ],
+   "end": "移っただけ"
+  },
+  "end_canal": {
+   "text": [
+    "谷の池から、村まで樋を引いた。十八日かかり、村の者が二十人手伝った。",
+    "水が来た日、{seer}は供えの段を片づけて言った。「樋も、兆しのうちです」——誰も否定しなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 16
+    },
+    {
+     "money": 300
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 7
+    },
+    {
+     "note": "{struck}の谷の池から、村まで水を引いた。"
+    }
+   ],
+   "end": "樋も兆しのうち"
+  },
+  "end_offer": {
+   "text": [
+    "供えは増えた。村は金貨二百を出し、{seer}は毎朝、広場で祈った。",
+    "二年後、水は戻った。{seer}は「効いた」と言い、村はそれを信じた。{scholar}は学院へ帰り、{farmer}は切り株に座ったままだった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "money": -50
+    },
+    {
+     "note": "{struck}では供えが増え、二年後に水が戻った。"
+    }
+   ],
+   "end": "効いた、と言う"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は供え物を並べ終えた。「はい。土地のことは、土地の方が決めますでしょう」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の土地の異変に関わらなかった。"
+    }
+   ],
+   "end": "土地のことは土地が"
+  }
+ }
+}

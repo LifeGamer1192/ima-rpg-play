@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_mapping_fantasy",
+ "kind": "job",
+ "era": "fantasy",
+ "giver": "office",
+ "mechanism": "survey",
+ "target": "here",
+ "title": "{place}の迷宮の図を作れ",
+ "desc": "{place}の迷宮は、誰も二層から先の図を持たぬ。歩いた分だけでよい、壁と分かれ道を写してこい。奥まで行けとは言わぬ。",
+ "reward": {
+  "base": 200,
+  "perDay": 10
+ },
+ "favor": 12,
+ "fame": 4,
+ "deadline": {
+  "base": 30,
+  "perDay": 2
+ }
+}

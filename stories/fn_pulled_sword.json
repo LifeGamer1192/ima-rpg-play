@@ -1,0 +1,385 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_pulled_sword",
+ "kind": "random",
+ "where": "road",
+ "era": "fantasy",
+ "again": 300,
+ "most": 2,
+ "onNews": {
+  "tags": [
+   "myth"
+  ],
+  "text": "聖剣",
+  "within": 200
+ },
+ "hook": "聖剣を抜いた者が、また出たらしい。今年で何人目だろうな",
+ "title": "抜いてしまった人",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "rider": {
+   "client": "早馬の使い"
+  },
+  "puller": {
+   "npc": "抜いた者",
+   "sex": "m"
+  },
+  "herald": {
+   "npc": "宮廷の使者",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "rider",
+   "art": "road",
+   "text": [
+    "街道で馬を休めていた{rider}が、聞いてもいないのに喋りはじめた。「{struck}の話、知ってるか」",
+    "「——{struck:news}」",
+    "「宮廷は三日会議して、結論は『まあ抜けたし』だったそうだ。おかげで今、{struck}には剣を見に行く連中で宿がない」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行ってみる",
+     "next": "arrive"
+    },
+    {
+     "label": "「抜いた本人はどうしている」と聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 18,
+      "win": "rumor",
+      "lose": "arrive"
+     }
+    },
+    {
+     "label": "笑って別れる",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "rumor": {
+   "speaker": "rider",
+   "art": "road",
+   "text": [
+    "{rider}は声を落とした。「困ってるらしい。剣を抜いたら、村の者が『選ばれし者だ』と言って畑仕事をさせてくれんのだと」",
+    "「本人は戻したいそうだ。だが、刺し直らんのだと。岩のほうが、もう受け付けん」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_sword_know"
+    },
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}の岩へ行く",
+   "speaker": "puller",
+   "art": "disaster",
+   "text": [
+    "{struck}のはずれに、人の背ほどの岩があった。てっぺんに、剣の形の裂け目だけが残っている。",
+    "岩の陰で、{puller}が剣を膝に置いて座っていた。布を巻いて隠しているが、柄の宝玉が透けて光っている。",
+    "「座りたかっただけなんです。邪魔だったから抜いた。それだけで、村の者は拝むし、宮廷からは使いが来るし」"
+   ],
+   "choices": [
+    {
+     "label": "剣を見せてもらう",
+     "next": "look"
+    },
+    {
+     "label": "「返したいなら、代わりに持っていこう」と言う",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "take",
+      "lose": "look"
+     }
+    },
+    {
+     "label": "岩を調べ、なぜ刺し直らないのかを見る",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "stone",
+      "lose": "look"
+     }
+    }
+   ]
+  },
+  "look": {
+   "speaker": "herald",
+   "art": "court",
+   "text": [
+    "布を開くと、刃は曇りひとつなかった。古い字が刻んであり、読める者に言わせれば「よく切れる」と書いてあるだけらしい。",
+    "そこへ馬の音。宮廷の使者{herald}が、供を二人連れて現れた。「王の剣です。お返しいただきます」",
+    "{puller}は安堵した顔をしかけ、村の者たちが間に立ちはだかるのを見て、固まった。"
+   ],
+   "choices": [
+    {
+     "label": "{herald}に剣を渡すよう{puller}に勧める",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "end_crown",
+      "lose": "scuffle"
+     }
+    },
+    {
+     "label": "「抜いた者のものだ」と村の側に立つ",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "take",
+      "lose": "scuffle"
+     }
+    },
+    {
+     "label": "古い掟を引き、岩の剣は岩のものだと説く",
+     "if": {
+      "flag": "fn_sword_know"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_talked",
+      "lose": "scuffle"
+     }
+    }
+   ]
+  },
+  "stone": {
+   "art": "tale",
+   "text": [
+    "裂け目を覗くと、底に薄い鉄の板が落ちていた。剣の重みで留め金が外れ、鞘の役をしていた板が崩れたのだ。",
+    "つまり、岩はもう剣を咥えられない。誰が返しに来ても、同じことになる。"
+   ],
+   "effects": [
+    {
+     "flag": "fn_sword_stone"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "look"
+  },
+  "scuffle": {
+   "speaker": "herald",
+   "art": "war",
+   "text": [
+    "誰かが使者の馬の口を取った。供の二人が剣を抜き、村の若い者が鍬を構える。{puller}は剣を抱えたまま後ずさった。",
+    "話はもう、言葉では済まない。"
+   ],
+   "choices": [
+    {
+     "label": "供の者を抑える",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 12,
+      "win": "take",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "間に割って入り、両方を怒鳴りつける",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "end_talked",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "take": {
+   "speaker": "puller",
+   "art": "tale",
+   "text": [
+    "{puller}は剣を押しつけてきた。「持っていってください。わたしは畑に戻ります」",
+    "岩のほうを振り返ると、裂け目はもう、ただの割れ目にしか見えなかった。"
+   ],
+   "choices": [
+    {
+     "label": "剣を受け取る",
+     "next": "end_carried"
+    },
+    {
+     "label": "裂け目に鉄の板を据え直し、剣を戻す",
+     "if": {
+      "flag": "fn_sword_stone"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 26,
+      "win": "end_refilled",
+      "lose": "end_carried"
+     }
+    }
+   ]
+  },
+  "end_carried": {
+   "text": [
+    "聖剣は腰に下がった。重さは普通の長剣と変わらない。ただ、通りを歩くと、知らない子どもがついてくる。",
+    "{puller}は畑に戻り、村はひと月で別の話題を見つけた。宮廷からの使いは、その後も年に一度は来る。"
+   ],
+   "effects": [
+    {
+     "item": "t_holy_sword",
+     "n": 1
+    },
+    {
+     "fame": 12
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "note": "{struck}で抜かれた聖剣を引き受けた。"
+    }
+   ],
+   "end": "選ばれ方がおかしい"
+  },
+  "end_refilled": {
+   "speaker": "puller",
+   "text": [
+    "鉄の板を据え直し、刃を裂け目に沈めると、岩は何ごともなかったように剣を咥えた。",
+    "{puller}は深く息を吐いた。「これで畑に戻れます」——村の者は少しがっかりし、使者は安堵して帰っていった。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "blade",
+     "n": 2
+    },
+    {
+     "note": "{struck}の聖剣を岩に戻し、騒ぎを収めた。"
+    }
+   ],
+   "end": "岩に返す"
+  },
+  "end_crown": {
+   "speaker": "herald",
+   "text": [
+    "{puller}は震える手で剣を渡した。{herald}は受け取り、村の者に向かって「抜いた功は認められる」と告げた。",
+    "{puller}には年に一度、麦が届くことになった。剣は宝物庫に収められ、宮廷はまた別のことで三日会議するだろう。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "favor": 12
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "money": 200
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{struck}の聖剣を宮廷の使者に渡させた。"
+    }
+   ],
+   "end": "宝物庫の剣"
+  },
+  "end_talked": {
+   "text": [
+    "古い掟はこう言う——岩より出でし刃は、岩の立つ地のもの。つまり剣は村のものであり、村は王の地にある。",
+    "双方が半分ずつ納得する結論ほど、長持ちするものはない。剣は村の祠に納められ、年に一度、宮廷の使者が見に来ることになった。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "money": 120
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{struck}の聖剣の帰属を、古い掟で裁いた。"
+    }
+   ],
+   "end": "半分ずつの納得"
+  },
+  "end_lost": {
+   "text": [
+    "揉み合いのうちに剣は消えた。誰が持ち去ったのか、村の者も使者も言わない。",
+    "{puller}だけが、ほっとした顔をしていた。「これで畑に戻れます」"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "note": "{struck}の聖剣の騒ぎを収められず、剣は消えた。"
+    }
+   ],
+   "end": "消えた刃"
+  },
+  "end_pass": {
+   "text": [
+    "{rider}は馬に跨り、手を振って去っていった。「今年で三人目だ。来年も出るさ」"
+   ],
+   "effects": [
+    {
+     "note": "聖剣を抜いた者の噂を聞き流した。"
+    }
+   ],
+   "end": "三人目"
+  }
+ }
+}

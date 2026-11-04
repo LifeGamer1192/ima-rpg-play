@@ -1,0 +1,249 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_city_taken",
+ "kind": "random",
+ "where": "road",
+ "era": "fantasy",
+ "again": 130,
+ "onNews": {
+  "tags": [
+   "war"
+  ],
+  "text": "手に落ちた",
+  "within": 100
+ },
+ "hook": "城が落ちた。落ちた翌週に要るのは、兵ではなく桶だ",
+ "title": "落ちた翌週",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "逃げてきた者"
+  },
+  "officer": {
+   "npc": "占領の差配",
+   "sex": "f"
+  },
+  "elder": {
+   "npc": "町の長老",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "{client}は裸足だった。履は道で脱げたという。「{struck}から歩いてきました」",
+    "「——{struck:news}」",
+    "「落ちるのは一日です。落ちたあとが長い。井戸に人が落ちていて、水が飲めません」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "{client}を町の神殿へ連れていってから行く",
+     "effects": [
+      {
+       "fame": 2
+      },
+      {
+       "money": -50
+      }
+     ],
+     "next": "arrive"
+    },
+    {
+     "label": "行かない",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}へ入る",
+   "speaker": "officer",
+   "art": "disaster",
+   "text": [
+    "{struck}の門は開いていた。開けたまま、誰も直していない。通りには割れた戸板が散っている。",
+    "占領の差配{officer}は、兵の名簿を見ながら言った。「略奪は三日で止めました。三日は、止められません」",
+    "「いま困っているのは水です。井戸が三つとも使えません。兵も飲めないのです」"
+   ],
+   "choices": [
+    {
+     "label": "井戸をさらう人手を集める",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "wells",
+      "lose": "slow"
+     }
+    },
+    {
+     "label": "町の長老に話を通してから動く",
+     "next": "elder"
+    },
+    {
+     "label": "北の湧き水まで、樋を引く算段をする",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "wells",
+      "lose": "slow"
+     }
+    },
+    {
+     "label": "兵の邪魔になるだけだと見て、引き返す",
+     "next": "end_leave"
+    }
+   ]
+  },
+  "elder": {
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "{elder}は焼けた門柱に腰かけていた。「水を出しても、町の者は出てきませんぞ」",
+    "「戸を直させてください。戸のない家に、人は帰りません。帰らぬ家の井戸は、誰もさらいません」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_city_door"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "doors"
+  },
+  "doors": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "戸板を直す",
+   "art": "disaster",
+   "text": [
+    "割れた戸板を集め、釘を打ち、立て直した。三日で四十軒。四十軒めの家で、中から人が顔を出した。"
+   ],
+   "choices": [
+    {
+     "label": "続けて井戸をさらう",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "wells",
+      "lose": "slow"
+     }
+    },
+    {
+     "label": "{officer}に、兵を戸板直しに出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "wells",
+      "lose": "slow"
+     }
+    }
+   ]
+  },
+  "wells": {
+   "art": "tale",
+   "text": [
+    "井戸は三日でさらわれた。水が出ると、人が出た。人が出ると、市が立った。順番は、いつもそうだ。"
+   ],
+   "next": "end_water"
+  },
+  "slow": {
+   "art": "disaster",
+   "text": [
+    "手は集まらなかった。井戸は十日かかり、そのあいだに、町の三分の一が出ていった。"
+   ],
+   "next": "end_slow"
+  },
+  "end_water": {
+   "speaker": "officer",
+   "text": [
+    "一月後、{struck}の市は立っていた。売り物は少ないが、人はいる。{officer}は名簿を閉じて言った。",
+    "「城を落とすのは、兵の仕事です。落ちた町を町に戻すのは、……あなたのような人の仕事らしい」",
+    "年代記には、落ちた日のことだけが書かれた。書かれない一月のほうが、長い。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "money": 400
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{struck}の落城のあと、水と戸を戻した。"
+    }
+   ],
+   "end": "書かれない一月"
+  },
+  "end_slow": {
+   "text": [
+    "水は出た。出たときには、町の三分の一がいなかった。出ていった者は、どこの帳面にも載らない。",
+    "{elder}は門柱に座ったままだった。「残った者で、やりますでな」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 200
+    },
+    {
+     "note": "{struck}の落城のあと、水を出すのに十日かかった。"
+    }
+   ],
+   "end": "残った者で"
+  },
+  "end_leave": {
+   "text": [
+    "門を出て、来た道を戻った。半里ほど歩いたところで、桶を抱えた女とすれ違った。女は{struck}のほうへ歩いていった。",
+    "町を町に戻すのは、たいてい、そういう人だ。"
+   ],
+   "effects": [
+    {
+     "note": "落ちた{struck}に入り、何もせずに引き返した。"
+    }
+   ],
+   "end": "そういう人"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は裸足のまま歩いていった。「行かんほうがいいです。帰れる町ではもう、ありませんから」"
+   ],
+   "effects": [
+    {
+     "note": "落ちた{struck}へは行かなかった。"
+    }
+   ],
+   "end": "帰れる町ではない"
+  }
+ }
+}

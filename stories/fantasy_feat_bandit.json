@@ -1,0 +1,237 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_feat_bandit",
+ "kind": "feat",
+ "feat": "bandit",
+ "title": "闇の王",
+ "era": "fantasy",
+ "trigger": {
+  "guildRank": 4,
+  "notFeat": "bandit"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "elder": {
+   "npc": "一味の古参",
+   "sex": "f"
+  },
+  "keeper": {
+   "npc": "書庫の番人",
+   "sex": "m"
+  }
+ },
+ "start": "b1",
+ "scenes": {
+  "b1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏部屋で、一味の古参に会う",
+   "speaker": "elder",
+   "art": "backroom",
+   "text": [
+    "{elder}は灯を細くした。「この世でまだ誰も手を付けていない蔵が一つある。{capital}の学院の下だ」",
+    "「金貨も積んである。だが本当に価値があるのは、壊せなかったものを仕舞ってある棚のほうさ」",
+    "「一つだけ掟がある。中の物を、声に出して読むな。読んだ者は、読んだものに読まれる」"
+   ],
+   "choices": [
+    {
+     "label": "引き受ける",
+     "next": "b2"
+    }
+   ]
+  },
+  "b2": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の{market}で、学院の下の様子を探る",
+   "art": "trade",
+   "text": [
+    "学院の周りは昼も夜も学徒が通る。蔵は礎の下、石を積んだ部屋だという。鍵は二つに分けて預けられている。"
+   ],
+   "choices": [
+    {
+     "label": "夜陰に紛れて礎の石を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 75,
+      "win": "b3",
+      "lose": "b2ng"
+     }
+    },
+    {
+     "label": "{keeper}に近づき、酒で口を軽くする",
+     "check": {
+      "skill": "speech",
+      "dc": 75,
+      "win": "b3",
+      "lose": "b2ng"
+     }
+    }
+   ]
+  },
+  "b2ng": {
+   "art": "war",
+   "text": [
+    "夜回りに見咎められた。「そこで何をしている！」"
+   ],
+   "choices": [
+    {
+     "label": "斬り抜ける",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 66,
+      "win": "b3",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "b3": {
+   "at": {
+    "place": "capital",
+    "building": "school"
+   },
+   "goal": "{capital}の学院の下の蔵に忍び込む",
+   "art": "hideout",
+   "text": [
+    "月のない夜、通気口から下りた。二つの錠、床に撒かれた灰、そして棚。棚の札には、読めば意味の分かる字が書いてある。",
+    "読んではいけない。読まずに、札の形だけで欲しい箱を探す。"
+   ],
+   "choices": [
+    {
+     "label": "錠を外し、灰を踏まずに渡る",
+     "check": {
+      "skill": "theft",
+      "dc": 85,
+      "win": "b4",
+      "lose": "b3alarm"
+     }
+    },
+    {
+     "label": "札を読まず、箱の重さだけで選ぶ",
+     "check": {
+      "skill": "stealth",
+      "dc": 82,
+      "win": "b4",
+      "lose": "b3alarm"
+     }
+    }
+   ]
+  },
+  "b3alarm": {
+   "art": "war",
+   "text": [
+    "灰に足跡が残り、上の階で鐘が鳴った。箱の中身はもう袋の中だ。あとは、生きて出るだけ。"
+   ],
+   "choices": [
+    {
+     "label": "押し寄せる衛兵を振り払う",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 74,
+      "win": "b4",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "b4": {
+   "art": "road",
+   "text": [
+    "門は閉ざされ、街道には早馬が出た。{capital}から出なければならない。"
+   ],
+   "choices": [
+    {
+     "label": "水路の暗渠をくぐって城外へ",
+     "check": {
+      "skill": "stealth",
+      "dc": 78,
+      "win": "bwin",
+      "lose": "b4fight"
+     }
+    },
+    {
+     "label": "夜明けの門を、行商に化けて抜ける",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "bwin",
+      "lose": "b4fight"
+     }
+    }
+   ]
+  },
+  "b4fight": {
+   "art": "war",
+   "text": [
+    "見つかった。追っ手が迫る。"
+   ],
+   "choices": [
+    {
+     "label": "追っ手を振り切る",
+     "fight": {
+      "foes": "soldier",
+      "n": 5,
+      "level": 76,
+      "win": "bwin",
+      "lose": "bfail"
+     }
+    }
+   ]
+  },
+  "bwin": {
+   "art": "hideout",
+   "text": [
+    "朝日の中で袋を開けた。金貨と、掌ほどの黒い箱が一つ。箱には鍵穴がなく、札には字が一つだけ書いてある。読まない。",
+    "その日から、どの町の裏でも、一つの名が畏れとともに囁かれるようになった。「学院の下へ入った者」"
+   ],
+   "effects": [
+    {
+     "money": 50000
+    },
+    {
+     "fame": 15
+    },
+    {
+     "wanted": "capital",
+     "n": 40
+    },
+    {
+     "feat": "bandit"
+    }
+   ],
+   "end": "読まずに持ち出す"
+  },
+  "bfail": {
+   "art": "jail",
+   "text": [
+    "深手を負い、何も持たずに闇へ逃れた。{power}は街道じゅうに触れを出した。……傷が癒えたら、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -50
+    },
+    {
+     "wanted": "capital",
+     "n": 50
+    }
+   ],
+   "end": "王にはなれず"
+  }
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_works_fantasy",
+ "kind": "job",
+ "era": "fantasy",
+ "giver": "patron",
+ "mechanism": "works",
+ "target": "own-town",
+ "title": "{place}の城壁と水路の普請",
+ "desc": "{place}の城壁は古く、水路の樋も腐っている。人手を募り、石を切り出し、囲まれても水の絶えぬようにせよ。",
+ "reward": {
+  "base": 180,
+  "perDay": 9
+ },
+ "favor": 24,
+ "fame": 4,
+ "deadline": {
+  "base": 35,
+  "perDay": 2
+ }
+}

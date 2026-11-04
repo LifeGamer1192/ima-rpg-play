@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_escort_fantasy",
+ "kind": "job",
+ "era": "fantasy",
+ "giver": "office",
+ "mechanism": "bandits",
+ "target": "gang-near",
+ "title": "{place}へ通う隊商の道を開ける",
+ "desc": "{place}へ通う隊商が、三度続けて襲われた。護衛を雇うより、巣を潰すほうが安いと組合は言う。板にはそう書いてある。",
+ "reward": {
+  "base": 160,
+  "perDay": 12
+ },
+ "favor": 10,
+ "fame": 3,
+ "deadline": {
+  "base": 22,
+  "perDay": 2
+ }
+}

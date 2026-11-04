@@ -1,0 +1,296 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_feat_throne_cede",
+ "kind": "feat",
+ "feat": "career",
+ "title": "推戴の日",
+ "era": "fantasy",
+ "trigger": {
+  "patron": true,
+  "bySize": {
+   "realm": "patron",
+   "rank": [
+    4,
+    6,
+    7
+   ]
+  },
+  "king": false,
+  "notFeat": "career"
+ },
+ "cast": {
+  "power": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "elder": {
+   "npc": "宮廷の筆頭",
+   "sex": "f"
+  },
+  "general": {
+   "person": "general:power"
+  },
+  "magus": {
+   "npc": "学院長",
+   "sex": "f"
+  }
+ },
+ "start": "c1",
+ "scenes": {
+  "c1": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、{ruler}に意を伝える",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は窓の外を見たまま聞いた。「この席に座りたいか」",
+    "「座りたい者は多い。座れる者は、宮廷と、騎士団と、学院が頷いた者だけだ。わたしは推すことはできる。頷かせることはできぬ」"
+   ],
+   "choices": [
+    {
+     "label": "「立ちます」と告げる",
+     "next": "c2"
+    },
+    {
+     "label": "「まだ時ではありません」",
+     "next": "cdecline"
+    }
+   ]
+  },
+  "c2": {
+   "at": {
+    "place": "capital",
+    "building": "office"
+   },
+   "goal": "{capital}の{office}で、宮廷の筆頭を説く",
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "{elder}は帳面を閉じた。「家が古くない。財も中くらい。……それで、この席に座ろうと」"
+   ],
+   "choices": [
+    {
+     "label": "国の蔵の立て直し方を、数で示す",
+     "check": {
+      "skill": "letters",
+      "dc": 70,
+      "scale": "power",
+      "win": "c3",
+      "lose": "c2b"
+     }
+    },
+    {
+     "label": "宮廷の家々を一軒ずつ訪ねる",
+     "check": {
+      "skill": "speech",
+      "dc": 72,
+      "scale": "power",
+      "win": "c3",
+      "lose": "c2b"
+     }
+    }
+   ]
+  },
+  "c2b": {
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "{elder}は首を縦に振らなかった。もう一押しが要る。"
+   ],
+   "choices": [
+    {
+     "label": "国の蔵に私財を入れる（20000）",
+     "if": {
+      "money": 20000
+     },
+     "effects": [
+      {
+       "money": -20000
+      }
+     ],
+     "next": "c3"
+    },
+    {
+     "label": "言葉を尽くしてもう一度説く",
+     "check": {
+      "skill": "speech",
+      "dc": 76,
+      "scale": "power",
+      "win": "c3",
+      "lose": "cfail"
+     }
+    }
+   ]
+  },
+  "c3": {
+   "at": {
+    "place": "capital",
+    "building": "barracks"
+   },
+   "goal": "{capital}の{barracks}で、騎士団に認めさせる",
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "{general}は木剣を放ってよこした。「兵は、帳面では動きませぬ。見せていただきたい」"
+   ],
+   "choices": [
+    {
+     "label": "団の者と立ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 70,
+      "scale": "power",
+      "win": "c4",
+      "lose": "c3b"
+     }
+    },
+    {
+     "label": "調練を一度、自分の指図でやってみせる",
+     "check": {
+      "skill": "speech",
+      "dc": 74,
+      "scale": "power",
+      "win": "c4",
+      "lose": "c3b"
+     }
+    }
+   ]
+  },
+  "c3b": {
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "{general}は唸った。「悪くはない。だが、兵が『この人なら』と思うには、あと一つ」"
+   ],
+   "choices": [
+    {
+     "label": "兵の給金の遅れを、その場で片づける（15000）",
+     "if": {
+      "money": 15000
+     },
+     "effects": [
+      {
+       "money": -15000
+      }
+     ],
+     "next": "c4"
+    },
+    {
+     "label": "もう一度、立ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 74,
+      "scale": "power",
+      "win": "c4",
+      "lose": "cfail"
+     }
+    }
+   ]
+  },
+  "c4": {
+   "at": {
+    "place": "capital",
+    "building": "school"
+   },
+   "goal": "{capital}の学院で、学院長に会う",
+   "speaker": "magus",
+   "art": "lecture",
+   "text": [
+    "{magus}は蝋燭を一本立てた。「学院が王に求めるのは一つだけです。門（ポータル）の話を、笑わずに聞くこと」",
+    "「歴代の王は、みな笑いました。笑わなかった王は、まだおりません」"
+   ],
+   "choices": [
+    {
+     "label": "門を国の仕事にすると約束する",
+     "check": {
+      "skill": "speech",
+      "dc": 70,
+      "scale": "power",
+      "win": "c5",
+      "lose": "c4b"
+     }
+    },
+    {
+     "label": "環の石の割れる周期と、要る人手を数で示す",
+     "check": {
+      "skill": "letters",
+      "dc": 72,
+      "scale": "power",
+      "win": "c5",
+      "lose": "c4b"
+     }
+    }
+   ]
+  },
+  "c4b": {
+   "speaker": "magus",
+   "art": "lecture",
+   "text": [
+    "{magus}は蝋燭を吹き消した。「……お言葉は結構です。歴代の王も、お言葉は結構でした」"
+   ],
+   "choices": [
+    {
+     "label": "学院の禄を、来年から倍にすると帳面に書く",
+     "check": {
+      "skill": "trade",
+      "dc": 72,
+      "scale": "power",
+      "win": "c5",
+      "lose": "cfail"
+     }
+    }
+   ]
+  },
+  "c5": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、推戴の日を迎える",
+   "art": "court",
+   "text": [
+    "広間に、宮廷と騎士団と学院が並んだ。{elder}が名を読み上げ、{general}が剣の柄で床を打ち、{magus}が杖を立てた。",
+    "三つとも頷いた。この国で、それが王の選び方だ。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "throne": "power",
+     "how": "推戴"
+    },
+    {
+     "feat": "career"
+    }
+   ],
+   "end": "三つの頷き"
+  },
+  "cdecline": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は小さくうなずいた。「よい。急く者は、だいたい座ってから慌てる」"
+   ],
+   "end": "いまだ時ならず"
+  },
+  "cfail": {
+   "art": "court",
+   "text": [
+    "頷かぬ者が残った。推戴は見送られ、席は空いたままになった。……ひと月もすれば、また話は出る。"
+   ],
+   "end": "いまだ時ならず"
+  }
+ }
+}

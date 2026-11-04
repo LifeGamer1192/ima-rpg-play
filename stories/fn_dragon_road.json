@@ -1,0 +1,323 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_dragon_road",
+ "kind": "random",
+ "where": "market",
+ "era": "fantasy",
+ "again": 170,
+ "onNews": {
+  "tags": [
+   "construction",
+   "trade"
+  ],
+  "text": "道",
+  "within": 120
+ },
+ "hook": "新しい道が通った。秋に通る者は、空を見ておいたほうがいい",
+ "title": "空を測らなかった道",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "隊商の差配"
+  },
+  "surveyor": {
+   "npc": "道を測った者",
+   "sex": "m"
+  },
+  "hunter": {
+   "npc": "獣追い",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}は荷の札を数えながら言った。「{struck}の新しい道だ。半日近くなる」",
+    "「——{struck:news}」",
+    "「来月から、うちの荷はみなその道を通す。……獣追いの連中が、妙なことを言っているがな」"
+   ],
+   "choices": [
+    {
+     "label": "獣追いに話を聞く",
+     "next": "hunter"
+    },
+    {
+     "label": "新しい道を歩いてみる",
+     "next": "walk"
+    },
+    {
+     "label": "気にしない",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "hunter": {
+   "speaker": "hunter",
+   "art": "road",
+   "text": [
+    "{hunter}は地面に線を二本引いた。「これが新しい道。これが、秋に飛竜が通る筋です」",
+    "二本は、峠のところで交わっている。「毎年、同じ筋を飛びます。渡り鳥と同じで」",
+    "「道を測った人は、地面を測ったのです。空は測っていません」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_road_know"
+    },
+    {
+     "xp": "bow",
+     "n": 3
+    }
+   ],
+   "next": "walk"
+  },
+  "walk": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}の新しい道を歩く",
+   "speaker": "surveyor",
+   "art": "road",
+   "text": [
+    "道はよくできていた。曲がりが少なく、沢には板橋が架かり、峠は切り通しになっている。",
+    "{surveyor}が杭を数えながら歩いていた。「三年かかりました。わたしの名が付くそうです」",
+    "峠の切り通しは、岩が高く、空が細く見える。逃げ場は、ない。"
+   ],
+   "choices": [
+    {
+     "label": "{surveyor}に、飛竜の筋のことを話す",
+     "if": {
+      "flag": "fn_road_know"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "listened",
+      "lose": "laughed"
+     }
+    },
+    {
+     "label": "峠に、荷を隠せる掘り込みを作らせる",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "shelter",
+      "lose": "laughed"
+     }
+    },
+    {
+     "label": "秋まで待って、初便に付き添う",
+     "next": "autumn"
+    }
+   ]
+  },
+  "listened": {
+   "speaker": "surveyor",
+   "art": "road",
+   "text": [
+    "{surveyor}は杭を置いて、空を見上げた。長いこと見ていた。",
+    "「……三年、下ばかり見ておりました」",
+    "「切り通しの手前で、道を北へ二町振ります。名は付かなくなるかもしれませんが」"
+   ],
+   "next": "end_moved"
+  },
+  "shelter": {
+   "art": "road",
+   "text": [
+    "峠の岩陰を三か所、人と馬が入れるだけ掘り込ませた。石工が「何から隠れるので」と聞いた。答えなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "fn_road_shelter"
+    }
+   ],
+   "next": "autumn"
+  },
+  "laughed": {
+   "speaker": "surveyor",
+   "art": "road",
+   "text": [
+    "{surveyor}は笑った。「飛竜の筋。……そういう話は、三年のあいだに十は聞きました」話は終わった。"
+   ],
+   "next": "autumn"
+  },
+  "autumn": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "秋、初便に付き添う",
+   "art": "war",
+   "text": [
+    "秋。荷車十二台の初便が、峠の切り通しに入った。空は細く、青い。",
+    "その青が、二度、横切った。"
+   ],
+   "choices": [
+    {
+     "label": "掘り込みに荷と人を入れる",
+     "if": {
+      "flag": "fn_road_shelter"
+     },
+     "next": "end_sheltered"
+    },
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 26,
+      "win": "end_fought",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "馬を切り離して走らせ、荷だけ捨てる",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_cargo",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "end_moved": {
+   "text": [
+    "道は切り通しの手前で北へ振られ、峠は低い鞍部を越えることになった。半日の短縮は、四半日になった。",
+    "秋、飛竜は古い筋を飛んだ。道の上は、通らなかった。{surveyor}の名は、結局その道に付いた。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "money": 400
+    },
+    {
+     "favor": 8
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{struck}の新しい道を、飛竜の筋から外させた。"
+    }
+   ],
+   "end": "四半日の短縮"
+  },
+  "end_sheltered": {
+   "text": [
+    "十二台と二十人が、三つの掘り込みに入った。上を二度通り、三度めは来なかった。",
+    "{client}はそれから、どの道にも掘り込みを作らせるようになった。「安いものだ」と言って。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "money": 500
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{struck}の峠に掘り込みを作らせ、初便を守った。"
+    }
+   ],
+   "end": "安いものだ"
+  },
+  "end_fought": {
+   "text": [
+    "切り通しの底で、二頭を相手にした。荷車は三台焼けた。人は死ななかった。",
+    "翌年から、隊商は秋だけ古い道を通るようになった。半日長い道を、秋だけ。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "hp": -26
+    },
+    {
+     "money": 300
+    },
+    {
+     "item": "dragon_scale",
+     "n": 1
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "{struck}の峠で、初便を襲った飛竜と戦った。"
+    }
+   ],
+   "end": "秋だけ古い道"
+  },
+  "end_cargo": {
+   "text": [
+    "馬を切り離し、人は岩陰へ、荷は道の真ん中に。飛竜は荷を漁り、人には目もくれなかった。",
+    "荷は失われた。人は全員帰った。{client}は帳面を見て、長いこと黙っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "money": -200
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{struck}の峠で荷を捨て、人を全員帰した。"
+    }
+   ],
+   "end": "荷を捨てる"
+  },
+  "end_lost": {
+   "text": [
+    "切り通しの底は逃げ場がなかった。荷車は焼け、人が四人。{player}は岩の隙間で夜を明かした。",
+    "新しい道は、その年のうちに使われなくなった。名だけが、地図に残った。"
+   ],
+   "effects": [
+    {
+     "hp": -35
+    },
+    {
+     "fame": -2
+    },
+    {
+     "note": "{struck}の新しい道の初便が、峠で焼かれた。"
+    }
+   ],
+   "end": "地図に残る名"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は荷札を数え終えた。「まあ、通ってみれば分かる。たいていの道は、通ってみてから直すものだ」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の新しい道の話を気にしなかった。"
+    }
+   ],
+   "end": "通ってみてから"
+  }
+ }
+}

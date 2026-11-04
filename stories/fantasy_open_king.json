@@ -1,0 +1,425 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_open_king",
+ "kind": "main",
+ "title": "長い名の重さ",
+ "era": "fantasy",
+ "trigger": {
+  "persona": [
+   "person"
+  ],
+  "king": true
+ },
+ "cast": {
+  "realm": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:realm"
+  },
+  "minister": {
+   "person": "minister:realm"
+  },
+  "general": {
+   "person": "general:realm"
+  },
+  "foe": {
+   "realm": "enemy:realm"
+  },
+  "third": {
+   "realm": "second"
+  },
+  "thirdcap": {
+   "place": "capital:third"
+  },
+  "forger": {
+   "npc": "封蝋を売る者",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "組合の書記",
+   "sex": "f"
+  }
+ },
+ "start": "k1",
+ "scenes": {
+  "k1": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、評定に臨む",
+   "goto": [
+    {
+     "if": {
+      "king": false
+     },
+     "next": "kLost"
+    }
+   ],
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "広間に、文武の者が居並んだ。口火を切ったのは{minister}だった。「{foe}を侮ってはなりませぬ。いまは蔵を満たし、城壁と水路を直す時です」",
+    "{general}が卓を叩いた。「いま討たねば、{foe}はますます大きくなる。兵を出すべきです」",
+    "一同の目が、上座の{player}に集まった。玉座は高い。高いだけで、何も見えない。"
+   ],
+   "choices": [
+    {
+     "label": "「{general}、兵を率いて{foe}を討て」",
+     "effects": [
+      {
+       "flag": "fk_war"
+      },
+      {
+       "realmFx": "realm",
+       "add": "prestige",
+       "n": 4
+      },
+      {
+       "realmFx": "realm",
+       "add": "stability",
+       "n": -3
+      }
+     ],
+     "next": "k1war"
+    },
+    {
+     "label": "「{minister}、蔵を満たし、壁と水路を直せ」",
+     "effects": [
+      {
+       "flag": "fk_rich"
+      },
+      {
+       "realmFx": "realm",
+       "add": "treasury",
+       "n": 80
+      },
+      {
+       "realmFx": "realm",
+       "add": "stability",
+       "n": 5
+      }
+     ],
+     "next": "k1rich"
+    },
+    {
+     "label": "「{third}へ使者を出し、同盟を結ぶ」",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "k1ally",
+      "lose": "k1noally"
+     }
+    }
+   ]
+  },
+  "k1war": {
+   "speaker": "general",
+   "text": [
+    "{general}は深く頭を下げ、その夜のうちに兵を集めはじめた。{minister}は何も言わなかったが、帳面を閉じる音が大きかった。"
+   ],
+   "next": "k2"
+  },
+  "k1rich": {
+   "speaker": "minister",
+   "text": [
+    "{minister}は満足げに帳面を開いた。「蔵が満ちれば、兵はいつでも出せます。逆はできませぬ」{general}は席を立つとき、床を強く踏んだ。"
+   ],
+   "next": "k2"
+  },
+  "k1ally": {
+   "text": [
+    "使者は{thirdcap}で歓待され、誓いの文が交わされた。{foe}は一人で二つの国と向き合うことになった。"
+   ],
+   "effects": [
+    {
+     "flag": "fk_ally"
+    },
+    {
+     "realmFx": "realm",
+     "ally": "third"
+    },
+    {
+     "fame": 6
+    }
+   ],
+   "next": "k2"
+  },
+  "k1noally": {
+   "text": [
+    "{third}の返書は丁寧で、長く、何も約束していなかった。{minister}は「書けるのに書かぬのは、断りです」と言った。"
+   ],
+   "next": "k2"
+  },
+  "k2": {
+   "at": {
+    "place": "capital"
+   },
+   "goal": "{capital}の町を、粗末な外套で歩く",
+   "wait": {
+    "days": 12
+   },
+   "speaker": "clerk",
+   "art": "tale",
+   "text": [
+    "粗末な外套を着て、供を連れずに町へ下りた。宮廷の者は止めたが、玉座から見える景色は、玉座の高さの分だけ嘘になる。",
+    "組合の板の前で、{clerk}が釘を打っていた。「門（ポータル）の見張り、三枚貼って三枚とも剥がされません」",
+    "「報酬が安いのです。宮廷が決めた額だそうで。……決めた人は、たぶん環を見たことがない」"
+   ],
+   "choices": [
+    {
+     "label": "「いくらなら剥がされる」と聞く",
+     "check": {
+      "skill": "trade",
+      "dc": 24,
+      "win": "k2price",
+      "lose": "k2quiet"
+     }
+    },
+    {
+     "label": "名乗らずに、自分で一枚剥がす",
+     "next": "k2take"
+    },
+    {
+     "label": "黙って聞いておく",
+     "next": "k2quiet"
+    }
+   ]
+  },
+  "k2price": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は指を三本立てた。「三倍。それと、死んだときに家族へ渡る分を決めておくこと。これが無いと、誰も行きません」",
+    "「お客さん、商いの人ですか。言い方が宮廷の人みたいでしたよ」"
+   ],
+   "effects": [
+    {
+     "flag": "fk_price"
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    }
+   ],
+   "next": "k3"
+  },
+  "k2take": {
+   "text": [
+    "紙を一枚剥がして懐に入れた。{clerk}は名を聞き、帳に書いた。長い名を名乗ると、筆が止まった。",
+    "「……同じ名の方が、玉座にいらっしゃいますね」「よくある名だ」{clerk}は何も言わずに書き足した。"
+   ],
+   "effects": [
+    {
+     "flag": "fk_took"
+    },
+    {
+     "fame": 4
+    }
+   ],
+   "next": "k3"
+  },
+  "k2quiet": {
+   "text": [
+    "板の前に半刻立って、三人が足を止め、三人とも値を見て去るのを見た。宮廷に戻る道は、来たときより長く感じた。"
+   ],
+   "next": "k3"
+  },
+  "k3": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の{market}で、噂の男を見る",
+   "speaker": "forger",
+   "art": "backroom",
+   "text": [
+    "市の裏で、{forger}が小さな声で客を呼んでいた。売っているのは封蝋だ——{player}の印の、よくできた写し。",
+    "「これがあれば、関を素通りできます。徴税人も通します。何しろ、王の印ですから」",
+    "男は、買い手の顔を見もせずに言った。「一つ銀貨五枚。安いもんでしょう」"
+   ],
+   "choices": [
+    {
+     "label": "買う。証を揃えてから捕らえる",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "k4",
+      "lose": "k3run"
+     }
+    },
+    {
+     "label": "その場で名乗り、衛兵を呼ぶ",
+     "next": "k3run"
+    },
+    {
+     "label": "「誰に頼まれた」と小声で聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "k3who",
+      "lose": "k3run"
+     }
+    }
+   ]
+  },
+  "k3who": {
+   "speaker": "forger",
+   "text": [
+    "{forger}は目を細めた。「頼まれちゃいませんよ。……ただ、型を売ってくれた人はいる」",
+    "男が言った名は、{minister}の家の書記だった。"
+   ],
+   "effects": [
+    {
+     "flag": "fk_inside"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "next": "k4"
+  },
+  "k3run": {
+   "text": [
+    "男は人混みに消えた。翌日、同じ封蝋が三つの町で売られていることが分かった。"
+   ],
+   "effects": [
+    {
+     "flag": "fk_loose"
+    }
+   ],
+   "next": "k4"
+  },
+  "k4": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で裁く",
+   "wait": {
+    "days": 10
+   },
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{forger}は十日で捕らえられた。広間に引き出され、床に座らされている。",
+    "{minister}が言った。「王の印を偽った者は、手を落とすのが掟です」",
+    "男は顔を上げて言った。「印を偽ったのは、印でしか通れぬからです。正直者は、関で三日待たされる」"
+   ],
+   "choices": [
+    {
+     "label": "掟どおり裁く",
+     "next": "end_law"
+    },
+    {
+     "label": "男を赦し、関の手続きを改めさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_reform",
+      "lose": "end_law"
+     }
+    },
+    {
+     "label": "{minister}の家の書記を先に調べさせる",
+     "if": {
+      "flag": "fk_inside"
+     },
+     "next": "end_inside"
+    }
+   ]
+  },
+  "end_law": {
+   "text": [
+    "掟どおりに裁いた。広間の者はうなずき、民は三日ほど噂をして、忘れた。",
+    "封蝋の型は、結局見つからなかった。偽の印は、その後も年に二度ほど出た。"
+   ],
+   "effects": [
+    {
+     "realmFx": "realm",
+     "add": "stability",
+     "n": 3
+    },
+    {
+     "fame": 4
+    },
+    {
+     "note": "{capital}で印を偽った者を掟どおり裁いた。"
+    }
+   ],
+   "end": "掟どおり"
+  },
+  "end_reform": {
+   "text": [
+    "男は鞭十で放たれ、関の手続きは改められた。印のいらぬ荷が増え、関の列は短くなった。",
+    "{minister}は不服そうだったが、三月後、関の通行料の上がりが一割増えた帳面を黙って持ってきた。"
+   ],
+   "effects": [
+    {
+     "realmFx": "realm",
+     "add": "treasury",
+     "n": 60
+    },
+    {
+     "realmFx": "realm",
+     "add": "stability",
+     "n": 4
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "印を偽った者を赦し、関の手続きを改めた。"
+    }
+   ],
+   "end": "関の列が短くなる"
+  },
+  "end_inside": {
+   "speaker": "minister",
+   "text": [
+    "型を売ったのは、{minister}の家の書記だった。{minister}は青ざめ、自ら書記を縛って差し出した。",
+    "「知らなんだ、では済みませぬ」{minister}は床に手をついた。「私の家の者です」",
+    "{player}は{minister}を罰さなかった。罰さなかったことのほうが、長く効いた。"
+   ],
+   "effects": [
+    {
+     "realmFx": "realm",
+     "add": "stability",
+     "n": 5
+    },
+    {
+     "fame": 10
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "印の型を売った書記を見つけ、{minister}を罰さなかった。"
+    }
+   ],
+   "end": "罰さぬという罰"
+  },
+  "kLost": {
+   "text": [
+    "玉座は、すでに他の者のものだ。評定の広間に、{player}の席はない。"
+   ],
+   "effects": [
+    {
+     "note": "王位を失い、評定の席も失った。"
+    }
+   ],
+   "end": "空いた席"
+  }
+ }
+}

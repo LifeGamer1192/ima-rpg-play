@@ -1,0 +1,409 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_feat_main",
+ "kind": "feat",
+ "feat": "main",
+ "title": "宿星",
+ "era": "fantasy",
+ "trigger": {
+  "storyDone": [
+   "fantasy_main",
+   "fantasy_open_king",
+   "fantasy_open_serve",
+   "fantasy_open_free"
+  ],
+  "notFeat": "main"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power",
+   "self": true
+  },
+  "schemer": {
+   "npc": "環で儲けていた者",
+   "sex": "m"
+  },
+  "champ": {
+   "npc": "雇われた剣の頭",
+   "sex": "f"
+  },
+  "old": {
+   "npc": "老いた学院の使い",
+   "sex": "f"
+  }
+ },
+ "start": "m1",
+ "scenes": {
+  "m1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goto": [
+    {
+     "if": {
+      "me": "ruler"
+     },
+     "next": "m1self"
+    }
+   ],
+   "goal": "{here}の{inn}で、学院の使いの便りを受け取る",
+   "speaker": "old",
+   "art": "inn",
+   "text": [
+    "{old}は杖を卓に立てかけ、震える手で書付を出した。「環の封じが、内側からではなく、外側から外されています」",
+    "「{schemer}という男が、環のそばに小屋を建てて住んでおります。出てくるものを少しずつ逃がし、その退治を人に売っている」",
+    "「大祭の夜に、封じを全部外すつもりです。……あなたにしか頼めません」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ向かう",
+     "next": "m2"
+    }
+   ]
+  },
+  "m1self": {
+   "speaker": "old",
+   "art": "inn",
+   "text": [
+    "{old}は書付を差し出した。「環の封じが外側から外されております。{schemer}という男が、出てくるものを売り物にしているのです」",
+    "「大祭の夜に、全部外すと申しております。宮廷の中に通じている者がいるやもしれませぬ。どうか、ご自分の目で」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ戻る",
+     "next": "m2"
+    }
+   ]
+  },
+  "m2": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}の{market}で、一味の動きを探る",
+   "art": "trade",
+   "text": [
+    "市の賑わいの陰で、見慣れぬ者たちが油と鉄菱を買い集めている。環の見張りの交代の刻を、しきりに尋ねる者もいる。"
+   ],
+   "choices": [
+    {
+     "label": "後をつけ、決行の夜を突き止める",
+     "check": {
+      "skill": "stealth",
+      "dc": 72,
+      "win": "m3know",
+      "lose": "m3blind"
+     }
+    },
+    {
+     "label": "顔見知りの店に銭を置いて聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 75,
+      "win": "m3know",
+      "lose": "m3blind"
+     }
+    },
+    {
+     "label": "買われた鉄菱の数から、人数を割り出す",
+     "check": {
+      "skill": "letters",
+      "dc": 72,
+      "win": "m3know",
+      "lose": "m3blind"
+     }
+    }
+   ]
+  },
+  "m3know": {
+   "art": "hideout",
+   "text": [
+    "決行は三日後、夜明け前。北の谷から二十人が環に入る手筈だと分かった。"
+   ],
+   "effects": [
+    {
+     "flag": "ffm_know"
+    }
+   ],
+   "next": "m4"
+  },
+  "m3blind": {
+   "art": "hideout",
+   "text": [
+    "男たちは路地で消えた。いつ来るのかは分からない。環のそばに泊まり込み、夜ごと見張るしかない。"
+   ],
+   "next": "m4"
+  },
+  "m4": {
+   "at": {
+    "place": "capital"
+   },
+   "goal": "環で、襲撃を迎え撃つ",
+   "art": "war",
+   "text": [
+    "夜明け前。北の谷から、松明を手にした影がいくつも立石の間を越えてきた。"
+   ],
+   "choices": [
+    {
+     "label": "伏せておいた者たちと、谷の口で迎え撃つ",
+     "if": {
+      "flag": "ffm_know"
+     },
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 62,
+      "win": "m5",
+      "lose": "mfail"
+     }
+    },
+    {
+     "label": "環の中に立ちはだかる",
+     "fight": {
+      "foes": "soldier",
+      "n": 6,
+      "level": 70,
+      "win": "m5",
+      "lose": "mfail"
+     }
+    }
+   ]
+  },
+  "m5": {
+   "art": "duel",
+   "speaker": "champ",
+   "text": [
+    "雇われた者たちが倒れると、最後に一人、長柄を構えた女が立った。「{schemer}に拾われた命だ。ここで返す」"
+   ],
+   "choices": [
+    {
+     "label": "一騎打ちに応じる",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 80,
+      "win": "m6",
+      "lose": "mfail"
+     }
+    },
+    {
+     "label": "「あの男は、お前を捨て駒にした」と説く",
+     "check": {
+      "skill": "speech",
+      "dc": 82,
+      "win": "m6talk",
+      "lose": "m5fight"
+     }
+    }
+   ]
+  },
+  "m5fight": {
+   "art": "duel",
+   "text": [
+    "女は耳を貸さず、踏み込んできた。"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 80,
+      "win": "m6",
+      "lose": "mfail"
+     }
+    }
+   ]
+  },
+  "m6talk": {
+   "art": "duel",
+   "text": [
+    "長柄が下がった。「……あの人は、もう谷を出た。南へ向かっている」女は得物を捨て、膝をついた。"
+   ],
+   "next": "m6"
+  },
+  "m6": {
+   "goto": [
+    {
+     "if": {
+      "me": "ruler"
+     },
+     "next": "m6self"
+    }
+   ],
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "縄をかけられた{schemer}が、{ruler}の前に引き据えられた。男は悪びれずに言った。「おれがいなければ、あの環は誰も見張らなかった」",
+    "{ruler}は{player}を見た。「この者の裁き、お前に任せる。はじめから環を見てきた目で、裁いてみよ」"
+   ],
+   "choices": [
+    {
+     "label": "掟に照らして裁くよう説く",
+     "check": {
+      "skill": "letters",
+      "dc": 78,
+      "win": "mwin_law",
+      "lose": "mfail_court"
+     }
+    },
+    {
+     "label": "命は取らず、環の番人として縛りつけるよう説く",
+     "check": {
+      "skill": "speech",
+      "dc": 78,
+      "win": "mwin_mercy",
+      "lose": "mfail_court"
+     }
+    }
+   ]
+  },
+  "m6self": {
+   "art": "court",
+   "text": [
+    "縄をかけられた{schemer}が、階の下に引き据えられた。居並ぶ者が{player}の顔色をうかがう。狙われたのは本人。裁くのも本人である。"
+   ],
+   "choices": [
+    {
+     "label": "掟を読み上げ、その理を人々に示す",
+     "check": {
+      "skill": "letters",
+      "dc": 78,
+      "win": "mself_law",
+      "lose": "mself_fail"
+     }
+    },
+    {
+     "label": "命を助けて環の番人とし、器を示す",
+     "check": {
+      "skill": "speech",
+      "dc": 78,
+      "win": "mself_mercy",
+      "lose": "mself_fail"
+     }
+    }
+   ]
+  },
+  "mself_law": {
+   "art": "court",
+   "text": [
+    "{player}は掟の条を一つずつ読み上げ、罪を示した。人々は息をのみ、やがて深く頭を下げた。主の怒りではなく、掟が裁いた。その朝、環は静かになった。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "宿星"
+  },
+  "mself_mercy": {
+   "art": "court",
+   "text": [
+    "「命は取らぬ。生涯、環の番をせよ」その言葉に、広間がどよめいた。自分を狙った者を使う主に、人々は何かを見た。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "宿星"
+  },
+  "mself_fail": {
+   "art": "court",
+   "text": [
+    "言葉は人々の胸に届かなかった。私怨で裁いたという噂が立ち、裁きは宮廷に委ねられた。……いつか、もう一度。"
+   ],
+   "end": "宿星いまだ至らず"
+  },
+  "mwin_law": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は深く頷いた。「掟は、主のためにあるのではない。国のためにある。……お前の言うとおりだ」その朝、環は静かになった。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "宿星"
+  },
+  "mwin_mercy": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は長く黙っていたが、やがて笑った。「売っていた者に、番をさせるか。……お前らしい」",
+    "{schemer}は環のそばの小屋に残された。逃げれば追われる。逃げなければ、毎晩あれを見る。"
+   ],
+   "effects": [
+    {
+     "fame": 20
+    },
+    {
+     "feat": "main"
+    }
+   ],
+   "end": "宿星"
+  },
+  "mfail": {
+   "goto": [
+    {
+     "if": {
+      "me": "ruler"
+     },
+     "next": "mfail_self"
+    }
+   ],
+   "art": "war",
+   "text": [
+    "{player}は深手を負って倒れた。封じは外され、朝までに環から三つ、何かが出た。……傷が癒えたら、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -40
+    }
+   ],
+   "end": "宿星いまだ至らず"
+  },
+  "mfail_self": {
+   "art": "war",
+   "text": [
+    "{player}は深手を負いながら、衛兵に守られて辛うじて退いた。{schemer}は闇に消えた。……傷が癒えたら、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -40
+    }
+   ],
+   "end": "宿星いまだ至らず"
+  },
+  "mfail_court": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は首を振った。「お前の言葉には、まだ重みが足りぬ」裁きは宮廷に委ねられた。……いつか、もう一度。"
+   ],
+   "end": "宿星いまだ至らず"
+  }
+ }
+}

@@ -1,0 +1,419 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_open_free",
+ "kind": "main",
+ "title": "誰にも仕えぬ者の値",
+ "era": "fantasy",
+ "trigger": {
+  "persona": [
+   "person"
+  ],
+  "king": false,
+  "free": true
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "envoy": {
+   "npc": "{power}の使者",
+   "sex": "f"
+  },
+  "other": {
+   "realm": "second"
+  },
+  "envoy2": {
+   "npc": "もう一方の使者",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "組合の書記",
+   "sex": "f"
+  },
+  "village": {
+   "place": "near:here"
+  },
+  "elder": {
+   "npc": "村の古老",
+   "sex": "m"
+  }
+ },
+ "start": "f1",
+ "scenes": {
+  "f1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で、二人の使者に会う",
+   "speaker": "envoy",
+   "art": "inn",
+   "text": [
+    "{inn}の卓に、二通の書状が並んで置かれた。置いた二人は、互いに目も合わせない。",
+    "{power}の{envoy}が言った。「禄は月に金貨百。住まいは{capital}に用意します」",
+    "{other}の{envoy2}が続けた。「こちらは月に八十。ただし、誰の下にも付けぬ。仕事は自分で選べる」"
+   ],
+   "choices": [
+    {
+     "label": "{power}に仕える",
+     "effects": [
+      {
+       "enlist": "power"
+      },
+      {
+       "money": 300
+      },
+      {
+       "flag": "ff_power"
+      }
+     ],
+     "next": "f2"
+    },
+    {
+     "label": "{other}に仕える",
+     "effects": [
+      {
+       "enlist": "other"
+      },
+      {
+       "money": 200
+      },
+      {
+       "flag": "ff_other"
+      }
+     ],
+     "next": "f2"
+    },
+    {
+     "label": "どちらも断る",
+     "next": "f1free"
+    },
+    {
+     "label": "両方に「考える」と言い、二月待たせる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "f1wait",
+      "lose": "f1free"
+     }
+    }
+   ]
+  },
+  "f1free": {
+   "text": [
+    "二人は書状を持って帰った。宿の主人が小声で言った。「断る人、はじめて見ました」"
+   ],
+   "effects": [
+    {
+     "flag": "ff_free"
+    },
+    {
+     "fame": 3
+    }
+   ],
+   "next": "f2"
+  },
+  "f1wait": {
+   "text": [
+    "二月のうちに、両方の額が上がった。{power}は百五十、{other}は百二十。待つだけで値が上がるのは、値が相手の都合で決まっているからだ。",
+    "それが分かったのが、金より大きい。"
+   ],
+   "effects": [
+    {
+     "flag": "ff_free"
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    }
+   ],
+   "next": "f2"
+  },
+  "f2": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{here}の組合の板を見る",
+   "speaker": "clerk",
+   "art": "tale",
+   "text": [
+    "組合の板に、剥がされない紙が一枚あった。{village}の魔物。報酬は金貨三十。",
+    "{clerk}が言った。「村が出せる全部だそうです。三十では、誰も行きません」",
+    "「名のある方なら、断ってもどなたも責めません。……責めはしませんが、村には誰も行きません」"
+   ],
+   "choices": [
+    {
+     "label": "紙を剥がす",
+     "next": "f3"
+    },
+    {
+     "label": "「三十では安い。組合が足せ」と言う",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "f2paid",
+      "lose": "f3"
+     }
+    },
+    {
+     "label": "剥がさずに出る",
+     "next": "f2leave"
+    }
+   ]
+  },
+  "f2paid": {
+   "text": [
+    "{clerk}は帳面を繰り、組合の積立から七十を足した。「百です。これなら、ほかの者も手を挙げるかもしれません」"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "flag": "ff_haggled"
+    }
+   ],
+   "next": "f3"
+  },
+  "f2leave": {
+   "text": [
+    "板を見ずに宿へ戻った。三日後、{village}から人が来た。断られたのを知って、それでも来たのだ。",
+    "古老の{elder}は、何も言わずに土間に座った。座ったまま、半日いた。"
+   ],
+   "effects": [
+    {
+     "flag": "ff_shamed"
+    }
+   ],
+   "next": "f3"
+  },
+  "f3": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}へ行く",
+   "speaker": "elder",
+   "art": "tale",
+   "text": [
+    "{village}は、畑の外れが掘り返されていた。獣ではない。掘ったものは、土の下から来ている。",
+    "{elder}が言った。「夜に出ます。はじめは鶏でした。先月から、犬が」",
+    "「次は何が持っていかれるか、みな分かっております。分かっていて、誰も夜に外へ出ません」"
+   ],
+   "choices": [
+    {
+     "label": "夜を待ち、出てきたところを討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 3,
+      "level": 16,
+      "win": "f4",
+      "lose": "f3hurt"
+     }
+    },
+    {
+     "label": "掘り返された穴をたどり、巣を探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "f4nest",
+      "lose": "f3hurt"
+     }
+    },
+    {
+     "label": "村の者を集め、柵と灯りを作らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "f4fence",
+      "lose": "f3hurt"
+     }
+    }
+   ]
+  },
+  "f3hurt": {
+   "text": [
+    "夜半、三方から来た。二つは追い払ったが、一つに脚をやられた。朝まで畑の土の上にいた。"
+   ],
+   "effects": [
+    {
+     "hp": -28
+    }
+   ],
+   "next": "f4"
+  },
+  "f4nest": {
+   "text": [
+    "穴は、村の北の崖下に続いていた。巣は一つ。火を入れて潰した。日が暮れる前に終わった。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 6
+    },
+    {
+     "fame": 6
+    }
+   ],
+   "next": "f4"
+  },
+  "f4fence": {
+   "text": [
+    "村の者が柵を編み、灯りを並べた。夜、来たものは柵の前で止まり、三日めには来なくなった。",
+    "{elder}が言った。「わしらでもできたのですな」「できた。やらなかっただけだ」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "fame": 5
+    },
+    {
+     "flag": "ff_taught"
+    }
+   ],
+   "next": "f4"
+  },
+  "f4": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}で礼を受ける",
+   "speaker": "elder",
+   "art": "tale",
+   "text": [
+    "{elder}が、布に包んだものを出してきた。金貨三十と、村でいちばん古い短剣。",
+    "「報酬です。短剣のほうは、足りない分の代わりに」",
+    "外では、{power}の使者がまた馬を下りている。噂を聞きつけたのだ。"
+   ],
+   "choices": [
+    {
+     "label": "全部受け取り、使者にも会う",
+     "next": "end_pro"
+    },
+    {
+     "label": "金貨だけ受け取り、短剣は村に返す",
+     "next": "end_free"
+    },
+    {
+     "label": "何も受け取らず、村に柵の作り方だけ置いていく",
+     "if": {
+      "flag": "ff_taught"
+     },
+     "next": "end_teach"
+    },
+    {
+     "label": "金貨を断り、代わりに「次も呼べ」と言う",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_name",
+      "lose": "end_free"
+     }
+    }
+   ]
+  },
+  "end_pro": {
+   "text": [
+    "礼を受け、使者に会い、その足で{capital}へ向かった。値は三度めで、はじめの倍になっていた。",
+    "誰にも仕えぬ者の値は、仕えぬまま上がっていく。上がりきったところで、たいてい誰かに仕える。"
+   ],
+   "effects": [
+    {
+     "money": 500
+    },
+    {
+     "item": "dagger",
+     "n": 1
+    },
+    {
+     "fame": 12
+    },
+    {
+     "note": "{village}の魔物を討ち、使者と値の話をした。"
+    }
+   ],
+   "end": "値のつく腕"
+  },
+  "end_free": {
+   "text": [
+    "短剣は村に返した。金貨三十は受け取った。受け取らなければ、次に困った村が頼みにくくなる。",
+    "使者には会わずに町を出た。{power}の書状は、三月後にまた届いた。"
+   ],
+   "effects": [
+    {
+     "money": 30
+    },
+    {
+     "fame": 10
+    },
+    {
+     "note": "{village}の魔物を討ち、報酬だけを受け取った。"
+    }
+   ],
+   "end": "次の村のために"
+  },
+  "end_teach": {
+   "speaker": "elder",
+   "text": [
+    "柵の編み方と、灯りの間の取り方を、板に書いて村に置いた。報酬は受け取らなかった。",
+    "一年後、隣の三つの村が同じ柵を作っていると聞いた。{player}の名は、柵の作り方と一緒に伝わっていた。"
+   ],
+   "effects": [
+    {
+     "fame": 16
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{village}に柵の作り方を置いていった。"
+    }
+   ],
+   "end": "柵と一緒に伝わる名"
+  },
+  "end_name": {
+   "speaker": "elder",
+   "text": [
+    "「金はいらぬ。次も呼べ」——{elder}は面食らい、それから深く頭を下げた。",
+    "その年のうちに、四つの村から呼ばれた。どこも金は少なく、どこも必ず呼んだ。使者の書状より、そちらのほうが早く届くようになった。"
+   ],
+   "effects": [
+    {
+     "fame": 18
+    },
+    {
+     "money": 120
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "note": "{village}で報酬を断り、「次も呼べ」と言った。"
+    }
+   ],
+   "end": "呼ばれる者"
+  }
+ }
+}

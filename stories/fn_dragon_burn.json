@@ -1,0 +1,366 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_dragon_burn",
+ "kind": "random",
+ "where": "inn",
+ "era": "fantasy",
+ "again": 120,
+ "onNews": {
+  "tags": [
+   "disaster"
+  ],
+  "text": "竜",
+  "within": 150
+ },
+ "hook": "竜に焼かれた村の話、聞いたか。おれはそこから逃げてきた",
+ "title": "竜の通り道",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "teller": {
+   "client": "旅の商人"
+  },
+  "elder": {
+   "npc": "古老",
+   "sex": "m"
+  },
+  "smith": {
+   "folk": "鍛冶",
+   "tags": [
+    "工"
+   ],
+   "at": "struck"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "teller",
+   "art": "inn",
+   "text": [
+    "{inn}の隅で、{teller}が震える手で杯を置いた。「{struck}から逃げてきた。見たんだ、あれを」",
+    "「——{struck:news}」",
+    "「焼けた穀物庫の下に、まだ人が埋まってる。だが誰も掘りに行かん。また来ると思ってるからだ」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ向かう",
+     "next": "arrive"
+    },
+    {
+     "label": "「竜に挑む者を募っているのか」と聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "bounty",
+      "lose": "arrive"
+     }
+    },
+    {
+     "label": "関わらない",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "bounty": {
+   "speaker": "teller",
+   "art": "inn",
+   "text": [
+    "{teller}は声を落とした。「{struck}の長が、竜を追い払った者に蔵の鍵を渡すと言っている。鍵の中身は、焼け残った分だけだがね」",
+    "「忠告だ。あれは竜じゃない。竜のつもりでいる、もっと小さいやつだ。——そのほうが厄介だぞ。小さいのは、懲りない」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_dragon_paid"
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}へ行き、焼け跡を見る",
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "{struck}の穀物庫は黒い骨組みだけになっていた。灰の上に、焼け落ちた梁が獣の肋骨のように並んでいる。",
+    "古老の{elder}が、同じ場所をじっと見ていた。「ここに建てるなと、わしは言うたんじゃ。竜の通り道じゃと。じゃが皆、見晴らしがよいと言うて聞かん」",
+    "「去年も焼けた。今年も焼けた。来年も建てるつもりらしい」"
+   ],
+   "choices": [
+    {
+     "label": "焼け跡を調べ、何が落ちていったのかを見る",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "scale",
+      "lose": "wait"
+     }
+    },
+    {
+     "label": "{elder}に「通り道」とは何かを聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 20,
+      "win": "path",
+      "lose": "wait"
+     }
+    },
+    {
+     "label": "日暮れまで、焼け跡で待つ",
+     "next": "wait"
+    }
+   ]
+  },
+  "scale": {
+   "art": "tale",
+   "text": [
+    "灰を掻き分けると、掌ほどの鱗が一枚出てきた。縁が薄く、まだ若い。竜のものにしては小さすぎる——飛竜（ワイバーン）だ。",
+    "鱗の内側には、焦げた粟がこびりついていた。この獣は火を吐きに来るのではない。焼けた粟を食いに来るのだ。"
+   ],
+   "effects": [
+    {
+     "flag": "fn_dragon_know"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "wait"
+  },
+  "path": {
+   "speaker": "elder",
+   "art": "tale",
+   "text": [
+    "{elder}は杖で地面に線を引いた。「北の峰から海へ、まっすぐじゃ。あれは毎年、同じ筋を飛ぶ。渡り鳥と同じでな」",
+    "「蔵をこの線から半里ずらせば、それで済む。——じゃが、半里向こうは隣の村の畑じゃ。だから誰も言い出さん」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_dragon_path"
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "wait"
+  },
+  "wait": {
+   "at": {
+    "place": "struck"
+   },
+   "art": "war",
+   "text": [
+    "日が落ちきる前、西の空に影が差した。翼の長い獣が二つ、灰の上に降りてくる。首を伸ばして焼け跡をつつき、喉の奥で低く鳴いた。",
+    "大きいほうが、こちらに気づいて首をもたげる。"
+   ],
+   "choices": [
+    {
+     "label": "刃を抜いて迎え撃つ",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 26,
+      "win": "won",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "焼け残りの粟を袋に詰め、半里先の野へ撒いて誘う",
+     "if": {
+      "flag": "fn_dragon_know"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "lured",
+      "lose": "end_beaten"
+     },
+     "guide": "気づかれれば、灰の上で二頭を相手取ることになる"
+    },
+    {
+     "label": "弓で翼を狙い、追い払うだけにする",
+     "check": {
+      "skill": "bow",
+      "dc": 30,
+      "win": "lured",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "won": {
+   "speaker": "elder",
+   "art": "tale",
+   "text": [
+    "大きいほうが灰の中に沈み、小さいほうは夜へ逃げた。村の者が松明を持って出てきて、遠巻きにその骸を見た。",
+    "{elder}だけが近づいてきて、鱗を一枚剥がし、こちらに差し出した。「これで、来年も同じ所に建てるじゃろうな」"
+   ],
+   "choices": [
+    {
+     "label": "「蔵を半里ずらせ。隣村には自分が話す」と言う",
+     "if": {
+      "flag": "fn_dragon_path"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_moved",
+      "lose": "end_slain"
+     }
+    },
+    {
+     "label": "鱗を受け取って去る",
+     "next": "end_slain"
+    }
+   ]
+  },
+  "lured": {
+   "at": {
+    "place": "struck"
+   },
+   "speaker": "smith",
+   "art": "disaster",
+   "text": [
+    "撒いた粟に二頭が降り、焼け跡には来なくなった。夜明けに村へ戻ると、鍛冶の{smith}が炉の前で待っていた。",
+    "「あんたが撒いた野は、来年は麦を作らんことにする。竜の畑だ」{smith}は鎚を置いた。「蔵のほうは、半里ずらす。皆が渋ったら、おれが建てん」"
+   ],
+   "choices": [
+    {
+     "label": "{smith}と一緒に、村の者を説く",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "end_moved",
+      "lose": "end_fed"
+     }
+    },
+    {
+     "label": "蔵が建つまでの麦を、自分の金で買ってやる",
+     "effects": [
+      {
+       "money": -200
+      }
+     ],
+     "next": "end_fed"
+    }
+   ]
+  },
+  "end_slain": {
+   "text": [
+    "飛竜の骸は三日で骨になり、骨は半月で売り払われた。焼けた蔵は、同じ場所に、同じ形で建て直された。",
+    "{elder}は何も言わなかった。言っても無駄だと知っているからだ。"
+   ],
+   "effects": [
+    {
+     "item": "dragon_scale",
+     "n": 1
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "{struck}を焼いた飛竜を討った。蔵は同じ場所に建て直された。"
+    }
+   ],
+   "end": "鱗一枚"
+  },
+  "end_moved": {
+   "speaker": "elder",
+   "text": [
+    "新しい穀物庫は、古い場所から半里ずれた窪地に建った。見晴らしは悪い。だが、空は見えない。",
+    "{elder}は棟上げの日、初めて笑った。「見晴らしが悪いのは、よいことじゃ。竜からも見えん」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "money": 150
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{struck}の穀物庫を竜の通り道から外させた。"
+    }
+   ],
+   "end": "半里の知恵"
+  },
+  "end_fed": {
+   "text": [
+    "蔵は結局、元の場所に建った。だがその冬、{struck}で飢えた者は一人も出なかった。",
+    "春になって、{smith}から短い言伝てが届いた。「蔵は焼けた。人は死ななんだ。去年とは違う」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "item": "rations",
+     "n": 6
+    },
+    {
+     "note": "{struck}の冬の糧を買い、人は死ななかった。"
+    }
+   ],
+   "end": "冬を越す"
+  },
+  "end_beaten": {
+   "text": [
+    "尾の一撃で灰の中に転がされた。起き上がったときには、獣は焼け跡の粟を食い尽くし、北の峰へ帰っていくところだった。",
+    "村の者は誰も出てこなかった。竜が来た夜に出てこないのは、この村の習いなのだ。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "fame": -1
+    },
+    {
+     "note": "{struck}の飛竜に敵わず、焼け跡に転がされた。"
+    }
+   ],
+   "end": "灰の上"
+  },
+  "end_pass": {
+   "text": [
+    "{teller}は肩をすくめ、杯を干した。「賢いな。おれも明日には、もっと遠くへ行く」"
+   ],
+   "effects": [
+    {
+     "note": "竜に焼かれた{struck}の話を聞き流した。"
+    }
+   ],
+   "end": "他人の火"
+  }
+ }
+}

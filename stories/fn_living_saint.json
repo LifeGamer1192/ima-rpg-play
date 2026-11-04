@@ -1,0 +1,337 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_living_saint",
+ "kind": "random",
+ "where": "shrine",
+ "era": "fantasy",
+ "again": 170,
+ "onNews": {
+  "tags": [
+   "saint",
+   "religion"
+  ],
+  "within": 120
+ },
+ "hook": "聖者が出たそうです。列ができているとか",
+ "title": "並んでいる人たち",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "神殿の下働き"
+  },
+  "saint": {
+   "npc": "聖者と呼ばれる人",
+   "sex": "f"
+  },
+  "agent": {
+   "npc": "喜捨を集める男",
+   "sex": "m"
+  },
+  "child": {
+   "npc": "列の後ろの子",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{client}が箒の手を止めた。「{struck}の話、こちらにも届いております」",
+    "「——{struck:news}」",
+    "「うちの神殿からも、三人が見に行きました。二人は帰ってきません。並んでいるのだそうです」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "「治った者はいるのか」と聞く",
+     "next": "ask"
+    },
+    {
+     "label": "放っておく",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "client",
+   "text": [
+    "{client}は少し困った顔をした。「治ったという人は、たくさんおります。……治らなかった人は、何も言いません」",
+    "「言わない人の数は、誰も数えておりません」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_saint_doubt"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}へ行く",
+   "speaker": "agent",
+   "art": "faith",
+   "text": [
+    "{struck}の神殿の前に、列が三曲がりしていた。列の脇では{agent}が箱を抱えて歩いている。",
+    "「喜捨は気持ちぶんで結構です。……ああ、前のほうに回りたい方は、こちらへ」",
+    "列のいちばん後ろに、{child}が母親に負ぶわれて座り込んでいた。息が浅い。"
+   ],
+   "choices": [
+    {
+     "label": "{child}を先に診る",
+     "check": {
+      "skill": "medicine",
+      "dc": 26,
+      "win": "child_ok",
+      "lose": "child_hard"
+     }
+    },
+    {
+     "label": "{saint}に会いに行く",
+     "next": "saint"
+    },
+    {
+     "label": "{agent}の箱の行き先を追う",
+     "check": {
+      "skill": "stealth",
+      "dc": 24,
+      "win": "box",
+      "lose": "saint"
+     }
+    }
+   ]
+  },
+  "child_ok": {
+   "art": "tale",
+   "text": [
+    "{child}を日陰に運び、湯を沸かして胸を温めた。半刻で息が整い、一刻で目を開けた。",
+    "母親は{player}の手を取って、何度も頭を下げた。列の人が、何人かこちらを見ている。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "flag": "fn_saint_cured"
+    }
+   ],
+   "next": "saint"
+  },
+  "child_hard": {
+   "art": "tale",
+   "text": [
+    "手は尽くしたが、熱は下がらなかった。母親は礼を言い、また列の後ろに戻っていった。"
+   ],
+   "effects": [
+    {
+     "hp": -5
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "next": "saint"
+  },
+  "box": {
+   "art": "backroom",
+   "text": [
+    "{agent}は箱を神殿の裏に運び、そこで銀と銅を分けていた。銀は布の袋へ、銅は神殿の甕へ。",
+    "袋のほうが、だいぶ重い。"
+   ],
+   "effects": [
+    {
+     "flag": "fn_saint_fraud"
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    }
+   ],
+   "next": "saint"
+  },
+  "saint": {
+   "at": {
+    "place": "struck",
+    "building": "shrine"
+   },
+   "goal": "{struck}の{shrine}で、聖者に会う",
+   "speaker": "saint",
+   "art": "faith",
+   "text": [
+    "{saint}は、思ったより若く、思ったより疲れていた。手を取られた者は、たしかに顔色がよくなる。",
+    "{player}の番が来たとき、{saint}は小声で言った。「わたしは何もしていません。手を握るだけです」",
+    "「握ると、みなさん落ち着くのです。……それだけのことが、こんなに増えるとは思いませんでした」"
+   ],
+   "choices": [
+    {
+     "label": "{saint}を休ませ、列を整理する",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_order",
+      "lose": "end_crowd"
+     }
+    },
+    {
+     "label": "{agent}の銀の袋を、人前で出させる",
+     "if": {
+      "flag": "fn_saint_fraud"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_fraud",
+      "lose": "end_crowd"
+     }
+    },
+    {
+     "label": "{saint}に、手当ての仕方を教える",
+     "if": {
+      "flag": "fn_saint_cured"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 26,
+      "win": "end_taught",
+      "lose": "end_crowd"
+     }
+    },
+    {
+     "label": "何も言わずに列を離れる",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_order": {
+   "text": [
+    "列を三つに分けた。急ぐ者、待てる者、見に来ただけの者。見に来ただけの者が、半分以上いた。",
+    "{saint}は一日に三十人だけ手を握ることにして、残りの時間で眠るようになった。眠るようになってから、手を握られた者の顔色は、もっとよくなった。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{struck}の聖者の列を整理し、眠る時間を作った。"
+    }
+   ],
+   "end": "一日三十人"
+  },
+  "end_fraud": {
+   "text": [
+    "銀の袋は、列の前で開けられた。{agent}は逃げ、翌日には別の町で別の聖者の脇に立っていたという。",
+    "喜捨は神殿の甕に戻った。{saint}は、袋のことを知らなかった。知らなかったことが、いちばん応えたらしい。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "money": 200
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "note": "{struck}で、聖者の喜捨を抜いていた男を暴いた。"
+    }
+   ],
+   "end": "開けられた袋"
+  },
+  "end_taught": {
+   "text": [
+    "{saint}に、熱の見方と、湯の使い方と、休ませ方を教えた。覚えが早かった。",
+    "一年後、{struck}には「聖者」ではなく「手当ての上手い人」がいると伝わってきた。列は短くなり、治る者は増えた。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 7
+    },
+    {
+     "note": "{struck}の聖者に、手当ての仕方を教えた。"
+    }
+   ],
+   "end": "手当ての上手い人"
+  },
+  "end_crowd": {
+   "text": [
+    "声は人いきれに飲まれた。列は三曲がりのまま、翌日は四曲がりになった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{struck}の聖者の列は、翌日もっと長くなった。"
+    }
+   ],
+   "end": "四曲がり"
+  },
+  "end_left": {
+   "text": [
+    "何も言わずに列を離れた。背中で、{saint}が次の人の手を取るのが分かった。",
+    "半年後、{struck}の聖者が倒れたと聞いた。その頃には、別の町に別の聖者が出ていた。"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の聖者の列を、黙って離れた。"
+    }
+   ],
+   "end": "別の町の聖者"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は箒を動かしはじめた。「ええ。並んでも、うちの屋根は直りませんから」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の聖者の話を放っておいた。"
+    }
+   ],
+   "end": "屋根は直らない"
+  }
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_patron_survey_fantasy",
+ "kind": "job",
+ "era": "fantasy",
+ "giver": "patron",
+ "mechanism": "survey",
+ "target": "own-town",
+ "title": "{place}の家数と人を改めよ",
+ "desc": "{place}の帳は戦で乱れた。家ごとの財と人を改め、誰が兵を出せ、誰が馬を出せるかを見定めよ。偽りの申告には罰を科せ。",
+ "reward": {
+  "base": 170,
+  "perDay": 9
+ },
+ "favor": 26,
+ "fame": 3,
+ "deadline": {
+  "base": 40,
+  "perDay": 2
+ }
+}

@@ -1,0 +1,331 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_famine",
+ "kind": "random",
+ "where": "office",
+ "era": "fantasy",
+ "again": 150,
+ "onNews": {
+  "tags": [
+   "food"
+  ],
+  "within": 100
+ },
+ "hook": "麦が足りぬ町がある。足りぬと分かっているのに、まだ誰も騒いでいない",
+ "title": "騒がない一週間",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "clerk": {
+   "client": "組合の書記"
+  },
+  "head": {
+   "npc": "町の肝煎",
+   "sex": "m"
+  },
+  "dealer": {
+   "npc": "穀物を囲う商人",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "speaker": "clerk",
+   "art": "tale",
+   "text": [
+    "{clerk}が板の前で腕を組んでいた。「{struck}の話です。貼る紙が無いのですが、貼りたい」",
+    "「——{struck:news}」",
+    "「麦が足りません。足りないと分かっているのに、まだ誰も騒いでいない。騒ぎ出すまでに、だいたい一週間です」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "近隣の麦の値を調べてから行く",
+     "check": {
+      "skill": "trade",
+      "dc": 22,
+      "win": "prices",
+      "lose": "arrive"
+     }
+    },
+    {
+     "label": "関わらない",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "prices": {
+   "speaker": "clerk",
+   "text": [
+    "帳面を繰ると、二つ隣の州で麦が余っていた。値は安い。運べば間に合う。運ぶ荷車が、{struck}には無いだけだ。",
+    "{clerk}が言った。「毎年そうです。麦が無いのではなく、麦が動かないのです」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_famine_know"
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}へ行く",
+   "speaker": "head",
+   "art": "disaster",
+   "text": [
+    "{struck}の市は立っていた。売り物はある。値が、三月前の四倍になっているだけだ。",
+    "肝煎の{head}が言った。「蔵には麦があります。{dealer}の蔵です。売らぬのではない、高く売るのです」",
+    "「あと三日で、町の者が蔵を破ります。破れば、兵が来ます。兵が来れば、麦の話ではなくなる」"
+   ],
+   "choices": [
+    {
+     "label": "{dealer}と値の話をする",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "deal",
+      "lose": "refused"
+     }
+    },
+    {
+     "label": "二つ隣の州から麦を運ぶ",
+     "if": {
+      "flag": "fn_famine_know"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 24,
+      "win": "hauled",
+      "lose": "late"
+     }
+    },
+    {
+     "label": "自分の財で蔵の麦を買い、配る",
+     "effects": [
+      {
+       "money": -800
+      }
+     ],
+     "next": "bought"
+    },
+    {
+     "label": "町の者と一緒に蔵を開ける",
+     "next": "break"
+    }
+   ]
+  },
+  "deal": {
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "{dealer}は算盤を置いた。「四倍で売っているのではありません。四倍で買う人がいるのです」",
+    "「……ですが、蔵を破られれば、ゼロです。二倍で、町に先に売りましょう。残りは好きな値で」"
+   ],
+   "effects": [
+    {
+     "xp": "trade",
+     "n": 6
+    }
+   ],
+   "next": "end_deal"
+  },
+  "hauled": {
+   "art": "road",
+   "text": [
+    "荷車を十二台、二つ隣の州から仕立てた。四日かかった。四日めの夕方に着いたとき、蔵の前にはもう人が集まっていた。"
+   ],
+   "next": "end_hauled"
+  },
+  "bought": {
+   "art": "trade",
+   "text": [
+    "{dealer}は喜んで売った。買った麦は三日分。三日で、何かが変わるわけではない。"
+   ],
+   "next": "end_bought"
+  },
+  "break": {
+   "art": "war",
+   "text": [
+    "三日めの夜、蔵の扉が破られた。中の麦は、半刻で無くなった。翌朝、兵が来た。"
+   ],
+   "choices": [
+    {
+     "label": "前に出て、兵と話す",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_broke_ok",
+      "lose": "end_broke"
+     }
+    },
+    {
+     "label": "町の者を逃がす",
+     "next": "end_broke"
+    }
+   ]
+  },
+  "late": {
+   "text": [
+    "荷車の手配に手間取り、着いたのは六日めだった。蔵は前の日に破られていた。"
+   ],
+   "next": "end_broke"
+  },
+  "refused": {
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "{dealer}は首を振った。「値は、わたしが決めているのではありません。買う人が決めるのです」話は終わった。"
+   ],
+   "next": "break"
+  },
+  "end_deal": {
+   "text": [
+    "翌朝、蔵の前に「二倍」の札が出た。長い列ができたが、列は列のままで終わった。",
+    "{head}が言った。「二倍でも高い。……だが、破るよりは安い」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "money": 300
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "{struck}の穀物商に、町へ先に売らせた。"
+    }
+   ],
+   "end": "破るよりは安い"
+  },
+  "end_hauled": {
+   "text": [
+    "荷車十二台分の麦が、市の真ん中に下ろされた。値は三月前に戻り、{dealer}の蔵の麦は売れ残った。",
+    "{clerk}の言ったとおりだった。麦が無いのではない。麦が動かないのだ。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "money": 400
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "trade",
+     "n": 7
+    },
+    {
+     "note": "{struck}へ、二つ隣の州から麦を運んだ。"
+    }
+   ],
+   "end": "動かない麦"
+  },
+  "end_bought": {
+   "text": [
+    "三日分の麦が配られた。四日めに、また同じ列ができた。{head}は礼を言い、それから言いにくそうに言った。",
+    "「あと何日、お出しになれますか」——答えられなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "note": "{struck}の麦を私財で買い、三日分を配った。"
+    }
+   ],
+   "end": "あと何日"
+  },
+  "end_broke_ok": {
+   "text": [
+    "兵の前に出て、蔵が破られるまでの七日を話した。隊長は黙って聞き、町の者を一人も縛らずに引き上げた。",
+    "{dealer}は損をした。損をした話は、二つ隣の州まで伝わった。来年は、早めに売るだろう。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{struck}で蔵が破られ、縛られる者を出さずに収めた。"
+    }
+   ],
+   "end": "誰も縛られず"
+  },
+  "end_broke": {
+   "text": [
+    "蔵は空になり、兵が来て、十一人が縛られた。麦を食べた者も、食べられなかった者も、同じ列に並ばされた。",
+    "{struck}の秋は、そういう秋になった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "hp": -10
+    },
+    {
+     "note": "{struck}の蔵は破られ、十一人が縛られた。"
+    }
+   ],
+   "end": "同じ列"
+  },
+  "end_pass": {
+   "text": [
+    "{clerk}は板から手を離した。「ええ。貼る紙が無いというのは、そういうことです」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の飢えの話に関わらなかった。"
+    }
+   ],
+   "end": "貼る紙が無い"
+  }
+ }
+}

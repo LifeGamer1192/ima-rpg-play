@@ -1,0 +1,282 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_burned_letter",
+ "kind": "random",
+ "where": "inn",
+ "era": "fantasy",
+ "again": 170,
+ "onNews": {
+  "tags": [
+   "diplomacy"
+  ],
+  "text": "国書",
+  "within": 100
+ },
+ "hook": "国書を焼かれた使節が、宿で三日、動かずにいる",
+ "title": "焼かれた国書",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "宿の主"
+  },
+  "envoy": {
+   "npc": "面目を失った使節",
+   "sex": "m"
+  },
+  "scribe": {
+   "npc": "使節の書記",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{client}は二階を指した。「三日、部屋から出ません。食事だけは取ります」",
+    "「——{struck:news}」",
+    "「国へ帰れば、焼かれたことを報せねばならん。報せれば、戦になります。帰らなければ、職を失うだけで済みます」"
+   ],
+   "choices": [
+    {
+     "label": "{envoy}に会う",
+     "next": "meet"
+    },
+    {
+     "label": "書記に先に会う",
+     "next": "scribe"
+    },
+    {
+     "label": "放っておく",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "scribe": {
+   "speaker": "scribe",
+   "art": "inn",
+   "text": [
+    "{scribe}は階段の下で荷を抱えていた。「写しなら、あります」",
+    "「国書は焼かれましたが、わたしが書いた控えは懐に。……焼かれた国書と、控えと、どちらが本物かは、誰にも分かりません」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_letter_copy"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "next": "meet"
+  },
+  "meet": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "envoy",
+   "art": "backroom",
+   "text": [
+    "{envoy}は窓辺に座ったまま振り向かなかった。「焼かれたのは紙です。紙は、また書けます」",
+    "「焼かれたのを見た者が四十人いる。四十人の目は、書き直せない」",
+    "「{player}殿。わたしは、どう帰ればよいと思う」"
+   ],
+   "choices": [
+    {
+     "label": "「控えを持って帰り、焼かれた話はせぬこと」と説く",
+     "if": {
+      "flag": "fn_letter_copy"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_copy",
+      "lose": "end_truth"
+     }
+    },
+    {
+     "label": "「ありのまま報せるべきだ」と説く",
+     "next": "end_truth"
+    },
+    {
+     "label": "「焼いた側へもう一度行き、答えを取ってこい」と勧める",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "again",
+      "lose": "end_truth"
+     }
+    },
+    {
+     "label": "自分が代わりに答えを取りに行く",
+     "next": "again"
+    }
+   ]
+  },
+  "again": {
+   "at": {
+    "place": "struck",
+    "building": "palace"
+   },
+   "goal": "{struck}の{palace}で、答えを求める",
+   "art": "court",
+   "text": [
+    "{struck}の広間で、門前払いを三度くらった。四度めに、書記の一人が奥へ通した。",
+    "「焼いたのは、読む前だそうです」書記は言った。「読んでいれば、焼かなかったかもしれません」"
+   ],
+   "choices": [
+    {
+     "label": "控えをその場で読み上げる",
+     "if": {
+      "flag": "fn_letter_copy"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_read",
+      "lose": "end_nothing"
+     }
+    },
+    {
+     "label": "答えだけでも一行、書かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_line",
+      "lose": "end_nothing"
+     }
+    }
+   ]
+  },
+  "end_copy": {
+   "text": [
+    "{envoy}は控えを懐に、国へ帰った。焼かれた話は、どこにも上がらなかった。",
+    "二年後、別の使節が同じ宮廷で同じ目に遭った。そのときは、控えが無かった。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "焼かれた国書の控えを持たせ、使節を帰した。"
+    }
+   ],
+   "end": "控えのある帰り"
+  },
+  "end_truth": {
+   "text": [
+    "{envoy}はありのままを報せた。報せた翌月、二つの国は使節の往来をやめた。やめただけで、戦にはならなかった。",
+    "{envoy}は職を解かれ、国境の町で書き物の仕事に就いた。会いに行くと、笑って言った。「紙を焼かれぬ仕事です」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "焼かれた国書のことを、ありのまま報せさせた。"
+    }
+   ],
+   "end": "紙を焼かれぬ仕事"
+  },
+  "end_read": {
+   "text": [
+    "広間の真ん中で、控えを声に出して読んだ。四十人が聞いた。焼いた側の主は、最後まで聞いてから一言だけ言った。",
+    "「……長い」答えは、その日のうちに書かれた。短い答えだった。短いが、ある。"
+   ],
+   "effects": [
+    {
+     "fame": 16
+    },
+    {
+     "money": 400
+    },
+    {
+     "favor": 8
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "note": "焼かれた国書の控えを、焼いた宮廷で読み上げた。"
+    }
+   ],
+   "end": "短いが、ある"
+  },
+  "end_line": {
+   "text": [
+    "一行だけ書かせた。「次は読む」。それだけの紙を持ち帰った。",
+    "{envoy}はその一行を見て、長いこと黙っていた。「……これで、帰れます」"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "焼いた側から「次は読む」の一行を取ってきた。"
+    }
+   ],
+   "end": "次は読む"
+  },
+  "end_nothing": {
+   "text": [
+    "答えは取れなかった。{envoy}は四日めに宿を引き払い、国へ帰った。何を報せたかは、分からない。",
+    "翌年、二つの国の境で兵が動いた。国書のせいかどうかは、誰にも言えない。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "焼かれた国書の答えは、取れなかった。"
+    }
+   ],
+   "end": "誰にも言えない"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は肩をすくめた。「お武家の話です。宿賃さえ払っていただければ」"
+   ],
+   "effects": [
+    {
+     "note": "焼かれた国書の使節には関わらなかった。"
+    }
+   ],
+   "end": "宿賃さえ"
+  }
+ }
+}

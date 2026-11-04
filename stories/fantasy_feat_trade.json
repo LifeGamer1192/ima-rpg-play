@@ -1,0 +1,275 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_feat_trade",
+ "kind": "feat",
+ "feat": "trade",
+ "title": "魔石の値を決める者",
+ "era": "fantasy",
+ "trigger": {
+  "wealth": 200000,
+  "skill": {
+   "trade": 60
+  },
+  "notFeat": "trade"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "third": {
+   "realm": "second"
+  },
+  "thirdcap": {
+   "place": "capital:third"
+  },
+  "broker": {
+   "npc": "古参の仲買",
+   "sex": "m"
+  },
+  "rival": {
+   "npc": "大きな商会の女主",
+   "sex": "f"
+  }
+ },
+ "start": "t1",
+ "scenes": {
+  "t1": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で、{broker}の話を聞く",
+   "speaker": "broker",
+   "art": "trade",
+   "text": [
+    "{broker}が小石を並べて数を示した。「学院が、五年ぶんの魔石をまとめて買う相手を決める。宮廷は関の通行料をそれに抱き合わせた」",
+    "「魔石と関。両方握れば、呪文の値も、荷の値も、あんたの帳面で決まる。手付けだけで五万だ」"
+   ],
+   "choices": [
+    {
+     "label": "手付けの五万を積む",
+     "if": {
+      "money": 50000
+     },
+     "effects": [
+      {
+       "money": -50000
+      },
+      {
+       "flag": "ft_bid"
+      }
+     ],
+     "next": "t2"
+    },
+    {
+     "label": "まだ身代が足りない",
+     "next": "tdecline"
+    }
+   ]
+  },
+  "t2": {
+   "at": {
+    "place": "capital",
+    "building": "office"
+   },
+   "goal": "{capital}の{office}で、入札に臨む",
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "居並ぶ商会の頭の中で、{rival}が{player}を一瞥して笑った。「どちらの村の方かしら」帳簿方が札を読み上げはじめた。"
+   ],
+   "choices": [
+    {
+     "label": "相場を読み切り、ぎりぎりの値を入れる",
+     "check": {
+      "skill": "trade",
+      "dc": 80,
+      "win": "t3",
+      "lose": "t2b"
+     }
+    },
+    {
+     "label": "五年の納め方の組み立てで、条件で勝つ",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "t3",
+      "lose": "t2b"
+     }
+    }
+   ]
+  },
+  "t2b": {
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "{rival}の札が、わずかに上を行った。だが帳簿方は、まだ迷っている。"
+   ],
+   "choices": [
+    {
+     "label": "値を上げて競り勝つ（30000）",
+     "if": {
+      "money": 30000
+     },
+     "effects": [
+      {
+       "money": -30000
+      }
+     ],
+     "next": "t3"
+    },
+    {
+     "label": "引き下がる",
+     "next": "tfail"
+    }
+   ]
+  },
+  "t3": {
+   "at": {
+    "place": "capital",
+    "building": "market"
+   },
+   "goal": "{capital}で、最初の荷を送り出す",
+   "art": "road",
+   "text": [
+    "魔石と鉄と塩を積んだ荷車の列が、{thirdcap}へ向けて出た。光る荷は、夜によく目立つ。",
+    "峠には、{rival}が雇ったという噂の一団が待っていた。"
+   ],
+   "choices": [
+    {
+     "label": "自ら護衛の先頭に立つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 6,
+      "level": 68,
+      "win": "t4",
+      "lose": "tfail_road"
+     }
+    },
+    {
+     "label": "間道を抜けてかわす",
+     "check": {
+      "skill": "stealth",
+      "dc": 75,
+      "win": "t4",
+      "lose": "t3fight"
+     }
+    },
+    {
+     "label": "魔石を布で包み、光を殺して夜に通す",
+     "check": {
+      "skill": "letters",
+      "dc": 72,
+      "win": "t4",
+      "lose": "t3fight"
+     }
+    }
+   ]
+  },
+  "t3fight": {
+   "art": "road",
+   "text": [
+    "間道の出口で、一団が待っていた。"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 6,
+      "level": 68,
+      "win": "t4",
+      "lose": "tfail_road"
+     }
+    }
+   ]
+  },
+  "t4": {
+   "at": {
+    "place": "thirdcap",
+    "building": "market"
+   },
+   "goal": "{thirdcap}の{market}で、荷を捌く",
+   "art": "trade",
+   "text": [
+    "{thirdcap}の市は、魔石の値の噂でもちきりだった。どこまで値を保ち、どこで手を打つか。ここが分かれ目である。"
+   ],
+   "choices": [
+    {
+     "label": "値を読み切って売り捌く",
+     "check": {
+      "skill": "trade",
+      "dc": 82,
+      "win": "twin",
+      "lose": "thalf"
+     }
+    }
+   ]
+  },
+  "twin": {
+   "art": "trade",
+   "text": [
+    "荷はすべて捌け、代わりに金貨と手形が蔵に積み上がった。その日から、魔石と関の値は、{player}の帳面で決まるようになった。",
+    "王たちは戦の金を借りに来る。借りに来る者は、頭を下げる。"
+   ],
+   "effects": [
+    {
+     "money": 200000
+    },
+    {
+     "fame": 25
+    },
+    {
+     "feat": "trade"
+    }
+   ],
+   "end": "帳面の一行"
+  },
+  "thalf": {
+   "art": "trade",
+   "text": [
+    "売り急いで値を崩した。損はしなかったが、値を握るには至らなかった。……ひと月ほどして、もう一度。"
+   ],
+   "effects": [
+    {
+     "money": 60000
+    }
+   ],
+   "end": "富いまだ足らず"
+  },
+  "tdecline": {
+   "speaker": "broker",
+   "art": "trade",
+   "text": [
+    "{broker}は肩をすくめた。「次の入札は、またいつか」"
+   ],
+   "end": "富いまだ足らず"
+  },
+  "tfail": {
+   "art": "court",
+   "text": [
+    "請負は{rival}の商会に渡った。手付けは戻らない。……ひと月ほどして、また機会が来るかもしれない。"
+   ],
+   "end": "富いまだ足らず"
+  },
+  "tfail_road": {
+   "art": "road",
+   "text": [
+    "荷車は焼かれ、魔石は奪われた。{player}は傷だらけで{capital}に戻った。……ひと月ほどして、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -40
+    }
+   ],
+   "end": "富いまだ足らず"
+  }
+ }
+}

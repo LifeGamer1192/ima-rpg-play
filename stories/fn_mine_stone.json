@@ -1,0 +1,296 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_mine_stone",
+ "kind": "random",
+ "where": "smithy",
+ "era": "fantasy",
+ "again": 150,
+ "onNews": {
+  "tags": [
+   "economy"
+  ],
+  "within": 110
+ },
+ "hook": "鉱山がよく出ている年は、坑道で変なものにも会う年だ",
+ "title": "深い坑",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "鍛冶"
+  },
+  "boss": {
+   "npc": "坑の差配",
+   "sex": "m"
+  },
+  "digger": {
+   "npc": "古い掘子",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}は鎚を置いた。「{struck}の鉱山の話だ。うちにも石が回ってくる」",
+    "「——{struck:news}」",
+    "「よく出る年は、深く掘っている年だ。深い坑には、鉄のほかにも出るものがある」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "「何が出る」と聞く",
+     "next": "ask"
+    },
+    {
+     "label": "関わらない",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "client",
+   "text": [
+    "{client}は炉を見たまま言った。「石を喰うやつだ。音を立てずに壁から出てくる。掘子は『壁の口』と呼ぶ」",
+    "「十年に一度だ。十年に一度、坑が一つ潰れる」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_mine_know"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}の鉱山へ行く",
+   "speaker": "boss",
+   "art": "tale",
+   "text": [
+    "{struck}の坑口に、石を積んだ車が並んでいた。{boss}が帳面を叩いている。「今年は三倍だ。掘る者も三倍要る」",
+    "古い掘子の{digger}が、坑口の脇に座って動かなかった。「六番坑には入りません。音がしません」",
+    "「音がしないのは、何もいないからだ」{boss}が言った。「音がしないのは、何かが聞いているからです」{digger}が言った。"
+   ],
+   "choices": [
+    {
+     "label": "六番坑に入って確かめる",
+     "next": "enter"
+    },
+    {
+     "label": "{digger}に、坑の見分け方を教わる",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "learned",
+      "lose": "enter"
+     }
+    },
+    {
+     "label": "{boss}に、六番坑を閉じさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_closed",
+      "lose": "enter"
+     }
+    }
+   ]
+  },
+  "learned": {
+   "speaker": "digger",
+   "art": "tale",
+   "text": [
+    "{digger}は蝋燭を二本くれた。「一本は手に、一本は足元に置いて歩きます。足元の炎が先に揺れたら、下から来ます」",
+    "「鼠がいる坑は安全です。鼠がいない坑は、鼠が食われた坑です」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_mine_lore"
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    }
+   ],
+   "next": "enter"
+  },
+  "enter": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "六番坑に入る",
+   "art": "ruins",
+   "text": [
+    "六番坑は、他の坑より広く掘ってあった。壁の魔石が、蝋燭の光を返してくる。鼠はいない。",
+    "奥へ百歩進んだところで、足元の炎が揺れた。"
+   ],
+   "choices": [
+    {
+     "label": "引き返す",
+     "if": {
+      "flag": "fn_mine_lore"
+     },
+     "next": "back"
+    },
+    {
+     "label": "壁に身を寄せて、出てくるのを待つ",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 20,
+      "win": "end_slain",
+      "lose": "end_buried"
+     }
+    },
+    {
+     "label": "声を上げて、上の掘子に知らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "warned",
+      "lose": "end_buried"
+     }
+    }
+   ]
+  },
+  "back": {
+   "art": "ruins",
+   "text": [
+    "炎が揺れた瞬間に引き返した。坑口まで三百歩を、振り返らずに歩いた。",
+    "出たあと、坑の中で石の崩れる音が長く続いた。{digger}が言った。「歩いて出た人は、久しぶりです」"
+   ],
+   "next": "end_closed"
+  },
+  "warned": {
+   "art": "ruins",
+   "text": [
+    "叫び声が坑を伝って、上の掘子が綱を下ろした。十四人が、順に上がった。最後が{player}だった。",
+    "上がりきった直後、六番坑の口から土煙が噴き出した。"
+   ],
+   "next": "end_saved"
+  },
+  "end_slain": {
+   "text": [
+    "壁から出てきたものを、二つとも仕留めた。石の粉にまみれて坑口へ戻ると、{boss}が目を丸くした。",
+    "六番坑はその後も掘られた。三年掘って、もう一度同じことが起きた。そのときは、誰も間に合わなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "money": 500
+    },
+    {
+     "item": "manastone",
+     "n": 3
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "{struck}の六番坑で、壁から出たものを討った。"
+    }
+   ],
+   "end": "三年後の同じこと"
+  },
+  "end_saved": {
+   "text": [
+    "十四人が上がり、六番坑は潰れた。石は失われたが、人は一人も欠けなかった。",
+    "{boss}は帳面に大きな線を引いた。「今年の上がりは、三倍から二倍に落ちた」——{digger}が言った。「人は十四人、落ちませんでした」"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{struck}の六番坑から、掘子十四人を上げた。"
+    }
+   ],
+   "end": "落ちなかった十四人"
+  },
+  "end_closed": {
+   "text": [
+    "六番坑は閉じられた。板を打ちつけ、石を積み、上に小さな祠を置いた。",
+    "{boss}は不服そうだったが、翌年、隣の七番坑でよく出た。「浅いところにも、あるんですな」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "money": 250
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "{struck}の六番坑を閉じさせた。"
+    }
+   ],
+   "end": "板と石と祠"
+  },
+  "end_buried": {
+   "text": [
+    "崩れた石に脚を挟まれ、半日かけて掘り出された。六番坑は潰れ、三人が出てこなかった。",
+    "{digger}は、坑口の脇で静かに座っていた。「音がしませんでした」とだけ、もう一度言った。"
+   ],
+   "effects": [
+    {
+     "hp": -35
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "{struck}の六番坑が潰れ、三人が出てこなかった。"
+    }
+   ],
+   "end": "音がしなかった"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は鎚を取った。「そうだな。石は、買うほうが安い」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の鉱山の話に関わらなかった。"
+    }
+   ],
+   "end": "買うほうが安い"
+  }
+ }
+}

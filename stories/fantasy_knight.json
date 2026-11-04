@@ -1,0 +1,477 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_knight",
+ "kind": "school",
+ "title": "どう負けるかを習う",
+ "era": "fantasy",
+ "school": "knight",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "団長",
+   "sex": "m"
+  },
+  "peer": {
+   "npc": "同じ従士",
+   "sex": "m"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "steward": {
+   "person": "minister:realm"
+  },
+  "village": {
+   "place": "near:here"
+  }
+ },
+ "start": "k1",
+ "scenes": {
+  "k1": {
+   "at": {
+    "place": "here",
+    "building": "barracks"
+   },
+   "goal": "{here}の騎士団の館を訪ねる",
+   "speaker": "master",
+   "art": "camp",
+   "text": [
+    "{master}は木剣を二本投げてよこした。「打ち込んでこい。わたしは受けるだけだ」",
+    "三十合で息が上がった。{master}は一歩も動かずに言った。「よし。今日は、負け方を教える」"
+   ],
+   "choices": [
+    {
+     "label": "木剣を置き、礼をする",
+     "next": "k1ok"
+    },
+    {
+     "label": "「勝ち方は教えぬのですか」と聞く",
+     "next": "k1ask"
+    },
+    {
+     "label": "もう一度打ち込む",
+     "check": {
+      "skill": "blade",
+      "dc": 20,
+      "win": "k1good",
+      "lose": "k1ok"
+     }
+    }
+   ]
+  },
+  "k1good": {
+   "text": [
+    "息を整え、間合いを半歩詰めてから打った。{master}の受けが、初めて一寸ずれた。「……名を聞いておこう」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "knight"
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "{here}の騎士団に入った。"
+    }
+   ],
+   "next": "k2"
+  },
+  "k1ok": {
+   "text": [
+    "礼をすると、{master}は満足そうにうなずいた。「負けたあとに礼ができる者は、生き残る」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "knight"
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "{here}の騎士団に入った。"
+    }
+   ],
+   "next": "k2"
+  },
+  "k1ask": {
+   "speaker": "master",
+   "text": [
+    "「勝ち方は、強い者なら勝手に覚える」{master}は木剣を壁に掛けた。「負け方は、誰も教えぬ。だから騎士は、負けると人を殺す」",
+    "「負けて、剣を納めて、帰る。それができて、はじめて剣を持ってよい」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "knight"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{here}の騎士団に入った。"
+    }
+   ],
+   "next": "k2"
+  },
+  "k2": {
+   "at": {
+    "place": "here",
+    "building": "barracks"
+   },
+   "goal": "騎士団で調練を受ける",
+   "speaker": "peer",
+   "art": "camp",
+   "text": [
+    "{peer}が夜の廊下で待っていた。「明日の立ち合い、手加減してくれ。落ちたら家に帰される」",
+    "「家には、弟が五人いる。おれが仕送りをしている」"
+   ],
+   "choices": [
+    {
+     "label": "手加減せずに立ち合う",
+     "check": {
+      "skill": "blade",
+      "dc": 24,
+      "win": "k2win",
+      "lose": "k2lose"
+     }
+    },
+    {
+     "label": "手加減する",
+     "next": "k2soft"
+    },
+    {
+     "label": "夜のうちに、{peer}の構えの癖を直してやる",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "k2teach",
+      "lose": "k2soft"
+     }
+    }
+   ]
+  },
+  "k2win": {
+   "speaker": "master",
+   "text": [
+    "{player}が勝った。{peer}は荷をまとめた。{master}は立ち合いを見ていて言った。「手加減をしなかったな。それでよい。……あれは、来年また来る」"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 6
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "bond": "peer",
+     "know": 30,
+     "like": -5,
+     "memo": "立ち合いで落とした"
+    }
+   ],
+   "next": "k3"
+  },
+  "k2lose": {
+   "text": [
+    "{peer}の木剣が肩に入った。{player}は転び、起きて、礼をした。{master}は何も言わなかったが、翌日から稽古の相手が変わった。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "k3"
+  },
+  "k2soft": {
+   "text": [
+    "わざと一歩遅れて受けた。{peer}は残り、{master}は立ち合いの途中で視線を外した。見ていたのだ、と分かった。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "schoolRank": 1
+    },
+    {
+     "bond": "peer",
+     "know": 30,
+     "like": 25,
+     "memo": "立ち合いで手心を加えた"
+    }
+   ],
+   "next": "k3"
+  },
+  "k2teach": {
+   "text": [
+    "夜の中庭で、{peer}の肘の上がる癖を直した。翌日、{peer}は自分の力で勝ち残った。",
+    "{master}は中庭の足跡を見て、何も言わずに頷いた。"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "bond": "peer",
+     "know": 35,
+     "like": 30,
+     "memo": "夜の中庭で癖を直してやった"
+    }
+   ],
+   "next": "k3"
+  },
+  "k3": {
+   "at": {
+    "place": "here",
+    "building": "barracks"
+   },
+   "goal": "団の命を聞く",
+   "speaker": "steward",
+   "art": "court",
+   "text": [
+    "{steward}が団に命を持ってきた。「{village}が三年、貢を納めぬ。騎士団で見せしめにせよ」",
+    "{master}は命を読み、しばらく黙った。「団の誓いには、刃を持たぬ者に向けぬ、とある」",
+    "「だが、禄は宮廷から出ている」{steward}が言った。「誓いと禄と、どちらが先です」"
+   ],
+   "choices": [
+    {
+     "label": "{village}へ行き、まず話を聞く",
+     "next": "talk"
+    },
+    {
+     "label": "命のとおり、兵を率いて{village}へ向かう",
+     "next": "force"
+    },
+    {
+     "label": "「団の誓いが先です」と{steward}に言う",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_oath",
+      "lose": "force"
+     }
+    }
+   ]
+  },
+  "talk": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}で話を聞く",
+   "art": "tale",
+   "text": [
+    "{village}は貧しかった。三年前の水害のあと、畑の半分が石原に変わっている。長老が帳面を出してきた。",
+    "貢が納まらぬのではない。納める物が無いのだ。帳面の数字は、宮廷の帳面と合っていなかった。"
+   ],
+   "choices": [
+    {
+     "label": "帳面の違いを突き止め、宮廷に持ち帰る",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_ledger",
+      "lose": "end_half"
+     }
+    },
+    {
+     "label": "村の若い者を騎士団の人夫に雇い、賃を貢に充てる",
+     "check": {
+      "skill": "trade",
+      "dc": 24,
+      "win": "end_half",
+      "lose": "force"
+     }
+    }
+   ]
+  },
+  "force": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}へ兵を進める",
+   "art": "war",
+   "text": [
+    "{village}の入口に、鍬と棒を持った男たちが並んでいた。十四人。騎士団は二十五人、馬が六頭。",
+    "勝負にはならない。それでも、彼らは並んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "馬を下り、一人で前に出て話す",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_half",
+      "lose": "fight"
+     }
+    },
+    {
+     "label": "命のとおりに散らす",
+     "next": "fight"
+    }
+   ]
+  },
+  "fight": {
+   "art": "war",
+   "text": [
+    "鍬が振り上げられ、こちらの槍が下りた。"
+   ],
+   "choices": [
+    {
+     "label": "戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 10,
+      "win": "end_force",
+      "lose": "end_force"
+     }
+    }
+   ]
+  },
+  "end_oath": {
+   "speaker": "master",
+   "text": [
+    "{steward}は顔色を変えて帰っていった。団の禄は、その年から三割減った。",
+    "{master}は中庭で木剣を振りながら言った。「禄は減る。誓いは減らぬ。どちらが高くつくかは、あとで分かる」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 4
+    },
+    {
+     "fame": 10
+    },
+    {
+     "favor": -12
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "騎士団の誓いを盾に、村の見せしめを断った。"
+    }
+   ],
+   "end": "誓いが先"
+  },
+  "end_ledger": {
+   "text": [
+    "宮廷の帳面には、{village}の畑が水害の前のまま載っていた。書き替えを怠った役人が一人、職を失った。",
+    "貢は改められ、村は半分を納めた。{master}は言った。「刃を抜かずに済んだ。それを手柄と呼ぶ者は少ないがな」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 4
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "帳面の誤りを見つけ、{village}の貢を改めさせた。"
+    }
+   ],
+   "end": "抜かずに済んだ"
+  },
+  "end_half": {
+   "text": [
+    "村は納められるだけを納め、残りは人手で払うことになった。双方が半分ずつ不満な結論だ。",
+    "帰り道、{peer}が言った。「あれ、騎士の仕事だったのかな」「騎士の仕事だ。……たぶん」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 4
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "{village}の貢を、半分と人手で収めた。"
+    }
+   ],
+   "end": "半分ずつ不満"
+  },
+  "end_force": {
+   "text": [
+    "{village}は静かになった。怪我人は向こうに七人、こちらに二人。宮廷は褒め、団の禄は増えた。",
+    "{master}はその夜、誓いの書を棚から下ろし、灯りの下で長いこと眺めていた。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 14
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "money": 400
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "命のまま、{village}を力で静めた。"
+    }
+   ],
+   "end": "棚から下ろした書"
+  }
+ }
+}

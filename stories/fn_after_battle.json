@@ -1,0 +1,290 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_after_battle",
+ "kind": "random",
+ "where": "road",
+ "era": "fantasy",
+ "again": 120,
+ "onNews": {
+  "tags": [
+   "military"
+  ],
+  "text": "戦い",
+  "within": 90
+ },
+ "hook": "戦のあとの野は、勝ったほうの者も負けたほうの者も、同じ顔で寝ている",
+ "title": "数えられなかった者",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "荷車を引く男"
+  },
+  "healer": {
+   "npc": "塔から来た手当て人",
+   "sex": "f"
+  },
+  "runaway": {
+   "npc": "逃げた兵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "{client}は空の荷車を止めた。「{struck}の帰りだ。行きは満載、帰りは空だ」",
+    "「——{struck:news}」",
+    "「数が書いてあるだろう。あれは、数えた分だ。野には、数えられなかったのがまだいる」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}の野へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "薬草を買い込んでから行く",
+     "effects": [
+      {
+       "money": -150
+      },
+      {
+       "item": "herbs",
+       "n": 4
+      },
+      {
+       "flag": "fn_batt_herbs"
+      }
+     ],
+     "next": "arrive"
+    },
+    {
+     "label": "行かない",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}の野へ行く",
+   "speaker": "healer",
+   "art": "disaster",
+   "text": [
+    "野には、まだ折れた槍が立っていた。鴉が多い。{healer}が一人で、荷車に人を乗せている。",
+    "「塔から来ました。三人で来て、二人は町へ運びに戻っています」",
+    "「生きているのが十一人。日が落ちるまでに、運べるのは六人です」"
+   ],
+   "choices": [
+    {
+     "label": "重い者から運ぶ",
+     "check": {
+      "skill": "medicine",
+      "dc": 26,
+      "win": "many",
+      "lose": "few"
+     }
+    },
+    {
+     "label": "運べる者を歩かせ、荷車は動けぬ者に使う",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "many",
+      "lose": "few"
+     }
+    },
+    {
+     "label": "薬草で、その場で止血して回る",
+     "if": {
+      "flag": "fn_batt_herbs"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "many",
+      "lose": "few"
+     }
+    }
+   ]
+  },
+  "many": {
+   "speaker": "healer",
+   "art": "disaster",
+   "text": [
+    "日が落ちるまでに十人運んだ。{healer}は泥だらけの手で額を拭った。「十人です。……十一人めは、間に合いませんでした」"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "fame": 6
+    },
+    {
+     "flag": "fn_batt_many"
+    }
+   ],
+   "next": "camp"
+  },
+  "few": {
+   "art": "disaster",
+   "text": [
+    "運べたのは五人。暗くなってからは、どこに誰がいるか分からなくなった。夜の野は広い。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "hp": -8
+    }
+   ],
+   "next": "camp"
+  },
+  "camp": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "野の端の焚き火を見に行く",
+   "speaker": "runaway",
+   "art": "camp",
+   "text": [
+    "野の端の林で、小さな火が燃えていた。十人ほど。武具は捨ててある。逃げた兵だ。",
+    "{runaway}が立ち上がった。「突き出すなら、やってくれ。どのみち、帰る村は焼けた」",
+    "「ただ、こいつらは連れていくな。おれが連れてきた」"
+   ],
+   "choices": [
+    {
+     "label": "官に突き出す",
+     "next": "end_turned"
+    },
+    {
+     "label": "見なかったことにする",
+     "next": "end_blind"
+    },
+    {
+     "label": "手当て人の荷運びとして雇う",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_hired",
+      "lose": "end_blind"
+     }
+    },
+    {
+     "label": "一緒に、まだ野にいる者を探させる",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "end_search",
+      "lose": "end_blind"
+     }
+    }
+   ]
+  },
+  "end_turned": {
+   "text": [
+    "十人は縛られ、町へ送られた。逃げた兵の罰は、この国では鞭と、三年の人夫だ。",
+    "{healer}は何も言わなかった。言わなかったが、翌朝、荷車を引く手が一つ減っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "note": "{struck}の野で、逃げた兵十人を突き出した。"
+    }
+   ],
+   "end": "鞭と三年"
+  },
+  "end_blind": {
+   "text": [
+    "火のそばを素通りした。翌朝、林に火の跡だけが残っていた。十人がどこへ行ったかは、誰も知らない。"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の野で、逃げた兵を見逃した。"
+    }
+   ],
+   "end": "火の跡"
+  },
+  "end_hired": {
+   "text": [
+    "十人は荷車を引いた。手が増えると、運べる数も増える。三日で、野に生きている者はいなくなった——運び終えた、という意味で。",
+    "{healer}は塔に報せを出した。「人夫十名、名は書かず」。塔の帳面は、そういう書き方ができる。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "item": "herbs",
+     "n": 3
+    },
+    {
+     "note": "{struck}の野で、逃げた兵を手当ての荷運びに雇った。"
+    }
+   ],
+   "end": "名は書かず"
+  },
+  "end_search": {
+   "text": [
+    "逃げた兵は、野のどこに誰が倒れたかをよく覚えていた。自分たちが越えてきた道だからだ。",
+    "夜のうちに、さらに四人見つかった。四人のうち二人は、助かった。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    },
+    {
+     "note": "{struck}の野で、逃げた兵と一緒に倒れた者を探した。"
+    }
+   ],
+   "end": "越えてきた道"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は荷車を引いていった。「行かんほうがいい。見ると、しばらく眠れん」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の戦のあとの野へは行かなかった。"
+    }
+   ],
+   "end": "しばらく眠れん"
+  }
+ }
+}

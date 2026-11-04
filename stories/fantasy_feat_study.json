@@ -1,0 +1,340 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_feat_study",
+ "kind": "feat",
+ "feat": "study",
+ "title": "六派の座",
+ "era": "fantasy",
+ "trigger": {
+  "schoolRank": 3,
+  "notFeat": "study"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "power": {
+   "realm": "strongest"
+  },
+  "capital": {
+   "place": "capital:power"
+  },
+  "ruler": {
+   "person": "ruler:power"
+  },
+  "master": {
+   "npc": "老いた師",
+   "sex": "f"
+  },
+  "champ": {
+   "npc": "他派の第一人者",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の学び舎で、老いた師の言葉を聞く",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は寝台から{player}の手を取った。「{ruler}が{capital}に六派の師を集めるという。わたしは行けぬ。お前が行きなさい」",
+    "「勝てば、我らの道に国の禄がつく。負ければ、二十年は誰も入門せぬ」"
+   ],
+   "choices": [
+    {
+     "label": "{capital}へ向かう",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、座の第一に臨む",
+   "art": "court",
+   "text": [
+    "広間に六派が並んだ。魔術学院、癒やしの塔、吟遊の座、騎士団、獣追い——影の者は席を空けたまま、どこかに座っている。",
+    "「見せよ」と{ruler}が言った。「何ができるかではない。何の役に立つかを」"
+   ],
+   "choices": [
+    {
+     "label": "濁った水を清め、井戸いくつ分かを示す",
+     "if": {
+      "school": "magus"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "古傷の衛兵をその場で診て、痛みを取る",
+     "if": {
+      "school": "healer"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "広間の者の名を一度で覚え、歌にして返す",
+     "if": {
+      "school": "bard"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "庭で、剣の型を最後まで崩さずに演じる",
+     "if": {
+      "school": "knight"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "広間の誰にも気づかれずに、卓の上の鍵を取り替える",
+     "if": {
+      "school": "shadow"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "迷宮の二層までの図を広げ、水場と出口を指す",
+     "if": {
+      "school": "ranger"
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 76,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "己の道の心を、言葉で説く",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "s3",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}の{palace}で、{champ}と競う",
+   "speaker": "champ",
+   "art": "court",
+   "text": [
+    "残ったのは二人。{champ}が言った。「見事です。ですが、見事なだけでは、村の冬は越せません」広間が静まる。"
+   ],
+   "choices": [
+    {
+     "label": "同じ呪を、どちらが少ない言葉で成すかを競う",
+     "if": {
+      "school": "magus"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "同じ病人を診て、どちらの見立てが当たるかを競う",
+     "if": {
+      "school": "healer"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "同じ出来事を、どちらが人を動かす歌にできるかを競う",
+     "if": {
+      "school": "bard"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "木剣で、相手の第一人者と立ち合う",
+     "if": {
+      "school": "knight"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "互いの懐のものを、先に取ったほうが勝ちとする",
+     "if": {
+      "school": "shadow"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "同じ森に放たれ、先に戻ったほうが勝ちとする",
+     "if": {
+      "school": "ranger"
+     },
+     "check": {
+      "skill": "bow",
+      "dc": 82,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "理で押し切る",
+     "check": {
+      "skill": "speech",
+      "dc": 84,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    },
+    {
+     "label": "年代記の実例で、道の力を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 84,
+      "win": "s4",
+      "lose": "s3b"
+     }
+    }
+   ]
+  },
+  "s3b": {
+   "speaker": "champ",
+   "art": "court",
+   "text": [
+    "{champ}の道が一枚上を行った。もう一度だけ、示す機会がある。"
+   ],
+   "choices": [
+    {
+     "label": "己の道の奥を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 86,
+      "win": "s4",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "己の言葉で、道の心を示す",
+     "check": {
+      "skill": "speech",
+      "dc": 86,
+      "win": "s4",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}が身を乗り出した。「では問おう。門（ポータル）は閉じられぬ。魔物は減らぬ。この世で人が生きていくのに、あなたの道は何をする」",
+    "「ひと言で答えよ」"
+   ],
+   "choices": [
+    {
+     "label": "学んだすべてをひと言に込める",
+     "check": {
+      "skill": "letters",
+      "dc": 80,
+      "win": "swin",
+      "lose": "sfail"
+     }
+    },
+    {
+     "label": "相手の目を見て、己の言葉で答える",
+     "check": {
+      "skill": "speech",
+      "dc": 80,
+      "win": "swin",
+      "lose": "sfail"
+     }
+    }
+   ]
+  },
+  "swin": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "長い沈黙のあと、{ruler}は席を降りて{player}に歩み寄り、手を取った。「先生」",
+    "そのひと言で、座は決した。{capital}には、{player}の門を叩こうという若者が列をなした。"
+   ],
+   "effects": [
+    {
+     "fame": 25
+    },
+    {
+     "feat": "study"
+    }
+   ],
+   "end": "学頭"
+  },
+  "sfail": {
+   "art": "lecture",
+   "text": [
+    "道は及ばなかった。{player}は一礼して広間を辞した。……学び直して、また次の座に。"
+   ],
+   "effects": [
+    {
+     "fame": -5
+    }
+   ],
+   "end": "道いまだ至らず"
+  }
+ }
+}

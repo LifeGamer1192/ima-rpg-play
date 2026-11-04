@@ -1,0 +1,20 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_herbs_fantasy",
+ "kind": "job",
+ "era": "fantasy",
+ "giver": "office",
+ "mechanism": "fraud",
+ "target": "here",
+ "title": "{place}の薬草の買い占めを正せ",
+ "desc": "{place}の薬草が、癒やしの塔に回る前に買い占められている。買い手の顔で市に入り、誰が囲っているかを突き止めてほしい。",
+ "reward": {
+  "base": 180
+ },
+ "favor": 12,
+ "fame": 3,
+ "deadline": {
+  "base": 28
+ }
+}

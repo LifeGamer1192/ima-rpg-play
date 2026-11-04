@@ -1,0 +1,336 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_general_book",
+ "kind": "random",
+ "where": "inn",
+ "era": "fantasy",
+ "again": 180,
+ "onNews": {
+  "tags": [
+   "general",
+   "people"
+  ],
+  "text": "兵法",
+  "within": 110
+ },
+ "hook": "将軍が兵法の書を出した。隊長たちが、戦場で頁をめくっているそうだ",
+ "title": "頁をめくる隊長",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "古参の兵"
+  },
+  "general": {
+   "npc": "書を著した将",
+   "sex": "m"
+  },
+  "captain": {
+   "npc": "若い隊長",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{client}は酒を舐めて言った。「{struck}の将軍の書だ。たいした本らしい」",
+    "「——{struck:news}」",
+    "「おれの隊の若いのが、一冊買った。戦場で、頁をめくりながら指図しておった。……十一日後に、また出る」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}の陣へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "書を一冊買って読む",
+     "effects": [
+      {
+       "money": -120
+      },
+      {
+       "flag": "fn_book_read"
+      }
+     ],
+     "next": "arrive"
+    },
+    {
+     "label": "放っておく",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}の陣へ行く",
+   "speaker": "captain",
+   "art": "camp",
+   "text": [
+    "{struck}の陣では、若い隊長たちが車座になって書を読んでいた。{captain}が頁を指す。「第三章のとおりに置けば、崩れません」",
+    "第三章は、平らな土地の話だ。この陣の前は、沢だ。",
+    "{general}は本営の前で、腕を組んで若い者たちを見ていた。"
+   ],
+   "choices": [
+    {
+     "label": "{captain}に、ここは沢だと言う",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "taught",
+      "lose": "ignored"
+     }
+    },
+    {
+     "label": "{general}に、書の使われ方を伝える",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "general",
+      "lose": "ignored"
+     }
+    },
+    {
+     "label": "書の第三章の前書きを読み上げる",
+     "if": {
+      "flag": "fn_book_read"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "preface",
+      "lose": "ignored"
+     }
+    }
+   ]
+  },
+  "preface": {
+   "art": "camp",
+   "text": [
+    "第三章の前書きには、こう書いてあった。「ここに記すは平らな地のこと。地が違えば、ここに書いたことは全部間違いである」",
+    "若い隊長たちは、誰も前書きを読んでいなかった。"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "flag": "fn_book_pre"
+    }
+   ],
+   "next": "taught"
+  },
+  "taught": {
+   "speaker": "captain",
+   "art": "camp",
+   "text": [
+    "{captain}は書を閉じ、沢の縁まで歩いて、しばらく水を見ていた。",
+    "「……書に、沢の章はありません」「無い所は、自分で考えるのだ」"
+   ],
+   "next": "battle"
+  },
+  "general": {
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "{general}は長く黙ってから言った。「書くのではなかったかもしれん」",
+    "「わしは、考え方を書いたつもりだった。あれは、答えとして読まれておる」",
+    "「明日、第三章を読むなと言う。……言ったところで、読むがな」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_book_gen"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "next": "battle"
+  },
+  "ignored": {
+   "art": "camp",
+   "text": [
+    "若い隊長たちは聞かなかった。「書に書いてあります」——その一言で、話は終わる。"
+   ],
+   "next": "battle"
+  },
+  "battle": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "十一日めの戦に出る",
+   "art": "war",
+   "text": [
+    "十一日めの朝、敵が沢の向こうに現れた。第三章のとおりに置かれた隊が、沢の縁で足を取られている。"
+   ],
+   "choices": [
+    {
+     "label": "{captain}の隊を、沢の上手へ動かす",
+     "if": {
+      "flag": "fn_book_pre"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_won",
+      "lose": "fight"
+     }
+    },
+    {
+     "label": "自ら前に出て、崩れを止める",
+     "fight": {
+      "foes": "soldier",
+      "n": 5,
+      "level": 24,
+      "win": "end_held",
+      "lose": "end_rout"
+     }
+    },
+    {
+     "label": "後ろに回り、退く道を確保する",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_retreat",
+      "lose": "end_rout"
+     }
+    }
+   ]
+  },
+  "fight": {
+   "art": "war",
+   "text": [
+    "動かすには遅かった。沢の縁で当たる。"
+   ],
+   "choices": [
+    {
+     "label": "前に出る",
+     "fight": {
+      "foes": "soldier",
+      "n": 5,
+      "level": 24,
+      "win": "end_held",
+      "lose": "end_rout"
+     }
+    }
+   ]
+  },
+  "end_won": {
+   "speaker": "general",
+   "text": [
+    "{captain}の隊は沢の上手に回り、渡ってくる敵の横を突いた。第三章には無い動きだ。",
+    "戦のあと、{general}は書の第三章の前書きを、太い字で書き直した。「ここに書いたことは、地が違えば全部間違いである」"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "money": 400
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{struck}の陣で、書のとおりに置かれた隊を動かさせた。"
+    }
+   ],
+   "end": "前書きを太く"
+  },
+  "end_held": {
+   "text": [
+    "沢の縁で踏みとどまった。崩れは止まり、敵は引いた。{captain}は肩で息をしながら言った。",
+    "「書には、こういう日のことは書いてありません」「書けんのだ。こういう日のことは」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "hp": -22
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "{struck}の陣で、沢の縁の崩れを止めた。"
+    }
+   ],
+   "end": "書けん日"
+  },
+  "end_retreat": {
+   "text": [
+    "退く道を先に確保した。負けたが、隊は半分残った。半分残れば、次がある。",
+    "{general}は報告を聞いて、ひとこと「よい」と言った。それだけだった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{struck}の戦で、退く道を確保した。"
+    }
+   ],
+   "end": "半分残る"
+  },
+  "end_rout": {
+   "text": [
+    "沢で崩れた。書を抱えた若い隊長が、頁を散らしながら走っていくのが見えた。",
+    "戦のあと、{general}は書の版木を割った。「書くのではなかった」"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "fame": -2
+    },
+    {
+     "note": "{struck}の戦は沢で崩れ、将は書の版木を割った。"
+    }
+   ],
+   "end": "割られた版木"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は杯を干した。「まあ、本のせいで負けた戦は、本のせいにならん。隊長のせいになる」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の兵法の書の話に関わらなかった。"
+    }
+   ],
+   "end": "隊長のせいになる"
+  }
+ }
+}

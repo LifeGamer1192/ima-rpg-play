@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_missing_fantasy",
+ "kind": "job",
+ "era": "fantasy",
+ "giver": "office",
+ "mechanism": "rescue",
+ "target": "realm-near",
+ "title": "{place}へ発った一行を探す",
+ "desc": "{place}へ発った六人の一行が、ひと月戻らぬ。組合は死んだものとして扱うが、家族が金を積んだ。生きていれば連れ帰ってほしい。",
+ "reward": {
+  "base": 300,
+  "perDay": 12
+ },
+ "favor": 16,
+ "fame": 6,
+ "deadline": {
+  "base": 30,
+  "perDay": 2
+ }
+}

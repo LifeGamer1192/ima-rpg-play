@@ -1,0 +1,278 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_new_wall",
+ "kind": "random",
+ "where": "office",
+ "era": "fantasy",
+ "again": 160,
+ "onNews": {
+  "tags": [
+   "construction"
+  ],
+  "within": 120
+ },
+ "hook": "城壁が高くなるそうだ。高くするのは、壁ではなく人の手だ",
+ "title": "壁を積む手",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "clerk": {
+   "client": "組合の書記"
+  },
+  "general": {
+   "npc": "普請を差配する将",
+   "sex": "m"
+  },
+  "farmer": {
+   "npc": "徴された百姓",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "speaker": "clerk",
+   "art": "tale",
+   "text": [
+    "{clerk}が板に紙を貼った。「{struck}の普請です。人夫が足りぬそうで」",
+    "「——{struck:news}」",
+    "「褒められている話ですが、板に貼られる話はたいてい、褒められている側の話です」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "「いつまでの普請だ」と聞く",
+     "next": "ask"
+    },
+    {
+     "label": "受けない",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "clerk",
+   "text": [
+    "{clerk}は帳面を見た。「刈り入れまでに、と書いてあります」",
+    "「刈り入れまで、ということは、刈り入れる人がいなくなるということでもあります」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_wall_know"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}の普請場へ行く",
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "{struck}の城壁は、北側だけ新しかった。石を運ぶ列が、朝から途切れない。",
+    "{general}は図面を広げて言った。「あと二十日で東を積む。人夫が二百足りぬ。集めてくれれば礼は出す」",
+    "石運びの列に、{farmer}がいた。畑の泥がついた足のままだ。"
+   ],
+   "choices": [
+    {
+     "label": "人夫を集める",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "gathered",
+      "lose": "short"
+     }
+    },
+    {
+     "label": "刈り入れと普請の日割りを組み直す",
+     "if": {
+      "flag": "fn_wall_know"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "split",
+      "lose": "short"
+     }
+    },
+    {
+     "label": "{farmer}の話を聞く",
+     "next": "farmer"
+    }
+   ]
+  },
+  "farmer": {
+   "speaker": "farmer",
+   "art": "camp",
+   "text": [
+    "{farmer}は腰を伸ばした。「壁はありがたい。敵が来たら、この中に入れてもらえる」",
+    "「ただ、入ってから食う分が、今年は無い。畑に出る日が、半分になりましたで」",
+    "「言いましたよ、お役人に。『壁が無ければ食う前に死ぬ』と言われました。……それも、そのとおりで」"
+   ],
+   "choices": [
+    {
+     "label": "{general}に、日割りを変えるよう説く",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "split",
+      "lose": "short"
+     }
+    },
+    {
+     "label": "自分の財で、足りぬ人夫を雇う",
+     "effects": [
+      {
+       "money": -700
+      }
+     ],
+     "next": "hired"
+    },
+    {
+     "label": "「壁が先だ」と言う",
+     "next": "short"
+    }
+   ]
+  },
+  "gathered": {
+   "text": [
+    "二百人を集めた。近くの三つの村から、日雇いで。壁は二十日で積み上がった。"
+   ],
+   "next": "end_wall"
+  },
+  "split": {
+   "speaker": "general",
+   "art": "camp",
+   "text": [
+    "日割りを組み直した。朝の半日を畑に、午後を普請に。工期は二十日から三十二日に延びる。",
+    "{general}は唸った。「十二日。敵が十二日早く来たら、お前のせいだぞ」",
+    "「来なかったら、わたしのおかげです」——{general}は笑った。"
+   ],
+   "next": "end_both"
+  },
+  "hired": {
+   "text": [
+    "日雇いを百人、自分の財で雇った。足りない分は、石の列に自分も並んだ。背中が三日動かなかった。"
+   ],
+   "next": "end_wall"
+  },
+  "short": {
+   "text": [
+    "人夫は足りず、刈り入れの手も足りなかった。壁は積み上がり、畑の三割が刈り残された。"
+   ],
+   "next": "end_short"
+  },
+  "end_wall": {
+   "text": [
+    "東の壁が立った。{general}は礼を出し、宮廷に報せを上げた。年代記には、将の名が載った。",
+    "石を運んだ二百人の名は、どこにも載らない。載せる欄が無いのだ。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "money": 400
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "note": "{struck}の城壁の普請に人夫を集めた。"
+    }
+   ],
+   "end": "載せる欄が無い"
+  },
+  "end_both": {
+   "text": [
+    "壁は三十二日で立ち、刈り入れも終わった。敵は来なかった。来なかったので、誰の手柄にもならなかった。",
+    "{farmer}だけが、翌年の春に麦を一袋届けてきた。「去年の分です」"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "money": 300
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "item": "rations",
+     "n": 5
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{struck}の普請と刈り入れの日割りを組み直した。"
+    }
+   ],
+   "end": "誰の手柄にもならない"
+  },
+  "end_short": {
+   "text": [
+    "壁は立った。年代記には「堅城となった」と書かれた。",
+    "冬、{struck}では麦が足りなくなった。堅い城の中で足りなくなるのは、外で足りなくなるのと同じことだ。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "money": 300
+    },
+    {
+     "favor": 12
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "note": "{struck}の壁は立ち、畑の三割が刈り残された。"
+    }
+   ],
+   "end": "堅い城の中"
+  },
+  "end_pass": {
+   "text": [
+    "{clerk}は紙を剥がさなかった。「そのうち、誰かが受けます。たいてい、受けざるを得ない人が」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の普請に関わらなかった。"
+    }
+   ],
+   "end": "受けざるを得ない人"
+  }
+ }
+}

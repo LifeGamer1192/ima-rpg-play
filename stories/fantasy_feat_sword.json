@@ -1,0 +1,204 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_feat_sword",
+ "kind": "feat",
+ "feat": "sword",
+ "title": "並ぶ者なき剣",
+ "era": "fantasy",
+ "trigger": {
+  "skill": {
+   "blade": 80
+  },
+  "fame": 100,
+  "notFeat": "sword"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "far": {
+   "place": "near:here"
+  },
+  "herald": {
+   "npc": "隻腕の元冒険者",
+   "sex": "m"
+  },
+  "first": {
+   "npc": "一番弟子",
+   "sex": "m"
+  },
+  "second": {
+   "npc": "二番弟子",
+   "sex": "f"
+  },
+  "master": {
+   "npc": "迷宮の門番",
+   "sex": "f"
+  }
+ },
+ "start": "w1",
+ "scenes": {
+  "w1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で、隻腕の元冒険者に会う",
+   "speaker": "herald",
+   "art": "inn",
+   "text": [
+    "{herald}は左手だけで杯を持った。「{far}の迷宮には、門番がいる。魔物じゃない。人だ」",
+    "「二十年、誰も通していない。通さないだけで、誰も殺していない。……それが、いちばん恐ろしい」",
+    "「会いたければ、弟子が二人。おれは一番弟子で腕を落とした」"
+   ],
+   "choices": [
+    {
+     "label": "{far}へ向かう",
+     "next": "w2"
+    }
+   ]
+  },
+  "w2": {
+   "at": {
+    "place": "far"
+   },
+   "goal": "{far}の迷宮の入口で、一番弟子と立ち合う",
+   "speaker": "first",
+   "art": "duel",
+   "text": [
+    "迷宮の口の前で、{first}が長柄を水平に構えていた。「師に会いたければ、わたしを越えろ。越えられぬなら、帰れ。帰るのは恥ではない」"
+   ],
+   "choices": [
+    {
+     "label": "立ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 74,
+      "win": "w3",
+      "lose": "wfail"
+     }
+    }
+   ]
+  },
+  "w3": {
+   "speaker": "second",
+   "art": "duel",
+   "text": [
+    "一層へ下りる石段の途中で、{second}が待っていた。短剣が二本。「一番弟子を越えた人は、十年ぶり。……そこまでよ」"
+   ],
+   "choices": [
+    {
+     "label": "立ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 80,
+      "win": "w4",
+      "lose": "wfail"
+     }
+    }
+   ]
+  },
+  "w4": {
+   "speaker": "master",
+   "art": "duel",
+   "text": [
+    "二層の扉の前に、灯りを一つ置いて、女が座っていた。立ち上がるのに、音がしない。",
+    "{master}は言った。「下りたいのか、わたしに勝ちたいのか。どちらでもよいが、答えによって構えが変わる」"
+   ],
+   "choices": [
+    {
+     "label": "「勝ちたい」と答える",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 90,
+      "win": "wwin",
+      "lose": "wfail"
+     }
+    },
+    {
+     "label": "「下りたい」と答える",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "wpass",
+      "lose": "wfight"
+     }
+    }
+   ]
+  },
+  "wfight": {
+   "speaker": "master",
+   "art": "duel",
+   "text": [
+    "「嘘だな」{master}は灯りを足で遠ざけた。「下りたい者は、二番弟子で引き返す」"
+   ],
+   "choices": [
+    {
+     "label": "立ち合う",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 90,
+      "win": "wwin",
+      "lose": "wfail"
+     }
+    }
+   ]
+  },
+  "wwin": {
+   "speaker": "master",
+   "art": "duel",
+   "text": [
+    "刃が止まったのは、{master}の喉の前だった。女は目を閉じ、それから笑った。「二十年待った」",
+    "「下は好きに行け。……もっとも、わたしを越えた者が下で死んだら、わたしの負けだ。気をつけろ」"
+   ],
+   "effects": [
+    {
+     "fame": 30
+    },
+    {
+     "feat": "sword"
+    }
+   ],
+   "end": "門番を越える"
+  },
+  "wpass": {
+   "speaker": "master",
+   "art": "duel",
+   "text": [
+    "{master}は長いこと{player}の目を見て、それから横に一歩ずれた。「下りろ。……わたしが退いたのは、二十年で二度めだ」",
+    "一度めは誰かと聞くと、女は答えた。「わたしの師だ。帰ってこなかった」"
+   ],
+   "effects": [
+    {
+     "fame": 26
+    },
+    {
+     "feat": "sword"
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    }
+   ],
+   "end": "退いた門番"
+  },
+  "wfail": {
+   "speaker": "master",
+   "art": "duel",
+   "text": [
+    "膝をついた{player}に、声が降ってきた。「生きて帰れる。それがいちばん難しいのだぞ」……ひと月ほどして、もう一度。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    }
+   ],
+   "end": "頂はまだ遠い"
+  }
+ }
+}

@@ -1,0 +1,331 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_expedition",
+ "kind": "random",
+ "where": "inn",
+ "era": "fantasy",
+ "again": 180,
+ "onNews": {
+  "tags": [
+   "exploration"
+  ],
+  "within": 150
+ },
+ "hook": "探索隊の株を売っている男がいる。隊はまだ出ていないそうだ",
+ "title": "十一回の島",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "株を売る男"
+  },
+  "navigator": {
+   "npc": "前の隊の生き残り",
+   "sex": "f"
+  },
+  "captain": {
+   "npc": "新しい隊の長",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{client}は丸めた海図を卓に広げた。「{struck}の探索隊の話はご存じで」",
+    "「——{struck:news}」",
+    "「二度めを出します。株は一口、金貨百。戻れば三倍、何か見つければ十倍」"
+   ],
+   "choices": [
+    {
+     "label": "株を買う（100）",
+     "if": {
+      "money": 100
+     },
+     "effects": [
+      {
+       "money": -100
+      },
+      {
+       "flag": "fn_exp_share"
+      }
+     ],
+     "next": "meet"
+    },
+    {
+     "label": "前の隊の生き残りに会ってから決める",
+     "next": "survivor"
+    },
+    {
+     "label": "断る",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "survivor": {
+   "speaker": "navigator",
+   "art": "voyage",
+   "text": [
+    "港の端の小屋に、前の隊の水先案内がいた。{navigator}は海図を見もせずに言った。",
+    "「十一回、同じ島を見つけました。十一回とも、違う名前を付けて帰りました」",
+    "「島が動くのではありません。わたしたちが、同じところを回っていたのです。……そのことに、十八か月かかりました」"
+   ],
+   "choices": [
+    {
+     "label": "「どうすれば同じ所を回らずに済む」と聞く",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "learn",
+      "lose": "meet"
+     }
+    },
+    {
+     "label": "{navigator}を二度めの隊に誘う",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "hired",
+      "lose": "meet"
+     }
+    }
+   ]
+  },
+  "learn": {
+   "speaker": "navigator",
+   "art": "voyage",
+   "text": [
+    "{navigator}は紙に線を引いた。「出た日の影の長さを、毎日同じ刻に測ることです。それだけで、回っているかどうかが分かる」",
+    "「前の隊は、測っていませんでした。長が『勘がある』と言ったので」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_exp_know"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "meet"
+  },
+  "hired": {
+   "speaker": "navigator",
+   "art": "voyage",
+   "text": [
+    "{navigator}は長いこと黙り、それから荷をまとめはじめた。「同じ島を十二回見るのは、さすがに嫌です」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_exp_nav"
+    },
+    {
+     "flag": "fn_exp_know"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "next": "meet"
+  },
+  "meet": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}で、二度めの隊に加わる",
+   "speaker": "captain",
+   "art": "voyage",
+   "text": [
+    "{struck}の桟橋で、{captain}が胸を張っていた。「勘があります。前の隊とは違う」",
+    "出航して十日、同じ形の岬を二度見た。{captain}は「似た岬は多い」と言った。"
+   ],
+   "choices": [
+    {
+     "label": "影を測り、回っていることを示す",
+     "if": {
+      "flag": "fn_exp_know"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "straight",
+      "lose": "circle"
+     }
+    },
+    {
+     "label": "{captain}を説き、舵を任せてもらう",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "straight",
+      "lose": "circle"
+     }
+    },
+    {
+     "label": "黙って従う",
+     "next": "circle"
+    }
+   ]
+  },
+  "straight": {
+   "art": "voyage",
+   "text": [
+    "進路を西へ固定した。十四日めに、海の色が変わった。十六日めに、鳥が来た。十七日めに、陸が見えた。",
+    "前の隊が十一回見つけた島の、ずっと向こうにある陸だった。"
+   ],
+   "choices": [
+    {
+     "label": "上陸して、図を取る",
+     "check": {
+      "skill": "bow",
+      "dc": 26,
+      "win": "end_found",
+      "lose": "end_partial"
+     }
+    },
+    {
+     "label": "沖から形だけ写して、引き返す",
+     "next": "end_partial"
+    }
+   ]
+  },
+  "circle": {
+   "art": "voyage",
+   "text": [
+    "二十二日めに、見覚えのある岬がまた現れた。{captain}は「三つめの岬だ」と言い、名前を付けた。",
+    "水が残り少ない。帰るなら、今日だ。"
+   ],
+   "choices": [
+    {
+     "label": "{captain}に引き返させる",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_back",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "舵を奪う",
+     "check": {
+      "skill": "blade",
+      "dc": 26,
+      "win": "end_back",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "end_found": {
+   "text": [
+    "陸に上がった。木があり、水があり、人の作ったものはなかった。三日かけて海岸を歩き、図を取った。",
+    "帰ってから、株は十倍になった。{navigator}は図の隅に、小さく影の測り方を書き添えた。それがいちばん売れた。"
+   ],
+   "effects": [
+    {
+     "money": 1500
+    },
+    {
+     "fame": 18
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "item": "manastone",
+     "n": 2
+    },
+    {
+     "note": "{struck}の二度めの探索隊で、同じ島より先の陸に着いた。"
+    }
+   ],
+   "end": "十一回の先"
+  },
+  "end_partial": {
+   "text": [
+    "沖から形だけ写して戻った。陸があることは分かった。何があるかは分からない。",
+    "株は三倍になった。三度めの隊が、来年出るという。"
+   ],
+   "effects": [
+    {
+     "money": 500
+    },
+    {
+     "fame": 10
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "{struck}の探索隊で、新しい陸を沖から写した。"
+    }
+   ],
+   "end": "沖から写した形"
+  },
+  "end_back": {
+   "text": [
+    "水の残りを数えて引き返した。帰り着いたとき、{captain}は岬に三つ名前を付けていた。三つとも同じ岬だった。",
+    "株は半分戻った。損を出して帰るのは、帰らないよりずっとよい。"
+   ],
+   "effects": [
+    {
+     "money": 50
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "{struck}の探索隊を、水の尽きる前に引き返させた。"
+    }
+   ],
+   "end": "同じ岬に三つの名"
+  },
+  "end_lost": {
+   "text": [
+    "水は尽き、帆は破れ、二十九日めに別の船に拾われた。{captain}は海図を抱えたまま、何も言わなかった。",
+    "株は紙屑になった。{struck}では、三度めの隊の話が、もう出ている。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "money": -100
+    },
+    {
+     "note": "{struck}の探索隊は水を失い、拾われて戻った。"
+    }
+   ],
+   "end": "紙屑になった株"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は海図を丸めた。「賢い。……とはいえ、三度めも出しますよ。買う人がいる限り」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の探索隊の株を買わなかった。"
+    }
+   ],
+   "end": "買う人がいる限り"
+  }
+ }
+}

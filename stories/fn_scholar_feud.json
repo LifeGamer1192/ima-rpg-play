@@ -1,0 +1,286 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_scholar_feud",
+ "kind": "random",
+ "where": "folk",
+ "era": "fantasy",
+ "again": 200,
+ "onNews": {
+  "tags": [
+   "scholar"
+  ],
+  "text": "論争",
+  "within": 90
+ },
+ "hook": "学者さまが二人、ひと月も言い合っていて、市が立たないんです",
+ "title": "三十八日の論",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "市の者"
+  },
+  "one": {
+   "npc": "学者",
+   "sex": "m"
+  },
+  "two": {
+   "npc": "論敵",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は困り顔で言った。「{struck}の話ですよ。もう、ひと月以上です」",
+    "「——{struck:news}」",
+    "「聴いている人で広場が埋まって、市が立たないんです。お二人とも、ご飯も食べずに」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "「何を言い合っているのだ」と聞く",
+     "next": "what"
+    },
+    {
+     "label": "放っておく",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "what": {
+   "speaker": "client",
+   "text": [
+    "{client}は眉を寄せた。「はじめは『魔は言葉か、力か』だったそうです。今は……『昨日お前はこう言った』の話になっております」",
+    "「聴いている人も、もう中身は聞いていません。どっちが先に倒れるか見ているんです」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_feud_know"
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}の広場へ行く",
+   "speaker": "one",
+   "art": "lecture",
+   "text": [
+    "広場の真ん中に卓が二つ。{one}と{two}が、声を嗄らして向かい合っている。周りは人垣で、物売りが饅頭を売り歩いている。",
+    "「魔とは言葉である。言葉なくして術は成らぬ」{one}が言う。",
+    "「言葉は器にすぎぬ。力が無ければ、器は空だ」{two}が返す。三十八日めの、同じやりとりだ。"
+   ],
+   "choices": [
+    {
+     "label": "二人の言っていることを、紙に書き分けて見せる",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "same",
+      "lose": "stuck"
+     }
+    },
+    {
+     "label": "二人に飯を食わせ、黙らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "fed",
+      "lose": "stuck"
+     }
+    },
+    {
+     "label": "聴衆に向かって、どちらが正しいか決を採る",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "vote",
+      "lose": "stuck"
+     }
+    }
+   ]
+  },
+  "same": {
+   "speaker": "two",
+   "art": "lecture",
+   "text": [
+    "{player}は二人の主張を、紙の左右に書き分けた。書いてみると、中ほどから下は同じことを別の言葉で言っていた。",
+    "{two}が紙を覗き込み、長い沈黙のあとで言った。「……これは、わたしの字ではないわね」「わたしのでもない」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "flag": "fn_feud_same"
+    }
+   ],
+   "next": "end_same"
+  },
+  "fed": {
+   "art": "inn",
+   "text": [
+    "饅頭を二つ買ってきて、両方の卓に置いた。二人は同時に手を伸ばし、同時に止め、相手が食べるのを待ってから食べた。",
+    "食べ終わると、{one}が言った。「……三十八日ぶりだ」「わたしもよ」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "next": "end_fed"
+  },
+  "vote": {
+   "art": "lecture",
+   "text": [
+    "{player}は人垣に向かって手を挙げさせた。言葉のほうが四十一、力のほうが三十九。残りは饅頭屋だった。",
+    "{one}が勝ち、{two}が負けた。そのはずだった。"
+   ],
+   "choices": [
+    {
+     "label": "結果を読み上げる",
+     "next": "end_vote"
+    },
+    {
+     "label": "「二票差では、決まったとは言えぬ」と言う",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_same",
+      "lose": "end_vote"
+     }
+    }
+   ]
+  },
+  "stuck": {
+   "text": [
+    "{player}の言葉は、二人の声にかき消された。三十九日めが始まる。"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 1
+    }
+   ],
+   "next": "end_stuck"
+  },
+  "end_same": {
+   "text": [
+    "二人は同じことを言っていた。気づいたあと、二人は一緒に本を書くことにした。書き上がるのに四年かかり、その間に二度、また喧嘩した。",
+    "{struck}の市は、翌日から立った。饅頭屋だけが、少し残念そうだった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "money": 150
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{struck}の三十八日の論が、同じことの言い換えだと示した。"
+    }
+   ],
+   "end": "同じことの言い換え"
+  },
+  "end_fed": {
+   "text": [
+    "腹が満ちると、二人は急に疲れた顔になり、その日は散会した。翌日、どちらも広場に来なかった。",
+    "論は決着しなかった。市は立った。{struck}の者は、決着より市のほうを喜んだ。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 120
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "note": "{struck}の論争を、饅頭二つで止めた。"
+    }
+   ],
+   "end": "饅頭二つ"
+  },
+  "end_vote": {
+   "text": [
+    "{one}が勝った。{two}は荷をまとめて{struck}を出た。勝ったほうは広場に残り、三日後には誰も聞いていなかった。",
+    "決を採るのは早い。早いだけだ。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "money": 80
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{struck}の論争を、聴衆の決で終わらせた。"
+    }
+   ],
+   "end": "二票の差"
+  },
+  "end_stuck": {
+   "text": [
+    "三十九日め、四十日め。やがて{two}が倒れ、論は終わった。終わり方としては、誰も望まなかったほうだ。"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    },
+    {
+     "note": "{struck}の論争を止められなかった。"
+    }
+   ],
+   "end": "倒れて終わる"
+  },
+  "end_pass": {
+   "text": [
+    "{client}はため息をついた。「そうですね。学者さまのことは、学者さまが」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の論争を放っておいた。"
+    }
+   ],
+   "end": "学者さまのこと"
+  }
+ }
+}

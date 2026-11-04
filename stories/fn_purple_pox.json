@@ -1,0 +1,352 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_purple_pox",
+ "kind": "random",
+ "where": "folk",
+ "era": "fantasy",
+ "again": 150,
+ "onNews": {
+  "tags": [
+   "disease"
+  ],
+  "within": 120
+ },
+ "hook": "東から来た薬売りが、誰にも薬を売らずに帰っていったんです",
+ "title": "紫斑の報せ",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "宿の女将",
+   "sex": "f"
+  },
+  "healer": {
+   "npc": "癒やし手",
+   "sex": "f"
+  },
+  "fool": {
+   "npc": "封を解いた者",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "{client}が井戸端で手を止め、声をひそめた。「{struck}から来た者は、もう誰も泊めるなと言われております」",
+    "「——{struck:news}」",
+    "「癒やしの塔は人を出したそうですが、戻ってきた者はまだおりません」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "薬草を買い込んでから行く",
+     "effects": [
+      {
+       "money": -120
+      },
+      {
+       "item": "herbs",
+       "n": 3
+      },
+      {
+       "flag": "fn_pox_herbs"
+      }
+     ],
+     "next": "arrive"
+    },
+    {
+     "label": "近寄らない",
+     "next": "end_away"
+    }
+   ]
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}へ入る",
+   "speaker": "healer",
+   "art": "disaster",
+   "text": [
+    "{struck}の門は閉まっていなかった。閉める者がいなかったのだ。通りに人影はなく、戸口に酢を焚いた皿が並んでいる。",
+    "広場で、癒やし手の{healer}が一人で水を汲んでいた。「塔から三人来て、二人は倒れました。わたしは運がよかっただけです」",
+    "「これは病ではありません。少なくとも、はじまりは違う。沼の水を飲んだ者だけが紫の斑を出すのです」"
+   ],
+   "choices": [
+    {
+     "label": "沼へ行き、水を見る",
+     "next": "marsh"
+    },
+    {
+     "label": "{healer}を手伝い、倒れた者の手当てをする",
+     "check": {
+      "skill": "medicine",
+      "dc": 26,
+      "win": "tend_ok",
+      "lose": "tend_ng"
+     }
+    },
+    {
+     "label": "最初に倒れた者が誰かを聞き出す",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "fool_found",
+      "lose": "marsh"
+     }
+    }
+   ]
+  },
+  "tend_ok": {
+   "speaker": "healer",
+   "art": "tale",
+   "text": [
+    "夜通し湯を沸かし、斑の出た者の体を拭き、薬湯を飲ませて回った。朝までに三人の熱が下がった。",
+    "{healer}は目を赤くしてうなずいた。「水を飲まなければ、死にはしない。井戸を替えれば止まります。——止めても、元を断たねばまた出ます」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_pox_tend"
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "fame": 2
+    }
+   ],
+   "next": "marsh"
+  },
+  "tend_ng": {
+   "art": "tale",
+   "text": [
+    "熱に浮かされた男を押さえているうちに、爪で腕を裂かれた。傷口から、焼けるような痛みが走る。"
+   ],
+   "effects": [
+    {
+     "hp": -18
+    },
+    {
+     "xp": "medicine",
+     "n": 1
+    }
+   ],
+   "next": "marsh"
+  },
+  "fool_found": {
+   "speaker": "fool",
+   "art": "tale",
+   "text": [
+    "最初に倒れたのは、沼の神殿で働いていた{fool}だった。小屋の隅で、紫の斑の出た手を隠して座っていた。",
+    "「封のしてある箱があったんだ。中に歯が一本。……ちょっと舐めただけだ。味が気になって」",
+    "「歯は沼に捨てた。悪いことをしたとは思ってる。思ってるんだ」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_pox_know"
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "marsh"
+  },
+  "marsh": {
+   "at": {
+    "place": "struck"
+   },
+   "art": "road",
+   "text": [
+    "沼は静かだった。水面に紫の膜が張り、葦の根もとに泡が湧いている。膜の下で、何かがゆっくり動いた。",
+    "泥の中から、濡れた背が三つ持ち上がった。"
+   ],
+   "choices": [
+    {
+     "label": "沼のものを討つ",
+     "fight": {
+      "foes": "beast",
+      "n": 3,
+      "level": 18,
+      "win": "tooth",
+      "lose": "end_late"
+     }
+    },
+    {
+     "label": "歯の沈んだ場所に当たりをつけ、泥をさらって拾い上げる",
+     "if": {
+      "flag": "fn_pox_know"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "tooth",
+      "lose": "end_late"
+     },
+     "guide": "気づかれれば、泥の中で三体を相手取ることになる"
+    },
+    {
+     "label": "沼の水を引いている溝を埋め、町の井戸から切り離す",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_boiled",
+      "lose": "end_late"
+     }
+    }
+   ]
+  },
+  "tooth": {
+   "speaker": "healer",
+   "art": "tale",
+   "text": [
+    "泥をさらうと、黒い歯が一本出てきた。歯のまわりだけ、水が澄んでいる——澄んだ水のほうが毒なのだ。",
+    "{healer}が布を広げて受け取った。「塔に運べば、封じ直せます。運ぶ途中で誰かが開けなければ」"
+   ],
+   "choices": [
+    {
+     "label": "歯を深い穴に埋め、上に石を積む",
+     "next": "end_buried"
+    },
+    {
+     "label": "歯を塔へ運ぶ",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "end_buried",
+      "lose": "end_shut"
+     }
+    },
+    {
+     "label": "歯を懐に入れる",
+     "effects": [
+      {
+       "flag": "fn_pox_kept"
+      }
+     ],
+     "next": "end_shut"
+    }
+   ]
+  },
+  "end_buried": {
+   "speaker": "healer",
+   "text": [
+    "歯は沼から離れた岩山の下に埋められ、上に石が積まれた。石には何も彫らなかった。彫れば、誰かが掘るからだ。",
+    "ひと月で斑は止まった。{fool}は生き延び、今は石積みの番をしている。それが罰だと、本人が決めた。"
+   ],
+   "effects": [
+    {
+     "fame": 9
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "money": 220
+    },
+    {
+     "item": "potion",
+     "n": 1
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "note": "{struck}の紫斑の元を沼から拾い上げ、石の下に埋めた。"
+    }
+   ],
+   "end": "石の下の歯"
+  },
+  "end_boiled": {
+   "text": [
+    "沼から町へ引かれていた溝を埋め、井戸を北の湧き水に替えた。斑は新しくは出なくなった。",
+    "沼そのものは紫のままだ。{healer}は「いつか誰かが、また飲むでしょう」と言った。否定できなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "money": 90
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{struck}の井戸を沼から切り離し、紫斑を止めた。"
+    }
+   ],
+   "end": "水を替える"
+  },
+  "end_shut": {
+   "text": [
+    "{struck}は門を閉ざした。出る者も入る者もなく、ただ日に二度、壁の外に粥の桶が置かれる。",
+    "斑はやがて消えたという。消えるまでに何人減ったかは、誰も数えていない。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "note": "{struck}の紫斑は、町を閉ざすことでようやく収まった。"
+    }
+   ],
+   "end": "閉ざされた町"
+  },
+  "end_late": {
+   "text": [
+    "泥に足を取られ、紫の水を浴びた。半月は寝込み、起きたときには{struck}の名は誰も口にしなくなっていた。",
+    "生き延びた者は散り、沼だけが元のまま残った。"
+   ],
+   "effects": [
+    {
+     "hp": -35
+    },
+    {
+     "fame": -1
+    },
+    {
+     "note": "{struck}の沼に敗れ、紫斑を止められなかった。"
+    }
+   ],
+   "end": "間に合わず"
+  },
+  "end_away": {
+   "text": [
+    "{client}は安心した顔をした。「賢いですよ。旦那が倒れたら、誰が斑を止めるんです」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の紫斑の報せを聞き流した。"
+    }
+   ],
+   "end": "他所の病"
+  }
+ }
+}

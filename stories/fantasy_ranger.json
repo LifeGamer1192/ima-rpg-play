@@ -1,0 +1,461 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_ranger",
+ "kind": "school",
+ "title": "帰ってこられる者",
+ "era": "fantasy",
+ "school": "ranger",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "頭の狩人",
+   "sex": "f"
+  },
+  "peer": {
+   "npc": "同じ追い手",
+   "sex": "m"
+  },
+  "client": {
+   "npc": "金のある一行の長",
+   "sex": "m"
+  },
+  "wood": {
+   "place": "near:here"
+  }
+ },
+ "start": "r1",
+ "scenes": {
+  "r1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の狩人の小屋を訪ねる",
+   "speaker": "master",
+   "art": "tale",
+   "text": [
+    "{master}は床に荷を並べさせた。「要らぬものを三つ、戻しなさい」",
+    "並んでいるのは、縄・火口・干し肉・水袋・油・毛布・短剣・鍋・蝋燭・薬草・鏡・笛。"
+   ],
+   "choices": [
+    {
+     "label": "鍋と毛布と鏡を戻す",
+     "check": {
+      "skill": "medicine",
+      "dc": 16,
+      "win": "r1ng",
+      "lose": "r1ng"
+     }
+    },
+    {
+     "label": "油と鍋と笛を戻す",
+     "next": "r1ok"
+    },
+    {
+     "label": "「どれも要ります」と言う",
+     "next": "r1ask"
+    }
+   ]
+  },
+  "r1ok": {
+   "speaker": "master",
+   "text": [
+    "{master}はうなずいた。「鏡を残したね。迷ったとき、日の光を返して仲間に知らせる。あれを戻す者が一番多い」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "ranger"
+    },
+    {
+     "xp": "bow",
+     "n": 4
+    },
+    {
+     "note": "{here}の獣追いに加わった。"
+    }
+   ],
+   "next": "r2"
+  },
+  "r1ng": {
+   "speaker": "master",
+   "text": [
+    "「鏡を戻したね」{master}は鏡を拾って荷に戻した。「迷ったとき、これが一番よく効く。覚えておきなさい」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "ranger"
+    },
+    {
+     "note": "{here}の獣追いに加わった。"
+    }
+   ],
+   "next": "r2"
+  },
+  "r1ask": {
+   "speaker": "master",
+   "text": [
+    "「要るね。全部要る」{master}は言った。「だが、全部持つと歩けない。歩けないと帰れない。帰れない者は、何も持っていないのと同じだ」",
+    "「選ぶのが仕事だ。狩りではなく」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "ranger"
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "note": "{here}の獣追いに加わった。"
+    }
+   ],
+   "next": "r2"
+  },
+  "r2": {
+   "at": {
+    "place": "wood"
+   },
+   "goal": "{wood}の森で、獣の通い路を読む",
+   "speaker": "peer",
+   "art": "road",
+   "text": [
+    "{peer}と{wood}の森に入った。倒木の皮が剥がれ、泥に爪の跡がある。大きい。",
+    "「追うか」{peer}が小声で聞いた。「追えば獲物になる。追わなければ、村に下りる」"
+   ],
+   "choices": [
+    {
+     "label": "通い路を先回りし、待ち伏せる",
+     "check": {
+      "skill": "bow",
+      "dc": 26,
+      "win": "r2ok",
+      "lose": "r2fight"
+     }
+    },
+    {
+     "label": "足跡をそのまま追う",
+     "next": "r2fight"
+    },
+    {
+     "label": "水場を潰し、森から出ていくように仕向ける",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "r2move",
+      "lose": "r2fight"
+     }
+    }
+   ]
+  },
+  "r2ok": {
+   "text": [
+    "風下の岩陰で待った。矢は一本で足りた。{peer}が息を吐いた。「先回りできる者は、森では強い」"
+   ],
+   "effects": [
+    {
+     "xp": "bow",
+     "n": 6
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "bond": "peer",
+     "know": 30,
+     "like": 20,
+     "memo": "森で一緒に待ち伏せた"
+    }
+   ],
+   "next": "r3"
+  },
+  "r2fight": {
+   "art": "war",
+   "text": [
+    "藪が割れ、泥の匂いが先に来た。"
+   ],
+   "choices": [
+    {
+     "label": "迎え撃つ",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 14,
+      "win": "r2won",
+      "lose": "r2hurt"
+     }
+    }
+   ]
+  },
+  "r2won": {
+   "text": [
+    "二頭とも倒した。{peer}は血を拭きながら言った。「勝ったが、これは下手なやり方だ。頭に言うな」"
+   ],
+   "effects": [
+    {
+     "xp": "bow",
+     "n": 4
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "r3"
+  },
+  "r2hurt": {
+   "text": [
+    "爪が肩を裂いた。{peer}に引きずられて沢まで下り、そこで血を止めた。獣は森の奥へ帰っていった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "r3"
+  },
+  "r2move": {
+   "text": [
+    "沢の水場を三つ潰した。半月で、爪の跡は森の北へ移った。誰も死なず、誰も手柄にならなかった。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 5
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "r3"
+  },
+  "r3": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "小屋に来た一行の話を聞く",
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "金払いのよい一行が小屋に来た。長の{client}は地図を叩いて言った。「迷宮の四層まで案内しろ。三日で往復する」",
+    "{master}は茶を注ぎながら言った。「四層までは、下りに四日かかります」",
+    "「なら五日で行く」{client}は笑った。「金は倍出す」"
+   ],
+   "choices": [
+    {
+     "label": "断る",
+     "next": "refuse"
+    },
+    {
+     "label": "受ける。ただし引き返す日を先に決めさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "guide",
+      "lose": "drag"
+     }
+    },
+    {
+     "label": "受ける。言われたとおりに案内する",
+     "next": "drag"
+    }
+   ]
+  },
+  "refuse": {
+   "speaker": "master",
+   "text": [
+    "{client}は金額を二度上げ、三度めに悪態をついて出ていった。{master}は茶を飲み干して言った。",
+    "「断るのも腕のうちです。……ひと月後、別の案内人と入って、二人しか戻りませんでした」"
+   ],
+   "next": "end_refused"
+  },
+  "guide": {
+   "art": "ruins",
+   "text": [
+    "出る前に、引き返す刻限を決めさせた。四日めの正午。{client}は渋ったが、書付に指を押した。",
+    "四日めの正午、一行は三層の半ばにいた。{client}は「あと半日」と言いかけ、書付を思い出して黙った。"
+   ],
+   "choices": [
+    {
+     "label": "刻限どおり引き返す",
+     "next": "end_back"
+    },
+    {
+     "label": "半日だけ延ばす",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "end_deep",
+      "lose": "end_cost"
+     }
+    }
+   ]
+  },
+  "drag": {
+   "art": "ruins",
+   "text": [
+    "三日めの夜、水が尽きた。四日めに荷持ちが一人倒れ、五日めに{client}が引き返すと言い出した。",
+    "帰りの道で、{player}は先頭を歩き続けた。覚えている分かれ道は、七つあった。"
+   ],
+   "choices": [
+    {
+     "label": "七つの分かれ道をたどって連れ帰る",
+     "check": {
+      "skill": "medicine",
+      "dc": 28,
+      "win": "end_cost",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "鏡で日の光を探し、縦穴を探す",
+     "check": {
+      "skill": "bow",
+      "dc": 26,
+      "win": "end_cost",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "end_refused": {
+   "text": [
+    "小屋の仕事は減らなかった。断った話は、断られた側より、断られなかった側によく伝わる。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    },
+    {
+     "note": "迷宮への無理な案内を断った。"
+    }
+   ],
+   "end": "断るのも腕のうち"
+  },
+  "end_back": {
+   "text": [
+    "一行は全員、五日めの夕方に地上へ出た。手に入れたのは三層までの図と、生きている八人だ。",
+    "{client}は不満そうだったが、半年後、同じ小屋に別の仕事を持ってきた。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 4
+    },
+    {
+     "money": 600
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "note": "刻限を決めて迷宮に入り、一行を全員連れ帰った。"
+    }
+   ],
+   "end": "刻限どおり"
+  },
+  "end_deep": {
+   "text": [
+    "半日延ばして、四層の入口まで下りた。{client}が欲しがった石柱の写しを取り、全員で戻った。",
+    "{master}は図を見て言った。「よく帰りましたね。……二度はやらないこと」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 4
+    },
+    {
+     "money": 900
+    },
+    {
+     "fame": 10
+    },
+    {
+     "hp": -12
+    },
+    {
+     "xp": "bow",
+     "n": 5
+    },
+    {
+     "note": "刻限を半日延ばし、四層の入口まで案内して全員戻った。"
+    }
+   ],
+   "end": "二度はやらない"
+  },
+  "end_cost": {
+   "text": [
+    "七日めの朝、六人が地上に出た。入ったのは八人だった。{client}は金を払い、何も言わずに去った。",
+    "{master}は帳に二つ、名を書き足した。帳の名は、小屋の壁に掛かっている。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "money": 700
+    },
+    {
+     "fame": 4
+    },
+    {
+     "hp": -22
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    },
+    {
+     "note": "無理な案内を引き受け、八人のうち六人を連れ帰った。"
+    }
+   ],
+   "end": "壁に掛かる帳"
+  },
+  "end_lost": {
+   "text": [
+    "分かれ道を一つ間違えた。水のない通路を二日歩き、ようやく上りの風を見つけた。",
+    "地上に出たのは三人だった。{player}はそのうちの一人だ。{master}は何も聞かなかった。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "money": 200
+    },
+    {
+     "hp": -35
+    },
+    {
+     "fame": -2
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    },
+    {
+     "note": "迷宮で道を誤り、三人しか戻らなかった。"
+    }
+   ],
+   "end": "上りの風"
+  }
+ }
+}

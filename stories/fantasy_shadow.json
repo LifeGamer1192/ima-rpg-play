@@ -1,0 +1,404 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_shadow",
+ "kind": "school",
+ "title": "看板の出ていない店",
+ "era": "fantasy",
+ "school": "shadow",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "影の長",
+   "sex": "f"
+  },
+  "peer": {
+   "npc": "同じ影",
+   "sex": "m"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "mark": {
+   "folk": "両替商",
+   "tags": [
+    "商"
+   ],
+   "minStation": 40
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の裏の酒場を訪ねる",
+   "speaker": "master",
+   "art": "backroom",
+   "text": [
+    "{master}は卓の上に鍵を一つ置いた。「これを開けるのに、どれだけかかる」",
+    "鍵には錠が付いていない。ただの鍵だ。"
+   ],
+   "choices": [
+    {
+     "label": "鍵を手に取り、錠を探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 14,
+      "win": "s1ok",
+      "lose": "s1ng"
+     }
+    },
+    {
+     "label": "「錠はどこです」と聞く",
+     "next": "s1ask"
+    },
+    {
+     "label": "黙って鍵を懐に入れる",
+     "next": "s1take"
+    }
+   ]
+  },
+  "s1ok": {
+   "text": [
+    "卓の下に、錠の付いた箱があった。{master}は脚を組み替えただけで、何も言わなかった。開けるのに、十を数えた。"
+   ],
+   "effects": [
+    {
+     "joinSchool": "shadow"
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "note": "{here}の影の者に加わった。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s1ng": {
+   "text": [
+    "卓の下の箱に気づくまで、長くかかった。{master}はその間ずっと、こちらの手ではなく目を見ていた。"
+   ],
+   "effects": [
+    {
+     "joinSchool": "shadow"
+    },
+    {
+     "note": "{here}の影の者に加わった。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s1ask": {
+   "speaker": "master",
+   "text": [
+    "「聞いたね」{master}はうなずいた。「聞ける者は長生きする。聞かずに開ける者は、二度めで死ぬ」",
+    "「錠は卓の下。ついでに言うと、戸の外に一人いる。足音が重い。あれはうちの者じゃない」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "shadow"
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "note": "{here}の影の者に加わった。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s1take": {
+   "text": [
+    "鍵を懐に入れた。{master}は笑った。「鍵を取る者は多い。鍵を取ったのを見せる者は少ない。……わざとだね」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "shadow"
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    },
+    {
+     "note": "{here}の影の者に加わった。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "影の仕事を覚える",
+   "speaker": "peer",
+   "art": "backroom",
+   "text": [
+    "{peer}が町の図を広げた。「{mark}の店。帳面を一冊、写してこいという話だ。盗るんじゃない、写すんだ」",
+    "「写すだけなら、気づかれない。気づかれないことが、いちばん高く売れる」"
+   ],
+   "choices": [
+    {
+     "label": "夜に入り、帳面を写す",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s2ok",
+      "lose": "s2caught"
+     }
+    },
+    {
+     "label": "昼に客として入り、帳面の置き場所を見る",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "s2day",
+      "lose": "s2caught"
+     }
+    },
+    {
+     "label": "店の使いの子を手なずける",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s2day",
+      "lose": "s2caught"
+     },
+     "guide": "子を使った仕事は、あとで必ず戻ってくる"
+    }
+   ]
+  },
+  "s2ok": {
+   "text": [
+    "二刻で写し終え、戸を元どおりに閉めた。{peer}が通りの端で待っていた。「足音がしなかった。初めてだな」"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 6
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "bond": "peer",
+     "know": 30,
+     "like": 20,
+     "memo": "帳面を一緒に写した"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2day": {
+   "text": [
+    "昼のうちに置き場所を見ておけば、夜は短い。半刻で済んだ。{master}は「下見は仕事の半分」と言った。"
+   ],
+   "effects": [
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "schoolRank": 2
+    }
+   ],
+   "next": "s3"
+  },
+  "s2caught": {
+   "text": [
+    "戸の軋みで、奥の寝間に灯りが点いた。窓から出るとき、脛を打った。帳面は半分しか写せなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -8
+    },
+    {
+     "xp": "stealth",
+     "n": 3
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{master}の話を聞く",
+   "speaker": "master",
+   "art": "backroom",
+   "text": [
+    "{master}は写した帳面を一枚ずつめくった。「依頼主は、この帳面で{mark}を潰す気だ」",
+    "「{mark}が潰れると、この町の小さな店が十二軒、金を借りられなくなる。……うちは、そこまでは聞いていなかった」",
+    "「仕事は仕事だ。渡せば銀が入る。渡さなければ、うちの名が落ちる。どうする」"
+   ],
+   "choices": [
+    {
+     "label": "帳面を渡す",
+     "next": "end_paid"
+    },
+    {
+     "label": "帳面を渡し、{mark}にも知らせる",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "end_both",
+      "lose": "end_paid"
+     },
+     "guide": "両方に通じたと知れたら、どちらからも狙われる"
+    },
+    {
+     "label": "帳面を焼く",
+     "next": "burn"
+    }
+   ]
+  },
+  "burn": {
+   "speaker": "master",
+   "art": "backroom",
+   "text": [
+    "{player}は写しを炉に入れた。紙は音も立てずに縮んだ。{master}は止めなかった。",
+    "「依頼主には、取れなかったと言う。うちの腕が落ちたということになる」{master}は煙を見ていた。「それでいいね」"
+   ],
+   "choices": [
+    {
+     "label": "「わたしが取れなかったことにしてください」と言う",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "end_burn",
+      "lose": "end_name"
+     }
+    },
+    {
+     "label": "黙ってうなずく",
+     "next": "end_name"
+    }
+   ]
+  },
+  "end_paid": {
+   "text": [
+    "帳面は渡り、銀が入った。半年のうちに{mark}の店は閉じ、小さな店が三軒つぶれた。",
+    "{master}は銀を数えながら言った。「仕事だ。仕事の先を見る癖がつくと、この稼業は続かない」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "money": 700
+    },
+    {
+     "fame": -2
+    },
+    {
+     "xp": "theft",
+     "n": 5
+    },
+    {
+     "note": "{mark}の帳面を写し、依頼主に渡した。"
+    }
+   ],
+   "end": "先を見ない稼業"
+  },
+  "end_both": {
+   "text": [
+    "帳面は渡り、同じ夜、{mark}の枕元に短い書付が置かれた。{mark}は翌日から貸付を畳み、店は残った。",
+    "依頼主は怒ったが、誰が知らせたかは最後まで分からなかった。{master}だけが、一度こちらを見た。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 4
+    },
+    {
+     "money": 500
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "stealth",
+     "n": 7
+    },
+    {
+     "bond": "mark",
+     "know": 20,
+     "like": 20,
+     "memo": "枕元に書付を置いた"
+    },
+    {
+     "note": "{mark}の帳面を渡し、{mark}にも知らせた。"
+    }
+   ],
+   "end": "両方に通じる"
+  },
+  "end_burn": {
+   "speaker": "master",
+   "text": [
+    "依頼主には「新入りが仕損じた」と伝わった。{player}の名は裏で少し下がり、{master}の名は下がらなかった。",
+    "{master}は言った。「かぶったね。かぶれる者は、長が務まる」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": -1
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "bond": "peer",
+     "know": 20,
+     "like": 15,
+     "memo": "仕損じをかぶった"
+    },
+    {
+     "note": "{mark}の帳面を焼き、仕損じをかぶった。"
+    }
+   ],
+   "end": "かぶれる者"
+  },
+  "end_name": {
+   "text": [
+    "写しは灰になり、依頼主は手を引いた。裏では「あそこは仕事を選ぶ」と言われるようになった。",
+    "仕事は減った。残った仕事は、少しだけ筋のよいものになった。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "money": -100
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "note": "{mark}の帳面を焼き、影の者は仕事を選ぶようになった。"
+    }
+   ],
+   "end": "仕事を選ぶ"
+  }
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "job_office_gate_fantasy",
+ "kind": "job",
+ "era": "fantasy",
+ "giver": "office",
+ "mechanism": "works",
+ "target": "here",
+ "title": "{place}の門（ポータル）を封じる",
+ "desc": "{place}の立石の環から、何かが出入りしている。学院が封じの石を寄越した。人を集め、環を組み直して据えてほしい。",
+ "reward": {
+  "base": 260,
+  "perDay": 10
+ },
+ "favor": 18,
+ "fame": 6,
+ "deadline": {
+  "base": 34,
+  "perDay": 2
+ }
+}

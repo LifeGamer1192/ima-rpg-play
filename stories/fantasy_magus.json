@@ -1,0 +1,466 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_magus",
+ "kind": "school",
+ "title": "頼み方の学問",
+ "era": "fantasy",
+ "school": "magus",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "学院長",
+   "sex": "f"
+  },
+  "peer": {
+   "npc": "同門の学徒",
+   "sex": "m"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "ruler": {
+   "person": "ruler:realm"
+  },
+  "capital": {
+   "place": "capital:realm"
+  }
+ },
+ "start": "m1",
+ "scenes": {
+  "m1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の魔術学院を訪ねる",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は机に蝋燭を一本立て、火も点けずに言った。「点けてごらんなさい」",
+    "「言葉を間違えなければ点く。間違えれば、点かない。……あるいは、点けたくなかったものが点く」"
+   ],
+   "choices": [
+    {
+     "label": "教わったとおりに唱える",
+     "check": {
+      "skill": "letters",
+      "dc": 12,
+      "win": "m1ok",
+      "lose": "m1ng"
+     }
+    },
+    {
+     "label": "「間違えたら、どうなるのです」と先に聞く",
+     "next": "m1ask"
+    }
+   ]
+  },
+  "m1ok": {
+   "speaker": "master",
+   "text": [
+    "蝋燭に、小さな炎が立った。{master}は眉を上げた。「一度で点く者は、十人に一人です」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "magus"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}の魔術学院に入った。"
+    }
+   ],
+   "next": "m2"
+  },
+  "m1ng": {
+   "text": [
+    "唱え終えると、蝋燭ではなく、机の端が燻りはじめた。{master}は黙って水をかけた。「入学です。消す呪文から教えます」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "magus"
+    },
+    {
+     "note": "{here}の魔術学院に入った。"
+    }
+   ],
+   "next": "m2"
+  },
+  "m1ask": {
+   "speaker": "master",
+   "text": [
+    "「よい問いです」{master}はうなずいた。「学院の壁が三度建て直されているのは、その問いを誰もしなかったからです」",
+    "「言葉は、頼みごとです。頼み方を間違えれば、頼んでいないものが来る。来たものを帰す呪文はありません」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "magus"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{here}の魔術学院に入った。"
+    }
+   ],
+   "next": "m2"
+  },
+  "m2": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "学院で学ぶ",
+   "speaker": "peer",
+   "art": "lecture",
+   "text": [
+    "半年が過ぎた。{peer}は写本の前で頭を抱えている。「この一節、三つの読み方がある。どれも通る」",
+    "「通るということは、三つとも違うものが来るということだ」"
+   ],
+   "choices": [
+    {
+     "label": "三つとも唱えてみる",
+     "check": {
+      "skill": "letters",
+      "dc": 24,
+      "win": "m2ok",
+      "lose": "m2hurt"
+     },
+     "guide": "来たものが何であれ、部屋の中で受けることになる"
+    },
+    {
+     "label": "古語の文法から、どれが正しいかを詰める",
+     "check": {
+      "skill": "letters",
+      "dc": 22,
+      "win": "m2ok",
+      "lose": "m2slow"
+     }
+    },
+    {
+     "label": "{master}に聞きに行く",
+     "next": "m2slow"
+    }
+   ]
+  },
+  "m2ok": {
+   "speaker": "peer",
+   "text": [
+    "三つめの読みで、写本の字が一瞬だけ青く光った。{peer}が息を呑む。「それだ。……どうして分かった」「分からなかった。試した」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "schoolRank": 1
+    },
+    {
+     "bond": "peer",
+     "know": 30,
+     "like": 20,
+     "memo": "写本の一節を一緒に解いた"
+    }
+   ],
+   "next": "m3"
+  },
+  "m2hurt": {
+   "text": [
+    "二つめの読みで、部屋の空気が凍った。文字どおり、机の上の水が凍った。指の先が白くなり、半日戻らなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -12
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "m3"
+  },
+  "m2slow": {
+   "speaker": "master",
+   "text": [
+    "{master}は写本を一瞥して言った。「二つめです。あとの二つは、書き写した者の癖」「……なぜ分かるのです」「三度、来たからです」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "m3"
+  },
+  "m3": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "学院の求めを聞く",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}が{player}を呼んだ。「{ruler}が、学院の技を見たいと仰せです。{capital}で、宮廷の前で」",
+    "「見せるものは二つ考えました。一つは、水を清める呪。地味です。一つは、炎を柱に立てる呪。派手です。危ない」",
+    "「学院の禄は、見せたものの派手さで決まります。……決めるのは、唱える者です」"
+   ],
+   "choices": [
+    {
+     "label": "水を清める呪を選ぶ",
+     "next": "water"
+    },
+    {
+     "label": "炎の柱を選ぶ",
+     "next": "fire"
+    },
+    {
+     "label": "「両方お見せします」と言う",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "both",
+      "lose": "fire"
+     }
+    }
+   ]
+  },
+  "water": {
+   "at": {
+    "place": "capital"
+   },
+   "goal": "{capital}で、宮廷の前に立つ",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{capital}の広間で、{player}は濁った水の桶に手をかざした。泥が沈み、水が澄む。それだけのことだ。",
+    "宮廷はざわめかなかった。{ruler}だけが、桶に歩み寄って覗き込んだ。「これは、井戸でもできるのか」"
+   ],
+   "choices": [
+    {
+     "label": "「町の井戸なら、三日で一度」と答える",
+     "check": {
+      "skill": "speech",
+      "dc": 22,
+      "win": "end_water",
+      "lose": "end_quiet"
+     }
+    },
+    {
+     "label": "「できます」とだけ答える",
+     "next": "end_quiet"
+    }
+   ]
+  },
+  "fire": {
+   "at": {
+    "place": "capital"
+   },
+   "goal": "{capital}で、宮廷の前に立つ",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{capital}の中庭で、{player}は石の盤の上に炎の柱を立てた。背丈の三倍。熱が、見物の前列を下がらせる。",
+    "柱は、唱えた者の思ったより長く立っていた。消す段になって、言葉が一度、滑った。"
+   ],
+   "choices": [
+    {
+     "label": "落ち着いて、消す呪を言い直す",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "end_fire",
+      "lose": "end_burn"
+     }
+    },
+    {
+     "label": "水の呪で上から押さえる",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_fire",
+      "lose": "end_burn"
+     }
+    }
+   ]
+  },
+  "both": {
+   "at": {
+    "place": "capital"
+   },
+   "speaker": "master",
+   "art": "court",
+   "text": [
+    "{player}はまず炎の柱を立て、見物を下がらせ、それから自分でその炎を水に変えてみせた。湯気が中庭を白く満たす。",
+    "{master}が小さく息を吐いた。「……そういう手が、ありましたか」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "next": "end_both"
+  },
+  "end_water": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}は桶の水を飲み、顔をしかめ、それから笑った。「不味い。だが腹は壊さぬ」",
+    "学院には、派手な禄ではなく、町の井戸をひとつずつ清めるという長い仕事が下った。{master}はそれを「正しい負け方」と呼んだ。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "宮廷で水を清める呪を見せ、学院に井戸の仕事を取った。"
+    }
+   ],
+   "end": "不味いが腹は壊さぬ"
+  },
+  "end_quiet": {
+   "text": [
+    "水は澄んだ。宮廷は黙り、次の芸人が呼ばれた。学院の禄は据え置きになった。{master}は何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "宮廷で水を清める呪を見せたが、誰も覚えなかった。"
+    }
+   ],
+   "end": "澄んだだけ"
+  },
+  "end_fire": {
+   "text": [
+    "炎は、立てた者の言葉で消えた。中庭に湯気と、焦げた石の匂いだけが残る。宮廷は沸いた。",
+    "学院の禄は倍になった。{master}は祝いの席で、一度も笑わなかった。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 12
+    },
+    {
+     "favor": 10
+    },
+    {
+     "money": 600
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "宮廷で炎の柱を立て、学院の禄を倍にした。"
+    }
+   ],
+   "end": "派手な正解"
+  },
+  "end_burn": {
+   "text": [
+    "炎は柱のまま庇に移り、中庭の東側を焼いた。怪我人は出なかった——出なかったのは、見物が逃げ足の速い連中だったからだ。",
+    "学院は修理代を負い、{player}は半月、水汲みに回された。{master}は言った。「覚えましたね。消すほうを」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 1
+    },
+    {
+     "hp": -20
+    },
+    {
+     "money": -200
+    },
+    {
+     "fame": -2
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "宮廷で炎の柱を消しそこね、中庭を焼いた。"
+    }
+   ],
+   "end": "消すほうを覚える"
+  },
+  "end_both": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}は湯気の中から出てきて言った。「火を点ける者は多い。消す者を見たのは初めてだ」",
+    "学院の禄は上がり、{player}の名は宮廷の帳に残った。{master}は帰り道でぽつりと言った。「あれは、わたしにはできません」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 4
+    },
+    {
+     "fame": 14
+    },
+    {
+     "favor": 12
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "money": 500
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "宮廷で炎を立て、自分で水に変えてみせた。"
+    }
+   ],
+   "end": "点けて、消す"
+  }
+ }
+}

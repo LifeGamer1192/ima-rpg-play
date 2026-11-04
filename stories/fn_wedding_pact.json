@@ -1,0 +1,325 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_wedding_pact",
+ "kind": "random",
+ "where": "office",
+ "era": "fantasy",
+ "again": 180,
+ "onNews": {
+  "tags": [
+   "diplomacy"
+  ],
+  "text": "婚礼",
+  "within": 110
+ },
+ "hook": "婚礼の荷を運ぶ者を探している。中身は見るなという話だ",
+ "title": "婚礼の荷",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "clerk": {
+   "client": "組合の書記"
+  },
+  "envoy": {
+   "npc": "花嫁方の使者",
+   "sex": "f"
+  },
+  "thief": {
+   "npc": "荷を狙う者",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "speaker": "clerk",
+   "art": "tale",
+   "text": [
+    "{clerk}が封のある紙を広げた。「{struck}からの依頼です。婚礼の荷を一つ、都まで」",
+    "「——{struck:news}」",
+    "「報酬は破格です。破格のときは、たいてい荷のほうに理由があります」"
+   ],
+   "choices": [
+    {
+     "label": "受ける",
+     "next": "take"
+    },
+    {
+     "label": "中身を先に確かめてから決める",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "what",
+      "lose": "take"
+     }
+    },
+    {
+     "label": "断る",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "what": {
+   "speaker": "envoy",
+   "art": "court",
+   "text": [
+    "使者の{envoy}は、しばらく黙ってから言った。「婚礼の品ではありません。……契りの文です」",
+    "「嫁ぐ家が、婿の家に兵を出すという約束。これが都に着けば、二国は一つになります。着かなければ、婚礼は婚礼のまま終わります」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_wed_know"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "take"
+  },
+  "take": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}で荷を受け取る",
+   "speaker": "envoy",
+   "art": "road",
+   "text": [
+    "{struck}で、小さな箱を渡された。重くない。{envoy}が言った。「三日で。遅れれば、意味がありません」",
+    "道は二つ。街道は早いが人目につく。山道は遠いが、誰も通らない。"
+   ],
+   "choices": [
+    {
+     "label": "街道を行く",
+     "next": "road"
+    },
+    {
+     "label": "山道を行く",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "end_quiet",
+      "lose": "mountain"
+     }
+    },
+    {
+     "label": "荷を二つに分け、片方は囮にする",
+     "if": {
+      "flag": "fn_wed_know"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_decoy",
+      "lose": "road"
+     }
+    }
+   ]
+  },
+  "road": {
+   "speaker": "thief",
+   "art": "war",
+   "text": [
+    "街道の二日めの夕方、橋の手前で五人に囲まれた。{thief}が手を出した。「箱を。中身は見ない。約束する」",
+    "「見ないほうがいい。見たら、おれたちも殺される」"
+   ],
+   "choices": [
+    {
+     "label": "渡さず戦う",
+     "fight": {
+      "foes": "bandit",
+      "n": 5,
+      "level": 18,
+      "win": "end_through",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "箱を渡す",
+     "next": "end_lost"
+    },
+    {
+     "label": "「中身を見たら、どちらが殺しに来ると思う」と聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_talked",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "mountain": {
+   "art": "road",
+   "text": [
+    "山道で道を失い、半日戻った。三日めの夕方、都の門が閉まる前に、どうにか駆け込んだ。"
+   ],
+   "effects": [
+    {
+     "hp": -12
+    }
+   ],
+   "next": "end_late"
+  },
+  "end_quiet": {
+   "text": [
+    "山道は、本当に誰にも会わなかった。三日めの昼に都に着き、箱を渡した。",
+    "半月後、二つの国が一つの旗の下に兵を並べたと聞いた。箱の中身は、最後まで見なかった。"
+   ],
+   "effects": [
+    {
+     "money": 600
+    },
+    {
+     "fame": 10
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "stealth",
+     "n": 6
+    },
+    {
+     "note": "{struck}の婚礼の荷を、山道から三日で届けた。"
+    }
+   ],
+   "end": "見なかった箱"
+  },
+  "end_decoy": {
+   "text": [
+    "空の箱を街道に、本物を山道に。街道の箱は二日めに奪われ、奪った側は中身を見て呆然としたという。",
+    "本物は三日めに着いた。{envoy}は囮の話を聞いて、はじめて笑った。"
+   ],
+   "effects": [
+    {
+     "money": 700
+    },
+    {
+     "fame": 12
+    },
+    {
+     "favor": 12
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{struck}の婚礼の荷を、囮を立てて届けた。"
+    }
+   ],
+   "end": "空の箱"
+  },
+  "end_through": {
+   "text": [
+    "五人を払って、血のついた箱を抱えて橋を渡った。三日めの夕方、都に着いた。",
+    "{envoy}は箱の汚れを拭いてから、中身を確かめた。「……間に合いました」"
+   ],
+   "effects": [
+    {
+     "money": 650
+    },
+    {
+     "fame": 12
+    },
+    {
+     "hp": -18
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "{struck}の婚礼の荷を、街道で守り抜いて届けた。"
+    }
+   ],
+   "end": "血のついた箱"
+  },
+  "end_talked": {
+   "speaker": "thief",
+   "text": [
+    "{thief}は長いこと黙り、それから五人を下がらせた。「……そういう箱か。おれたちの手に負えん」",
+    "「言っておくが、おれたちを雇ったのは、婿のほうの弟だ。知らせるなら、急いだほうがいい」"
+   ],
+   "effects": [
+    {
+     "money": 600
+    },
+    {
+     "fame": 14
+    },
+    {
+     "favor": 14
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "note": "{struck}の婚礼の荷を守り、仕掛けた者の名を聞き出した。"
+    }
+   ],
+   "end": "婿のほうの弟"
+  },
+  "end_late": {
+   "text": [
+    "三日めの夕方、門が閉まる直前に滑り込んだ。箱は届いた。届いたが、婚礼の席はすでに散っていた。",
+    "契りの文は、次の機会まで引き出しに入れられた。次の機会は、来なかった。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{struck}の婚礼の荷は届いたが、間に合わなかった。"
+    }
+   ],
+   "end": "引き出しの中"
+  },
+  "end_lost": {
+   "text": [
+    "箱は奪われた。半月後、二つの国は別々の旗のままだった。奪ったのが誰の差し金かは、噂にもならなかった。",
+    "{envoy}は何も責めなかった。責めないのが、いちばん応えた。"
+   ],
+   "effects": [
+    {
+     "fame": -3
+    },
+    {
+     "hp": -15
+    },
+    {
+     "note": "{struck}の婚礼の荷を奪われた。"
+    }
+   ],
+   "end": "別々の旗"
+  },
+  "end_pass": {
+   "text": [
+    "{clerk}は紙を畳んだ。「はい。破格の報酬は、だいたい、あとで高くつきます」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の婚礼の荷の仕事を断った。"
+    }
+   ],
+   "end": "あとで高くつく"
+  }
+ }
+}

@@ -1,0 +1,291 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_court_flees",
+ "kind": "random",
+ "where": "inn",
+ "era": "fantasy",
+ "again": 140,
+ "onNews": {
+  "tags": [
+   "court"
+  ],
+  "text": "遷都",
+  "within": 100
+ },
+ "hook": "都が引っ越した。引っ越しのときは、何かが落ちる",
+ "title": "置いていかれた帳",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "teller": {
+   "client": "荷運び"
+  },
+  "clerk2": {
+   "npc": "残された書記",
+   "sex": "f"
+  },
+  "buyer": {
+   "npc": "帳を買いたい男",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "teller",
+   "art": "inn",
+   "text": [
+    "{teller}は荷の縄を解きながら言った。「{struck}から運んできた。宮廷の引っ越しだ」",
+    "「——{struck:news}」",
+    "「金目のものは全部積んだ。だが、蔵の帳面は置いていった。重いし、金にならんからな」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "「帳面に何が書いてある」と聞く",
+     "next": "ask"
+    },
+    {
+     "label": "聞き流す",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "teller",
+   "text": [
+    "{teller}は肩をすくめた。「誰がいくら納めたか。誰の畑がどこまでか。誰が兵を出したか」",
+    "「金にはならん。だが、あれが無いと、来年、誰も自分の畑が自分のものだと言えなくなる」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_court_know"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}の蔵へ行く",
+   "speaker": "clerk2",
+   "art": "disaster",
+   "text": [
+    "{struck}の役所は、扉が開けっ放しだった。中では、{clerk2}が一人で帳面を紐で括っている。",
+    "「十二束あります。わたし一人では、三束しか運べません」",
+    "外の通りでは、商人風の男が荷車を止めて、こちらを見ている。"
+   ],
+   "choices": [
+    {
+     "label": "{clerk2}と一緒に、全部運び出す",
+     "check": {
+      "skill": "trade",
+      "dc": 24,
+      "win": "carried",
+      "lose": "part"
+     }
+    },
+    {
+     "label": "男に話を聞きに行く",
+     "next": "buyer"
+    },
+    {
+     "label": "燃やす",
+     "next": "burn"
+    }
+   ]
+  },
+  "buyer": {
+   "speaker": "buyer",
+   "art": "trade",
+   "text": [
+    "{buyer}は荷車を叩いた。「十二束、まとめて金貨六百でどうだ」",
+    "「何に使うかって。……畑の境が書いてある。買った者が、境を書き替えられる」"
+   ],
+   "choices": [
+    {
+     "label": "売る",
+     "effects": [
+      {
+       "money": 600
+      }
+     ],
+     "next": "end_sold"
+    },
+    {
+     "label": "断り、{clerk2}と運ぶ",
+     "check": {
+      "skill": "trade",
+      "dc": 24,
+      "win": "carried",
+      "lose": "part"
+     }
+    },
+    {
+     "label": "男の荷車を借りて、全部運ぶ",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "carried",
+      "lose": "part"
+     }
+    }
+   ]
+  },
+  "burn": {
+   "speaker": "clerk2",
+   "art": "disaster",
+   "text": [
+    "{clerk2}が紐を握りしめた。「燃やせば、誰も書き替えられません。……誰も証を立てられなくなりますが」",
+    "火をつけるのは簡単だ。あとで困る者の顔が、見えないだけで。"
+   ],
+   "choices": [
+    {
+     "label": "燃やす",
+     "next": "end_burned"
+    },
+    {
+     "label": "やめて、運ぶ",
+     "check": {
+      "skill": "trade",
+      "dc": 22,
+      "win": "carried",
+      "lose": "part"
+     }
+    }
+   ]
+  },
+  "carried": {
+   "text": [
+    "十二束を荷車に積み、三日かけて新しい都まで運んだ。{clerk2}は道中、一度も荷から目を離さなかった。"
+   ],
+   "next": "end_carried"
+  },
+  "part": {
+   "text": [
+    "運べたのは七束。残りは、翌朝には無くなっていた。誰が持っていったかは、すぐに分かる。畑の境が、春に変わる。"
+   ],
+   "next": "end_part"
+  },
+  "end_carried": {
+   "speaker": "clerk2",
+   "text": [
+    "新しい都の役所に、十二束が積まれた。宮廷の誰も、礼を言わなかった。帳面は、あるのが当たり前のものだからだ。",
+    "{clerk2}だけが、別れ際に深く頭を下げた。「来年の春、{struck}の畑は、去年と同じ形です」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 12
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "money": 250
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{struck}に置き去りにされた帳面十二束を、新しい都へ運んだ。"
+    }
+   ],
+   "end": "去年と同じ形"
+  },
+  "end_part": {
+   "text": [
+    "七束は届いた。五束は消えた。その春、{struck}では畑の境の争いが十九件起きた。十九件のうち十四件は、新しい帳面のほうが勝った。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "favor": 5
+    },
+    {
+     "money": 120
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    },
+    {
+     "note": "{struck}の帳面を七束だけ運び出した。"
+    }
+   ],
+   "end": "十九件の争い"
+  },
+  "end_sold": {
+   "text": [
+    "金貨六百は重かった。翌春、{struck}の畑の境は、ずいぶん整理された。整理したのは、帳面を買った男だ。",
+    "{clerk2}はその後、役所を辞めたと聞いた。"
+   ],
+   "effects": [
+    {
+     "fame": -4
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "note": "{struck}の帳面を売り払った。"
+    }
+   ],
+   "end": "整理された境"
+  },
+  "end_burned": {
+   "text": [
+    "十二束は灰になった。誰も境を書き替えられず、誰も境を証明できない。{struck}の春は、人の記憶だけで畑が分けられた。",
+    "意外にも、争いは九件で済んだ。記憶のほうが、帳面より少しだけ優しかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{struck}の帳面を焼いた。"
+    }
+   ],
+   "end": "記憶で分ける"
+  },
+  "end_pass": {
+   "text": [
+    "{teller}は荷を担ぎ直した。「そうだな。帳面の話で儲かった人を、おれは知らん」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の遷都の話を聞き流した。"
+    }
+   ],
+   "end": "重いだけの紙"
+  }
+ }
+}

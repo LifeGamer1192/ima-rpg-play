@@ -1,0 +1,352 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_succession",
+ "kind": "random",
+ "where": "inn",
+ "era": "fantasy",
+ "again": 200,
+ "onNews": {
+  "tags": [
+   "succession"
+  ],
+  "within": 90
+ },
+ "hook": "上が亡くなった。次を決めるまでが、いちばん人が死ぬ",
+ "title": "次を決めるまで",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "旅の使者"
+  },
+  "elder": {
+   "npc": "老いた家令",
+   "sex": "f"
+  },
+  "heir": {
+   "npc": "上の子",
+   "sex": "m"
+  },
+  "other": {
+   "npc": "下の子",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{client}は外套の雪を払って言った。「{struck}から来た。急ぎの使いだ」",
+    "「——{struck:news}」",
+    "「跡が決まっておらぬ。上の子と下の子だ。どちらも兵を呼んでいる。十日で片がつくか、十日で始まるかだ」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "「家令は誰だ」と聞く",
+     "next": "ask"
+    },
+    {
+     "label": "関わらない",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "client",
+   "text": [
+    "{client}はうなずいた。「{elder}。三代に仕えている。あれが頷いた側が勝つ、と言われている」",
+    "「だが、{elder}はどちらにも頷いておらぬ。理由は言わぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_suc_know"
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck"
+   },
+   "goal": "{struck}へ行く",
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "{struck}の館は、二つに分かれていた。東の棟に{heir}、西の棟に{other}。廊下の真ん中で、兵が睨み合っている。",
+    "{elder}は台所で、一人で豆を選っていた。「どちらでもよいのです。帳面が読めるほうなら」",
+    "「上の子は読めます。読めますが、読んだ数字を信じません。下の子は読めませんが、読める者を傍に置きます」"
+   ],
+   "choices": [
+    {
+     "label": "{heir}と話す",
+     "next": "heir"
+    },
+    {
+     "label": "{other}と話す",
+     "next": "other"
+    },
+    {
+     "label": "{elder}に「どちらを推すのです」と重ねて聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "elder",
+      "lose": "heir"
+     }
+    }
+   ]
+  },
+  "heir": {
+   "speaker": "heir",
+   "art": "court",
+   "text": [
+    "{heir}は帳面を三冊積んで待っていた。「蔵の数は把握している。兵の数も。足りぬのは、信じてよい家臣だけだ」",
+    "「妹は人がよい。よすぎる。人がよい主は、人に食われる」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_suc_heir"
+    }
+   ],
+   "next": "choose"
+  },
+  "other": {
+   "speaker": "other",
+   "art": "court",
+   "text": [
+    "{other}は窓際で、台所の{elder}を見下ろしていた。「わたしは帳面が読めません。読める人を三人、すでに頼んであります」",
+    "「兄は一人で全部やろうとします。全部やる人は、全部を間違えます」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_suc_other"
+    }
+   ],
+   "next": "choose"
+  },
+  "elder": {
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "{elder}は豆を選る手を止めた。「わたしが頷けば、頷かれなかったほうが兵を出します。頷かなければ、どちらも出しかねている」",
+    "「三代、そうやって持たせました。……そろそろ、持たせきれませんが」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_suc_elder"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "next": "choose"
+  },
+  "choose": {
+   "at": {
+    "place": "struck",
+    "building": "palace"
+   },
+   "goal": "{struck}の{palace}で、話をつける",
+   "art": "court",
+   "text": [
+    "十日めの朝、両方の棟から兵が廊下に出た。どちらかが先に動けば、終わる。"
+   ],
+   "choices": [
+    {
+     "label": "二人に、蔵と兵を分けて持たせる",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "end_split",
+      "lose": "end_blood"
+     }
+    },
+    {
+     "label": "{elder}に頷かせ、片方に決める",
+     "if": {
+      "flag": "fn_suc_elder"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_elder",
+      "lose": "end_blood"
+     }
+    },
+    {
+     "label": "帳面を読み上げ、どちらが国を回せるかを数で示す",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "end_ledger",
+      "lose": "end_blood"
+     }
+    },
+    {
+     "label": "廊下の真ん中に立ち、どちらも通さない",
+     "fight": {
+      "foes": "soldier",
+      "n": 4,
+      "level": 20,
+      "win": "end_held",
+      "lose": "end_blood"
+     }
+    }
+   ]
+  },
+  "end_split": {
+   "text": [
+    "東の棟に蔵、西の棟に兵。どちらも、相手なしでは動けない形にした。",
+    "二人は三年、憎み合ったまま国を回した。三年めに、下の子が上の子の帳面を直したのが、仲直りの始まりだったという。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "favor": 10
+    },
+    {
+     "money": 400
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{struck}の跡目を、蔵と兵に分けて二人に持たせた。"
+    }
+   ],
+   "end": "分けて持たせる"
+  },
+  "end_elder": {
+   "text": [
+    "{elder}が廊下の真ん中に立ち、一言だけ言った。三代仕えた家令の一言は、兵の列を下がらせた。",
+    "決まったほうは、決まらなかったほうを遠い町の役に出した。殺さなかった。それだけで、この国では上出来だ。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "favor": 12
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{struck}の跡目を、老家令の一言で決めさせた。"
+    }
+   ],
+   "end": "三代の一言"
+  },
+  "end_ledger": {
+   "text": [
+    "{player}は三冊の帳面を廊下で読み上げた。去年の蔵、今年の蔵、兵の食う量。数字は、どちらの味方もしなかった。",
+    "数字が味方しなかったほうが、自分から退いた。退き方のうまい者が、次の代で重く用いられた。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "favor": 8
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "letters",
+     "n": 7
+    },
+    {
+     "note": "{struck}の跡目を、帳面の数で決めさせた。"
+    }
+   ],
+   "end": "数字は味方しない"
+  },
+  "end_held": {
+   "text": [
+    "廊下の真ん中で、両方の兵を四人ずつ転がした。十日めは、それで終わった。十一日めに、二人は同じ卓に着いた。",
+    "{elder}が茶を出しながら言った。「殴り合いより、よほど早い」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "hp": -18
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "{struck}の跡目争いを、廊下で止めた。"
+    }
+   ],
+   "end": "廊下の十日め"
+  },
+  "end_blood": {
+   "text": [
+    "十日めの朝、先に動いたのは東だった。廊下で十九人。{struck}の跡は決まったが、決まったときには家臣が半分になっていた。",
+    "{elder}は台所を片づけ、館を出ていった。三代で、はじめてのことだった。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "fame": 2
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    },
+    {
+     "note": "{struck}の跡目争いは、廊下の血で決まった。"
+    }
+   ],
+   "end": "廊下で十九人"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は馬に跨った。「賢い。跡目の話に首を突っ込んだ者は、どちらが勝っても嫌われる」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の跡目争いに関わらなかった。"
+    }
+   ],
+   "end": "どちらが勝っても"
+  }
+ }
+}

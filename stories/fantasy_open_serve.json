@@ -1,0 +1,492 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_open_serve",
+ "kind": "main",
+ "title": "仕える者の三つの用",
+ "era": "fantasy",
+ "trigger": {
+  "persona": [
+   "person"
+  ],
+  "king": false,
+  "patron": true
+ },
+ "cast": {
+  "realm": {
+   "realm": "patron"
+  },
+  "capital": {
+   "place": "capital:realm"
+  },
+  "lord": {
+   "person": "ruler:realm"
+  },
+  "minister": {
+   "person": "minister:realm"
+  },
+  "foe": {
+   "realm": "enemy:realm"
+  },
+  "village": {
+   "place": "near:capital"
+  },
+  "border": {
+   "place": "border:realm"
+  },
+  "sergeant": {
+   "npc": "古参の隊長",
+   "sex": "m"
+  },
+  "magus": {
+   "npc": "学院の使い",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}で{lord}の用を聞く",
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "{lord}は三つの書付を卓に並べた。「三つある。人は一人しかおらぬ」",
+    "「一つ、{village}が貢を納めぬ。二つ、{border}の石の環が開いたと学院が騒いでいる。三つ、おぬしの隊の給金が二月遅れている」",
+    "「どれから片づける。片づかぬものは、片づかぬままになる」"
+   ],
+   "choices": [
+    {
+     "label": "{village}の貢から",
+     "effects": [
+      {
+       "flag": "fs_village"
+      }
+     ],
+     "next": "s2village"
+    },
+    {
+     "label": "{border}の環から",
+     "effects": [
+      {
+       "flag": "fs_gate"
+      }
+     ],
+     "next": "s2gate"
+    },
+    {
+     "label": "隊の給金から",
+     "effects": [
+      {
+       "flag": "fs_pay"
+      }
+     ],
+     "next": "s2pay"
+    }
+   ]
+  },
+  "s2village": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}で貢の話をつける",
+   "art": "tale",
+   "text": [
+    "{village}の畑は、水害のあとの石原だった。長老は帳面を出してきたが、宮廷の帳面と数が合わない。",
+    "若い者が十四人、鍬を持って入口に並んでいる。勝負にはならない。それでも並んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "帳面の違いを突き止める",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "s2ok",
+      "lose": "s2half"
+     }
+    },
+    {
+     "label": "村の者を普請の人夫に雇い、賃を貢に充てる",
+     "check": {
+      "skill": "trade",
+      "dc": 24,
+      "win": "s2ok",
+      "lose": "s2half"
+     }
+    },
+    {
+     "label": "力で納めさせる",
+     "next": "s2force"
+    }
+   ]
+  },
+  "s2ok": {
+   "text": [
+    "貢は改められ、村は納められるだけを納めた。刃は抜かずに済んだ。{lord}は「それでよい」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "favor": 12
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2half": {
+   "text": [
+    "半分だけ納まり、半分は来年に回った。どちらも不満な結論は、たいてい翌年も同じ形で戻ってくる。"
+   ],
+   "effects": [
+    {
+     "favor": 5
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "s3"
+  },
+  "s2force": {
+   "art": "war",
+   "text": [
+    "鍬が振り上げられた。"
+   ],
+   "choices": [
+    {
+     "label": "散らす",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 8,
+      "win": "s2forced",
+      "lose": "s2forced"
+     }
+    }
+   ]
+  },
+  "s2forced": {
+   "text": [
+    "村は静かになり、貢は納まった。宮廷は褒めた。帰り道、隊の者は一人も口をきかなかった。"
+   ],
+   "effects": [
+    {
+     "favor": 14
+    },
+    {
+     "fame": -2
+    },
+    {
+     "rep": "realm",
+     "n": -2
+    }
+   ],
+   "next": "s3"
+  },
+  "s2gate": {
+   "at": {
+    "place": "border"
+   },
+   "goal": "{border}の石の環を見に行く",
+   "speaker": "magus",
+   "art": "ruins",
+   "text": [
+    "{border}の環で、{magus}が封じの石を並べていた。「四半刻、中に立ってください。それだけです」",
+    "門の向こうの野は、こちらと同じ形をしていて、色だけが沈んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "環の中に立つ",
+     "fight": {
+      "foes": "beast",
+      "n": 2,
+      "level": 16,
+      "win": "s2sealed",
+      "lose": "s2failed"
+     }
+    },
+    {
+     "label": "隊を環のまわりに展開させ、自分は指図に回る",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "s2sealed",
+      "lose": "s2failed"
+     }
+    }
+   ]
+  },
+  "s2sealed": {
+   "speaker": "magus",
+   "text": [
+    "石が嵌まり、向こうの色がこちらと同じになった。{magus}は汗を拭った。「半年です。半年ごとに、誰かが立たねばなりません」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 8
+    },
+    {
+     "flag": "fs_sealed"
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2failed": {
+   "text": [
+    "三つめに出てきたものに、環の外まで飛ばされた。{magus}は石を抱えて逃げ、門は開いたままになった。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "flag": "fs_open"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2pay": {
+   "at": {
+    "place": "capital",
+    "building": "office"
+   },
+   "goal": "{capital}の{office}で、隊の給金を出させる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は帳面から目も上げずに言った。「蔵は空です。戦と環と普請で、三方から抜けております」",
+    "隊長の{sergeant}が廊下で待っている。「二月だ。三月めになると、脱ける者が出る。脱けた者は、野盗になる」"
+   ],
+   "choices": [
+    {
+     "label": "帳面を一緒に繰り、出せる所を探す",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "s2found",
+      "lose": "s2own"
+     }
+    },
+    {
+     "label": "自分の財から立て替える",
+     "effects": [
+      {
+       "money": -600
+      }
+     ],
+     "next": "s2own"
+    },
+    {
+     "label": "{lord}に直に言う",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "s2found",
+      "lose": "s2own"
+     }
+    }
+   ]
+  },
+  "s2found": {
+   "speaker": "sergeant",
+   "text": [
+    "関の通行料の未収が、ちょうど二月分あった。{minister}は渋い顔をして印を押した。{sergeant}は黙って敬礼した。"
+   ],
+   "effects": [
+    {
+     "favor": 6
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "bond": "sergeant",
+     "know": 30,
+     "like": 25,
+     "memo": "給金を出させた"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2own": {
+   "speaker": "sergeant",
+   "text": [
+    "給金は出た。出所を{sergeant}は聞かなかったが、察していた。「隊長。それは、長くは続きませんぞ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "bond": "sergeant",
+     "know": 30,
+     "like": 30,
+     "memo": "自分の財で給金を立て替えた"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "capital",
+    "building": "palace"
+   },
+   "goal": "{capital}で{lord}に報告する",
+   "wait": {
+    "days": 20
+   },
+   "speaker": "lord",
+   "art": "court",
+   "text": [
+    "{lord}は報告を聞き、残る二つの書付を指で弾いた。「一つ片づけば、二つ残る。いつもそうだ」",
+    "「おぬしに聞きたい。この国は、三つのうちどれを先にすべきだったと思う」"
+   ],
+   "choices": [
+    {
+     "label": "「兵の腹です。腹が減れば、残り二つは敵になります」",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "end_pay",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "「環です。放てば、貢も給金も要らなくなります」",
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_gate",
+      "lose": "end_plain"
+     }
+    },
+    {
+     "label": "「どれも同じです。三つとも、人が足りぬという一つの用です」",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "end_one",
+      "lose": "end_plain"
+     }
+    }
+   ]
+  },
+  "end_pay": {
+   "text": [
+    "{lord}はうなずき、その年から兵の給金を先に立てる掟を作った。蔵は苦しくなったが、脱ける兵は減った。",
+    "{sergeant}はそれを聞いて、「隊長が言ったのか」と一度だけ確かめ、あとは何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "favor": 16
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "realmFx": "realm",
+     "add": "stability",
+     "n": 4
+    },
+    {
+     "note": "主君に、兵の腹が先だと説いた。"
+    }
+   ],
+   "end": "腹が先"
+  },
+  "end_gate": {
+   "text": [
+    "{lord}は学院に正式の使いを出し、環の見張りに国の禄をつけた。宮廷は渋り、三年後には誰も渋らなくなった。",
+    "環は、国の仕事になった。仕事になったものは、忘れられにくい。"
+   ],
+   "effects": [
+    {
+     "favor": 14
+    },
+    {
+     "fame": 10
+    },
+    {
+     "rep": "realm",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "主君に、石の環を国の仕事にさせた。"
+    }
+   ],
+   "end": "国の仕事"
+  },
+  "end_one": {
+   "text": [
+    "{lord}は長いこと黙り、それから笑った。「人が足りぬ、か。そう言った者は初めてだ」",
+    "翌年、国は人を数えた。数えてみると、足りないのは人ではなく、人を使える者だった。{player}の手許に、三つの用が回ってくるようになった。"
+   ],
+   "effects": [
+    {
+     "favor": 20
+    },
+    {
+     "fame": 12
+    },
+    {
+     "rep": "realm",
+     "n": 4
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "note": "主君に、三つの用はどれも一つの用だと説いた。"
+    }
+   ],
+   "end": "一つの用"
+  },
+  "end_plain": {
+   "text": [
+    "{lord}は「そうか」と言っただけだった。書付は二枚、卓に残ったままになった。"
+   ],
+   "effects": [
+    {
+     "favor": 4
+    },
+    {
+     "note": "主君の問いに、これという答えを返せなかった。"
+    }
+   ],
+   "end": "残った書付"
+  }
+ }
+}

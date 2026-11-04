@@ -1,0 +1,309 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_mage_mishap",
+ "kind": "random",
+ "where": "folk",
+ "era": "fantasy",
+ "again": 150,
+ "onNews": {
+  "tags": [
+   "scholar",
+   "science"
+  ],
+  "within": 110
+ },
+ "hook": "学院が何か成し遂げたそうです。先週から、犬が吠えません",
+ "title": "犬が吠えない",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "町の女"
+  },
+  "master": {
+   "npc": "成し遂げた学者",
+   "sex": "m"
+  },
+  "pupil": {
+   "npc": "手伝った学徒",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は井戸の縁に桶を置いた。「{struck}の学院の話、聞きました？」",
+    "「——{struck:news}」",
+    "「立派なことだと思います。……ただ、先週から、うちの犬が吠えないんです。隣の犬も」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行く",
+     "next": "arrive"
+    },
+    {
+     "label": "ほかに変わったことがないか聞く",
+     "next": "ask"
+    },
+    {
+     "label": "偶然だろうと言って別れる",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "client",
+   "text": [
+    "{client}は指を折った。「犬が吠えない。鶏が朝に鳴かない。あと、井戸の水が少し温かい」",
+    "「どれも、困るほどではないんです。困るほどではないから、誰も言わないんです」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_mishap_list"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck",
+    "building": "school"
+   },
+   "goal": "{struck}の学院へ行く",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は祝いの花輪の下で上機嫌だった。「三十年の仕事が実を結びました」",
+    "台の上に、拳ほどの石が据えてある。光ってはいない。ただ、近づくと耳の奥が少し鳴る。",
+    "{pupil}が小さな声で言った。「……先生。町の井戸のことですが」「あとにしなさい」"
+   ],
+   "choices": [
+    {
+     "label": "{pupil}に話を聞く",
+     "next": "pupil"
+    },
+    {
+     "label": "石を調べる",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "studied",
+      "lose": "ringing"
+     }
+    },
+    {
+     "label": "町の変事を並べて{master}に見せる",
+     "if": {
+      "flag": "fn_mishap_list"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "studied",
+      "lose": "ringing"
+     }
+    }
+   ]
+  },
+  "pupil": {
+   "speaker": "pupil",
+   "art": "backroom",
+   "text": [
+    "{pupil}は帳面を開いた。「石を据えた日から、半里のうちの獣が静かです。測りました」",
+    "「先生に言いましたが、『偶然だ』と。……先生の測り方は、昔からそうなのです。都合の悪い数は、測らない」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_mishap_know"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "decide"
+  },
+  "studied": {
+   "art": "lecture",
+   "text": [
+    "石の周りで、音が少しだけ遅れて届く。耳の奥が鳴るのはそのせいだ。獣には、人よりずっとよく分かるのだろう。",
+    "害はない。いまのところは。"
+   ],
+   "effects": [
+    {
+     "flag": "fn_mishap_know"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "next": "decide"
+  },
+  "ringing": {
+   "art": "lecture",
+   "text": [
+    "石に近づきすぎた。耳の奥が三日鳴りやまなかった。{master}は「慣れます」と言った。"
+   ],
+   "effects": [
+    {
+     "hp": -10
+    }
+   ],
+   "next": "decide"
+  },
+  "decide": {
+   "at": {
+    "place": "struck",
+    "building": "school"
+   },
+   "goal": "石をどうするか決める",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は花輪を外さなかった。「三十年です。いまさら、犬のために片づけろと」",
+    "{pupil}が黙って帳面を抱えている。町では、今日も犬が吠えない。"
+   ],
+   "choices": [
+    {
+     "label": "石を町から離れた場所へ移させる",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_moved",
+      "lose": "end_kept"
+     }
+    },
+    {
+     "label": "{pupil}の測りを宮廷に出させる",
+     "if": {
+      "flag": "fn_mishap_know"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 26,
+      "win": "end_reported",
+      "lose": "end_kept"
+     }
+    },
+    {
+     "label": "町の井戸を北へ移す手配をする",
+     "next": "end_wells"
+    },
+    {
+     "label": "放っておく",
+     "next": "end_kept"
+    }
+   ]
+  },
+  "end_moved": {
+   "text": [
+    "石は、町から二里の塔に移された。移した三日後、犬が吠えた。町の者は、犬がうるさいと文句を言った。",
+    "{master}は塔に通うようになり、通ううちに、だんだん町に戻らなくなった。それはそれで、本人には幸せらしい。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{struck}の学院の石を、町から離れた塔へ移させた。"
+    }
+   ],
+   "end": "犬がうるさい"
+  },
+  "end_reported": {
+   "text": [
+    "{pupil}の測りは宮廷に上がり、学院に「人の住む所から半里以上」という掟ができた。",
+    "{master}は不服だったが、掟には自分の名が付いた。名が付くと、人は急に納得する。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{struck}の学徒の測りを宮廷に出させ、掟を作らせた。"
+    }
+   ],
+   "end": "半里の掟"
+  },
+  "end_wells": {
+   "text": [
+    "井戸を北へ二つ掘った。水は冷たく、犬は相変わらず吠えない。",
+    "{client}は新しい井戸を気に入った。「吠えないのは、静かでいいかもしれません」——人は、だいたい慣れる。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": -200
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "note": "{struck}の町の井戸を北へ移した。"
+    }
+   ],
+   "end": "人は慣れる"
+  },
+  "end_kept": {
+   "text": [
+    "石は台の上に残った。一年たっても、犬は吠えない。生まれた仔犬も吠えない。",
+    "{pupil}は帳面を取り続けている。いつか誰かが読む、と思って。"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の学院の石は、そのままになった。"
+    }
+   ],
+   "end": "読む人を待つ帳面"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は桶を持ち上げた。「そうですよね。犬が吠えないくらいで、学者さまに文句は言えません」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の学院の成果には関わらなかった。"
+    }
+   ],
+   "end": "文句は言えない"
+  }
+ }
+}

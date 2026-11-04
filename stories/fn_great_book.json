@@ -1,0 +1,230 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fn_great_book",
+ "kind": "random",
+ "where": "smithy",
+ "era": "fantasy",
+ "again": 220,
+ "onNews": {
+  "tags": [
+   "science",
+   "culture"
+  ],
+  "within": 150
+ },
+ "hook": "大百科が出たそうだ。写しを作る仕事がある",
+ "title": "諸説ある",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "struck": {
+   "place": "news"
+  },
+  "client": {
+   "client": "写本の請負"
+  },
+  "author": {
+   "npc": "大学者",
+   "sex": "m"
+  },
+  "pupil": {
+   "npc": "写しを取る学徒",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "lecture",
+   "text": [
+    "{client}は紙束を抱えていた。「{struck}の大百科です。全八十五巻」",
+    "「——{struck:news}」",
+    "「宮廷が、学び舎ぜんぶに写しを置けと。写し手は足りません。そして……中身を読んだ者も、たぶん足りていません」"
+   ],
+   "choices": [
+    {
+     "label": "{struck}へ行き、原本を見る",
+     "next": "arrive"
+    },
+    {
+     "label": "「読んだのか」と聞く",
+     "next": "ask"
+    },
+    {
+     "label": "断る",
+     "next": "end_pass"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "client",
+   "text": [
+    "{client}は目をそらした。「三巻だけ。……『竜』の項は『なんかすごい』でした」",
+    "「『鉄』の項は『闇』。『麦』の項は『諸説ある』。八十五巻ぶん、この調子かもしれません」"
+   ],
+   "effects": [
+    {
+     "flag": "fn_book_know"
+    },
+    {
+     "xp": "letters",
+     "n": 2
+    }
+   ],
+   "next": "arrive"
+  },
+  "arrive": {
+   "at": {
+    "place": "struck",
+    "building": "school"
+   },
+   "goal": "{struck}の学び舎で、原本を見る",
+   "speaker": "author",
+   "art": "lecture",
+   "text": [
+    "{author}は八十五巻を背にして胸を張った。「三十年です。三十年かけて、この世のすべてを収めました」",
+    "手に取ってみると、説明は三種類しかない。「闇」「なんかすごい」「諸説ある」。",
+    "{pupil}が小声で言った。「でも、項目の並びは正確です。どこに何があるかは、この本でしか分かりません」"
+   ],
+   "choices": [
+    {
+     "label": "中身を直してから写させる",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "fixed",
+      "lose": "angry"
+     }
+    },
+    {
+     "label": "項目の並びだけを使い、中身は各学び舎に書かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 26,
+      "win": "index",
+      "lose": "angry"
+     }
+    },
+    {
+     "label": "そのまま写させる",
+     "next": "end_asis"
+    }
+   ]
+  },
+  "fixed": {
+   "speaker": "pupil",
+   "art": "lecture",
+   "text": [
+    "{pupil}と二人で、三月かけて八十五巻を当たった。直せたのは十九巻ぶん。残りは「諸説ある」のままだ。",
+    "{author}は一度だけ覗きに来て、「ふむ」と言って帰った。怒られなかったのが、いちばん怖かった。"
+   ],
+   "next": "end_fixed"
+  },
+  "index": {
+   "speaker": "author",
+   "art": "lecture",
+   "text": [
+    "「並びだけ使わせてください」と言うと、{author}は意外にも嬉しそうにした。",
+    "「そこです。三十年かけたのは、並びのほうです。中身は……まあ、埋めたのです」"
+   ],
+   "next": "end_index"
+  },
+  "angry": {
+   "speaker": "author",
+   "art": "lecture",
+   "text": [
+    "{author}は顔を赤くした。「三十年を、あなたは三日で直すと言うのか」話はそこで終わった。"
+   ],
+   "next": "end_asis"
+  },
+  "end_fixed": {
+   "text": [
+    "十九巻が直り、六十六巻が元のままで写された。学び舎に配られた本は、使われた。使われたのは、たいてい直した十九巻のほうだった。",
+    "{pupil}はそのあと十年かけて、残りを直し続けたという。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "money": 500
+    },
+    {
+     "favor": 8
+    },
+    {
+     "xp": "letters",
+     "n": 8
+    },
+    {
+     "note": "{struck}の大百科を十九巻ぶん直して写させた。"
+    }
+   ],
+   "end": "直した十九巻"
+  },
+  "end_index": {
+   "text": [
+    "並びだけを写し、中身は各学び舎が埋めた。十年で、同じ並びの、中身の違う本が十四種類できた。",
+    "十四種類を突き合わせると、ようやく本当のことが見えてくる。学問とは、たぶんそういうものだ。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "money": 400
+    },
+    {
+     "favor": 10
+    },
+    {
+     "xp": "letters",
+     "n": 7
+    },
+    {
+     "note": "{struck}の大百科を、並びだけ使って写させた。"
+    }
+   ],
+   "end": "十四種類の中身"
+  },
+  "end_asis": {
+   "text": [
+    "八十五巻が、そのまま写された。学び舎の棚は立派になった。棚から下ろされることは、あまりなかった。",
+    "「闇」「なんかすごい」「諸説ある」。三十年の仕事が、三つの言葉で保存された。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 600
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "{struck}の大百科を、そのまま写させた。"
+    }
+   ],
+   "end": "三つの言葉"
+  },
+  "end_pass": {
+   "text": [
+    "{client}は紙束を抱え直した。「ですよね。八十五巻は、読む前に腕が折れます」"
+   ],
+   "effects": [
+    {
+     "note": "{struck}の大百科の写しには関わらなかった。"
+    }
+   ],
+   "end": "読む前に腕が折れる"
+  }
+ }
+}

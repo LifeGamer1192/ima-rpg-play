@@ -1,0 +1,394 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_healer",
+ "kind": "school",
+ "title": "運ばれてきた数",
+ "era": "fantasy",
+ "school": "healer",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "master": {
+   "npc": "塔の主",
+   "sex": "f"
+  },
+  "peer": {
+   "npc": "同じ手当て人",
+   "sex": "f"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "front": {
+   "place": "near:here"
+  }
+ },
+ "start": "h1",
+ "scenes": {
+  "h1": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{here}の癒やしの塔を訪ねる",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は桶と布を指して言った。「まず、湯を沸かしなさい」",
+    "「呪いも祈りもあとです。塔に運ばれて死ぬ者の半分は、傷ではなく、汚れた布で死にます」"
+   ],
+   "choices": [
+    {
+     "label": "黙って湯を沸かし、布を煮る",
+     "next": "h1ok"
+    },
+    {
+     "label": "「癒やしの術は教わらぬのですか」と聞く",
+     "next": "h1ask"
+    }
+   ]
+  },
+  "h1ok": {
+   "speaker": "master",
+   "text": [
+    "{player}は半日、湯を沸かし布を煮た。{master}は夕方に一度だけ覗き、「明日も来なさい」と言った。"
+   ],
+   "effects": [
+    {
+     "joinSchool": "healer"
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    },
+    {
+     "note": "{here}の癒やしの塔に入った。"
+    }
+   ],
+   "next": "h2"
+  },
+  "h1ask": {
+   "speaker": "master",
+   "text": [
+    "「教えます。三年後に」{master}は布を絞った。「術は一人を救います。湯は十人を救います。順が逆だと、九人が死にます」"
+   ],
+   "effects": [
+    {
+     "joinSchool": "healer"
+    },
+    {
+     "xp": "medicine",
+     "n": 2
+    },
+    {
+     "note": "{here}の癒やしの塔に入った。"
+    }
+   ],
+   "next": "h2"
+  },
+  "h2": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "塔で手当てを覚える",
+   "speaker": "peer",
+   "art": "tale",
+   "text": [
+    "冬のはじめ、{peer}が血の気のない顔で戻ってきた。「鉱山で落盤。七人。手は四本しかない」",
+    "塔の土間に、運ばれた者が並べられていく。"
+   ],
+   "choices": [
+    {
+     "label": "血の出ている者から順に当たる",
+     "check": {
+      "skill": "medicine",
+      "dc": 22,
+      "win": "h2ok",
+      "lose": "h2hard"
+     }
+    },
+    {
+     "label": "声を出せる者を後回しにし、黙っている者から診る",
+     "check": {
+      "skill": "medicine",
+      "dc": 26,
+      "win": "h2best",
+      "lose": "h2hard"
+     },
+     "guide": "叫ぶ者はまだ息がある。黙った者には時間がない"
+    }
+   ]
+  },
+  "h2best": {
+   "speaker": "master",
+   "text": [
+    "七人のうち六人が朝を越した。{master}が土間に立って言った。「黙っている者から診た者は、三年に一人です」"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 7
+    },
+    {
+     "schoolRank": 2
+    },
+    {
+     "fame": 3
+    },
+    {
+     "bond": "peer",
+     "know": 30,
+     "like": 25,
+     "memo": "落盤の夜を一緒に越した"
+    }
+   ],
+   "next": "h3"
+  },
+  "h2ok": {
+   "text": [
+    "五人が朝を越した。{peer}は残りの二人の顔に布をかけ、何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 5
+    },
+    {
+     "schoolRank": 1
+    }
+   ],
+   "next": "h3"
+  },
+  "h2hard": {
+   "text": [
+    "手が足りず、三人を失った。{player}の袖は朝まで乾かなかった。{master}は「覚えておきなさい」とだけ言った。"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "schoolRank": 1
+    },
+    {
+     "hp": -8
+    }
+   ],
+   "next": "h3"
+  },
+  "h3": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "塔の求めを聞く",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}が地図を広げた。「{front}で戦があります。塔は両軍に人を出します」",
+    "「どちらの兵も同じように診ます。それが塔の掟です。……掟を嫌う領主もいます。{player}、行きますか」"
+   ],
+   "choices": [
+    {
+     "label": "行く。両軍とも診る",
+     "next": "both"
+    },
+    {
+     "label": "行くが、味方だけ診る",
+     "next": "ours"
+    },
+    {
+     "label": "塔に残り、運ばれてくる者を待つ",
+     "next": "stay"
+    }
+   ]
+  },
+  "both": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "{front}へ行き、両軍の傷を診る",
+   "art": "war",
+   "text": [
+    "{front}の丘の裾に布を張り、旗を立てずに幕を開けた。昼過ぎから、どちらの色の兵も運ばれてきた。",
+    "夕方、片方の隊長が槍を持って入ってきた。「敵を治すな」"
+   ],
+   "choices": [
+    {
+     "label": "「ここに敵はおりません」と言って動かない",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "end_both",
+      "lose": "end_driven"
+     }
+    },
+    {
+     "label": "幕の外に立ち、隊長の前に座り込む",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "end_both",
+      "lose": "end_driven"
+     }
+    }
+   ]
+  },
+  "ours": {
+   "at": {
+    "place": "front"
+   },
+   "goal": "{front}へ行き、味方の傷を診る",
+   "art": "war",
+   "text": [
+    "味方の幕だけを張った。手は足りた。運ばれる数も、半分で済んだ。",
+    "日が暮れて、幕の外に敵方の若い兵が這ってきた。喉が鳴っている。"
+   ],
+   "choices": [
+    {
+     "label": "幕に入れる",
+     "next": "end_both"
+    },
+    {
+     "label": "水だけ渡して、外に寝かせる",
+     "next": "end_ours"
+    }
+   ]
+  },
+  "stay": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "塔で運ばれてくる者を待つ",
+   "speaker": "peer",
+   "art": "tale",
+   "text": [
+    "戦のあと三日、塔の戸は開きっぱなしになった。{player}は眠らずに土間に立ち続けた。",
+    "{peer}が交代に入って言った。「戦場に行った者より、ここのほうが数を見たわね」"
+   ],
+   "effects": [
+    {
+     "xp": "medicine",
+     "n": 5
+    }
+   ],
+   "next": "end_tower"
+  },
+  "end_both": {
+   "speaker": "master",
+   "text": [
+    "隊長は槍を下ろし、自分の兵を置いて出ていった。幕の中では、両方の色の兵が並んで眠った。",
+    "{master}は報せを聞いて言った。「塔は、それで二百年もっています」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 10
+    },
+    {
+     "rep": "realm",
+     "n": -1
+    },
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "item": "potion",
+     "n": 1
+    },
+    {
+     "note": "{front}の戦で、両軍の傷を同じように診た。"
+    }
+   ],
+   "end": "旗を立てぬ幕"
+  },
+  "end_driven": {
+   "text": [
+    "幕は蹴り倒された。運べる者だけを担いで、夜の道を下りた。背中で、残してきた者の声が聞こえた気がした。",
+    "塔に戻ると、{master}は黙って湯を沸かしていた。「掟は、守れる日だけ守るものではありません」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "hp": -18
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    },
+    {
+     "note": "{front}で両軍を診ようとして、幕を蹴り倒された。"
+    }
+   ],
+   "end": "蹴り倒された幕"
+  },
+  "end_ours": {
+   "text": [
+    "若い兵は朝まで持たなかった。味方の傷は、ほとんど助かった。帳面の上では、よい日だった。",
+    "{master}は帳面を見て、何も言わなかった。言わないことが、いちばん応えた。"
+   ],
+   "effects": [
+    {
+     "schoolRank": 2
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    },
+    {
+     "note": "{front}で味方だけを診た。"
+    }
+   ],
+   "end": "帳面の上ではよい日"
+  },
+  "end_tower": {
+   "text": [
+    "三日で四十一人。塔の帳に、その数だけが残った。{master}は帳を閉じて言った。",
+    "「塔は、戦の勝ち負けを、運ばれてきた数で覚えます。今年は、こちらが勝ったそうです」"
+   ],
+   "effects": [
+    {
+     "schoolRank": 3
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "item": "herbs",
+     "n": 4
+    },
+    {
+     "note": "戦のあとの三日、塔で四十一人を診た。"
+    }
+   ],
+   "end": "四十一"
+  }
+ }
+}
