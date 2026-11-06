@@ -1,0 +1,434 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_grain_price",
+ "kind": "random",
+ "where": "market",
+ "most": 2,
+ "again": 300,
+ "hook": "麦が蔵に積まれたまま、値だけが上がっていきます",
+ "title": "上がる麦の値",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "port": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "パン焼きの女"
+  },
+  "ring": {
+   "npc": "穀物商の筆頭",
+   "sex": "m"
+  },
+  "aedile": {
+   "folk": "市の監督官",
+   "tags": [
+    "官"
+   ]
+  },
+  "sailor": {
+   "npc": "麦船の水夫",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{market}のパン屋の前に行列ができていた。並んでいるのに、売る物が無い。{client}が粉の空袋を振ってみせた。",
+    "「麦は{here}にございます。{ring}さまの蔵に、天井まで。売らないのです。{port}に麦船が着かぬあいだは、値が毎日上がりますから」"
+   ],
+   "choices": [
+    {
+     "label": "{ring}の蔵へ行って話す",
+     "next": "ring"
+    },
+    {
+     "label": "{port}へ行き、麦船の行方を聞く",
+     "next": "port"
+    },
+    {
+     "label": "市の監督官{aedile}に掛け合う",
+     "next": "aedile"
+    }
+   ]
+  },
+  "ring": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{ring}の蔵を訪ねる",
+   "speaker": "ring",
+   "art": "trade",
+   "text": [
+    "蔵の扉は二重に閂がかかり、前に男が二人立っていた。{ring}は秤の分銅を掌で転がしながら言った。",
+    "「囲い込みではありません。待っているだけです。待てるのは財のある者の権利でしょう」"
+   ],
+   "choices": [
+    {
+     "label": "「船が着けば、その麦は腐るだけだ」と値切る",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "deal",
+      "lose": "aedile"
+     }
+    },
+    {
+     "label": "囲い込みの約定書を探す",
+     "check": {
+      "skill": "theft",
+      "dc": 50,
+      "win": "paper",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "黙って帰り、別の手を考える",
+     "next": "port"
+    }
+   ]
+  },
+  "port": {
+   "at": {
+    "place": "port"
+   },
+   "goal": "{port}で麦船の行方を聞く",
+   "speaker": "sailor",
+   "art": "voyage",
+   "text": [
+    "{port}の桟橋で、{sailor}が網を繕っていた。「船は沈んではおりません。風待ちです。三日、よくて二日」",
+    "「ただ、着くと知れたら、蔵の麦は一夜で市に出ますな。知れる前に買った者が泣く」"
+   ],
+   "effects": [
+    {
+     "flag": "rmg_ships"
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "「三日で船が着く」と市に広める",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_rumour",
+      "lose": "panic"
+     }
+    },
+    {
+     "label": "船が着く日を手土産に、{ring}と掛け合う",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "deal",
+      "lose": "ring"
+     }
+    },
+    {
+     "label": "監督官{aedile}に、三日だけ値を抑えさせる",
+     "next": "aedile"
+    }
+   ]
+  },
+  "aedile": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "監督官{aedile}に掛け合う",
+   "speaker": "aedile",
+   "art": "court",
+   "text": [
+    "{aedile}は市の値札を束ねて数えていた。「監督官に値を決める権はありません。あるのは、量りを折る権だけです」",
+    "「ですが、公の蔵から麦を出させる建議なら、できましょう。誰かが元老院の者に頼んでくれれば」"
+   ],
+   "choices": [
+    {
+     "label": "公の蔵を開けさせる建議を通す",
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "end_public",
+      "lose": "panic"
+     }
+    },
+    {
+     "label": "船の着く日を{aedile}に告げ、三日もたせる",
+     "if": {
+      "flag": "rmg_ships"
+     },
+     "next": "end_rumour"
+    },
+    {
+     "label": "自分の銭で麦を買い、原価で配る",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_own",
+      "lose": "panic"
+     }
+    }
+   ]
+  },
+  "paper": {
+   "art": "backroom",
+   "text": [
+    "蔵の帳箱の底に、七人の名と割り印のある約定書があった。「値が倍になるまで一粒も出さぬ」と書かれている。",
+    "七人のうち二人は、市の寄り合いの長老だった。"
+   ],
+   "effects": [
+    {
+     "flag": "rmg_paper"
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "約定書を{aedile}に渡す",
+     "next": "end_public"
+    },
+    {
+     "label": "{ring}に見せて、麦を市に出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "deal",
+      "lose": "thugs"
+     }
+    }
+   ]
+  },
+  "deal": {
+   "speaker": "ring",
+   "art": "trade",
+   "text": [
+    "{ring}は長く黙り、分銅を秤に戻した。「半分だけ出します。残りは船を見てから」",
+    "翌朝、蔵の扉が開き、袋が荷車に積まれた。値は三割下がった。行列は短くなった。"
+   ],
+   "choices": [
+    {
+     "label": "半分で手を打つ",
+     "next": "end_half"
+    },
+    {
+     "label": "全部出すまで蔵の前に立ち続ける",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_public",
+      "lose": "end_half"
+     }
+    }
+   ]
+  },
+  "thugs": {
+   "art": "war",
+   "text": [
+    "蔵の前の二人が肩を並べた。「裏から入られるのは困るのです」棒が三本、同時に動いた。"
+   ],
+   "choices": [
+    {
+     "label": "打ち返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "aedile",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "石畳を走って逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 35,
+      "win": "aedile",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "panic": {
+   "art": "disaster",
+   "text": [
+    "「蔵が開く」という話が歪んで走った。人が蔵の扉に押し寄せ、閂が折れ、袋が裂けて麦が石畳に散った。",
+    "監督官の手の者が棒で人を分けた。踏まれた子がいた。{client}が泣きながらその子を抱えて走った。"
+   ],
+   "choices": [
+    {
+     "label": "人を分け、麦を掻き集めて量り直す",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_half",
+      "lose": "end_riot"
+     }
+    },
+    {
+     "label": "踏まれた者の手当てに回る",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "end_riot",
+      "lose": "end_riot"
+     }
+    }
+   ]
+  },
+  "end_public": {
+   "text": [
+    "公の蔵が開かれ、麦は原価で量り売りされた。囲い込みの約定書は市の柱に貼られ、七人の名が読み上げられた。",
+    "三日後、{port}に麦船が十二艘着いた。{ring}の蔵の麦は、ついに高くは売れなかった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 14
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}の麦の囲い込みを暴き、公の蔵を開けさせた。"
+    }
+   ],
+   "end": "柱に貼られた七つの名"
+  },
+  "end_rumour": {
+   "text": [
+    "「三日で船が着く」という一言が、市を一周するのに半日もかからなかった。",
+    "その日の夕に蔵の扉が開き、翌朝には値が元に戻っていた。{ring}は誰が喋ったかを探したが、市の全員が喋っていた。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 9
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{port}に麦船が着くことを市に広め、麦の囲い込みを崩した。"
+    }
+   ],
+   "end": "市を一周した一言"
+  },
+  "end_own": {
+   "text": [
+    "自分の銭で麦を買い、原価のまま量り売りした。儲けは一デナリウスも出なかった。",
+    "{client}が焼いた最初のパンを持ってきた。「これは売り物ではありません」"
+   ],
+   "effects": [
+    {
+     "money": -400
+    },
+    {
+     "item": "grain",
+     "n": 4
+    },
+    {
+     "fame": 11
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "{here}の麦を自分の銭で買い、原価で配った。"
+    }
+   ],
+   "end": "売り物ではないパン"
+  },
+  "end_half": {
+   "text": [
+    "蔵の半分が市に出て、値は三割下がった。残り半分は、船が着いた日に慌てて叩き売られた。",
+    "{client}は粉を抱えて笑った。「半分でも、焼けます」"
+   ],
+   "effects": [
+    {
+     "money": 180
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    },
+    {
+     "note": "{here}の穀物商に蔵の半分を市に出させた。"
+    }
+   ],
+   "end": "半分でも焼ける"
+  },
+  "end_riot": {
+   "text": [
+    "蔵の前は夕まで収まらなかった。麦は半分が石畳に散って泥になり、踏まれた子は腕を折った。",
+    "値は下がった。下げたのは、誰でもなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "favor": -3
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    },
+    {
+     "note": "{here}の麦の蔵の前で人が押し合い、麦が泥になった。"
+    }
+   ],
+   "end": "泥になった麦"
+  },
+  "end_beaten": {
+   "text": [
+    "棒で膝を払われ、蔵の壁に背を打ちつけた。目が覚めたときには、麦の値はまた少し上がっていた。"
+   ],
+   "effects": [
+    {
+     "hp": -24
+    }
+   ],
+   "end": "壁に打った背"
+  }
+ }
+}

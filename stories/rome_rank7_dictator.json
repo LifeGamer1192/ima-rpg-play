@@ -1,0 +1,499 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_rank7_dictator",
+ "kind": "rank",
+ "rankTo": 7,
+ "title": "六月の斧",
+ "era": "rome",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "front": {
+   "place": "border:patron"
+  },
+  "colleague": {
+   "npc": "もう一人の執政官",
+   "sex": "m"
+  },
+  "augur": {
+   "npc": "卜占官長",
+   "sex": "m"
+  },
+  "tribune": {
+   "npc": "護民官",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の{palace}で元老院に報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{front}の軍が崩れ、道が開いた。都までの野に、止める兵がいない。",
+    "{minister}は元老院の席を見回した。「二人の執政官が、別々の道を進んだ。それが崩れた因だ」",
+    "「独裁官を立てる話が出ている。立てるなら、一人の執政官が名を呼ばねばならぬ。呼ばれる名も、呼ぶ者も、まだ決まっていない」"
+   ],
+   "choices": [
+    {
+     "label": "自分が名を呼ばれる側に立つと申し出る",
+     "effects": [
+      {
+       "note": "元老院に独裁官の必要を認めさせ、六月の期を切れば独裁官となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "もう一人の執政官と話す",
+   "speaker": "colleague",
+   "art": "court",
+   "text": [
+    "{colleague}は窓の方を向いたまま言った。「独裁官を呼べば、わたしの権は消える。呼ぶのはわたしだ。自分の手で自分を切るのか」",
+    "「それに、独裁官は六月で返すというが、返さなかった例をわたしは三つ知っている」"
+   ],
+   "choices": [
+    {
+     "label": "期日を布告に書き、返す日を先に民会に告げると約す",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s2date",
+      "lose": "s2cold"
+     }
+    },
+    {
+     "label": "{colleague}を騎兵長官に指名すると約す",
+     "effects": [
+      {
+       "flag": "rm_r7_master"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "護民官に、拒否権で{colleague}を縛らせる",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "s2tribune",
+      "lose": "s2cold"
+     }
+    }
+   ]
+  },
+  "s2date": {
+   "art": "court",
+   "text": [
+    "「六月。六月の末日に斧を返す。日を布告に刻み、民会で読み上げる」",
+    "{colleague}はようやく振り向いた。「刻んだ日は、動かせぬぞ」——動かせない。だから刻む。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r7_date"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "独裁官の期を六月と布告に刻み、返す日を先に告げた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2tribune": {
+   "speaker": "tribune",
+   "art": "court",
+   "text": [
+    "{tribune}は腕を組んだ。「護民官の拒否は、民のために使うものです。執政官どうしの喧嘩に貸す気はありません」",
+    "「ただ、都の門の外に敵がいるなら、話は別です。期を切るなら、わたしが見張ります。守らねば、わたしが拒否します」"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r7_watch"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2cold": {
+   "art": "court",
+   "text": [
+    "{colleague}は何も約さなかった。元老院は二つに割れ、その日は何も決まらなかった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "cap",
+    "building": "shrine"
+   },
+   "goal": "{shrine}で卜占官長に兆しを問う",
+   "speaker": "augur",
+   "art": "faith",
+   "text": [
+    "{augur}は夜のうちに名を呼ばねばならぬと言った。「独裁官の指名は、夜、都の内で、執政官が声に出して行うのが作法です」",
+    "「兆しは……問えば出ます。問わねば出ません。どちらにしますか」"
+   ],
+   "choices": [
+    {
+     "label": "兆しを問い、出たものをそのまま元老院に伝える",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "s4",
+      "lose": "s3bad"
+     }
+    },
+    {
+     "label": "作法だけを確かめ、兆しは問わぬ",
+     "effects": [
+      {
+       "flag": "rm_r7_plain"
+      }
+     ],
+     "next": "s4"
+    },
+    {
+     "label": "{augur}に良い兆しを出させる",
+     "effects": [
+      {
+       "money": -1500
+      },
+      {
+       "fame": -3
+      },
+      {
+       "flag": "rm_r7_bought"
+      }
+     ],
+     "next": "s4"
+    }
+   ]
+  },
+  "s3bad": {
+   "art": "faith",
+   "text": [
+    "鳥は餌を食わず、肝は片側が白かった。{augur}は「悪い」と言い、それを隠さずに元老院へ伝えた。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r7_omen"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "夜の元老院で、名を呼ばせる",
+   "wait": {
+    "days": 2
+   },
+   "speaker": "colleague",
+   "art": "court",
+   "text": [
+    "夜。灯を四つだけ灯した議場に、元老院の者が座っていた。{colleague}が立ち、まだ名を言わない。",
+    "誰かが咳をした。{front}の崩れから、九日が経っている。"
+   ],
+   "choices": [
+    {
+     "label": "六月の期日を自分の口で読み上げてから、名を待つ",
+     "if": {
+      "flag": "rm_r7_date"
+     },
+     "next": "win_date"
+    },
+    {
+     "label": "{colleague}を騎兵長官に指名すると議場に告げる",
+     "if": {
+      "flag": "rm_r7_master"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "win_pair",
+      "lose": "fail_split"
+     }
+    },
+    {
+     "label": "護民官の見張りを議場に立たせる",
+     "if": {
+      "flag": "rm_r7_watch"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "win_watch",
+      "lose": "fail_split"
+     }
+    },
+    {
+     "label": "「名が呼ばれぬなら、わたしは明朝{front}へ出る」と言って議場を出る",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "win_walk",
+      "lose": "fail_split"
+     }
+    }
+   ]
+  },
+  "win_date": {
+   "speaker": "minister",
+   "text": [
+    "「六月の末日に、斧を返す」——先に日を言ってから、名を待った。議場は静かだった。",
+    "{colleague}が名を呼んだ。自分の権を自分の口で消す声は、小さかった。",
+    "{minister}が後で言った。「返す日を先に言った独裁官は、記録に二人しかおらぬ。もう一人は、本当に返した」"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 25
+    },
+    {
+     "fame": 20
+    },
+    {
+     "rep": "patron",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 8
+    },
+    {
+     "unflag": "rm_r7_date"
+    },
+    {
+     "unflag": "rm_r7_master"
+    },
+    {
+     "unflag": "rm_r7_watch"
+    },
+    {
+     "unflag": "rm_r7_plain"
+    },
+    {
+     "unflag": "rm_r7_bought"
+    },
+    {
+     "unflag": "rm_r7_omen"
+    },
+    {
+     "note": "六月の期を先に刻んで独裁官となった。返す日は布告に残っている。"
+    }
+   ],
+   "end": "先に言った日"
+  },
+  "win_pair": {
+   "speaker": "colleague",
+   "text": [
+    "「騎兵長官は、あなたです」——{colleague}は目を閉じ、それから名を呼んだ。",
+    "二人は翌朝そろって{front}へ出た。軍は、一つの道を進んだ。それだけで、崩れは止まった。"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 20
+    },
+    {
+     "fame": 15
+    },
+    {
+     "rep": "patron",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "unflag": "rm_r7_date"
+    },
+    {
+     "unflag": "rm_r7_master"
+    },
+    {
+     "unflag": "rm_r7_watch"
+    },
+    {
+     "unflag": "rm_r7_plain"
+    },
+    {
+     "unflag": "rm_r7_bought"
+    },
+    {
+     "unflag": "rm_r7_omen"
+    },
+    {
+     "note": "もう一人の執政官を騎兵長官に立てて独裁官となった。軍は一つの道を進んだ。"
+    }
+   ],
+   "end": "一つの道"
+  },
+  "win_watch": {
+   "speaker": "tribune",
+   "text": [
+    "{tribune}が議場の入口に立ち、名が呼ばれるのを聞いて、そのまま帰らなかった。六月のあいだ、毎日いた。",
+    "「わたしは見張ります」——見張られる独裁官は、記録では珍しい。珍しいことが、作法になればよい。"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 18
+    },
+    {
+     "fame": 14
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "unflag": "rm_r7_date"
+    },
+    {
+     "unflag": "rm_r7_master"
+    },
+    {
+     "unflag": "rm_r7_watch"
+    },
+    {
+     "unflag": "rm_r7_plain"
+    },
+    {
+     "unflag": "rm_r7_bought"
+    },
+    {
+     "unflag": "rm_r7_omen"
+    },
+    {
+     "note": "護民官の見張りのもとで独裁官となった。"
+    }
+   ],
+   "end": "見張られる斧"
+  },
+  "win_walk": {
+   "speaker": "minister",
+   "text": [
+    "「名が呼ばれぬなら、明朝{front}へ出る」——そう言って議場の扉に手をかけたところで、名が呼ばれた。",
+    "{minister}は後で言った。「脅して取った斧だ。覚えておけ。脅して取ったものは、脅して取られる」"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 14
+    },
+    {
+     "fame": 12
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "unflag": "rm_r7_date"
+    },
+    {
+     "unflag": "rm_r7_master"
+    },
+    {
+     "unflag": "rm_r7_watch"
+    },
+    {
+     "unflag": "rm_r7_plain"
+    },
+    {
+     "unflag": "rm_r7_bought"
+    },
+    {
+     "unflag": "rm_r7_omen"
+    },
+    {
+     "note": "議場を出ると言って独裁官の名を呼ばせた。"
+    }
+   ],
+   "end": "脅して取った斧"
+  },
+  "fail_split": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}で夜明けを迎える",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "名は呼ばれなかった。灯が四つとも消え、元老院は二つに割れたまま朝を迎えた。",
+    "十二日めに、都の北の野で二度めの崩れがあった。独裁官は、別の名で立てられた。"
+   ],
+   "effects": [
+    {
+     "favor": -14
+    },
+    {
+     "fame": -3
+    },
+    {
+     "unflag": "rm_r7_date"
+    },
+    {
+     "unflag": "rm_r7_master"
+    },
+    {
+     "unflag": "rm_r7_watch"
+    },
+    {
+     "unflag": "rm_r7_plain"
+    },
+    {
+     "unflag": "rm_r7_bought"
+    },
+    {
+     "unflag": "rm_r7_omen"
+    },
+    {
+     "note": "独裁官の名は呼ばれず、別の者が立てられた。覚えを取り戻せば、また挑める。"
+    }
+   ],
+   "end": "消えた四つの灯"
+  }
+ }
+}

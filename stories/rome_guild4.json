@@ -1,0 +1,494 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_guild4",
+ "kind": "rank",
+ "guildTo": 4,
+ "title": "内海の四つの入江",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "cove": {
+   "place": "near:here"
+  },
+  "far": {
+   "place": "far:here"
+  },
+  "illyrian": {
+   "npc": "イリュリアの船長",
+   "sex": "m"
+  },
+  "woman": {
+   "npc": "入江を三つ知る女船長",
+   "sex": "f"
+  },
+  "greek": {
+   "npc": "ギリシアの舵取り",
+   "sex": "m"
+  },
+  "legate": {
+   "npc": "ローマの艦隊の副将",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で内海の話を聞く",
+   "speaker": "greek",
+   "art": "inn",
+   "text": [
+    "{greek}は卓に塩で海岸線を描いた。入江が四つ。",
+    "「{illyrian}が二つ、{woman}が一つ、残りの一つは誰のものでもありません。四人は互いに船を焼き合っています」",
+    "「春に、ローマの艦隊が三十艘来ます。一つずつなら、一つずつ焼かれます」"
+   ],
+   "choices": [
+    {
+     "label": "{cove}の{illyrian}に会う",
+     "next": "s2"
+    },
+    {
+     "label": "{far}の{woman}に会う",
+     "next": "s2woman"
+    }
+   ]
+  },
+  "s2woman": {
+   "at": {
+    "place": "far"
+   },
+   "goal": "{far}で女船長に会う",
+   "speaker": "woman",
+   "art": "voyage",
+   "text": [
+    "{woman}の船は細長く、櫂の数が多い。帆柱に、焼けた跡が残っている。",
+    "「{illyrian}がわたしの船を二艘焼きました。三年前に。わたしは四艘焼きました」",
+    "「束ねるというなら、わたしの入江は貸します。ただ、{illyrian}の下にはつきません」"
+   ],
+   "effects": [
+    {
+     "flag": "rm_g4_woman"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "「誰の下にもつかせぬ。船ごとに分け前を決める」と約す",
+     "effects": [
+      {
+       "flag": "rm_g4_share"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "{illyrian}との古い焼き合いを、こちらが償うと言う",
+     "if": {
+      "money": 3000
+     },
+     "effects": [
+      {
+       "money": -3000
+      },
+      {
+       "flag": "rm_g4_paid"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "何も約さず、{cove}へ渡る",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "cove"
+   },
+   "goal": "{cove}でイリュリアの船長に会う",
+   "speaker": "illyrian",
+   "art": "voyage",
+   "text": [
+    "{cove}の砂に、舳先を乗り上げた船が九艘並んでいた。{illyrian}は網の上で短剣を研いでいた。",
+    "「束ねる話は、三度来た。三度とも、来た者が王になりたいだけだった」",
+    "「お前はどうだ。王になりたいのか、艦隊を止めたいのか」"
+   ],
+   "choices": [
+    {
+     "label": "「止めたい。王は、束ねた後に誰かが要るだけだ」と答える",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s3",
+      "lose": "s2duel"
+     }
+    },
+    {
+     "label": "船ごとの分け前の表を見せる",
+     "if": {
+      "flag": "rm_g4_share"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 32,
+      "win": "s3",
+      "lose": "s2duel"
+     }
+    },
+    {
+     "label": "焼き合いの償いを済ませたと告げる",
+     "if": {
+      "flag": "rm_g4_paid"
+     },
+     "next": "s3"
+    },
+    {
+     "label": "短剣で決着をつける",
+     "next": "s2duel"
+    }
+   ]
+  },
+  "s2duel": {
+   "art": "duel",
+   "text": [
+    "{illyrian}は研いだ短剣を砂に突き立て、もう一本を腰から抜いた。「内海の作法だ。砂の上で決める」"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 6,
+      "win": "s3",
+      "lose": "fail_sand"
+     }
+    },
+    {
+     "label": "短剣を砂に置き、素手で組む",
+     "check": {
+      "skill": "blade",
+      "dc": 34,
+      "win": "s3",
+      "lose": "fail_sand"
+     }
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "cove"
+   },
+   "goal": "四つの入江を一つの艦隊にする",
+   "speaker": "greek",
+   "art": "voyage",
+   "text": [
+    "四つの入江の船が、同じ砂に並んだ。三十一艘。櫂の数も、舳先の形も、全部違う。",
+    "{greek}が舵板を叩いた。「艦隊にするには、合図が要ります。旗か、火か、太鼓か。三つのうち一つに決めてください」",
+    "遠く、春の海に帆が見え始めている。"
+   ],
+   "choices": [
+    {
+     "label": "火の合図に決め、夜の海で三十一艘を動かす",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "s4",
+      "lose": "s3mess"
+     }
+    },
+    {
+     "label": "太鼓に決め、{greek}に拍を揃えさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "s4",
+      "lose": "s3mess"
+     }
+    },
+    {
+     "label": "旗に決め、入江ごとに色を分ける",
+     "next": "s4"
+    }
+   ]
+  },
+  "s3mess": {
+   "art": "voyage",
+   "text": [
+    "最初の夜、合図が通らず、三艘が互いの櫂を折った。{greek}は額を押さえた。「もう一度です。日はあと十日」"
+   ],
+   "choices": [
+    {
+     "label": "十日、毎晩合図を繰り返す",
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "s4",
+      "lose": "s4"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "cove"
+   },
+   "goal": "ローマの艦隊を迎える",
+   "wait": {
+    "days": 8
+   },
+   "speaker": "legate",
+   "art": "war",
+   "text": [
+    "三十艘が入江の沖に並んだ。{legate}の旗艦から、小舟が一艘だけ来た。使いは降りずに叫んだ。",
+    "「船を焼き、乗組を引き渡せば、入江の者の命は取らぬ。断れば、入江ごと焼く」",
+    "三十一艘は、沖に出るのを待っている。"
+   ],
+   "choices": [
+    {
+     "label": "沖に出て、艦隊の列の端を順に突く",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "win_r",
+      "lose": "s4fight"
+     }
+    },
+    {
+     "label": "夜のうちに艦隊の錨綱を切り、岩に流す",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "check": {
+      "skill": "theft",
+      "dc": 34,
+      "win": "win_w",
+      "lose": "s4fight"
+     }
+    },
+    {
+     "label": "三十一艘で正面から沖に出る",
+     "next": "s4fight"
+    }
+   ]
+  },
+  "s4fight": {
+   "art": "war",
+   "text": [
+    "入江の口で、船腹と船腹が当たった。櫂が折れ、板が割れ、海が人で埋まった。"
+   ],
+   "choices": [
+    {
+     "label": "旗艦に乗り移る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "win_board",
+      "lose": "fail_sea"
+     }
+    },
+    {
+     "label": "火の船を一艘、艦隊の中へ流す",
+     "check": {
+      "skill": "blade",
+      "dc": 34,
+      "win": "win_board",
+      "lose": "fail_sea"
+     }
+    }
+   ]
+  },
+  "win_r": {
+   "speaker": "woman",
+   "text": [
+    "列の端を順に突き、沈める前に乗組を海から拾った。三十艘のうち十一艘が舵を失い、残りは沖へ退いた。",
+    "拾った乗組は、三日後に岸で解いた。{legate}は何も言わずに船を返させた。",
+    "内海では、その春から「乗組を拾う艦隊」と呼ばれるようになった。{woman}が旗を一つ縫い、三十一艘に同じ色を配った。"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "money": 2000
+    },
+    {
+     "fame": 20
+    },
+    {
+     "xp": "letters",
+     "n": 8
+    },
+    {
+     "unflag": "rm_g4_woman"
+    },
+    {
+     "unflag": "rm_g4_share"
+    },
+    {
+     "unflag": "rm_g4_paid"
+    },
+    {
+     "note": "内海の四つの入江を一つの艦隊にし、乗組を拾う掟で海賊の王となった。"
+    }
+   ],
+   "end": "乗組を拾う艦隊"
+  },
+  "win_w": {
+   "speaker": "illyrian",
+   "text": [
+    "夜のうちに錨綱を切った。三十艘のうち十四艘が岩に乗り、朝には骨になっていた。乗組は、拾わなかった。",
+    "{legate}の旗艦は沖へ逃げた。報告には「夜の嵐」と書かれた。書いた方が、都では通りがよい。",
+    "{illyrian}が短剣を砂に突き立てて言った。「王だ。内海で、誰もお前のことを都に書かん」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "money": 5000
+    },
+    {
+     "fame": -6
+    },
+    {
+     "xp": "theft",
+     "n": 8
+    },
+    {
+     "wanted": "here",
+     "n": 40
+    },
+    {
+     "unflag": "rm_g4_woman"
+    },
+    {
+     "unflag": "rm_g4_share"
+    },
+    {
+     "unflag": "rm_g4_paid"
+    },
+    {
+     "note": "内海の四つの入江を束ね、ローマの艦隊を岩に流して海賊の王となった。"
+    }
+   ],
+   "end": "夜の嵐と書かれた"
+  },
+  "win_board": {
+   "speaker": "greek",
+   "text": [
+    "旗艦の甲板を取った。{legate}は舳先で縄を切られ、海に落ちて、自分の小舟に拾われた。",
+    "艦隊は退いた。三十一艘のうち、戻ったのは十九艘だった。{greek}は十二艘の名を板に刻み、入江の岩に立てた。"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "money": 3000
+    },
+    {
+     "fame": 10
+    },
+    {
+     "hp": -20
+    },
+    {
+     "xp": "blade",
+     "n": 8
+    },
+    {
+     "unflag": "rm_g4_woman"
+    },
+    {
+     "unflag": "rm_g4_share"
+    },
+    {
+     "unflag": "rm_g4_paid"
+    },
+    {
+     "note": "内海でローマの艦隊の旗艦を取り、海賊の王となった。十二艘を失った。"
+    }
+   ],
+   "end": "岩に立てた板"
+  },
+  "fail_sand": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}へ戻る",
+   "speaker": "greek",
+   "art": "inn",
+   "text": [
+    "砂の上で負けた。{illyrian}は短剣を抜かずに「帰れ」と言った。四つの入江は四つのまま、春を迎えた。"
+   ],
+   "effects": [
+    {
+     "hp": -24
+    },
+    {
+     "unflag": "rm_g4_woman"
+    },
+    {
+     "unflag": "rm_g4_share"
+    },
+    {
+     "unflag": "rm_g4_paid"
+    },
+    {
+     "note": "内海の入江を束ねられなかった。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "四つのままの入江"
+  },
+  "fail_sea": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}へ戻る",
+   "speaker": "woman",
+   "art": "inn",
+   "text": [
+    "入江の口で押し潰された。三十一艘のうち二十二艘が沈み、入江の小屋は焼かれた。",
+    "{woman}は焼けた帆柱の船で生き残り、「また三年かけます」と言った。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "fame": -4
+    },
+    {
+     "unflag": "rm_g4_woman"
+    },
+    {
+     "unflag": "rm_g4_share"
+    },
+    {
+     "unflag": "rm_g4_paid"
+    },
+    {
+     "note": "内海でローマの艦隊に敗れた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "また三年"
+  }
+ }
+}

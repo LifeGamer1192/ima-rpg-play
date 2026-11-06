@@ -1,0 +1,515 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_guild4",
+ "kind": "rank",
+ "guildTo": 4,
+ "title": "戴冠の夜",
+ "era": "fantasy",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "under": {
+   "place": "near:here"
+  },
+  "far": {
+   "place": "far:here"
+  },
+  "south": {
+   "npc": "南の団の頭目",
+   "sex": "m"
+  },
+  "river": {
+   "npc": "川の団の頭目",
+   "sex": "f"
+  },
+  "dean": {
+   "npc": "学院の学院長",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "地下に住む者の長",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏で四つの団の話を聞く",
+   "speaker": "river",
+   "art": "backroom",
+   "text": [
+    "{river}は杯を置かずに言った。「四つある。南、川、門前、そしてあなた。四つで、互いの手下を売り合っている」",
+    "「学院が、字の付いた犬を出し始めた。犬は手の字を嗅ぐ。先月、門前の団が半分捕まった」",
+    "「戴冠の夜は、門が閉まる。閉まった内で、四つが一つになるか、三つが二つに食われるかだ」"
+   ],
+   "choices": [
+    {
+     "label": "南の団の頭目に会う",
+     "next": "s2"
+    },
+    {
+     "label": "{far}の川の団の縄張りを見る",
+     "next": "s2river"
+    }
+   ]
+  },
+  "s2river": {
+   "at": {
+    "place": "far"
+   },
+   "goal": "{far}で川の団の縄張りを見る",
+   "speaker": "river",
+   "art": "voyage",
+   "text": [
+    "川の団は、舟で荷を動かしていた。舟は犬の鼻が届かない。水は匂いを切る。",
+    "{river}は舟の綱を結び直した。「一つになるなら、わたしの舟は貸す。ただ、南の下にはつかない。あの男は、手下を学院に売った」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g4_boats"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "「誰の下にもつかせぬ。団ごとに縄張りを決める」と約す",
+     "effects": [
+      {
+       "flag": "ft_g4_share"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "売られた手下を取り戻すと約す",
+     "effects": [
+      {
+       "flag": "ft_g4_back"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "何も約さず、南へ回る",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "南の団の頭目に会う",
+   "speaker": "south",
+   "art": "backroom",
+   "text": [
+    "{south}は闇市の奥の帳場で、犬の首輪を三つ並べていた。学院の字が焼いてある。",
+    "「売った。売らねば、団が全部捕まっていた。十人で五十を買ったんだ。悪いか」",
+    "「一つになる話なら、おれは乗る。ただし、王の名はおれだ」"
+   ],
+   "choices": [
+    {
+     "label": "「名は要らぬ。四つが一つに動く段取りだけを決める」と言う",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "s3",
+      "lose": "s2duel"
+     }
+    },
+    {
+     "label": "団ごとの縄張りの表を見せる",
+     "if": {
+      "flag": "ft_g4_share"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 32,
+      "win": "s3",
+      "lose": "s2duel"
+     }
+    },
+    {
+     "label": "売られた十人を取り戻してから話すと言う",
+     "if": {
+      "flag": "ft_g4_back"
+     },
+     "next": "s2free"
+    },
+    {
+     "label": "帳場で決着をつける",
+     "next": "s2duel"
+    }
+   ]
+  },
+  "s2free": {
+   "at": {
+    "place": "under"
+   },
+   "goal": "売られた十人を学院から取り戻す",
+   "speaker": "elder",
+   "art": "ruins",
+   "text": [
+    "{elder}が地下の道筋を指した。「学院の牢は、地下の三層と壁一枚です。壁は、三百年前の石です」",
+    "「石を抜けば、十人は地下から出せます。犬は、地下の匂いを嗅げません」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g4_ten"
+    }
+   ],
+   "choices": [
+    {
+     "label": "壁を抜いて十人を出す",
+     "check": {
+      "skill": "theft",
+      "dc": 34,
+      "win": "s3",
+      "lose": "s2duel"
+     }
+    },
+    {
+     "label": "学院長と直に話す",
+     "next": "s2dean"
+    }
+   ]
+  },
+  "s2dean": {
+   "speaker": "dean",
+   "art": "lecture",
+   "text": [
+    "{dean}は犬を足元に座らせていた。「字は、盗まれぬための物です。盗まれねば、犬は要りません」",
+    "「盗まぬ約束を、四つの団の名で書けますか。書けるなら、十人は返します。犬も引きます」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g4_deal"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "next": "s3"
+  },
+  "s2duel": {
+   "art": "duel",
+   "text": [
+    "{south}は首輪を払い落とし、短剣を抜いた。「王の名を決めるのは、昔から同じやり方だ」"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 6,
+      "win": "s3",
+      "lose": "fail_knife"
+     }
+    },
+    {
+     "label": "帳場の灯を落として組み伏せる",
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "s3",
+      "lose": "fail_knife"
+     }
+    }
+   ]
+  },
+  "s3": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "戴冠の夜、閉じた門の内で動く",
+   "wait": {
+    "days": 4
+   },
+   "speaker": "river",
+   "art": "war",
+   "text": [
+    "戴冠の夜。門は閉じ、町の灯は宮の方にだけ集まった。四つの団の者が、路地に散っている。",
+    "学院の犬が三十頭、宮の周りに放たれた。鼻が、路地の方へ向いている。"
+   ],
+   "choices": [
+    {
+     "label": "川の舟で全員を水路に移し、犬の鼻を切る",
+     "if": {
+      "guildPath": "righteous"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "win_r",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "犬の首輪の字を三十頭ぶん書き替え、宮の方へ向かせる",
+     "if": {
+      "guildPath": "ruthless"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "win_w",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "四つの団を路地に並べ、正面から宮の表を取る",
+     "next": "s3fight"
+    }
+   ]
+  },
+  "s3fight": {
+   "art": "war",
+   "text": [
+    "路地の口で犬と衛士が一緒に来た。石畳の上で、灯が割れて油が燃えた。"
+   ],
+   "choices": [
+    {
+     "label": "犬の列に割り込んで押し返す",
+     "fight": {
+      "foes": "beast",
+      "n": 3,
+      "level": 8,
+      "win": "win_fight",
+      "lose": "fail_night"
+     }
+    },
+    {
+     "label": "油に火を回し、煙で鼻を潰す",
+     "check": {
+      "skill": "blade",
+      "dc": 34,
+      "win": "win_fight",
+      "lose": "fail_night"
+     }
+    }
+   ]
+  },
+  "win_r": {
+   "speaker": "elder",
+   "text": [
+    "四つの団の全員が、川の舟と地下の道に移った。水と石は匂いを切る。犬は、空の路地を嗅ぎ回った。",
+    "夜明け、宮の蔵からは何も失われていなかった。失われたのは、学院の犬の面目だけだ。",
+    "{dean}は約束の書に自分の名も書いた。「盗まぬ団に、犬は要りません」",
+    "{elder}が地下の梁に、四つの団の名と一つの名を刻んだ。刻まれた一つが、闇の王だ。"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "money": 2000
+    },
+    {
+     "fame": 20
+    },
+    {
+     "xp": "letters",
+     "n": 8
+    },
+    {
+     "unflag": "ft_g4_boats"
+    },
+    {
+     "unflag": "ft_g4_share"
+    },
+    {
+     "unflag": "ft_g4_back"
+    },
+    {
+     "unflag": "ft_g4_ten"
+    },
+    {
+     "unflag": "ft_g4_deal"
+    },
+    {
+     "note": "戴冠の夜に四つの団を水と地下へ移し、学院の犬を空振りさせて闇の王となった。"
+    }
+   ],
+   "end": "梁の一つの名"
+  },
+  "win_w": {
+   "speaker": "south",
+   "text": [
+    "三十頭の首輪の字を書き替えた。犬は宮の方へ走り、宮の衛士の手の字を嗅ぎ、噛んだ。",
+    "騒ぎのあいだに、宮の蔵と学院の地階が同じ夜に空になった。記録には「戴冠の夜の混乱」と書かれた。",
+    "{south}は短剣を帳場に置いた。「王の名は、お前だ。……誰も声に出して言わんだろうが」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "money": 6000
+    },
+    {
+     "fame": -8
+    },
+    {
+     "wanted": "here",
+     "n": 45
+    },
+    {
+     "xp": "theft",
+     "n": 8
+    },
+    {
+     "unflag": "ft_g4_boats"
+    },
+    {
+     "unflag": "ft_g4_share"
+    },
+    {
+     "unflag": "ft_g4_back"
+    },
+    {
+     "unflag": "ft_g4_ten"
+    },
+    {
+     "unflag": "ft_g4_deal"
+    },
+    {
+     "note": "戴冠の夜に学院の犬を宮へ向かわせ、蔵と地階を空にして闇の王となった。"
+    }
+   ],
+   "end": "声に出せない名"
+  },
+  "win_fight": {
+   "speaker": "river",
+   "text": [
+    "路地で犬と衛士を押し返した。四つの団のうち、十九人が捕まり、四人が死んだ。宮は無事だった。",
+    "{river}は焼けた綱を切りながら言った。「四つが一つになったのは、押し返したあの半刻だけです」",
+    "「それでも、一つになりました。王はあなたです」"
+   ],
+   "effects": [
+    {
+     "guildRank": 4
+    },
+    {
+     "money": 1200
+    },
+    {
+     "fame": 10
+    },
+    {
+     "hp": -24
+    },
+    {
+     "xp": "blade",
+     "n": 8
+    },
+    {
+     "unflag": "ft_g4_boats"
+    },
+    {
+     "unflag": "ft_g4_share"
+    },
+    {
+     "unflag": "ft_g4_back"
+    },
+    {
+     "unflag": "ft_g4_ten"
+    },
+    {
+     "unflag": "ft_g4_deal"
+    },
+    {
+     "note": "戴冠の夜に路地で犬と衛士を押し返し、四つの団をまとめて闇の王となった。"
+    }
+   ],
+   "end": "あの半刻"
+  },
+  "fail_knife": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{inn}の裏へ戻る",
+   "speaker": "river",
+   "art": "backroom",
+   "text": [
+    "帳場で負けた。{south}は短剣を拭いて「王の名はおれだ」と言った。四つは、三つと一つになった。"
+   ],
+   "effects": [
+    {
+     "hp": -24
+    },
+    {
+     "unflag": "ft_g4_boats"
+    },
+    {
+     "unflag": "ft_g4_share"
+    },
+    {
+     "unflag": "ft_g4_back"
+    },
+    {
+     "unflag": "ft_g4_ten"
+    },
+    {
+     "unflag": "ft_g4_deal"
+    },
+    {
+     "note": "南の団の頭目に敗れた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "三つと一つ"
+  },
+  "fail_night": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{inn}の裏へ戻る",
+   "speaker": "south",
+   "art": "backroom",
+   "text": [
+    "路地で潰された。犬が四十人を嗅ぎ分け、衛士が順に縄をかけた。",
+    "{south}は帳場で首輪を数え直していた。「おれは十人で五十を買った。お前は四十で何を買った」"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "fame": -4
+    },
+    {
+     "unflag": "ft_g4_boats"
+    },
+    {
+     "unflag": "ft_g4_share"
+    },
+    {
+     "unflag": "ft_g4_back"
+    },
+    {
+     "unflag": "ft_g4_ten"
+    },
+    {
+     "unflag": "ft_g4_deal"
+    },
+    {
+     "note": "戴冠の夜に四つの団が潰された。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "四十で何を買った"
+  }
+ }
+}

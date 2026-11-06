@@ -1,0 +1,442 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_unpaid_pay",
+ "kind": "random",
+ "where": "inn",
+ "most": 2,
+ "again": 340,
+ "hook": "守りの兵が七月も給金をもらっておりません。町が危のうございます",
+ "title": "七月の給金",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "road": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "宿の女主"
+  },
+  "decurion": {
+   "npc": "十人長",
+   "sex": "m"
+  },
+  "paymaster": {
+   "folk": "給金の役",
+   "tags": [
+    "官"
+   ]
+  },
+  "carter": {
+   "npc": "箱を運んだ車夫",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{inn}の卓に、兵が八人座っていた。酒は注がれているが、誰も払っていない。",
+    "{client}が奥で手を揉んだ。「七月です。はじめは詫びながら飲んでおりましたが、今は黙って飲みます。来月は、黙って運び出すでしょう」"
+   ],
+   "choices": [
+    {
+     "label": "十人長の{decurion}と話す",
+     "next": "decurion"
+    },
+    {
+     "label": "給金の役{paymaster}に照らす",
+     "next": "paymaster"
+    },
+    {
+     "label": "箱を運んだ車夫を探す",
+     "next": "carter"
+    }
+   ]
+  },
+  "decurion": {
+   "speaker": "decurion",
+   "art": "inn",
+   "text": [
+    "{decurion}は杯を置かずに言った。「箱は出たのです。都から出たという書付がある。こちらには届かない」",
+    "「兵は馬鹿ではない。どこかで誰かが取ったと分かっている。取った者が分からぬから、目の前の町を取る話になる」",
+    "「わたしが止められるのは、あと一月です」"
+   ],
+   "effects": [
+    {
+     "flag": "rmu_sent"
+    }
+   ],
+   "choices": [
+    {
+     "label": "箱の行方を辿ると約し、一月待たせる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "paymaster",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "自分の銭で一月分を立て替える",
+     "if": {
+      "money": 1800
+     },
+     "effects": [
+      {
+       "money": -1800
+      }
+     ],
+     "next": "end_lent"
+    },
+    {
+     "label": "町の有力者に掛け合い、先に出させる",
+     "next": "town"
+    }
+   ]
+  },
+  "paymaster": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "給金の役{paymaster}に照らす",
+   "speaker": "paymaster",
+   "art": "court",
+   "text": [
+    "{paymaster}は綴りを開いた。「受領の印が、ございます。四月の分も、五月の分も」",
+    "「印はわたしのものではありません。……誰のものか、わたしにも読めません」"
+   ],
+   "effects": [
+    {
+     "flag": "rmu_seal"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "印を照らし合わせ、押した者を割る",
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "culprit",
+      "lose": "carter"
+     }
+    },
+    {
+     "label": "箱を運んだ車夫を探す",
+     "next": "carter"
+    }
+   ]
+  },
+  "carter": {
+   "at": {
+    "place": "road"
+   },
+   "goal": "箱を運んだ車夫を探す",
+   "speaker": "carter",
+   "art": "road",
+   "text": [
+    "{carter}は{road}の宿場で、驢馬に草をやっていた。箱のことを言うと、手が止まった。",
+    "「{road}の分かれ道で、別の車に移しました。印のある書付を見せられて。わたしは運ぶだけですから」",
+    "「移した先の車は、南へ行きました。南には軍はおりません」"
+   ],
+   "effects": [
+    {
+     "flag": "rmu_south"
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "南の道を辿る",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "culprit",
+      "lose": "bandits"
+     }
+    },
+    {
+     "label": "書付の印を{paymaster}に照らす",
+     "check": {
+      "skill": "letters",
+      "dc": 35,
+      "win": "paymaster",
+      "lose": "end_sack"
+     }
+    }
+   ]
+  },
+  "culprit": {
+   "art": "backroom",
+   "text": [
+    "南の町の両替商の蔵に、軍の封のまま箱が三つ積まれていた。封を切らずに、担保として預けてある。",
+    "預けた者の名は、属州の財務の下役。給金を先に銭に換え、利を取って回し、来年の分で埋めるつもりだった。"
+   ],
+   "effects": [
+    {
+     "flag": "rmu_found"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "箱を押さえ、兵に届ける",
+     "next": "end_paid"
+    },
+    {
+     "label": "下役を公会所に訴える",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_tried",
+      "lose": "end_paid"
+     }
+    },
+    {
+     "label": "箱を黙って返させ、事は伏せる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_quiet",
+      "lose": "end_tried"
+     }
+    }
+   ]
+  },
+  "town": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "町の有力者に掛け合う",
+   "art": "court",
+   "text": [
+    "{palace}の広間で、町の有力者が五人、顔を見合わせた。「兵の給金を町が出すのか」「出さねば町が取られる」",
+    "「出せば、来年も出すことになる」——それが、本当の恐れだった。"
+   ],
+   "choices": [
+    {
+     "label": "「一月分だけ、国への貸しとして」と書式を立てる",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_lent",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "箱の行方を辿る費用を町に出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "carter",
+      "lose": "brawl"
+     }
+    }
+   ]
+  },
+  "brawl": {
+   "art": "war",
+   "text": [
+    "{inn}の卓が倒れた。兵が三人立ち、{client}の夫が割って入って殴られた。",
+    "「七月だぞ」と誰かが言った。言い返せる言葉が、こちらにも無い。"
+   ],
+   "choices": [
+    {
+     "label": "力で押さえ、頭を冷やさせる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "town",
+      "lose": "end_sack"
+     }
+    },
+    {
+     "label": "自分の銭で今夜の酒代を払い、座らせる",
+     "if": {
+      "money": 400
+     },
+     "effects": [
+      {
+       "money": -400
+      }
+     ],
+     "next": "town"
+    }
+   ]
+  },
+  "bandits": {
+   "art": "war",
+   "text": [
+    "南の道の林で、箱の警護に雇われた三人が待っていた。軍の服ではない。"
+   ],
+   "choices": [
+    {
+     "label": "打ち合う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "culprit",
+      "lose": "end_sack"
+     }
+    },
+    {
+     "label": "林を回り込んで先に町へ入る",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "culprit",
+      "lose": "end_sack"
+     }
+    }
+   ]
+  },
+  "end_paid": {
+   "text": [
+    "箱は封のまま運び戻され、七月分が数えられた。兵は列を作り、名を呼ばれて受け取った。",
+    "{decurion}は最後に受け取り、半分を{client}の宿に置いた。「飲んだ分だ。利は付けんでくれ」"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "fame": 13
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}の守備兵の給金の箱を南の町から取り戻した。"
+    }
+   ],
+   "end": "宿に置かれた半分"
+  },
+  "end_tried": {
+   "text": [
+    "財務の下役は属州の法廷に立った。箱は押さえられたが、封を開けた者が誰かで争いになり、兵の手に渡るのは三月後になった。",
+    "{decurion}は言った。「三月は、待てる。七月は待てなかったが、三月は待てる」"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 11
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{here}の給金を回していた財務の下役を訴えた。"
+    }
+   ],
+   "end": "待てる三月"
+  },
+  "end_quiet": {
+   "text": [
+    "箱は黙って戻り、下役の名はどこにも書かれなかった。兵は給金を受け取り、七月のことを忘れることにした。",
+    "{paymaster}が小声で言った。「来年も、同じことが起きます」——起きるだろう。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 7
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}の給金の箱を、事を伏せたまま取り戻した。"
+    }
+   ],
+   "end": "来年も同じこと"
+  },
+  "end_lent": {
+   "text": [
+    "一月分が立て替えられ、兵は列を作った。書付には「国への貸し」と書かれ、返る当ては誰も口にしなかった。",
+    "{decurion}はその夜、兵を宿から引き上げさせた。「一月だ。一月のうちに、箱を見つけてくれ」"
+   ],
+   "effects": [
+    {
+     "fame": 9
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "{here}の守備兵の給金一月分を立て替えた。"
+    }
+   ],
+   "end": "返る当ての無い貸し"
+  },
+  "end_sack": {
+   "text": [
+    "三日後の夜、兵は{market}の倉を開けた。「給金の代わりだ」と言いながら、袋を担いだ。",
+    "{client}の宿は壁を残して焼けた。{decurion}は止めなかった。止める言葉を、七月のうちに使い切っていた。"
+   ],
+   "effects": [
+    {
+     "hp": -22
+    },
+    {
+     "fame": -3
+    },
+    {
+     "note": "{here}の守備兵は給金の代わりに町の倉を開けた。"
+    }
+   ],
+   "end": "使い切った言葉"
+  }
+ }
+}

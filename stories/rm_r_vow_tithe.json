@@ -1,0 +1,389 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_vow_tithe",
+ "kind": "random",
+ "where": "shrine",
+ "most": 2,
+ "again": 340,
+ "hook": "誓いの十分の一が、貧しい者からばかり取られております",
+ "title": "誓いの十分の一",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "小作の女"
+  },
+  "priest": {
+   "npc": "神殿の祭司",
+   "sex": "m"
+  },
+  "rich": {
+   "npc": "大農園の主",
+   "sex": "m"
+  },
+  "scribe": {
+   "folk": "神殿の書記",
+   "tags": [
+    "学",
+    "官"
+   ]
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{shrine}の前に麦と油と鶏が積まれ、人が列を作っていた。負け戦の年に町が立てた誓い——「すべての十分の一を神に」——の取り立てだ。",
+    "{client}が籠を抱えて言った。「うちは五袋のうち半袋を出しました。大農園のご主人は、一袋も見えません」"
+   ],
+   "choices": [
+    {
+     "label": "誓いの文を読む",
+     "next": "vow"
+    },
+    {
+     "label": "祭司の{priest}に会う",
+     "next": "priest"
+    },
+    {
+     "label": "大農園の{rich}を当たる",
+     "next": "rich"
+    }
+   ]
+  },
+  "vow": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{shrine}で誓いの文を読む",
+   "speaker": "scribe",
+   "art": "lecture",
+   "text": [
+    "{scribe}が銅板を拭いて見せた。誓いは三行。「この年の、地の実りの十分の一を」",
+    "「地の実り」とある。葡萄も麦も油も入る。だが、牧と銀山と、貸した銭の利は入らない。大農園の富の大半は、そちらにある。"
+   ],
+   "effects": [
+    {
+     "flag": "rmv_text"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "「地の実り」の解きを広く取る算段を立てる",
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "wide",
+      "lose": "priest"
+     }
+    },
+    {
+     "label": "文のとおりに取り、小作の負けぶんを減らす",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_fair",
+      "lose": "priest"
+     }
+    }
+   ]
+  },
+  "wide": {
+   "art": "lecture",
+   "text": [
+    "古い判例が二つ見つかった。どちらも「地の実り」に家畜の増えた数を入れている。",
+    "牧を入れれば、大農園の出す分は三十倍になる。入れるかどうかを決めるのは、祭司だ。"
+   ],
+   "effects": [
+    {
+     "flag": "rmv_wide"
+    }
+   ],
+   "next": "priest"
+  },
+  "priest": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "祭司の{priest}に会う",
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "{priest}は積まれた麦袋の数を数えていた。「誓いは町が立てました。神は、町の全員から受け取られます」",
+    "「大農園の主は、神殿の屋根の瓦を寄進しております。瓦は、十分の一には数えませんが……数えぬと決めたのは、わたしではありません」"
+   ],
+   "choices": [
+    {
+     "label": "家畜の増えた数も「地の実り」だと判例で押す",
+     "if": {
+      "flag": "rmv_wide"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_cattle",
+      "lose": "end_asis"
+     }
+    },
+    {
+     "label": "瓦を十分の一に数えた帳の処を調べる",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "tiles",
+      "lose": "end_asis"
+     }
+    },
+    {
+     "label": "小作の分を、誓いの文のとおりに正す",
+     "if": {
+      "flag": "rmv_text"
+     },
+     "next": "end_fair"
+    },
+    {
+     "label": "自分が十分の一を出し、列の後ろの者の分を補う",
+     "if": {
+      "money": 600
+     },
+     "effects": [
+      {
+       "money": -600
+      }
+     ],
+     "next": "end_paid"
+    }
+   ]
+  },
+  "tiles": {
+   "art": "backroom",
+   "text": [
+    "帳面では、寄進の瓦が「十分の一に代えて」と書かれ、額は麦四十袋ぶんになっていた。",
+    "瓦の実の値は、十二袋ぶんだ。差の二十八袋は、どこへも記されていない。"
+   ],
+   "effects": [
+    {
+     "flag": "rmv_tiles"
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "{rich}に差を突きつける",
+     "next": "rich"
+    },
+    {
+     "label": "神殿の寄り合いで帳を開く",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_cattle",
+      "lose": "end_asis"
+     }
+    }
+   ]
+  },
+  "rich": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "大農園の{rich}を当たる",
+   "speaker": "rich",
+   "art": "trade",
+   "text": [
+    "{rich}は寝椅子から起きずに言った。「十分の一は出しております。瓦で。神は瓦をお喜びになった」",
+    "「麦で出せとおっしゃるなら出しますが、そのぶん小作の取り分を減らします。どちらがよろしいか」"
+   ],
+   "choices": [
+    {
+     "label": "瓦の値と帳の額の差を示す",
+     "if": {
+      "flag": "rmv_tiles"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "end_cattle",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "「小作を減らすなら、牧も数える」と返す",
+     "if": {
+      "flag": "rmv_wide"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_cattle",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "小作の取り分に手を付けさせぬ約を取る",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_fair",
+      "lose": "end_asis"
+     }
+    }
+   ]
+  },
+  "thugs": {
+   "art": "war",
+   "text": [
+    "{rich}が指を振ると、門のところに立っていた監督が三人、中へ入ってきた。"
+   ],
+   "choices": [
+    {
+     "label": "叩き伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_cattle",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "黙って下がる",
+     "next": "end_asis"
+    }
+   ]
+  },
+  "end_cattle": {
+   "text": [
+    "牧の増えた数が「地の実り」に入れられた。大農園からは、羊二百と牛三十が神殿へ引かれていった。",
+    "{priest}は数えるのに三日かかり、小作の分は返された。{client}は半袋を抱えて帰り、その麦で三月食べた。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "item": "grain",
+     "n": 2
+    },
+    {
+     "fame": 13
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{here}の誓いの十分の一に、大農園の牧の増えた数を数えさせた。"
+    }
+   ],
+   "end": "引かれていった羊二百"
+  },
+  "end_fair": {
+   "text": [
+    "誓いの文のとおりに取ることになった。小作が出すのは実りの十分の一だけ。種籾と、翌年の蒔き分は外れた。",
+    "列はずいぶん短くなった。大農園は、やはり瓦のままだった。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}の誓いの十分の一を、文のとおりに取らせた。"
+    }
+   ],
+   "end": "外れた種籾"
+  },
+  "end_paid": {
+   "text": [
+    "列の後ろの十七人の分を、自分の銭で麦に替えて積んだ。{priest}は額を数え、名を帳に書こうとした。",
+    "「名は要りません」と言った。{client}はそれでも、名を覚えて帰った。"
+   ],
+   "effects": [
+    {
+     "fame": 11
+    },
+    {
+     "favor": 2
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "{here}の誓いの十分の一を、貧しい者十七人分を自分の銭で納めた。"
+    }
+   ],
+   "end": "覚えて帰った名"
+  },
+  "end_asis": {
+   "text": [
+    "誓いは誓いのまま取られた。麦袋は{shrine}の床に積まれ、瓦は屋根に載った。",
+    "{client}は半袋を出した。「神は、見ておられるでしょうから」そう言って、笑いもしなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "favor": 2
+    },
+    {
+     "note": "{here}の誓いの十分の一は、貧しい者からばかり取られて終わった。"
+    }
+   ],
+   "end": "屋根に載った瓦"
+  },
+  "end_beaten": {
+   "text": [
+    "棒の先で胸を突かれ、中庭の石畳に転がった。門の外へ放り出されるまで、誰も手を貸さなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -22
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "中庭の石畳"
+  }
+ }
+}

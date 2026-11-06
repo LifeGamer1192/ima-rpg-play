@@ -1,0 +1,450 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_bridge_contract",
+ "kind": "random",
+ "where": "office",
+ "most": 2,
+ "again": 340,
+ "hook": "橋の請負が、生木の杭を打っております。春の水が来ます",
+ "title": "生木の杭",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "river": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "橋の人足"
+  },
+  "builder": {
+   "npc": "橋の請負",
+   "sex": "m"
+  },
+  "clerk": {
+   "folk": "公会所の書記",
+   "tags": [
+    "官"
+   ]
+  },
+  "greek": {
+   "folk": "ギリシア人の技師",
+   "tags": [
+    "学",
+    "工"
+   ]
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{office}の廊で、泥だらけの{client}が待っていた。手に木の切れ端を持っている。",
+    "「{river}の橋です。杭が生木です。乾かさぬ杭は、水に浸かって一年で膿みます。漆喰も砂が多い」",
+    "「検査は、春の水の後です。水が引いたあとに見れば、流れたのは水のせいになります」"
+   ],
+   "choices": [
+    {
+     "label": "{river}の橋を見に行く",
+     "next": "bridge"
+    },
+    {
+     "label": "請負の{builder}に会う",
+     "next": "builder"
+    },
+    {
+     "label": "{office}で請負の書を読む",
+     "next": "contract"
+    }
+   ]
+  },
+  "contract": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{office}で請負の書を読む",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}が綴りを開いた。請負の額、杭の数、材の等級。「二年乾かした樫」と書かれている。",
+    "支払いは三度に分けられ、二度めがすでに済んでいた。検査の日取りの欄は、墨が新しい。書き換えられている。"
+   ],
+   "effects": [
+    {
+     "flag": "rmd_paper"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "日取りを書き換えた者を辿る",
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "who",
+      "lose": "builder"
+     }
+    },
+    {
+     "label": "材の等級の条を盾に、三度めの支払いを止める",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_stopped",
+      "lose": "builder"
+     }
+    }
+   ]
+  },
+  "who": {
+   "art": "backroom",
+   "text": [
+    "日取りを書き換えたのは、{office}の下役だった。請負の弟の、妻の兄。",
+    "銭が動いた跡はない。動いたのは、縁だけだ。"
+   ],
+   "effects": [
+    {
+     "flag": "rmd_who"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "縁を並べて公会所に出す",
+     "next": "end_inspect"
+    },
+    {
+     "label": "{builder}に、縁のことを知っていると告げる",
+     "next": "builder"
+    }
+   ]
+  },
+  "bridge": {
+   "at": {
+    "place": "river"
+   },
+   "goal": "{river}の橋を見る",
+   "art": "voyage",
+   "text": [
+    "橋は三分の二まで架かっていた。石の橋脚の芯に、木の杭が束で打ち込まれている。",
+    "水面から出ている杭の頭を叩くと、乾いた音ではなく、鈍い音が返った。切り口に、まだ樹液の跡がある。"
+   ],
+   "effects": [
+    {
+     "flag": "rmd_green"
+    }
+   ],
+   "choices": [
+    {
+     "label": "杭を一本抜いて持ち帰る",
+     "check": {
+      "skill": "blade",
+      "dc": 45,
+      "win": "sample",
+      "lose": "guards"
+     }
+    },
+    {
+     "label": "漆喰を削って砂の割を見る",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "sample",
+      "lose": "guards"
+     }
+    },
+    {
+     "label": "技師の{greek}を連れてきて見させる",
+     "next": "greek"
+    }
+   ]
+  },
+  "sample": {
+   "art": "lecture",
+   "text": [
+    "抜いた杭は、芯まで湿っていた。割ると、内側が白く柔らかい。漆喰は指で崩れる。",
+    "書には「二年乾かした樫」。手の中にあるのは、この冬に伐った松だ。"
+   ],
+   "effects": [
+    {
+     "flag": "rmd_proof"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "{office}に持ち込む",
+     "next": "end_inspect"
+    },
+    {
+     "label": "技師の{greek}に添え書きを書かせる",
+     "next": "greek"
+    }
+   ]
+  },
+  "greek": {
+   "at": {
+    "place": "river"
+   },
+   "goal": "技師の{greek}に橋を見させる",
+   "speaker": "greek",
+   "art": "lecture",
+   "text": [
+    "{greek}は橋脚の下に膝をつき、水を手で掬って匂いを嗅いだ。",
+    "「生木の杭は、三年は持ちます。問題は杭ではありません。橋脚の足の幅です。水の流れを計らずに据えてあります」",
+    "「春の水で、真ん中の脚の足もとが掘られます。脚が傾けば、上の石が落ちます。杭は、そのあとの話です」"
+   ],
+   "effects": [
+    {
+     "flag": "rmd_pier"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "真ん中の脚の足もとに石を投げ込ませる",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "end_shored",
+      "lose": "end_fell"
+     }
+    },
+    {
+     "label": "春の水のあいだ、橋を閉じさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_closed",
+      "lose": "end_fell"
+     }
+    },
+    {
+     "label": "{greek}の見立てを添えて{office}に出す",
+     "next": "end_inspect"
+    }
+   ]
+  },
+  "builder": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "請負の{builder}に会う",
+   "speaker": "builder",
+   "art": "trade",
+   "text": [
+    "{builder}は図を巻いて脇に挟んだ。「二年乾かした樫は、この国にもう無いのです。軍が船と攻城の器に使いました」",
+    "「無いものを書に書いたのは、わたしではありません。書いたのは公会所です。無いものを待てば、橋は十年架かりません」"
+   ],
+   "choices": [
+    {
+     "label": "「ならば足の幅を直せ」と技師の見立てを示す",
+     "if": {
+      "flag": "rmd_pier"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_shored",
+      "lose": "guards"
+     }
+    },
+    {
+     "label": "日取りの書き換えを突きつける",
+     "if": {
+      "flag": "rmd_who"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_inspect",
+      "lose": "guards"
+     }
+    },
+    {
+     "label": "三度めの支払いを人質に、材を替えさせる",
+     "check": {
+      "skill": "trade",
+      "dc": 50,
+      "win": "end_stopped",
+      "lose": "guards"
+     }
+    },
+    {
+     "label": "「水の後の検査で結構」と引く",
+     "next": "end_fell"
+    }
+   ]
+  },
+  "guards": {
+   "art": "war",
+   "text": [
+    "橋の人足のうち、{builder}に雇われた屈強な三人が、鶴嘴の柄を持って道を塞いだ。"
+   ],
+   "choices": [
+    {
+     "label": "押し通る",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_inspect",
+      "lose": "end_fell"
+     }
+    },
+    {
+     "label": "川原へ降りて回り込む",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_inspect",
+      "lose": "end_fell"
+     }
+    }
+   ]
+  },
+  "end_inspect": {
+   "text": [
+    "検査は春の水の前に戻された。杭の切り口と漆喰の砂が並べられ、日取りを書き換えた下役の縁も読み上げられた。",
+    "請負は三度めの支払いを失い、橋脚の足は幅を広げて据え直された。{client}は人足のまま、今度は乾いた杭を打った。"
+   ],
+   "effects": [
+    {
+     "money": 350
+    },
+    {
+     "fame": 13
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{river}の橋の検査を春の水の前に戻させ、請負を直させた。"
+    }
+   ],
+   "end": "乾いた杭"
+  },
+  "end_shored": {
+   "text": [
+    "真ん中の脚の足もとに、石が二百車投げ込まれた。春の水は来て、水面は橋板の下まで上がり、脚は動かなかった。",
+    "{greek}は橋の上で水を見ていた。「杭は三年です。三年のうちに、打ち替えればよいのです」"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 11
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{river}の橋の脚の足もとに石を投げ込ませ、春の水を凌がせた。"
+    }
+   ],
+   "end": "動かなかった脚"
+  },
+  "end_closed": {
+   "text": [
+    "春の水のあいだ、橋は閉じられた。渡し舟が出て、商人は遠回りを嫌がり、公会所は苦情で埋まった。",
+    "水が引いたとき、真ん中の脚は足もとが掘られて、指二本ぶん傾いていた。閉じていなければ、人が乗っていた。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 10
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{river}の橋を春の水のあいだ閉じさせた。"
+    }
+   ],
+   "end": "指二本の傾き"
+  },
+  "end_stopped": {
+   "text": [
+    "三度めの支払いが止まり、請負は材を替えざるを得なくなった。乾いた樫は、海の向こうから買われてきた。",
+    "橋は半年遅れて架かった。遅れたことは、誰も覚えていない。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 9
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{river}の橋の支払いを止め、材を替えさせた。"
+    }
+   ],
+   "end": "覚えていない遅れ"
+  },
+  "end_fell": {
+   "text": [
+    "春の水が来た。三日めの夜に、真ん中の脚が傾き、上の石が三つ落ちた。橋板の上に荷車が二台あった。",
+    "検査は水の後に行われ、「異例の出水による」と記された。請負は次の橋も請け負った。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{river}の橋は春の水で落ち、検査には「異例の出水」と記された。"
+    }
+   ],
+   "end": "異例の出水"
+  }
+ }
+}

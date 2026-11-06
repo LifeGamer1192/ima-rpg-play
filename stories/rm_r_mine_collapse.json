@@ -1,0 +1,365 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_mine_collapse",
+ "kind": "random",
+ "where": "folk",
+ "most": 2,
+ "again": 420,
+ "hook": "坑が落ちました。中に十一人。会社は塞ぐと申します",
+ "title": "坑の十一人",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "mine": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "坑夫の女房"
+  },
+  "overseer": {
+   "npc": "銀山の支配",
+   "sex": "m"
+  },
+  "miner": {
+   "npc": "古参の坑夫",
+   "sex": "m"
+  },
+  "greek": {
+   "folk": "ギリシア人の技師",
+   "tags": [
+    "学",
+    "工"
+   ]
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "disaster",
+   "text": [
+    "{mine}の坑口に、女と子が二十人ほど座り込んでいた。坑の中から、鉄を打つ音が間をおいて聞こえる。生きている者が叩いている。",
+    "{client}が土を握った。「十一人です。会社は、新しい坑を掘るほうが安いと。水が上がってきているそうで」"
+   ],
+   "choices": [
+    {
+     "label": "支配の{overseer}に会う",
+     "next": "overseer"
+    },
+    {
+     "label": "古参の坑夫{miner}に坑の形を聞く",
+     "next": "miner"
+    },
+    {
+     "label": "坑口に入り、崩れを見る",
+     "next": "shaft"
+    }
+   ]
+  },
+  "overseer": {
+   "at": {
+    "place": "mine"
+   },
+   "goal": "{mine}で支配の{overseer}に会う",
+   "speaker": "overseer",
+   "art": "trade",
+   "text": [
+    "{overseer}は図板を腕に抱えていた。「掘り出すのに三十日。新しい坑は十二日で銀に当たります」",
+    "「十一人の値は、合わせて四千。三十日の人手と木の支柱は、六千を超える。帳面はそう言っております」"
+   ],
+   "choices": [
+    {
+     "label": "六千との差を自分が出す",
+     "if": {
+      "money": 2000
+     },
+     "effects": [
+      {
+       "money": -2000
+      }
+     ],
+     "next": "dig"
+    },
+    {
+     "label": "帳面の立て方を崩す",
+     "check": {
+      "skill": "trade",
+      "dc": 50,
+      "win": "dig",
+      "lose": "miner"
+     }
+    },
+    {
+     "label": "「坑を塞げば属州の裁きになる」と押す",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "dig",
+      "lose": "miner"
+     }
+    },
+    {
+     "label": "水を汲み上げる手立てを探す",
+     "next": "greek"
+    }
+   ]
+  },
+  "miner": {
+   "at": {
+    "place": "mine"
+   },
+   "goal": "古参の坑夫{miner}に坑の形を聞く",
+   "speaker": "miner",
+   "art": "camp",
+   "text": [
+    "{miner}は坑の図を土に描いた。「落ちたのは第三の横坑です。真上に、三年前に捨てた古い坑がございます」",
+    "「古い坑から下へ十二尺掘れば、第三に当たります。三十日ではなく、三日です。支配は、古い坑の図を持っておりません」"
+   ],
+   "effects": [
+    {
+     "flag": "rmm_old"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "古い坑の図を{overseer}に示す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "dig",
+      "lose": "overseer"
+     }
+    },
+    {
+     "label": "坑夫たちと勝手に古い坑から掘る",
+     "next": "dig"
+    },
+    {
+     "label": "水のことを{greek}に相談する",
+     "next": "greek"
+    }
+   ]
+  },
+  "shaft": {
+   "art": "ruins",
+   "text": [
+    "坑口から六十歩。天井の木の支柱が折れ、土と石が道を埋めていた。奥から鉄を打つ音。",
+    "足もとに水が来ている。踝まで。一刻に一指ずつ上がっているのが、壁の濡れ跡で分かる。"
+   ],
+   "effects": [
+    {
+     "flag": "rmm_water"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{miner}に坑の形を聞く",
+     "next": "miner"
+    },
+    {
+     "label": "水を汲む手立てを探す",
+     "next": "greek"
+    },
+    {
+     "label": "一人で石を動かし始める",
+     "check": {
+      "skill": "blade",
+      "dc": 45,
+      "win": "dig",
+      "lose": "cavein"
+     }
+    }
+   ]
+  },
+  "greek": {
+   "at": {
+    "place": "mine"
+   },
+   "goal": "水を汲み上げる手立てを探す",
+   "speaker": "greek",
+   "art": "lecture",
+   "text": [
+    "{greek}は巻物を広げ、螺旋の絵を指した。「筒の中に螺旋を入れて回せば、水は坂を登ります。シュラクサイの工夫です」",
+    "「材は、樽の板と木の軸。半日で組めます。回す者が四人、交代で」"
+   ],
+   "effects": [
+    {
+     "flag": "rmm_screw"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "螺旋を組ませ、水を止める",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "dig",
+      "lose": "cavein"
+     }
+    },
+    {
+     "label": "{overseer}に、水が止まるなら三日で足ると言う",
+     "if": {
+      "flag": "rmm_old"
+     },
+     "next": "dig"
+    }
+   ]
+  },
+  "dig": {
+   "at": {
+    "place": "mine"
+   },
+   "goal": "坑を掘る",
+   "art": "disaster",
+   "text": [
+    "古い坑の底から、下へ掘った。鶴嘴の音と、下から返る鉄の音が、だんだん近くなる。",
+    "二日めの夜、手の下の土が落ちて、灯の光が下へ抜けた。"
+   ],
+   "choices": [
+    {
+     "label": "手を差し入れて引き上げる",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "end_eleven",
+      "lose": "end_seven"
+     }
+    },
+    {
+     "label": "支柱を組みながら、慎重に広げる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_eleven",
+      "lose": "end_seven"
+     }
+    },
+    {
+     "label": "一気に崩して道を開ける",
+     "next": "cavein"
+    }
+   ]
+  },
+  "cavein": {
+   "art": "disaster",
+   "text": [
+    "天井が鳴った。土が肩に落ちて、灯が消えた。暗闇の中で、誰かが足を掴んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "掴まれた足ごと、這って戻る",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "end_seven",
+      "lose": "end_sealed"
+     }
+    },
+    {
+     "label": "落ちた石を押し上げ、道を作る",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 10,
+      "win": "end_seven",
+      "lose": "end_sealed"
+     }
+    }
+   ]
+  },
+  "end_eleven": {
+   "text": [
+    "十一人が、順に引き上げられた。最後の男は、鉄を打っていた手が開かなくなっていた。",
+    "{client}は夫の顔を両手で挟んで、灯の下で何度も見た。{overseer}は図板を抱えたまま、何も言わずに新しい坑の方へ歩いていった。"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "item": "silver",
+     "n": 1
+    },
+    {
+     "fame": 15
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{mine}の落ちた坑から十一人を掘り出した。"
+    }
+   ],
+   "end": "開かなくなった手"
+  },
+  "end_seven": {
+   "text": [
+    "七人が出た。四人は、水が先に届いていた。",
+    "坑口で、名が読み上げられた。七つの名で歓声が上がり、四つの名で誰も声を出さなかった。{client}の夫は、七つのうちだった。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 10
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    },
+    {
+     "note": "{mine}の落ちた坑から七人を掘り出し、四人には届かなかった。"
+    }
+   ],
+   "end": "声の出なかった四つの名"
+  },
+  "end_sealed": {
+   "text": [
+    "坑は塞がれた。坑口に石が積まれ、名が十一、板に書かれて立てられた。",
+    "新しい坑は十二日で銀に当たった。{client}は坑口の石の前に、しばらく毎朝座っていた。"
+   ],
+   "effects": [
+    {
+     "hp": -24
+    },
+    {
+     "fame": 3
+    },
+    {
+     "note": "{mine}の落ちた坑は塞がれ、十一人が残された。"
+    }
+   ],
+   "end": "板に書かれた十一"
+  }
+ }
+}

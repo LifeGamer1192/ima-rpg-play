@@ -1,0 +1,487 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_guild3",
+ "kind": "rank",
+ "guildTo": 3,
+ "title": "尾根の塁",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "ridge": {
+   "place": "near:here"
+  },
+  "rival": {
+   "npc": "塁に居ついた脱走兵の頭",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "焼かれた村の乙名",
+   "sex": "f"
+  },
+  "dealer": {
+   "npc": "人を買う請負の手代",
+   "sex": "m"
+  },
+  "senior": {
+   "npc": "一党の古参",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏で一党と塁の話をする",
+   "speaker": "senior",
+   "art": "backroom",
+   "text": [
+    "{senior}が炭で土間に線を引いた。尾根と、街道と、沢。",
+    "「{ridge}の塁は、三年前に軍が焼いた。いまは脱走兵の十五人が居ついている。頭は{rival}。塁を取れば、街道の一里を見下ろせる」",
+    "「ただ、沢の村が三つ焼かれて、百二十人が谷に残っております。塁を取れば、あの者たちは頭の持ち物になります」"
+   ],
+   "choices": [
+    {
+     "label": "{ridge}へ上がり、塁を見る",
+     "next": "s2"
+    },
+    {
+     "label": "谷の村の乙名に会う",
+     "next": "s2village"
+    }
+   ]
+  },
+  "s2village": {
+   "speaker": "elder",
+   "art": "ruins",
+   "text": [
+    "谷の焼け跡に、葦で屋根を架けた小屋が並んでいた。{elder}は折れた鋤を杖にして立った。",
+    "「軍が通り、賊が通り、また軍が通りました。塁の{rival}は、麦を半分持っていきます」",
+    "「あなたが塁に入るなら、半分ですか、それより多いのですか」"
+   ],
+   "effects": [
+    {
+     "flag": "rm_g3_village"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "「一粒も取らぬ」と約す",
+     "effects": [
+      {
+       "flag": "rm_g3_oath"
+      }
+     ],
+     "next": "s2"
+    },
+    {
+     "label": "「半分だ。だが軍は通さぬ」と言う",
+     "next": "s2"
+    },
+    {
+     "label": "何も約さず、塁へ上がる",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "ridge"
+   },
+   "goal": "{ridge}の塁を取る",
+   "speaker": "rival",
+   "art": "hideout",
+   "text": [
+    "尾根の塁は、焼けた土塁の上に新しい杭を立てただけのものだった。{rival}は壁の上から見下ろした。",
+    "「塁が欲しいなら、入ってこい。おれの十五人は、軍から逃げてきた。逃げた者は、二度めは逃げん」"
+   ],
+   "choices": [
+    {
+     "label": "沢から回り、夜のうちに杭を抜いて入る",
+     "check": {
+      "skill": "stealth",
+      "dc": 32,
+      "win": "s3in",
+      "lose": "s2assault"
+     }
+    },
+    {
+     "label": "谷の村の者に道案内させ、裏の崖から上がる",
+     "if": {
+      "flag": "rm_g3_village"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "s3in",
+      "lose": "s2assault"
+     }
+    },
+    {
+     "label": "正面から攻め上る",
+     "next": "s2assault"
+    },
+    {
+     "label": "{rival}に、街道の分け前で話をつける",
+     "check": {
+      "skill": "trade",
+      "dc": 34,
+      "win": "s3deal",
+      "lose": "s2assault"
+     }
+    }
+   ]
+  },
+  "s2assault": {
+   "art": "war",
+   "text": [
+    "杭の間から槍が突き出された。{rival}の十五人は、軍の型で並んでいる。"
+   ],
+   "choices": [
+    {
+     "label": "押し込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s3in",
+      "lose": "fail_hill"
+     }
+    },
+    {
+     "label": "土塁に火をかけ、煙で追い出す",
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "s3in",
+      "lose": "fail_hill"
+     }
+    }
+   ]
+  },
+  "s3in": {
+   "art": "hideout",
+   "text": [
+    "塁は手に入った。{rival}は脚を射られて壁の内に転がり、十五人のうち九人が刃を置いた。",
+    "街道が、杭の隙間から一里ぶん見える。見えるということは、通る荷が全部数えられるということだ。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_g3_held"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3deal": {
+   "speaker": "rival",
+   "art": "hideout",
+   "text": [
+    "{rival}は壁を降りてきた。「街道の荷の三分の一。それでいい。おれは塁を守るのが好きで、数えるのは嫌いだ」",
+    "塁は、戦わずに手に入った。十五人はそのまま残り、{rival}は門番になった。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_g3_held"
+    },
+    {
+     "flag": "rm_g3_keptmen"
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "ridge"
+   },
+   "goal": "谷の百二十人をどうするか決める",
+   "speaker": "dealer",
+   "art": "backroom",
+   "text": [
+    "塁に客が来た。{dealer}は腰の革袋を叩いて笑った。",
+    "「谷の百二十人を、一人四十で買います。大農園が人手を欲しがっております。書付はこちらで作ります」",
+    "{elder}が、塁の門の外に立っているのが見えた。来いとも、帰れとも言っていない。"
+   ],
+   "choices": [
+    {
+     "label": "{dealer}を塁から追い、谷の者を塁の内に入れる",
+     "if": {
+      "flag": "rm_g3_oath"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "win_shelter",
+      "lose": "s4press"
+     }
+    },
+    {
+     "label": "谷の者を軍と請負の双方から庇う代わりに、街道の荷を分けさせる",
+     "if": {
+      "flag": "rm_g3_village"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 32,
+      "win": "win_shield",
+      "lose": "s4press"
+     }
+    },
+    {
+     "label": "百二十人のうち、身寄りのない四十人だけを売る",
+     "effects": [
+      {
+       "money": 1600
+      },
+      {
+       "fame": -6
+      }
+     ],
+     "next": "win_forty"
+    },
+    {
+     "label": "百二十人を残らず売る",
+     "effects": [
+      {
+       "money": 4800
+      },
+      {
+       "fame": -12
+      }
+     ],
+     "next": "win_all"
+    }
+   ]
+  },
+  "s4press": {
+   "speaker": "dealer",
+   "art": "backroom",
+   "text": [
+    "{dealer}は帰らなかった。「塁の主は、谷を食わせる銭をどこから出すのです。街道の荷だけでは、冬を越せません」"
+   ],
+   "choices": [
+    {
+     "label": "冬の麦を街道の荷から回す算段を立てる",
+     "check": {
+      "skill": "trade",
+      "dc": 30,
+      "win": "win_shield",
+      "lose": "win_forty"
+     }
+    },
+    {
+     "label": "身寄りのない四十人を売る",
+     "effects": [
+      {
+       "money": 1600
+      },
+      {
+       "fame": -6
+      }
+     ],
+     "next": "win_forty"
+    }
+   ]
+  },
+  "win_shelter": {
+   "speaker": "elder",
+   "text": [
+    "{dealer}は杭の外へ押し出された。革袋を拾う手が震えていた。",
+    "谷の百二十人は、塁の内の土塁の陰に小屋を建てた。麦は街道の荷から出る。{elder}は折れた鋤を杖のまま使い続けた。",
+    "「一粒も取らぬ、と言われました。覚えております」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "fame": 14
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "unflag": "rm_g3_oath"
+    },
+    {
+     "unflag": "rm_g3_village"
+    },
+    {
+     "unflag": "rm_g3_held"
+    },
+    {
+     "unflag": "rm_g3_keptmen"
+    },
+    {
+     "note": "{ridge}の塁を取り、谷の百二十人を塁に入れた。義賊の道を選んだ。"
+    }
+   ],
+   "end": "折れた鋤の杖"
+  },
+  "win_shield": {
+   "speaker": "elder",
+   "text": [
+    "街道の荷の四分の一を谷に回す取り決めができた。軍にも請負にも、谷には手を出させない。",
+    "{elder}は帳を一つ作った。何が入り、何が出たか。賊の塁で帳が作られたのは、初めてだった。"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "money": 500
+    },
+    {
+     "fame": 10
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "unflag": "rm_g3_oath"
+    },
+    {
+     "unflag": "rm_g3_village"
+    },
+    {
+     "unflag": "rm_g3_held"
+    },
+    {
+     "unflag": "rm_g3_keptmen"
+    },
+    {
+     "note": "{ridge}の塁を取り、街道の荷を谷に回して庇った。義賊の道を選んだ。"
+    }
+   ],
+   "end": "賊の塁の帳"
+  },
+  "win_forty": {
+   "speaker": "dealer",
+   "text": [
+    "身寄りのない四十人が、縄ではなく列で谷を出ていった。{dealer}は「賢い」と言い、銭を数えた。",
+    "{elder}は門の外から動かなかった。残った八十人には、冬の麦が行き渡った。"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "unflag": "rm_g3_oath"
+    },
+    {
+     "unflag": "rm_g3_village"
+    },
+    {
+     "unflag": "rm_g3_held"
+    },
+    {
+     "unflag": "rm_g3_keptmen"
+    },
+    {
+     "note": "{ridge}の塁を取り、谷の四十人を売って八十人を越冬させた。外道の道を選んだ。"
+    }
+   ],
+   "end": "列で出ていった四十人"
+  },
+  "win_all": {
+   "speaker": "dealer",
+   "text": [
+    "谷は空になった。葦の屋根は塁の薪になった。{dealer}は「また来ます」と言って、二度来た。",
+    "街道の荷は全部数えられるようになった。数える者は、塁に一人しかいない。"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "xp": "theft",
+     "n": 5
+    },
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "unflag": "rm_g3_oath"
+    },
+    {
+     "unflag": "rm_g3_village"
+    },
+    {
+     "unflag": "rm_g3_held"
+    },
+    {
+     "unflag": "rm_g3_keptmen"
+    },
+    {
+     "note": "{ridge}の塁を取り、谷の百二十人を残らず売った。外道の道を選んだ。"
+    }
+   ],
+   "end": "空になった谷"
+  },
+  "fail_hill": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}へ下りる",
+   "speaker": "senior",
+   "art": "backroom",
+   "text": [
+    "尾根で押し返された。杭の前に三人を残して、沢を下った。",
+    "{senior}が炭の線を手で消した。「塁は、まだあそこにあります。{rival}も」"
+   ],
+   "effects": [
+    {
+     "hp": -22
+    },
+    {
+     "unflag": "rm_g3_oath"
+    },
+    {
+     "unflag": "rm_g3_village"
+    },
+    {
+     "unflag": "rm_g3_held"
+    },
+    {
+     "unflag": "rm_g3_keptmen"
+    },
+    {
+     "note": "{ridge}の塁を取れなかった。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "消された炭の線"
+  }
+ }
+}

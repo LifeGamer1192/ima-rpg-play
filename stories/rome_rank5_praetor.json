@@ -1,0 +1,408 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_rank5_praetor",
+ "kind": "rank",
+ "rankTo": 5,
+ "title": "布告の一行",
+ "era": "rome",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "town": {
+   "place": "near:cap"
+  },
+  "jurist": {
+   "npc": "法を知る老人",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "同盟市の参事",
+   "sex": "f"
+  },
+  "company": {
+   "npc": "請負会社の弁士",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の{palace}で{minister}に会う",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は訴状を二通、卓の両端に置いた。",
+    "「法務官は、任につく日に布告を出す。どの訴えをどう裁くかを、一年ぶん先に書くのだ。書いたものには縛られる」",
+    "「この一件を裁いてみよ。{town}の参事が、請負会社を訴えている。法は会社に、取り決めは町にある」",
+    "「裁きと、布告の一行。両方を出せたら、象牙の椅子はお前のものだ」"
+   ],
+   "choices": [
+    {
+     "label": "訴状を預かり、両方の言い分を聞く",
+     "effects": [
+      {
+       "note": "{town}と請負会社の訴えを裁き、布告の一行を書けば法務官となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "town",
+    "building": "office"
+   },
+   "goal": "{town}で参事の言い分を聞く",
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "{elder}は羊皮の束を膝に乗せた。「取り決めには、港の税は町が集めて国へ納めると書いてあります。百二十年前の取り決めです」",
+    "「請負会社は、属州の法が後にできたのだから後が勝つと申します。法が後なら、取り決めは紙屑ですか」"
+   ],
+   "choices": [
+    {
+     "label": "取り決めの原本を見せてもらう",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s2treaty",
+      "lose": "s2thin"
+     }
+    },
+    {
+     "label": "百二十年のあいだ、誰が集めてきたかを調べる",
+     "check": {
+      "skill": "trade",
+      "dc": 32,
+      "win": "s2custom",
+      "lose": "s2thin"
+     }
+    },
+    {
+     "label": "請負会社の弁士に会う",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2treaty": {
+   "art": "lecture",
+   "text": [
+    "原本は青銅の板だった。文字は古く、綴りも古い。「港の税は町が集め、国へ納む」——そのとおり書いてある。",
+    "板の下の方に、もう一行ある。「国が別に定めたるときは、これに従う」"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r5_board"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "取り決めの青銅板には「国が別に定めたるときは、これに従う」とあった。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2custom": {
+   "art": "court",
+   "text": [
+    "百二十年のうち、町が集めたのが九十七年、会社が集めたのが二十三年。会社の二十三年は、どれも戦の年だ。",
+    "戦のあいだは国が取り、平時は町が取る。誰も書かなかったが、誰もそうしてきた。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r5_custom"
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "港の税は、戦の年は会社、平時は町が集めてきたと分かった。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2thin": {
+   "art": "court",
+   "text": [
+    "羊皮の写しは三種あり、どれも少しずつ違っていた。原本は「蔵のどこかに」と言われた。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}で請負会社の弁士に会う",
+   "speaker": "company",
+   "art": "court",
+   "text": [
+    "{company}は巻物を広げずに話した。「属州の法は元老院が定めました。元老院の法が、属州の町の取り決めに負けるなら、属州とは何でしょう」",
+    "「それに、わたしの会社は前金を国に払っております。払った者が取れぬなら、次からは誰も前金を払いません」"
+   ],
+   "choices": [
+    {
+     "label": "「国が別に定めたるとき」の一行を会社に読ませる",
+     "if": {
+      "flag": "rm_r5_board"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s4",
+      "lose": "s3press"
+     }
+    },
+    {
+     "label": "戦と平時で分かれてきた慣わしを示す",
+     "if": {
+      "flag": "rm_r5_custom"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "s4",
+      "lose": "s3press"
+     }
+    },
+    {
+     "label": "法を知る{jurist}に、書き方を相談する",
+     "next": "s3jurist"
+    }
+   ]
+  },
+  "s3jurist": {
+   "speaker": "jurist",
+   "art": "lecture",
+   "text": [
+    "{jurist}は杖で床を突いた。「布告は、裁きより長く生きます。この一件が終わっても、布告は一年、人を縛る」",
+    "「広く書けば会社が百の町で勝ちます。狭く書けば、次の法務官がまた一から考える。狭く書くのは、怠けではありません」"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r5_narrow"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "s4"
+  },
+  "s3press": {
+   "art": "court",
+   "text": [
+    "{company}は譲らなかった。「では、法廷で」——法廷に出るのは、こちらの椅子だ。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{palace}の法廷で裁きを言い、布告を書く",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "柱廊の下に両方が並んだ。{elder}は青銅板を抱え、{company}は前金の受け取りを抱えている。",
+    "{minister}が後ろの席から言った。「裁きと、布告の一行。両方を聞く」"
+   ],
+   "choices": [
+    {
+     "label": "「戦の年は国、平時は町」と、慣わしをそのまま布告に書く",
+     "if": {
+      "flag": "rm_r5_custom"
+     },
+     "next": "win_custom"
+    },
+    {
+     "label": "「国が別に定めたるとき」の一行だけを根拠に、この一件に限って町に勝たせる",
+     "if": {
+      "flag": "rm_r5_narrow"
+     },
+     "next": "win_narrow"
+    },
+    {
+     "label": "取り決めより属州の法を上に置くと広く書く",
+     "if": {
+      "flag": "rm_r5_board"
+     },
+     "next": "win_broad"
+    },
+    {
+     "label": "裁きを先に延ばし、布告には触れぬ",
+     "next": "fail_delay"
+    }
+   ]
+  },
+  "win_custom": {
+   "speaker": "jurist",
+   "text": [
+    "「戦の年は国が、平時は町が集める」——布告の一行は、百二十年の慣わしをそのまま文字にしただけだった。",
+    "{elder}は青銅板を抱えて泣いた。{company}は「戦は続きます」と言って出ていった。続くだろう。",
+    "{jurist}が後で言った。「書かれなかったことを書いた。それが法務官の仕事です」"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 14
+    },
+    {
+     "fame": 7
+    },
+    {
+     "rep": "patron",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "unflag": "rm_r5_board"
+    },
+    {
+     "unflag": "rm_r5_custom"
+    },
+    {
+     "unflag": "rm_r5_narrow"
+    },
+    {
+     "note": "{town}と請負会社の訴えを慣わしのとおりに裁き、布告に書いて法務官となった。"
+    }
+   ],
+   "end": "書かれなかったこと"
+  },
+  "win_narrow": {
+   "speaker": "minister",
+   "text": [
+    "布告は短かった。この港、この取り決め、この年。ほかの町には何も及ばない。",
+    "{minister}は読み終えて頷いた。「次の法務官が困る。だが、百の町が困るより安い。象牙の椅子に座れ」"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "unflag": "rm_r5_board"
+    },
+    {
+     "unflag": "rm_r5_custom"
+    },
+    {
+     "unflag": "rm_r5_narrow"
+    },
+    {
+     "note": "{town}の一件に限って町に勝たせる狭い布告を書き、法務官となった。"
+    }
+   ],
+   "end": "この港、この年"
+  },
+  "win_broad": {
+   "speaker": "company",
+   "text": [
+    "布告は広く書かれた。属州の法が、町の取り決めに勝つ。{company}は深く礼をした。",
+    "半年のうちに、同じ布告を引いた訴えが十九件あった。十九とも、会社が勝った。",
+    "{elder}は青銅板を町の神殿に納め、二度と持ち出さなかった。"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 3
+    },
+    {
+     "rep": "patron",
+     "n": 1
+    },
+    {
+     "money": 600
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "unflag": "rm_r5_board"
+    },
+    {
+     "unflag": "rm_r5_custom"
+    },
+    {
+     "unflag": "rm_r5_narrow"
+    },
+    {
+     "note": "属州の法を取り決めの上に置く布告を書き、法務官となった。十九件が会社の勝ちになった。"
+    }
+   ],
+   "end": "納められた青銅板"
+  },
+  "fail_delay": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}で裁きを延ばしたことを問われる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "裁きは延び、布告は白紙のままだった。{minister}は象牙の椅子に布を掛けさせた。",
+    "「裁かぬのは、裁きではない。考えがまとまってから、また来い」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "rm_r5_board"
+    },
+    {
+     "unflag": "rm_r5_custom"
+    },
+    {
+     "unflag": "rm_r5_narrow"
+    },
+    {
+     "note": "裁きを延ばし、布告を書けなかった。覚えを取り戻せば、また試される。"
+    }
+   ],
+   "end": "布を掛けた椅子"
+  }
+ }
+}

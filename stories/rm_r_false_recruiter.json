@@ -1,0 +1,485 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_false_recruiter",
+ "kind": "random",
+ "where": "office",
+ "most": 2,
+ "again": 340,
+ "hook": "募兵の卓が出ておりますが、あんな軍団の名は聞きません",
+ "title": "無い軍団",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "farm": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "志願した若者の姉"
+  },
+  "recruiter": {
+   "npc": "募兵の男",
+   "sex": "m"
+  },
+  "clerk": {
+   "folk": "公会所の書記",
+   "tags": [
+    "官"
+   ]
+  },
+  "overseer": {
+   "npc": "大農園の監督",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{office}の前の広場に卓が出ていた。蝋板と、印と、兵の列。立て札に「第十五軍団」とある。",
+    "{client}が爪を噛んでいた。「弟が名を書きました。支度の金を十、先に払って。けれど、隣の村の者は三月前に同じ卓で書いて、まだ帰りません」"
+   ],
+   "choices": [
+    {
+     "label": "卓の{recruiter}に声をかける",
+     "next": "recruiter"
+    },
+    {
+     "label": "公会所の{clerk}に軍団の名を照らす",
+     "next": "clerk"
+    },
+    {
+     "label": "帰らぬ者の行き先を探す",
+     "next": "trace"
+    }
+   ]
+  },
+  "clerk": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{office}で軍団の名を照らす",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は名簿の綴りを膝に乗せ、ゆっくりめくった。「第十五……ございません。今年の編成は第十四までです」",
+    "「ただ、印は本物に見えます。本物の印で偽の軍団を書くのは、印を持つ者です」"
+   ],
+   "effects": [
+    {
+     "flag": "rmn_none"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "印の出どころを辿る",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "seal",
+      "lose": "recruiter"
+     }
+    },
+    {
+     "label": "卓の{recruiter}に突きつける",
+     "next": "recruiter"
+    }
+   ]
+  },
+  "seal": {
+   "art": "lecture",
+   "text": [
+    "印は三年前に編成を解かれた軍団のものだった。解かれた軍団の印は、本来なら溶かされる。溶かした記録が無い。",
+    "最後に預かったのは、いまの大農園の監督だった男だ。"
+   ],
+   "effects": [
+    {
+     "flag": "rmn_seal"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "{farm}の監督を当たる",
+     "next": "farm"
+    },
+    {
+     "label": "卓を押さえ、志願者を止める",
+     "next": "recruiter"
+    }
+   ]
+  },
+  "trace": {
+   "at": {
+    "place": "farm"
+   },
+   "goal": "帰らぬ者の行き先を辿る",
+   "art": "road",
+   "text": [
+    "街道の脇の井戸で、水を汲んでいた女が指した。「若い者は、あちらの農園へ入っていきます。夕には出てきません」",
+    "{farm}の麦畑の向こうに、長い小屋が三棟。囲いの中で、鎖の音がする。"
+   ],
+   "effects": [
+    {
+     "flag": "rmn_farm"
+    }
+   ],
+   "choices": [
+    {
+     "label": "夜、囲いの中を見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "pens",
+      "lose": "dogs"
+     }
+    },
+    {
+     "label": "監督の{overseer}に用があると門をくぐる",
+     "next": "farm"
+    }
+   ]
+  },
+  "pens": {
+   "art": "hideout",
+   "text": [
+    "小屋の中に、鎖で繋がれた若い男が四十人ほどいた。軍の支度の服を着たまま、鎖で。",
+    "一人が顔を上げた。{client}の弟だ。「名簿に名が無いと言われました。名が無い者は、兵ではないと」"
+   ],
+   "effects": [
+    {
+     "flag": "rmn_seen"
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "鎖を切り、四十人を連れて出る",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_freed",
+      "lose": "dogs"
+     }
+    },
+    {
+     "label": "見たままを公会所に届ける",
+     "next": "end_raid"
+    }
+   ]
+  },
+  "farm": {
+   "at": {
+    "place": "farm"
+   },
+   "goal": "{farm}の監督{overseer}を当たる",
+   "speaker": "overseer",
+   "art": "trade",
+   "text": [
+    "{overseer}は鞭を腕に巻いて立っていた。「人手が要るのです。戦で男が減りました。働けば食わせます」",
+    "「あの者たちは、自分で名を書きました。書いた者が働くのは、道理でしょう」"
+   ],
+   "choices": [
+    {
+     "label": "解かれた軍団の印のことを突きつける",
+     "if": {
+      "flag": "rmn_seal"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_raid",
+      "lose": "dogs"
+     }
+    },
+    {
+     "label": "「市民を鎖で繋ぐのは法で死罪だ」と告げる",
+     "if": {
+      "flag": "rmn_none"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_raid",
+      "lose": "dogs"
+     }
+    },
+    {
+     "label": "四十人の身を銭で買い戻す",
+     "check": {
+      "skill": "trade",
+      "dc": 50,
+      "win": "end_bought",
+      "lose": "dogs"
+     }
+    }
+   ]
+  },
+  "recruiter": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "募兵の{recruiter}に声をかける",
+   "speaker": "recruiter",
+   "art": "court",
+   "text": [
+    "{recruiter}は印を掌で隠した。「編成は都で決まります。属州の帳面に名が来るのは、あとのこと」",
+    "「支度の金は、靴と帯のためです。軍はそこまでは出しません。ご存じでしょう」"
+   ],
+   "choices": [
+    {
+     "label": "「第十五軍団は無い」と列に向かって言う",
+     "if": {
+      "flag": "rmn_none"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_stopped",
+      "lose": "knife"
+     }
+    },
+    {
+     "label": "卓の蝋板を取り上げ、名を数える",
+     "check": {
+      "skill": "theft",
+      "dc": 45,
+      "win": "tablets",
+      "lose": "knife"
+     }
+    },
+    {
+     "label": "志願者として自分の名を書き、どこへ連れて行かれるか見る",
+     "next": "trace"
+    }
+   ]
+  },
+  "tablets": {
+   "art": "backroom",
+   "text": [
+    "蝋板には百十七の名があった。横に、小さく数が書いてある。一人につき四十。",
+    "四十は支度の金ではない。売り渡した代だ。"
+   ],
+   "effects": [
+    {
+     "flag": "rmn_seen"
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "蝋板を公会所に出す",
+     "next": "end_raid"
+    },
+    {
+     "label": "蝋板を見せて、{recruiter}に四十人を返させる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_freed",
+      "lose": "knife"
+     }
+    }
+   ]
+  },
+  "dogs": {
+   "art": "war",
+   "text": [
+    "犬の鎖が外された。囲いの陰から、鞭と棍棒を持った監督の手下が三人。"
+   ],
+   "choices": [
+    {
+     "label": "打ち返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_raid",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "麦畑に伏せて退く",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_raid",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "knife": {
+   "art": "war",
+   "text": [
+    "{recruiter}は卓を倒し、短刀を抜いた。列に並んでいた若者たちが、散って壁際に寄った。"
+   ],
+   "choices": [
+    {
+     "label": "押さえ込む",
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 4,
+      "win": "end_stopped",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "卓の印を奪って、人目の多い方へ走る",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_stopped",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "end_freed": {
+   "text": [
+    "鎖は鍛冶の鑿で切れた。四十人は夜明けに{farm}の門を出て、街道を町の方へ歩いた。靴を履いていない者が半分いた。",
+    "{client}は弟の肩を掴んで、しばらく離さなかった。弟は「名を書いただけなのに」と繰り返した。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 13
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "{farm}で鎖に繋がれていた志願者四十人を解き放った。"
+    }
+   ],
+   "end": "靴を履いていない半分"
+  },
+  "end_raid": {
+   "text": [
+    "公会所は属州の兵を出した。{farm}の小屋が開けられ、四十人が名を取り戻した。{overseer}は印を持ったまま捕らえられた。",
+    "卓は片づけられ、立て札は割られた。{clerk}が言った。「名簿に無い軍団は、これで無くなりました」"
+   ],
+   "effects": [
+    {
+     "money": 350
+    },
+    {
+     "fame": 14
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{here}の偽の募兵と、{farm}の人買いを公会所に押さえさせた。"
+    }
+   ],
+   "end": "割られた立て札"
+  },
+  "end_bought": {
+   "text": [
+    "四十人の身を、一人四十で買い戻した。千六百。{overseer}は数えながら「商いですな」と言った。",
+    "四十人は家へ帰った。{farm}の小屋は、半月で別の四十人で埋まった。"
+   ],
+   "effects": [
+    {
+     "money": -1600
+    },
+    {
+     "fame": 10
+    },
+    {
+     "favor": 2
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "{farm}に売られた志願者四十人を銭で買い戻した。"
+    }
+   ],
+   "end": "半月で埋まる小屋"
+  },
+  "end_stopped": {
+   "text": [
+    "「第十五軍団は無い」——その一言で、列は崩れた。支度の金を払った者が卓に殺到し、{recruiter}は印を落として逃げた。",
+    "印は公会所に届けた。帰らぬ者のことは、まだ分からない。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 9
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}の偽の募兵の卓を崩し、印を公会所に届けた。"
+    }
+   ],
+   "end": "落ちた印"
+  },
+  "end_beaten": {
+   "text": [
+    "棍棒が背に入り、麦の中に倒れた。朝、街道の脇で目が覚めた。卓も小屋も、もう静かだった。"
+   ],
+   "effects": [
+    {
+     "hp": -26
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "街道の脇"
+  }
+ }
+}

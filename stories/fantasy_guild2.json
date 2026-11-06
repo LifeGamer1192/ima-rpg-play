@@ -1,0 +1,394 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_guild2",
+ "kind": "rank",
+ "guildTo": 2,
+ "title": "手を焼く字",
+ "era": "fantasy",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "hall": {
+   "place": "near:here"
+  },
+  "boss": {
+   "npc": "盗賊団の頭目",
+   "sex": "f"
+  },
+  "fence": {
+   "npc": "故買屋",
+   "sex": "m"
+  },
+  "scholar": {
+   "npc": "学院を追われた学徒",
+   "sex": "f"
+  },
+  "guard": {
+   "npc": "学院の守り手",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏で頭目に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は掌を開いて見せた。親指の下に、黒い字の形の焼け跡がある。",
+    "「学院が、品に字を打ち始めた。盗った者の手に、この字が出る。出た者は、どの市でも売れない」",
+    "「字を消す手を見つけてこい。見つけたら、盗賊だ」"
+   ],
+   "choices": [
+    {
+     "label": "故買屋の{fence}に会う",
+     "next": "s2"
+    },
+    {
+     "label": "学院を追われた学徒を探す",
+     "next": "s2scholar"
+    }
+   ]
+  },
+  "s2scholar": {
+   "speaker": "scholar",
+   "art": "lecture",
+   "text": [
+    "{scholar}は裏の酒場の隅で、蝋板に字を書いていた。書いた字を、すぐ指で消す。",
+    "「あれは『持ち主の名』です。品に名を書き、名と違う手が触れると、手に名が出る」",
+    "「消すには、持ち主を変えるしかありません。盗るのではなく、売ってもらうのです」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g2_name"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の闇市で故買屋に会う",
+   "speaker": "fence",
+   "art": "trade",
+   "text": [
+    "{fence}は手に手袋をしていた。両手に。「字が出た品は、わたしも触れません」",
+    "「学院には、わたしが品を流しております。流した先から字が打たれて戻ってくるのです。……わたしの持ち物として」"
+   ],
+   "choices": [
+    {
+     "label": "「持ち主を変える」書付を作らせる",
+     "if": {
+      "flag": "ft_g2_name"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "s3deed",
+      "lose": "s2hard"
+     }
+    },
+    {
+     "label": "{fence}の手袋を外させ、手を見る",
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "s2hands",
+      "lose": "s2hard"
+     }
+    },
+    {
+     "label": "{hall}の学院に直に入り、字を打つ道具を見る",
+     "next": "s3hall"
+    }
+   ]
+  },
+  "s2hands": {
+   "art": "backroom",
+   "text": [
+    "{fence}の両手には、字が七つ出ていた。どれも違う名だ。",
+    "「わたしは、品を自分の名で学院に預けております。預けた品が盗られると、字はわたしに出るのです」",
+    "「団が盗るたびに、わたしの手が増えます」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g2_hands"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "next": "s3hall"
+  },
+  "s2hard": {
+   "art": "trade",
+   "text": [
+    "{fence}は手袋を直し、話を切った。「字のことは、学院に訊いてください。わたしは売るだけです」"
+   ],
+   "next": "s3hall"
+  },
+  "s3deed": {
+   "art": "lecture",
+   "text": [
+    "「持ち主を変える」書付を、{fence}の名から団の名に書き替えた。{scholar}が字の形を添えた。",
+    "書付のある品は、触っても手に字が出ない。盗ったのではなく、譲られたことになる。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g2_deed"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hall": {
+   "at": {
+    "place": "hall"
+   },
+   "goal": "{hall}の学院で字を打つ道具を見る",
+   "speaker": "guard",
+   "art": "ruins",
+   "text": [
+    "{hall}の地階に、字を打つ盤があった。石の盤に、名を刻んで品を載せる。",
+    "{guard}が階の上で足を止めた。「名を刻む者は三人です。三人の名を消せば、盤は動きません」"
+   ],
+   "choices": [
+    {
+     "label": "盤に刻まれた名の一覧を写す",
+     "check": {
+      "skill": "theft",
+      "dc": 30,
+      "win": "s4",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "盤そのものを割る",
+     "next": "s3fight"
+    },
+    {
+     "label": "{fence}の七つの名を盤から削る",
+     "if": {
+      "flag": "ft_g2_hands"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s4",
+      "lose": "s3fight"
+     }
+    }
+   ]
+  },
+  "s3fight": {
+   "art": "war",
+   "text": [
+    "{guard}が階を駆け下りてきた。手に、字の浮いた棒を持っている。"
+   ],
+   "choices": [
+    {
+     "label": "押し通る",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4",
+      "lose": "fail_marked"
+     }
+    },
+    {
+     "label": "盤の灯を落として逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "s4",
+      "lose": "fail_marked"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{inn}の裏で頭目に報じる",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は親指の下の字を撫でた。「で、消せるのか」"
+   ],
+   "choices": [
+    {
+     "label": "持ち主を変える書付を見せる",
+     "if": {
+      "flag": "ft_g2_deed"
+     },
+     "next": "win_deed"
+    },
+    {
+     "label": "{fence}の七つの手を見せ、盤の名を削ったと告げる",
+     "if": {
+      "flag": "ft_g2_hands"
+     },
+     "next": "win_fence"
+    },
+    {
+     "label": "盤の名の一覧を渡す",
+     "next": "win_list"
+    }
+   ]
+  },
+  "win_deed": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は書付を長いこと読んだ。読める頭目は、団では珍しい。",
+    "「盗るのではなく、譲られる。……字は出ない。市でも売れる。手を焼かずに食える」",
+    "「盗賊だ。お前の名で、書付を作れ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 400
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "unflag": "ft_g2_name"
+    },
+    {
+     "unflag": "ft_g2_hands"
+    },
+    {
+     "unflag": "ft_g2_deed"
+    },
+    {
+     "note": "学院の字を「持ち主を変える書付」で避ける手を立て、盗賊となった。"
+    }
+   ],
+   "end": "手を焼かずに食う"
+  },
+  "win_fence": {
+   "speaker": "fence",
+   "text": [
+    "{fence}の七つの名が盤から削られた。削った瞬間に、{fence}の手の字が薄くなったという。",
+    "{fence}は手袋を外して団の前に手を出した。「これで、触れます」",
+    "{boss}は字の跡を見て言った。「盗賊だ。{fence}は、お前が使え」"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 250
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "flag": "ft_g2_fence"
+    },
+    {
+     "unflag": "ft_g2_name"
+    },
+    {
+     "unflag": "ft_g2_hands"
+    },
+    {
+     "unflag": "ft_g2_deed"
+    },
+    {
+     "note": "学院の盤から故買屋の名を削り、盗賊となった。故買屋が手下についた。"
+    }
+   ],
+   "end": "これで、触れます"
+  },
+  "win_list": {
+   "speaker": "boss",
+   "text": [
+    "盤に刻まれた名は百九。そのうち十一が、この町の品だ。",
+    "{boss}は一覧を折って懐に入れた。「十一は盗らない。残りは盗る。……それも手だ。盗賊にする」"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 200
+    },
+    {
+     "xp": "theft",
+     "n": 5
+    },
+    {
+     "unflag": "ft_g2_name"
+    },
+    {
+     "unflag": "ft_g2_hands"
+    },
+    {
+     "unflag": "ft_g2_deed"
+    },
+    {
+     "note": "学院の盤の名の一覧を写し、盗賊となった。"
+    }
+   ],
+   "end": "十一は盗らない"
+  },
+  "fail_marked": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{inn}の裏へ戻る",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{guard}の棒が肩に当たり、触った盤の名が手に出た。掌に、黒い字が三つ。",
+    "{boss}はこちらの手を見て、首を振った。「字の出た手下は、使えん。消えるまで待つ」"
+   ],
+   "effects": [
+    {
+     "hp": -16
+    },
+    {
+     "fame": -2
+    },
+    {
+     "unflag": "ft_g2_name"
+    },
+    {
+     "unflag": "ft_g2_hands"
+    },
+    {
+     "unflag": "ft_g2_deed"
+    },
+    {
+     "note": "学院の字が手に出た。消えてから、また試される。"
+    }
+   ],
+   "end": "掌の三つの字"
+  }
+ }
+}

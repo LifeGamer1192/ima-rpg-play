@@ -1,0 +1,370 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_publicani",
+ "kind": "random",
+ "where": "office",
+ "most": 2,
+ "again": 300,
+ "hook": "徴税請負の連中が、律にない上乗せを取っております",
+ "title": "請負の帳",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "村の代表"
+  },
+  "boss": {
+   "npc": "徴税請負の支配人",
+   "sex": "m"
+  },
+  "clerk": {
+   "folk": "公会所の書記",
+   "tags": [
+    "官"
+   ]
+  },
+  "scribe": {
+   "npc": "請負の帳付け",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{office}の石段に、麦の袋を抱えた{client}が座り込んでいた。{here}の徴税を請け負った会社が、国へ前金を払った分を取り戻すのに利を付けているという。",
+    "「十分の一のはずが、三分の一になっております。足りぬ者からは牛を引いていきます。公会所の書記さまは、帳面は正しいと」"
+   ],
+   "choices": [
+    {
+     "label": "帳面を自分の目で読む",
+     "next": "ledger"
+    },
+    {
+     "label": "支配人の{boss}に会う",
+     "next": "boss"
+    }
+   ]
+  },
+  "ledger": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{office}で請負の帳面を読む",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}が蝋板と巻物を積み上げた。数は一つも合わないところがない。合わないのは、合いすぎることだ。",
+    "「前金の利」という欄が、どの村にも同じ割で立っている。国と会社の取り決めには、そんな欄は無い。"
+   ],
+   "choices": [
+    {
+     "label": "欄の出どころを突き止める",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "second",
+      "lose": "boss"
+     }
+    },
+    {
+     "label": "帳付けの{scribe}を酒に誘う",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "second",
+      "lose": "boss"
+     }
+    }
+   ]
+  },
+  "second": {
+   "speaker": "scribe",
+   "art": "backroom",
+   "text": [
+    "{scribe}は三杯で口が軽くなった。「帳面は二つあるのです。国に見せるものと、村から取る分を書くもの」",
+    "「後ろの帳は、支配人の寝台の下です。わたしは字を書くだけですから、どうか」"
+   ],
+   "effects": [
+    {
+     "flag": "rmp_two"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "夜、寝台の下の帳を取る",
+     "check": {
+      "skill": "theft",
+      "dc": 50,
+      "win": "proof",
+      "lose": "caught"
+     }
+    },
+    {
+     "label": "{scribe}に、政庁へ出る日の証人になれと頼む",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "proof",
+      "lose": "boss"
+     }
+    }
+   ]
+  },
+  "boss": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "支配人の{boss}に会う",
+   "speaker": "boss",
+   "art": "trade",
+   "text": [
+    "{boss}は油を塗った髪で、椅子を勧めた。「国は戦をしております。戦費は誰かが先に出さねばならない。出したのは我々です」",
+    "「利を取るのは商いの道理でしょう。ご不満なら、こちらで色を付けますが」"
+   ],
+   "choices": [
+    {
+     "label": "「色」を受け取り、村には律のとおりと言う",
+     "effects": [
+      {
+       "money": 800
+      },
+      {
+       "fame": -3
+      }
+     ],
+     "next": "end_bought",
+     "guide": "村の者は、誰が黙ったかをよく覚える"
+    },
+    {
+     "label": "「二つめの帳のことも道理か」と問う",
+     "if": {
+      "flag": "rmp_two"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "proof",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "村の者を集めて政庁に出ると告げる",
+     "next": "gather"
+    }
+   ]
+  },
+  "thugs": {
+   "art": "war",
+   "text": [
+    "{boss}は手を叩いた。「お帰りを、丁重にお送りしろ」倉から棒を持った男が三人出てきた。"
+   ],
+   "choices": [
+    {
+     "label": "叩き伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "gather",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "退く",
+     "next": "gather"
+    }
+   ]
+  },
+  "caught": {
+   "art": "jail",
+   "text": [
+    "寝台の下に手を入れたところで、灯が点いた。盗みとして訴えられ、三日を牢で過ごした。"
+   ],
+   "effects": [
+    {
+     "jail": 3
+    },
+    {
+     "fame": -2
+    }
+   ],
+   "next": "gather"
+  },
+  "gather": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "{palace}で村の者と並ぶ",
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{client}は近隣の村から二十人を連れてきた。牛を引かれた者、娘を質に出した者。{palace}の前庭に、麦の空袋が並んだ。",
+    "総督づきの者が、面倒そうに巻物を広げた。"
+   ],
+   "choices": [
+    {
+     "label": "二つめの帳を広げる",
+     "if": {
+      "flag": "rmp_two"
+     },
+     "next": "proof"
+    },
+    {
+     "label": "村の者の数と袋の数だけで押す",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_cut",
+      "lose": "end_nothing"
+     }
+    }
+   ]
+  },
+  "proof": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "{palace}で帳を突きつける",
+   "art": "court",
+   "text": [
+    "二つの帳が並べられた。国へ出した数と、村から取った数。差の額が読み上げられるあいだ、{boss}は一度も顔を上げなかった。"
+   ],
+   "choices": [
+    {
+     "label": "会社の請負を取り上げさせる",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_broken",
+      "lose": "end_cut"
+     }
+    },
+    {
+     "label": "取り過ぎた分を返させるだけにする",
+     "next": "end_cut"
+    }
+   ]
+  },
+  "end_broken": {
+   "text": [
+    "請負の権は取り上げられ、{boss}は都へ呼び戻された。次の年の徴税は、総督の役人が直に取ることになった。",
+    "{client}は牛を取り返した。「来年は、こうはならぬと思いますが」——それでも、今年は蔵に麦が残った。"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "fame": 12
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{here}の徴税請負の二つめの帳を暴き、請負を取り上げさせた。"
+    }
+   ],
+   "end": "取り上げられた請負"
+  },
+  "end_cut": {
+   "text": [
+    "上乗せの欄は消され、取り過ぎた分は麦で返された。会社は残り、支配人も残った。",
+    "{client}は空袋を畳んだ。「来年も見ていてくださるなら、それで充分です」"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 7
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "{here}の徴税請負に、取り過ぎた分を返させた。"
+    }
+   ],
+   "end": "消された一欄"
+  },
+  "end_bought": {
+   "text": [
+    "銭は重かった。村では、三分の一が取られ続けた。",
+    "半年後、{client}が{office}の前でこちらを見たが、何も言わずに通り過ぎた。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "note": "{here}の徴税請負から銭を受け取り、黙った。"
+    }
+   ],
+   "end": "通り過ぎた背中"
+  },
+  "end_nothing": {
+   "text": [
+    "総督づきの者は「帳面は正しい」と言い、前庭の者を追い払った。空袋だけが石畳に残った。",
+    "翌月、{client}の村では家が二つ畳まれ、人は都へ出ていった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "favor": -2
+    },
+    {
+     "note": "{here}の徴税請負を訴えたが、帳面は正しいとされた。"
+    }
+   ],
+   "end": "石畳の空袋"
+  },
+  "end_beaten": {
+   "text": [
+    "棒が肩と膝に入った。倉の外へ放り出され、雨に打たれて目が覚めた。"
+   ],
+   "effects": [
+    {
+     "hp": -26
+    },
+    {
+     "fame": -1
+    }
+   ],
+   "end": "倉の外"
+  }
+ }
+}

@@ -1,0 +1,480 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_rank7_chancellor",
+ "kind": "rank",
+ "rankTo": 7,
+ "title": "一度だけ押せる印",
+ "era": "fantasy",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "keep": {
+   "place": "near:cap"
+  },
+  "heir": {
+   "npc": "長子",
+   "sex": "m"
+  },
+  "sister": {
+   "npc": "王の妹",
+   "sex": "f"
+  },
+  "bastard": {
+   "npc": "国境を守る庶子",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の{palace}で{minister}に会う",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は宰相の印を布の上に置いた。蝋に押す面が、まだ新しい。",
+    "「王は三月床にあり、跡を名ざされぬ。長子、王の妹、国境の庶子。三人が、それぞれ人を集めている」",
+    "「印は宰相のものだ。だが、宰相が決まらぬうちに一度だけ押せる。押した者が宰相になり、押したものに縛られる」"
+   ],
+   "choices": [
+    {
+     "label": "三人に会ってから決める",
+     "effects": [
+      {
+       "note": "宰相の印を一度押し、跡目を定めれば宰相となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "house"
+   },
+   "goal": "三人の言い分を聞く",
+   "speaker": "heir",
+   "art": "court",
+   "text": [
+    "{heir}は蝋燭を数えるような声で言った。「順は私だ。順でないなら、何のために順がある」",
+    "{sister}は窓際から振り向かずに言った。「兄は、床で三月も跡を書かなかった。書かなかったのは、書きたくなかったからです」",
+    "国境からは{bastard}の使いだけが来た。「国境の兵は八千。八千は、宮の作法を知りません」"
+   ],
+   "choices": [
+    {
+     "label": "王の寝所に入り、本人に書かせる",
+     "next": "s3write"
+    },
+    {
+     "label": "三人と宮の長を集めた評議を、印で召集する",
+     "next": "s3council"
+    },
+    {
+     "label": "国境の八千が動く前の日数を数える",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "s2days",
+      "lose": "s2fog"
+     }
+    }
+   ]
+  },
+  "s2days": {
+   "art": "lecture",
+   "text": [
+    "国境から宮まで、八千の脚で十九日。糧の支度に七日。合わせて二十六日。",
+    "二十六日あれば、評議も、王の筆も、間に合う。間に合わないのは、三人が今夜動いた場合だけだ。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r7_days"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "国境の八千が宮に着くまで二十六日ある。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "王の寝所へ行く",
+     "next": "s3write"
+    },
+    {
+     "label": "評議を召集する",
+     "next": "s3council"
+    }
+   ]
+  },
+  "s2fog": {
+   "art": "court",
+   "text": [
+    "三人の使いが宮の廊を行き交い、誰が誰に付くのか数えられなくなった。夜になった。"
+   ],
+   "choices": [
+    {
+     "label": "王の寝所へ行く",
+     "next": "s3write"
+    },
+    {
+     "label": "評議を召集する",
+     "next": "s3council"
+    }
+   ]
+  },
+  "s3write": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "王の寝所で跡目を書かせる",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は枕を高くして、天井を見ていた。手は動く。字も書ける。書いていないだけだ。",
+    "「三人のうち誰を書いても、残り二人が兵を出す。書かねば、三人が出す。……そう思って、三月書かなかった」"
+   ],
+   "choices": [
+    {
+     "label": "「三人の名を全部書き、順と役を分けてください」と頼む",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "win_three",
+      "lose": "s3hard"
+     }
+    },
+    {
+     "label": "国境の八千の日数を示し、間に合うと伝える",
+     "if": {
+      "flag": "ft_r7_days"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "win_heir",
+      "lose": "s3hard"
+     }
+    },
+    {
+     "label": "王の筆を取り、こちらが口述してもらう",
+     "check": {
+      "skill": "medicine",
+      "dc": 34,
+      "win": "win_heir",
+      "lose": "s3hard"
+     }
+    },
+    {
+     "label": "王が書かぬまま、印で遺言を作る",
+     "effects": [
+      {
+       "fame": -6
+      }
+     ],
+     "next": "win_forge"
+    }
+   ]
+  },
+  "s3council": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "印で評議を召集する",
+   "speaker": "sister",
+   "art": "court",
+   "text": [
+    "印が蝋に押され、召集の書が宮の長二十一人に配られた。印は、これで使い終わりだ。",
+    "{sister}が入ってきて席につき、{heir}がその向かいに座った。{bastard}の席は空いたまま、椅子だけが置かれた。"
+   ],
+   "choices": [
+    {
+     "label": "空いた椅子を国境の代理に埋めさせ、三人の前で数を取る",
+     "if": {
+      "flag": "ft_r7_days"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "win_council",
+      "lose": "s3hard"
+     }
+    },
+    {
+     "label": "順の決まりを読み上げ、長子に決めさせる",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "win_heir",
+      "lose": "s3hard"
+     }
+    },
+    {
+     "label": "二十一人に声を出させ、数の多い方に従わせる",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "win_council",
+      "lose": "s3hard"
+     }
+    }
+   ]
+  },
+  "s3hard": {
+   "at": {
+    "place": "keep"
+   },
+   "goal": "{keep}で夜を越す",
+   "speaker": "bastard",
+   "art": "war",
+   "text": [
+    "話はまとまらず、{keep}の門が夜のうちに閉じられた。閉じたのは{heir}の家の者だ。",
+    "朝、国境の旗が丘の上に見えた。二十六日ではなかった。八千は、三月前から動いていた。"
+   ],
+   "choices": [
+    {
+     "label": "門の前に立ち、八千と宮のあいだで言葉を交わす",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "win_border",
+      "lose": "fail_blood"
+     }
+    },
+    {
+     "label": "門を開けさせ、庶子を宮に入れる",
+     "next": "win_border"
+    },
+    {
+     "label": "門を守って戦う",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "win_border",
+      "lose": "fail_blood"
+     }
+    }
+   ]
+  },
+  "win_three": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}は三人の名を全部書いた。長子に王位、妹に国の蔵、庶子に国境の軍。順と役を分けた遺言だ。",
+    "印は、その遺言に押された。押したものに縛られる——縛られて構わない。",
+    "{minister}が宰相の鎖をこちらの肩に掛けた。「三人が兵を出さぬ遺言を、三月で誰も書けなかった。あなたが書かせた」"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 25
+    },
+    {
+     "fame": 20
+    },
+    {
+     "rep": "patron",
+     "n": 3
+    },
+    {
+     "xp": "letters",
+     "n": 8
+    },
+    {
+     "unflag": "ft_r7_days"
+    },
+    {
+     "note": "王に三人の名と役を分けた遺言を書かせ、宰相となった。"
+    }
+   ],
+   "end": "順と役を分けた遺言"
+  },
+  "win_heir": {
+   "speaker": "heir",
+   "text": [
+    "順のとおり、長子が跡を継いだ。印は、その一行に押された。",
+    "{sister}は宮を出て、国境へ向かった。{bastard}の八千は動かなかった。動かなかった理由は、二年後に分かる。",
+    "{minister}が鎖を掛けた。「順は、いちばん短い答えです。短い答えは、長く揉めます」"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 20
+    },
+    {
+     "fame": 14
+    },
+    {
+     "rep": "patron",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "unflag": "ft_r7_days"
+    },
+    {
+     "note": "順のとおり長子を跡目に定め、宰相となった。"
+    }
+   ],
+   "end": "短い答え"
+  },
+  "win_council": {
+   "speaker": "sister",
+   "text": [
+    "二十一人が順に声を出した。十二が{sister}、七が{heir}、二が{bastard}。空いた椅子の代理も、声を出した。",
+    "{sister}が立ち、兄の寝所へ行って手を取った。{ruler}は頷いただけだった。頷いたことを、二十一人が見た。",
+    "印は評議の召集に使われていた。遺言は、二十一人の署名で代わりになった。それが新しい作法になった。"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 22
+    },
+    {
+     "fame": 18
+    },
+    {
+     "rep": "patron",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 8
+    },
+    {
+     "unflag": "ft_r7_days"
+    },
+    {
+     "note": "評議の二十一人の声で跡目を定め、宰相となった。新しい作法ができた。"
+    }
+   ],
+   "end": "二十一人の署名"
+  },
+  "win_forge": {
+   "speaker": "minister",
+   "text": [
+    "王が書かぬまま、印が遺言に押された。字は{minister}の筆で、名は長子だった。",
+    "{ruler}は十一日後に死んだ。遺言を疑った者は三人いて、三人とも国境へ移された。",
+    "{minister}が鎖を掛けながら言った。「印は一度だけです。押したものに、あなたは一生縛られます」"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 16
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "unflag": "ft_r7_days"
+    },
+    {
+     "note": "王の遺言を印で作り、宰相となった。押したものに縛られている。"
+    }
+   ],
+   "end": "一生縛られる"
+  },
+  "win_border": {
+   "speaker": "bastard",
+   "text": [
+    "門が開き、{bastard}が八千を丘に残して一人で入った。宮の廊を歩く足音を、全員が聞いた。",
+    "跡目は、三人で決めた。長子が王、妹が蔵、庶子が軍。印は、その取り決めに押された。",
+    "{bastard}は後で言った。「八千は、三月前から動いておりました。宮が誰も数えなかったのです。……あなたは数えた」"
+   ],
+   "effects": [
+    {
+     "rank": 7
+    },
+    {
+     "favor": 18
+    },
+    {
+     "fame": 16
+    },
+    {
+     "rep": "patron",
+     "n": 2
+    },
+    {
+     "hp": -16
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "unflag": "ft_r7_days"
+    },
+    {
+     "note": "国境の八千を宮の前で止め、三人の取り決めで跡目を定めて宰相となった。"
+    }
+   ],
+   "end": "誰も数えなかった八千"
+  },
+  "fail_blood": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}へ戻る",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{keep}の門が破られ、宮の廊で刃が抜かれた。{ruler}はその騒ぎの夜に死んだ。跡目は、剣で決まった。",
+    "{minister}は宰相の印を布に包んだ。「押す前に、国が決まってしまった。印は、次の代に回す」"
+   ],
+   "effects": [
+    {
+     "favor": -16
+    },
+    {
+     "hp": -28
+    },
+    {
+     "fame": -4
+    },
+    {
+     "unflag": "ft_r7_days"
+    },
+    {
+     "note": "跡目は剣で決まり、宰相の印は押されなかった。覚えを取り戻せば、また試される。"
+    }
+   ],
+   "end": "布に包まれた印"
+  }
+ }
+}

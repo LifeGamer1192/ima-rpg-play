@@ -1,0 +1,391 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_lost_elephant",
+ "kind": "random",
+ "where": "road",
+ "most": 2,
+ "again": 500,
+ "hook": "葡萄畑に象が立っております。象使いは死んだそうで",
+ "title": "葡萄畑の象",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "town": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "畑の小作"
+  },
+  "boy": {
+   "npc": "象使いの弟子",
+   "sex": "m"
+  },
+  "officer": {
+   "npc": "輜重の士官",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "art": "road",
+   "text": [
+    "街道の脇の葡萄畑で、垣根が倒れていた。その真ん中に、灰色の山のようなものが立っている。",
+    "象だ。耳を広げ、鼻を垂らして、動かない。村の者が遠くから石を投げている。足もとに、血のついた布が落ちていた。"
+   ],
+   "choices": [
+    {
+     "label": "村の者を止め、近づいてみる",
+     "next": "close"
+    },
+    {
+     "label": "石を投げている者に事情を聞く",
+     "next": "client"
+    }
+   ]
+  },
+  "client": {
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "{client}は石を下ろさずに言った。「隊が通ったのは三日前です。あれだけ残りました。象使いは、村の犬に驚いた象に踏まれて」",
+    "「葡萄を食われております。追えば、どちらかが死にます。うちの牛は、もう近寄りません」",
+    "「象使いの弟子だという子が、納屋に隠れております。十二か、十三の」"
+   ],
+   "choices": [
+    {
+     "label": "納屋の弟子に会う",
+     "next": "boy"
+    },
+    {
+     "label": "自分で象に近づく",
+     "next": "close"
+    },
+    {
+     "label": "{town}の輜重の士官に報せる",
+     "next": "officer"
+    }
+   ]
+  },
+  "boy": {
+   "speaker": "boy",
+   "art": "tale",
+   "text": [
+    "{boy}は藁の中で膝を抱えていた。カルタゴの言葉と、少しのラテン語を混ぜて話す。",
+    "「師は死にました。わたしは鉤を持つのが怖いです。でも、あの子は……腹が減っているだけです。水と、塩を舐めさせれば、座ります」",
+    "「隊には戻したくありません。戻れば、また戦です」"
+   ],
+   "effects": [
+    {
+     "flag": "rme_boy"
+    },
+    {
+     "xp": "medicine",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "{boy}と一緒に水と塩を運ぶ",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "calm",
+      "lose": "charge"
+     }
+    },
+    {
+     "label": "{boy}を連れて士官に会い、弟子として認めさせる",
+     "next": "officer"
+    }
+   ]
+  },
+  "close": {
+   "art": "disaster",
+   "text": [
+    "垣根を越えて十歩。象の皮に古い切り傷が幾本も走っているのが見えた。背の革帯が垂れ、留め具が肉に食い込んでいる。",
+    "目がこちらを追った。耳が前へ動いた。"
+   ],
+   "choices": [
+    {
+     "label": "動かず、低い声で話しかける",
+     "check": {
+      "skill": "medicine",
+      "dc": 45,
+      "win": "calm",
+      "lose": "charge"
+     }
+    },
+    {
+     "label": "食い込んだ留め具を切ってやる",
+     "check": {
+      "skill": "blade",
+      "dc": 45,
+      "win": "calm",
+      "lose": "charge"
+     }
+    },
+    {
+     "label": "退いて、弓で急所を狙う",
+     "check": {
+      "skill": "bow",
+      "dc": 50,
+      "win": "end_killed",
+      "lose": "charge"
+     }
+    }
+   ]
+  },
+  "calm": {
+   "speaker": "boy",
+   "art": "tale",
+   "text": [
+    "水桶を置き、塩の塊を差し出すと、鼻が伸びてきて、掌の塩を拾った。",
+    "留め具を切ると、象は長い息を吐いて膝を折った。{boy}が走ってきて、額に手を当てた。「座りました」"
+   ],
+   "effects": [
+    {
+     "flag": "rme_calm"
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "{town}の士官に引き渡す",
+     "next": "officer"
+    },
+    {
+     "label": "{boy}と象を、山の向こうへ逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "end_free",
+      "lose": "officer"
+     }
+    },
+    {
+     "label": "村に残し、葡萄の代わりに畑の仕事をさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_village",
+      "lose": "officer"
+     }
+    }
+   ]
+  },
+  "charge": {
+   "art": "war",
+   "text": [
+    "耳が広がり、鼻が巻かれた。地面が鳴った。"
+   ],
+   "choices": [
+    {
+     "label": "垣根の杭を抜いて迎える",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 16,
+      "win": "end_killed",
+      "lose": "end_trampled"
+     }
+    },
+    {
+     "label": "葡萄の畝に伏せてやり過ごす",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "close",
+      "lose": "end_trampled"
+     }
+    }
+   ]
+  },
+  "officer": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{town}で輜重の士官{officer}に会う",
+   "speaker": "officer",
+   "art": "camp",
+   "text": [
+    "{officer}は帳面を見ずに言った。「象は名簿から落としました。使いが死んだ象は、使い物になりません」",
+    "「連れてこられても困る。食う量をご存じか。一日に、兵三十人分だ」"
+   ],
+   "choices": [
+    {
+     "label": "弟子の{boy}を使いとして立てる",
+     "if": {
+      "flag": "rme_boy"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_army",
+      "lose": "end_sold"
+     }
+    },
+    {
+     "label": "象を国に買わせ、村の垣根の代を出させる",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "end_sold",
+      "lose": "end_sold"
+     }
+    },
+    {
+     "label": "「名簿に無い象なら、好きにしてよいのだな」と確かめる",
+     "if": {
+      "flag": "rme_calm"
+     },
+     "next": "end_free"
+    }
+   ]
+  },
+  "end_army": {
+   "text": [
+    "{boy}は象使いとして名簿に書かれた。十三の子の名が、戦象の欄に入った。",
+    "出発の朝、{boy}は鉤を持たず、掌に塩を載せて象の前に立った。象は自分から膝を折って、{boy}を背に乗せた。",
+    "隊は北へ行った。{officer}が言った。「あの子は、師より上手い」"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 10
+    },
+    {
+     "favor": 8
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}の迷った戦象に、弟子の子を使いとして付けた。"
+    }
+   ],
+   "end": "掌の塩"
+  },
+  "end_free": {
+   "text": [
+    "名簿に無い象を、誰も追わなかった。{boy}は象を連れて、山の道を東へ行った。",
+    "何年か後、山向こうの村に「石を運ぶ灰色の獣と、それを使う若い男がいる」という話が流れてきた。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "note": "{here}の戦象を、弟子の子とともに山の向こうへ逃がした。"
+    }
+   ],
+   "end": "石を運ぶ灰色の獣"
+  },
+  "end_village": {
+   "text": [
+    "象は村に残った。倒した垣根を自分で運び、葡萄の棚の柱を立て、井戸の桶を引き上げるようになった。",
+    "{client}は言った。「食う量は、確かにひどいものです。ですが、牛六頭ぶん働きますので」"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 2
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "note": "{here}の戦象を村に残し、畑の仕事をさせた。"
+    }
+   ],
+   "end": "牛六頭ぶん"
+  },
+  "end_sold": {
+   "text": [
+    "象は国が引き取り、都の見世物に出された。垣根の代は村に払われた。",
+    "{boy}は納屋から出てこなかった。名簿には、象の名も、子の名も書かれなかった。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    },
+    {
+     "note": "{here}の戦象を国に買わせ、村に垣根の代を出させた。"
+    }
+   ],
+   "end": "都の見世物"
+  },
+  "end_killed": {
+   "text": [
+    "象は葡萄の畝に倒れた。倒れるまでに、垣根を三十歩ぶん壊した。",
+    "村は肉を分け、皮を剥いだ。{boy}は藁の中で、一言も言わなかった。{client}が言った。「これが、いちばん早いのです」"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "item": "ivory",
+     "n": 1
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "bow",
+     "n": 5
+    },
+    {
+     "note": "{here}の葡萄畑で迷った戦象を討った。"
+    }
+   ],
+   "end": "いちばん早い手"
+  },
+  "end_trampled": {
+   "text": [
+    "肩を鼻で払われ、畝の土に叩きつけられた。踏まれる前に、村の者が引きずり出してくれた。"
+   ],
+   "effects": [
+    {
+     "hp": -34
+    }
+   ],
+   "end": "畝の土"
+  }
+ }
+}

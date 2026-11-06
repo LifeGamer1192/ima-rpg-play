@@ -1,0 +1,378 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_veteran_land",
+ "kind": "random",
+ "where": "folk",
+ "most": 2,
+ "again": 320,
+ "hook": "六年戦って帰ったら、畑が売られておりました",
+ "title": "帰ってきた畑",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "field": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "帰ってきた兵"
+  },
+  "rich": {
+   "npc": "畑を買った隣家",
+   "sex": "m"
+  },
+  "lender": {
+   "npc": "両替商",
+   "sex": "m"
+  },
+  "clerk": {
+   "folk": "公会所の書記",
+   "tags": [
+    "官"
+   ]
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は革の鞄から木札を出した。除隊の札だ。六年、六つの戦場の名が刻まれている。",
+    "「畑は{field}です。帰ったら、隣家の奴隷が麦を刈っておりました。妻が借りた銭の形に取られたと。妻は、去年の疫で死にました」",
+    "「子が二人おります。札は、子には食えません」"
+   ],
+   "choices": [
+    {
+     "label": "{field}へ行き、隣家の{rich}に会う",
+     "next": "rich"
+    },
+    {
+     "label": "両替商の{lender}に借りの筋を聞く",
+     "next": "lender"
+    },
+    {
+     "label": "公会所で売り渡しの帳を読む",
+     "next": "office"
+    }
+   ]
+  },
+  "lender": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "両替商の{lender}に聞く",
+   "speaker": "lender",
+   "art": "trade",
+   "text": [
+    "{lender}は帳を繰った。「元は三百でした。種籾と、薬と、葬りの費用。利は月に一分」",
+    "「六年で、七百を超えました。払えぬので畑を。……わたしが取ったのではございません。隣家が借りを買い取って、畑で埋めました」",
+    "「兵の留守の家の借りは、利を止めるという触れが昔あったはずですが……今の属州では、誰も持ち出しません」"
+   ],
+   "effects": [
+    {
+     "flag": "rmv_rule"
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "古い触れを公会所で探す",
+     "next": "office"
+    },
+    {
+     "label": "隣家の{rich}に会う",
+     "next": "rich"
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{office}で帳と触れを読む",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は埃を払って古い綴りを出した。「ございます。兵が軍にあるあいだ、その家の借りの利は止まる。四十年前の元老院の決議です」",
+    "「取り消されてはおりません。ただ、使われてもおりません」"
+   ],
+   "effects": [
+    {
+     "flag": "rmv_decree"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "利を止めて借りを数え直す",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "recount",
+      "lose": "rich"
+     }
+    },
+    {
+     "label": "売り渡しそのものを無効にする筋を立てる",
+     "check": {
+      "skill": "letters",
+      "dc": 55,
+      "win": "end_back",
+      "lose": "recount"
+     }
+    }
+   ]
+  },
+  "recount": {
+   "art": "lecture",
+   "text": [
+    "六年の利を止めて数え直すと、借りは三百二十。畑の値は五百。",
+    "隣家は、五百の畑を三百二十の借りで取ったことになる。差の百八十は、返さねばならない。"
+   ],
+   "effects": [
+    {
+     "flag": "rmv_sum"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "{rich}に差を突きつける",
+     "next": "rich"
+    },
+    {
+     "label": "公会所に数を出し、裁きを求める",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_back",
+      "lose": "end_part"
+     }
+    }
+   ]
+  },
+  "rich": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}で隣家の{rich}に会う",
+   "speaker": "rich",
+   "art": "road",
+   "text": [
+    "麦の刈り跡の上で、{rich}は腕を組んだ。「借りを買い、形に取った。法のとおりです」",
+    "「あの男が六年いなかったのは、国のためでしょう。国のためなら、国が畑を出せばよい。わたしは銭を出しました」"
+   ],
+   "choices": [
+    {
+     "label": "利を止める決議を示す",
+     "if": {
+      "flag": "rmv_decree"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_back",
+      "lose": "hands"
+     }
+    },
+    {
+     "label": "差の百八十を返させる",
+     "if": {
+      "flag": "rmv_sum"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "end_part",
+      "lose": "hands"
+     }
+    },
+    {
+     "label": "畑を小作として{client}に貸す形にさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_tenant",
+      "lose": "hands"
+     }
+    },
+    {
+     "label": "自分が借りを引き受け、畑を買い戻す",
+     "if": {
+      "money": 800
+     },
+     "effects": [
+      {
+       "money": -800
+      }
+     ],
+     "next": "end_bought"
+    }
+   ]
+  },
+  "hands": {
+   "art": "war",
+   "text": [
+    "{rich}が口笛を吹くと、麦の中から奴隷頭が三人、鎌を下げて立ち上がった。"
+   ],
+   "choices": [
+    {
+     "label": "鎌を取り上げ、叩き伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_part",
+      "lose": "end_nothing"
+     }
+    },
+    {
+     "label": "{client}を抑えて畝を出る",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_tenant",
+      "lose": "end_nothing"
+     }
+    }
+   ]
+  },
+  "end_back": {
+   "text": [
+    "四十年前の決議が法廷で読み上げられた。利は止まり、借りは三百二十に戻り、売り渡しは無効とされた。",
+    "{client}は畑の畝に立って、長いこと動かなかった。子が二人、刈り跡の上を走り回っていた。",
+    "{clerk}が言った。「この決議は、これから使われるようになります。使った者がいれば、使えるのです」"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 14
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{field}の兵の畑を、留守の利を止める決議で取り戻した。"
+    }
+   ],
+   "end": "使われるようになる決議"
+  },
+  "end_part": {
+   "text": [
+    "畑は隣家のままだが、差の百八十が{client}に返された。百八十では畑は買えない。牛が一頭と、種籾が買える。",
+    "{client}は除隊の札を鞄に戻した。「六年で、牛一頭です」そう言って、笑った。笑うしかなかった。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 9
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "{field}の売り渡しの差額百八十を帰還兵に返させた。"
+    }
+   ],
+   "end": "六年で牛一頭"
+  },
+  "end_tenant": {
+   "text": [
+    "畑は隣家のまま、{client}が小作として耕すことになった。取り分は五分。悪い条ではない。",
+    "自分の畑で、自分が小作になる。{client}は鞄の札を、それから一度も出さなかった。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 7
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{field}の帰還兵を、自分の畑の小作として入れさせた。"
+    }
+   ],
+   "end": "出さなくなった札"
+  },
+  "end_bought": {
+   "text": [
+    "借りを引き受け、八百を払って畑を{client}の名に戻した。{client}は返すと言い、こちらは返さなくてよいと言い、二人とも譲らなかった。",
+    "結局、毎年麦を一袋ずつ受け取ることにした。三十年かかる。{client}は「三十年、生きます」と言った。"
+   ],
+   "effects": [
+    {
+     "item": "grain",
+     "n": 1
+    },
+    {
+     "fame": 12
+    },
+    {
+     "favor": 2
+    },
+    {
+     "note": "{field}の帰還兵の借りを引き受け、畑を名に戻した。"
+    }
+   ],
+   "end": "三十年、生きます"
+  },
+  "end_nothing": {
+   "text": [
+    "鎌の柄で肩を打たれ、畝の外へ押し出された。{client}は殴られながら、除隊の札を胸に押しつけていた。",
+    "畑は隣家のまま。{client}は子二人を連れて都へ出た。都には、六つの戦場の名を読める者もいなかった。"
+   ],
+   "effects": [
+    {
+     "hp": -24
+    },
+    {
+     "fame": -1
+    },
+    {
+     "note": "{field}の帰還兵の畑は取り戻せず、親子は都へ出た。"
+    }
+   ],
+   "end": "読める者のいない札"
+  }
+ }
+}

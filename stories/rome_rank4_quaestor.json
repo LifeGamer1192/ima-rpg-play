@@ -1,0 +1,452 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_rank4_quaestor",
+ "kind": "rank",
+ "rankTo": 4,
+ "title": "合わぬ櫃",
+ "era": "rome",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "port": {
+   "place": "near:cap"
+  },
+  "chief": {
+   "npc": "前任の財務官",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "櫃の書記",
+   "sex": "f"
+  },
+  "shipper": {
+   "npc": "船主",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の{palace}で{minister}に会う",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は蝋板を伏せたまま言った。「属州の櫃が合わぬ。前任の財務官は、合っていると言って都へ帰った」",
+    "「合わぬ額は、八万と聞く。十二万と言う者もいる。誰も数えていないからだ」",
+    "「数えてこい。数えられたら、櫃はお前が預かる」"
+   ],
+   "choices": [
+    {
+     "label": "鍵を預かり、櫃を数えに行く",
+     "effects": [
+      {
+       "note": "属州の櫃を数え、合わぬ額の出どころを明かせば財務官となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "office"
+   },
+   "goal": "{office}の櫃を数える",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "櫃は七つ。封は六つが新しく、一つだけ古い。{clerk}が鍵束を出した。",
+    "「数えたことはございません。数えよと言われたことも、ございません」",
+    "「ただ、帳はわたしが書いております。帳と櫃は、別のものです」"
+   ],
+   "choices": [
+    {
+     "label": "櫃の銭を一つずつ実際に数える",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s2count",
+      "lose": "s2fog"
+     }
+    },
+    {
+     "label": "帳の入りと出を三年ぶん突き合わせる",
+     "check": {
+      "skill": "trade",
+      "dc": 34,
+      "win": "s2books",
+      "lose": "s2fog"
+     }
+    },
+    {
+     "label": "{clerk}に、帳と櫃の違いを話させる",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s2books",
+      "lose": "s2fog"
+     }
+    }
+   ]
+  },
+  "s2count": {
+   "art": "court",
+   "text": [
+    "三日かけて七つの櫃を数えた。十万四千。帳の言う数より、九万一千少ない。",
+    "古い封の櫃だけが、帳どおりだった。触られていない櫃が一つだけある、ということだ。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r4_count"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "櫃は帳より九万一千少なかった。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2books": {
+   "art": "court",
+   "text": [
+    "入りと出を三年ぶん並べると、同じ形が十一度あった。港の積み出しの税が入った翌日に、同じ額の「船の修繕」が出ている。",
+    "船は十一度修繕されている。船は三艘しかない。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r4_ship"
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "港の税と同額の「船の修繕」が十一度出ていた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fog": {
+   "art": "court",
+   "text": [
+    "数は数えるたびに違った。{clerk}は目を伏せ、鍵束を鳴らすだけだった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "port"
+   },
+   "goal": "{port}で出どころを確かめる",
+   "speaker": "shipper",
+   "art": "voyage",
+   "text": [
+    "{port}の桟橋で、{shipper}は網の上に座っていた。船は三艘。どれも塗りが古い。",
+    "「修繕の銭は受け取っております。修繕はしておりません。そういう取り決めでした」",
+    "「取り決めた相手は、前任の財務官どのです。わたしは半分を返しておりました」"
+   ],
+   "choices": [
+    {
+     "label": "{shipper}に、受け取りの書付を全部出させる",
+     "if": {
+      "flag": "rm_r4_ship"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s3proof",
+      "lose": "s3hard"
+     }
+    },
+    {
+     "label": "櫃の数と帳の差を見せ、半分の行き先を言わせる",
+     "if": {
+      "flag": "rm_r4_count"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "s3proof",
+      "lose": "s3hard"
+     }
+    },
+    {
+     "label": "前任の{chief}を都から呼び戻す書状を立てる",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "s3proof",
+      "lose": "s3hard"
+     }
+    }
+   ]
+  },
+  "s3proof": {
+   "art": "court",
+   "text": [
+    "十一枚の受け取りが揃った。裏に、前任の財務官の指環の跡がある。",
+    "総督の名は、どこにも無い。無いことが、総督が知っていた証でも、知らなかった証でもある。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r4_proof"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "s4"
+  },
+  "s3hard": {
+   "art": "voyage",
+   "text": [
+    "{shipper}は「もう覚えておりません」と繰り返した。船は三艘、塗りは古いままだった。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}に戻り、数を報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は蝋板を立てた。「数は」",
+    "数を言う前に、言い方を決めなければならない。九万一千が消えたと書けば、総督の名も一緒に都へ行く。"
+   ],
+   "choices": [
+    {
+     "label": "受け取り十一枚と、前任の指環の跡をそのまま出す",
+     "if": {
+      "flag": "rm_r4_proof"
+     },
+     "next": "win_truth"
+    },
+    {
+     "label": "数だけを出し、名は「前任の手で」と留める",
+     "if": {
+      "flag": "rm_r4_count"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "win_quiet",
+      "lose": "fail_vague"
+     }
+    },
+    {
+     "label": "不足を属州の来年の税で埋める書式を立て、櫃を合わせる",
+     "if": {
+      "flag": "rm_r4_ship"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 34,
+      "win": "win_cover",
+      "lose": "fail_vague"
+     }
+    },
+    {
+     "label": "「合っております」と言う",
+     "next": "fail_lie"
+    }
+   ]
+  },
+  "win_truth": {
+   "speaker": "minister",
+   "text": [
+    "十一枚が読み上げられた。{minister}は最後の一枚を長く見ていた。",
+    "「前任は都で裁かれる。総督は、知らなかったことになる。……お前が財務官だ。櫃の鍵は、お前だけが持て」",
+    "都からは、感謝の文も、祝いの文も来なかった。鍵だけが来た。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 14
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "patron",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "unflag": "rm_r4_count"
+    },
+    {
+     "unflag": "rm_r4_ship"
+    },
+    {
+     "unflag": "rm_r4_proof"
+    },
+    {
+     "note": "属州の櫃の九万一千の行き先を明かし、財務官となった。"
+    }
+   ],
+   "end": "鍵だけが来た"
+  },
+  "win_quiet": {
+   "speaker": "minister",
+   "text": [
+    "数だけが都へ行った。名は「前任の手で」と書かれ、それ以上は書かれなかった。",
+    "{minister}は蝋板を伏せた。「これでよい。都は数を知り、誰も落ちない。……お前が財務官だ」"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "unflag": "rm_r4_count"
+    },
+    {
+     "unflag": "rm_r4_ship"
+    },
+    {
+     "unflag": "rm_r4_proof"
+    },
+    {
+     "note": "属州の櫃の不足を数だけ都に報じ、財務官となった。"
+    }
+   ],
+   "end": "誰も落ちない"
+  },
+  "win_cover": {
+   "speaker": "minister",
+   "text": [
+    "来年の税を担保に、不足は三年で埋める書式ができた。櫃は帳と合い、都には何も行かなかった。",
+    "{clerk}が鍵束を渡しながら、小声で言った。「三年のあいだ、属州の村が払います」——払う。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 11
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "unflag": "rm_r4_count"
+    },
+    {
+     "unflag": "rm_r4_ship"
+    },
+    {
+     "unflag": "rm_r4_proof"
+    },
+    {
+     "note": "属州の櫃の不足を来年の税で埋め、財務官となった。村が三年払う。"
+    }
+   ],
+   "end": "三年のあいだ"
+  },
+  "fail_vague": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}で改めて数を問われる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "「数が三度変わった」{minister}は蝋板を置いた。「数を数えられぬ者に、櫃は渡せぬ。出直せ」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "rm_r4_count"
+    },
+    {
+     "unflag": "rm_r4_ship"
+    },
+    {
+     "unflag": "rm_r4_proof"
+    },
+    {
+     "note": "属州の櫃を数えきれなかった。覚えを取り戻せば、また試される。"
+    }
+   ],
+   "end": "三度変わった数"
+  },
+  "fail_lie": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}で「合っている」と答える",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "「合っております」と言った。{minister}は何も言わず、蝋板を伏せた。",
+    "二月後、都の監察が来て、七つの櫃を数えた。合わなかった。言った者の名は、書かれていた。"
+   ],
+   "effects": [
+    {
+     "favor": -18
+    },
+    {
+     "fame": -4
+    },
+    {
+     "unflag": "rm_r4_count"
+    },
+    {
+     "unflag": "rm_r4_ship"
+    },
+    {
+     "unflag": "rm_r4_proof"
+    },
+    {
+     "note": "属州の櫃を「合っている」と報じ、都の監察に数えられた。"
+    }
+   ],
+   "end": "書かれていた名"
+  }
+ }
+}

@@ -1,0 +1,379 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_freedman_will",
+ "kind": "random",
+ "where": "folk",
+ "most": 2,
+ "again": 320,
+ "hook": "父の遺した工房を、昔の主の家が持っていこうとしております",
+ "title": "解放奴隷の板",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "工房の娘"
+  },
+  "house": {
+   "npc": "旧主の家の家令",
+   "sex": "m"
+  },
+  "jurist": {
+   "folk": "法を知る者",
+   "tags": [
+    "学",
+    "官"
+   ]
+  },
+  "witness": {
+   "npc": "封印の証人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{here}の路地の奥、陶器の轆轤が止まったままの工房で、{client}が蝋板を抱えていた。",
+    "「父は解放されて二十年、この工房を自分の手で建てました。遺言の板には、わたしの名が書いてあります」",
+    "「ですが旧主の家は、解放奴隷の遺産は庇護者の家に戻ると。封印の証人も、あちらの被護民ばかりです」"
+   ],
+   "choices": [
+    {
+     "label": "法を知る{jurist}に当たる",
+     "next": "jurist"
+    },
+    {
+     "label": "旧主の家の{house}に会う",
+     "next": "house"
+    },
+    {
+     "label": "封印の板を自分で調べる",
+     "next": "tablets"
+    }
+   ]
+  },
+  "jurist": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "法を知る{jurist}に当たる",
+   "speaker": "jurist",
+   "art": "lecture",
+   "text": [
+    "{jurist}は巻物を三つ出し、指で押さえた。「十二表法では、遺言が無ければ遺産は氏族へ戻る。解放奴隷の氏族は、旧主の家です」",
+    "「だが遺言が『ある』なら、話は逆です。板が本物なら、娘が継ぐ。争いの筋はそこだけです」"
+   ],
+   "effects": [
+    {
+     "flag": "rmf_law"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "板の真偽を立てる段取りを組む",
+     "next": "tablets"
+    },
+    {
+     "label": "法廷に出る日を取り、{house}に通知する",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "court",
+      "lose": "house"
+     }
+    }
+   ]
+  },
+  "house": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "旧主の家の{house}に会う",
+   "speaker": "house",
+   "art": "court",
+   "text": [
+    "{house}は中庭の噴水の前で、蠅を払うように手を振った。「解放してやった恩を、娘は知らぬのです」",
+    "「工房は家の物。娘には持参金を出してやります。それで片がつく話を、なぜ長くする」"
+   ],
+   "choices": [
+    {
+     "label": "持参金の額を競り上げて手を打たせる",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "end_settle",
+      "lose": "court"
+     }
+    },
+    {
+     "label": "「板が本物なら、家の名が汚れる」と告げる",
+     "if": {
+      "flag": "rmf_law"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_yield",
+      "lose": "court"
+     }
+    },
+    {
+     "label": "家の帳箱を探り、封印の証人への払いを見つける",
+     "check": {
+      "skill": "theft",
+      "dc": 50,
+      "win": "paid",
+      "lose": "dogs"
+     }
+    }
+   ]
+  },
+  "tablets": {
+   "speaker": "witness",
+   "art": "backroom",
+   "text": [
+    "蝋板の封印は七つ。うち二つの蝋が、他より新しい。指環の跡の縁が立っている。",
+    "証人の一人、{witness}を訪ねると、酒を飲んでいた手が止まった。「わたしは……名を書けと言われて、書きました。中身は読んでおりません」"
+   ],
+   "choices": [
+    {
+     "label": "{witness}に法廷で見たままを言わせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "court",
+      "lose": "house"
+     }
+    },
+    {
+     "label": "新しい蝋を剥がし、下の板を読む",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "real",
+      "lose": "dogs"
+     }
+    }
+   ]
+  },
+  "real": {
+   "art": "lecture",
+   "text": [
+    "新しい蝋の下に、削られた字の底が残っていた。削る前は「娘に」と書かれ、その上に「氏族に」と刻み直されている。",
+    "削り跡は、蝋ではなく木に残る。木は嘘をつけない。"
+   ],
+   "effects": [
+    {
+     "flag": "rmf_proof"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "next": "court"
+  },
+  "paid": {
+   "art": "backroom",
+   "text": [
+    "帳箱に、証人七人のうち五人への払いが書かれていた。「封印の礼」として、一人二百。",
+    "額は小さい。小さいから、誰も隠さずに書いていた。"
+   ],
+   "effects": [
+    {
+     "flag": "rmf_proof"
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    }
+   ],
+   "next": "court"
+  },
+  "dogs": {
+   "art": "war",
+   "text": [
+    "中庭を抜けようとしたところで、犬を連れた下男が二人、角を曲がってきた。"
+   ],
+   "choices": [
+    {
+     "label": "押し通る",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "court",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "塀を越えて引く",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "court",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "court": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "{palace}の法廷に出る",
+   "speaker": "jurist",
+   "art": "court",
+   "text": [
+    "法廷は{palace}の柱廊に開かれた。{house}は被護民を二十人連れてきて、後ろに並べた。数は、それだけで声になる。",
+    "{client}は蝋板を胸に抱えて、一言も発さなかった。"
+   ],
+   "choices": [
+    {
+     "label": "削り跡を示す",
+     "if": {
+      "flag": "rmf_proof"
+     },
+     "next": "end_won"
+    },
+    {
+     "label": "十二表法の条をそのまま読み上げる",
+     "if": {
+      "flag": "rmf_law"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_won",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "弁論一本で押す",
+     "check": {
+      "skill": "speech",
+      "dc": 55,
+      "win": "end_won",
+      "lose": "end_lost"
+     }
+    }
+   ]
+  },
+  "end_won": {
+   "text": [
+    "板の削り跡が読み上げられると、後ろに並んだ二十人のうち何人かが、そっと柱の陰へ下がった。",
+    "工房は{client}のものと定まった。轆轤が回り出したのは、その月の末だった。{client}は最初に焼いた壺を、代を取らずに渡してきた。"
+   ],
+   "effects": [
+    {
+     "item": "amphora",
+     "n": 2
+    },
+    {
+     "money": 200
+    },
+    {
+     "fame": 11
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{here}の解放奴隷の遺言を守り、工房を娘に残した。"
+    }
+   ],
+   "end": "回り出した轆轤"
+  },
+  "end_yield": {
+   "text": [
+    "「家の名」という言葉で、{house}は口を閉じた。噴水の水音だけが長く続いた。",
+    "翌日、旧主の家は訴えを引いた。恩を言い立てることは、やめなかった。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}の旧主の家に、解放奴隷の遺産の訴えを引かせた。"
+    }
+   ],
+   "end": "噴水の水音"
+  },
+  "end_settle": {
+   "text": [
+    "工房は家に、持参金は娘に。額は当初の三倍まで上がった。{client}は泣いたが、泣きながら頷いた。",
+    "轆轤は他人の手で回ることになった。{client}は都へ出て、壺の絵付けで食べていると後に聞いた。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "{here}の遺産争いを持参金で手打ちにした。"
+    }
+   ],
+   "end": "他人の手で回る轆轤"
+  },
+  "end_lost": {
+   "text": [
+    "並んだ二十人の声が勝った。板は「疑わしい」とされ、工房は旧主の家に移った。",
+    "{client}は蝋板を抱えたまま、柱廊を出ていった。板は、返してもらえた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "{here}の遺産争いに敗れ、工房は旧主の家に移った。"
+    }
+   ],
+   "end": "返された板"
+  },
+  "end_beaten": {
+   "text": [
+    "犬に腿を噛まれ、塀の外へ転がった。手当てをしてくれたのは、工房の{client}だった。"
+   ],
+   "effects": [
+    {
+     "hp": -22
+    }
+   ],
+   "end": "塀の外"
+  }
+ }
+}

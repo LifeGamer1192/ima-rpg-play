@@ -1,0 +1,477 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_guild2",
+ "kind": "rank",
+ "guildTo": 2,
+ "title": "四日後の十字",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "cross": {
+   "place": "near:here"
+  },
+  "boss": {
+   "npc": "捕らえられた頭",
+   "sex": "m"
+  },
+  "second": {
+   "npc": "銭を数えている二番手",
+   "sex": "m"
+  },
+  "guardsman": {
+   "npc": "護送の兵の組頭",
+   "sex": "m"
+  },
+  "widow": {
+   "npc": "頭の女房",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏で一党に集まる",
+   "speaker": "second",
+   "art": "backroom",
+   "text": [
+    "土間に八人。{second}が銭の革袋を膝に抱えていた。",
+    "「頭は{cross}の辻で、四日後に十字にかけられる。護送は兵が六人。助けに行けば、六人が十二人になるだけだ」",
+    "「一党は頭が要る。わたしが継ぐのが順だ。異存は」"
+   ],
+   "choices": [
+    {
+     "label": "「順より先に、頭を取り戻す」と言う",
+     "next": "s2"
+    },
+    {
+     "label": "{widow}に会い、頭の意向を聞く",
+     "next": "s2widow"
+    },
+    {
+     "label": "{second}の革袋の中身を数えさせる",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "s2purse",
+      "lose": "s2"
+     }
+    }
+   ]
+  },
+  "s2widow": {
+   "speaker": "widow",
+   "art": "tale",
+   "text": [
+    "{widow}は竈の前で豆を煮ていた。手は止まらない。",
+    "「あの人は、助けに来るなと言っています。来れば、一党が半分死ぬと」",
+    "「ただ……{second}には渡すなと。あの人は、砦の銭の帳を二つ持っています」"
+   ],
+   "effects": [
+    {
+     "flag": "rm_g2_widow"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "s2"
+  },
+  "s2purse": {
+   "art": "trade",
+   "text": [
+    "革袋の中は、思ったより軽い。頭が溜めていたはずの額の三分の一だ。",
+    "{second}は「使った」と言った。何に使ったかは言わなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_g2_purse"
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "cross"
+   },
+   "goal": "{cross}の辻と護送の道を見る",
+   "speaker": "guardsman",
+   "art": "road",
+   "text": [
+    "{cross}の辻に、柱が二本立てられていた。護送は街道を三日かけて来る。道は一本、沢を二度渡る。",
+    "{guardsman}は宿場の卓で酒を飲んでいた。手の甲に、古い火傷がある。給金は、七月遅れているという。"
+   ],
+   "choices": [
+    {
+     "label": "沢の渡しで荷車を襲い、頭を奪う",
+     "next": "s3raid"
+    },
+    {
+     "label": "{guardsman}に給金の七月分を積む",
+     "if": {
+      "money": 1500
+     },
+     "effects": [
+      {
+       "money": -1500
+      },
+      {
+       "flag": "rm_g2_bought"
+      }
+     ],
+     "next": "s3quiet"
+    },
+    {
+     "label": "{guardsman}に、火傷の由来を聞いてから話す",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s3quiet",
+      "lose": "s3raid"
+     }
+    }
+   ]
+  },
+  "s3quiet": {
+   "speaker": "guardsman",
+   "art": "backroom",
+   "text": [
+    "{guardsman}は杯を置いた。「沢の二度めの渡しで、縄が解けることがあります。石が滑るので」",
+    "「解けた者を追うのは、わたしの務めです。追います。……日が落ちてから、ゆっくりと」"
+   ],
+   "effects": [
+    {
+     "flag": "rm_g2_deal"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3raid": {
+   "at": {
+    "place": "cross"
+   },
+   "goal": "沢の渡しで護送を襲う",
+   "art": "war",
+   "text": [
+    "沢の二度めの渡しで、荷車が石に乗り上げた。兵が六人、水の中で足を取られている。"
+   ],
+   "choices": [
+    {
+     "label": "藪から出て押さえ込む",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4",
+      "lose": "fail_raid"
+     }
+    },
+    {
+     "label": "荷車の縄だけを切り、頭を水に落として流す",
+     "check": {
+      "skill": "theft",
+      "dc": 30,
+      "win": "s4",
+      "lose": "fail_raid"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}へ戻り、一党の前に立つ",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "頭は土間に座り、手首の縄の跡を見ていた。八人が壁際に並び、{second}は革袋を膝から下ろしていない。",
+    "{boss}が言った。「助けに来るなと言ったはずだ」——そして、少し笑った。「一党は、誰が率いる」"
+   ],
+   "choices": [
+    {
+     "label": "{second}の二つの帳を出させ、一党の前で読む",
+     "if": {
+      "flag": "rm_g2_purse"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "win_books",
+      "lose": "s4fight"
+     }
+    },
+    {
+     "label": "頭の女房の言葉を伝え、頭にそのまま続けさせる",
+     "if": {
+      "flag": "rm_g2_widow"
+     },
+     "next": "win_keep"
+    },
+    {
+     "label": "護送の組頭と結んだことを明かし、頭の道を一本作ったと言う",
+     "if": {
+      "flag": "rm_g2_deal"
+     },
+     "next": "win_road"
+    },
+    {
+     "label": "{second}と決着をつける",
+     "next": "s4fight"
+    }
+   ]
+  },
+  "s4fight": {
+   "art": "duel",
+   "text": [
+    "{second}は革袋を壁に投げ、腰の刃を抜いた。「順は、わたしだ」"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 4,
+      "win": "win_fight",
+      "lose": "fail_lost"
+     }
+    },
+    {
+     "label": "刃を使わず、組み伏せる",
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "win_fight",
+      "lose": "fail_lost"
+     }
+    }
+   ]
+  },
+  "win_books": {
+   "speaker": "boss",
+   "text": [
+    "二つの帳が土間に並べられた。一党に見せる帳と、{second}だけの帳。差は、半年ぶんの稼ぎだった。",
+    "{boss}は縄の跡を撫でて言った。「おれは十字を見てきた。帳を二つ書く奴は、もう見たくない」",
+    "「一党の頭はお前だ。おれは、女房の豆を食う」"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 400
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "unflag": "rm_g2_widow"
+    },
+    {
+     "unflag": "rm_g2_purse"
+    },
+    {
+     "unflag": "rm_g2_bought"
+    },
+    {
+     "unflag": "rm_g2_deal"
+    },
+    {
+     "note": "二番手の二つの帳を暴き、一党の頭となった。前の頭は退いた。"
+    }
+   ],
+   "end": "帳を二つ書く奴"
+  },
+  "win_keep": {
+   "speaker": "widow",
+   "text": [
+    "「あの人は、来るなと言いました。来るなと言う人に、一党は任せられます」——そう言うと、土間が静かになった。",
+    "{boss}は頭のままで、こちらを「頭の次」と呼んだ。一党は二人の名で動くようになった。{second}は三月後に出ていった。"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 250
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "unflag": "rm_g2_widow"
+    },
+    {
+     "unflag": "rm_g2_purse"
+    },
+    {
+     "unflag": "rm_g2_bought"
+    },
+    {
+     "unflag": "rm_g2_deal"
+    },
+    {
+     "note": "前の頭を立てたまま一党の頭となった。二人の名で動く一党になった。"
+    }
+   ],
+   "end": "二人の名"
+  },
+  "win_road": {
+   "speaker": "guardsman",
+   "text": [
+    "護送の組頭と結んだことを明かすと、八人が顔を見合わせた。兵に道を作れる手下は、一党では珍しい。",
+    "{boss}は縄の跡を見せた。「おれは、縄が解けるのを待つしかなかった。待つ側より、解く側がいい」",
+    "「頭をやれ。組頭との話は、お前が続けろ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    },
+    {
+     "flag": "rm_g2_tie"
+    },
+    {
+     "unflag": "rm_g2_widow"
+    },
+    {
+     "unflag": "rm_g2_purse"
+    },
+    {
+     "unflag": "rm_g2_bought"
+    },
+    {
+     "unflag": "rm_g2_deal"
+    },
+    {
+     "note": "護送の組頭と結んで頭を取り戻し、一党の頭となった。組頭との縁が残った。"
+    }
+   ],
+   "end": "解く側"
+  },
+  "win_fight": {
+   "speaker": "boss",
+   "text": [
+    "{second}は土間に組み伏せられ、革袋は壁際に転がったままだった。",
+    "{boss}が足で袋を寄せた。「順は、立っている奴だ。頭をやれ」",
+    "{second}はその夜、荷をまとめて出ていった。革袋の三分の一は、戻らなかった。"
+   ],
+   "effects": [
+    {
+     "guildRank": 2
+    },
+    {
+     "money": 200
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "unflag": "rm_g2_widow"
+    },
+    {
+     "unflag": "rm_g2_purse"
+    },
+    {
+     "unflag": "rm_g2_bought"
+    },
+    {
+     "unflag": "rm_g2_deal"
+    },
+    {
+     "note": "二番手を組み伏せて一党の頭となった。"
+    }
+   ],
+   "end": "立っている奴"
+  },
+  "fail_raid": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}へ戻る",
+   "speaker": "second",
+   "art": "backroom",
+   "text": [
+    "沢で押し返され、二人が死んだ。頭は荷車に縛られたまま、{cross}へ運ばれていった。四日後、柱が二本立った。",
+    "{second}は革袋を抱えたまま、土間の真ん中に座った。「順は、わたしだ」"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "fame": -2
+    },
+    {
+     "unflag": "rm_g2_widow"
+    },
+    {
+     "unflag": "rm_g2_purse"
+    },
+    {
+     "unflag": "rm_g2_bought"
+    },
+    {
+     "unflag": "rm_g2_deal"
+    },
+    {
+     "note": "{cross}の十字を止められなかった。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "立った二本の柱"
+  },
+  "fail_lost": {
+   "art": "duel",
+   "text": [
+    "{second}の刃が脇に入った。土間に膝をついたところで、{boss}が「もうよい」と言った。順は、{second}になった。"
+   ],
+   "effects": [
+    {
+     "hp": -24
+    },
+    {
+     "unflag": "rm_g2_widow"
+    },
+    {
+     "unflag": "rm_g2_purse"
+    },
+    {
+     "unflag": "rm_g2_bought"
+    },
+    {
+     "unflag": "rm_g2_deal"
+    },
+    {
+     "note": "二番手に敗れた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "順は二番手"
+  }
+ }
+}

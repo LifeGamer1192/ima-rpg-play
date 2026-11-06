@@ -1,0 +1,460 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_rank6_counsel",
+ "kind": "rank",
+ "rankTo": 6,
+ "title": "翌朝も部屋にいる者",
+ "era": "fantasy",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "granary": {
+   "place": "near:cap"
+  },
+  "chamber": {
+   "npc": "先任の宮廷顧問",
+   "sex": "f"
+  },
+  "steward": {
+   "npc": "蔵の差配",
+   "sex": "m"
+  },
+  "bard": {
+   "npc": "宮廷の語り部",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の{palace}で先任の顧問に会う",
+   "speaker": "chamber",
+   "art": "court",
+   "text": [
+    "{chamber}は帳の束を膝に積み、頁を押さえた指を動かさずに言った。",
+    "「顧問の席は三つ。一つ空いた。前の顧問は、麦の帳が偽りだと申し上げて、翌朝には部屋にいなかった」",
+    "「同じことを申し上げて、翌朝も部屋にいられるなら、席はあなたのものです」"
+   ],
+   "choices": [
+    {
+     "label": "麦の帳を自分で確かめる",
+     "effects": [
+      {
+       "note": "麦の帳の偽りを王に申し上げ、翌朝も部屋にいられれば宮廷顧問となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "granary"
+   },
+   "goal": "{granary}の蔵を数える",
+   "speaker": "steward",
+   "art": "trade",
+   "text": [
+    "{granary}の蔵は十二。帳には、どの蔵も満ちていると書かれている。",
+    "{steward}は鍵束を鳴らした。「八番から十二番は、去年から開けておりません。開ける用がないのです」"
+   ],
+   "choices": [
+    {
+     "label": "八番から十二番を開けさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "s2empty",
+      "lose": "s2shut"
+     }
+    },
+    {
+     "label": "帳の入りと出を三年ぶん突き合わせる",
+     "check": {
+      "skill": "trade",
+      "dc": 34,
+      "win": "s2books",
+      "lose": "s2shut"
+     }
+    },
+    {
+     "label": "宮廷の語り部に、蔵の噂を集めさせる",
+     "next": "s2bard"
+    }
+   ]
+  },
+  "s2empty": {
+   "art": "disaster",
+   "text": [
+    "八番の扉が開いた。中は、床から人の膝までしか麦がない。九番は空。十番と十一番は、藁だけが積まれていた。",
+    "十二番は、麦が天井まであった。扉のすぐ内だけが。奥は空洞だった。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r6_seen"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{granary}の蔵は、帳では満ちているが実は五つが空に近い。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2books": {
+   "art": "court",
+   "text": [
+    "三年の入りと出を並べると、出が入りを毎年上回っていた。足りない分は「次年に繰る」と書かれている。三年繰ると、ちょうど蔵五つぶんになる。",
+    "書いたのは{steward}ではない。筆は宮廷のものだ。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r6_books"
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    }
+   ],
+   "next": "s3"
+  },
+  "s2bard": {
+   "speaker": "bard",
+   "art": "inn",
+   "text": [
+    "{bard}は竪琴を膝に伏せて笑った。「蔵の歌は三つあります。どれも『十二の蔵は満ちている』と歌います」",
+    "「歌を頼んだのは宮廷です。歌が三つあるということは、三度不安になった誰かがいるということです」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r6_song"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2shut": {
+   "art": "trade",
+   "text": [
+    "{steward}は鍵束を腰に戻した。「用がございませんので」——その日、蔵は一つも開かなかった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{palace}で王に申し上げる",
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は春の出兵の図を見ていた。線が三本、国境の外へ伸びている。",
+    "「麦のことか。前の顧問も、麦のことを言った」",
+    "言い方を決めなければならない。偽りだと言うか、出兵が無理だと言うか、蔵を開けて見せるか。"
+   ],
+   "choices": [
+    {
+     "label": "蔵を開けて、王に自分の目で見せる",
+     "if": {
+      "flag": "ft_r6_seen"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "win_look",
+      "lose": "s3anger"
+     }
+    },
+    {
+     "label": "「次年に繰る」の三年分を数で示す",
+     "if": {
+      "flag": "ft_r6_books"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "win_books",
+      "lose": "s3anger"
+     }
+    },
+    {
+     "label": "語り部に、蔵の歌を王の前で四つめとして歌わせる",
+     "if": {
+      "flag": "ft_r6_song"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "win_song",
+      "lose": "s3anger"
+     }
+    },
+    {
+     "label": "出兵の線を一本だけ消す案を出す",
+     "next": "win_one"
+    }
+   ]
+  },
+  "s3anger": {
+   "speaker": "ruler",
+   "art": "court",
+   "text": [
+    "{ruler}は図を巻いた。「前の顧問と同じ顔をしている。同じことを言う者は、同じ場所へ行く」",
+    "扉のところで、{chamber}が目だけでこちらを見ていた。"
+   ],
+   "choices": [
+    {
+     "label": "「翌朝も、この部屋にいます」と言って下がらない",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "win_stay",
+      "lose": "fail_out"
+     }
+    },
+    {
+     "label": "下がって、翌朝もう一度来る",
+     "next": "fail_out"
+    }
+   ]
+  },
+  "win_look": {
+   "speaker": "ruler",
+   "text": [
+    "{ruler}は馬で{granary}へ行き、九番の扉を自分の手で開けた。中は空だった。",
+    "帰りの馬上で、{ruler}は何も言わなかった。宮に戻ってから、出兵の線を二本消した。",
+    "翌朝、こちらは部屋にいた。{chamber}が帳の束を半分、こちらの机へ移した。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 18
+    },
+    {
+     "fame": 12
+    },
+    {
+     "rep": "patron",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "unflag": "ft_r6_seen"
+    },
+    {
+     "unflag": "ft_r6_books"
+    },
+    {
+     "unflag": "ft_r6_song"
+    },
+    {
+     "note": "王に空の蔵を自分の目で見せ、宮廷顧問となった。出兵の線が二本消えた。"
+    }
+   ],
+   "end": "半分移された帳"
+  },
+  "win_books": {
+   "speaker": "chamber",
+   "text": [
+    "「次年に繰る」が三年続けば、繰った先に蔵は無い。数が三つ並んだところで、{ruler}は図を置いた。",
+    "{chamber}が低く言った。「数で申し上げた顧問は、部屋に残ります。言葉で申し上げた顧問は、残りません」"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 16
+    },
+    {
+     "fame": 10
+    },
+    {
+     "rep": "patron",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 7
+    },
+    {
+     "unflag": "ft_r6_seen"
+    },
+    {
+     "unflag": "ft_r6_books"
+    },
+    {
+     "unflag": "ft_r6_song"
+    },
+    {
+     "note": "麦の帳の「次年に繰る」を三年分の数で示し、宮廷顧問となった。"
+    }
+   ],
+   "end": "数で申し上げた者"
+  },
+  "win_song": {
+   "speaker": "bard",
+   "text": [
+    "{bard}は四つめの歌を歌った。十二の蔵のうち五つが藁である、という歌を、宮の広間で。",
+    "{ruler}は最後まで聞いて、拍手を一度した。「歌は消せぬ。消せぬものを作ったのは、そちらだ」",
+    "翌朝、{bard}は宮を出ていった。こちらは部屋にいた。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 16
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "unflag": "ft_r6_seen"
+    },
+    {
+     "unflag": "ft_r6_books"
+    },
+    {
+     "unflag": "ft_r6_song"
+    },
+    {
+     "note": "蔵の四つめの歌を王の前で歌わせ、宮廷顧問となった。語り部は宮を出た。"
+    }
+   ],
+   "end": "消せぬ歌"
+  },
+  "win_one": {
+   "speaker": "ruler",
+   "text": [
+    "「三本のうち、一本だけ消しませんか」——麦のことは言わず、線のことだけを言った。",
+    "{ruler}は一本を消した。「麦が足りぬのだろう。言わずに済ませたのは、気に入った」",
+    "翌朝、こちらは部屋にいた。蔵は、五つとも空のままだった。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 14
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "unflag": "ft_r6_seen"
+    },
+    {
+     "unflag": "ft_r6_books"
+    },
+    {
+     "unflag": "ft_r6_song"
+    },
+    {
+     "note": "麦には触れず出兵の線を一本消させ、宮廷顧問となった。蔵は空のままだ。"
+    }
+   ],
+   "end": "言わずに済ませる"
+  },
+  "win_stay": {
+   "speaker": "ruler",
+   "text": [
+    "「翌朝も、この部屋にいます」——下がらなかった。{ruler}は長いこと黙り、それから図を開き直した。",
+    "「おるなら、おれ。ただし、麦のことは二度言うな」——二度言わずに済むように、蔵を数え直す役が付いた。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "unflag": "ft_r6_seen"
+    },
+    {
+     "unflag": "ft_r6_books"
+    },
+    {
+     "unflag": "ft_r6_song"
+    },
+    {
+     "note": "王の前から下がらずに宮廷顧問となった。麦のことは二度言えない。"
+    }
+   ],
+   "end": "二度言うな"
+  },
+  "fail_out": {
+   "at": {
+    "place": "cap",
+    "building": "inn"
+   },
+   "goal": "{cap}の{inn}で朝を迎える",
+   "speaker": "chamber",
+   "art": "inn",
+   "text": [
+    "翌朝、宮の門で名が呼ばれなかった。顧問の席は、三つのまま二人で回されている。",
+    "{chamber}が宿まで来て、帳を一冊置いていった。「読んでおきなさい。席は、また空きます」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "unflag": "ft_r6_seen"
+    },
+    {
+     "unflag": "ft_r6_books"
+    },
+    {
+     "unflag": "ft_r6_song"
+    },
+    {
+     "note": "麦のことを申し上げて宮を出された。覚えを取り戻せば、また試される。"
+    }
+   ],
+   "end": "席は、また空きます"
+  }
+ }
+}

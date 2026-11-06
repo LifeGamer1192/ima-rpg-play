@@ -1,0 +1,402 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_soothsayer_field",
+ "kind": "random",
+ "where": "market",
+ "most": 2,
+ "again": 320,
+ "hook": "占い師の言葉で、皆が畑を十分の一の値で売っております",
+ "title": "秋までの予言",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "畑を売りかけた男"
+  },
+  "seer": {
+   "npc": "辻の占い師",
+   "sex": "f"
+  },
+  "buyer": {
+   "npc": "畑を買い集める者",
+   "sex": "m"
+  },
+  "augur": {
+   "folk": "卜占を学ぶ者",
+   "tags": [
+    "学",
+    "僧"
+   ]
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{market}の端に人の輪ができ、その真ん中で女が砂に何かを書いていた。輪の外では、畑の権利の板が売り買いされている。",
+    "{client}が板を握ったまま言った。「秋には焼かれると言われました。焼かれる畑を抱えて死ぬより、十分の一でも銭にしたい。……そう思ったのですが、妻が泣きまして」"
+   ],
+   "choices": [
+    {
+     "label": "占い師の{seer}の話を聞く",
+     "next": "seer"
+    },
+    {
+     "label": "畑を買い集めている{buyer}を見に行く",
+     "next": "buyer"
+    },
+    {
+     "label": "卜占を学ぶ{augur}に、予言の筋を聞く",
+     "next": "augur"
+    }
+   ]
+  },
+  "seer": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "占い師の{seer}の話を聞く",
+   "speaker": "seer",
+   "art": "faith",
+   "text": [
+    "{seer}は砂に鳥の足跡のような線を引いた。「北から灰が来ます。秋の、月の欠けるころに」",
+    "「わたしは見えるものを言うだけです。銭は、聞いた人が置いていきます」",
+    "足もとの布の上に、銅貨が散っている。その中に、一枚だけ新しい銀貨があった。"
+   ],
+   "choices": [
+    {
+     "label": "銀貨の出どころを問う",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "paid",
+      "lose": "buyer"
+     }
+    },
+    {
+     "label": "予言の筋を卜占の作法で崩す",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_broken",
+      "lose": "buyer"
+     }
+    },
+    {
+     "label": "銭を置いて、自分のことを占わせる",
+     "effects": [
+      {
+       "money": -40
+      }
+     ],
+     "next": "augur"
+    }
+   ]
+  },
+  "paid": {
+   "speaker": "seer",
+   "art": "backroom",
+   "text": [
+    "{seer}は銀貨を握り込んだ。「毎月、同じ人が同じ額を置いていきます。言う内容は、わたしが決めます。ただ、北から、秋に、と」",
+    "「わたしは嘘を言っておりません。灰は、いつか来ます」"
+   ],
+   "effects": [
+    {
+     "flag": "rmp_paid"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "{buyer}に突きつける",
+     "next": "buyer"
+    },
+    {
+     "label": "{market}の輪に向かって、銀貨のことを言う",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_broken",
+      "lose": "mob"
+     }
+    }
+   ]
+  },
+  "augur": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{augur}に予言の筋を聞く",
+   "speaker": "augur",
+   "art": "lecture",
+   "text": [
+    "{augur}は筆を置いた。「卜占は問いを立ててから兆しを見ます。あの女は兆しだけを言う。作法が逆です」",
+    "「それに、北から来るなら、まず上の町が焼かれます。上の町では、畑の値は下がっておりません」"
+   ],
+   "effects": [
+    {
+     "flag": "rmp_logic"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "上の町の畑の値を調べて並べる",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_broken",
+      "lose": "buyer"
+     }
+    },
+    {
+     "label": "{augur}を{market}に連れていき、人の前で言わせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_broken",
+      "lose": "mob"
+     }
+    }
+   ]
+  },
+  "buyer": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "畑を買い集める{buyer}に会う",
+   "speaker": "buyer",
+   "art": "trade",
+   "text": [
+    "{buyer}は板を数えていた。三十七枚。畑の権利が、三十七枚。",
+    "「売りたい者から買っております。買わねば、あの者たちは銭を得られません。わたしは、善いことをしております」"
+   ],
+   "choices": [
+    {
+     "label": "占い師に銀貨を渡していたことを突きつける",
+     "if": {
+      "flag": "rmp_paid"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_undone",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "予言の作法の穴を示し、買いを止めさせる",
+     "if": {
+      "flag": "rmp_logic"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_undone",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "板を買い戻す値を競る",
+     "check": {
+      "skill": "trade",
+      "dc": 50,
+      "win": "end_back",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "自分も値の下がった畑を買う",
+     "if": {
+      "money": 1500
+     },
+     "effects": [
+      {
+       "money": -1500
+      }
+     ],
+     "next": "end_bought"
+    }
+   ]
+  },
+  "mob": {
+   "art": "disaster",
+   "text": [
+    "輪の中の誰かが「この者は売らせたいのだ」と叫んだ。板が投げられ、砂の絵が踏み消された。",
+    "{seer}は布を掴んで逃げた。銅貨が石畳に散った。"
+   ],
+   "choices": [
+    {
+     "label": "板を拾い、一枚ずつ名を読み上げて落ち着かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_back",
+      "lose": "end_sold"
+     }
+    },
+    {
+     "label": "輪を押し分けて{buyer}のところへ行く",
+     "next": "buyer"
+    }
+   ]
+  },
+  "thugs": {
+   "art": "war",
+   "text": [
+    "{buyer}が板を懐に入れると、荷車の陰から日雇いの男が三人、手拭いを巻きながら出てきた。"
+   ],
+   "choices": [
+    {
+     "label": "打ち返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_undone",
+      "lose": "end_sold"
+     }
+    },
+    {
+     "label": "人の多い方へ退く",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_back",
+      "lose": "end_sold"
+     }
+    }
+   ]
+  },
+  "end_broken": {
+   "text": [
+    "「北から来るなら、上の町が先に焼ける。上の町の畑は、値が下がっていない」——その一言で、輪が解けた。",
+    "翌日には、畑の板の値が元に戻った。{client}は板を妻に渡した。妻は、二度泣いた。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 11
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{here}の畑を安く売らせていた予言の筋を崩した。"
+    }
+   ],
+   "end": "二度泣いた妻"
+  },
+  "end_undone": {
+   "text": [
+    "占い師に銀貨を渡していたのは{buyer}だった。公会所は売り買いを三十日止め、売った者に買い戻しの道を開いた。",
+    "三十七枚のうち二十九枚が戻った。戻らなかった八枚は、すでに別の手に渡っていた。"
+   ],
+   "effects": [
+    {
+     "money": 350
+    },
+    {
+     "fame": 13
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{here}で予言を買って畑を集めていた者を暴き、二十九枚を戻させた。"
+    }
+   ],
+   "end": "戻らなかった八枚"
+  },
+  "end_back": {
+   "text": [
+    "板の買い戻しの値を競り、元の値の三割で手を打たせた。売った者は損をし、損を半分だけ取り返した。",
+    "{client}は言った。「半分なら、妻に説明できます」"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{here}で安く売られた畑の板を、三割の値で買い戻させた。"
+    }
+   ],
+   "end": "説明できる半分"
+  },
+  "end_bought": {
+   "text": [
+    "値の下がった畑を三枚買った。秋は来て、灰は来なかった。畑の値は十倍に戻った。",
+    "{client}とは、それから目が合わなくなった。"
+   ],
+   "effects": [
+    {
+     "money": 4000
+    },
+    {
+     "fame": -4
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "{here}で予言に怯えた者から、畑を安く買った。"
+    }
+   ],
+   "end": "合わなくなった目"
+  },
+  "end_sold": {
+   "text": [
+    "輪は夕まで解けず、板は売られ続けた。秋が来て、灰は来なかった。",
+    "{client}の畑は{buyer}のものになり、{client}はその畑で小作として働くことになった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{here}の畑は予言のまま安く売られ、売った者が小作になった。"
+    }
+   ],
+   "end": "自分の畑の小作"
+  }
+ }
+}

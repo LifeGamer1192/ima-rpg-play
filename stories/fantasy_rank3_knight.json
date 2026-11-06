@@ -1,0 +1,447 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_rank3_knight",
+ "kind": "rank",
+ "rankTo": 3,
+ "title": "通り過ぎた巡回",
+ "era": "fantasy",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "village": {
+   "place": "near:cap"
+  },
+  "master": {
+   "npc": "騎士団の団長",
+   "sex": "m"
+  },
+  "rider": {
+   "npc": "巡回に出ていた騎士",
+   "sex": "m"
+  },
+  "girl": {
+   "npc": "焼けた村の娘",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "shrine"
+   },
+   "goal": "{cap}の{shrine}で一晩の通夜に立つ",
+   "speaker": "master",
+   "art": "faith",
+   "text": [
+    "{master}は祭壇に剣を横たえた。「騎士の叙任には、通夜が要る。一晩、ここに立て」",
+    "「それと、問いが一つある。先月、{village}が焼かれた。巡回の一隊が、焼ける村の横を通って帰ってきた」",
+    "「朝までに、何があったかを答えよ。答え方も見る」"
+   ],
+   "choices": [
+    {
+     "label": "剣の前に立ち、朝まで考える",
+     "effects": [
+      {
+       "note": "{village}が焼けた夜に何があったかを答えれば、騎士に叙される。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "barracks"
+   },
+   "goal": "巡回に出ていた騎士に会う",
+   "speaker": "rider",
+   "art": "camp",
+   "text": [
+    "{rider}は鞍を磨く手を止めずに言った。「通りました。見ました。通りました」",
+    "「隊の任は、街道の見回りです。村は街道から半里ある。半里外れたら、任ではありません」",
+    "「……半里です。馬で、ひと息です」"
+   ],
+   "choices": [
+    {
+     "label": "隊の命令書を見せてもらう",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s2order",
+      "lose": "s2hard"
+     }
+    },
+    {
+     "label": "{village}へ行き、残った者に聞く",
+     "next": "s2village"
+    },
+    {
+     "label": "{rider}に、なぜ曲がらなかったかを問う",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s2why",
+      "lose": "s2hard"
+     }
+    }
+   ]
+  },
+  "s2order": {
+   "art": "lecture",
+   "text": [
+    "命令書には「街道を離れるな」と書かれていた。書いたのは{master}だ。日付は、村が焼けた日の三日前。",
+    "その三日前に、街道で商隊が二つ襲われている。離れるなと書いた理由は、ちゃんとある。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r3_order"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "巡回に「街道を離れるな」と命じたのは団長自身だった。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2why": {
+   "speaker": "rider",
+   "art": "camp",
+   "text": [
+    "{rider}は鞍を置いた。「十四人でした。村を焼いていたのは、三十以上います」",
+    "「曲がれば、十四人が死にます。曲がらなければ、村が焼けます。……わたしは、数を数えました」",
+    "「数えたことを、団長には言っておりません。言えば、数えたことが罪になる」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r3_count"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2village": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の残った者に聞く",
+   "speaker": "girl",
+   "art": "ruins",
+   "text": [
+    "焼け跡に、まだ煤の匂いが残っていた。{girl}は井戸の縁に座っていた。",
+    "「馬の音が、二度しました。来て、止まって、行きました」",
+    "「止まったのを、覚えています。止まってくれたのだと思って、わたしは走りました。間に合いませんでした」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r3_stop"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hard": {
+   "art": "camp",
+   "text": [
+    "{rider}は鞍を磨き続け、それ以上は何も言わなかった。夜が深くなっていく。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "cap",
+    "building": "shrine"
+   },
+   "goal": "{shrine}で朝を待つ",
+   "wait": {
+    "days": 1
+   },
+   "art": "faith",
+   "text": [
+    "祭壇の剣は、夜のあいだ一度も動かなかった。灯の油が減っていくのだけが時計だった。",
+    "朝が白む前に、{master}の足音が聞こえた。"
+   ],
+   "choices": [
+    {
+     "label": "「止まった」ことから話す",
+     "if": {
+      "flag": "ft_r3_stop"
+     },
+     "next": "s4"
+    },
+    {
+     "label": "命令書から話す",
+     "if": {
+      "flag": "ft_r3_order"
+     },
+     "next": "s4"
+    },
+    {
+     "label": "数を数えた騎士のことから話す",
+     "if": {
+      "flag": "ft_r3_count"
+     },
+     "next": "s4"
+    },
+    {
+     "label": "「巡回は任のとおりに動きました」と答える",
+     "next": "win_clean"
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "cap",
+    "building": "shrine"
+   },
+   "goal": "団長に答える",
+   "speaker": "master",
+   "art": "faith",
+   "text": [
+    "{master}は剣を取り上げず、祭壇の縁に手を置いた。「続けろ」",
+    "答えの先に、何を求めるかを決めなければならない。騎士の章か、巡回の命令書の書き換えか、十四人の名誉か。"
+   ],
+   "choices": [
+    {
+     "label": "命令書に「焼ける家が見えたら曲がれ」の一行を加えさせる",
+     "if": {
+      "flag": "ft_r3_order"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "win_line",
+      "lose": "fail_silent"
+     }
+    },
+    {
+     "label": "数を数えた騎士を庇い、隊の判断は正しかったと言う",
+     "if": {
+      "flag": "ft_r3_count"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "win_rider",
+      "lose": "fail_silent"
+     }
+    },
+    {
+     "label": "{girl}を団長の前に立たせ、「止まった」を聞かせる",
+     "if": {
+      "flag": "ft_r3_stop"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "win_girl",
+      "lose": "fail_silent"
+     }
+    },
+    {
+     "label": "答えを濁し、通夜を終える",
+     "next": "fail_silent"
+    }
+   ]
+  },
+  "win_line": {
+   "speaker": "master",
+   "text": [
+    "「焼ける家が見えたら曲がれ。曲がった隊の損は、団が負う」——その一行が、命令書に加えられた。",
+    "{master}は祭壇の剣をこちらの肩に置いた。「わたしの書いたものを直させた者を、騎士にする。……それが、いちばん団のためだ」"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 14
+    },
+    {
+     "fame": 7
+    },
+    {
+     "rep": "patron",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "unflag": "ft_r3_order"
+    },
+    {
+     "unflag": "ft_r3_count"
+    },
+    {
+     "unflag": "ft_r3_stop"
+    },
+    {
+     "note": "巡回の命令書に「焼ける家が見えたら曲がれ」を加えさせ、騎士に叙された。"
+    }
+   ],
+   "end": "加えられた一行"
+  },
+  "win_rider": {
+   "speaker": "rider",
+   "text": [
+    "「十四人で三十に当たるのは、村を焼かせぬためではなく、十四人を焼くためです」——そう言った。",
+    "{master}は{rider}を呼び、肩を叩いた。叩いただけで、何も言わなかった。",
+    "{rider}は後で言った。「数えたことを、庇ってくださった。……数えたことは、やはり罪です」"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "unflag": "ft_r3_order"
+    },
+    {
+     "unflag": "ft_r3_count"
+    },
+    {
+     "unflag": "ft_r3_stop"
+    },
+    {
+     "note": "巡回の騎士の判断を庇い、騎士に叙された。"
+    }
+   ],
+   "end": "やはり罪です"
+  },
+  "win_girl": {
+   "speaker": "girl",
+   "text": [
+    "{girl}は祭壇の前で、同じことを言った。「馬が、止まりました」",
+    "{master}は長いこと動かなかった。それから、剣をこちらではなく{girl}の方に向けて横たえた。",
+    "「団は{village}を建て直す。費用は、わたしの家から出す」——そして、こちらを騎士に叙した。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 10
+    },
+    {
+     "rep": "patron",
+     "n": 2
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "unflag": "ft_r3_order"
+    },
+    {
+     "unflag": "ft_r3_count"
+    },
+    {
+     "unflag": "ft_r3_stop"
+    },
+    {
+     "note": "焼けた村の娘を団長の前に立たせ、村の建て直しを約させた。騎士に叙された。"
+    }
+   ],
+   "end": "娘の方へ向けた剣"
+  },
+  "win_clean": {
+   "speaker": "master",
+   "text": [
+    "「巡回は任のとおりに動きました」——{master}は頷き、剣を肩に置いた。",
+    "叙任は済んだ。{rider}はその後、巡回に出るたびに街道を離れなかった。{village}は建て直されなかった。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "ft_r3_order"
+    },
+    {
+     "unflag": "ft_r3_count"
+    },
+    {
+     "unflag": "ft_r3_stop"
+    },
+    {
+     "note": "巡回は任のとおりだったと答え、騎士に叙された。{village}は建て直されなかった。"
+    }
+   ],
+   "end": "建て直されなかった村"
+  },
+  "fail_silent": {
+   "at": {
+    "place": "cap",
+    "building": "shrine"
+   },
+   "goal": "{shrine}で通夜を終える",
+   "speaker": "master",
+   "art": "faith",
+   "text": [
+    "答えは出なかった。{master}は剣を祭壇から取り、鞘に納めた。",
+    "「一晩立てば騎士になれるのなら、誰でも騎士だ。問いを持って、また来い」"
+   ],
+   "effects": [
+    {
+     "favor": -8
+    },
+    {
+     "unflag": "ft_r3_order"
+    },
+    {
+     "unflag": "ft_r3_count"
+    },
+    {
+     "unflag": "ft_r3_stop"
+    },
+    {
+     "note": "騎士団の問いに答えられなかった。覚えを取り戻せば、また試される。"
+    }
+   ],
+   "end": "鞘に納められた剣"
+  }
+ }
+}

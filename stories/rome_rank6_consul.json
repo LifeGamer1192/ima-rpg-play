@@ -1,0 +1,415 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_rank6_consul",
+ "kind": "rank",
+ "rankTo": 6,
+ "title": "票は順に呼ばれる",
+ "era": "rome",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "field": {
+   "place": "near:cap"
+  },
+  "rival": {
+   "npc": "対立候補",
+   "sex": "m"
+  },
+  "broker": {
+   "npc": "票の取りまとめ",
+   "sex": "m"
+  },
+  "veteran": {
+   "npc": "第一の百人隊の古参",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の{palace}で{minister}に会う",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は候補の名を並べた板を見せた。名は四つ。そのうち一つがこちらで、一つが{rival}だ。",
+    "「選挙は民会で、百人隊ごとに票が呼ばれる。順がある。先に呼ばれた百人隊が決めれば、後の者はそれに従う。従うのが作法だからだ」",
+    "「最初に呼ばれる第一の百人隊を取れ。取り方は問わぬ。……問わぬと言っておく」"
+   ],
+   "choices": [
+    {
+     "label": "候補として名を出し、票を集めにかかる",
+     "effects": [
+      {
+       "note": "第一の百人隊の票を取れば、執政官に選ばれる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "market"
+   },
+   "goal": "{cap}で票の取りまとめに会う",
+   "speaker": "broker",
+   "art": "trade",
+   "text": [
+    "{broker}は布袋を膝に乗せて笑った。「第一の百人隊は、騎士級の者ばかりです。銭では動きません。動くのは、二番めからです」",
+    "「第一を動かすのは三つ。家の名。戦の名。そして、誰かの借りです」",
+    "「{rival}どのは、家の名でお見えです。家の名では、勝てませんな」"
+   ],
+   "choices": [
+    {
+     "label": "{field}の退役兵を訪ね、戦の名で第一に迫る",
+     "next": "s3vets"
+    },
+    {
+     "label": "二番め以降を銭で固め、第一に流れを作る",
+     "if": {
+      "money": 4000
+     },
+     "effects": [
+      {
+       "money": -4000
+      },
+      {
+       "flag": "rm_r6_bought"
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "第一の百人隊の者が抱える借りを買い取る",
+     "check": {
+      "skill": "trade",
+      "dc": 36,
+      "win": "s3debt",
+      "lose": "s3"
+     }
+    }
+   ]
+  },
+  "s3vets": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}の退役兵を訪ねる",
+   "speaker": "veteran",
+   "art": "camp",
+   "text": [
+    "{field}の畑で、{veteran}が鋤を立てて汗を拭いた。腕に古い傷が三本。",
+    "「票はございます。第一の百人隊に、あの戦で生きて帰った者が十一人おります」",
+    "「ですが、票は買い物ではありません。あの戦のとき、あなたがどこに立っていたかで決まります」"
+   ],
+   "choices": [
+    {
+     "label": "自分が立っていた場所を、ありのまま話す",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s3name",
+      "lose": "s3cold"
+     }
+    },
+    {
+     "label": "退役兵の畑の訴えを引き受けると約す",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s3name",
+      "lose": "s3cold"
+     }
+    },
+    {
+     "label": "十一人に銭を配る",
+     "if": {
+      "money": 2200
+     },
+     "effects": [
+      {
+       "money": -2200
+      },
+      {
+       "flag": "rm_r6_bought"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s3name": {
+   "art": "camp",
+   "text": [
+    "{veteran}は長いこと黙り、それから畑の向こうの十軒を指した。「あそこと、あそこ。順に回ってください。わたしが先に歩きます」",
+    "十一人のうち九人が、名を貸すと言った。あとの二人は「考える」と言い、二日後に考え終えた。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r6_name"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "第一の百人隊の古参十一人のうち十一人が、票を貸すと言った。"
+    }
+   ],
+   "next": "s4"
+  },
+  "s3debt": {
+   "art": "trade",
+   "text": [
+    "第一の百人隊の七人が、同じ両替商に借りを抱えていた。借りを買い取れば、七人はこちらに頭を下げる。",
+    "下げた頭は、票を数えるときには見えない。見えないが、数には入る。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r6_debt"
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    }
+   ],
+   "next": "s4"
+  },
+  "s3cold": {
+   "art": "camp",
+   "text": [
+    "{veteran}は鋤を取り、畑に戻った。「わたしは、あの戦のことを忘れたい口です」"
+   ],
+   "next": "s4"
+  },
+  "s3": {
+   "art": "trade",
+   "text": [
+    "{broker}の布袋が軽くなり、二番め以降の百人隊が静かになった。静けさは、票ではない。"
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "cap"
+   },
+   "goal": "民会の日、第一の百人隊の票を待つ",
+   "wait": {
+    "days": 6
+   },
+   "speaker": "rival",
+   "art": "court",
+   "text": [
+    "民会の原に柵が立てられ、百人隊ごとに囲いができた。{rival}は白い外套で、家の者を二十人後ろに並べている。",
+    "「古い家が、古い順に呼ばれる。それが共和政だ」{rival}はそう言って、こちらの外套の裾を見た。",
+    "第一の百人隊が呼ばれた。"
+   ],
+   "choices": [
+    {
+     "label": "古参十一人の名で、第一に立つ",
+     "if": {
+      "flag": "rm_r6_name"
+     },
+     "next": "win_name"
+    },
+    {
+     "label": "借りを抱えた七人に、囲いの中で頷かせる",
+     "if": {
+      "flag": "rm_r6_debt"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "win_debt",
+      "lose": "fail_lost"
+     }
+    },
+    {
+     "label": "銭で固めた二番め以降を先に騒がせ、第一を流れに乗せる",
+     "if": {
+      "flag": "rm_r6_bought"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "win_bought",
+      "lose": "fail_lost"
+     }
+    },
+    {
+     "label": "原の真ん中に出て、一度だけ話す",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "win_name",
+      "lose": "fail_lost"
+     }
+    }
+   ]
+  },
+  "win_name": {
+   "speaker": "veteran",
+   "text": [
+    "第一の百人隊の囲いから、十一の声が同時に上がった。古参の声は、民会の原でよく通る。",
+    "二番めが同じ名を呼び、三番めも呼んだ。十番めで、{rival}は柵から離れた。",
+    "{veteran}は鋤を持ってきていた。「畑から来ましたので」——それが、その日いちばん良い外套だった。"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 18
+    },
+    {
+     "fame": 14
+    },
+    {
+     "rep": "patron",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "unflag": "rm_r6_name"
+    },
+    {
+     "unflag": "rm_r6_debt"
+    },
+    {
+     "unflag": "rm_r6_bought"
+    },
+    {
+     "note": "第一の百人隊の古参の票で執政官に選ばれた。"
+    }
+   ],
+   "end": "鋤を持ってきた男"
+  },
+  "win_debt": {
+   "speaker": "broker",
+   "text": [
+    "囲いの中で七つの頭が動いた。第一の百人隊は、こちらの名を呼んだ。",
+    "{broker}が布袋を畳みながら言った。「借りは、票より長く残ります。七人は、あなたの執政官の年のあいだ、何かを頼みに来ますよ」"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 14
+    },
+    {
+     "fame": 8
+    },
+    {
+     "rep": "patron",
+     "n": 2
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "unflag": "rm_r6_name"
+    },
+    {
+     "unflag": "rm_r6_debt"
+    },
+    {
+     "unflag": "rm_r6_bought"
+    },
+    {
+     "note": "第一の百人隊の借りを買い取って執政官に選ばれた。七人に貸しと借りが残った。"
+    }
+   ],
+   "end": "票より長く残るもの"
+  },
+  "win_bought": {
+   "speaker": "rival",
+   "text": [
+    "二番め以降が先に騒ぎ、第一がそれを見て流れに乗った。作法の順は、守られたように見えた。",
+    "{rival}は白い外套の塵を払って言った。「来年、同じ手を使う。覚えておく」"
+   ],
+   "effects": [
+    {
+     "rank": 6
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "unflag": "rm_r6_name"
+    },
+    {
+     "unflag": "rm_r6_debt"
+    },
+    {
+     "unflag": "rm_r6_bought"
+    },
+    {
+     "note": "二番め以降を固めて流れを作り、執政官に選ばれた。"
+    }
+   ],
+   "end": "守られたように見えた順"
+  },
+  "fail_lost": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}で選挙の結果を聞く",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "第一の百人隊は{rival}の名を呼び、二番めからは順に従った。十番で数は足りた。",
+    "{minister}は候補の板から名を削った。「選挙は毎年ある。来年もある」"
+   ],
+   "effects": [
+    {
+     "favor": -8
+    },
+    {
+     "fame": -2
+    },
+    {
+     "unflag": "rm_r6_name"
+    },
+    {
+     "unflag": "rm_r6_debt"
+    },
+    {
+     "unflag": "rm_r6_bought"
+    },
+    {
+     "note": "執政官の選挙に敗れた。覚えを取り戻せば、また挑める。"
+    }
+   ],
+   "end": "来年もある"
+  }
+ }
+}

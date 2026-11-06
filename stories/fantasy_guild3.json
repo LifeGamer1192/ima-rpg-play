@@ -1,0 +1,519 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_guild3",
+ "kind": "rank",
+ "guildTo": 3,
+ "title": "地下の鍵",
+ "era": "fantasy",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "under": {
+   "place": "near:here"
+  },
+  "rival": {
+   "npc": "団の二番手",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "地下に住む者の長",
+   "sex": "f"
+  },
+  "buyer": {
+   "npc": "地下の品を買う貴族の家令",
+   "sex": "m"
+  },
+  "scholar": {
+   "npc": "地下の図を持つ学徒",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏で団に集まる",
+   "speaker": "rival",
+   "art": "backroom",
+   "text": [
+    "{inn}の裏の酒樽の上に、鍵が一つ置かれていた。黒い鉄で、歯が五枚ある。",
+    "{rival}が樽に手を置いた。「頭目は迷宮で死んだ。鍵は、地下の門を開ける。地下は、迷宮の下に広い」",
+    "「鍵を持つ者が頭目だ。わたしは、持つつもりでいる」"
+   ],
+   "choices": [
+    {
+     "label": "鍵が開ける門を先に見に行く",
+     "next": "s2"
+    },
+    {
+     "label": "地下の図を持つ学徒を探す",
+     "next": "s2map"
+    }
+   ]
+  },
+  "s2map": {
+   "speaker": "scholar",
+   "art": "lecture",
+   "text": [
+    "{scholar}は羊皮を広げた。線が何十本も重なり、半分は消えている。",
+    "「地下は、三百年前の町です。上の町が建つ前の町。いまは、上に住めない者が住んでいます。四百人ほど」",
+    "「門を開ければ、上から人が入れます。入ってくるのは、買いに来る人か、追い出しに来る人です」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g3_map"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "under"
+   },
+   "goal": "{under}の門を開ける",
+   "speaker": "elder",
+   "art": "ruins",
+   "text": [
+    "黒い鉄の門は、迷宮の三層の壁にあった。鍵は、音もなく回った。",
+    "門の内には、石の梁に布を張った家が並び、灯が点いていた。{elder}が杖をついて出てきた。",
+    "「鍵が回る音は、三十年ぶりです。前に回した人は、何も持っていかずに帰りました」"
+   ],
+   "choices": [
+    {
+     "label": "{elder}に、門を開けた理由を正直に言う",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s2talk",
+      "lose": "s2cold"
+     }
+    },
+    {
+     "label": "地下の品を見せてもらう",
+     "next": "s2goods"
+    },
+    {
+     "label": "黙って図を取り、上へ戻る",
+     "if": {
+      "flag": "ft_g3_map"
+     },
+     "next": "s3"
+    }
+   ]
+  },
+  "s2talk": {
+   "speaker": "elder",
+   "art": "ruins",
+   "text": [
+    "「頭目になるために来た」と言った。{elder}は笑わなかったし、怒らなかった。",
+    "「頭目になる人は、三十年に一度来ます。来た人は、だいたい二つのことをします。わたしたちを売るか、わたしたちを隠すか」",
+    "「隠してくださるなら、地下は上に一つだけ道を開けます。あなたの団だけが通れる道です」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g3_hide"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "next": "s3"
+  },
+  "s2goods": {
+   "art": "ruins",
+   "text": [
+    "地下の棚には、三百年前の町の物が並んでいた。壊れた魔道具、字の読めない板、骨で作った器。",
+    "上の貴族が、こういう物に金を出す。出す額は、地下の四百人が一年食える額だ。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g3_goods"
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2cold": {
+   "art": "ruins",
+   "text": [
+    "{elder}は杖をついて家の間に戻り、灯が一つずつ消えていった。門の内は、すぐに暗くなった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{inn}の裏で二番手と向き合う",
+   "speaker": "rival",
+   "art": "backroom",
+   "text": [
+    "{rival}は樽に腰を下ろして待っていた。四人の手下が壁際に立っている。",
+    "「鍵は回ったか。回ったなら、地下に何がある」"
+   ],
+   "choices": [
+    {
+     "label": "「四百人が住んでいる。売らない」と言い切る",
+     "if": {
+      "flag": "ft_g3_hide"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "s4hide",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "「三百年前の品がある。買い手を連れてくる」と言う",
+     "if": {
+      "flag": "ft_g3_goods"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 32,
+      "win": "s4sell",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "図を広げ、地下の道筋を四人に見せる",
+     "if": {
+      "flag": "ft_g3_map"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s4hide",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "{rival}と決着をつける",
+     "next": "s3fight"
+    }
+   ]
+  },
+  "s3fight": {
+   "art": "duel",
+   "text": [
+    "{rival}は樽から降り、短剣を二本抜いた。「鍵は、持っている者のものだ。今から持つ」"
+   ],
+   "choices": [
+    {
+     "label": "受けて立つ",
+     "fight": {
+      "foes": "duelist",
+      "n": 1,
+      "level": 5,
+      "win": "s4choice",
+      "lose": "fail_lost"
+     }
+    },
+    {
+     "label": "鍵を樽に置き、素手で組む",
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "s4choice",
+      "lose": "fail_lost"
+     }
+    }
+   ]
+  },
+  "s4choice": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "鍵をどう使うか決める",
+   "speaker": "buyer",
+   "art": "backroom",
+   "text": [
+    "{rival}は壁際に座り込み、四人は黙った。鍵は、こちらの手にある。",
+    "翌日、{buyer}が{inn}の裏まで来た。「地下の品を、まとめて買います。四百人のことは、こちらで片づけます」"
+   ],
+   "choices": [
+    {
+     "label": "{buyer}を追い返し、地下を隠す",
+     "next": "s4hide"
+    },
+    {
+     "label": "品だけを売り、四百人には触れさせない",
+     "next": "s4half"
+    },
+    {
+     "label": "品も、地下の場所も売る",
+     "effects": [
+      {
+       "money": 5000
+      },
+      {
+       "fame": -10
+      }
+     ],
+     "next": "win_sell"
+    }
+   ]
+  },
+  "s4hide": {
+   "at": {
+    "place": "under"
+   },
+   "goal": "{under}の門を閉じる",
+   "speaker": "elder",
+   "art": "ruins",
+   "text": [
+    "門は閉じられ、鍵は団の手に残った。地下は、上から見えないままになった。",
+    "{elder}は上へ続く細い道を一本だけ開けた。石の階が、{inn}の裏の井戸に出る。"
+   ],
+   "choices": [
+    {
+     "label": "団の路として使い、地下の者に上の品を運ぶ",
+     "next": "win_hide"
+    },
+    {
+     "label": "道も閉じ、地下とは関わらぬことにする",
+     "next": "win_shut"
+    }
+   ]
+  },
+  "s4half": {
+   "art": "trade",
+   "text": [
+    "品だけを売った。壊れた魔道具が十二、骨の器が四つ。地下の場所は言わなかった。",
+    "{buyer}は「場所が分かれば、もっと出します」と繰り返した。繰り返したのは、場所を知らないからだ。"
+   ],
+   "next": "win_half"
+  },
+  "s4sell": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "買い手を連れてくる",
+   "speaker": "buyer",
+   "art": "backroom",
+   "text": [
+    "{buyer}を{inn}の裏に連れてきた。{rival}と四人が、額を聞いて黙った。",
+    "「品は買います。四百人も、人手として買います。どちらも値がつきます」"
+   ],
+   "choices": [
+    {
+     "label": "品だけを売る",
+     "next": "win_half"
+    },
+    {
+     "label": "品も人も売る",
+     "effects": [
+      {
+       "money": 5000
+      },
+      {
+       "fame": -10
+      }
+     ],
+     "next": "win_sell"
+    }
+   ]
+  },
+  "win_hide": {
+   "speaker": "elder",
+   "text": [
+    "井戸の底の階は、団だけの路になった。上の品が地下へ下り、地下の品が上へ上がる。買い手は、品の出どころを知らない。",
+    "{elder}は杖を置き、石の梁に名を刻んだ。団の名と、こちらの名を。",
+    "{rival}は壁際から立ち上がって言った。「頭目だ。……四百人を食わせる頭目なんて、聞いたことがない」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "money": 600
+    },
+    {
+     "fame": 12
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "unflag": "ft_g3_map"
+    },
+    {
+     "unflag": "ft_g3_hide"
+    },
+    {
+     "unflag": "ft_g3_goods"
+    },
+    {
+     "note": "{under}の地下を隠し、団の路を通して四百人と結んだ。義賊の道を選んで頭目となった。"
+    }
+   ],
+   "end": "梁に刻まれた名"
+  },
+  "win_shut": {
+   "speaker": "elder",
+   "text": [
+    "門も、細い道も閉じた。地下の四百人は、上から見えないままになった。関わらないと決めたのは、こちらだ。",
+    "{elder}は閉じる前に言った。「それでも、売らなかった人です。三十年に一度の人です」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "righteous"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "unflag": "ft_g3_map"
+    },
+    {
+     "unflag": "ft_g3_hide"
+    },
+    {
+     "unflag": "ft_g3_goods"
+    },
+    {
+     "note": "{under}の門を閉じて地下に触れず、義賊の道を選んで頭目となった。"
+    }
+   ],
+   "end": "三十年に一度の人"
+  },
+  "win_half": {
+   "speaker": "buyer",
+   "text": [
+    "品は売れた。地下の場所は、こちらの口の中にある。{buyer}は額を三度上げ、三度断られた。",
+    "{rival}が樽を叩いて笑った。「場所を売らずに品を売る。それが頭目の芸か」",
+    "地下の四百人は、売られた品の代わりに、上の麦を受け取った。"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "money": 1800
+    },
+    {
+     "fame": 2
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "unflag": "ft_g3_map"
+    },
+    {
+     "unflag": "ft_g3_hide"
+    },
+    {
+     "unflag": "ft_g3_goods"
+    },
+    {
+     "note": "{under}の品だけを売り、場所は売らずに頭目となった。外道の道を選んだ。"
+    }
+   ],
+   "end": "口の中にある場所"
+  },
+  "win_sell": {
+   "speaker": "buyer",
+   "text": [
+    "場所も売った。三日後、上から兵と人買いが門をくぐった。灯が一つずつ消え、布の家が畳まれた。",
+    "{elder}の杖は、門の内側に立てかけたまま残っていた。",
+    "{rival}は銭を数えながら言った。「頭目だ。文句は無い。……あの杖は、誰か片づけたのか」"
+   ],
+   "effects": [
+    {
+     "guildRank": 3
+    },
+    {
+     "guildPath": "ruthless"
+    },
+    {
+     "fame": -6
+    },
+    {
+     "wanted": "here",
+     "n": 12
+    },
+    {
+     "xp": "theft",
+     "n": 6
+    },
+    {
+     "unflag": "ft_g3_map"
+    },
+    {
+     "unflag": "ft_g3_hide"
+    },
+    {
+     "unflag": "ft_g3_goods"
+    },
+    {
+     "note": "{under}の地下の場所ごと売り、外道の道を選んで頭目となった。"
+    }
+   ],
+   "end": "立てかけられた杖"
+  },
+  "fail_lost": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{inn}の裏で鍵を失う",
+   "speaker": "rival",
+   "art": "backroom",
+   "text": [
+    "{rival}の短剣が脇に入った。鍵は樽から取られ、{rival}の首に下がった。",
+    "「次は、おれが地下を見る」——四人は、{rival}の後ろに並んだ。"
+   ],
+   "effects": [
+    {
+     "hp": -24
+    },
+    {
+     "unflag": "ft_g3_map"
+    },
+    {
+     "unflag": "ft_g3_hide"
+    },
+    {
+     "unflag": "ft_g3_goods"
+    },
+    {
+     "note": "地下の鍵を二番手に取られた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "首に下がった鍵"
+  }
+ }
+}

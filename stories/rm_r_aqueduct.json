@@ -1,0 +1,472 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_aqueduct",
+ "kind": "random",
+ "where": "folk",
+ "most": 2,
+ "again": 300,
+ "hook": "水が出ません。路地の泉が、糸のようになってしまいました",
+ "title": "糸になった泉",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "up": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "路地の洗濯女"
+  },
+  "keeper": {
+   "npc": "水道の番",
+   "sex": "m"
+  },
+  "rich": {
+   "npc": "郊外の地主",
+   "sex": "m"
+  },
+  "carrier": {
+   "npc": "水売り",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "路地の角の泉から、水が糸のように落ちていた。壺を置いても、満ちるまでに日が傾く。",
+    "{client}が手を水に差して言った。「上の町の浴場は、湯を溢れさせているそうです。水売りが来るようになりました。一壺で、パン二つ分です」"
+   ],
+   "choices": [
+    {
+     "label": "水道の番{keeper}に会う",
+     "next": "keeper"
+    },
+    {
+     "label": "{up}へ水路を辿って歩く",
+     "next": "walk"
+    },
+    {
+     "label": "水売りの{carrier}に、どこから汲んでいるか聞く",
+     "next": "carrier"
+    }
+   ]
+  },
+  "keeper": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "水道の番{keeper}に会う",
+   "speaker": "keeper",
+   "art": "court",
+   "text": [
+    "{keeper}は青銅の計量口を指で撫でた。「口の大きさは、わたしが決めるのではありません。決めるのは割り当ての板です」",
+    "「ただ……上の方で、板に無い口が開いているという話は、聞きます。見に行く足は、わたしにはございません」"
+   ],
+   "choices": [
+    {
+     "label": "割り当ての板を読み、口の数を数える",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "extra",
+      "lose": "walk"
+     }
+    },
+    {
+     "label": "自分が上まで見に行くと申し出る",
+     "next": "walk"
+    },
+    {
+     "label": "石灰の詰まりを疑い、管を開けさせる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "lime",
+      "lose": "walk"
+     }
+    }
+   ]
+  },
+  "extra": {
+   "art": "court",
+   "text": [
+    "板には口が十四と書かれている。番が数えている口は十五だった。十五めは、どの帳にも無い。",
+    "位置だけが墨で薄く記されていた。{up}の、川から離れた丘の上。"
+   ],
+   "effects": [
+    {
+     "flag": "rma_extra"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "walk"
+  },
+  "lime": {
+   "art": "disaster",
+   "text": [
+    "鉛管を切って開けると、内側に石灰が指の太さほど巻いていた。水の通る穴は、もとの三分の一もない。",
+    "「十年は掃っておりません」と{keeper}が言った。「掃うには、路地を掘り返して三月かかります」"
+   ],
+   "effects": [
+    {
+     "flag": "rma_lime"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "三月の工事の費用を公会所に出させる",
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "end_dug",
+      "lose": "end_jar"
+     }
+    },
+    {
+     "label": "石灰を落とす酢と砂の手を教えて凌ぐ",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "end_patched",
+      "lose": "end_jar"
+     }
+    }
+   ]
+  },
+  "walk": {
+   "at": {
+    "place": "up"
+   },
+   "goal": "{up}まで水路を辿る",
+   "art": "road",
+   "text": [
+    "水路はほとんど地の下を通り、ところどころ覗き穴が開いている。覗くたびに水の音が細くなっていく。",
+    "丘の上で、音が止まった。石積みの横から、鉛の管が一本、別の方へ曲がっていた。先は、柏の木立の中だ。"
+   ],
+   "choices": [
+    {
+     "label": "木立に入って先を見る",
+     "next": "pond"
+    },
+    {
+     "label": "管の分かれ目を測り、図に写す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "pond",
+      "lose": "pond"
+     }
+    }
+   ]
+  },
+  "pond": {
+   "at": {
+    "place": "up"
+   },
+   "goal": "木立の先を見る",
+   "speaker": "rich",
+   "art": "voyage",
+   "text": [
+    "木立の中に、石で縁を組んだ池があった。鯉が跳ね、水が溢れて草に流れている。溢れている分だけで、路地の泉の十日分はある。",
+    "{rich}が日除けの下から立ち上がった。「わたしの地から出た水です。地の主が使って、何が悪い」"
+   ],
+   "choices": [
+    {
+     "label": "割り当ての板に無い口だと突きつける",
+     "if": {
+      "flag": "rma_extra"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_closed",
+      "lose": "guards"
+     }
+    },
+    {
+     "label": "「公の水を私の池に引くのは盗みだ」と言い、公会所に出る",
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "end_closed",
+      "lose": "end_jar"
+     }
+    },
+    {
+     "label": "池の水の半分を路地へ流す取り決めを持ちかける",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "end_share",
+      "lose": "guards"
+     }
+    },
+    {
+     "label": "黙って管を叩き潰す",
+     "next": "smash"
+    }
+   ]
+  },
+  "carrier": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "水売りの{carrier}に聞く",
+   "speaker": "carrier",
+   "art": "trade",
+   "text": [
+    "{carrier}は驢馬に壺を八つ括っていた。「丘の上の池から汲ませてもらっております。地主さまに、一壺に一つ払って」",
+    "「池の水は、どこから来るのかは知りません。訊くと値が上がりますので」"
+   ],
+   "effects": [
+    {
+     "flag": "rma_extra"
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "驢馬の後について丘まで行く",
+     "next": "pond"
+    },
+    {
+     "label": "路地の分だけ、値を半分に掛け合う",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_jar",
+      "lose": "end_jar"
+     }
+    }
+   ]
+  },
+  "smash": {
+   "art": "war",
+   "text": [
+    "石で管の継ぎを叩くと、水が吹き上がった。木立の向こうから、鎌と棒を持った小作が走ってくる。"
+   ],
+   "choices": [
+    {
+     "label": "殴り合いになる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_smashed",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "水しぶきの中を駆け抜けて逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_smashed",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "guards": {
+   "art": "war",
+   "text": [
+    "{rich}は手を上げた。「池から離れろ」木立から下男が出てきて、こちらを囲んだ。"
+   ],
+   "choices": [
+    {
+     "label": "押し返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_closed",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "引いて、公会所に書いて出す",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_closed",
+      "lose": "end_jar"
+     }
+    }
+   ]
+  },
+  "end_closed": {
+   "text": [
+    "板に無い十五めの口は、公会所の手で塞がれた。{rich}には罰金が科され、池は雨の水だけになった。",
+    "三日後、路地の泉が壺を満たす音で{client}が笑った。「音が、戻りました」"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 12
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{up}の丘で水道を盗んでいた口を塞がせた。"
+    }
+   ],
+   "end": "戻った水の音"
+  },
+  "end_share": {
+   "text": [
+    "池の水の半分を、夜のあいだだけ路地へ流す取り決めになった。{rich}は鯉を減らし、路地は壺を満たせるようになった。",
+    "「半分で済むとは、思っておりませんでした」と{rich}は言った。思っていたのは、全部だった。"
+   ],
+   "effects": [
+    {
+     "money": 180
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "{up}の地主と、池の水の半分を路地へ流す取り決めをした。"
+    }
+   ],
+   "end": "夜だけ流れる水"
+  },
+  "end_dug": {
+   "text": [
+    "路地は三月掘り返された。土の山と埃と、職人の罵り声。四月めに水が出たとき、路地の全員が泉に手を入れた。",
+    "石灰の筒は公会所の柱に立てかけられ、しばらく見物の種になった。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 10
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}の鉛管の石灰を掃わせ、水を戻した。"
+    }
+   ],
+   "end": "柱に立てた石灰の筒"
+  },
+  "end_patched": {
+   "text": [
+    "酢と砂を流し、縄を通して擦った。水の勢いは半分まで戻った。半分でも、壺は日のあるうちに満ちる。",
+    "{keeper}が手を拭きながら言った。「来年もやりますか」——やるしかない。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    },
+    {
+     "note": "{here}の鉛管の石灰を酢と砂で落とし、水を半分戻した。"
+    }
+   ],
+   "end": "来年もやる仕事"
+  },
+  "end_smashed": {
+   "text": [
+    "潰れた管から水が吹き、丘を下って水路へ戻った。路地の泉は、その日の夕に太くなった。",
+    "{rich}は管を繕わせたが、公会所の者が見に来るようになった。誰が叩いたかは、誰も言わなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "favor": -2
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "{up}の丘の盗み水の管を叩き潰した。"
+    }
+   ],
+   "end": "誰も言わなかった"
+  },
+  "end_jar": {
+   "text": [
+    "水は戻らなかった。路地は壺で買う暮らしになり、水売りの驢馬が毎朝通る。",
+    "{client}は壺の口を布で覆った。「こぼすと、パン二つ分です」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{here}の水は戻らず、路地は水を壺で買うようになった。"
+    }
+   ],
+   "end": "パン二つ分"
+  },
+  "end_beaten": {
+   "text": [
+    "棒と鎌の柄で打たれ、草の上に転がった。顔を上げると、池の水が草を流れていくのが見えた。"
+   ],
+   "effects": [
+    {
+     "hp": -24
+    }
+   ],
+   "end": "草を流れる水"
+  }
+ }
+}

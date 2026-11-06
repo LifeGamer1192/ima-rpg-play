@@ -1,0 +1,453 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_rank4_paladin",
+ "kind": "rank",
+ "rankTo": 4,
+ "title": "塞がれた村",
+ "era": "fantasy",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "village": {
+   "place": "near:cap"
+  },
+  "tower": {
+   "npc": "癒やしの塔の主",
+   "sex": "f"
+  },
+  "captain": {
+   "npc": "壁を築く隊の長",
+   "sex": "m"
+  },
+  "sick": {
+   "npc": "壁の内の薬師",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の{palace}で{minister}に会う",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は紫の病の図を卓に広げた。{village}が赤く塗られている。",
+    "「聖騎士の叙任は、塔が手を置く。塔は、誓いを立てる場を選ぶ。今年は{village}だ」",
+    "「国は、あの村を壁で塞ぐと決めた。壁の前で誓いを立てるのも、壁の内で誓いを立てるのも、お前の勝手だ」"
+   ],
+   "choices": [
+    {
+     "label": "{village}へ向かう",
+     "effects": [
+      {
+       "note": "{village}の壁の前で誓いを立てれば、聖騎士となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "{village}の壁を見る",
+   "speaker": "captain",
+   "art": "disaster",
+   "text": [
+    "村の周りに、石と土で高さ人ひとりぶんの壁が半分できていた。内から、子の泣き声がする。",
+    "{captain}は図面を巻いて言った。「三日で閉じます。閉じたあとは、十四日おきに食を投げ入れる。それが命です」",
+    "「内に百九十人。病んでいるのは、たぶん三十です」"
+   ],
+   "choices": [
+    {
+     "label": "壁の内の薬師と話す",
+     "next": "s2sick"
+    },
+    {
+     "label": "病んだ三十と病んでいない百六十を分ける手を考える",
+     "check": {
+      "skill": "medicine",
+      "dc": 32,
+      "win": "s2split",
+      "lose": "s2hard"
+     }
+    },
+    {
+     "label": "塔の主に、塞ぐ前に来てくれと頼む",
+     "next": "s2tower"
+    }
+   ]
+  },
+  "s2sick": {
+   "speaker": "sick",
+   "art": "disaster",
+   "text": [
+    "{sick}は壁の隙間から話した。顔は見えず、声だけが来る。",
+    "「紫の斑は、三日で出て、七日で引きます。引いた者は、もう移しません。引いた者が六十おります」",
+    "「六十を出していただければ、内の負担が減ります。出せぬのなら、せめて石灰と布を」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r4_sixty"
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    },
+    {
+     "note": "{village}には、病が引いて移さなくなった者が六十いる。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2split": {
+   "art": "lecture",
+   "text": [
+    "斑の出た日を数えれば、移す者と移さぬ者は分けられる。分けるには、内で誰かが数を取らねばならない。",
+    "内には薬師が一人いる。一人で百九十人を数えるのは、七日かかる。壁は三日で閉じる。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r4_plan"
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    }
+   ],
+   "next": "s3"
+  },
+  "s2tower": {
+   "speaker": "tower",
+   "art": "faith",
+   "text": [
+    "{tower}は塔の階を降りてきた。「誓いは、壁の前で立てるのが決まりです。内で立てた者は、出てこられません」",
+    "「ただ、決まりを作ったのはわたしの三代前です。わたしは、決まりより数が好きです」",
+    "「数を持ってきなさい。数があれば、塔は動きます」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r4_tower"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hard": {
+   "art": "disaster",
+   "text": [
+    "壁は半日で人ひとりぶん高くなった。内の泣き声は、少しずつ遠くなっていく。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "village"
+   },
+   "goal": "壁が閉じる前に動く",
+   "wait": {
+    "days": 2
+   },
+   "speaker": "captain",
+   "art": "disaster",
+   "text": [
+    "三日めの朝。壁は、残り十歩ぶんが開いている。{captain}は石を手に持ったまま、こちらを見ていた。",
+    "「閉じますか。閉じませんか。命は、閉じろ、です」"
+   ],
+   "choices": [
+    {
+     "label": "引いた六十の名を数え、塔に見せて開けさせる",
+     "if": {
+      "flag": "ft_r4_sixty"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "win_sixty",
+      "lose": "s3close"
+     }
+    },
+    {
+     "label": "塔の主を呼び、斑の日取りで分けさせる",
+     "if": {
+      "flag": "ft_r4_plan"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 32,
+      "win": "win_split",
+      "lose": "s3close"
+     }
+    },
+    {
+     "label": "自分が壁の内に入り、内で誓いを立てる",
+     "next": "win_inside"
+    },
+    {
+     "label": "壁の前で誓いを立て、閉じるのを見届ける",
+     "next": "win_wall"
+    }
+   ]
+  },
+  "s3close": {
+   "art": "disaster",
+   "text": [
+    "最後の十歩に石が積まれた。{captain}は手を払い、図面に線を引いた。壁の内から、しばらく物を叩く音がしていた。"
+   ],
+   "choices": [
+    {
+     "label": "壁の前で誓いを立てる",
+     "next": "win_wall"
+    },
+    {
+     "label": "塞いだのが誰の命であったかを、塔と{minister}の前で言う",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "win_name",
+      "lose": "fail_silent"
+     }
+    }
+   ]
+  },
+  "win_sixty": {
+   "speaker": "tower",
+   "text": [
+    "引いた六十の名が読み上げられた。{tower}は名を一つずつ指で追い、最後に頷いた。",
+    "六十が壁の外へ出た。壁は、残りの百三十を囲んで閉じた。十四日おきの食は、六十が運ぶことになった。",
+    "誓いは壁の前で立てられた。{tower}の手は、思ったより冷たかった。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 14
+    },
+    {
+     "fame": 10
+    },
+    {
+     "rep": "patron",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "unflag": "ft_r4_sixty"
+    },
+    {
+     "unflag": "ft_r4_plan"
+    },
+    {
+     "unflag": "ft_r4_tower"
+    },
+    {
+     "note": "{village}から病の引いた六十を出し、聖騎士となった。"
+    }
+   ],
+   "end": "食を運ぶ六十"
+  },
+  "win_split": {
+   "speaker": "tower",
+   "text": [
+    "{tower}が塔の者を七人連れてきた。七人で斑の日取りを数え、二日で百九十人を分けた。",
+    "移す者は三十一。壁は三十一を囲む大きさに作り直された。石は余った。",
+    "{captain}は図面を書き直しながら言った。「命は『塞げ』でした。小さく塞ぐのも、塞ぐことです」"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 16
+    },
+    {
+     "fame": 12
+    },
+    {
+     "rep": "patron",
+     "n": 3
+    },
+    {
+     "xp": "medicine",
+     "n": 7
+    },
+    {
+     "unflag": "ft_r4_sixty"
+    },
+    {
+     "unflag": "ft_r4_plan"
+    },
+    {
+     "unflag": "ft_r4_tower"
+    },
+    {
+     "note": "{village}を斑の日取りで分け、壁を三十一人ぶんに縮めさせた。聖騎士となった。"
+    }
+   ],
+   "end": "小さく塞ぐ"
+  },
+  "win_inside": {
+   "speaker": "sick",
+   "text": [
+    "壁の内に入った。後ろで石が積まれる音がして、光が細くなり、消えた。",
+    "{sick}と二人で、百九十人を数えた。十四日おきに食が投げ入れられ、三十一人が死に、百五十九人が生きた。",
+    "壁が崩されたのは、四十二日後だった。{tower}は壁の跡で手を置いた。「内で誓いを立てた者は、記録では二人めです」"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 16
+    },
+    {
+     "hp": -30
+    },
+    {
+     "xp": "medicine",
+     "n": 8
+    },
+    {
+     "unflag": "ft_r4_sixty"
+    },
+    {
+     "unflag": "ft_r4_plan"
+    },
+    {
+     "unflag": "ft_r4_tower"
+    },
+    {
+     "note": "{village}の壁の内で四十二日を過ごし、聖騎士となった。"
+    }
+   ],
+   "end": "二人めの誓い"
+  },
+  "win_wall": {
+   "speaker": "tower",
+   "text": [
+    "壁は閉じ、誓いは壁の前で立てられた。決まりのとおりだ。",
+    "{tower}は手を置き、それから壁を見た。「十四日おきに、わたしの塔が食を運びます。それだけはします」"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 5
+    },
+    {
+     "unflag": "ft_r4_sixty"
+    },
+    {
+     "unflag": "ft_r4_plan"
+    },
+    {
+     "unflag": "ft_r4_tower"
+    },
+    {
+     "note": "{village}の壁の前で誓いを立て、聖騎士となった。"
+    }
+   ],
+   "end": "決まりのとおり"
+  },
+  "win_name": {
+   "speaker": "minister",
+   "text": [
+    "「塞ぐと決めたのは、この卓です」——{minister}の前で、そう言った。{minister}は否まなかった。",
+    "「否まぬ代わりに、次の村は数えてから決める」——それだけが取れた。{tower}はその場で手を置いた。"
+   ],
+   "effects": [
+    {
+     "rank": 4
+    },
+    {
+     "favor": 8
+    },
+    {
+     "fame": 12
+    },
+    {
+     "rep": "patron",
+     "n": 1
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "unflag": "ft_r4_sixty"
+    },
+    {
+     "unflag": "ft_r4_plan"
+    },
+    {
+     "unflag": "ft_r4_tower"
+    },
+    {
+     "note": "{village}を塞いだのが誰の命であったかを名指し、聖騎士となった。"
+    }
+   ],
+   "end": "次の村は数えてから"
+  },
+  "fail_silent": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}へ戻る",
+   "speaker": "tower",
+   "art": "faith",
+   "text": [
+    "壁は閉じ、誰の名も出なかった。{tower}は手を置かずに塔へ帰った。",
+    "「誓いは、言葉です。言葉が出ないうちは、手は置けません」"
+   ],
+   "effects": [
+    {
+     "favor": -8
+    },
+    {
+     "unflag": "ft_r4_sixty"
+    },
+    {
+     "unflag": "ft_r4_plan"
+    },
+    {
+     "unflag": "ft_r4_tower"
+    },
+    {
+     "note": "{village}の壁の前で誓いを立てられなかった。覚えを取り戻せば、また試される。"
+    }
+   ],
+   "end": "置かれなかった手"
+  }
+ }
+}

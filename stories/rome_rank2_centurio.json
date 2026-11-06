@@ -1,0 +1,449 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_rank2_centurio",
+ "kind": "rank",
+ "rankTo": 2,
+ "title": "葡萄の杖",
+ "era": "rome",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "camp": {
+   "place": "near:cap"
+  },
+  "legate": {
+   "npc": "軍団の副将",
+   "sex": "m"
+  },
+  "veteran": {
+   "npc": "古参の第一列の兵",
+   "sex": "m"
+  },
+  "runner": {
+   "npc": "最初に逃げた兵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "barracks"
+   },
+   "goal": "{cap}の{barracks}で副将に会う",
+   "speaker": "legate",
+   "art": "camp",
+   "text": [
+    "{legate}は折れた葡萄の杖を卓に置いた。百人隊長が隊を打つための杖だ。",
+    "「第六百人隊の隊長が、国境の小競り合いで討たれた。隊の十九人が持ち場を捨てて走った。隊は数の上では残っているが、列には立てぬ」",
+    "「十日で、列に立てる隊にしてこい。できれば杖はお前のものだ。できねば、隊は解かれて他の隊に割られる」"
+   ],
+   "choices": [
+    {
+     "label": "杖を預かり、{camp}の宿営へ向かう",
+     "effects": [
+      {
+       "note": "{camp}の第六百人隊を十日で列に立てれば、百人隊長となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の宿営で隊を見る",
+   "speaker": "veteran",
+   "art": "camp",
+   "text": [
+    "天幕は立っているが、杭が斜めで、溝が掘られていない。盾の覆いが外れたまま雨に濡れている。",
+    "古参の{veteran}が唾を吐いた。「走った十九人が、まだ同じ天幕で寝ております。走らなかった者と、同じ飯を食って」",
+    "「隊が崩れたのは、走った者のせいではありません。隊長が、最後の三月で第一列を五度入れ替えました」"
+   ],
+   "choices": [
+    {
+     "label": "走った十九人の話を一人ずつ聞く",
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "s2why",
+      "lose": "s2hard"
+     }
+    },
+    {
+     "label": "最初に走った{runner}を隊の前で打ち、示しをつける",
+     "effects": [
+      {
+       "flag": "rm_r2_beat"
+      },
+      {
+       "fame": -1
+      }
+     ],
+     "next": "s3"
+    },
+    {
+     "label": "十日ぶん、溝と杭と行軍を叩き込む",
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "s2drill",
+      "lose": "s2hard"
+     }
+    }
+   ]
+  },
+  "s2why": {
+   "speaker": "runner",
+   "art": "camp",
+   "text": [
+    "{runner}は列の端で、膝を掴んで話した。「右の盾が、三日前に来た補充の者でした。名も知りません」",
+    "「隣の名を知らぬ列は、押されたら開きます。開いたから、走りました」",
+    "古参の{veteran}が後ろで小さく頷いた。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r2_know"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "note": "走ったのは、隣の名を知らぬ列だったからだと分かった。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2drill": {
+   "art": "camp",
+   "text": [
+    "夜明けに起こし、溝を掘らせ、杭を打たせ、盾を並べて押させた。三日めに吐く者が出て、五日めに吐かなくなった。",
+    "走った十九人は、誰よりも早く杭を打つようになった。走った者は、二度めを恐れる。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r2_drill"
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2hard": {
+   "art": "camp",
+   "text": [
+    "誰も目を合わせなかった。走った者は俯き、走らなかった者は走った者を見ない。十日の半分が、それで過ぎた。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "十日めの検分に隊を立てる",
+   "wait": {
+    "days": 9
+   },
+   "speaker": "legate",
+   "art": "war",
+   "text": [
+    "十日めの朝、{legate}が馬で来た。検分は形だけではない。隊を谷の渡しに立て、向かいの丘から来る偵騎を押し返させるという。",
+    "「列が開かねば合格だ。開いたら、杖は折る」"
+   ],
+   "choices": [
+    {
+     "label": "隣の名を呼び合わせてから列を組ませる",
+     "if": {
+      "flag": "rm_r2_know"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "s4hold",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "叩き込んだ型のまま、盾を詰めて立たせる",
+     "if": {
+      "flag": "rm_r2_drill"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 28,
+      "win": "s4hold",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "走った十九人を第一列に置き、後ろに古参を立てる",
+     "next": "s3fight"
+    },
+    {
+     "label": "自分が第一列の中央に立つ",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4hold",
+      "lose": "fail_broke"
+     }
+    }
+   ]
+  },
+  "s3fight": {
+   "art": "war",
+   "text": [
+    "向かいの丘から騎馬が三十、砂を上げて下ってきた。盾の列が、真ん中で一度たわんだ。"
+   ],
+   "choices": [
+    {
+     "label": "中央に走り込んで押し返す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4hold",
+      "lose": "fail_broke"
+     }
+    },
+    {
+     "label": "列を下げ、渡しの手前で組み直す",
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "s4hold",
+      "lose": "fail_broke"
+     }
+    }
+   ]
+  },
+  "s4hold": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "検分の後、副将に報じる",
+   "speaker": "legate",
+   "art": "camp",
+   "text": [
+    "騎馬は渡しの手前で向きを変え、丘へ戻っていった。列は開かなかった。",
+    "{legate}は馬を降り、折れた杖の代わりに新しい葡萄の杖を差し出した。「どうやった」"
+   ],
+   "choices": [
+    {
+     "label": "隣の名を知らぬ列は開く、と申し上げる",
+     "if": {
+      "flag": "rm_r2_know"
+     },
+     "next": "win_names"
+    },
+    {
+     "label": "十日の調練で型を入れたと申し上げる",
+     "if": {
+      "flag": "rm_r2_drill"
+     },
+     "next": "win_drill"
+    },
+    {
+     "label": "最初に走った者を打って示しをつけたと申し上げる",
+     "if": {
+      "flag": "rm_r2_beat"
+     },
+     "next": "win_rod"
+    },
+    {
+     "label": "「隊が自分で立ちました」と申し上げる",
+     "next": "win_quiet"
+    }
+   ]
+  },
+  "win_names": {
+   "speaker": "legate",
+   "text": [
+    "{legate}は長いこと黙っていた。「補充を三日で列に入れるのは、わたしが決めたことだ」",
+    "「名を覚えるまで、後列に置く。……そう書き直そう。杖を持て、百人隊長」"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "unflag": "rm_r2_know"
+    },
+    {
+     "unflag": "rm_r2_drill"
+    },
+    {
+     "unflag": "rm_r2_beat"
+    },
+    {
+     "note": "{camp}の第六百人隊を立て直し、百人隊長となった。補充は名を覚えるまで後列に置かれる。"
+    }
+   ],
+   "end": "名を覚えるまで"
+  },
+  "win_drill": {
+   "speaker": "legate",
+   "text": [
+    "「十日で溝を掘れるようになったなら、十日で戦える」{legate}は杖を渡した。",
+    "走った十九人は、その後も誰より早く杭を打った。古参の{veteran}は、それを笑わなかった。"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "unflag": "rm_r2_know"
+    },
+    {
+     "unflag": "rm_r2_drill"
+    },
+    {
+     "unflag": "rm_r2_beat"
+    },
+    {
+     "note": "{camp}の第六百人隊を十日の調練で列に立て、百人隊長となった。"
+    }
+   ],
+   "end": "十日で掘れる溝"
+  },
+  "win_rod": {
+   "speaker": "legate",
+   "text": [
+    "「杖は、そのために渡す」{legate}は頷いた。「隊は怖がって立った。立てば同じことだ」",
+    "{runner}は列に戻った。こちらと目を合わせることは、それから一度もなかった。"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 8
+    },
+    {
+     "fame": 1
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "unflag": "rm_r2_know"
+    },
+    {
+     "unflag": "rm_r2_drill"
+    },
+    {
+     "unflag": "rm_r2_beat"
+    },
+    {
+     "note": "{camp}の第六百人隊を杖で立て直し、百人隊長となった。"
+    }
+   ],
+   "end": "合わない目"
+  },
+  "win_quiet": {
+   "speaker": "veteran",
+   "text": [
+    "「隊が自分で立ちました」——{legate}は鼻を鳴らして馬に乗り、杖だけを置いていった。",
+    "{veteran}が低く言った。「隊長どの。その言い方は、覚えておきます」"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 8
+    },
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "rm_r2_know"
+    },
+    {
+     "unflag": "rm_r2_drill"
+    },
+    {
+     "unflag": "rm_r2_beat"
+    },
+    {
+     "note": "{camp}の第六百人隊の手柄を隊に渡し、百人隊長となった。"
+    }
+   ],
+   "end": "覚えておきます"
+  },
+  "fail_broke": {
+   "at": {
+    "place": "cap",
+    "building": "barracks"
+   },
+   "goal": "{cap}に戻り、不首尾を報じる",
+   "speaker": "legate",
+   "art": "camp",
+   "text": [
+    "列は真ん中から開き、騎馬が抜けた。死人は二人。渡しは失われ、隊はその日のうちに解かれた。",
+    "{legate}は新しい杖を箱に戻した。「覚えを取り戻してから、また来い」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "hp": -16
+    },
+    {
+     "unflag": "rm_r2_know"
+    },
+    {
+     "unflag": "rm_r2_drill"
+    },
+    {
+     "unflag": "rm_r2_beat"
+    },
+    {
+     "note": "{camp}の第六百人隊は列を開き、解かれた。覚えを取り戻せば、また試される。"
+    }
+   ],
+   "end": "箱に戻った杖"
+  }
+ }
+}

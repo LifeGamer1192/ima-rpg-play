@@ -1,0 +1,546 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_guild1",
+ "kind": "rank",
+ "guildTo": 1,
+ "title": "塩の道の夜",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "一党の頭",
+   "sex": "m"
+  },
+  "senior": {
+   "npc": "古参の手下",
+   "sex": "m"
+  },
+  "carter": {
+   "npc": "車夫",
+   "sex": "m"
+  },
+  "clerk": {
+   "npc": "関の徴税人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏で頭に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{inn}の裏の土間で、{boss}は酢水の杯を回した。「使い走りは終わりだ。塩を三車、{here}の関の向こうへ入れろ。関銭は一アスも払うな」",
+    "「車は{carter}が引く。{senior}が付く。袋を一つでも欠かしたら、手下の話は無しだ」"
+   ],
+   "choices": [
+    {
+     "label": "段取りをつけに市へ行く",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{here}の{market}で車夫に会う",
+   "speaker": "carter",
+   "art": "trade",
+   "text": [
+    "{carter}は驢馬の腹帯を締めながら首を振った。「近ごろの徴税人は、車の軸を数えます。先月、仲間が車ごと取られました」",
+    "{senior}が欠伸をした。「下働き、どうする」"
+   ],
+   "choices": [
+    {
+     "label": "「取られたら一党が車を弁償する」と言いくるめる",
+     "check": {
+      "skill": "speech",
+      "dc": 18,
+      "win": "s2ok",
+      "lose": "s2bad"
+     }
+    },
+    {
+     "label": "前金を弾む（40）",
+     "if": {
+      "money": 40
+     },
+     "effects": [
+      {
+       "money": -40
+      }
+     ],
+     "next": "s2ok"
+    },
+    {
+     "label": "「断れば、驢馬がどうなるかな」と凄む",
+     "effects": [
+      {
+       "fame": -1
+      },
+      {
+       "flag": "rm_g1_threat"
+      }
+     ],
+     "next": "s2ok"
+    }
+   ]
+  },
+  "s2ok": {
+   "speaker": "carter",
+   "art": "trade",
+   "text": [
+    "{carter}は渋い顔で頷いた。「関の手前に羊の道が一本あります。車には険しいが、通れます。それと、あの徴税人は酒に目がない」"
+   ],
+   "effects": [
+    {
+     "flag": "rm_g1_path"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2bad": {
+   "art": "trade",
+   "text": [
+    "{carter}は返事もせずに驢馬を引いていった。{senior}が別の車夫から老いた驢馬を借りてきた。足が遅い。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "塩の道の関に向かう",
+   "speaker": "clerk",
+   "art": "road",
+   "text": [
+    "関の小屋に灯が一つ。{clerk}が板を膝に載せ、通る車の軸を数えている。",
+    "{senior}が肘でこちらを突いた。「袋を一つ抜いても、頭には分からんぞ。おれは言わん」"
+   ],
+   "choices": [
+    {
+     "label": "羊の道から回り、関を避ける",
+     "if": {
+      "flag": "rm_g1_path"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "s4",
+      "lose": "s3seen"
+     }
+    },
+    {
+     "label": "酒を差し入れ、{clerk}の目を鈍らせる",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s4",
+      "lose": "s3seen"
+     }
+    },
+    {
+     "label": "塩の上に麦を被せ、麦の車として申告する",
+     "check": {
+      "skill": "trade",
+      "dc": 26,
+      "win": "s4",
+      "lose": "s3seen"
+     }
+    },
+    {
+     "label": "夜の関を押し通る",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s3seen": {
+   "art": "war",
+   "text": [
+    "{clerk}が板を置いて立ち上がった。「軸が六つ。塩の重さだ」小屋から棒を持った番が二人出てきた。"
+   ],
+   "choices": [
+    {
+     "label": "叩き伏せて車を押し通す",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "s4",
+      "lose": "fail_caught"
+     }
+    },
+    {
+     "label": "一車を置いて、二車だけ逃がす",
+     "effects": [
+      {
+       "flag": "rm_g1_lost1"
+      }
+     ],
+     "next": "s4"
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "塩を運び終え、袋を数える",
+   "speaker": "senior",
+   "art": "road",
+   "text": [
+    "関を抜けた。夜明け前の道で、{senior}が車の後ろから袋を一つ下ろし、藪に押し込んだ。",
+    "「おれは見なかったし、お前も見なかった。そうだな」"
+   ],
+   "choices": [
+    {
+     "label": "藪から袋を戻させる",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s5",
+      "lose": "s4skim"
+     }
+    },
+    {
+     "label": "自分も一つ抜く",
+     "effects": [
+      {
+       "flag": "rm_g1_skim"
+      }
+     ],
+     "next": "s5"
+    },
+    {
+     "label": "頭に告げるつもりで、黙って覚えておく",
+     "effects": [
+      {
+       "flag": "rm_g1_tell"
+      }
+     ],
+     "next": "s5"
+    }
+   ]
+  },
+  "s4skim": {
+   "art": "road",
+   "text": [
+    "{senior}は袋を藪に残したまま、先に歩き出した。数が合わないのは、こちらの持ち場になる。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_g1_short"
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{inn}の裏で頭に報じる",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は袋を数えずに、積んだ山の形を見た。「数は」"
+   ],
+   "choices": [
+    {
+     "label": "全部揃っていると告げる",
+     "if": {
+      "notFlag": "rm_g1_short"
+     },
+     "next": "win_clean"
+    },
+    {
+     "label": "{senior}の抜き荷を告げる",
+     "if": {
+      "flag": "rm_g1_tell"
+     },
+     "next": "win_tell"
+    },
+    {
+     "label": "自分も抜いたことを含めて正直に言う",
+     "if": {
+      "flag": "rm_g1_skim"
+     },
+     "next": "win_skim"
+    },
+    {
+     "label": "一車を関に置いたと告げる",
+     "if": {
+      "flag": "rm_g1_lost1"
+     },
+     "next": "win_short"
+    },
+    {
+     "label": "数が足りぬ理由を言わずに立つ",
+     "next": "fail_short"
+    }
+   ]
+  },
+  "win_clean": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は山を一度叩いた。「三車、全部だ。下働きに三車預けたのは、賭けだった」",
+    "「手下にしてやる。{senior}は、しばらく使い走りだ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "money": 90
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "unflag": "rm_g1_path"
+    },
+    {
+     "unflag": "rm_g1_threat"
+    },
+    {
+     "unflag": "rm_g1_tell"
+    },
+    {
+     "unflag": "rm_g1_skim"
+    },
+    {
+     "unflag": "rm_g1_short"
+    },
+    {
+     "unflag": "rm_g1_lost1"
+    },
+    {
+     "note": "塩三車を関の向こうへ運び、一党の手下となった。"
+    }
+   ],
+   "end": "三車、全部"
+  },
+  "win_tell": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は{senior}を土間に呼び、黙って杯の酢水を顔にかけた。{senior}は拭いもせず、こちらを睨んだ。",
+    "「仲間を売る奴は嫌いだが、おれを売らん奴は好きだ。手下にしてやる。背中には気をつけろ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "money": 60
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "flag": "rm_g1_grudge"
+    },
+    {
+     "unflag": "rm_g1_path"
+    },
+    {
+     "unflag": "rm_g1_threat"
+    },
+    {
+     "unflag": "rm_g1_tell"
+    },
+    {
+     "unflag": "rm_g1_skim"
+    },
+    {
+     "unflag": "rm_g1_short"
+    },
+    {
+     "unflag": "rm_g1_lost1"
+    },
+    {
+     "note": "{senior}の抜き荷を頭に告げ、一党の手下となった。{senior}の恨みを買った。"
+    }
+   ],
+   "end": "拭わなかった顔"
+  },
+  "win_skim": {
+   "speaker": "boss",
+   "text": [
+    "「二つ抜いたか」{boss}は笑わなかった。「抜いたと言ったのは、お前が先だ。{senior}は言わなかった」",
+    "「手下にしてやる」その声は、いつもより少し冷たかった。"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "money": 40
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    },
+    {
+     "unflag": "rm_g1_path"
+    },
+    {
+     "unflag": "rm_g1_threat"
+    },
+    {
+     "unflag": "rm_g1_tell"
+    },
+    {
+     "unflag": "rm_g1_skim"
+    },
+    {
+     "unflag": "rm_g1_short"
+    },
+    {
+     "unflag": "rm_g1_lost1"
+    },
+    {
+     "note": "塩を一袋抜いたことを自分から告げ、一党の手下となった。"
+    }
+   ],
+   "end": "先に言った者"
+  },
+  "win_short": {
+   "speaker": "boss",
+   "text": [
+    "「一車を置いて二車を通したか」{boss}は指で数を書いた。「三車を失うより安い。計算のできる下働きは珍しい」",
+    "「手下にしてやる。次は三車だ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "money": 50
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    },
+    {
+     "unflag": "rm_g1_path"
+    },
+    {
+     "unflag": "rm_g1_threat"
+    },
+    {
+     "unflag": "rm_g1_tell"
+    },
+    {
+     "unflag": "rm_g1_skim"
+    },
+    {
+     "unflag": "rm_g1_short"
+    },
+    {
+     "unflag": "rm_g1_lost1"
+    },
+    {
+     "note": "一車を関に置いて二車を通し、一党の手下となった。"
+    }
+   ],
+   "end": "計算のできる下働き"
+  },
+  "fail_short": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{inn}の裏で頭に報じる",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は数を言わせもしなかった。{senior}がとうに「下働きが抜いた」と告げていたのだ。「おれの荷に手をつける奴は、使い走りに戻れ」"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    },
+    {
+     "unflag": "rm_g1_path"
+    },
+    {
+     "unflag": "rm_g1_threat"
+    },
+    {
+     "unflag": "rm_g1_tell"
+    },
+    {
+     "unflag": "rm_g1_skim"
+    },
+    {
+     "unflag": "rm_g1_short"
+    },
+    {
+     "unflag": "rm_g1_lost1"
+    },
+    {
+     "note": "抜き荷を先に告げられた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "先に告げられた"
+  },
+  "fail_caught": {
+   "art": "jail",
+   "text": [
+    "棒で打ち据えられ、関の小屋に放り込まれた。{boss}が銭を積んで出してくれたが、顔はすっかり覚えられた。「間抜けは手下にできん」"
+   ],
+   "effects": [
+    {
+     "hp": -14
+    },
+    {
+     "money": -40
+    },
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "unflag": "rm_g1_path"
+    },
+    {
+     "unflag": "rm_g1_threat"
+    },
+    {
+     "unflag": "rm_g1_tell"
+    },
+    {
+     "unflag": "rm_g1_skim"
+    },
+    {
+     "unflag": "rm_g1_short"
+    },
+    {
+     "unflag": "rm_g1_lost1"
+    },
+    {
+     "note": "塩の道の関で捕らえられた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "関の小屋の夜"
+  }
+ }
+}

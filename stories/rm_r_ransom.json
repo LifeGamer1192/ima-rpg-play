@@ -1,0 +1,458 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_ransom",
+ "kind": "random",
+ "where": "inn",
+ "most": 2,
+ "again": 360,
+ "hook": "捕虜の身代金を集めております。元老院は許さぬと申しますが",
+ "title": "買い戻せぬ者",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "port": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "捕虜の母"
+  },
+  "broker": {
+   "npc": "身代金の仲立ち",
+   "sex": "m"
+  },
+  "senator": {
+   "folk": "元老院の者",
+   "tags": [
+    "官",
+    "主"
+   ]
+  },
+  "captive": {
+   "npc": "帰ってきた兵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{inn}の卓に、布に包んだ銭が十六人分積まれていた。多くは耳飾りと銀の小皿を溶かしたものだ。",
+    "{client}が手を揉んだ。「息子は捕らわれております。元老院は『捕らわれるような兵は買い戻さぬ』と。……母には、そんな決まりは無いのです」",
+    "「{port}に仲立ちの者が来ております。一人三百、先払いで」"
+   ],
+   "choices": [
+    {
+     "label": "{port}で仲立ちの{broker}に会う",
+     "next": "broker"
+    },
+    {
+     "label": "元老院の{senator}に掛け合う",
+     "next": "senator"
+    },
+    {
+     "label": "銭の出どころと額を自分で数え直す",
+     "next": "count"
+    }
+   ]
+  },
+  "count": {
+   "art": "trade",
+   "text": [
+    "十六人分、四千八百。耳飾り、小皿、嫁入りの帯留め。溶かした跡の残る銀が多い。",
+    "足りているように見えて、仲立ちが言う「船の代」「見張りへの礼」を加えると、二千足りない。最初から足りない額を言われている。"
+   ],
+   "effects": [
+    {
+     "flag": "rmr_short"
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "足りない分の仕掛けを持って{broker}に会う",
+     "next": "broker"
+    },
+    {
+     "label": "{senator}に、公の銭で足せぬかと問う",
+     "next": "senator"
+    }
+   ]
+  },
+  "broker": {
+   "at": {
+    "place": "port"
+   },
+   "goal": "{port}で仲立ちの{broker}に会う",
+   "speaker": "broker",
+   "art": "voyage",
+   "text": [
+    "{broker}は帳面を膝に広げ、名を指でなぞった。「十六人。船は三日後の夜。先払いでなければ動きません」",
+    "「元老院の決まりは存じております。だから夜なのです」"
+   ],
+   "choices": [
+    {
+     "label": "「同じ名を二度売っていないか」と帳面を見せろと言う",
+     "if": {
+      "flag": "rmr_short"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "twice",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "先払いを半分にし、残りは引き渡しでと値切る",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "end_half",
+      "lose": "end_gone"
+     }
+    },
+    {
+     "label": "銭を渡し、三日待つ",
+     "next": "wait"
+    },
+    {
+     "label": "{port}の夜を張って、船が本当に出るか見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "night",
+      "lose": "thugs"
+     }
+    }
+   ]
+  },
+  "twice": {
+   "art": "backroom",
+   "text": [
+    "帳面の裏の綴りに、同じ名が二度書かれていた。片方は「受領」、片方は「未収」。",
+    "去年の春にも、この男は同じ十六人のうち九人の名で銭を受け取っている。九人はまだ海の向こうにいる。"
+   ],
+   "effects": [
+    {
+     "flag": "rmr_fraud"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "{port}の役人に引き渡す",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_caught",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "帳面を質に取り、本物の船を出させる",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_home",
+      "lose": "thugs"
+     }
+    }
+   ]
+  },
+  "night": {
+   "at": {
+    "place": "port"
+   },
+   "goal": "{port}の夜を張る",
+   "art": "voyage",
+   "text": [
+    "三日めの夜、桟橋に船は来た。細長い、櫂の多い船だ。降りてきたのは九人。十六人ではない。",
+    "{broker}は九人の肩を叩いて数え、残りの名を帳面から線で消した。"
+   ],
+   "effects": [
+    {
+     "flag": "rmr_fraud"
+    }
+   ],
+   "choices": [
+    {
+     "label": "桟橋で{broker}を押さえ、残り七人の分を吐かせる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_home",
+      "lose": "end_gone"
+     }
+    },
+    {
+     "label": "九人を連れて静かに引き、役人には明日話す",
+     "next": "end_nine"
+    }
+   ]
+  },
+  "senator": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "元老院の{senator}に掛け合う",
+   "speaker": "senator",
+   "art": "court",
+   "text": [
+    "{senator}は水を割った酒を舐め、長いこと天井を見ていた。",
+    "「買い戻せば、兵は次も捕らわれる。捕らわれても家が買い戻すと思えば、誰も最後まで立たぬ。だから許さぬのです」",
+    "「……わたしの甥も、あの日の名簿にございます」"
+   ],
+   "choices": [
+    {
+     "label": "「公が許さぬなら、家が勝手にするだけだ」と押す",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_quiet",
+      "lose": "end_forbid"
+     }
+    },
+    {
+     "label": "捕虜を兵ではなく「人質」として数え直す書式を立てる",
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "end_quiet",
+      "lose": "end_forbid"
+     }
+    },
+    {
+     "label": "仲立ちの詐りを先に片づけると告げ、{port}へ戻る",
+     "next": "broker"
+    }
+   ]
+  },
+  "wait": {
+   "at": {
+    "place": "port"
+   },
+   "goal": "三日待つ",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "client",
+   "art": "voyage",
+   "text": [
+    "三日めの夜、桟橋に人が集まった。母たちは灯を持って海を見ていた。",
+    "船は来なかった。四日めの朝、{broker}の宿は空だった。"
+   ],
+   "choices": [
+    {
+     "label": "街道を追う",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "end_caught",
+      "lose": "end_gone"
+     }
+    },
+    {
+     "label": "母たちに銭のことを告げ、できることを考える",
+     "next": "end_gone"
+    }
+   ]
+  },
+  "thugs": {
+   "art": "war",
+   "text": [
+    "{broker}が指を鳴らすと、桟橋の綱の陰から水夫が二人、櫂を持って出てきた。"
+   ],
+   "choices": [
+    {
+     "label": "櫂を奪って叩き伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "end_caught",
+      "lose": "end_gone"
+     }
+    },
+    {
+     "label": "海へ飛び込んで逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_nine",
+      "lose": "end_gone"
+     }
+    }
+   ]
+  },
+  "end_home": {
+   "text": [
+    "帳面を質に取ったまま、船をもう一度出させた。十二日後、残りの七人が桟橋に降りた。",
+    "{captive}は母の顔を見て、何も言えずに膝をついた。元老院には、何も報せなかった。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 13
+    },
+    {
+     "favor": -2
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{port}の仲立ちの詐りを押さえ、捕虜十六人を帰らせた。"
+    }
+   ],
+   "end": "桟橋の膝"
+  },
+  "end_caught": {
+   "text": [
+    "{broker}は{port}の役人に引き渡された。二度売りの帳面が出て、男は属州の牢に入った。",
+    "銭は半分だけ戻った。帰った捕虜は、一人もいない。母たちは、それでも銭を数えて受け取った。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 9
+    },
+    {
+     "favor": 4
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{port}の身代金の仲立ちの二度売りを暴き、役人に引き渡した。"
+    }
+   ],
+   "end": "半分戻った銭"
+  },
+  "end_nine": {
+   "text": [
+    "九人が桟橋に降りた。残りの七人の名は、帳面から線で消されていた。",
+    "{client}の息子は、九人のうちにいた。母は息子の背を叩き、それから、七人の母たちの方を見られなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "note": "{port}に捕虜九人が帰り、七人は海の向こうに残った。"
+    }
+   ],
+   "end": "線で消された七つの名"
+  },
+  "end_half": {
+   "text": [
+    "先払いを半分に値切った。船は来て、八人が降り、残りの半金を払ってから、また八人が降りた。",
+    "{broker}は不満そうだったが、二度来るしかなかった。それで十六人が揃った。"
+   ],
+   "effects": [
+    {
+     "money": 180
+    },
+    {
+     "fame": 11
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{port}の身代金を半金ずつにし、捕虜十六人を帰らせた。"
+    }
+   ],
+   "end": "二度来た船"
+  },
+  "end_quiet": {
+   "text": [
+    "{senator}は「聞かなかったことにする」と言って立った。それ以上は、何も約さなかった。",
+    "銭は夜に動き、十六人は十日のうちに帰った。公の帳面には、一行も残らなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "favor": 2
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}で捕虜の身代金を、公の帳面に残らぬ形で通した。"
+    }
+   ],
+   "end": "一行も残らぬ帳面"
+  },
+  "end_forbid": {
+   "text": [
+    "元老院の決まりは動かなかった。{port}の桟橋から銭の箱が運び戻され、母たちは耳飾りを溶かした銀を、もう一度分け合った。",
+    "{client}が言った。「決まりは、正しいのでしょうね」そう言って、泣かなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "favor": 3
+    },
+    {
+     "note": "{here}の捕虜の身代金は、元老院の決まりで通らなかった。"
+    }
+   ],
+   "end": "溶かした銀を分け合う"
+  },
+  "end_gone": {
+   "text": [
+    "{broker}は銭ごと消えた。船も、男も、帳面も。",
+    "桟橋には灯の油の跡だけが残った。母たちはそれから何日も、夕になると海を見にきた。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "note": "{port}の身代金の仲立ちは銭を持って消えた。"
+    }
+   ],
+   "end": "油の跡"
+  }
+ }
+}

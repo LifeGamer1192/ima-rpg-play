@@ -1,0 +1,387 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_bad_omen",
+ "kind": "random",
+ "where": "shrine",
+ "most": 2,
+ "again": 360,
+ "hook": "鳥が三日続けて餌を食べぬそうです。軍が出られません",
+ "title": "餌を食わぬ鳥",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "神殿の下役"
+  },
+  "augur": {
+   "npc": "卜占官",
+   "sex": "m"
+  },
+  "keeper": {
+   "npc": "鶏の番",
+   "sex": "m"
+  },
+  "tribune": {
+   "folk": "軍団付士官",
+   "tags": [
+    "将",
+    "兵"
+   ]
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{shrine}の裏の籠で、聖なる鶏が羽を膨らませて座っていた。餌の粒が、昨日のまま減っていない。",
+    "{client}が囁いた。「三日です。鳥が食わねば兆しは悪い。兆しが悪ければ軍は出られません。営所では、兵が賭けを始めております」"
+   ],
+   "choices": [
+    {
+     "label": "鶏の籠と餌を見る",
+     "next": "cage"
+    },
+    {
+     "label": "卜占官{augur}に会う",
+     "next": "augur"
+    },
+    {
+     "label": "営所で{tribune}に事情を聞く",
+     "next": "tribune"
+    }
+   ]
+  },
+  "cage": {
+   "speaker": "keeper",
+   "art": "faith",
+   "text": [
+    "籠の底に、割った麦ではなく丸い粒が撒かれていた。鶏が食えない大きさだ。水桶は満たされ、鳥は太っている。",
+    "{keeper}は手を後ろに回した。「決まりどおりにやっております。粒の大きさに決まりはございません」"
+   ],
+   "choices": [
+    {
+     "label": "{keeper}を問い詰める",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "who",
+      "lose": "augur"
+     }
+    },
+    {
+     "label": "粒を割って撒き直し、鳥が食うのを人に見せる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_fed",
+      "lose": "augur"
+     }
+    }
+   ]
+  },
+  "who": {
+   "speaker": "keeper",
+   "art": "backroom",
+   "text": [
+    "{keeper}は泣き出しそうな顔で言った。「卜占官さまに言われたのです。粒は大きいままにせよ、と」",
+    "「理由は聞いておりません。ただ、こうも言われました。『三日のうちに峠の雪が解ける』と」"
+   ],
+   "effects": [
+    {
+     "flag": "rmo_snow"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "{augur}に直に問う",
+     "next": "augur"
+    },
+    {
+     "label": "{tribune}に、鳥ではなく峠の話をする",
+     "next": "tribune"
+    }
+   ]
+  },
+  "augur": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "卜占官{augur}に会う",
+   "speaker": "augur",
+   "art": "faith",
+   "text": [
+    "{augur}は曲がった杖で空を四つに割り、長いこと黙っていた。",
+    "「兆しは悪い。それだけです。わたしの務めは、兆しを読むことで、兆しを作ることではありません」"
+   ],
+   "choices": [
+    {
+     "label": "「粒の大きさを決めたのは誰だ」と問う",
+     "if": {
+      "flag": "rmo_snow"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "reason",
+      "lose": "end_held"
+     }
+    },
+    {
+     "label": "卜占の書式の不備を指摘する",
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "end_fed",
+      "lose": "end_held"
+     }
+    },
+    {
+     "label": "銭を包んで「明日は良い兆しを」と頼む",
+     "effects": [
+      {
+       "money": -500
+      }
+     ],
+     "next": "end_bribed"
+    }
+   ]
+  },
+  "reason": {
+   "speaker": "augur",
+   "art": "faith",
+   "text": [
+    "{augur}は杖を下ろした。「三十年、鳥を見てきました。兆しに嘘はつきません。ただ、鳥に餌をやる刻は選びます」",
+    "「峠の雪が解けておりません。いま軍を上げれば、戦わずに千人が凍えます。士官にそう言いましたが、笑われました」",
+    "「鳥に言わせるほうが、早いのです」"
+   ],
+   "effects": [
+    {
+     "flag": "rmo_true"
+    }
+   ],
+   "choices": [
+    {
+     "label": "士官に峠の雪のことを伝え、兆しは伏せる",
+     "next": "tribune"
+    },
+    {
+     "label": "「兆しを作るのは卜占の死だ」と諫め、鳥に餌をやらせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_honest",
+      "lose": "end_fed"
+     }
+    }
+   ]
+  },
+  "tribune": {
+   "at": {
+    "place": "here",
+    "building": "barracks"
+   },
+   "goal": "{barracks}で{tribune}に会う",
+   "speaker": "tribune",
+   "art": "camp",
+   "text": [
+    "{tribune}は革帯を締め直しながら吐き捨てた。「鳥が食わぬから出られぬ。兵は三日、賭けと喧嘩ばかりだ」",
+    "「将は神を軽んじたとは言われたくない。だから待つ。待つ理由が鳥なのが、気に入らぬだけだ」"
+   ],
+   "choices": [
+    {
+     "label": "峠の雪のことを数で示す",
+     "if": {
+      "flag": "rmo_snow"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_snow",
+      "lose": "end_held"
+     }
+    },
+    {
+     "label": "「鳥は餌が食えぬ大きさだった」と告げる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_fed",
+      "lose": "end_held"
+     }
+    },
+    {
+     "label": "何も言わず、賭けの喧嘩を収めて回る",
+     "fight": {
+      "foes": "soldier",
+      "n": 2,
+      "level": 0,
+      "win": "end_quiet",
+      "lose": "end_hurt"
+     }
+    }
+   ]
+  },
+  "end_fed": {
+   "text": [
+    "粒を割って撒くと、鶏は一斉に食った。兆しは良いとされ、翌朝、軍は出た。",
+    "峠で雪に遭い、隊は二日を谷で過ごした。凍えた者が出た。{augur}は何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "note": "{here}の聖なる鶏の餌を割らせ、軍を出させた。"
+    }
+   ],
+   "end": "谷で過ごした二日"
+  },
+  "end_snow": {
+   "text": [
+    "峠の雪の深さを、羊飼いから聞いた寸で書いて出した。{tribune}は黙って数を読み、将の天幕へ入っていった。",
+    "出陣は八日延びた。八日めには雪が解け、軍は一人も凍えずに峠を越えた。鳥は、その朝から餌を食った。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 12
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{here}の出陣を峠の雪の数で延ばさせた。"
+    }
+   ],
+   "end": "八日めの朝"
+  },
+  "end_honest": {
+   "text": [
+    "「兆しを作れば、次に本当の兆しが出たときに誰も信じません」——{augur}は長く黙り、籠へ行って粒を自分の指で割った。",
+    "そして士官のところへ行き、鳥のことではなく雪のことを話した。出陣は五日延びた。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{here}の卜占官に、鳥ではなく雪で諫めさせた。"
+    }
+   ],
+   "end": "自分の指で割った粒"
+  },
+  "end_bribed": {
+   "text": [
+    "翌朝、鶏は粒を食い、兆しは良いとされた。軍は出た。",
+    "銭が動いたことは誰も知らない。峠で何人が凍えたかも、数えた者はいなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "favor": 3
+    },
+    {
+     "note": "{here}の卜占官に銭を包み、良い兆しを出させた。"
+    }
+   ],
+   "end": "数えなかった者"
+  },
+  "end_quiet": {
+   "text": [
+    "営所の裏で殴り合っていた二人を引き離し、賭けの札を取り上げて焼いた。",
+    "鳥は四日めの朝に餌を食った。軍は出た。兆しも雪も、誰の手柄にもならなかった。"
+   ],
+   "effects": [
+    {
+     "money": 80
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 3
+    },
+    {
+     "xp": "blade",
+     "n": 3
+    },
+    {
+     "note": "{here}の出陣待ちの営所で、兵の喧嘩を収めた。"
+    }
+   ],
+   "end": "誰の手柄でもなく"
+  },
+  "end_held": {
+   "text": [
+    "誰も聞かなかった。鳥は食わず、軍は出ず、兵は七日目に蓆を焼いて騒いだ。",
+    "八日めに鳥が餌を食い、軍は出た。峠の雪は、その頃には解けていた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{here}の出陣待ちは八日続き、誰の言葉も届かなかった。"
+    }
+   ],
+   "end": "八日の待ち"
+  },
+  "end_hurt": {
+   "text": [
+    "二人を分けに入って、両方から殴られた。営所の軍医に鼻を押さえられながら、笛の音を聞いた。"
+   ],
+   "effects": [
+    {
+     "hp": -18
+    }
+   ],
+   "end": "押さえられた鼻"
+  }
+ }
+}

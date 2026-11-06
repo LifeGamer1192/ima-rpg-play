@@ -1,0 +1,416 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_salt_road",
+ "kind": "random",
+ "where": "road",
+ "most": 2,
+ "again": 400,
+ "hook": "塩の道で、二度も通行料を取られました。里程標が動いたのです",
+ "title": "動いた里程標",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "town": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "塩を運ぶ車夫"
+  },
+  "west": {
+   "npc": "西の町の徴税人",
+   "sex": "m"
+  },
+  "east": {
+   "npc": "東の町の徴税人",
+   "sex": "m"
+  },
+  "mason": {
+   "npc": "石工の老人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "塩の袋を積んだ車が、街道の真ん中で止まっていた。前にも後ろにも、小屋と棒が立っている。",
+    "{client}が板を二枚見せた。どちらも通行料の受け取りだ。「同じ一里で二度です。里程標が、冬のあいだに動いたと皆が言います」"
+   ],
+   "choices": [
+    {
+     "label": "里程標を見る",
+     "next": "stone"
+    },
+    {
+     "label": "西の小屋の{west}に聞く",
+     "next": "west"
+    },
+    {
+     "label": "東の小屋の{east}に聞く",
+     "next": "east"
+    }
+   ]
+  },
+  "stone": {
+   "art": "ruins",
+   "text": [
+    "里程標は円い石柱で、刻まれた数は読める。だが根もとの土が新しい。踏み固められていない。",
+    "少し東の草の中に、石柱の形に窪んだ跡があった。穴の底に、割れた楔が残っている。"
+   ],
+   "choices": [
+    {
+     "label": "窪みと柱を測り、動いた距離を出す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "measured",
+      "lose": "west"
+     }
+    },
+    {
+     "label": "楔を持って、{town}の石工を探す",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "mason",
+      "lose": "east"
+     }
+    }
+   ]
+  },
+  "measured": {
+   "art": "ruins",
+   "text": [
+    "窪みから柱まで、三十四歩。ちょうど、西の小屋が東の町の側に入る距離だ。",
+    "動かした者は、測ってから動かしている。"
+   ],
+   "effects": [
+    {
+     "flag": "rms_measure"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "{west}に数を突きつける",
+     "next": "west"
+    },
+    {
+     "label": "{east}に数を突きつける",
+     "next": "east"
+    },
+    {
+     "label": "石工の{mason}を探し、誰が運んだか確かめる",
+     "next": "mason"
+    }
+   ]
+  },
+  "mason": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{town}で石工の{mason}を探す",
+   "speaker": "mason",
+   "art": "trade",
+   "text": [
+    "{mason}は楔を手で転がし、鼻で笑った。「わたしの楔です。冬に、夜の仕事で。四人で梃子を使いました」",
+    "「頼んだのは東の町の徴税人です。銭は前払い、口止めも前払い。わたしは石を動かすのが仕事で、国境を動かすつもりはございません」"
+   ],
+   "effects": [
+    {
+     "flag": "rms_who"
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "{mason}に、公会所で見たままを言わせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_back",
+      "lose": "east"
+     }
+    },
+    {
+     "label": "{mason}に、元の穴へ石を戻させる",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "end_back",
+      "lose": "thugs"
+     }
+    }
+   ]
+  },
+  "west": {
+   "speaker": "west",
+   "art": "court",
+   "text": [
+    "{west}は棒を抱えて首を振った。「わたしの小屋は十年、同じ場所です。動いたのは石で、小屋ではありません」",
+    "「東は、石が動いたのだから小屋も東の町の内だと言う。わたしは取らねば、町に責められます」"
+   ],
+   "choices": [
+    {
+     "label": "動いた距離を示し、二重の取り立てを止めさせる",
+     "if": {
+      "flag": "rms_measure"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "deal",
+      "lose": "east"
+     }
+    },
+    {
+     "label": "石を動かしたのが東だと告げる",
+     "if": {
+      "flag": "rms_who"
+     },
+     "next": "end_back"
+    },
+    {
+     "label": "両方の小屋を一つにし、料を分ける案を出す",
+     "check": {
+      "skill": "trade",
+      "dc": 50,
+      "win": "deal",
+      "lose": "east"
+     }
+    }
+   ]
+  },
+  "east": {
+   "speaker": "east",
+   "art": "court",
+   "text": [
+    "{east}は受け取りの板を束ねて数えていた。「石のとおりです。石は国が立てたもの。国の石が言うなら、ここは東の町の内です」",
+    "「動いたという証を、お持ちですか」"
+   ],
+   "choices": [
+    {
+     "label": "窪みと楔を見せる",
+     "if": {
+      "flag": "rms_who"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_back",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "測った数を見せる",
+     "if": {
+      "flag": "rms_measure"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "deal",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "「公会所に出す」と言って引く",
+     "next": "office"
+    }
+   ]
+  },
+  "deal": {
+   "art": "trade",
+   "text": [
+    "小屋は一つになり、料は半分ずつ分けることになった。車は一度払えば通れる。",
+    "石は、動いたままだ。誰も戻そうとは言わなかった。"
+   ],
+   "choices": [
+    {
+     "label": "それで手を打つ",
+     "next": "end_shared"
+    },
+    {
+     "label": "石は元に戻させると言い張る",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_back",
+      "lose": "end_shared"
+     }
+    }
+   ]
+  },
+  "office": {
+   "at": {
+    "place": "town",
+    "building": "office"
+   },
+   "goal": "{town}の{office}に出す",
+   "art": "court",
+   "text": [
+    "{office}の役人は、両町の名を聞いた途端に顔を曇らせた。「国境の争いは、総督の裁きになります。早くて半年」",
+    "「そのあいだ、車は二度払います。それが決まりです」"
+   ],
+   "choices": [
+    {
+     "label": "半年のあいだ、車に迂回の道を教える",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_detour",
+      "lose": "end_twice"
+     }
+    },
+    {
+     "label": "総督の裁きを待たせ、証を揃えて出す",
+     "if": {
+      "flag": "rms_who"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_back",
+      "lose": "end_twice"
+     }
+    }
+   ]
+  },
+  "thugs": {
+   "art": "war",
+   "text": [
+    "小屋の裏から、棒を持った徴税人の手下が三人出てきた。「石の話は、ここで終わりだ」"
+   ],
+   "choices": [
+    {
+     "label": "打ち返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "office",
+      "lose": "end_twice"
+     }
+    },
+    {
+     "label": "車の陰に回って退く",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "office",
+      "lose": "end_twice"
+     }
+    }
+   ]
+  },
+  "end_back": {
+   "text": [
+    "石は元の穴に戻された。四人の男と梃子で、半日かかった。東の小屋は畳まれ、料は一度になった。",
+    "{client}は受け取りの板を一枚だけ懐に入れた。「一枚は、軽いものです」"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "item": "salt",
+     "n": 2
+    },
+    {
+     "fame": 11
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}の塩の道の里程標を元に戻させ、二重の通行料を止めた。"
+    }
+   ],
+   "end": "元の穴に戻った石"
+  },
+  "end_shared": {
+   "text": [
+    "小屋は一つ、料は半分ずつ。石は動いたままで、二つの町はそれで手を打った。",
+    "車は一度払えば通る。{client}は「それで充分です」と言い、荷を締め直して北へ行った。"
+   ],
+   "effects": [
+    {
+     "money": 180
+    },
+    {
+     "fame": 7
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "{here}の塩の道の通行料を、両町で分ける形にまとめた。"
+    }
+   ],
+   "end": "半分ずつの料"
+  },
+  "end_detour": {
+   "text": [
+    "羊飼いの道を測り、車が通れる幅のところを繋いだ。遠回りは一日半。通行料二度分より、まだ安い。",
+    "半年後、総督の裁きで石は元に戻った。そのころには、迂回の道のほうが踏まれて広くなっていた。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}の塩の道の二重の料を避ける迂回の道を通した。"
+    }
+   ],
+   "end": "踏まれて広くなった道"
+  },
+  "end_twice": {
+   "text": [
+    "石は動いたまま、小屋は二つのまま。車は一里で二度払い続けた。",
+    "半年後に総督の裁きが出たという話は、聞かなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{here}の塩の道では、通行料が二度のまま残った。"
+    }
+   ],
+   "end": "一里で二度"
+  }
+ }
+}

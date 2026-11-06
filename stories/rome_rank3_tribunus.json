@@ -1,0 +1,544 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rome_rank3_tribunus",
+ "kind": "rank",
+ "rankTo": 3,
+ "title": "四千の脚",
+ "era": "rome",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "pass": {
+   "place": "near:cap"
+  },
+  "legate": {
+   "npc": "軍団の副将",
+   "sex": "m"
+  },
+  "contractor": {
+   "npc": "糧の請負",
+   "sex": "m"
+  },
+  "engineer": {
+   "npc": "ギリシア人の工兵",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の{palace}で副将に会う",
+   "speaker": "legate",
+   "art": "court",
+   "text": [
+    "{legate}は地図の上に指を二本置いた。川と、峠。",
+    "「四千を{pass}の向こうへ入れる。六日だ。七日めには敵の騎兵が川の渡しを見つける」",
+    "「糧の請負が、麦を三分の一足りぬまま積んだ。それも含めて、お前が運べ。運べたら士官の帯を締めろ」"
+   ],
+   "choices": [
+    {
+     "label": "帯を預かり、列の支度にかかる",
+     "effects": [
+      {
+       "note": "{pass}の向こうへ四千を六日で入れれば、軍団付士官となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "cap",
+    "building": "market"
+   },
+   "goal": "糧の請負に会い、足りぬ三分の一を埋める",
+   "speaker": "contractor",
+   "art": "trade",
+   "text": [
+    "{contractor}は荷札を数えていた。「麦はございます。値が上がったので、同じ銭では三分の二しか積めません」",
+    "「不足は、峠の向こうの村で買えばよいでしょう。村があればですが」"
+   ],
+   "choices": [
+    {
+     "label": "請負の帳と去年の値を突き合わせ、額を正させる",
+     "check": {
+      "skill": "trade",
+      "dc": 32,
+      "win": "s2full",
+      "lose": "s2short"
+     }
+    },
+    {
+     "label": "乾パンの日数を四日に詰め、残りを現地の麦に当てる算段を立てる",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s2plan",
+      "lose": "s2short"
+     }
+    },
+    {
+     "label": "自分の銭で不足を買う（900）",
+     "if": {
+      "money": 900
+     },
+     "effects": [
+      {
+       "money": -900
+      },
+      {
+       "flag": "rm_r3_grain"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s2full": {
+   "art": "trade",
+   "text": [
+    "去年の値と、荷札の値に四割の差があった。差を指で押さえて見せると、{contractor}は黙って荷車を二十台足した。",
+    "麦は揃った。{contractor}は帳を抱えて、こちらの名を小さく書き込んだ。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r3_grain"
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    },
+    {
+     "note": "糧の請負の帳を正し、麦を揃えた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2plan": {
+   "art": "lecture",
+   "text": [
+    "一人あたりの麦を日に二斤から一斤半に落とし、代わりに塩と油を増やした。四日は保つ。五日めからは峠の向こうだ。",
+    "兵は文句を言うが、文句を言える兵は歩ける。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r3_thin"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2short": {
+   "art": "trade",
+   "text": [
+    "請負は頭を下げるばかりで、荷は三分の二のままだった。足りない分は、歩きながら考えるしかない。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "pass"
+   },
+   "goal": "{pass}の手前の川を渡す",
+   "speaker": "engineer",
+   "art": "voyage",
+   "text": [
+    "川は腰まで。だが底が石で、荷車の輪が挟まる。四千と荷車百二十を一日で渡すのは無理だ。",
+    "工兵の{engineer}が杭を水に差して言った。「舟橋なら半日です。舟が十六要ります。この川にあるのは九です」"
+   ],
+   "choices": [
+    {
+     "label": "九の舟に杭と板を足し、半分の橋を二度架ける",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s3bridge",
+      "lose": "s3ford"
+     }
+    },
+    {
+     "label": "上流の浅瀬を探して歩いて渡す",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "s3ford",
+      "lose": "s3late"
+     }
+    },
+    {
+     "label": "荷車を捨て、荷を兵に担がせて渡す",
+     "effects": [
+      {
+       "flag": "rm_r3_nocart"
+      }
+     ],
+     "next": "s3ford"
+    }
+   ]
+  },
+  "s3bridge": {
+   "art": "voyage",
+   "text": [
+    "九の舟を繋いで半分を架け、渡し終えてから舟を解き、下流へ回してもう半分を架けた。手間は二倍、日は半分。",
+    "夕には四千と荷車が向こう岸にいた。{engineer}は板の継ぎを撫でて言った。「これは、書いておきます」"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r3_fast"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "next": "s4"
+  },
+  "s3ford": {
+   "art": "voyage",
+   "text": [
+    "浅瀬を見つけ、縄を張って順に渡した。溺れた者は出なかった。半日では済まず、一日半かかった。"
+   ],
+   "next": "s4"
+  },
+  "s3late": {
+   "art": "voyage",
+   "text": [
+    "浅瀬は見つからず、石の底で荷車の輪が三つ折れた。渡り終えたのは三日めの朝だった。"
+   ],
+   "effects": [
+    {
+     "flag": "rm_r3_slow"
+    }
+   ],
+   "next": "s4"
+  },
+  "s4": {
+   "at": {
+    "place": "pass"
+   },
+   "goal": "{pass}を越え、宿営を立てる",
+   "wait": {
+    "days": 3
+   },
+   "speaker": "legate",
+   "art": "camp",
+   "text": [
+    "峠の道は狭い。列が細く長く伸びれば、頭と尾で半日離れる。離れた尾は、騎兵の的だ。",
+    "遠く、尾根の上に埃が上がっていた。騎兵は、思ったより早い。"
+   ],
+   "choices": [
+    {
+     "label": "列を三つに割り、それぞれに宿営を掘らせて夜を越す",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s5",
+      "lose": "s4raid"
+     }
+    },
+    {
+     "label": "荷車を捨て、夜のうちに峠を抜ける",
+     "if": {
+      "flag": "rm_r3_nocart"
+     },
+     "next": "s5"
+    },
+    {
+     "label": "尾に自分がつき、騎兵を押さえながら進む",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5",
+      "lose": "fail_cut"
+     }
+    }
+   ]
+  },
+  "s4raid": {
+   "art": "war",
+   "text": [
+    "夜半、尾の荷車に火矢が落ちた。騎兵は三十ほど。溝の浅いところから入ってきた。"
+   ],
+   "choices": [
+    {
+     "label": "溝の外へ出て押し返す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s5",
+      "lose": "fail_cut"
+     }
+    },
+    {
+     "label": "荷車に火を広げ、火の壁で騎兵を止める",
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "s5",
+      "lose": "fail_cut"
+     }
+    }
+   ]
+  },
+  "s5": {
+   "at": {
+    "place": "pass"
+   },
+   "goal": "峠の向こうで副将に報じる",
+   "speaker": "legate",
+   "art": "camp",
+   "text": [
+    "六日めの夕、峠の向こうの平地に四千が並んだ。{legate}が数を読み終えるまで、誰も座らなかった。",
+    "「三千九百六十二。四千のうち三十八を失った。少ない」"
+   ],
+   "choices": [
+    {
+     "label": "舟橋で一日稼いだと申し上げる",
+     "if": {
+      "flag": "rm_r3_fast"
+     },
+     "next": "win_bridge"
+    },
+    {
+     "label": "糧の請負の帳を正して麦を揃えたと申し上げる",
+     "if": {
+      "flag": "rm_r3_grain"
+     },
+     "next": "win_grain"
+    },
+    {
+     "label": "乾パンを詰めて日を稼いだと申し上げる",
+     "if": {
+      "flag": "rm_r3_thin"
+     },
+     "next": "win_thin"
+    },
+    {
+     "label": "荷車を捨てた判断を申し上げる",
+     "next": "win_cart"
+    }
+   ]
+  },
+  "win_bridge": {
+   "speaker": "engineer",
+   "text": [
+    "{legate}は舟橋の手を聞くと、{engineer}を呼んで同じことをもう一度言わせた。",
+    "「九の舟で十六の橋を架けたか。……士官の帯を締めろ。次は、舟を十六用意させてやる」"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 14
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "unflag": "rm_r3_grain"
+    },
+    {
+     "unflag": "rm_r3_thin"
+    },
+    {
+     "unflag": "rm_r3_fast"
+    },
+    {
+     "unflag": "rm_r3_slow"
+    },
+    {
+     "unflag": "rm_r3_nocart"
+    },
+    {
+     "note": "{pass}へ四千を六日で入れ、軍団付士官となった。舟橋の手が軍団の書に残った。"
+    }
+   ],
+   "end": "九の舟の橋"
+  },
+  "win_grain": {
+   "speaker": "legate",
+   "text": [
+    "「請負の帳を正したか」{legate}は帯を渡した。「請負は都に友が多い。覚えておけ」",
+    "{contractor}からは、それから一度も挨拶が来なかった。"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "unflag": "rm_r3_grain"
+    },
+    {
+     "unflag": "rm_r3_thin"
+    },
+    {
+     "unflag": "rm_r3_fast"
+    },
+    {
+     "unflag": "rm_r3_slow"
+    },
+    {
+     "unflag": "rm_r3_nocart"
+    },
+    {
+     "note": "糧の請負の帳を正して四千を運び、軍団付士官となった。請負に睨まれた。"
+    }
+   ],
+   "end": "来なくなった挨拶"
+  },
+  "win_thin": {
+   "speaker": "legate",
+   "text": [
+    "「一斤半で六日歩かせたか。兵は何と言った」——「文句を言いました」",
+    "{legate}は笑った。「文句を言う兵は歩く。黙る兵は倒れる。帯を締めろ」"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 11
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    },
+    {
+     "unflag": "rm_r3_grain"
+    },
+    {
+     "unflag": "rm_r3_thin"
+    },
+    {
+     "unflag": "rm_r3_fast"
+    },
+    {
+     "unflag": "rm_r3_slow"
+    },
+    {
+     "unflag": "rm_r3_nocart"
+    },
+    {
+     "note": "糧を詰めて四千を六日で運び、軍団付士官となった。"
+    }
+   ],
+   "end": "文句を言う兵"
+  },
+  "win_cart": {
+   "speaker": "legate",
+   "text": [
+    "「荷車百二十を捨てたか」{legate}は数を書き取った。「請負は損を国に請求する。国は払う」",
+    "「だが四千は越えた。帯を締めろ。荷車は、また作れる」"
+   ],
+   "effects": [
+    {
+     "rank": 3
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "rm_r3_grain"
+    },
+    {
+     "unflag": "rm_r3_thin"
+    },
+    {
+     "unflag": "rm_r3_fast"
+    },
+    {
+     "unflag": "rm_r3_slow"
+    },
+    {
+     "unflag": "rm_r3_nocart"
+    },
+    {
+     "note": "荷車を捨てて四千を峠の向こうへ入れ、軍団付士官となった。"
+    }
+   ],
+   "end": "捨てた百二十"
+  },
+  "fail_cut": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}に戻り、不首尾を報じる",
+   "speaker": "legate",
+   "art": "court",
+   "text": [
+    "尾が切られた。荷と、四百。峠の向こうに入ったのは三千五百だった。",
+    "{legate}は帯を箱に戻した。「四千の脚を預けるには、まだ早い。覚えを取り戻してから来い」"
+   ],
+   "effects": [
+    {
+     "favor": -12
+    },
+    {
+     "hp": -18
+    },
+    {
+     "unflag": "rm_r3_grain"
+    },
+    {
+     "unflag": "rm_r3_thin"
+    },
+    {
+     "unflag": "rm_r3_fast"
+    },
+    {
+     "unflag": "rm_r3_slow"
+    },
+    {
+     "unflag": "rm_r3_nocart"
+    },
+    {
+     "note": "{pass}で列の尾を切られた。覚えを取り戻せば、また試される。"
+    }
+   ],
+   "end": "切られた尾"
+  }
+ }
+}

@@ -1,0 +1,495 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_guild1",
+ "kind": "rank",
+ "guildTo": 1,
+ "title": "階段の竜",
+ "era": "fantasy",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "boss": {
+   "npc": "盗賊団の頭目",
+   "sex": "f"
+  },
+  "senior": {
+   "npc": "古参の手下",
+   "sex": "m"
+  },
+  "smith": {
+   "npc": "錠前師の弟子",
+   "sex": "f"
+  },
+  "keeper": {
+   "npc": "関の徴税人",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}の裏で頭目に会う",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は短剣の先で卓に塔の図を刻んだ。「関の塔の三階。徴税の箱がある。扉は一つ、窓は一つ」",
+    "「階段に、門竜が寝ている。小さいが、起きたら塔ごと起きる」",
+    "「{senior}が付く。箱を持って帰れば手下だ」"
+   ],
+   "choices": [
+    {
+     "label": "段取りをつけに行く",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "{here}の{smithy}で錠前師の弟子に会う",
+   "speaker": "smith",
+   "art": "trade",
+   "text": [
+    "{smith}は鑢を握ったまま、顔を上げなかった。「箱の錠は、三枚歯です。合鍵を作るのに二日」",
+    "「作ります。……作ったら、わたしを団から抜かせてください。頭目に言えるのは、手下になった人だけです」",
+    "{senior}が鼻を鳴らした。「下っ端が約束するのか」"
+   ],
+   "choices": [
+    {
+     "label": "「手下になったら、必ず言う」と約す",
+     "effects": [
+      {
+       "flag": "ft_g1_oath"
+      }
+     ],
+     "next": "s2key"
+    },
+    {
+     "label": "合鍵の代を払う（60）",
+     "if": {
+      "money": 60
+     },
+     "effects": [
+      {
+       "money": -60
+      }
+     ],
+     "next": "s2key"
+    },
+    {
+     "label": "合鍵は使わず、窓から入る算段にする",
+     "effects": [
+      {
+       "flag": "ft_g1_window"
+      }
+     ],
+     "next": "s3"
+    }
+   ]
+  },
+  "s2key": {
+   "speaker": "smith",
+   "art": "trade",
+   "text": [
+    "二日後、{smith}は鑢の跡の残る鍵を布に包んで渡した。",
+    "「門竜は、鉄の匂いで起きます。鍵は布に包んで、懐の内側に」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g1_key"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "関の塔に入る",
+   "speaker": "senior",
+   "art": "hideout",
+   "text": [
+    "塔の階段の三段めに、門竜が頭を置いて寝ていた。犬ほどの大きさで、鱗が灯を返す。",
+    "{senior}が囁いた。「跨げる。跨げば、跨いだ足の匂いで起きる。おれは下で待つ」"
+   ],
+   "choices": [
+    {
+     "label": "布に包んだ鍵を持って、息を止めて跨ぐ",
+     "if": {
+      "flag": "ft_g1_key"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 22,
+      "win": "s4",
+      "lose": "s3wake"
+     }
+    },
+    {
+     "label": "窓から縄で三階へ上がる",
+     "if": {
+      "flag": "ft_g1_window"
+     },
+     "check": {
+      "skill": "theft",
+      "dc": 26,
+      "win": "s4",
+      "lose": "s3wake"
+     }
+    },
+    {
+     "label": "門竜に食い物を置いてから跨ぐ",
+     "check": {
+      "skill": "medicine",
+      "dc": 24,
+      "win": "s4",
+      "lose": "s3wake"
+     }
+    },
+    {
+     "label": "門竜を先に片づける",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 4,
+      "win": "s4",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s3wake": {
+   "art": "war",
+   "text": [
+    "門竜が目を開け、喉を鳴らした。塔の上で徴税人の足音がする。"
+   ],
+   "choices": [
+    {
+     "label": "竜を押さえ込み、上へ駆け上がる",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 4,
+      "win": "s4",
+      "lose": "fail_caught"
+     }
+    },
+    {
+     "label": "一度出て、夜明け前にもう一度入る",
+     "check": {
+      "skill": "stealth",
+      "dc": 26,
+      "win": "s4",
+      "lose": "fail_caught"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "箱を持って降りる",
+   "speaker": "senior",
+   "art": "backroom",
+   "text": [
+    "箱は思ったより軽かった。三階の窓から縄で降ろし、裏の路地で開けた。銀貨が、数えて二百十二。",
+    "{senior}が手を伸ばした。「三十だけ抜こう。頭目には二百と言えばいい。箱の数なんて、誰も知らん」"
+   ],
+   "choices": [
+    {
+     "label": "抜かせない",
+     "check": {
+      "skill": "speech",
+      "dc": 24,
+      "win": "s5",
+      "lose": "s4skim"
+     }
+    },
+    {
+     "label": "自分も三十抜く",
+     "effects": [
+      {
+       "flag": "ft_g1_skim"
+      }
+     ],
+     "next": "s5"
+    },
+    {
+     "label": "抜かせて、覚えておく",
+     "effects": [
+      {
+       "flag": "ft_g1_tell"
+      }
+     ],
+     "next": "s5"
+    }
+   ]
+  },
+  "s4skim": {
+   "art": "backroom",
+   "text": [
+    "{senior}は三十を懐に入れ、先に歩き出した。数が合わないのは、こちらの持ち場になる。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_g1_short"
+    }
+   ],
+   "next": "s5"
+  },
+  "s5": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{inn}の裏で頭目に報じる",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は銀貨の山を見ずに、こちらの顔を見た。「数は」"
+   ],
+   "choices": [
+    {
+     "label": "二百十二、と告げる",
+     "if": {
+      "notFlag": "ft_g1_short"
+     },
+     "next": "win_clean"
+    },
+    {
+     "label": "{senior}が三十抜いたと告げる",
+     "if": {
+      "flag": "ft_g1_tell"
+     },
+     "next": "win_tell"
+    },
+    {
+     "label": "自分も三十抜いたと含めて告げる",
+     "if": {
+      "flag": "ft_g1_skim"
+     },
+     "next": "win_skim"
+    },
+    {
+     "label": "数を言わずに立つ",
+     "next": "fail_short"
+    }
+   ]
+  },
+  "win_clean": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は短剣の先で山を一度叩いた。「二百十二。箱の数を知っているのは、徴税人とわたしだけだ」",
+    "「下っ端に二百十二を持たせたのは、賭けだった。……手下にする」",
+    "手下になった最初の仕事に、{smith}を団から抜かせてくれと頼んだ。{boss}は「鑢の腕は惜しいが」と言って、頷いた。"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "money": 120
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    },
+    {
+     "unflag": "ft_g1_key"
+    },
+    {
+     "unflag": "ft_g1_window"
+    },
+    {
+     "unflag": "ft_g1_oath"
+    },
+    {
+     "unflag": "ft_g1_tell"
+    },
+    {
+     "unflag": "ft_g1_skim"
+    },
+    {
+     "unflag": "ft_g1_short"
+    },
+    {
+     "note": "関の塔の箱を持ち帰り、盗賊団の手下となった。"
+    }
+   ],
+   "end": "箱の数を知る者"
+  },
+  "win_tell": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は{senior}を呼び、懐から三十を自分の手で出させた。{senior}はこちらを睨んだ。",
+    "「仲間を売る奴は嫌いだ。わたしを売らん奴は好きだ。手下にする。背中には気をつけろ」"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "money": 80
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    },
+    {
+     "flag": "ft_g1_grudge"
+    },
+    {
+     "unflag": "ft_g1_key"
+    },
+    {
+     "unflag": "ft_g1_window"
+    },
+    {
+     "unflag": "ft_g1_oath"
+    },
+    {
+     "unflag": "ft_g1_tell"
+    },
+    {
+     "unflag": "ft_g1_skim"
+    },
+    {
+     "unflag": "ft_g1_short"
+    },
+    {
+     "note": "{senior}の抜き銭を頭目に告げ、盗賊団の手下となった。恨みを買った。"
+    }
+   ],
+   "end": "睨まれた背中"
+  },
+  "win_skim": {
+   "speaker": "boss",
+   "text": [
+    "「六十抜いたか」{boss}は笑わなかった。「抜いたと先に言ったのは、お前だ。{senior}は言わなかった」",
+    "「手下にする」その声は、いつもより少し冷たかった。"
+   ],
+   "effects": [
+    {
+     "guildRank": 1
+    },
+    {
+     "money": 60
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    },
+    {
+     "unflag": "ft_g1_key"
+    },
+    {
+     "unflag": "ft_g1_window"
+    },
+    {
+     "unflag": "ft_g1_oath"
+    },
+    {
+     "unflag": "ft_g1_tell"
+    },
+    {
+     "unflag": "ft_g1_skim"
+    },
+    {
+     "unflag": "ft_g1_short"
+    },
+    {
+     "note": "箱の銀貨を抜いたことを自分から告げ、盗賊団の手下となった。"
+    }
+   ],
+   "end": "先に言った者"
+  },
+  "fail_short": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{inn}の裏で頭目に報じる",
+   "speaker": "boss",
+   "art": "backroom",
+   "text": [
+    "{boss}は数を言わせもしなかった。{senior}がとうに「下っ端が抜いた」と告げていた。「使い走りに戻れ」"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    },
+    {
+     "unflag": "ft_g1_key"
+    },
+    {
+     "unflag": "ft_g1_window"
+    },
+    {
+     "unflag": "ft_g1_oath"
+    },
+    {
+     "unflag": "ft_g1_tell"
+    },
+    {
+     "unflag": "ft_g1_skim"
+    },
+    {
+     "unflag": "ft_g1_short"
+    },
+    {
+     "note": "抜き銭を先に告げられた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "先に告げられた"
+  },
+  "fail_caught": {
+   "art": "jail",
+   "text": [
+    "門竜の尾で足を払われ、階段を転がり落ちた。{keeper}が灯を持って降りてきて、朝まで塔の下に繋がれた。"
+   ],
+   "effects": [
+    {
+     "hp": -14
+    },
+    {
+     "money": -40
+    },
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "unflag": "ft_g1_key"
+    },
+    {
+     "unflag": "ft_g1_window"
+    },
+    {
+     "unflag": "ft_g1_oath"
+    },
+    {
+     "unflag": "ft_g1_tell"
+    },
+    {
+     "unflag": "ft_g1_skim"
+    },
+    {
+     "unflag": "ft_g1_short"
+    },
+    {
+     "note": "関の塔で捕らえられた。働きを重ねれば、また試される。"
+    }
+   ],
+   "end": "塔の下の夜"
+  }
+ }
+}

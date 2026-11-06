@@ -1,0 +1,450 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_rank2_watch",
+ "kind": "rank",
+ "rankTo": 2,
+ "title": "三人目の夜",
+ "era": "fantasy",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "gate": {
+   "place": "near:cap"
+  },
+  "captain": {
+   "npc": "衛士の隊長",
+   "sex": "f"
+  },
+  "young": {
+   "npc": "若い衛士",
+   "sex": "m"
+  },
+  "sewer": {
+   "npc": "下水を掃う者",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "barracks"
+   },
+   "goal": "{cap}の{barracks}で隊長に会う",
+   "speaker": "captain",
+   "art": "camp",
+   "text": [
+    "{captain}は槍の石突で床の鉄格子を叩いた。「ひと月で三人。どれも夜番で、どれも格子の近くだ」",
+    "「わたしの隊は、夜に立たなくなった。立つには、立てる理由が要る」",
+    "「{gate}の夜番を一晩、持たせてみろ。持ったら衛士長の章をやる」"
+   ],
+   "choices": [
+    {
+     "label": "章を預かり、{gate}の夜番につく",
+     "effects": [
+      {
+       "note": "{gate}の夜番を一晩持たせれば、衛士長となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "gate"
+   },
+   "goal": "{gate}で三人が消えた場所を調べる",
+   "speaker": "young",
+   "art": "ruins",
+   "text": [
+    "門の内の石畳に、鉄格子が三つ。格子の縁に、爪ではない引っ掻き傷が並んでいる。歯だ。",
+    "{young}が槍を抱えて言った。「音がします。水の音ではなく、擦る音です。三人とも、音の方へ行きました」"
+   ],
+   "choices": [
+    {
+     "label": "格子を外し、下水を自分で見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 28,
+      "win": "s2down",
+      "lose": "s2fog"
+     }
+    },
+    {
+     "label": "下水を掃う者を探し、道筋を聞く",
+     "next": "s2sewer"
+    },
+    {
+     "label": "歯の跡を測り、何の歯かを調べる",
+     "check": {
+      "skill": "medicine",
+      "dc": 28,
+      "win": "s2teeth",
+      "lose": "s2fog"
+     }
+    }
+   ]
+  },
+  "s2sewer": {
+   "speaker": "sewer",
+   "art": "backroom",
+   "text": [
+    "{sewer}は長柄の鉤を肩に担いでいた。「下水は三本。一本は川へ、一本は堀へ、一本は……どこへも出ません」",
+    "「どこへも出ない一本に、去年から水が流れません。詰まっているのではなく、飲まれているのです」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r2_route"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "next": "s3"
+  },
+  "s2teeth": {
+   "art": "lecture",
+   "text": [
+    "歯の跡は横に長い。噛んで引くのではなく、削って擦る歯だ。石を削る獣の歯。",
+    "石を食う獣は、肉を食わない。三人が消えたのは、食われたからではない。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r2_stone"
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2down": {
+   "art": "ruins",
+   "text": [
+    "格子を外して降りた。水は膝まで。壁の石が、ところどころ丸く削られている。削り跡は奥へ続く。",
+    "奥の暗がりに、人の背の高さの影が座っていた。座って、壁を削っていた。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r2_saw"
+    },
+    {
+     "xp": "stealth",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fog": {
+   "art": "ruins",
+   "text": [
+    "格子の下は暗く、水の音しか聞こえなかった。夜が来る。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "gate"
+   },
+   "goal": "{gate}で夜番を立てる",
+   "speaker": "captain",
+   "art": "war",
+   "text": [
+    "日が落ちた。{captain}は門の内に立ち、何も指図しなかった。指図するのは、こちらだ。",
+    "二刻めに、鉄格子の下から擦る音が始まった。{young}の槍の穂が震えている。"
+   ],
+   "choices": [
+    {
+     "label": "石を削る獣だと告げ、槍ではなく灯を持たせる",
+     "if": {
+      "flag": "ft_r2_stone"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 28,
+      "win": "s4",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "出口の無い一本の口を塞ぎ、獣を川へ導く",
+     "if": {
+      "flag": "ft_r2_route"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s4",
+      "lose": "s3fight"
+     }
+    },
+    {
+     "label": "格子の前に鉄の柵を並べ、夜番を二人組にする",
+     "next": "s3fight"
+    },
+    {
+     "label": "自分が格子の上に立ち、出てくるものを受ける",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 8,
+      "win": "s4",
+      "lose": "fail_lost"
+     }
+    }
+   ]
+  },
+  "s3fight": {
+   "art": "war",
+   "text": [
+    "格子が内側から持ち上がった。灰色の、人の背ほどの影が、濡れた石の上に這い出てきた。"
+   ],
+   "choices": [
+    {
+     "label": "槍の列で押さえ込む",
+     "fight": {
+      "foes": "beast",
+      "n": 1,
+      "level": 8,
+      "win": "s4",
+      "lose": "fail_lost"
+     }
+    },
+    {
+     "label": "灯を全部その影に向け、目を潰す",
+     "check": {
+      "skill": "bow",
+      "dc": 30,
+      "win": "s4",
+      "lose": "fail_lost"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "gate"
+   },
+   "goal": "夜明けに隊長へ報じる",
+   "speaker": "captain",
+   "art": "camp",
+   "text": [
+    "夜明けまで、誰も持ち場を離れなかった。擦る音は三刻めに止まり、水が流れる音に変わった。",
+    "{captain}が槍の石突を下ろした。「三人は」"
+   ],
+   "choices": [
+    {
+     "label": "石を食う獣で、三人は壁の穴に落ちただけだと告げる",
+     "if": {
+      "flag": "ft_r2_stone"
+     },
+     "next": "win_stone"
+    },
+    {
+     "label": "詰まった一本を川に抜いたと告げる",
+     "if": {
+      "flag": "ft_r2_route"
+     },
+     "next": "win_route"
+    },
+    {
+     "label": "自分が見たものを、そのまま話す",
+     "if": {
+      "flag": "ft_r2_saw"
+     },
+     "next": "win_saw"
+    },
+    {
+     "label": "「夜番は持ちました」とだけ告げる",
+     "next": "win_plain"
+    }
+   ]
+  },
+  "win_stone": {
+   "speaker": "young",
+   "text": [
+    "石を削る獣は、肉を食わない。三人は削られた壁の穴に落ちて、下の水路に流されていた。",
+    "二人は生きていた。一人は、落ちたときに首を打っていた。",
+    "{young}は二人を抱えて上がってきて、泣きながら笑っていた。{captain}は衛士長の章をこちらの胸に留めた。"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    },
+    {
+     "unflag": "ft_r2_stone"
+    },
+    {
+     "unflag": "ft_r2_route"
+    },
+    {
+     "unflag": "ft_r2_saw"
+    },
+    {
+     "note": "{gate}の夜番を持たせ、落ちた衛士二人を生きて上げた。衛士長となった。"
+    }
+   ],
+   "end": "泣きながら笑う若い衛士"
+  },
+  "win_route": {
+   "speaker": "captain",
+   "text": [
+    "出口の無い一本に水を通すと、獣はその水に乗って川へ出ていった。壁の削り跡が、川の方へ続いていた。",
+    "{captain}は章を渡した。「門を守るのに、槍ではなく水を使った者は、はじめてだ」"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 11
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "unflag": "ft_r2_stone"
+    },
+    {
+     "unflag": "ft_r2_route"
+    },
+    {
+     "unflag": "ft_r2_saw"
+    },
+    {
+     "note": "{gate}の下水の一本に水を通し、獣を川へ出した。衛士長となった。"
+    }
+   ],
+   "end": "槍ではなく水"
+  },
+  "win_saw": {
+   "speaker": "captain",
+   "text": [
+    "「座って、壁を削っておりました」——そう話した。{captain}は長いこと黙った。",
+    "「見た者の話は重い。章をやる。……次に降りるときは、わたしも行く」"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 10
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "unflag": "ft_r2_stone"
+    },
+    {
+     "unflag": "ft_r2_route"
+    },
+    {
+     "unflag": "ft_r2_saw"
+    },
+    {
+     "note": "{gate}の下水で獣を見、その話で夜番を立て直した。衛士長となった。"
+    }
+   ],
+   "end": "わたしも行く"
+  },
+  "win_plain": {
+   "speaker": "captain",
+   "text": [
+    "「夜番は持ちました」——{captain}は章を渡し、それ以上は訊かなかった。",
+    "三人のことは分からないままだった。分からないまま、夜番は毎晩立つようになった。"
+   ],
+   "effects": [
+    {
+     "rank": 2
+    },
+    {
+     "favor": 9
+    },
+    {
+     "fame": 3
+    },
+    {
+     "unflag": "ft_r2_stone"
+    },
+    {
+     "unflag": "ft_r2_route"
+    },
+    {
+     "unflag": "ft_r2_saw"
+    },
+    {
+     "note": "{gate}の夜番を一晩持たせ、衛士長となった。消えた三人は分からないままだ。"
+    }
+   ],
+   "end": "分からないまま立つ夜番"
+  },
+  "fail_lost": {
+   "at": {
+    "place": "cap",
+    "building": "barracks"
+   },
+   "goal": "{cap}へ戻り、不首尾を報じる",
+   "speaker": "captain",
+   "art": "camp",
+   "text": [
+    "格子の上で押し倒され、夜番は散った。四人目が消えた。",
+    "{captain}は章を箱に戻した。「立てる理由を、まだ作れていない。傷を治せ」"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "hp": -18
+    },
+    {
+     "unflag": "ft_r2_stone"
+    },
+    {
+     "unflag": "ft_r2_route"
+    },
+    {
+     "unflag": "ft_r2_saw"
+    },
+    {
+     "note": "{gate}の夜番を持たせられず、四人目が消えた。覚えを取り戻せば、また試される。"
+    }
+   ],
+   "end": "四人目"
+  }
+ }
+}

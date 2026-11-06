@@ -1,0 +1,368 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_runaway_slave",
+ "kind": "random",
+ "where": "road",
+ "most": 2,
+ "again": 400,
+ "hook": "街道の墓に、逃げた者が隠れております。追手が近いのです",
+ "title": "墓に隠れた者",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "town": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "羊飼いの子"
+  },
+  "runner": {
+   "npc": "逃げた男",
+   "sex": "m"
+  },
+  "hunter": {
+   "npc": "逃亡人を追う者",
+   "sex": "m"
+  },
+  "clerk": {
+   "folk": "公会所の書記",
+   "tags": [
+    "官"
+   ]
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "街道の脇の塚の、石の扉が半分開いていた。{client}が声を落とす。",
+    "「三日、水を持っていきました。足が割れております。追手が、朝から街道を往復しています」"
+   ],
+   "choices": [
+    {
+     "label": "墓の中の男と話す",
+     "next": "runner"
+    },
+    {
+     "label": "街道の追手に声をかける",
+     "next": "hunter"
+    }
+   ]
+  },
+  "runner": {
+   "art": "ruins",
+   "speaker": "runner",
+   "text": [
+    "塚の中は冷たく、壁に宴の絵が描かれていた。{runner}は壁に背を預け、足の裏を見せた。茨と石で切れている。",
+    "「わたしは{town}の者です。自由人です。去年、兵の列に加えられて、軍へ行くはずでした。列は農園へ入って、そこで止まりました」",
+    "「名簿がございません。名簿が無い者は、物として扱われます」"
+   ],
+   "effects": [
+    {
+     "flag": "rmu_claim"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{town}で名簿を調べる",
+     "next": "town"
+    },
+    {
+     "label": "足の傷を手当てする",
+     "check": {
+      "skill": "medicine",
+      "dc": 40,
+      "win": "tend",
+      "lose": "hunter"
+     }
+    },
+    {
+     "label": "追手に引き渡す",
+     "next": "hunter"
+    }
+   ]
+  },
+  "tend": {
+   "art": "ruins",
+   "text": [
+    "茨を抜き、酢で洗って布を巻いた。{runner}は歯を立てて声を殺した。",
+    "手当てのあいだに、焼き印を見た。肩の印は新しい。押されてから一年経っていない。自由人として生まれ、去年印を押された者の肩だ。"
+   ],
+   "effects": [
+    {
+     "flag": "rmu_brand"
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "{town}で名簿を調べる",
+     "next": "town"
+    },
+    {
+     "label": "夜のうちに山の道へ逃がす",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "end_fled",
+      "lose": "hunter"
+     }
+    }
+   ]
+  },
+  "town": {
+   "at": {
+    "place": "town",
+    "building": "office"
+   },
+   "goal": "{town}の{office}で名簿を調べる",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は去年の兵の名簿を出した。{town}が出した二百四十人。そのうち三十一人に、受け取りの印が無い。",
+    "「軍に着いていないのです。途中で落ちたか……落とされたか。帳面には『欠』とだけ」"
+   ],
+   "effects": [
+    {
+     "flag": "rmu_proof"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "三十一人の名を公会所に訴えとして出す",
+     "check": {
+      "skill": "letters",
+      "dc": 50,
+      "win": "end_freed",
+      "lose": "hunter"
+     }
+    },
+    {
+     "label": "{runner}一人の名だけを立て、証を取る",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_one",
+      "lose": "hunter"
+     }
+    }
+   ]
+  },
+  "hunter": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "追手の{hunter}と話す",
+   "speaker": "hunter",
+   "art": "road",
+   "text": [
+    "{hunter}は縄と、焼き印の見本板を腰に下げていた。「一人につき三十です。三十で、わたしは馬の飼い葉を買う」",
+    "「かくまえば、あなたも盗みです。法は、はっきりしております。隠した者は、価の二倍を払う」"
+   ],
+   "choices": [
+    {
+     "label": "名簿の「欠」を見せ、自由人だと示す",
+     "if": {
+      "flag": "rmu_proof"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_freed",
+      "lose": "fight"
+     }
+    },
+    {
+     "label": "焼き印が去年のものだと示す",
+     "if": {
+      "flag": "rmu_brand"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_one",
+      "lose": "fight"
+     }
+    },
+    {
+     "label": "三十の二倍を払い、身を買う",
+     "if": {
+      "money": 700
+     },
+     "effects": [
+      {
+       "money": -700
+      }
+     ],
+     "next": "end_bought"
+    },
+    {
+     "label": "男を渡す",
+     "next": "end_taken"
+    },
+    {
+     "label": "街道で追手を止める",
+     "next": "fight"
+    }
+   ]
+  },
+  "fight": {
+   "art": "war",
+   "text": [
+    "{hunter}は縄を解き、連れの二人を呼んだ。「法の側にいるのは、こちらだ」"
+   ],
+   "choices": [
+    {
+     "label": "打ち合う",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_fled",
+      "lose": "end_taken"
+     }
+    },
+    {
+     "label": "塚の扉を閉め、街道を外れて逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "end_fled",
+      "lose": "end_taken"
+     }
+    }
+   ]
+  },
+  "end_freed": {
+   "text": [
+    "三十一の名が公会所の帳に戻った。属州の役人が農園に行き、十九人が見つかった。十二人は、どこにもいなかった。",
+    "{runner}は{town}の市民として名を取り戻した。焼き印は消えない。「印は残ります」と{runner}は言った。「名が戻れば、印は傷です。印のままなら、印は値です」"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 14
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{town}の名簿から落とされた三十一人の名を公会所に戻させた。"
+    }
+   ],
+   "end": "傷になった印"
+  },
+  "end_one": {
+   "text": [
+    "{runner}一人の名が立ち、自由人と認められた。ほかの三十人のことは、帳面の「欠」のままだ。",
+    "{hunter}は縄を巻き直して去った。「一人分、飼い葉が減りました」"
+   ],
+   "effects": [
+    {
+     "money": 180
+    },
+    {
+     "fame": 9
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}で逃げた男一人を自由人と認めさせた。"
+    }
+   ],
+   "end": "帳面の「欠」"
+  },
+  "end_bought": {
+   "text": [
+    "六十を{hunter}に払い、残りを農園への償いに回した。{runner}の身は、こちらのものとして帳面に書かれ、その場で解放の証を書いた。",
+    "法の上では、買って放したことになる。{runner}はその紙を折り、靴の中に入れた。「読めませんが、持っています」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    },
+    {
+     "note": "{here}で逃げた男の身を買い、その場で解放した。"
+    }
+   ],
+   "end": "靴の中の紙"
+  },
+  "end_fled": {
+   "text": [
+    "塚の裏の羊の道を、{client}が先に立って案内した。{runner}は足を引きながら、山の方へ消えた。",
+    "{hunter}は三日探し、街道へ戻った。「逃げた者が山で生きるのは、だいたい一年です」と言い残した。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": -3
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "note": "{here}で逃げた男を山の道へ逃がした。"
+    }
+   ],
+   "end": "だいたい一年"
+  },
+  "end_taken": {
+   "text": [
+    "{runner}は縄をかけられ、荷車の後ろを歩いていった。振り返らなかった。",
+    "{client}は水の革袋を持ったまま、街道の端に立っていた。「もう、持っていくところがありません」"
+   ],
+   "effects": [
+    {
+     "money": 30
+    },
+    {
+     "fame": -2
+    },
+    {
+     "note": "{here}で逃げた男は追手に連れていかれた。"
+    }
+   ],
+   "end": "持っていくところ"
+  }
+ }
+}

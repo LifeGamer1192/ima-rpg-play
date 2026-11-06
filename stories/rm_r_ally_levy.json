@@ -1,0 +1,367 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_ally_levy",
+ "kind": "random",
+ "where": "office",
+ "most": 2,
+ "again": 340,
+ "hook": "同盟市の割り当てが、取り決めの倍になっております",
+ "title": "割り当ての数",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "town": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "同盟市の使い"
+  },
+  "officer": {
+   "npc": "徴募の士官",
+   "sex": "m"
+  },
+  "elder": {
+   "npc": "同盟市の参事",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{office}の廊で、{client}が木札を握って立っていた。札には兵の数が刻まれている。",
+    "「{town}の割り当ては、取り決めでは二百四十です。今年は五百と言われました。村に若い男が五百もおりません。参事は、年寄りと子を並べて数を揃えると」"
+   ],
+   "choices": [
+    {
+     "label": "取り決めの書を{office}で探す",
+     "next": "treaty"
+    },
+    {
+     "label": "徴募の士官{officer}に会う",
+     "next": "officer"
+    },
+    {
+     "label": "{town}へ行き、参事{elder}と話す",
+     "next": "town"
+    }
+   ]
+  },
+  "treaty": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{office}で取り決めの書を探す",
+   "art": "court",
+   "text": [
+    "古い巻物の棚から、{town}との取り決めが出てきた。二百四十。間違いない。",
+    "だが同じ棚に、三年前の元老院の決議もあった。「戦の続くあいだ、同盟市の割り当ては倍まで求めうる」"
+   ],
+   "effects": [
+    {
+     "flag": "rma_both"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "「倍まで求めうる」の但し書きを読み込む",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "clause",
+      "lose": "officer"
+     }
+    },
+    {
+     "label": "{officer}にこの二つを並べて見せる",
+     "next": "officer"
+    }
+   ]
+  },
+  "clause": {
+   "art": "lecture",
+   "text": [
+    "但し書きが続いていた。「ただし、前年に出した兵のうち帰らざる者の数を差し引く」",
+    "{town}は三年で三百十一人を出し、帰ったのは八十九人。差し引けば、今年の割り当ては百十に満たない。"
+   ],
+   "effects": [
+    {
+     "flag": "rma_clause"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "next": "officer"
+  },
+  "officer": {
+   "at": {
+    "place": "here",
+    "building": "barracks"
+   },
+   "goal": "徴募の士官{officer}に会う",
+   "speaker": "officer",
+   "art": "camp",
+   "text": [
+    "{officer}は名簿の束を膝に載せていた。「数が足りねば、わたしが責めを受ける。責めを受けるのは嫌だ」",
+    "「年寄りと子で数を揃えてきたら、それは反抗と書いて都へ送る。そう決まっている」"
+   ],
+   "choices": [
+    {
+     "label": "帰らざる者の数を差し引かせる",
+     "if": {
+      "flag": "rma_clause"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_cut",
+      "lose": "end_boys"
+     }
+    },
+    {
+     "label": "取り決めの書と決議を並べ、数の筋を通す",
+     "if": {
+      "flag": "rma_both"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_cut",
+      "lose": "end_boys"
+     }
+    },
+    {
+     "label": "足りぬ分を、傭兵と流民で埋める算段をする",
+     "next": "hire"
+    },
+    {
+     "label": "「反抗と書かれる前に、参事と話させてくれ」と頼む",
+     "next": "town"
+    }
+   ]
+  },
+  "town": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{town}で参事{elder}と話す",
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "{town}の広場には、十四と十五の子が五十人ほど並べられていた。槍の柄が体より長い。",
+    "{elder}は目を合わせずに言った。「数は揃えます。揃えねば、こちらが焼かれます。焼かれるより、五十人のほうが安い」"
+   ],
+   "choices": [
+    {
+     "label": "「安い」と言わせないために、数の筋を立て直す",
+     "if": {
+      "flag": "rma_clause"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 35,
+      "win": "officer",
+      "lose": "end_boys"
+     }
+    },
+    {
+     "label": "{elder}に、傭兵を雇う銭を出させる",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "hire",
+      "lose": "end_boys"
+     }
+    },
+    {
+     "label": "子を列から抜き、代わりに自分が名簿に名を書く",
+     "next": "end_self"
+    }
+   ]
+  },
+  "hire": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "傭兵と流民で足りぬ分を埋める",
+   "art": "inn",
+   "text": [
+    "{inn}の裏に、戦で村を失った者と、隊を離れた者が集まった。食と銭があれば、数にはなる。",
+    "ただ、彼らは同盟市の者ではない。名簿に書けば、書いた者が後で問われる。"
+   ],
+   "choices": [
+    {
+     "label": "自分の銭で雇い、名簿に入れる",
+     "if": {
+      "money": 1200
+     },
+     "effects": [
+      {
+       "money": -1200
+      }
+     ],
+     "next": "end_hired"
+    },
+    {
+     "label": "流民を説いて、無給でも行かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 50,
+      "win": "end_hired",
+      "lose": "brawl"
+     }
+    },
+    {
+     "label": "隊を離れた者を脅して並べる",
+     "check": {
+      "skill": "blade",
+      "dc": 45,
+      "win": "end_hired",
+      "lose": "brawl"
+     }
+    }
+   ]
+  },
+  "brawl": {
+   "art": "war",
+   "text": [
+    "「おれたちは数ではない」——卓が倒れ、脱走兵の三人が同時に立った。"
+   ],
+   "choices": [
+    {
+     "label": "黙らせる",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "end_hired",
+      "lose": "end_boys"
+     }
+    },
+    {
+     "label": "卓を直し、酒を注いで座り直す",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_hired",
+      "lose": "end_boys"
+     }
+    }
+   ]
+  },
+  "end_cut": {
+   "text": [
+    "帰らざる者の数が読み上げられると、{officer}は名簿の束を膝から下ろした。",
+    "割り当ては百十に直された。広場の子は家へ帰り、{elder}は初めてこちらの目を見た。「数を数える者が要るのです。本当に」"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 12
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{town}の兵の割り当てを、帰らざる者の数で減らさせた。"
+    }
+   ],
+   "end": "数を数える者"
+  },
+  "end_hired": {
+   "text": [
+    "流民と脱走兵が百二十、名簿に並んだ。五百という数は埋まり、広場の子は槍を置いた。",
+    "{officer}は名を一つずつ読み、読み終えて言った。「この者たちは、どこの市民でもない。死んでも、誰も数えない」"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{town}の割り当ての足りぬ分を、流民と脱走兵で埋めた。"
+    }
+   ],
+   "end": "誰も数えない者"
+  },
+  "end_self": {
+   "text": [
+    "子を列から抜き、名簿の末に自分の名を書いた。{officer}は眉を上げ、何も言わなかった。",
+    "数は一人足りないままだったが、{officer}はそれを「端数」と書いて都へ送った。"
+   ],
+   "effects": [
+    {
+     "fame": 9
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    },
+    {
+     "note": "{town}の割り当ての列から子を抜き、自分の名を名簿に書いた。"
+    }
+   ],
+   "end": "端数と書かれた一人"
+  },
+  "end_boys": {
+   "text": [
+    "五十人の子と、杖をついた老人が三十人、街道を北へ歩いていった。槍の穂が揺れて、朝日に光った。",
+    "{client}は木札を握ったまま見送っていた。「数は、揃いました」"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "favor": 2
+    },
+    {
+     "note": "{town}は子と老人を並べて兵の数を揃えた。"
+    }
+   ],
+   "end": "揺れた槍の穂"
+  }
+ }
+}

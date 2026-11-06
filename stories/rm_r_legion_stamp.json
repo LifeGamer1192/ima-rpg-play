@@ -1,0 +1,500 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_legion_stamp",
+ "kind": "random",
+ "where": "smithy",
+ "most": 2,
+ "again": 360,
+ "hook": "軍の刻印を預かりましたが、受け取りの書付がございません",
+ "title": "軍の刻印",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "鍛冶の親方"
+  },
+  "agent": {
+   "npc": "注文に来た男",
+   "sex": "m"
+  },
+  "quartermaster": {
+   "folk": "軍の受け取り役",
+   "tags": [
+    "官",
+    "兵"
+   ]
+  },
+  "apprentice": {
+   "npc": "鍛冶の弟子",
+   "sex": "f"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{smithy}の砧の横に、刃の束が百ほど積まれていた。どれにも軍の刻印が打たれている。",
+    "{client}が火箸を置いた。「六百、と言われました。前金は払われております。ですが、受け取りの書付がございません」",
+    "「それに、鉄を減らせと言われました。この刃は、盾を二度打てば曲がります」"
+   ],
+   "choices": [
+    {
+     "label": "刃を一本折って、鉄を見る",
+     "next": "blade"
+    },
+    {
+     "label": "注文に来た{agent}を待つ",
+     "next": "agent"
+    },
+    {
+     "label": "軍の受け取り役{quartermaster}に照らす",
+     "next": "army"
+    }
+   ]
+  },
+  "blade": {
+   "speaker": "apprentice",
+   "art": "trade",
+   "text": [
+    "刃は膝で折れた。断面に、黒い筋が層になって走っている。鍛え直しが足りない。",
+    "{apprentice}が小声で言った。「あの方、刻印をご自分の革袋から出されました。軍の方は、箱で持ってこられます」"
+   ],
+   "effects": [
+    {
+     "flag": "rml_soft"
+    },
+    {
+     "xp": "letters",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "刻印の形を写し、本物と比べる",
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "fake",
+      "lose": "agent"
+     }
+    },
+    {
+     "label": "{agent}を待って問い詰める",
+     "next": "agent"
+    }
+   ]
+  },
+  "fake": {
+   "art": "lecture",
+   "text": [
+    "刻印の鷲の爪の数が、一本多い。軍の印は三本、この印は四本。鋳型から作り直した偽の印だ。",
+    "偽の印で打った刃が六百。行き先は軍ではない。"
+   ],
+   "effects": [
+    {
+     "flag": "rml_fake"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "軍の受け取り役に届ける",
+     "next": "army"
+    },
+    {
+     "label": "{agent}を待って、行き先を吐かせる",
+     "next": "agent"
+    }
+   ]
+  },
+  "agent": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "注文に来た{agent}を待つ",
+   "speaker": "agent",
+   "art": "backroom",
+   "text": [
+    "{agent}は夕に来た。油を塗った髭を撫で、刃の束を数えてから言った。",
+    "「書付は後から参ります。戦の最中に書付を待つ軍はございません。親方は打つ、わたしは払う。それだけのこと」"
+   ],
+   "choices": [
+    {
+     "label": "爪の数の違いを突きつける",
+     "if": {
+      "flag": "rml_fake"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "confess",
+      "lose": "knife"
+     }
+    },
+    {
+     "label": "「柔らかい刃を誰に売る」と問う",
+     "if": {
+      "flag": "rml_soft"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "confess",
+      "lose": "knife"
+     }
+    },
+    {
+     "label": "後をつける",
+     "check": {
+      "skill": "stealth",
+      "dc": 45,
+      "win": "follow",
+      "lose": "knife"
+     }
+    },
+    {
+     "label": "何も言わず、親方に打たせ続ける",
+     "next": "end_quiet"
+    }
+   ]
+  },
+  "confess": {
+   "speaker": "agent",
+   "art": "backroom",
+   "text": [
+    "{agent}は観念して腰を下ろした。「山の砦です。追剥と脱走兵の。六百あれば、一党が軍のように見える」",
+    "「わたしは刃を売るだけです。使うのは、わたしではありません」"
+   ],
+   "effects": [
+    {
+     "flag": "rml_den"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{agent}を縛って軍に引き渡す",
+     "next": "army"
+    },
+    {
+     "label": "砦の場所を聞いて、軍に先に知らせる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_raid",
+      "lose": "army"
+     }
+    },
+    {
+     "label": "刃を全部わざと脆く打たせ、砦に渡す",
+     "check": {
+      "skill": "trade",
+      "dc": 45,
+      "win": "end_brittle",
+      "lose": "knife"
+     }
+    }
+   ]
+  },
+  "follow": {
+   "art": "hideout",
+   "text": [
+    "{agent}は荷車を街道から外れた谷へ入れた。杭を立てた塁があり、見張りが二人。荷車から刃の束が降ろされていく。",
+    "塁の中で、束を受け取った男が刃を一本握り、笑って地面に叩きつけた。曲がった。男は、曲がった刃を気にしなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "rml_den"
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "軍に場所を知らせる",
+     "next": "army"
+    },
+    {
+     "label": "一人で塁に入り、刃の束を焼く",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_burned",
+      "lose": "knife"
+     }
+    }
+   ]
+  },
+  "army": {
+   "at": {
+    "place": "here",
+    "building": "barracks"
+   },
+   "goal": "{barracks}で受け取り役{quartermaster}に照らす",
+   "speaker": "quartermaster",
+   "art": "camp",
+   "text": [
+    "{quartermaster}は帳面をめくり、首を振った。「六百の注文は出しておりません。今年の刀の注文は、二百です」",
+    "「刻印を貸したとすれば、貸した者が罰を受けます。打った鍛冶も、ただでは済みません」"
+   ],
+   "choices": [
+    {
+     "label": "偽の印だと示し、親方の罪を外させる",
+     "if": {
+      "flag": "rml_fake"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_cleared",
+      "lose": "end_smith"
+     }
+    },
+    {
+     "label": "山の砦の場所を告げる",
+     "if": {
+      "flag": "rml_den"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_raid",
+      "lose": "end_smith"
+     }
+    },
+    {
+     "label": "打った百本を軍に正価で買い取らせる",
+     "check": {
+      "skill": "trade",
+      "dc": 50,
+      "win": "end_bought",
+      "lose": "end_smith"
+     }
+    }
+   ]
+  },
+  "knife": {
+   "art": "war",
+   "text": [
+    "{agent}の手が懐に入った。短い刃が二本、暗い路地の口から出てくる。"
+   ],
+   "choices": [
+    {
+     "label": "砧の火箸を取って迎える",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "army",
+      "lose": "end_hurt"
+     }
+    },
+    {
+     "label": "炉の灰を蹴り上げて逃げる",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "army",
+      "lose": "end_hurt"
+     }
+    }
+   ]
+  },
+  "end_cleared": {
+   "text": [
+    "爪が四本の印が軍の帳に添えられ、{client}は咎められずに済んだ。打った百本は軍が引き取り、鍛え直された。",
+    "{client}は火箸で炉を掻いた。「六百も打ったら、わたしの名で曲がった刃が兵の手に行くところでした」"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "item": "gladius",
+     "n": 1
+    },
+    {
+     "fame": 11
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{here}の鍛冶に押された軍の偽の刻印を暴き、親方の罪を外した。"
+    }
+   ],
+   "end": "鍛え直された百本"
+  },
+  "end_raid": {
+   "text": [
+    "谷の塁は、軍の一隊が夜明けに囲んだ。曲がる刃で戦った者は、長くは戦えなかった。",
+    "{agent}は刻印を持ったまま捕らえられた。{client}の名は帳面に残らなかった。"
+   ],
+   "effects": [
+    {
+     "money": 350
+    },
+    {
+     "fame": 12
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "note": "{here}の偽の軍需の行き先を軍に知らせ、山の塁を囲ませた。"
+    }
+   ],
+   "end": "曲がる刃で戦う者"
+  },
+  "end_brittle": {
+   "text": [
+    "残りの刃は、わざと脆く打たせた。砧の音が変わるのを、{apprentice}だけが気づいて笑った。",
+    "三月後、山の一党が街道で軍とぶつかり、刃が折れて散ったという話が流れた。{client}は何も言わず、炉に炭を足した。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 7
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "{here}の鍛冶に、山の塁へ渡る刃をわざと脆く打たせた。"
+    }
+   ],
+   "end": "変わった砧の音"
+  },
+  "end_burned": {
+   "text": [
+    "束に油をかけて火を入れた。刃は燃えないが、柄と鞘は燃える。塁の中が煙で埋まるあいだに、谷を駆け下りた。",
+    "六百のうち四百は、使われる前に炭になった。{agent}はそれから{here}に来なかった。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 9
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "note": "{here}から山の塁へ渡った刃の束を焼いた。"
+    }
+   ],
+   "end": "炭になった四百"
+  },
+  "end_bought": {
+   "text": [
+    "打った百本は軍が正価で引き取った。{client}は損を出さずに済み、残りの五百は打たずに終わった。",
+    "偽の印の男は捕まらなかった。{quartermaster}は言った。「印は作り直せます。鍛冶は作り直せません」"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 7
+    },
+    {
+     "favor": 5
+    },
+    {
+     "xp": "trade",
+     "n": 5
+    },
+    {
+     "note": "{here}の鍛冶が打った軍需の百本を、軍に正価で買い取らせた。"
+    }
+   ],
+   "end": "作り直せないもの"
+  },
+  "end_smith": {
+   "text": [
+    "{client}は刻印を預かった罪で罰金を科され、工房の炉を三月止められた。",
+    "{apprentice}は別の鍛冶に移った。残りの五百の注文は、どこかの別の工房で打たれたらしい。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "favor": 2
+    },
+    {
+     "note": "{here}の鍛冶は軍の刻印を預かった罪で炉を止められた。"
+    }
+   ],
+   "end": "止められた炉"
+  },
+  "end_quiet": {
+   "text": [
+    "何も言わなかった。六百は打たれ、銭は払われ、刃は谷の方へ運ばれていった。",
+    "翌年、街道の追剥が軍の刻印の剣を持っていたという話を聞いた。{client}は、そのころには{here}にいなかった。"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "fame": -3
+    },
+    {
+     "note": "{here}の偽の軍需を見逃し、刃六百が山へ渡った。"
+    }
+   ],
+   "end": "刻印の剣を持つ追剥"
+  },
+  "end_hurt": {
+   "text": [
+    "脇に刃が入った。炉の灰の上に倒れたところを、{apprentice}が引きずって中へ入れてくれた。"
+   ],
+   "effects": [
+    {
+     "hp": -28
+    }
+   ],
+   "end": "炉の灰"
+  }
+ }
+}

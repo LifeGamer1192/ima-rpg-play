@@ -1,0 +1,397 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_boundary_stone",
+ "kind": "random",
+ "where": "folk",
+ "most": 2,
+ "again": 300,
+ "hook": "隣の畑と境で争っております。鎌を持ち出す前に、どうか",
+ "title": "一年に一尺",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "field": {
+   "place": "near:here"
+  },
+  "client": {
+   "client": "年嵩の農夫"
+  },
+  "other": {
+   "npc": "隣の畑の主",
+   "sex": "m"
+  },
+  "priest": {
+   "npc": "境の神の祭司",
+   "sex": "m"
+  },
+  "old": {
+   "folk": "村の長老",
+   "tags": [
+    "老",
+    "農"
+   ]
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "tale",
+   "text": [
+    "{client}は鎌を膝の上に置いたまま話した。「{field}の境です。父の代には、あの無花果の木が境でした」",
+    "「いまは木から二十尺、こちらに入っております。隣は『鋤がそう進んだだけだ』と。鋤は、二十年で二十尺進むのです」"
+   ],
+   "choices": [
+    {
+     "label": "{field}へ行って境を見る",
+     "next": "field"
+    },
+    {
+     "label": "隣の{other}の言い分を聞く",
+     "next": "other"
+    },
+    {
+     "label": "村の長老{old}に昔の境を聞く",
+     "next": "old"
+    }
+   ]
+  },
+  "field": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "{field}の境を見る",
+   "art": "road",
+   "text": [
+    "無花果の古木が一本、畝の中に取り残されていた。幹に古い刻みが三つ。境の印だ。",
+    "刻みから隣の畝まで、二十一尺。畝の向きは、どちらも同じ方を向いている。片方の鋤が、毎年わずかに深く回り込んだのだ。"
+   ],
+   "choices": [
+    {
+     "label": "刻みを基に境を測り直す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "measured",
+      "lose": "other"
+     }
+    },
+    {
+     "label": "境の神の祠に祭司を呼ぶ",
+     "next": "priest"
+    },
+    {
+     "label": "長老に昔の境を言わせる",
+     "next": "old"
+    }
+   ]
+  },
+  "measured": {
+   "art": "lecture",
+   "text": [
+    "刻みから縄を張り、両側の畝を数えた。失われたのは二十一尺、面積にして麦四袋ぶん。多くはない。",
+    "多くはないものを、二人は二十年かけて争ってきた。"
+   ],
+   "effects": [
+    {
+     "flag": "rmb_measure"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "三人の仲裁人を立てる手続きを取る",
+     "next": "arbiters"
+    },
+    {
+     "label": "二人を引き合わせ、縄を見せる",
+     "next": "other"
+    }
+   ]
+  },
+  "old": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "長老{old}に昔の境を聞く",
+   "speaker": "old",
+   "art": "tale",
+   "text": [
+    "{old}は目を閉じて数えた。「無花果が境でした。わたしが子のころ、あの木に登って怒られました。両方から」",
+    "「ただ……{client}の父も、鋤を回しておりました。どちらも回しておったのです。回した量が違うだけで」"
+   ],
+   "effects": [
+    {
+     "flag": "rmb_both"
+    },
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "両方が回していたことを二人に伝える",
+     "next": "other"
+    },
+    {
+     "label": "三人の仲裁人を立てる",
+     "next": "arbiters"
+    }
+   ]
+  },
+  "other": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "隣の{other}に会う",
+   "speaker": "other",
+   "art": "road",
+   "text": [
+    "{other}は鋤の柄を握って畝に立っていた。「木は枯れかけです。枯れた木を境にはできません」",
+    "「あちらは三人も息子がおります。うちは娘一人。畑を減らされたら、娘に何も残りません」"
+   ],
+   "choices": [
+    {
+     "label": "二十一尺の縄を見せ、半分に割らせる",
+     "if": {
+      "flag": "rmb_measure"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_split",
+      "lose": "rakes"
+     }
+    },
+    {
+     "label": "両方が鋤を回していたと告げる",
+     "if": {
+      "flag": "rmb_both"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_split",
+      "lose": "rakes"
+     }
+    },
+    {
+     "label": "境の神の祠で、祭司に境を定めさせる",
+     "next": "priest"
+    },
+    {
+     "label": "三人の仲裁人を立てる",
+     "next": "arbiters"
+    }
+   ]
+  },
+  "priest": {
+   "at": {
+    "place": "field"
+   },
+   "goal": "境の神の祭司{priest}を呼ぶ",
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "{priest}は祠の前で羊の毛を焼き、油を注いだ。「境の石は、神の石です。動かした者は、神に負うのです」",
+    "「ただ、この畑に石はございません。木が境でした。木は、神の石ではございません」"
+   ],
+   "choices": [
+    {
+     "label": "木の根もとに境の石を据えさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_stone",
+      "lose": "arbiters"
+     }
+    },
+    {
+     "label": "祭りの日に、両家で縄を張り直させる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_stone",
+      "lose": "arbiters"
+     }
+    }
+   ]
+  },
+  "arbiters": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "三人の仲裁人を立てる",
+   "art": "court",
+   "text": [
+    "十二表法は、境の争いに三人の仲裁人を立てることを許している。村から三人、どちらとも縁の薄い者を選んだ。",
+    "三人は半日畑を歩き、無花果の刻みを見て、鋤の跡を数えた。"
+   ],
+   "choices": [
+    {
+     "label": "縄で測った数を三人に渡す",
+     "if": {
+      "flag": "rmb_measure"
+     },
+     "next": "end_court"
+    },
+    {
+     "label": "三人の判じをそのまま待つ",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_court",
+      "lose": "end_rough"
+     }
+    }
+   ]
+  },
+  "rakes": {
+   "art": "war",
+   "text": [
+    "鎌と鋤の柄が同時に上がった。両家の息子と小作が、畝を踏んで駆け寄ってくる。"
+   ],
+   "choices": [
+    {
+     "label": "二人の間に入って押し分ける",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 0,
+      "win": "arbiters",
+      "lose": "end_blood"
+     }
+    },
+    {
+     "label": "大声で村の名を呼び、人を集める",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "arbiters",
+      "lose": "end_blood"
+     }
+    }
+   ]
+  },
+  "end_split": {
+   "text": [
+    "二十一尺を十と十一に割った。十一を{other}に——娘一人だからと{client}が言った。{other}は何も言わず、鋤を置いた。",
+    "無花果の木は、両家で水をやることになった。枯れかけの木が、翌年に実をつけた。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "item": "grain",
+     "n": 2
+    },
+    {
+     "fame": 9
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{field}の境の二十一尺を、両家で割らせた。"
+    }
+   ],
+   "end": "翌年の実"
+  },
+  "end_stone": {
+   "text": [
+    "境の祭りの日、木の根もとに石が据えられた。{priest}が油を注ぎ、両家の者が石に手を置いて誓った。",
+    "石は動かせる。だが、石を動かした者は神に負う。二十年の争いを止めたのは、縄ではなく、その一行だった。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 10
+    },
+    {
+     "favor": 2
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{field}の境に石を据えさせ、両家に誓わせた。"
+    }
+   ],
+   "end": "石に置いた手"
+  },
+  "end_court": {
+   "text": [
+    "三人の仲裁人は、刻みを境と定め、二十一尺を{client}に戻すと判じた。ただし、戻すのは三年に分けて、と付けた。",
+    "{other}は不服だったが、三人の名を聞いて黙った。村で暮らすなら、三人を敵にはできない。"
+   ],
+   "effects": [
+    {
+     "money": 180
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{field}の境を三人の仲裁人に判じさせた。"
+    }
+   ],
+   "end": "三年に分けて"
+  },
+  "end_rough": {
+   "text": [
+    "三人は「どちらも鋤を回した」と判じ、境を今のままと定めた。{client}は鎌を地に突き立てて、何も言わなかった。",
+    "無花果の木は、その冬に切られた。どちらが切ったかは、分からない。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "note": "{field}の境は今のまま定まり、無花果の木は切られた。"
+    }
+   ],
+   "end": "切られた無花果"
+  },
+  "end_blood": {
+   "text": [
+    "畝の上で鋤の柄が頭に入り、膝をついた。目を上げると、{client}の息子が隣の小作を押さえ込んでいた。",
+    "死人は出なかった。出なかっただけだ。境は、そのままになった。"
+   ],
+   "effects": [
+    {
+     "hp": -24
+    },
+    {
+     "fame": -1
+    },
+    {
+     "note": "{field}の境の争いは殴り合いになり、境はそのままになった。"
+    }
+   ],
+   "end": "出なかっただけ"
+  }
+ }
+}

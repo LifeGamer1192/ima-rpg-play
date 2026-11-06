@@ -1,0 +1,473 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_rank5_general",
+ "kind": "rank",
+ "rankTo": 5,
+ "title": "四日の峠",
+ "era": "fantasy",
+ "cast": {
+  "patron": {
+   "realm": "patron"
+  },
+  "cap": {
+   "place": "capital:patron"
+  },
+  "ruler": {
+   "person": "ruler:patron"
+  },
+  "minister": {
+   "person": "minister:patron"
+  },
+  "pass": {
+   "place": "border:patron"
+  },
+  "wyvern": {
+   "npc": "飛竜騎の長",
+   "sex": "f"
+  },
+  "mage": {
+   "npc": "魔道兵の隊長",
+   "sex": "m"
+  },
+  "spear": {
+   "npc": "槍兵の百人長",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}の{palace}で将軍の試しを受ける",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "{minister}は峠の図を広げた。細い道が一本、両側は岩。",
+    "「{pass}を四日持たせろ。来るのは三倍だ。預けるのは槍兵六百、魔道兵八十、飛竜騎十二騎」",
+    "「飛竜騎は、自分たちの掟でしか動かぬ。魔道兵は、学院の許しがないと一日に三度しか撃たぬ。それも含めて、将軍の仕事だ」"
+   ],
+   "choices": [
+    {
+     "label": "三隊を預かり、{pass}へ向かう",
+     "effects": [
+      {
+       "note": "{pass}を四日持たせれば、将軍となる。"
+      }
+     ],
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "pass"
+   },
+   "goal": "{pass}で三隊の長と話す",
+   "speaker": "wyvern",
+   "art": "camp",
+   "text": [
+    "飛竜は岩棚に十二頭並んで、翼を畳んでいた。{wyvern}は鞍の革帯を噛んで締めていた。",
+    "「掟は三つ。日のあるうちしか飛ばない。人の頭上は飛ばない。竜を囮にはしない」",
+    "{mage}が後ろから言った。「学院の許しは、一日三度です。四日で十二度。十二度で三倍を止めるのですか」"
+   ],
+   "choices": [
+    {
+     "label": "三つの掟に合う使い方を、三人で作る",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "s2three",
+      "lose": "s2apart"
+     }
+    },
+    {
+     "label": "魔道兵の三度を、いつ使うかだけ決めておく",
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s2timing",
+      "lose": "s2apart"
+     }
+    },
+    {
+     "label": "槍兵の百人長に、道の狭い場所を選ばせる",
+     "next": "s2narrow"
+    }
+   ]
+  },
+  "s2three": {
+   "art": "camp",
+   "text": [
+    "飛竜は日のあるうち、人のいない岩の上だけを飛ぶ——敵の後ろの糧の列は、人の頭上ではない。",
+    "魔道兵の三度は、朝の一度を捨てて、夕の二度に寄せる。槍兵は、道の最も狭いところに二列で立つ。",
+    "三つの掟は、一つの段取りになった。{wyvern}が革帯を噛むのをやめた。"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r5_one"
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "三隊の掟を一つの段取りにまとめた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2timing": {
+   "art": "lecture",
+   "text": [
+    "一日三度を、来る時刻に合わせた。敵は朝に押し、昼に休み、夕にもう一度押す。三度は夕に二度、朝に一度。",
+    "{mage}は書き取って言った。「学院に出す書面は、わたしが作ります。『三度』の数は守っております」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r5_time"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "next": "s3"
+  },
+  "s2narrow": {
+   "speaker": "spear",
+   "art": "camp",
+   "text": [
+    "{spear}は道を歩いて測った。「ここです。幅四人ぶん。ここなら六百のうち、前に立つのは常に八人です」",
+    "「八人が倒れたら次の八人。四日で、八人が何度入れ替わるか——それが、この峠の勘定です」"
+   ],
+   "effects": [
+    {
+     "flag": "ft_r5_spot"
+    },
+    {
+     "xp": "blade",
+     "n": 4
+    }
+   ],
+   "next": "s3"
+  },
+  "s2apart": {
+   "art": "camp",
+   "text": [
+    "三隊は三つの焚き火を別々に作った。{wyvern}は岩棚に、{mage}は洞に、{spear}は道の上に。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "pass"
+   },
+   "goal": "{pass}で四日を持たせる",
+   "wait": {
+    "days": 3
+   },
+   "art": "war",
+   "text": [
+    "一日めは朝の押しだけ。二日めに糧の列が見えた。三日めの夕、道の石が血で滑るようになった。",
+    "四日めの朝。前に立つ八人が、十一度入れ替わっている。"
+   ],
+   "choices": [
+    {
+     "label": "一つの段取りのまま、四日めを回す",
+     "if": {
+      "flag": "ft_r5_one"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s4",
+      "lose": "s3hold"
+     }
+    },
+    {
+     "label": "夕の二度を四日めの朝に寄せ、押しを一度で止める",
+     "if": {
+      "flag": "ft_r5_time"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "s4",
+      "lose": "s3hold"
+     }
+    },
+    {
+     "label": "最も狭い場所まで下がり、八人で受け続ける",
+     "if": {
+      "flag": "ft_r5_spot"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 32,
+      "win": "s4",
+      "lose": "s3hold"
+     }
+    },
+    {
+     "label": "自分が前の八人に入る",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4",
+      "lose": "fail_lost"
+     }
+    }
+   ]
+  },
+  "s3hold": {
+   "art": "war",
+   "text": [
+    "四日めの昼、道が一度抜かれた。岩の上から飛竜が降り、人の頭上を飛んだ。掟が一つ破られた。"
+   ],
+   "choices": [
+    {
+     "label": "破った掟の責めを自分が負うと{wyvern}に告げ、道を押し返す",
+     "fight": {
+      "foes": "soldier",
+      "n": 3,
+      "level": 0,
+      "win": "s4",
+      "lose": "fail_lost"
+     }
+    },
+    {
+     "label": "魔道兵の残りを全部撃たせる",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "s4",
+      "lose": "fail_lost"
+     }
+    }
+   ]
+  },
+  "s4": {
+   "at": {
+    "place": "pass"
+   },
+   "goal": "四日めの日暮れを迎える",
+   "speaker": "minister",
+   "art": "camp",
+   "text": [
+    "四日めの日が落ちた。敵は峠の下へ退き、朝には谷の道へ回っていった。峠は持った。",
+    "{minister}が馬で上がってきて、数を読んだ。「槍兵、残り四百十二。魔道兵、七十九。飛竜、十二騎」"
+   ],
+   "choices": [
+    {
+     "label": "三つの掟を一つの段取りにしたと申し上げる",
+     "if": {
+      "flag": "ft_r5_one"
+     },
+     "next": "win_one"
+    },
+    {
+     "label": "魔道兵の三度の使い方を申し上げる",
+     "if": {
+      "flag": "ft_r5_time"
+     },
+     "next": "win_time"
+    },
+    {
+     "label": "八人の入れ替わりの数を申し上げる",
+     "if": {
+      "flag": "ft_r5_spot"
+     },
+     "next": "win_eight"
+    },
+    {
+     "label": "「飛竜が掟を破りました。責めはわたしです」と申し上げる",
+     "next": "win_oath"
+    }
+   ]
+  },
+  "win_one": {
+   "speaker": "wyvern",
+   "text": [
+    "三つの掟を一つの段取りにした、と申し上げた。{minister}は書き取り、三度読み返した。",
+    "{wyvern}が後ろで言った。「掟を曲げずに使われたのは、はじめてです。次も、あなたの下で飛びます」",
+    "将軍の印が渡された。飛竜騎が、将軍の下につくのは、記録では三度めだという。"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 18
+    },
+    {
+     "fame": 14
+    },
+    {
+     "rep": "patron",
+     "n": 3
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "unflag": "ft_r5_one"
+    },
+    {
+     "unflag": "ft_r5_time"
+    },
+    {
+     "unflag": "ft_r5_spot"
+    },
+    {
+     "note": "{pass}を四日持たせ、三隊の掟を曲げずに使って将軍となった。飛竜騎が下についた。"
+    }
+   ],
+   "end": "曲げずに使う"
+  },
+  "win_time": {
+   "speaker": "mage",
+   "text": [
+    "一日三度の使い方の表が、{minister}の手に渡った。{mage}が学院に出す写しも添えた。",
+    "「数は守りました。使い方だけを変えました」——{minister}は印を渡しながら言った。「学院は、たぶん怒る」"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 15
+    },
+    {
+     "fame": 10
+    },
+    {
+     "xp": "letters",
+     "n": 7
+    },
+    {
+     "unflag": "ft_r5_one"
+    },
+    {
+     "unflag": "ft_r5_time"
+    },
+    {
+     "unflag": "ft_r5_spot"
+    },
+    {
+     "note": "{pass}を四日持たせ、魔道兵の三度の使い方で将軍となった。"
+    }
+   ],
+   "end": "たぶん怒る学院"
+  },
+  "win_eight": {
+   "speaker": "spear",
+   "text": [
+    "「前に立った八人が、四日で四十七度入れ替わりました」——{minister}はその数だけを書き取った。",
+    "{spear}は百人長のまま、名簿を読み上げた。倒れた者の名を全部読むのに、半刻かかった。"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 14
+    },
+    {
+     "fame": 9
+    },
+    {
+     "xp": "blade",
+     "n": 7
+    },
+    {
+     "unflag": "ft_r5_one"
+    },
+    {
+     "unflag": "ft_r5_time"
+    },
+    {
+     "unflag": "ft_r5_spot"
+    },
+    {
+     "note": "{pass}を狭い場所で四日持たせ、将軍となった。倒れた者の名は全部読まれた。"
+    }
+   ],
+   "end": "半刻かかった名簿"
+  },
+  "win_oath": {
+   "speaker": "wyvern",
+   "text": [
+    "「飛竜が人の頭上を飛びました。責めはわたしです」——{wyvern}が目を上げた。",
+    "{minister}は何も書かず、印を渡した。{wyvern}は後で、革帯を一本こちらに渡した。「掟を破った者の革です。持っていてください」"
+   ],
+   "effects": [
+    {
+     "rank": 5
+    },
+    {
+     "favor": 12
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "unflag": "ft_r5_one"
+    },
+    {
+     "unflag": "ft_r5_time"
+    },
+    {
+     "unflag": "ft_r5_spot"
+    },
+    {
+     "note": "{pass}を四日持たせ、飛竜の掟を破った責めを引き受けて将軍となった。"
+    }
+   ],
+   "end": "一本の革帯"
+  },
+  "fail_lost": {
+   "at": {
+    "place": "cap",
+    "building": "palace"
+   },
+   "goal": "{cap}へ戻り、不首尾を報じる",
+   "speaker": "minister",
+   "art": "court",
+   "text": [
+    "三日めの夜に峠が抜かれた。槍兵は二百を失い、飛竜は四騎が落ちた。",
+    "{minister}は将軍の印を箱に戻した。「三つの隊を一つにできぬ者に、軍は預けられぬ」"
+   ],
+   "effects": [
+    {
+     "favor": -14
+    },
+    {
+     "hp": -24
+    },
+    {
+     "unflag": "ft_r5_one"
+    },
+    {
+     "unflag": "ft_r5_time"
+    },
+    {
+     "unflag": "ft_r5_spot"
+    },
+    {
+     "note": "{pass}を持たせられなかった。覚えを取り戻せば、また試される。"
+    }
+   ],
+   "end": "落ちた四騎"
+  }
+ }
+}

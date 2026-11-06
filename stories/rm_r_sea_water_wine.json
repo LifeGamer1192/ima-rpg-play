@@ -1,0 +1,446 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_r_sea_water_wine",
+ "kind": "random",
+ "where": "market",
+ "most": 2,
+ "again": 320,
+ "hook": "あの酒を飲んだ者が、次々と腹を押さえております",
+ "title": "甘すぎる酒",
+ "era": "rome",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "居酒屋の主"
+  },
+  "dealer": {
+   "npc": "酒の問屋",
+   "sex": "m"
+  },
+  "medicus": {
+   "folk": "ギリシア人の医師",
+   "tags": [
+    "医",
+    "学"
+   ]
+  },
+  "aedile": {
+   "folk": "市の監督官",
+   "tags": [
+    "官"
+   ]
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{market}の酒屋の前に、壺が三十並んでいた。どれも同じ問屋の封がある。",
+    "{client}が指で唇を拭った。「甘いのです。妙に甘い。飲んだ者が腹を押さえます。先月から、路地で五人。うち一人は、手が震えて仕事ができません」"
+   ],
+   "choices": [
+    {
+     "label": "酒を舐めて確かめる",
+     "next": "taste"
+    },
+    {
+     "label": "問屋の{dealer}に会う",
+     "next": "dealer"
+    },
+    {
+     "label": "腹を押さえている者を診せに{medicus}へ行く",
+     "next": "medicus"
+    }
+   ]
+  },
+  "taste": {
+   "art": "trade",
+   "text": [
+    "指につけて舐めた。塩気がある。そのあとに、砂糖のような甘さが残る。葡萄の甘さではない。",
+    "壺の底に、白い粉が沈んでいた。指で擦ると、鉛の匂いがした。"
+   ],
+   "effects": [
+    {
+     "flag": "rmw_lead"
+    },
+    {
+     "xp": "trade",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "{medicus}に粉を見せる",
+     "next": "medicus"
+    },
+    {
+     "label": "{dealer}に粉のことを問う",
+     "next": "dealer"
+    }
+   ]
+  },
+  "medicus": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "ギリシア人の医師{medicus}に診せる",
+   "speaker": "medicus",
+   "art": "lecture",
+   "text": [
+    "{medicus}は患者の掌を開かせ、爪と歯の付け根を見た。「腹の痛み、手の震え、歯の縁の黒ずみ。三つ揃っています」",
+    "「鉛です。鉛の鍋で葡萄の汁を煮詰めると、甘い糖ができる。安く甘くするには、これが一番です」",
+    "「ローマの方々は、鉛の管の水を飲み、鉛の鍋で煮ます。わたしの師は、それを病の種と書き残しました」"
+   ],
+   "effects": [
+    {
+     "flag": "rmw_lead"
+    },
+    {
+     "flag": "rmw_sick"
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "{medicus}に書面を書かせ、監督官に出す",
+     "next": "aedile"
+    },
+    {
+     "label": "{dealer}に突きつける",
+     "next": "dealer"
+    },
+    {
+     "label": "五人の手当てを先にする",
+     "check": {
+      "skill": "medicine",
+      "dc": 45,
+      "win": "end_cured",
+      "lose": "aedile"
+     }
+    }
+   ]
+  },
+  "dealer": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "問屋の{dealer}に会う",
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "{dealer}は封蝋の型を布で磨いていた。「海の水を混ぜるのは、昔からの作法です。酒が長持ちします」",
+    "「甘くするのも作法です。煮詰めた糖を足します。どこの問屋もやっております。咎められる筋がありません」"
+   ],
+   "choices": [
+    {
+     "label": "鉛の鍋で煮た糖だと突きつける",
+     "if": {
+      "flag": "rmw_lead"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "yield",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "病の三つの徴を並べて示す",
+     "if": {
+      "flag": "rmw_sick"
+     },
+     "check": {
+      "skill": "medicine",
+      "dc": 45,
+      "win": "yield",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "封蝋の型と帳面を調べる",
+     "check": {
+      "skill": "theft",
+      "dc": 45,
+      "win": "books",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "黙る代わりに安く卸させる",
+     "effects": [
+      {
+       "money": 500
+      },
+      {
+       "fame": -3
+      }
+     ],
+     "next": "end_quiet"
+    }
+   ]
+  },
+  "books": {
+   "art": "backroom",
+   "text": [
+    "帳面には「糖、鉛鍋で煮る」と、はっきり書かれていた。隠すつもりが無いのだ。誰も、それが病の種だと思っていない。",
+    "卸した先は、この町だけで十九軒。"
+   ],
+   "effects": [
+    {
+     "flag": "rmw_list"
+    },
+    {
+     "xp": "theft",
+     "n": 4
+    }
+   ],
+   "next": "aedile"
+  },
+  "yield": {
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "{dealer}は型を置いた。「……鉛だと。父も祖父も、同じ鍋で煮ておりました」",
+    "「父は、手が震えて死にました。わたしはずっと、年のせいだと思っておりました」"
+   ],
+   "effects": [
+    {
+     "flag": "rmw_list"
+    }
+   ],
+   "choices": [
+    {
+     "label": "鍋を青銅に替えさせ、十九軒に触れを出させる",
+     "next": "end_fixed"
+    },
+    {
+     "label": "監督官に出し、公の触れにする",
+     "next": "aedile"
+    }
+   ]
+  },
+  "aedile": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "市の監督官{aedile}に出す",
+   "speaker": "aedile",
+   "art": "court",
+   "text": [
+    "{aedile}は壺を一つ割らせ、底の白い粉を指で擦った。「量りを折る権はございます。鍋を割る権は、ございません」",
+    "「ですが、市で売る酒の作法を触れに書く権は、ございます。書くには、理由が要ります」"
+   ],
+   "choices": [
+    {
+     "label": "{medicus}の書面と卸し先十九軒を並べる",
+     "if": {
+      "flag": "rmw_list"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 45,
+      "win": "end_decree",
+      "lose": "end_fixed"
+     }
+    },
+    {
+     "label": "病の三つの徴を、五人の身体で示す",
+     "if": {
+      "flag": "rmw_sick"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 45,
+      "win": "end_decree",
+      "lose": "end_cured"
+     }
+    },
+    {
+     "label": "海の水の混ぜ分だけを量らせる触れにする",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_partial",
+      "lose": "end_partial"
+     }
+    }
+   ]
+  },
+  "thugs": {
+   "art": "war",
+   "text": [
+    "{dealer}が荷方を呼んだ。壺を担ぐ腕の男が三人、肩を並べた。「壺は重いのです。人も、重く扱います」"
+   ],
+   "choices": [
+    {
+     "label": "打ち返す",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "aedile",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "壺の列を倒して退く",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "aedile",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "end_decree": {
+   "text": [
+    "市の触れが柱に出た。「酒の糖を鉛の器で煮ること、禁ず」。理由も書かれた——医師の名と、五人の徴と。",
+    "十九軒が鍋を替えた。{medicus}は書面の写しを自分の家の壁に貼った。「ローマで、これが書かれたのは初めてです」"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 14
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "note": "{here}で鉛の鍋で煮た酒の糖を、市の触れで禁じさせた。"
+    }
+   ],
+   "end": "柱に出た触れ"
+  },
+  "end_fixed": {
+   "text": [
+    "{dealer}は鍋を青銅に替え、十九軒に自分で触れを出した。公の触れにはならなかった。",
+    "酒は少し苦くなり、少し高くなった。{client}は「苦いほうが酒らしい」と言って笑った。"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "item": "wine",
+     "n": 2
+    },
+    {
+     "fame": 10
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}の酒の問屋に、鉛の鍋を青銅に替えさせた。"
+    }
+   ],
+   "end": "苦いほうが酒らしい"
+  },
+  "end_cured": {
+   "text": [
+    "五人の手当てをした。{medicus}の言うとおり、鉛を抜く薬はない。できるのは、飲むのを止めさせることだけだ。",
+    "三人は良くなった。手の震える男は、震えたままだった。酒は、市で売られ続けた。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "item": "herbs",
+     "n": 2
+    },
+    {
+     "fame": 7
+    },
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "note": "{here}で鉛の酒に当たった五人を手当てした。"
+    }
+   ],
+   "end": "震えたままの手"
+  },
+  "end_partial": {
+   "text": [
+    "海の水の混ぜ分だけが触れに書かれた。鉛の糖のことは、理由が難しいと言われて落ちた。",
+    "酒は塩気が薄くなり、甘さは変わらなかった。路地では、その後も腹を押さえる者が出た。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": 5
+    },
+    {
+     "favor": 3
+    },
+    {
+     "xp": "trade",
+     "n": 4
+    },
+    {
+     "note": "{here}の酒の触れは、海の水の分だけが書かれた。"
+    }
+   ],
+   "end": "落ちた理由"
+  },
+  "end_quiet": {
+   "text": [
+    "安く卸させる約を取った。{client}の店の仕入れは三割下がり、客は増えた。",
+    "手の震える男は、路地の隅で日向に座っているようになった。誰も、酒のせいだとは言わなかった。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "note": "{here}の鉛の酒のことを黙り、安く卸させた。"
+    }
+   ],
+   "end": "日向に座る男"
+  },
+  "end_beaten": {
+   "text": [
+    "壺の列ごと倒れ、割れた陶の上に手をついた。甘い匂いが、手の切り傷に染みた。"
+   ],
+   "effects": [
+    {
+     "hp": -22
+    }
+   ],
+   "end": "切り傷に染みる甘さ"
+  }
+ }
+}
