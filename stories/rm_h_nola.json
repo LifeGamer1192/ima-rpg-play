@@ -1,0 +1,351 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_h_nola",
+ "kind": "history",
+ "title": "一度だけ退いた",
+ "lore": {
+  "title": "ノラの戦い（リウィウス 第23巻）",
+  "text": [
+   "前216年、カンナエの後、南イタリアの町々は次々とハンニバルに門を開いた。ノラでは平民が寝返りを望み、元老たちがローマに留まることを望んで、町が二つに割れていた。",
+   "法務官マルクス・クラウディウス・マルケッルスは町に入ると、まず寝返りを唱えた者の名を調べ、城壁に近づけぬよう家に留め置いた。そのうえで、ハンニバルが城壁の前に兵を並べた日、三つの門から同時に打って出た。",
+   "カンナエ以来、ハンニバルが戦場から退いた最初の戦いだった。死者の数はさほどでもなかったが、「あの軍も退くことがある」と知られたことのほうが重かった。マルケッルスはのちに「ローマの剣」と呼ばれる。"
+  ]
+ },
+ "era": "rome",
+ "event": "nola",
+ "lead": 5,
+ "before": [
+  "s1",
+  "s2",
+  "s2list",
+  "s2sally",
+  "s2fail"
+ ],
+ "onFired": "late",
+ "cast": {
+  "town": {
+   "scnPlace": "nola"
+  },
+  "capua": {
+   "scnPlace": "capua"
+  },
+  "rome": {
+   "scnRealm": "rome"
+  },
+  "punic": {
+   "scnRealm": "carthage"
+  },
+  "hannibal": {
+   "person": "ruler:carthage"
+  },
+  "marcellus": {
+   "scnPerson": "マルクス・クラウディウス・マルケッルス"
+  },
+  "elder": {
+   "folk": "町の元老",
+   "tags": [
+    "官",
+    "老"
+   ],
+   "at": "town"
+  },
+  "smith": {
+   "npc": "鍛冶の親方",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "town",
+    "building": "market"
+   },
+   "goal": "{town}の{market}で、町の割れ目を見る",
+   "speaker": "smith",
+   "art": "trade",
+   "text": [
+    "カンナエの報せから三月。{town}の{market}では、売り手も買い手も声をひそめている。南の{capua}が門を開けたことは、もう誰でも知っていた。",
+    "{smith}が鉄の棒を置いた。「元老衆はローマに残ると言う。おれたちは、残って焼かれるより、開けて生きたい」",
+    "「どちらが正しいかじゃない。どちらが先に門に着くかだ」"
+   ],
+   "effects": [
+    {
+     "note": "{town}は寝返るか留まるかで割れている。{hannibal}が近い。"
+    }
+   ],
+   "choices": [
+    {
+     "label": "元老に会う",
+     "next": "s2"
+    },
+    {
+     "label": "門の守りを見て回る",
+     "next": "s2"
+    }
+   ]
+  },
+  "s2": {
+   "at": {
+    "place": "town",
+    "building": "office"
+   },
+   "goal": "{town}の{office}で、{marcellus}に会う",
+   "speaker": "marcellus",
+   "art": "court",
+   "text": [
+    "{marcellus}は壁に{town}の図を貼り、門に印をつけていた。兵は多くない。",
+    "「城壁の外の敵は数えられる。数えられぬのは、城壁の内にいる者だ」",
+    "「門を開けたい者の名が要る。殺すためではない。門から遠ざけるためだ。……できるか」"
+   ],
+   "choices": [
+    {
+     "label": "誰が門を開けたがっているかを調べる",
+     "turn": true,
+     "guide": "名を集める。調べられたと知れば、町は余計に割れる",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "s2list",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "元老と平民を同じ卓につかせ、話をさせる",
+     "turn": true,
+     "guide": "割れ目を埋める。間に合うかどうかは分からない",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "s2list",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "三つの門から一度に打って出る策を立てる",
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "s2sally",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "{marcellus}の下で、ただ槍を持つ",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2list": {
+   "speaker": "elder",
+   "art": "court",
+   "text": [
+    "名は七十二人あった。多くは借りを抱えた者で、ローマの徴発で畑を失った者だった。",
+    "{marcellus}は一人も縛らず、全員を町の北側の仕事に割り当てた。城壁からいちばん遠い場所だ。",
+    "{elder}が低い声で言った。「名を集めた者は、町の者に恨まれます。それでも、あなたは正しいことをした」"
+   ],
+   "effects": [
+    {
+     "flag": "h_no_list"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "rep": "rome",
+     "n": 12
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    },
+    {
+     "note": "{town}で門を開けたがる七十二人を城壁から遠ざけた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2sally": {
+   "art": "camp",
+   "text": [
+    "三つの門に、それぞれ違う合図を決めた。笛が一度、二度、三度。並べる兵は少ないが、三方から同時に出れば、外の者には数が分からない。",
+    "{marcellus}は図を見たまま言った。「あの軍は、退いたことがない。退いたことがない軍は、退き方を知らぬ」"
+   ],
+   "effects": [
+    {
+     "flag": "h_no_sally"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    },
+    {
+     "note": "{town}の三つの門から一度に打って出る段取りを立てた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fail": {
+   "art": "court",
+   "text": [
+    "名も集まらず、卓にも誰も着かなかった。{town}は割れたまま、城壁の上の見張りだけが増えた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_no_lost"
+    }
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "town"
+   },
+   "goal": "{town}で、城壁の前に並ぶ軍を見る",
+   "wait": {
+    "settled": "nola"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "no_held"
+     },
+     "next": "held"
+    },
+    {
+     "if": {
+      "flag": "h_no_lost"
+     },
+     "next": "close"
+    },
+    {
+     "next": "held"
+    }
+   ]
+  },
+  "held": {
+   "speaker": "marcellus",
+   "art": "war",
+   "text": [
+    "敵は城壁の前に列を作り、門が開くのを待っていた。開いた。三つとも、同時に。",
+    "外の列が揺れ、向きを変え、下がった。追ったのは一里だけだ。{marcellus}は深追いを許さなかった。",
+    "「死んだ数は少ない。だが今日、あの軍が退いたのを、{town}の全員が城壁の上から見た。それでよい」"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "rome",
+     "n": 18
+    },
+    {
+     "xp": "blade",
+     "n": 5
+    },
+    {
+     "unflag": "h_no_list"
+    },
+    {
+     "unflag": "h_no_sally"
+    },
+    {
+     "unflag": "h_no_lost"
+    },
+    {
+     "note": "{town}で{hannibal}の軍が退くのを、城壁の上から見た。"
+    }
+   ],
+   "end": "退いたのを見た日"
+  },
+  "close": {
+   "art": "war",
+   "text": [
+    "門の一つが、内側から開きかけた。{marcellus}の兵が間に合い、閂を押し戻した。",
+    "外の列はしばらく待ってから、向きを変えて去っていった。開けようとした者は十一人。縛られ、都へ送られた。",
+    "{town}は留まった。留まったが、町の中に残ったものは、それまでと同じではなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "rep": "rome",
+     "n": 8
+    },
+    {
+     "unflag": "h_no_list"
+    },
+    {
+     "unflag": "h_no_sally"
+    },
+    {
+     "unflag": "h_no_lost"
+    },
+    {
+     "note": "{town}の門は内から開きかけたが、閂が押し戻された。"
+    }
+   ],
+   "end": "押し戻した閂"
+  },
+  "late": {
+   "text": [
+    "道中で聞いた。{town}の城壁の前に並んだ{hannibal}の軍が、三つの門から一度に出てきた兵に押されて退いたという。カンナエのあと、はじめてのことだと誰もが言っていた。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_no_list"
+    },
+    {
+     "unflag": "h_no_sally"
+    },
+    {
+     "unflag": "h_no_lost"
+    },
+    {
+     "note": "{town}で{hannibal}がはじめて退いたと聞いた。"
+    }
+   ],
+   "end": "聞いただけの日"
+  }
+ },
+ "branches": [
+  {
+   "id": "no_held",
+   "event": "nola",
+   "order": 1,
+   "why": "主人公が、門を開けたがる者を城壁から遠ざけた",
+   "when": {
+    "anyFlag": [
+     "h_no_list",
+     "h_no_sally"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "カンナエの後、[[p:ハンニバル]]はノラを取ろうとしたが、法務官マルケルスは町の内の寝返りを先に押さえたうえで、三つの門から一斉に打って出てこれを退けた。カンナエ以来、[[p:ハンニバル]]が初めて退いた戦いであった。",
+    "do": [
+     [
+      "add",
+      "rome",
+      "prestige",
+      7
+     ],
+     [
+      "add",
+      "rome",
+      "stability",
+      0.04
+     ]
+    ],
+    "imp": 2,
+    "at": "nola"
+   }
+  }
+ ]
+}

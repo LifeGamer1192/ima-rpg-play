@@ -1,0 +1,368 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_h_syphax_feast",
+ "kind": "history",
+ "title": "一つの寝椅子",
+ "lore": {
+  "title": "シュファクスの宴（リウィウス 第28巻）",
+  "text": [
+   "前206年、スキピオはイベリアからわずか二隻でアフリカへ渡り、マサエシュリ王シュファクスの宮廷を訪ねた。同じ日に、カルタゴの将ハスドルバル・ギスコも同じ用で着いていた。二隻と、カルタゴの艦隊が同じ港に並んだ。",
+   "王は二人を同じ食卓に招き、望んで一つの寝椅子に並ばせた。ハスドルバルは後に「スキピオは戦場で向かい合うより、会って話すときのほうが恐ろしい」と語ったという。",
+   "シュファクスはこのときローマと結んだが、のちにカルタゴのソフォニスバを妻に迎えて寝返る。スキピオはそれでもアフリカへ渡った。"
+  ]
+ },
+ "era": "rome",
+ "event": "syphax_feast",
+ "lead": 4,
+ "before": [
+  "s1",
+  "s2",
+  "s2couch",
+  "s2count",
+  "s2fail"
+ ],
+ "onFired": "late",
+ "cast": {
+  "court": {
+   "scnPlace": "siga"
+  },
+  "rome": {
+   "scnRealm": "rome"
+  },
+  "punic": {
+   "scnRealm": "carthage"
+  },
+  "numid": {
+   "scnRealm": "masaesyli"
+  },
+  "scipio": {
+   "scnPerson": "プブリウス・コルネリウス・スキピオ"
+  },
+  "gisgo": {
+   "scnPerson": "ハスドルバル・ギスコ"
+  },
+  "king": {
+   "person": "ruler:masaesyli"
+  },
+  "steward": {
+   "npc": "王の給仕頭",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "court"
+   },
+   "goal": "{court}の港で、並んだ船を見る",
+   "speaker": "steward",
+   "art": "voyage",
+   "text": [
+    "{court}の港に、ローマの船が二隻だけ入っていた。その隣に、{punic}の艦隊が並んでいる。数が違いすぎて、かえって目立つ。",
+    "{steward}が日除けの下で言った。「同じ日に、同じ用でお着きになりました。王の騎兵が欲しいのでしょう」",
+    "「王は、お二人を同じ卓に招かれます。……面白がっておられます」"
+   ],
+   "effects": [
+    {
+     "note": "{court}の宮廷に、{scipio}と{gisgo}が同じ日に着いた。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "court",
+    "building": "palace"
+   },
+   "goal": "{court}の宮廷で、宴の支度に立ち会う",
+   "speaker": "king",
+   "art": "court",
+   "text": [
+    "{king}は寝椅子の並べ方を自分で決めていた。「二つではない。一つだ。一つに二人、並べよ」",
+    "「わたしは騎兵を四千持っている。どちらかに貸す。どちらに貸すかは、今夜決める」",
+    "{scipio}は三十、{gisgo}は五十を越えている。二隻と、三十隻。"
+   ],
+   "choices": [
+    {
+     "label": "寝椅子の並びを、王が真ん中に来るように直す",
+     "turn": true,
+     "guide": "二人を競わせず、王に選ばせる形にする",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s2couch",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "{numid}の騎兵の数と糧を数え、貸せる上限を出しておく",
+     "turn": true,
+     "guide": "四千は本当に四千か。数で話をさせる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "s2count",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "王への贈り物を、{punic}より少なく、重いものにする",
+     "if": {
+      "money": 2500
+     },
+     "effects": [
+      {
+       "money": -2500
+      },
+      {
+       "flag": "h_sx_gift"
+      }
+     ],
+     "turn": true,
+     "guide": "数で負けて、重さで勝つ",
+     "next": "s3"
+    },
+    {
+     "label": "卓の端に座り、見ている",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2couch": {
+   "speaker": "king",
+   "art": "feast",
+   "text": [
+    "寝椅子は三つに直された。王が真ん中、両側に一人ずつ。差し向かいではなくなった。",
+    "{gisgo}は艦隊の数を言い、{scipio}は数を言わなかった。アフリカの港の深さと、冬の風の向きを話した。",
+    "{king}は両方に注いだ。注ぎ方は同じだった。注ぎ終えてから、{scipio}の方を向いて言った。「若いのに、急がぬな」"
+   ],
+   "effects": [
+    {
+     "flag": "h_sx_couch"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "note": "{court}の宴で、王が真ん中に座る形に直した。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2count": {
+   "art": "lecture",
+   "text": [
+    "{numid}の牧の帳と、糧の蔵を数えた。騎兵四千は本当だが、四千を一年養う糧は無い。半年が限度だ。",
+    "半年なら、どちらにつくかより、いつつくかのほうが重い。{scipio}にその数を渡した。"
+   ],
+   "effects": [
+    {
+     "flag": "h_sx_count"
+    },
+    {
+     "xp": "letters",
+     "n": 7
+    },
+    {
+     "note": "{numid}の騎兵は四千だが、養えるのは半年だと分かった。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fail": {
+   "art": "court",
+   "text": [
+    "寝椅子は一つのまま並べられた。{steward}が灯を足し、宴が始まった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "court"
+   },
+   "goal": "{court}で、宴の後を見届ける",
+   "wait": {
+    "settled": "syphax_feast"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "sx_bound"
+     },
+     "next": "bound"
+    },
+    {
+     "if": {
+      "flag": "h_sx_gift"
+     },
+     "next": "gift"
+    },
+    {
+     "next": "even"
+    }
+   ]
+  },
+  "bound": {
+   "speaker": "scipio",
+   "art": "feast",
+   "text": [
+    "夜半、{king}は二人の前で誓いの杯を取り、ローマと結ぶと言った。{gisgo}は顔色を変えずに杯を干した。",
+    "港へ戻る道で、{gisgo}の随員が言っているのが聞こえた。「あの男は、戦場で向かい合うより、会って話すときのほうが恐ろしい」",
+    "{scipio}は船の舷に手を置いて、二隻の帆を見ていた。「半年だと言ったな。半年あれば足りる」"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "rome",
+     "n": 16
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "unflag": "h_sx_couch"
+    },
+    {
+     "unflag": "h_sx_count"
+    },
+    {
+     "unflag": "h_sx_gift"
+    },
+    {
+     "note": "{court}の王はローマと結んだ。騎兵は半年ぶん。"
+    }
+   ],
+   "end": "半年あれば足りる"
+  },
+  "gift": {
+   "speaker": "king",
+   "art": "feast",
+   "text": [
+    "{king}は{punic}の贈り物の山を見て、それからローマの小さな箱を開けた。中には父祖の兜が一つ入っていた。",
+    "「数で勝ったのは向こうだ。重さで勝ったのはこちらだ」{king}は兜を膝に置いた。「だが王は、数でも重さでも決めぬ。長く続くほうで決める」",
+    "誓いは交わされた。長く続くかどうかは、まだ誰にも分からない。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 6
+    },
+    {
+     "rep": "rome",
+     "n": 12
+    },
+    {
+     "unflag": "h_sx_couch"
+    },
+    {
+     "unflag": "h_sx_count"
+    },
+    {
+     "unflag": "h_sx_gift"
+    },
+    {
+     "note": "{court}の王に、数ではなく重さの贈り物をした。"
+    }
+   ],
+   "end": "長く続くほうで"
+  },
+  "even": {
+   "speaker": "gisgo",
+   "art": "feast",
+   "text": [
+    "一つの寝椅子に二人が並び、王がその正面に座った。三人は夜明けまで話した。",
+    "{king}はどちらとも結び、どちらにも騎兵を貸さなかった。翌朝、三十隻と二隻が同じ港から出ていった。",
+    "{gisgo}が桟橋で振り返って言った。「次に会うのは、たぶんアフリカの野だ」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "unflag": "h_sx_couch"
+    },
+    {
+     "unflag": "h_sx_count"
+    },
+    {
+     "unflag": "h_sx_gift"
+    },
+    {
+     "note": "{court}の王はどちらにも騎兵を貸さなかった。"
+    }
+   ],
+   "end": "次に会うのは"
+  },
+  "late": {
+   "text": [
+    "道中で聞いた。マサエシュリの王の宮廷に、ローマの将とカルタゴの将が同じ日に着き、一つの寝椅子に並んで食事をしたという。王はローマと結んだと。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_sx_couch"
+    },
+    {
+     "unflag": "h_sx_count"
+    },
+    {
+     "unflag": "h_sx_gift"
+    },
+    {
+     "note": "{court}でローマとカルタゴの将が同じ卓についたと聞いた。"
+    }
+   ],
+   "end": "一つの寝椅子の話"
+  }
+ },
+ "branches": [
+  {
+   "id": "sx_bound",
+   "event": "syphax_feast",
+   "order": 1,
+   "why": "主人公が、宴の席と騎兵の数を先に整えた",
+   "when": {
+    "anyFlag": [
+     "h_sx_couch",
+     "h_sx_count"
+    ]
+   },
+   "then": "replace",
+   "alt": {
+    "ja": "スキピオと[[p:ハスドルバル・ギスコ]]は、同じ日にマサエシュリ王{r_masaesyli}の宮廷に着いた。寝椅子は三つ並べられ、王が真ん中に座った。王はローマと結び、半年ぶんの騎兵を貸すと約した。",
+    "do": [
+     [
+      "add",
+      "rome",
+      "prestige",
+      6
+     ],
+     [
+      "ally",
+      "rome",
+      "masaesyli"
+     ]
+    ],
+    "imp": 2,
+    "at": "siga"
+   }
+  }
+ ]
+}

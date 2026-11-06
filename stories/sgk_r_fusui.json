@@ -1,0 +1,310 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_fusui",
+ "kind": "random",
+ "where": "shrine",
+ "most": 2,
+ "again": 320,
+ "hook": "符水の道士に、米を五斗も持っていかれました",
+ "title": "符水と米五斗",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "病人の母"
+  },
+  "taoist": {
+   "npc": "符水を配る道士",
+   "sex": "m"
+  },
+  "doctor": {
+   "folk": "医者",
+   "tags": [
+    "医"
+   ]
+  },
+  "clerk": {
+   "npc": "郡の掾",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{shrine}の脇に筵が敷かれ、病人が二十人ほど並んでいた。{taoist}が札を焼いた灰を水に落として配っている。",
+    "{client}が米の袋を抱えていた。「五斗でございます。息子の熱が引くなら、安いものと思いました」",
+    "「引いた者もおります。引かぬ者もおります。引かなかった家の米は、返りません」"
+   ],
+   "choices": [
+    {
+     "label": "{taoist}の手順を最初から見る",
+     "next": "watch"
+    },
+    {
+     "label": "医者に、この病の見立てを聞く",
+     "next": "doctor"
+    },
+    {
+     "label": "郡の掾に、取り締まるかを聞く",
+     "next": "clerk"
+    }
+   ]
+  },
+  "watch": {
+   "speaker": "taoist",
+   "art": "faith",
+   "text": [
+    "{taoist}はまず病人に、自分の過ちを紙に書かせる。書けぬ者には書いてやる。それを三通にして、山と地と水に納める。",
+    "それから札を焼き、灰を水に落として飲ませ、静かな部屋に三日寝かせる。",
+    "「水が治すのではありません」と{taoist}は言った。「書くことと、三日寝ることです。水は、そのための口実でございます」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_fs_method"
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "医者と引き合わせる",
+     "next": "doctor"
+    },
+    {
+     "label": "三日寝かせる部屋を、もっと増やさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "end_rooms",
+      "lose": "clerk"
+     }
+    }
+   ]
+  },
+  "doctor": {
+   "speaker": "doctor",
+   "art": "lecture",
+   "text": [
+    "{doctor}は薬箱を叩いた。「あれは医術ではありません。水です。灰の混じった水です」",
+    "「ですが……わたしの薬で治る者は三人に一人で、あの者の水で治る者も三人に一人です」",
+    "「違うのは、あちらは寝かせることです。わたしは、寝ろと言うだけで、寝る部屋を用意しません」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_fs_doc"
+    },
+    {
+     "xp": "medicine",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "二人を組ませ、薬と部屋を分担させる",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "end_both",
+      "lose": "clerk"
+     }
+    },
+    {
+     "label": "米を取らぬ約を{taoist}から取る",
+     "check": {
+      "skill": "trade",
+      "dc": 38,
+      "win": "end_free",
+      "lose": "clerk"
+     }
+    },
+    {
+     "label": "郡の掾に取り締まらせる",
+     "next": "clerk"
+    }
+   ]
+  },
+  "clerk": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "郡の掾に会う",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は筆を置かずに言った。「米を取る者は、取り締まれます。取らぬ者は、取り締まれません」",
+    "「ですが、道士の徒は黄巾のころから数が多い。一人捕らえれば、十人が山へ入ります」",
+    "「放っておけば、いずれ郡より大きくなります。どちらが損かは、まだ分かりません」"
+   ],
+   "choices": [
+    {
+     "label": "米を取らぬなら咎めぬ、という形にまとめる",
+     "if": {
+      "flag": "sk_fs_method"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_free",
+      "lose": "end_driven"
+     }
+    },
+    {
+     "label": "医者と組ませ、郡の施療として置く",
+     "if": {
+      "flag": "sk_fs_doc"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 42,
+      "win": "end_both",
+      "lose": "end_driven"
+     }
+    },
+    {
+     "label": "取り締まらせる",
+     "next": "end_driven"
+    },
+    {
+     "label": "何もしない",
+     "next": "end_asis"
+    }
+   ]
+  },
+  "end_both": {
+   "speaker": "doctor",
+   "text": [
+    "{shrine}の脇の筵が、郡の施療の場になった。{doctor}が診て薬を出し、{taoist}が書かせて三日寝かせる。",
+    "治る者は、三人に一人から二人に一人へ増えた。増えた理由を、二人とも相手のおかげだと言い張った。",
+    "米は郡が持つことになった。五斗ではなく、一斗になった。"
+   ],
+   "effects": [
+    {
+     "money": 220
+    },
+    {
+     "fame": 12
+    },
+    {
+     "favor": 8
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "xp": "medicine",
+     "n": 6
+    },
+    {
+     "note": "{here}で道士と医者を組ませ、郡の施療の場にした。"
+    }
+   ],
+   "end": "二人に一人"
+  },
+  "end_free": {
+   "speaker": "taoist",
+   "text": [
+    "「米は取りません」と{taoist}は言い、筵の端に書いて貼った。郡はそれを見て、取り締まらないことにした。",
+    "集まる人は倍になった。{taoist}は三日寝かせる部屋が足りないと言って、毎日困っている。",
+    "{client}の息子の熱は、四日目に引いた。米は返ってこなかったが、{client}は返せとは言わなかった。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 9
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}の道士に米を取らせず、咎めぬ形にまとめた。"
+    }
+   ],
+   "end": "足りない部屋"
+  },
+  "end_rooms": {
+   "text": [
+    "空いている倉を二つ借り、三日寝かせる部屋にした。筵の上で寝ていた者が、屋根の下で寝るようになった。",
+    "治る者が増えたのは、水のせいか、屋根のせいか。{taoist}は「どちらでもよろしい」と言った。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 8
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}で、病人を三日寝かせる部屋を増やさせた。"
+    }
+   ],
+   "end": "どちらでもよろしい"
+  },
+  "end_driven": {
+   "text": [
+    "{taoist}は捕らえられ、筵は焼かれた。翌月、同じ病が別の里で出たとき、符水を配る者が三人に増えていた。",
+    "{clerk}は帳に書いた。「一人捕らえて、三人出ず」——数は、合わなかった。"
+   ],
+   "effects": [
+    {
+     "money": 100
+    },
+    {
+     "fame": 4
+    },
+    {
+     "favor": 5
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    },
+    {
+     "note": "{here}の道士を取り締まらせた。符水を配る者は増えた。"
+    }
+   ],
+   "end": "合わなかった数"
+  },
+  "end_asis": {
+   "text": [
+    "筵はそのまま、米もそのまま。治る者は三人に一人、治らぬ者の米は返らない。",
+    "{client}は息子の枕もとで、灰の混じった水を匙で与えていた。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{here}の符水は、そのまま続いている。"
+    }
+   ],
+   "end": "匙の水"
+  }
+ }
+}

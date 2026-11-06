@@ -1,0 +1,364 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "rm_h_marcellus_dies",
+ "kind": "history",
+ "title": "ローマの剣",
+ "lore": {
+  "title": "マルケッルスの死（プルタルコス マルケッルス伝・リウィウス 第27巻）",
+  "text": [
+   "前208年、二人の執政官マルケッルスとクリスピヌスは、両軍の陣のあいだにある丘を自分の目で見ようと、わずかな騎兵を連れて出た。丘の木立にはヌミディア騎兵が伏せていた。",
+   "マルケッルスは討たれ、クリスピヌスは深手を負って数日後に死んだ。一年に二人の執政官を同時に失ったのは、ローマの歴史でこのときだけである。",
+   "ハンニバルはマルケッルスの亡骸を手厚く葬り、その指輪を取った。その印章で偽の書簡を作り、サラピアの町を開けさせようとしたが、クリスピヌスが死ぬ前に各地へ「マルケッルスの印を信じるな」と使いを出していたため、ならなかった。"
+  ]
+ },
+ "era": "rome",
+ "event": "marcellus_dies",
+ "lead": 4,
+ "before": [
+  "s1",
+  "s2",
+  "s2scout",
+  "s2stay",
+  "s2ring",
+  "s2fail"
+ ],
+ "onFired": "late",
+ "cast": {
+  "camp": {
+   "scnPlace": "venusia"
+  },
+  "town": {
+   "scnPlace": "arpi"
+  },
+  "rome": {
+   "scnRealm": "rome"
+  },
+  "punic": {
+   "scnRealm": "carthage"
+  },
+  "hannibal": {
+   "person": "ruler:carthage"
+  },
+  "marcellus": {
+   "scnPerson": "マルクス・クラウディウス・マルケッルス"
+  },
+  "crispinus": {
+   "npc": "もう一人の執政官",
+   "sex": "m"
+  },
+  "rider": {
+   "npc": "騎兵の古参",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "camp",
+    "building": "barracks"
+   },
+   "goal": "{camp}の陣で、丘の話を聞く",
+   "speaker": "rider",
+   "art": "camp",
+   "text": [
+    "二つのローマの陣が並び、その向こうに丘が一つある。木立があり、両軍のどちらの手にも入っていない。",
+    "{rider}が鞍を直しながら言った。「執政官がお二人とも、明日あの丘を見にいかれる。騎兵は二百二十」",
+    "「あの木立は、わたしなら見ずに通り過ぎます。中に何がいても見えませんから」"
+   ],
+   "effects": [
+    {
+     "note": "二人の執政官が、木立のある丘を自分の目で見にいく。"
+    }
+   ],
+   "next": "s2"
+  },
+  "s2": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "{camp}で、丘へ出る前に止める",
+   "speaker": "marcellus",
+   "art": "court",
+   "text": [
+    "{marcellus}は五度の執政官で、六十に近い。甲冑は自分で留めていた。",
+    "「地図は嘘をつく。わたしは自分の目で見たものしか信じぬ。四十年そうしてきた」",
+    "{crispinus}が横で黙っている。止める気はあるが、言葉がない顔だ。"
+   ],
+   "choices": [
+    {
+     "label": "先に斥候を木立へ入れさせる",
+     "turn": true,
+     "guide": "見にいくのは止めない。先に見る者を置く",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "s2scout",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "「執政官が二人とも出る日ではない」と説く",
+     "turn": true,
+     "guide": "片方だけ残す。それだけで足りるかどうか",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "s2stay",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "{marcellus}の指輪の印を各地に知らせる段取りを先に作る",
+     "turn": true,
+     "guide": "討たれた後のことを、討たれる前に用意する",
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "s2ring",
+      "lose": "s2fail"
+     }
+    },
+    {
+     "label": "騎兵の列に加わり、丘へ出る",
+     "next": "s3"
+    }
+   ]
+  },
+  "s2scout": {
+   "art": "camp",
+   "text": [
+    "夜明け前に、六人を木立へ入れた。戻ってきたのは四人だった。",
+    "「馬の糞が新しい。四十、五十はいます」——{marcellus}は報告を聞き、甲冑の留め金から手を離した。"
+   ],
+   "effects": [
+    {
+     "flag": "h_md_scout"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "stealth",
+     "n": 6
+    },
+    {
+     "note": "丘の木立にヌミディア騎兵が伏せていることを先に掴んだ。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2stay": {
+   "speaker": "crispinus",
+   "art": "court",
+   "text": [
+    "「国に執政官は二人しかおりません。同じ日に、同じ木立の前に、二人とも立つ理由がありますか」",
+    "{crispinus}が初めて口を開いた。「……わたしが残ります。見てきてください」",
+    "{marcellus}は何も言わず、兜を小脇に抱えて出ていった。"
+   ],
+   "effects": [
+    {
+     "flag": "h_md_stay"
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "執政官の一人を陣に残させた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2ring": {
+   "art": "court",
+   "text": [
+    "{marcellus}の指輪の印を蝋に押し、写しを作った。南イタリアの十一の町に、同じ文を書いた。",
+    "「この印の書簡が来ても、使いの顔を見て確かめよ」——書いている途中で、自分が何を用意しているのかに気づいた。"
+   ],
+   "effects": [
+    {
+     "flag": "h_md_ring"
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{marcellus}の印の書簡を疑えと、南の町々に先に報せた。"
+    }
+   ],
+   "next": "s3"
+  },
+  "s2fail": {
+   "art": "camp",
+   "text": [
+    "誰も止めず、斥候も出なかった。二百二十騎が夜明けに陣を出ていった。"
+   ],
+   "next": "s3"
+  },
+  "s3": {
+   "at": {
+    "place": "camp"
+   },
+   "goal": "{camp}で、丘から戻る列を待つ",
+   "wait": {
+    "settled": "marcellus_dies"
+   },
+   "text": [],
+   "goto": [
+    {
+     "if": {
+      "branch": "md_lived"
+     },
+     "next": "lived"
+    },
+    {
+     "if": {
+      "flag": "h_md_ring"
+     },
+     "next": "ring"
+    },
+    {
+     "next": "died"
+    }
+   ]
+  },
+  "lived": {
+   "speaker": "marcellus",
+   "art": "camp",
+   "text": [
+    "列は昼前に戻ってきた。丘には登らず、木立の手前で向きを変えたという。",
+    "夕方、木立から五十騎が出て、陣の遠くを回って去っていった。数えた者がいた。四十八騎だった。",
+    "{marcellus}は兜を卓に置いて、しばらく座っていた。「四十年、自分の目で見てきた。今日はじめて、人の目を借りた」"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "favor": 10
+    },
+    {
+     "rep": "rome",
+     "n": 18
+    },
+    {
+     "unflag": "h_md_scout"
+    },
+    {
+     "unflag": "h_md_ring"
+    },
+    {
+     "unflag": "h_md_stay"
+    },
+    {
+     "note": "丘の伏兵を先に知り、二人の執政官は陣に戻った。"
+    }
+   ],
+   "end": "人の目を借りた日"
+  },
+  "ring": {
+   "speaker": "hannibal",
+   "art": "war",
+   "text": [
+    "戻ってきた馬は、空の鞍だった。{marcellus}は討たれ、{crispinus}は腿に槍を受けて運ばれてきた。",
+    "{hannibal}は亡骸を焼き、骨を壺に納めて陣へ送り返してきた。指輪は返さなかった。",
+    "半月後、南の町に{marcellus}の印の書簡が届いた。町は、先に来ていた報せのほうを信じた。門は開かなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "rep": "rome",
+     "n": 10
+    },
+    {
+     "unflag": "h_md_scout"
+    },
+    {
+     "unflag": "h_md_ring"
+    },
+    {
+     "unflag": "h_md_stay"
+    },
+    {
+     "note": "{marcellus}は討たれたが、その印を使った偽の書簡は通らなかった。"
+    }
+   ],
+   "end": "返らなかった指輪"
+  },
+  "died": {
+   "speaker": "crispinus",
+   "art": "disaster",
+   "text": [
+    "木立から一度に出てきた。二百二十騎のうち、陣に戻ったのは四十に満たなかった。",
+    "{marcellus}は丘の斜面で討たれた。{crispinus}は腿の傷がもとで、三日のうちに死んだ。一年に執政官を二人失ったのは、ローマでこのときだけだという。",
+    "{hannibal}は亡骸を手厚く葬った。指輪は取った。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "rep": "rome",
+     "n": -5
+    },
+    {
+     "unflag": "h_md_scout"
+    },
+    {
+     "unflag": "h_md_ring"
+    },
+    {
+     "unflag": "h_md_stay"
+    },
+    {
+     "note": "二人の執政官が木立の伏兵に倒れた。"
+    }
+   ],
+   "end": "一年に二人"
+  },
+  "late": {
+   "text": [
+    "道中で聞いた。「ローマの剣」と呼ばれた{marcellus}が、丘の木立の伏兵に討たれたという。もう一人の執政官も、傷がもとで数日後に死んだと。"
+   ],
+   "effects": [
+    {
+     "unflag": "h_md_scout"
+    },
+    {
+     "unflag": "h_md_ring"
+    },
+    {
+     "unflag": "h_md_stay"
+    },
+    {
+     "note": "{marcellus}が伏兵に討たれたと聞いた。"
+    }
+   ],
+   "end": "折れた剣"
+  }
+ },
+ "branches": [
+  {
+   "id": "md_lived",
+   "event": "marcellus_dies",
+   "order": 1,
+   "why": "主人公が、木立の伏兵を先に見つけさせた",
+   "when": {
+    "anyFlag": [
+     "h_md_scout",
+     "h_md_stay"
+    ]
+   },
+   "then": "cancel",
+   "note": "両軍の陣のあいだの丘を見にいこうとした執政官たちは、木立に伏せていた[[p:ハンニバル]]のヌミディア騎兵を斥候に見つけられ、丘の手前で引き返した。"
+  }
+ ]
+}

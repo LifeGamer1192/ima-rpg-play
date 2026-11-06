@@ -1,0 +1,361 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sgk_r_chikukan",
+ "kind": "random",
+ "where": "market",
+ "most": 2,
+ "again": 320,
+ "hook": "失われた篇の竹簡が出たと申しますが、馬一頭の値です",
+ "title": "失われた篇",
+ "era": "sangoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "realm": {
+   "realm": "here"
+  },
+  "client": {
+   "client": "書を買う士人"
+  },
+  "dealer": {
+   "npc": "古物の商人",
+   "sex": "m"
+  },
+  "scholar": {
+   "npc": "名の通らぬ学者",
+   "sex": "m"
+  },
+  "master": {
+   "folk": "太学の師",
+   "tags": [
+    "学"
+   ]
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{market}の奥の席に、綴じのほどけた竹簡が布の上に広げられていた。墨は古び、紐は擦り切れている。",
+    "{client}が袖の中で指を折っていた。「失われた篇だと申します。値は馬一頭。……本物なら、安うございます」",
+    "「ですが、こういう物が出るのは、だいたい戦の後です。戦の後には、何でも出ます」"
+   ],
+   "choices": [
+    {
+     "label": "竹簡を読む",
+     "next": "read"
+    },
+    {
+     "label": "{dealer}に出どころを聞く",
+     "next": "dealer"
+    },
+    {
+     "label": "太学の師に見てもらう",
+     "next": "master"
+    }
+   ]
+  },
+  "read": {
+   "art": "lecture",
+   "text": [
+    "文はよく通っている。古い言い回しも正しい。正しすぎる。",
+    "百枚のうち、書き癖の違う札が一枚も無い。古い書は、写した者の数だけ癖が混じるものだ。",
+    "擦り切れた紐の跡を裏返すと、擦れていない側の竹が新しかった。古びは、片面だけに塗ってある。"
+   ],
+   "effects": [
+    {
+     "flag": "sk_ck_fake"
+    },
+    {
+     "xp": "letters",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "{dealer}に突きつける",
+     "next": "dealer"
+    },
+    {
+     "label": "書いた者を探す",
+     "next": "scholar"
+    }
+   ]
+  },
+  "dealer": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{dealer}に出どころを聞く",
+   "speaker": "dealer",
+   "art": "trade",
+   "text": [
+    "{dealer}は布の端を持ち上げて、裏の墨を見せた。「焼けた蔵から出たものです。出どころは、それだけで」",
+    "「本物かどうかは、買う方がお決めになることで。わたしは、売ることしか決めません」"
+   ],
+   "choices": [
+    {
+     "label": "片面だけの古びを示し、値を崩す",
+     "if": {
+      "flag": "sk_ck_fake"
+     },
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "scholar",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "帳を見せろと迫る",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "scholar",
+      "lose": "thugs"
+     }
+    },
+    {
+     "label": "黙って自分が買う",
+     "if": {
+      "money": 800
+     },
+     "effects": [
+      {
+       "money": -800
+      }
+     ],
+     "next": "end_bought"
+    }
+   ]
+  },
+  "master": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "太学の師に見てもらう",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は一枚ずつ指で撫で、最後に目を閉じた。",
+    "「よく書けております。……わたしが若いころ、こういう文を書きたいと思っておりました」",
+    "「書いた者は、学があります。学があって、名が通らぬ者です。そういう者が、この二十年で何人も出ました」"
+   ],
+   "effects": [
+    {
+     "flag": "sk_ck_who"
+    },
+    {
+     "xp": "letters",
+     "n": 4
+    }
+   ],
+   "next": "scholar"
+  },
+  "scholar": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "書いた者を探す",
+   "speaker": "scholar",
+   "art": "backroom",
+   "text": [
+    "{scholar}は裏店で、竹を削って並べていた。削った竹に、灰汁を刷いて古く見せている。",
+    "「自分の名で書いた註は、十年で一度も読まれませんでした。古い篇として売れば、士人が馬一頭を出します」",
+    "「わたしが書いたのは、わたしの考えです。嘘を書いた覚えはありません。……嘘をついたのは、誰が書いたかだけです」"
+   ],
+   "choices": [
+    {
+     "label": "{master}に引き合わせ、名で読ませる道を作る",
+     "if": {
+      "flag": "sk_ck_who"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "end_name",
+      "lose": "end_burn"
+     }
+    },
+    {
+     "label": "自分の名で書き直させ、註として売らせる",
+     "check": {
+      "skill": "trade",
+      "dc": 40,
+      "win": "end_note",
+      "lose": "end_burn"
+     }
+    },
+    {
+     "label": "竹簡を焼き、二度とやらせぬと約させる",
+     "next": "end_burn"
+    },
+    {
+     "label": "偽物だと市に触れ、{dealer}を潰す",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "end_market",
+      "lose": "thugs"
+     }
+    }
+   ]
+  },
+  "thugs": {
+   "art": "war",
+   "text": [
+    "{dealer}が席を立つと、布を運ぶ男が三人、荷の陰から出てきた。「商いの邪魔は、困るのです」"
+   ],
+   "choices": [
+    {
+     "label": "叩き伏せる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 0,
+      "win": "end_market",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "人の多い通りへ退く",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "end_market",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "end_name": {
+   "speaker": "master",
+   "text": [
+    "{master}は{scholar}の書いたものを、自分の講義で読んだ。書いた者の名を言ってから読んだ。",
+    "十年読まれなかった註が、三月で写された。写した者が、また写した。",
+    "{scholar}は竹を削るのをやめた。「名が通るというのは、こういうことでしたか」"
+   ],
+   "effects": [
+    {
+     "money": 200
+    },
+    {
+     "fame": 12
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{here}の偽の竹簡を書いた学者に、自分の名で読まれる道を作った。"
+    }
+   ],
+   "end": "名が通るということ"
+  },
+  "end_note": {
+   "text": [
+    "{scholar}は自分の名で註を書き直し、{dealer}はそれを「今の学者の註」として売った。値は馬一頭から、驢馬一頭に下がった。",
+    "下がった値で、買う者は三倍になった。{dealer}は「こちらのほうが、結局は儲かります」と言った。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{here}の偽の竹簡を、書いた者の名の註として売らせた。"
+    }
+   ],
+   "end": "驢馬一頭の値"
+  },
+  "end_market": {
+   "text": [
+    "市に触れが回り、{dealer}の席は三日で畳まれた。竹簡は焼かれ、{scholar}は町を出た。",
+    "半年後、別の市で同じ手の竹簡が出たという話を聞いた。今度は、誰も見破らなかった。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 7
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}の偽の竹簡を市に触れ、古物商を潰した。"
+    }
+   ],
+   "end": "誰も見破らなかった"
+  },
+  "end_burn": {
+   "text": [
+    "百枚を焼いた。竹が爆ぜる音が、裏店の壁に響いた。{scholar}は最後まで座って見ていた。",
+    "「十年かけて書いたものです」と{scholar}は言った。「焼いても、わたしの頭の中にはございます。……また書きます」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "note": "{here}の偽の竹簡を焼いた。"
+    }
+   ],
+   "end": "また書きます"
+  },
+  "end_bought": {
+   "text": [
+    "馬一頭の値で買った。{client}は羨ましそうに見ていた。",
+    "三年後、太学の師が「これは今の人の手だ」と言うのを聞いた。それでも、読んで面白いことは変わらなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{here}で失われた篇と称する竹簡を買った。"
+    }
+   ],
+   "end": "読んで面白いこと"
+  },
+  "end_beaten": {
+   "text": [
+    "荷の陰で肩を打たれ、布の上に倒れた。竹簡が散り、片面だけ古びた竹が日に光った。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    }
+   ],
+   "end": "片面だけの古び"
+  }
+ }
+}
