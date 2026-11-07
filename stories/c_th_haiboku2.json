@@ -1,0 +1,240 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "c_th_haiboku2",
+ "kind": "random",
+ "chainOf": "th_haiboku",
+ "where": "road",
+ "hook": "街道の先で、見覚えのある男が囲まれている",
+ "title": "囲まれた男",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "通りすがり"
+  },
+  "boast": {
+   "npc": "腕自慢の男",
+   "sex": "m"
+  },
+  "master": {
+   "folk": "古い武芸者",
+   "tags": [
+    "兵",
+    "老"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "{client}が足を止めた。「あれ、{thread:how}時の相手では」",
+    "街道の先で、{boast}が四人に囲まれていた。四人のうち二人が、もう刃を抜いている。",
+    "{boast}もこちらに気づいた。気づいて、目を逸らした。"
+   ],
+   "choices": [
+    {
+     "label": "助けに入る",
+     "fight": {
+      "foes": "bandit",
+      "n": 4,
+      "level": 1,
+      "win": "saved",
+      "lose": "end_both"
+     }
+    },
+    {
+     "label": "癖を読んで、四人の方を崩す",
+     "if": {
+      "flag": "ch_haiboku_read"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 32,
+      "win": "saved",
+      "lose": "end_both"
+     },
+     "guide": "人の手の癖を読む目は、誰にでも使える"
+    },
+    {
+     "label": "受けの構えで一人ずつ捌く",
+     "if": {
+      "flag": "ch_haiboku_trained"
+     },
+     "check": {
+      "skill": "blade",
+      "dc": 36,
+      "win": "saved",
+      "lose": "end_both"
+     }
+    },
+    {
+     "label": "見ているだけにする",
+     "next": "end_watched"
+    }
+   ]
+  },
+  "saved": {
+   "speaker": "boast",
+   "art": "road",
+   "text": [
+    "四人は引いた。{boast}は刃を収めず、しばらく立っていた。",
+    "「なぜ入った」",
+    "答えようとして、答えが無いことに気づいた。"
+   ],
+   "choices": [
+    {
+     "label": "「貸しにしておく」と言う",
+     "next": "end_debt"
+    },
+    {
+     "label": "「あの晩の話の続きだ」と言う",
+     "if": {
+      "flag": "ch_haiboku_twice"
+     },
+     "next": "end_story"
+    },
+    {
+     "label": "何も言わずに歩き出す",
+     "next": "end_silent"
+    },
+    {
+     "label": "「もう一度やろう」と言う",
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 4,
+      "talk": true,
+      "win": "end_won",
+      "lose": "end_lost_again"
+     }
+    }
+   ]
+  },
+  "end_debt": {
+   "speaker": "boast",
+   "text": [
+    "「貸しか」{boast}は刃を収めた。「返せぬ貸しは作らん主義だが、今日は作る」",
+    "それから一年のあいだに、三度返してきた。三度とも、頼みもしないうちに来た。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "flag": "ch_haiboku_owed"
+    },
+    {
+     "note": "{here}の街道で、自分を破った男を助け、貸しにした。"
+    }
+   ],
+   "end": "返せぬ貸しは作らん"
+  },
+  "end_story": {
+   "speaker": "boast",
+   "text": [
+    "「あの晩の話の続きだ」と言うと、{boast}はようやくこちらを見た。",
+    "「……あの話は、やめた。二度勝った相手の話を、三度めにする奴は、ただの阿呆だ」",
+    "{boast}はそれきり、こちらのことを人に話さなくなった。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "note": "{here}の街道で、二度自分を破った男を助けた。話はそこで終わった。"
+    }
+   ],
+   "end": "三度めにする奴は阿呆"
+  },
+  "end_silent": {
+   "text": [
+    "何も言わずに歩き出した。後ろで、{boast}が何か言いかけて、やめた音がした。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "note": "{here}の街道で、自分を破った男を助けて、何も言わずに去った。"
+    }
+   ],
+   "end": "言いかけてやめた音"
+  },
+  "end_won": {
+   "speaker": "boast",
+   "text": [
+    "助けた相手と、その場で立ち合った。今度はこちらが立っていた。",
+    "{boast}は土の上に座り込んだまま笑った。「助けてから勝つのが、いちばん性が悪い」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "xp": "blade",
+     "n": 10
+    },
+    {
+     "note": "{here}の街道で、自分を破った男を助け、そのうえで勝った。"
+    }
+   ],
+   "end": "いちばん性が悪い"
+  },
+  "end_lost_again": {
+   "text": [
+    "助けて、立ち合って、また負けた。{boast}は手を貸して起こしてから、黙って去った。"
+   ],
+   "effects": [
+    {
+     "hp": -20
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "{here}の街道で、自分を破った男を助け、立ち合ってまた負けた。"
+    }
+   ],
+   "end": "手を貸して起こしてから"
+  },
+  "end_both": {
+   "text": [
+    "四人は多すぎた。{boast}とこちらが並んで倒れ、四人は二人ぶんの荷を持って去った。"
+   ],
+   "effects": [
+    {
+     "hp": -30
+    },
+    {
+     "money": -150
+    },
+    {
+     "note": "{here}の街道で、自分を破った男とともに倒れた。"
+    }
+   ],
+   "end": "二人ぶんの荷"
+  },
+  "end_watched": {
+   "text": [
+    "藪の陰から見ていた。{boast}は三人まで倒し、四人めの一撃で動かなくなった。",
+    "四人めは、荷を探ってから、こちらのいる藪を一度だけ見た。"
+   ],
+   "effects": [
+    {
+     "note": "{here}の街道で、自分を破った男が倒れるのを見ていた。"
+    }
+   ],
+   "end": "藪を一度だけ見た"
+  }
+ }
+}

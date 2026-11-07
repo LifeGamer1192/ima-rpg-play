@@ -1,0 +1,261 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "c_th_mikoshi1",
+ "kind": "random",
+ "where": "road",
+ "again": 900,
+ "most": 2,
+ "hook": "街道の脇に、やせた{bandit}がひとり座り込んでいる",
+ "title": "街道の痩せた頭目",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "chief": {
+   "npc": "{bandit}の頭",
+   "sex": "m"
+  },
+  "town": {
+   "place": "near:here"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "chief",
+   "art": "road",
+   "text": [
+    "街道の脇の石に、{bandit}が一人で腰かけていた。刃は錆び、頬はこけている。後ろの藪に人の気配はない。",
+    "「……置いていけ、と言うところだが」{chief}は立ち上がりかけて、やめた。「もう三日、誰も通らん。腹が減って、声が出ん」"
+   ],
+   "choices": [
+    {
+     "label": "斬る",
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 0,
+      "talk": true,
+      "win": "end_cut",
+      "lose": "end_beaten"
+     }
+    },
+    {
+     "label": "何があったのか聞く",
+     "next": "why"
+    },
+    {
+     "label": "黙って通り過ぎる",
+     "next": "end_passed"
+    }
+   ]
+  },
+  "why": {
+   "speaker": "chief",
+   "art": "road",
+   "text": [
+    "{chief}は、もとは{town}の近くで畑を打っていたという。戦で焼かれ、村の者と山に入り、気がつけば頭と呼ばれていた。",
+    "「十四人いた。いまは三人だ。あとは病んだか、山を下りて捕まったか」",
+    "「頭と呼ばれる者が、いちばん先に飢えるとは思わなんだ」"
+   ],
+   "effects": [
+    {
+     "xp": "speech",
+     "n": 3
+    }
+   ],
+   "choices": [
+    {
+     "label": "山を下りろと説き伏せる",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "end_spared",
+      "lose": "end_refused"
+     }
+    },
+    {
+     "label": "干し飯と路銀を分けてやる",
+     "if": {
+      "money": 60
+     },
+     "effects": [
+      {
+       "money": -60
+      }
+     ],
+     "next": "end_paid"
+    },
+    {
+     "label": "やはり斬る",
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 0,
+      "win": "end_cut",
+      "lose": "end_beaten"
+     }
+    }
+   ]
+  },
+  "end_spared": {
+   "speaker": "chief",
+   "text": [
+    "{chief}は長いこと黙っていたが、錆びた刃を草むらへ放った。「下りる。下りて、打たれるなら打たれる」",
+    "「名を覚えておく」と{chief}は言った。覚えられて嬉しい名乗り方ではなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_mikoshi_spared"
+    },
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    },
+    {
+     "note": "{here}の街道で、飢えた{bandit}の頭を説き伏せて山から下ろした。"
+    }
+   ],
+   "end": "下ろした刃"
+  },
+  "end_paid": {
+   "speaker": "chief",
+   "text": [
+    "干し飯の包みを置くと、{chief}は手も伸ばさずに見ていた。やがて両手で受け取り、何も言わずに頭を下げた。",
+    "「これで三日は保つ。三日のあとのことは、三日のあとに考える」"
+   ],
+   "effects": [
+    {
+     "flag": "ch_mikoshi_paid"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "{here}の街道で、飢えた{bandit}の頭に路銀を分けた。"
+    }
+   ],
+   "end": "三日ぶんの米"
+  },
+  "end_refused": {
+   "speaker": "chief",
+   "text": [
+    "{chief}は首を振った。「下りたところで、畑はもう無い。山で死ぬ方がまだましだ」",
+    "そう言って、藪の中へ入っていった。追う気にはなれなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_mikoshi_paid"
+    },
+    {
+     "xp": "speech",
+     "n": 2
+    },
+    {
+     "note": "{here}の街道で{bandit}の頭を見逃した。説き伏せられはしなかった。"
+    }
+   ],
+   "end": "藪に消えた背"
+  },
+  "end_passed": {
+   "text": [
+    "何も言わずに横を通り過ぎた。{chief}も、何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_mikoshi_paid"
+    }
+   ],
+   "end": "通り過ぎた"
+  },
+  "end_cut": {
+   "text": [
+    "一合で終わった。懐から出てきたのは、欠けた銭が三枚と、名前の書かれた布切れが一枚。",
+    "布の名は、十四人ぶんあった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "money": 30
+    },
+    {
+     "note": "{here}の街道で、飢えた{bandit}の頭を討ち取った。"
+    }
+   ],
+   "end": "十四人の名"
+  },
+  "end_beaten": {
+   "text": [
+    "飢えているはずの腕が、思ったより重かった。倒れたこちらを見下ろして、{chief}は銭袋だけ取って去った。"
+   ],
+   "effects": [
+    {
+     "money": -80
+    },
+    {
+     "flag": "ch_mikoshi_paid"
+    }
+   ],
+   "end": "取られた銭袋"
+  }
+ },
+ "chain": [
+  {
+   "thread": "th_mikoshi",
+   "on": [
+    "十四人の名",
+    "取られた銭袋"
+   ]
+  },
+  {
+   "thread": "th_mikoshi",
+   "name": "見逃した一人",
+   "on": [
+    "下ろした刃"
+   ],
+   "next": "c_th_mikoshi2",
+   "how": "山から下ろした",
+   "after": 150,
+   "within": 240,
+   "at": "town",
+   "keep": [
+    "chief",
+    "town"
+   ],
+   "wait": "{chief}が{town}のあたりにいるらしい",
+   "lapse": {
+    "text": "山を下りた{bandit}の頭の噂は、いつのまにか聞かなくなった。"
+   }
+  },
+  {
+   "thread": "th_mikoshi",
+   "name": "見逃した一人",
+   "on": [
+    "*"
+   ],
+   "next": "c_th_mikoshi2",
+   "how": "見逃した",
+   "after": 150,
+   "within": 240,
+   "at": "town",
+   "keep": [
+    "chief",
+    "town"
+   ],
+   "wait": "あの{bandit}の頭が{town}のあたりで何かしているらしい",
+   "lapse": {
+    "text": "あの{bandit}の頭がどうなったか、とうとう分からずじまいになった。"
+   }
+  }
+ ]
+}

@@ -1,0 +1,279 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "c_th_haiboku1",
+ "kind": "random",
+ "where": "inn",
+ "trigger": {
+  "deed": "lost",
+  "deedWithin": 30
+ },
+ "again": 540,
+ "most": 2,
+ "hook": "隣の卓で、あんたのことを話している男らがいる",
+ "title": "隣の卓の話",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "宿の客"
+  },
+  "boast": {
+   "npc": "腕自慢の男",
+   "sex": "m"
+  },
+  "master": {
+   "folk": "古い武芸者",
+   "tags": [
+    "兵",
+    "老"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{client}が顎で隣の卓を示した。「あの話、半分はあんたのことでしょう」",
+    "{boast}が、杯を置いては身振りを混ぜて話している。先日こちらを打ち据えた側の話だ。",
+    "聞いていると、話の中のこちらは、実際よりずっと弱い。"
+   ],
+   "choices": [
+    {
+     "label": "卓へ行き、もう一度やると言う",
+     "fight": {
+      "foes": "bandit",
+      "n": 2,
+      "level": 3,
+      "win": "end_return",
+      "lose": "end_twice"
+     },
+     "guide": "同じ相手に、同じ体で挑む。勝てる当てはない"
+    },
+    {
+     "label": "黙って聞き、話の中の弱みを数える",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "end_learned",
+      "lose": "end_sour"
+     }
+    },
+    {
+     "label": "{master}に、負けた時のことを話して教えを請う",
+     "next": "master"
+    },
+    {
+     "label": "宿を変える",
+     "next": "end_moved"
+    }
+   ]
+  },
+  "master": {
+   "at": {
+    "place": "here",
+    "building": "barracks"
+   },
+   "goal": "{master}に教えを請う",
+   "speaker": "master",
+   "art": "duel",
+   "text": [
+    "{master}は板の間に座ったまま、負けた日のことを最後まで聞いた。",
+    "「おぬし、受けてから返しておるな。受けるのが遅い者は、受けてから返す。それでは一生勝てぬ」",
+    "「三月、通え。教えるのは一つだけだ。一つで足りる」"
+   ],
+   "choices": [
+    {
+     "label": "三月通う",
+     "if": {
+      "money": 500
+     },
+     "effects": [
+      {
+       "money": -500
+      },
+      {
+       "flag": "ch_haiboku_trained"
+      },
+      {
+       "xp": "blade",
+       "n": 18
+      },
+      {
+       "pass": 2880
+      }
+     ],
+     "next": "end_trained"
+    },
+    {
+     "label": "今日だけ教えを受ける",
+     "effects": [
+      {
+       "xp": "blade",
+       "n": 6
+      }
+     ],
+     "next": "end_oneday"
+    },
+    {
+     "label": "「一つとは何か」とだけ聞いて帰る",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "end_oneday",
+      "lose": "end_sour"
+     }
+    }
+   ]
+  },
+  "end_trained": {
+   "speaker": "master",
+   "text": [
+    "三月、受けることだけをやった。打たれ、受け、また打たれた。最後の日、{master}は何も言わずに杖を置いた。",
+    "「もう来るな。来ても教えることはない」"
+   ],
+   "effects": [
+    {
+     "flag": "ch_haiboku_trained"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "note": "{here}で古い武芸者に三月通い、受けを教わった。"
+    }
+   ],
+   "end": "来ても教えることはない"
+  },
+  "end_oneday": {
+   "speaker": "master",
+   "text": [
+    "「踏み込みの足だ」と{master}は言った。「出す足が後ろでは、受けも返しも遅れる。それだけだ」"
+   ],
+   "effects": [
+    {
+     "xp": "blade",
+     "n": 8
+    },
+    {
+     "note": "{here}で古い武芸者に、踏み込みの足を教わった。"
+    }
+   ],
+   "end": "出す足が後ろ"
+  },
+  "end_learned": {
+   "text": [
+    "最後まで聞いた。話の中で、{boast}は三度同じ手を使っている。右から入って、左へ抜ける。",
+    "本人は癖だと思っていない。思っていない癖は、直らない。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_haiboku_read"
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{here}で、自分を破った男の手の癖を聞き取った。"
+    }
+   ],
+   "end": "直らない癖"
+  },
+  "end_return": {
+   "text": [
+    "もう一度やった。今度は立っていた。{boast}は杯を置き、何も言わずに宿を出ていった。",
+    "話は、その晩で止まった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "xp": "blade",
+     "n": 10
+    },
+    {
+     "note": "{here}で、自分を破った相手に挑み返して勝った。"
+    }
+   ],
+   "end": "その晩で止まった話"
+  },
+  "end_twice": {
+   "text": [
+    "二度めも同じだった。板の間に転がったこちらを、{boast}は起こしもしなかった。",
+    "話は、その晩から長くなった。"
+   ],
+   "effects": [
+    {
+     "hp": -25
+    },
+    {
+     "fame": -4
+    },
+    {
+     "flag": "ch_haiboku_twice"
+    },
+    {
+     "note": "{here}で、自分を破った相手に挑み返して、また負けた。"
+    }
+   ],
+   "end": "長くなった話"
+  },
+  "end_sour": {
+   "text": [
+    "途中で席を立った。背中で、笑い声が一つ大きくなった。"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    }
+   ],
+   "end": "大きくなった笑い声"
+  },
+  "end_moved": {
+   "text": [
+    "宿を変えた。話は、こちらのいない所で続いた。"
+   ],
+   "end": "いない所で続く話"
+  }
+ },
+ "chain": [
+  {
+   "thread": "th_haiboku",
+   "on": [
+    "大きくなった笑い声",
+    "いない所で続く話"
+   ]
+  },
+  {
+   "thread": "th_haiboku",
+   "name": "負けた後で",
+   "on": [
+    "*"
+   ],
+   "next": "c_th_haiboku2",
+   "how": "負けたあとに動いた",
+   "after": 60,
+   "within": 200,
+   "at": "anywhere",
+   "keep": [
+    "boast",
+    "master"
+   ],
+   "wait": "{boast}とは、どこかでもう一度行き会う",
+   "lapse": {
+    "text": "{boast}の名は、そのうち誰の口にも上らなくなった。"
+   }
+  }
+ ]
+}

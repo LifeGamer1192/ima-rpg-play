@@ -1,0 +1,318 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "c_th_mikoshi2",
+ "kind": "random",
+ "chainOf": "th_mikoshi",
+ "where": "folk",
+ "hook": "あの時の{bandit}の頭を、この町で見かけた者がいるという",
+ "title": "あの時の男",
+ "era": "*",
+ "cast": {
+  "town": {
+   "place": "here"
+  },
+  "chief": {
+   "npc": "{bandit}の頭",
+   "sex": "m"
+  },
+  "client": {
+   "client": "町の者"
+  },
+  "boss": {
+   "folk": "荷主",
+   "tags": [
+    "商"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "town"
+   },
+   "speaker": "client",
+   "art": "road",
+   "text": [
+    "{client}が声をひそめた。「半年ばかり前に、街道で{bandit}の頭を{thread:how}とか。……あの男を、この町で見ました」",
+    "覚えのある顔だった。あの時より肉がついている。"
+   ],
+   "next": "route"
+  },
+  "route": {
+   "text": [
+    ""
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "ch_mikoshi_spared"
+     },
+     "next": "carrier"
+    },
+    {
+     "next": "risen"
+    }
+   ]
+  },
+  "carrier": {
+   "at": {
+    "place": "town",
+    "building": "market"
+   },
+   "goal": "{town}の{market}で{chief}を探す",
+   "speaker": "chief",
+   "art": "trade",
+   "text": [
+    "{chief}は、荷を背負って{market}の裏を往復していた。刃は差していない。こちらを見て、荷を下ろした。",
+    "「下りた。打たれもした。それから、これだ」と背中の荷を指す。「食えてはいる。食えてはいるが」",
+    "「荷主の{boss}が、山のことを知っておる。知ったうえで使うておる。賃は半分だ」"
+   ],
+   "choices": [
+    {
+     "label": "{boss}に掛け合い、賃を直させる",
+     "check": {
+      "skill": "trade",
+      "dc": 38,
+      "win": "end_wage",
+      "lose": "end_wage_no"
+     }
+    },
+    {
+     "label": "{boss}の弱みを探す",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "end_squeeze",
+      "lose": "end_wage_no"
+     }
+    },
+    {
+     "label": "自分の荷運びとして雇う",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "end_hired"
+    },
+    {
+     "label": "食えているならよい、と立ち去る",
+     "next": "end_left"
+    }
+   ]
+  },
+  "risen": {
+   "at": {
+    "place": "town",
+    "building": "inn"
+   },
+   "goal": "{town}の{inn}で{chief}のことを探る",
+   "speaker": "chief",
+   "art": "hideout",
+   "text": [
+    "{inn}の奥の卓に、{chief}はいた。供が四人。刃は新しい。",
+    "「生きておったか」{chief}は笑った。「あれから二十人になった。三十になれば、山を二つ持てる」",
+    "「おぬしのおかげだ。礼に、この町では何もせん。……この町ではな」"
+   ],
+   "choices": [
+    {
+     "label": "今ここで討つ",
+     "fight": {
+      "foes": "bandit",
+      "n": 5,
+      "level": 2,
+      "win": "end_cut",
+      "lose": "end_lost"
+     },
+     "guide": "供が四人いる。半年前の痩せた男ではない"
+    },
+    {
+     "label": "隣の町を襲わせぬよう説き伏せる",
+     "check": {
+      "skill": "speech",
+      "dc": 46,
+      "win": "end_truce",
+      "lose": "end_warned"
+     }
+    },
+    {
+     "label": "官に知らせる",
+     "next": "end_report"
+    },
+    {
+     "label": "何も言わずに宿を出る",
+     "next": "end_warned"
+    }
+   ]
+  },
+  "end_wage": {
+   "speaker": "boss",
+   "text": [
+    "{boss}は帳を出され、賃の控えを一行ずつ読み上げられて、途中から黙った。半年ぶんの差額が、その場で{chief}に渡った。",
+    "「山のことを知っておるのは、この町ではわたしだけでしてな」と{boss}は言った。「……知っておる者が、口止め料を取るのは、商いとは申しません」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "favor": 3
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{town}で、山を下りた{bandit}の頭の賃を元に戻させた。"
+    }
+   ],
+   "end": "半年ぶんの差額"
+  },
+  "end_squeeze": {
+   "text": [
+    "{boss}が目方をごまかしている先は、官の蔵だった。その一事を耳に入れると、賃はその日のうちに戻った。",
+    "{chief}は何も聞かず、何も言わなかった。ただ、荷を担ぐ背がまっすぐになった。"
+   ],
+   "effects": [
+    {
+     "money": 120
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "stealth",
+     "n": 6
+    },
+    {
+     "note": "{town}の荷主の弱みを握り、山を下りた男の賃を戻させた。"
+    }
+   ],
+   "end": "まっすぐな背"
+  },
+  "end_hired": {
+   "speaker": "chief",
+   "text": [
+    "「賃は半分でよい」と{chief}は言った。「半分でも、山よりはよほど多い」",
+    "それから数年、この男は荷の数を一度も間違えなかった。山で十四人を数えていた頃から、数だけは確かだった。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "flag": "ch_mikoshi_hired"
+    },
+    {
+     "note": "{town}で、山を下りた{bandit}の頭を荷運びに雇った。数を間違えぬ男だ。"
+    }
+   ],
+   "end": "数だけは確か"
+  },
+  "end_wage_no": {
+   "text": [
+    "{boss}は笑って取り合わなかった。「嫌なら山へ戻ればよろしい。あの男も、そう思うておりますよ」"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    }
+   ],
+   "end": "半分のままの賃"
+  },
+  "end_left": {
+   "text": [
+    "荷を担ぎ直す背を見送った。食えてはいる。それ以上のことは、こちらの手に余った。"
+   ],
+   "end": "食えてはいる"
+  },
+  "end_truce": {
+   "speaker": "chief",
+   "text": [
+    "一刻かけて、{chief}は手を打った。隣の三つの町には手を出さぬ。代わりに、官の荷には手を出す。",
+    "「おぬしは、おれの命を二度助けたことになる」{chief}は杯を干した。「二度めの礼は、無い」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "xp": "speech",
+     "n": 8
+    },
+    {
+     "note": "{town}で、かつて見逃した{bandit}の頭に、近隣の町を襲わぬと約させた。"
+    }
+   ],
+   "end": "二度めの礼は無い"
+  },
+  "end_cut": {
+   "text": [
+    "五人を相手に、宿の板の間で片がついた。{chief}は最後まで、こちらの名を呼ばなかった。",
+    "懐から、欠けた銭が三枚と、名前の書かれた布切れが出てきた。名は二十人ぶんに増えていた。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "money": 400
+    },
+    {
+     "note": "{town}で、かつて街道で見逃した{bandit}の頭を討ち取った。"
+    }
+   ],
+   "end": "二十人の名"
+  },
+  "end_report": {
+   "text": [
+    "官に知らせた。兵が宿を囲んだときには、卓に杯が五つ残っているだけだった。",
+    "半月後、隣の町が焼けた。焼いたのが誰かは、誰も言わなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "favor": 5
+    },
+    {
+     "note": "{town}で{bandit}の頭の居所を官に知らせたが、逃げられた。"
+    }
+   ],
+   "end": "杯が五つ"
+  },
+  "end_warned": {
+   "text": [
+    "何も言わずに宿を出た。背中に、笑い声が長く続いていた。"
+   ],
+   "effects": [
+    {
+     "note": "{town}で、かつて見逃した{bandit}の頭が二十人を率いているのを見た。"
+    }
+   ],
+   "end": "長く続いた笑い声"
+  },
+  "end_lost": {
+   "text": [
+    "五人は多すぎた。板の間に転がったこちらを、{chief}はしばらく見下ろしていた。",
+    "「殺さん。前に殺されなかったからな」"
+   ],
+   "effects": [
+    {
+     "hp": -40
+    },
+    {
+     "money": -200
+    }
+   ],
+   "end": "前に殺されなかったからな"
+  }
+ }
+}

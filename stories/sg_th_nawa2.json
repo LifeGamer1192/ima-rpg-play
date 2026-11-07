@@ -1,0 +1,345 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_th_nawa2",
+ "kind": "random",
+ "chainOf": "th_nawa",
+ "where": "folk",
+ "hook": "縄のことで、お耳に入れたき儀がございます",
+ "title": "証を立てる",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "村の名主"
+  },
+  "daikan": {
+   "folk": "代官",
+   "tags": [
+    "官"
+   ],
+   "sex": "m"
+  },
+  "bugyo": {
+   "npc": "郡奉行",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{client}が辻で待っていた。「{thread:how}と伺いました」",
+    "「郡奉行の{bugyo}さまは、縄のほかにも、人を使うておられると申します。証を立てねば、こちらが嘘つきになりまする」",
+    "証の立て方は三つある。どれも、誰かが代価を払う。"
+   ],
+   "choices": [
+    {
+     "label": "短い縄そのものを奪い、奉行所の寸法書きと並べる",
+     "check": {
+      "skill": "theft",
+      "dc": 40,
+      "win": "end_rope",
+      "lose": "end_caught"
+     },
+     "guide": "縄は代官所の蔵にある。しくじれば盗みの咎を負う"
+    },
+    {
+     "label": "村の者に、検地の場で見たままを証言させる",
+     "next": "witness",
+     "guide": "村人が奉行所に名を知られる"
+    },
+    {
+     "label": "{bugyo}に会い、取引を持ちかける",
+     "next": "deal"
+    },
+    {
+     "label": "ここで手を引く",
+     "next": "end_quit"
+    }
+   ]
+  },
+  "witness": {
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{client}は、村の若い衆を三人連れてきた。三人とも、検地の場で縄を張った者だ。",
+    "「この者らが見たままを申します。……名は、残りまする」",
+    "{daikan}は証言の場に出ることを拒まなかった。「わしは渡された縄で測った。それだけを申す」"
+   ],
+   "choices": [
+    {
+     "label": "三人を立てる",
+     "effects": [
+      {
+       "flag": "ch_nawa_witness"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_witness",
+      "lose": "end_failed"
+     }
+    },
+    {
+     "label": "名主一人に絞る",
+     "effects": [
+      {
+       "flag": "ch_nawa_witness"
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 48,
+      "win": "end_witness",
+      "lose": "end_failed"
+     },
+     "guide": "証人が一人では弱い。だが、名が残るのも一人で済む"
+    }
+   ]
+  },
+  "deal": {
+   "at": {
+    "place": "here",
+    "building": "palace"
+   },
+   "goal": "{bugyo}に会う",
+   "speaker": "bugyo",
+   "art": "court",
+   "text": [
+    "{bugyo}は縄の話を最後まで聞き、茶を一口飲んだ。「それで、いかほど欲しい」",
+    "「短い縄で浮いた分は、郡の蔵に入っておる。蔵に入っておる限り、誰の懐でもない。……そう申せば、嘘になるかな」"
+   ],
+   "choices": [
+    {
+     "label": "村の年貢を元に戻すことだけを求める",
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "end_deal_village",
+      "lose": "end_failed"
+     }
+    },
+    {
+     "label": "浮いた分の一部を受け取る",
+     "effects": [
+      {
+       "flag": "ch_nawa_bought"
+      },
+      {
+       "money": 800
+      }
+     ],
+     "next": "end_deal_self"
+    },
+    {
+     "label": "取引はせぬと言い切る",
+     "effects": [
+      {
+       "flag": "ch_nawa_defied"
+      }
+     ],
+     "next": "end_defied"
+    }
+   ]
+  },
+  "end_rope": {
+   "text": [
+    "蔵から持ち出した縄と、縄屋に残っていた寸法書きを並べた。寸法は、紙のとおりに短かった。",
+    "二つを揃えて差し出せば、郡奉行が「渡された縄で測らせた」と言い逃れることはできない。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_nawa_proof"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "theft",
+     "n": 6
+    },
+    {
+     "note": "{here}で短い縄そのものを押さえ、奉行所の寸法書きと並べた。"
+    }
+   ],
+   "end": "並べた縄と紙"
+  },
+  "end_witness": {
+   "text": [
+    "村の者が、検地の場で見たままを申し述べた。縄を張った手が覚えていることは、紙よりも細かかった。",
+    "書き留められた名は、そのまま奉行所の帳に残った。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_nawa_proof"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "speech",
+     "n": 7
+    },
+    {
+     "note": "{here}の村人に検地の場を証言させた。名は奉行所の帳に残った。"
+    }
+   ],
+   "end": "帳に残った名"
+  },
+  "end_deal_village": {
+   "speaker": "bugyo",
+   "text": [
+    "{bugyo}は長いこと黙っていた。「村の年貢だけ、か。おぬしの取り分は」",
+    "「ござらぬ」と答えると、{bugyo}は声を立てて笑い、縄を替えさせると言った。",
+    "「おぬしのような者が三人おれば、郡は立ちゆかぬ。……一人でよかった」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "speech",
+     "n": 8
+    },
+    {
+     "note": "{here}の郡奉行と掛け合い、村の年貢だけを元に戻させた。"
+    }
+   ],
+   "end": "一人でよかった"
+  },
+  "end_deal_self": {
+   "text": [
+    "浮いた分の一部が、荷に紛れて届いた。縄はそのままである。村の年貢も、そのままである。",
+    "{client}はその後、こちらの顔を見ても何も言わなくなった。"
+   ],
+   "effects": [
+    {
+     "fame": -4
+    },
+    {
+     "note": "{here}の短い縄のことで、郡奉行から銭を受け取った。"
+    }
+   ],
+   "end": "荷に紛れた銭"
+  },
+  "end_defied": {
+   "speaker": "bugyo",
+   "text": [
+    "「取引はせぬ」と言うと、{bugyo}は茶碗を置いた。「では、そちらの筋でやられよ。わしも、わしの筋でやる」",
+    "座を立つとき、廊下に人が三人増えていた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "note": "{here}の郡奉行との取引を断った。"
+    }
+   ],
+   "end": "わしはわしの筋で"
+  },
+  "end_caught": {
+   "text": [
+    "蔵の戸を開けたところで、灯りが三つ回り込んできた。縄は取り返され、こちらは一晩、代官所の板の間で過ごした。"
+   ],
+   "effects": [
+    {
+     "hp": -15
+    },
+    {
+     "fame": -3
+    },
+    {
+     "note": "{here}の代官所の蔵に入ろうとして捕まった。"
+    }
+   ],
+   "end": "板の間の一晩"
+  },
+  "end_failed": {
+   "text": [
+    "申し立ては通らなかった。縄は縄であり、村は嘘をついたことにされた。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "note": "{here}の縄の申し立ては通らなかった。"
+    }
+   ],
+   "end": "通らぬ申し立て"
+  },
+  "end_quit": {
+   "text": [
+    "{client}は何も言わずに辻を離れた。縄は短いままである。"
+   ],
+   "end": "短いままの縄"
+  }
+ },
+ "chain": [
+  {
+   "thread": "th_nawa",
+   "on": [
+    "一人でよかった",
+    "荷に紛れた銭",
+    "短いままの縄",
+    "通らぬ申し立て",
+    "板の間の一晩"
+   ]
+  },
+  {
+   "thread": "th_nawa",
+   "name": "縄の長さ",
+   "on": [
+    "帳に残った名"
+   ],
+   "next": "sg_th_nawa3",
+   "how": "村の者に証言させた",
+   "after": 60,
+   "within": 150,
+   "at": "here",
+   "keep": [
+    "here",
+    "client",
+    "bugyo"
+   ],
+   "wait": "証言した村の者の名が、奉行所の帳に残っている",
+   "lapse": {
+    "text": "証言した村の若い衆のうち二人が、野良へ出たきり戻らなかった。縄の話は、それきりになった。"
+   }
+  },
+  {
+   "thread": "th_nawa",
+   "name": "縄の長さ",
+   "on": [
+    "*"
+   ],
+   "next": "sg_th_nawa3",
+   "how": "縄と紙を並べた",
+   "after": 45,
+   "within": 150,
+   "at": "here",
+   "keep": [
+    "here",
+    "client",
+    "bugyo"
+   ],
+   "wait": "縄と寸法書きを、誰に差し出すかが残っている",
+   "lapse": {
+    "text": "押さえた縄と紙は、差し出す先を決めぬうちに湿気て読めなくなった。"
+   }
+  }
+ ]
+}

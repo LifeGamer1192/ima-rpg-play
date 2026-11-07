@@ -1,0 +1,280 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "sg_th_nawa1",
+ "kind": "random",
+ "where": "inn",
+ "again": 900,
+ "most": 1,
+ "hook": "検地の縄が、どうも短いように思えてなりませぬ",
+ "title": "縄の長さ",
+ "era": "sengoku",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "村の名主"
+  },
+  "daikan": {
+   "folk": "代官",
+   "tags": [
+    "官"
+   ],
+   "sex": "m"
+  },
+  "nawashi": {
+   "npc": "縄を綯う男",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "client",
+   "art": "inn",
+   "text": [
+    "{client}は、徳利に手もつけずに言った。「検地の縄が短いのでございます」",
+    "「一間が一間でなければ、同じ田が広く出ます。広く出れば、年貢が増えます。村は、その差で飢えます」",
+    "「訴え出れば、嘘をついたのは名主だということになりましょう。……それで、旅の方にお話ししております」"
+   ],
+   "choices": [
+    {
+     "label": "縄を自分の目で測る",
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "short",
+      "lose": "end_nothing"
+     }
+    },
+    {
+     "label": "{daikan}に直に尋ねる",
+     "next": "daikan"
+    },
+    {
+     "label": "聞かなかったことにする",
+     "next": "end_deaf"
+    }
+   ]
+  },
+  "short": {
+   "art": "court",
+   "text": [
+    "畦に立てた杭から杭まで、縄を張って数えた。六尺三寸であるべきところが、六尺に足りない。一間につき三寸あまり。",
+    "一町に直せば、田は一割ほど広く出る。村の年貢は、そのぶん増える。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_nawa_measured"
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    }
+   ],
+   "choices": [
+    {
+     "label": "{daikan}に突きつける",
+     "next": "daikan"
+    },
+    {
+     "label": "誰がこの縄を綯ったのか調べる",
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "end_maker",
+      "lose": "daikan"
+     }
+    }
+   ]
+  },
+  "daikan": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "{daikan}に縄のことを尋ねる",
+   "speaker": "daikan",
+   "art": "court",
+   "text": [
+    "{daikan}は縄を一瞥して、顔色も変えなかった。「縄は、上から下げ渡されたものでござる」",
+    "「わしが綯うたのではない。わしは、渡された縄で測っただけじゃ」",
+    "それは、嘘を言っている顔ではなかった。"
+   ],
+   "choices": [
+    {
+     "label": "「ならば上を調べる」と言い置く",
+     "if": {
+      "flag": "ch_nawa_measured"
+     },
+     "next": "end_upward"
+    },
+    {
+     "label": "縄を取り替えさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "end_fixed",
+      "lose": "end_nothing"
+     }
+    },
+    {
+     "label": "ここで手を引く",
+     "next": "end_deaf"
+    }
+   ]
+  },
+  "end_maker": {
+   "speaker": "nawashi",
+   "art": "backroom",
+   "text": [
+    "縄を綯うたのは、城下の{nawashi}だった。注文の書付がまだ残っていた。判は代官のものではない。",
+    "「奉行さまのお役所から、寸法を書いた紙が参りました。短う綯え、とは書いてございません。寸法が、短うございました」"
+   ],
+   "effects": [
+    {
+     "flag": "ch_nawa_measured"
+    },
+    {
+     "flag": "ch_nawa_paper"
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "stealth",
+     "n": 6
+    },
+    {
+     "note": "{here}の検地の縄が短いこと、注文の紙が奉行所から出ていることを掴んだ。"
+    }
+   ],
+   "end": "奉行所の寸法書き"
+  },
+  "end_upward": {
+   "speaker": "daikan",
+   "text": [
+    "「上を調べる」と言うと、{daikan}ははじめて目を上げた。「……やめておかれよ」",
+    "「わしは渡された縄で測る。それだけで十年、役を保ってまいった。十年保つには、見ぬものがござる」"
+   ],
+   "effects": [
+    {
+     "flag": "ch_nawa_measured"
+    },
+    {
+     "fame": 2
+    },
+    {
+     "note": "{here}の検地の縄が短いことを代官に突きつけたが、縄は上から来ていた。"
+    }
+   ],
+   "end": "見ぬものがござる"
+  },
+  "end_fixed": {
+   "speaker": "daikan",
+   "text": [
+    "{daikan}は渋々、縄を新しく綯わせた。この村の検地はやり直しになり、年貢は元の高に戻った。",
+    "「旅の方。この縄は、ほかの村でも使うておる。……わしは、何も申しませぬ」"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "fame": 6
+    },
+    {
+     "favor": 4
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{here}の検地の縄を綯い直させ、村の年貢を元に戻した。"
+    }
+   ],
+   "end": "綯い直した縄"
+  },
+  "end_nothing": {
+   "text": [
+    "縄は縄だった。少なくとも、こちらの目にはそう見えた。検地はそのまま終わった。"
+   ],
+   "effects": [
+    {
+     "note": "{here}の検地の縄のことは、確かめられなかった。"
+    }
+   ],
+   "end": "縄は縄"
+  },
+  "end_deaf": {
+   "speaker": "client",
+   "text": [
+    "{client}は頭を下げ、徳利に手をつけずに帰っていった。半月後、検地は何事もなく終わった。"
+   ],
+   "effects": [
+    {
+     "note": "{here}の検地の縄のことを、聞かなかったことにした。"
+    }
+   ],
+   "end": "聞かなかったこと"
+  }
+ },
+ "chain": [
+  {
+   "thread": "th_nawa",
+   "on": [
+    "縄は縄",
+    "聞かなかったこと",
+    "綯い直した縄"
+   ]
+  },
+  {
+   "thread": "th_nawa",
+   "name": "縄の長さ",
+   "on": [
+    "奉行所の寸法書き"
+   ],
+   "next": "sg_th_nawa2",
+   "how": "寸法書きを掴んだ",
+   "after": 20,
+   "within": 180,
+   "at": "here",
+   "keep": [
+    "here",
+    "daikan",
+    "client"
+   ],
+   "wait": "短い縄の寸法を書いた紙が、奉行所から出ている",
+   "lapse": {
+    "text": "縄の注文の書付は、縄屋の火事とともに焼けた。検地はそのまま終わった。"
+   }
+  },
+  {
+   "thread": "th_nawa",
+   "name": "縄の長さ",
+   "on": [
+    "*"
+   ],
+   "next": "sg_th_nawa2",
+   "how": "代官までで止まった",
+   "after": 20,
+   "within": 180,
+   "at": "here",
+   "keep": [
+    "here",
+    "daikan",
+    "client"
+   ],
+   "wait": "短い縄は代官のものではない。上から来ている",
+   "lapse": {
+    "text": "短い縄のことは誰も口にしなくなった。村は、増えた年貢のままである。"
+   }
+  }
+ ]
+}
