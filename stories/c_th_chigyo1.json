@@ -1,0 +1,324 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "c_th_chigyo1",
+ "kind": "random",
+ "where": "folk",
+ "trigger": {
+  "fiefTrouble": true
+ },
+ "again": 600,
+ "most": 2,
+ "hook": "知行所のことで、お耳に入れておきたきことが",
+ "title": "留守を預かる者",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "知行所から来た者"
+  },
+  "steward": {
+   "npc": "留守を預かる者",
+   "sex": "m"
+  },
+  "elder": {
+   "folk": "村の年寄",
+   "tags": [
+    "農",
+    "老"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{client}は、袖から畳んだ紙を出した。{steward}が村に出した詫び状の写しである。",
+    "「この一年で、七通でございます。七通とも、{steward}さまご自身の咎として書かれております」",
+    "「ご自身の咎ではございませぬ。払いも、ご自身の給金から出ておりまする」"
+   ],
+   "choices": [
+    {
+     "label": "{steward}に直に問う",
+     "next": "ask"
+    },
+    {
+     "label": "村の年寄に、七件の中身を聞く",
+     "next": "elder"
+    },
+    {
+     "label": "七通を読み比べる",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "read",
+      "lose": "ask"
+     }
+    },
+    {
+     "label": "よく回っているなら、それでよいとする",
+     "next": "end_left"
+    }
+   ]
+  },
+  "read": {
+   "art": "court",
+   "text": [
+    "七通の筆はみな同じで、言い回しも同じだった。違うのは日付と、詫びる相手だけ。",
+    "四通は、こちらが留守のあいだに起きた揉め事。二通は、こちらが出した指図そのものへの詫び。",
+    "残る一通は、日付がまだ来ていない。書き置いてある。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_chigyo_read"
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    }
+   ],
+   "choices": [
+    {
+     "label": "{steward}に、八通目のことを問う",
+     "next": "ask"
+    },
+    {
+     "label": "村の年寄に聞く",
+     "next": "elder"
+    }
+   ]
+  },
+  "elder": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "村の年寄に、七件の中身を聞く",
+   "speaker": "elder",
+   "art": "disaster",
+   "text": [
+    "{elder}は、七件を指で数えた。水、境、年貢の割り、死んだ牛、落ちた橋、盗み、縁組の揉め。",
+    "「どれも、御領主さまがいらしたら一日で済む話でございます。いらっしゃらぬので、三月かかります」",
+    "「三月かかるあいだ、村は誰かに怒っておらねばなりませぬ。あの方が、その役でございました」"
+   ],
+   "effects": [
+    {
+     "flag": "ch_chigyo_elder"
+    }
+   ],
+   "next": "ask"
+  },
+  "ask": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "{steward}に直に問う",
+   "speaker": "steward",
+   "art": "court",
+   "text": [
+    "{steward}は、七通のことを隠さなかった。",
+    "「お留守のあいだ、村の怒りの行き先が要りまする。御領主さまへ向ければ、知行そのものが危うい」",
+    "「わたくしは村の者でございます。村の者が村に詫びるのは、筋が通りまする」",
+    "給金は三年据え置きで、七件の払いで、ほとんど残っていないという。"
+   ],
+   "choices": [
+    {
+     "label": "払いを返し、給金を上げる",
+     "if": {
+      "money": 900
+     },
+     "effects": [
+      {
+       "money": -900
+      },
+      {
+       "flag": "ch_chigyo_kept"
+      }
+     ],
+     "next": "end_kept"
+    },
+    {
+     "label": "八通目を破り、以後は自分の名で詫びると言う",
+     "if": {
+      "flag": "ch_chigyo_read"
+     },
+     "effects": [
+      {
+       "flag": "ch_chigyo_own"
+      }
+     ],
+     "next": "end_own"
+    },
+    {
+     "label": "役を解き、別の者を立てる",
+     "next": "end_replaced"
+    },
+    {
+     "label": "「よくやった」とだけ言う",
+     "next": "end_praised"
+    },
+    {
+     "label": "村の揉め事を、自分で一つ片づけてみせる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_settled",
+      "lose": "end_praised"
+     },
+     "guide": "三月かかると言われた話である。一日では終わらぬ"
+    }
+   ]
+  },
+  "end_kept": {
+   "speaker": "steward",
+   "text": [
+    "七件の払いを返し、給金を上げた。{steward}は銭を押し返そうとして、やめた。",
+    "「次からは、先に申し上げまする」と{steward}は言った。言ってから、小さく付け足した。「……申し上げて、間に合いますでしょうか」"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "note": "{here}の知行所で、留守を預かる者の立て替えを返し、給金を上げた。"
+    }
+   ],
+   "end": "間に合いますでしょうか"
+  },
+  "end_own": {
+   "text": [
+    "八通目を破った。以後、村への詫びは領主の名で出すことにした。",
+    "最初の一通を出した月、村の年貢の納めが三日早まった。{steward}は何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_chigyo_own"
+    },
+    {
+     "fame": 10
+    },
+    {
+     "note": "{here}の知行所で、村への詫びを自分の名で出すことにした。"
+    }
+   ],
+   "end": "三日早まった納め"
+  },
+  "end_replaced": {
+   "text": [
+    "役を解き、別の者を立てた。新しい者は詫び状を書かず、揉め事は三月のまま残るようになった。",
+    "{steward}は村に残り、畑に戻った。村の者は、以前よりよく{steward}の家に寄るようになった。"
+   ],
+   "effects": [
+    {
+     "fame": -4
+    },
+    {
+     "note": "{here}の知行所の留守役を替えた。揉め事は残るようになった。"
+    }
+   ],
+   "end": "よく寄る家"
+  },
+  "end_praised": {
+   "speaker": "steward",
+   "text": [
+    "「よくやった」と言った。{steward}は深く頭を下げた。",
+    "頭を下げたまま、しばらく上げなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{here}の知行所の留守役をねぎらった。"
+    }
+   ],
+   "end": "しばらく上げなかった頭"
+  },
+  "end_settled": {
+   "speaker": "elder",
+   "text": [
+    "水の揉めを、自分で裁いた。両方の言い分を聞き、両方に半分ずつ損をさせた。一日では終わらず、五日かかった。",
+    "{elder}が言った。「御領主さまが裁かれたのは、十年で初めてでございます」",
+    "{steward}は、その五日のあいだ一度も口を挟まなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_chigyo_judged"
+    },
+    {
+     "fame": 12
+    },
+    {
+     "xp": "speech",
+     "n": 8
+    },
+    {
+     "note": "{here}の知行所の揉め事を、自分で裁いた。"
+    }
+   ],
+   "end": "十年で初めて"
+  },
+  "end_left": {
+   "text": [
+    "よく回っているなら、それでよいとした。八通目の日付は、三月後だった。"
+   ],
+   "effects": [
+    {
+     "note": "{here}の知行所のことは、留守役に任せたままにした。"
+    }
+   ],
+   "end": "三月後の日付"
+  }
+ },
+ "chain": [
+  {
+   "thread": "th_chigyo",
+   "name": "代わりに詫びる者",
+   "on": [
+    "よく寄る家"
+   ],
+   "next": "c_th_chigyo2",
+   "how": "役を解いた",
+   "after": 150,
+   "within": 180,
+   "at": "here",
+   "keep": [
+    "here",
+    "steward",
+    "elder"
+   ],
+   "wait": "留守役を替えた知行所で、揉め事が三月ぶん溜まっている",
+   "lapse": {
+    "text": "知行所の揉め事は溜まり、年貢の納めが遅れるようになった。"
+   }
+  },
+  {
+   "thread": "th_chigyo",
+   "name": "代わりに詫びる者",
+   "on": [
+    "*"
+   ],
+   "next": "c_th_chigyo2",
+   "how": "留守役と向き合った",
+   "after": 150,
+   "within": 180,
+   "at": "here",
+   "keep": [
+    "here",
+    "steward",
+    "elder"
+   ],
+   "wait": "{steward}の詫び状は、まだ書き置かれている",
+   "lapse": {
+    "text": "{steward}は、書き置いた詫び状をとうとう使わずに役を降りた。"
+   }
+  }
+ ]
+}

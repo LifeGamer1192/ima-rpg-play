@@ -1,0 +1,358 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "c_th_on1",
+ "kind": "random",
+ "where": "folk",
+ "trigger": {
+  "bondAny": {
+   "debt": 40
+  }
+ },
+ "again": 540,
+ "most": 2,
+ "hook": "前に世話になった者が、思いつめた顔で待っている",
+ "title": "返せぬ借り",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "恩に着ている者"
+  },
+  "kin": {
+   "npc": "その弟",
+   "sex": "m"
+  },
+  "lender": {
+   "folk": "金貸し",
+   "tags": [
+    "商"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "backroom",
+   "text": [
+    "{client}は、辻の隅で半刻も待っていたという。切り出すまでに、さらに半刻かかった。",
+    "「前の御恩を、まだ何もお返ししておりませぬ。その上でこんなことを申すのは、筋が違うと承知で」",
+    "弟の{kin}が{lender}に借りを作り、返せずに身を質に入れる話になっているのだという。"
+   ],
+   "choices": [
+    {
+     "label": "{lender}と掛け合う",
+     "next": "lender"
+    },
+    {
+     "label": "{kin}本人に会う",
+     "next": "kin"
+    },
+    {
+     "label": "銭で片をつける",
+     "if": {
+      "money": 700
+     },
+     "effects": [
+      {
+       "money": -700
+      },
+      {
+       "flag": "ch_on_paid"
+      }
+     ],
+     "next": "end_paid"
+    },
+    {
+     "label": "「それは自分で背負うことだ」と断る",
+     "next": "end_refused"
+    }
+   ]
+  },
+  "lender": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{lender}と掛け合う",
+   "speaker": "lender",
+   "art": "trade",
+   "text": [
+    "{lender}は帳を開いて見せた。利は法外ではない。借りた額も大きくはない。",
+    "「返せぬのは、額のせいではございません。あの方は、借りてから一度も顔を出さぬのです」",
+    "「顔を出さぬ相手の身を取るのは、商いの約束でしてな。わたくしの気性ではございません」"
+   ],
+   "choices": [
+    {
+     "label": "期日を延ばさせる",
+     "check": {
+      "skill": "trade",
+      "dc": 36,
+      "win": "end_delay",
+      "lose": "end_seized"
+     }
+    },
+    {
+     "label": "自分が保証に立つ",
+     "if": {
+      "fame": 25
+     },
+     "effects": [
+      {
+       "flag": "ch_on_stood"
+      }
+     ],
+     "next": "end_stood"
+    },
+    {
+     "label": "帳の裏を探る",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "end_dirt",
+      "lose": "end_seized"
+     },
+     "guide": "この金貸しに後ろ暗いところがあるとは限らない"
+    }
+   ]
+  },
+  "kin": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{kin}に会う",
+   "speaker": "kin",
+   "art": "inn",
+   "text": [
+    "{kin}は{inn}の奥で、三日前から出てこないのだという。顔を見せると、{kin}は壁の方を向いた。",
+    "「兄に言われて来たのでしょう。兄はいつも、人に頭を下げて回る」",
+    "「わたしが借りたのは、兄に頭を下げさせぬためでした。……上手くいきませんでしたが」"
+   ],
+   "effects": [
+    {
+     "flag": "ch_on_met"
+    },
+    {
+     "xp": "speech",
+     "n": 4
+    }
+   ],
+   "choices": [
+    {
+     "label": "{lender}の所へ連れて行く",
+     "next": "lender"
+    },
+    {
+     "label": "働いて返す道を作ってやる",
+     "check": {
+      "skill": "trade",
+      "dc": 34,
+      "win": "end_work",
+      "lose": "end_seized"
+     }
+    },
+    {
+     "label": "「兄に頭を下げさせるな」とだけ言って帰る",
+     "next": "end_said"
+    }
+   ]
+  },
+  "end_paid": {
+   "speaker": "client",
+   "text": [
+    "銭で片がついた。{client}は受け取らぬと言い張り、受け取ってから三度頭を下げ、それきり顔を見せなくなった。",
+    "返せぬ恩に、返せぬ恩を重ねた形になった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "note": "{here}で、恩に着ている者の弟の借りを銭で払ってやった。"
+    }
+   ],
+   "end": "重ねた恩"
+  },
+  "end_delay": {
+   "speaker": "lender",
+   "text": [
+    "期日が三月延びた。{lender}は帳に書き足しながら言った。「三月で変わる人は、三日で変わります。変わらぬ人は、三年でも」"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{here}で、恩に着ている者の弟の借りの期日を延ばさせた。"
+    }
+   ],
+   "end": "三月の猶予"
+  },
+  "end_stood": {
+   "speaker": "lender",
+   "text": [
+    "保証に立った。{lender}は名を書き取り、こちらの顔をしばらく見た。",
+    "「この名で書いておきます。……返らなんだときは、こちらへ参りますぞ」"
+   ],
+   "effects": [
+    {
+     "flag": "ch_on_stood"
+    },
+    {
+     "fame": 6
+    },
+    {
+     "note": "{here}で、恩に着ている者の弟の借りの保証に立った。"
+    }
+   ],
+   "end": "この名で書いておきます"
+  },
+  "end_dirt": {
+   "text": [
+    "帳の裏に、別の帳があった。役所に申告していない貸しが、この町だけで二十口。",
+    "一言そう告げると、{kin}の借りは「帳の間違い」として消えた。消えた貸しは、ほかに十九口残っている。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_on_dirt"
+    },
+    {
+     "money": 100
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "stealth",
+     "n": 7
+    },
+    {
+     "note": "{here}の金貸しの裏帳を掴み、借りを消させた。"
+    }
+   ],
+   "end": "残りの十九口"
+  },
+  "end_work": {
+   "speaker": "kin",
+   "text": [
+    "{kin}に働き口を作った。荷運びである。半年で返せる額ではないが、返す形にはなった。",
+    "「兄には言わないでください」と{kin}は言った。言わなくても、兄は知っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{here}で、恩に着ている者の弟に働いて返す道を作った。"
+    }
+   ],
+   "end": "返す形にはなった"
+  },
+  "end_said": {
+   "speaker": "kin",
+   "text": [
+    "「兄に頭を下げさせるな」とだけ言って帰った。{kin}は壁を向いたままだった。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_on_met"
+    }
+   ],
+   "end": "壁を向いたまま"
+  },
+  "end_seized": {
+   "text": [
+    "間に合わなかった。{kin}の身は質に入り、三年の年季で町を出た。",
+    "{client}は礼を言いに来た。何に対する礼なのか、こちらにも分からなかった。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_on_lost"
+    },
+    {
+     "fame": -2
+    },
+    {
+     "note": "{here}で、恩に着ている者の弟が身を質に入れた。"
+    }
+   ],
+   "end": "何に対する礼か"
+  },
+  "end_refused": {
+   "speaker": "client",
+   "text": [
+    "「それは自分で背負うことだ」と言った。{client}は深く頭を下げて、二度と頼みには来なかった。",
+    "恩は、返されぬまま残った。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_on_refused"
+    },
+    {
+     "note": "{here}で、恩に着ている者の頼みを断った。"
+    }
+   ],
+   "end": "返されぬまま"
+  }
+ },
+ "chain": [
+  {
+   "thread": "th_on",
+   "name": "返しきれぬ恩",
+   "on": [
+    "返されぬまま"
+   ],
+   "next": "c_th_on2",
+   "how": "断った",
+   "after": 120,
+   "within": 200,
+   "at": "anywhere",
+   "keep": [
+    "client",
+    "kin",
+    "lender"
+   ],
+   "wait": "{client}とは、どこかでもう一度行き会う",
+   "lapse": {
+    "text": "{client}の顔は、そのうち思い出せなくなった。"
+   }
+  },
+  {
+   "thread": "th_on",
+   "name": "返しきれぬ恩",
+   "on": [
+    "*"
+   ],
+   "next": "c_th_on2",
+   "how": "手を貸した",
+   "after": 120,
+   "within": 200,
+   "at": "anywhere",
+   "keep": [
+    "client",
+    "kin",
+    "lender"
+   ],
+   "wait": "{client}は、返しようのない恩を二つ抱えている",
+   "lapse": {
+    "text": "{client}からの便りは、いつのまにか途切れた。"
+   }
+  }
+ ]
+}

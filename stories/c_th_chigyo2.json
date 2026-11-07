@@ -1,0 +1,338 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "c_th_chigyo2",
+ "kind": "random",
+ "chainOf": "th_chigyo",
+ "where": "folk",
+ "hook": "知行所に、御上の検めが入るそうでございます",
+ "title": "検めの日",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "知行所から来た者"
+  },
+  "steward": {
+   "npc": "留守を預かる者",
+   "sex": "m"
+  },
+  "elder": {
+   "folk": "村の年寄",
+   "tags": [
+    "農",
+    "老"
+   ],
+   "sex": "m"
+  },
+  "inspector": {
+   "folk": "御上の検め役",
+   "tags": [
+    "官"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{client}が息を切らして来た。「前の件で{thread:how}あと、知行所は落ち着いておりました」",
+    "「今日、御上の検め役が参ります。……七通の写しを、お持ちでございます」"
+   ],
+   "next": "route"
+  },
+  "route": {
+   "text": [
+    ""
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "ch_chigyo_own"
+     },
+     "next": "mine"
+    },
+    {
+     "if": {
+      "flag": "ch_chigyo_judged"
+     },
+     "next": "mine"
+    },
+    {
+     "next": "his"
+    }
+   ]
+  },
+  "his": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "検め役と向き合う",
+   "speaker": "inspector",
+   "art": "court",
+   "text": [
+    "{inspector}は七通を卓に並べた。どれも{steward}の名である。",
+    "「一年で七通。知行の主は、この一年に何度こちらへ参られましたかな」",
+    "「主が来ぬ知行は、知行ではございませぬ。預かりでござる」",
+    "{steward}は後ろで畳に手をついたまま、顔を上げない。"
+   ],
+   "choices": [
+    {
+     "label": "七通とも自分の指図であったと申し立てる",
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "end_took_blame",
+      "lose": "end_cut"
+     },
+     "guide": "咎は自分に来る。知行は残るかもしれぬ"
+    },
+    {
+     "label": "留守役の働きを数え上げる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_praised",
+      "lose": "end_cut"
+     }
+    },
+    {
+     "label": "村の年寄に、この一年を語らせる",
+     "if": {
+      "flag": "ch_chigyo_elder"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "end_village",
+      "lose": "end_cut"
+     }
+    },
+    {
+     "label": "黙って検めを受ける",
+     "next": "end_cut"
+    }
+   ]
+  },
+  "mine": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "検め役と向き合う",
+   "speaker": "inspector",
+   "art": "court",
+   "text": [
+    "{inspector}は七通を並べ、そのあとに、こちらの名で出した新しい詫び状を並べた。",
+    "「名が変わっておりますな。変わったのは、いつからでござる」",
+    "「変える者は多うございませぬ。変えた者は、だいたい二つに分かれまする。……立派か、追い詰められたか」"
+   ],
+   "choices": [
+    {
+     "label": "なぜ変えたかを、そのまま述べる",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "end_honest",
+      "lose": "end_doubted"
+     }
+    },
+    {
+     "label": "この一年で村が改まった数を示す",
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "end_numbers",
+      "lose": "end_doubted"
+     }
+    },
+    {
+     "label": "村の年寄に語らせる",
+     "if": {
+      "flag": "ch_chigyo_elder"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 32,
+      "win": "end_village",
+      "lose": "end_doubted"
+     }
+    },
+    {
+     "label": "{steward}に答えさせる",
+     "next": "end_steward_speaks"
+    }
+   ]
+  },
+  "end_took_blame": {
+   "speaker": "inspector",
+   "text": [
+    "七通とも自分の指図であったと申し立てた。{inspector}は筆を置いて、こちらを長く見た。",
+    "「嘘でござるな」",
+    "「嘘でございます」と答えた。{inspector}はうなずき、「嘘を申される主は、久しぶりでござる」と書き付けた。",
+    "知行は残った。覚えは、半分に減った。"
+   ],
+   "effects": [
+    {
+     "favor": -15
+    },
+    {
+     "fame": 14
+    },
+    {
+     "note": "{here}の知行所の検めで、七通の詫びを自分の指図だと申し立てた。"
+    }
+   ],
+   "end": "久しぶりでござる"
+  },
+  "end_praised": {
+   "text": [
+    "{steward}がこの一年に片づけた数を、一件ずつ数え上げた。七件ではなく、十九件あった。",
+    "{inspector}は十九まで聞いて、七通を袋に戻した。「預かりにしては、よく働いておりますな」"
+   ],
+   "effects": [
+    {
+     "favor": 6
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "letters",
+     "n": 8
+    },
+    {
+     "note": "{here}の知行所の検めで、留守役の働きを数え上げて退けた。"
+    }
+   ],
+   "end": "預かりにしてはよく働く"
+  },
+  "end_village": {
+   "speaker": "elder",
+   "text": [
+    "{elder}が呼ばれ、この一年を語った。語ったのは、揉め事ではなく、誰が誰に何を借りたかだった。",
+    "半刻聞いて、{inspector}は言った。「借り貸しを覚えておる村は、潰れませぬ」",
+    "検めは、その日のうちに終わった。"
+   ],
+   "effects": [
+    {
+     "favor": 8
+    },
+    {
+     "fame": 10
+    },
+    {
+     "note": "{here}の知行所の検めを、村の年寄の語りで収めた。"
+    }
+   ],
+   "end": "潰れぬ村"
+  },
+  "end_honest": {
+   "speaker": "inspector",
+   "text": [
+    "なぜ名を変えたかを、そのまま述べた。人に代わりに詫びさせていたこと、それに気づいたこと、気づくのが遅かったこと。",
+    "{inspector}は書き付けてから言った。「遅かった、と自分で申される方は、だいたい次は遅れませぬ」"
+   ],
+   "effects": [
+    {
+     "favor": 10
+    },
+    {
+     "fame": 12
+    },
+    {
+     "xp": "speech",
+     "n": 8
+    },
+    {
+     "note": "{here}の知行所の検めで、名を変えた理由をそのまま述べた。"
+    }
+   ],
+   "end": "次は遅れませぬ"
+  },
+  "end_numbers": {
+   "text": [
+    "村が改まった数を示した。年貢の納めが三日早まり、争いの持ち込みが半分になり、離村が止まっていた。",
+    "{inspector}は数だけを書き写して帰った。三月後、知行が一つ増えた。"
+   ],
+   "effects": [
+    {
+     "favor": 14
+    },
+    {
+     "fame": 10
+    },
+    {
+     "xp": "letters",
+     "n": 10
+    },
+    {
+     "note": "{here}の知行所の検めを数で通し、御上の覚えを得た。"
+    }
+   ],
+   "end": "数だけを書き写して"
+  },
+  "end_steward_speaks": {
+   "speaker": "steward",
+   "text": [
+    "{steward}に答えさせた。{steward}は顔を上げ、短く言った。",
+    "「名が変わりましてから、村の者はわたくしに怒らなくなりました。御領主さまに怒っております」",
+    "「それでよろしいのだと存じます」",
+    "{inspector}は何も書かずに袋を閉じた。"
+   ],
+   "effects": [
+    {
+     "favor": 4
+    },
+    {
+     "fame": 8
+    },
+    {
+     "note": "{here}の知行所の検めで、留守役に答えさせた。"
+    }
+   ],
+   "end": "それでよろしいのだと存じます"
+  },
+  "end_cut": {
+   "text": [
+    "検めは三日続き、知行の高が二割削られた。{steward}は役を解かれ、村に戻った。",
+    "削られた二割は、村の年貢がそのぶん軽くなるということでもあった。村は、少しだけ喜んだ。"
+   ],
+   "effects": [
+    {
+     "favor": -10
+    },
+    {
+     "fame": -4
+    },
+    {
+     "note": "{here}の知行の高が二割削られた。"
+    }
+   ],
+   "end": "村は少しだけ喜んだ"
+  },
+  "end_doubted": {
+   "text": [
+    "{inspector}は「追い詰められた方でござるな」と書き付けて帰った。知行は残ったが、次の検めが半年後と決まった。"
+   ],
+   "effects": [
+    {
+     "favor": -4
+    },
+    {
+     "note": "{here}の知行所の検めで疑われ、次の検めが半年後と決まった。"
+    }
+   ],
+   "end": "半年後の検め"
+  }
+ }
+}

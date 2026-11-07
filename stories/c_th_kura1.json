@@ -1,0 +1,504 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "c_th_kura1",
+ "kind": "random",
+ "where": "market",
+ "trigger": {
+  "facility": "*"
+ },
+ "again": 600,
+ "most": 2,
+ "hook": "蔵の上がりが、このところ少しずつ合いませぬ",
+ "title": "合わぬ帳",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "蔵の手代"
+  },
+  "clerk": {
+   "npc": "番頭",
+   "sex": "m"
+  },
+  "tenant": {
+   "folk": "小作",
+   "tags": [
+    "農"
+   ],
+   "sex": "m"
+  },
+  "officer": {
+   "folk": "蔵役人",
+   "tags": [
+    "官"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}が、三月ぶんの帳を抱えてきた。「大きくは合うております。小さく、合いませぬ」",
+    "一月に二分、三月で六分。盗みと呼ぶには少なく、間違いと呼ぶには続きすぎている。",
+    "「手は三つございます。番頭、小作、それと蔵役人の方」"
+   ],
+   "choices": [
+    {
+     "label": "帳を自分で突き合わせる",
+     "effects": [
+      {
+       "flag": "ch_kura_books"
+      }
+     ],
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "found",
+      "lose": "end_blind"
+     }
+    },
+    {
+     "label": "夜の蔵を見張る",
+     "effects": [
+      {
+       "flag": "ch_kura_watch"
+      }
+     ],
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "found",
+      "lose": "end_blind"
+     }
+    },
+    {
+     "label": "三人を集めて、一度に問う",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "found",
+      "lose": "end_scattered"
+     },
+     "guide": "当たっていれば早い。外れれば、三人とも顔を潰す"
+    },
+    {
+     "label": "六分くらいは目をつぶる",
+     "next": "end_shut"
+    }
+   ]
+  },
+  "found": {
+   "art": "backroom",
+   "text": [
+    "出どころは分かった。分かってみれば、どれも筋が通っている。筋が通っているのが、いちばん厄介だった。"
+   ],
+   "next": "who"
+  },
+  "who": {
+   "text": [
+    ""
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "ch_kura_books"
+     },
+     "next": "clerk"
+    },
+    {
+     "if": {
+      "flag": "ch_kura_watch"
+     },
+     "next": "officer"
+    },
+    {
+     "next": "tenant"
+    }
+   ]
+  },
+  "clerk": {
+   "speaker": "clerk",
+   "art": "backroom",
+   "text": [
+    "{clerk}だった。抜いた分は、帳の端に自分の字で書いてある。隠す気がない。",
+    "「賃が三年据え置きでございます。据え置きのまま値だけ上がりました」",
+    "「盗んだとは申しませぬ。足りぬ分を、先に頂いております」"
+   ],
+   "effects": [
+    {
+     "flag": "ch_kura_clerk"
+    }
+   ],
+   "choices": [
+    {
+     "label": "賃を上げ、抜いた分は帳消しにする",
+     "if": {
+      "money": 400
+     },
+     "effects": [
+      {
+       "money": -400
+      }
+     ],
+     "next": "end_wage"
+    },
+    {
+     "label": "暇を出す",
+     "next": "end_fired"
+    },
+    {
+     "label": "抜いた分を返させ、賃はそのままにする",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "end_strict",
+      "lose": "end_fired"
+     }
+    }
+   ]
+  },
+  "tenant": {
+   "speaker": "tenant",
+   "art": "disaster",
+   "text": [
+    "{tenant}だった。運ぶ途中で、毎回ひと掬いずつ家に寄せている。",
+    "「冬を越せませぬ」と{tenant}は言った。それだけ言って、あとは何も言わなかった。",
+    "帳の六分は、その家の冬ふた月ぶんである。"
+   ],
+   "effects": [
+    {
+     "flag": "ch_kura_tenant"
+    }
+   ],
+   "choices": [
+    {
+     "label": "冬のあいだの渡しを決める",
+     "if": {
+      "money": 300
+     },
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "end_winter"
+    },
+    {
+     "label": "小作を替える",
+     "next": "end_replaced"
+    },
+    {
+     "label": "取り分を一分だけ下げ、黙っていることにする",
+     "next": "end_quiet"
+    }
+   ]
+  },
+  "officer": {
+   "speaker": "officer",
+   "art": "court",
+   "text": [
+    "{officer}だった。蔵を検める日に、毎回ひと包み持って帰る。帳には「検分の費え」と書いてある。",
+    "「どこの蔵でも同じでございます」と{officer}は言った。「書いてあるものを、盗みとは申しますまい」"
+   ],
+   "effects": [
+    {
+     "flag": "ch_kura_officer"
+    }
+   ],
+   "choices": [
+    {
+     "label": "{office}に、この書き方を正させる",
+     "check": {
+      "skill": "letters",
+      "dc": 44,
+      "win": "end_rule",
+      "lose": "end_marked"
+     },
+     "guide": "ほかの蔵もみな同じことをしている。正せば、町中を敵に回す"
+    },
+    {
+     "label": "包みの中身を半分にさせる",
+     "check": {
+      "skill": "trade",
+      "dc": 36,
+      "win": "end_halved",
+      "lose": "end_marked"
+     }
+    },
+    {
+     "label": "包みを渡し続け、代わりに便宜を頼む",
+     "effects": [
+      {
+       "flag": "ch_kura_bought"
+      }
+     ],
+     "next": "end_bought"
+    }
+   ]
+  },
+  "end_wage": {
+   "speaker": "clerk",
+   "text": [
+    "賃を上げ、抜いた分は無かったことにした。{clerk}は帳の端の字を自分で消した。",
+    "翌月から、六分は戻った。戻っただけで、増えはしなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{here}の蔵で、番頭の賃を上げて抜きを止めた。"
+    }
+   ],
+   "end": "増えはしなかった"
+  },
+  "end_strict": {
+   "text": [
+    "抜いた分を返させた。{clerk}は返し、賃の話は二度としなかった。半年後、{clerk}は自分から暇を取った。"
+   ],
+   "effects": [
+    {
+     "money": 250
+    },
+    {
+     "note": "{here}の蔵で、番頭に抜いた分を返させた。半年で辞めた。"
+    }
+   ],
+   "end": "二度としなかった話"
+  },
+  "end_fired": {
+   "text": [
+    "暇を出した。帳は合うようになり、代わりに、帳をつけられる者がいなくなった。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "note": "{here}の蔵の番頭に暇を出した。"
+    }
+   ],
+   "end": "帳をつけられる者"
+  },
+  "end_winter": {
+   "speaker": "tenant",
+   "text": [
+    "冬のあいだ、月に決まった量を渡すことにした。{tenant}は受け取る日に、必ず桶を洗って持ってきた。",
+    "春になって、渡しは止まった。蔵の帳は、その年から一分も狂わなくなった。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "note": "{here}の蔵で、冬のあいだの渡しを決めて小作の抜きを止めた。"
+    }
+   ],
+   "end": "一分も狂わぬ"
+  },
+  "end_replaced": {
+   "text": [
+    "小作を替えた。帳は合った。替えられた家が冬をどう越したかは、聞かなかった。"
+   ],
+   "effects": [
+    {
+     "fame": -4
+    },
+    {
+     "note": "{here}の蔵の小作を替えた。"
+    }
+   ],
+   "end": "聞かなかったこと"
+  },
+  "end_quiet": {
+   "text": [
+    "取り分を一分だけ下げ、黙っていることにした。{tenant}は気づいた。気づいて、何も言わなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "note": "{here}の蔵の取り分を下げ、小作の抜きを黙認した。"
+    }
+   ],
+   "end": "気づいて何も言わぬ"
+  },
+  "end_rule": {
+   "text": [
+    "「検分の費え」という書き方が、この町の蔵から消えた。消えた月、町の蔵元が七人そろって酒を飲んだという。",
+    "こちらは呼ばれなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 6
+    },
+    {
+     "xp": "letters",
+     "n": 8
+    },
+    {
+     "note": "{here}で「検分の費え」の書き方を官府に正させた。"
+    }
+   ],
+   "end": "呼ばれなかった酒"
+  },
+  "end_halved": {
+   "text": [
+    "包みは半分になった。{officer}は「半分なら、半分だけ目をつぶります」と言った。言ったとおりになった。"
+   ],
+   "effects": [
+    {
+     "money": 150
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{here}の蔵役人の包みを半分にさせた。"
+    }
+   ],
+   "end": "半分だけ目をつぶる"
+  },
+  "end_bought": {
+   "text": [
+    "包みは渡し続けた。代わりに、蔵の検分は年に一度になり、荷の出入りを誰も数えなくなった。",
+    "数えない蔵は、気楽である。気楽な蔵には、鼠が増える。"
+   ],
+   "effects": [
+    {
+     "money": -200
+    },
+    {
+     "flag": "ch_kura_bought"
+    },
+    {
+     "note": "{here}の蔵役人に包みを渡し続け、検分を緩めさせた。"
+    }
+   ],
+   "end": "鼠が増える"
+  },
+  "end_marked": {
+   "text": [
+    "話はつかなかった。翌月から、検分が月に二度になった。帳は合わぬまま、手間だけが増えた。"
+   ],
+   "effects": [
+    {
+     "money": -150
+    },
+    {
+     "note": "{here}の蔵役人と話がつかず、検分が増えた。"
+    }
+   ],
+   "end": "手間だけが増えた"
+  },
+  "end_blind": {
+   "text": [
+    "三月見ても、出どころは分からなかった。六分は、六分のまま消え続けている。"
+   ],
+   "effects": [
+    {
+     "note": "{here}の蔵の合わぬ六分は、出どころが分からなかった。"
+    }
+   ],
+   "end": "分からぬ六分"
+  },
+  "end_scattered": {
+   "text": [
+    "三人を集めて問うた。三人とも身に覚えが無いと言い、三人とも、こちらを見る目が変わった。"
+   ],
+   "effects": [
+    {
+     "fame": -3
+    },
+    {
+     "note": "{here}の蔵で三人をまとめて疑い、三人とも遠ざけた。"
+    }
+   ],
+   "end": "変わった目"
+  },
+  "end_shut": {
+   "text": [
+    "六分は六分である。目をつぶった。つぶったまま、半年で一分増えた。"
+   ],
+   "effects": [
+    {
+     "note": "{here}の蔵の合わぬ分に目をつぶった。"
+    }
+   ],
+   "end": "半年で一分"
+  }
+ },
+ "chain": [
+  {
+   "thread": "th_kura",
+   "on": [
+    "分からぬ六分",
+    "変わった目"
+   ]
+  },
+  {
+   "thread": "th_kura",
+   "name": "蔵の鼠",
+   "on": [
+    "半年で一分",
+    "鼠が増える"
+   ],
+   "next": "c_th_kura2",
+   "how": "放っておいた",
+   "after": 180,
+   "within": 200,
+   "at": "here",
+   "keep": [
+    "here",
+    "clerk",
+    "tenant",
+    "officer"
+   ],
+   "wait": "数えぬ蔵は、半年で目方が変わる",
+   "lapse": {
+    "text": "蔵の帳は合わぬまま、誰も読まなくなった。"
+   }
+  },
+  {
+   "thread": "th_kura",
+   "name": "蔵の鼠",
+   "on": [
+    "*"
+   ],
+   "next": "c_th_kura2",
+   "how": "出どころを突き止めた",
+   "after": 150,
+   "within": 200,
+   "at": "here",
+   "keep": [
+    "here",
+    "clerk",
+    "tenant",
+    "officer"
+   ],
+   "wait": "一つ塞いだ穴の先に、もう一つある",
+   "lapse": {
+    "text": "蔵の帳は、そのまま合い続けた。合い続けたことにして、誰も開かなくなった。"
+   }
+  }
+ ]
+}

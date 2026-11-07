@@ -1,0 +1,343 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "c_th_kura2",
+ "kind": "random",
+ "chainOf": "th_kura",
+ "where": "market",
+ "hook": "蔵のことで、前よりも面倒な話が",
+ "title": "二つめの穴",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "蔵の手代"
+  },
+  "clerk": {
+   "npc": "番頭",
+   "sex": "m"
+  },
+  "tenant": {
+   "folk": "小作",
+   "tags": [
+    "農"
+   ],
+   "sex": "m"
+  },
+  "officer": {
+   "folk": "蔵役人",
+   "tags": [
+    "官"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}が、半年ぶんの帳を抱えてきた。「前の件で{thread:how}あと、しばらくは合うておりました」",
+    "「このごろは、合いすぎます」"
+   ],
+   "next": "route"
+  },
+  "route": {
+   "text": [
+    ""
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "ch_kura_bought"
+     },
+     "next": "bigger"
+    },
+    {
+     "if": {
+      "flag": "ch_kura_officer"
+     },
+     "next": "bigger"
+    },
+    {
+     "next": "straight"
+    }
+   ]
+  },
+  "straight": {
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "合いすぎるのは、入りが増えたからだった。穴を塞いだ蔵は、同じ手間で一割多く出す。",
+    "「一割多く出す蔵は、よそから見ても一割よく見えまする」",
+    "買い取りたいと言ってきた者が三人。どれも、断れば荷を止められる相手だった。"
+   ],
+   "choices": [
+    {
+     "label": "断り、荷の道を自分で開く",
+     "check": {
+      "skill": "trade",
+      "dc": 44,
+      "win": "end_own_road",
+      "lose": "end_stopped"
+     },
+     "guide": "三人とも敵に回る。道が開かねば、蔵は止まる"
+    },
+    {
+     "label": "三人のうち、いちばん弱い一人と組む",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "end_partner",
+      "lose": "end_stopped"
+     }
+    },
+    {
+     "label": "高く売る",
+     "effects": [
+      {
+       "money": 2500
+      }
+     ],
+     "next": "end_sold"
+    },
+    {
+     "label": "{officer}に間に入ってもらう",
+     "if": {
+      "notFlag": "ch_kura_bought"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_protected",
+      "lose": "end_stopped"
+     }
+    }
+   ]
+  },
+  "bigger": {
+   "speaker": "client",
+   "art": "backroom",
+   "text": [
+    "合いすぎるのは、誰も数えていないからだった。数えぬ蔵には、よそのものが入る。",
+    "「先月から、うちの帳に無い荷が出入りしております。夜に来て、夜に出ます」",
+    "{officer}は、知っていて何も言わない。言わないことが、包みの中身になっていた。"
+   ],
+   "choices": [
+    {
+     "label": "夜の荷を押さえる",
+     "fight": {
+      "foes": "bandit",
+      "n": 3,
+      "level": 1,
+      "win": "end_caught",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "帳を全部つけ直し、数えはじめる",
+     "check": {
+      "skill": "letters",
+      "dc": 42,
+      "win": "end_counted",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "{officer}に、どこまで知っているかを吐かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_told",
+      "lose": "end_burned"
+     }
+    },
+    {
+     "label": "蔵を手放す",
+     "effects": [
+      {
+       "money": 1200
+      }
+     ],
+     "next": "end_sold"
+    }
+   ]
+  },
+  "end_own_road": {
+   "text": [
+    "三人を断り、荷の道を自分で開いた。半年は苦しく、そのあとは楽になった。",
+    "{client}は帳をつけながら言った。「断れる蔵になりました」"
+   ],
+   "effects": [
+    {
+     "money": 600
+    },
+    {
+     "fame": 12
+    },
+    {
+     "xp": "trade",
+     "n": 10
+    },
+    {
+     "note": "{here}の蔵の買い取りを断り、荷の道を自分で開いた。"
+    }
+   ],
+   "end": "断れる蔵"
+  },
+  "end_partner": {
+   "text": [
+    "いちばん弱い一人と組んだ。残る二人は手を引き、組んだ一人は、三年で言うことを聞かなくなった。",
+    "三年ぶんの儲けは、残った。"
+   ],
+   "effects": [
+    {
+     "money": 900
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "trade",
+     "n": 8
+    },
+    {
+     "note": "{here}の蔵を、買い手の一人と組ませた。"
+    }
+   ],
+   "end": "三年ぶんの儲け"
+  },
+  "end_protected": {
+   "speaker": "officer",
+   "text": [
+    "{officer}が間に入った。三人は引き、蔵はそのまま残った。",
+    "「包みは要りませぬ」と{officer}は言った。「前に、正しく書けと言われましたのでな」"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "favor": 4
+    },
+    {
+     "note": "{here}の蔵を、正しく付き合った役人に守ってもらった。"
+    }
+   ],
+   "end": "正しく書けと言われた"
+  },
+  "end_sold": {
+   "text": [
+    "蔵を手放した。銭は入った。{client}は新しい主のもとで帳をつけ、三月で暇を取った。",
+    "「合わぬ帳をつけるのは、もう結構でございます」"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "note": "{here}の蔵を手放した。"
+    }
+   ],
+   "end": "もう結構でございます"
+  },
+  "end_caught": {
+   "text": [
+    "夜の荷を押さえた。三人縛って官へ出すと、{officer}が真っ青になって駆けつけた。",
+    "出入りしていたのは、{officer}の妻の実家の荷だった。"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "fame": 10
+    },
+    {
+     "note": "{here}の蔵に夜入っていた荷を押さえた。役人の縁者のものだった。"
+    }
+   ],
+   "end": "妻の実家の荷"
+  },
+  "end_counted": {
+   "text": [
+    "帳を全部つけ直した。数えはじめた蔵には、夜の荷が入らなくなった。それだけである。",
+    "誰も捕まらず、誰も咎められず、ただ数が合うようになった。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "letters",
+     "n": 10
+    },
+    {
+     "note": "{here}の蔵の帳をつけ直し、夜の出入りを止めた。"
+    }
+   ],
+   "end": "ただ数が合う"
+  },
+  "end_told": {
+   "speaker": "officer",
+   "text": [
+    "{officer}は、三度目の問いで折れた。「どこまで、と仰いますが……わたくしは、どこからも知らされておりませぬ」",
+    "「知らされておらぬことを、知っております。それが、この役でございます」"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "speech",
+     "n": 10
+    },
+    {
+     "note": "{here}の蔵役人から、夜の荷について聞き出した。"
+    }
+   ],
+   "end": "知らされておらぬことを知る"
+  },
+  "end_stopped": {
+   "text": [
+    "荷が止まった。三月で蔵は空になり、半値で手放すことになった。"
+   ],
+   "effects": [
+    {
+     "money": 400
+    },
+    {
+     "fame": -4
+    },
+    {
+     "note": "{here}の蔵は荷を止められ、半値で手放した。"
+    }
+   ],
+   "end": "半値の蔵"
+  },
+  "end_burned": {
+   "text": [
+    "蔵が焼けた。火の出どころは分からなかった。分からないことにされた、という方が近い。"
+   ],
+   "effects": [
+    {
+     "money": -500
+    },
+    {
+     "fame": -2
+    },
+    {
+     "note": "{here}の蔵が焼けた。火の出どころは分からぬままである。"
+    }
+   ],
+   "end": "分からぬ火"
+  }
+ }
+}
