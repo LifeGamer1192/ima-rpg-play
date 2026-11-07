@@ -1,0 +1,280 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "gs_uchiwa",
+ "kind": "random",
+ "where": "folk",
+ "trigger": {
+  "guildRank": 3
+ },
+ "again": 480,
+ "most": 2,
+ "hook": "一味の中に、お上と話している者がおります",
+ "title": "内の者",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "古参の手下"
+  },
+  "suspect": {
+   "npc": "疑われている手下",
+   "sex": "m"
+  },
+  "officer": {
+   "folk": "役人",
+   "tags": [
+    "官"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "backroom",
+   "text": [
+    "{client}は、三件続けて先回りされたことを数え上げた。",
+    "「三件とも、あいつが知っておりました。知っていた者は、ほかに四人おりますが」",
+    "{suspect}には、病の母がいる。薬代は一味の割り前では足りない。"
+   ],
+   "choices": [
+    {
+     "label": "偽の話を一人ずつに流し、どれが漏れるか見る",
+     "check": {
+      "skill": "stealth",
+      "dc": 40,
+      "win": "caught",
+      "lose": "end_muddy"
+     },
+     "guide": "四人を疑う。漏れなければ、四人ともこちらを疑う"
+    },
+    {
+     "label": "{suspect}に直に聞く",
+     "next": "ask"
+    },
+    {
+     "label": "{officer}の方から探る",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "caught",
+      "lose": "end_marked"
+     }
+    },
+    {
+     "label": "一味の決まりどおり、疑わしきは斬る",
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 1,
+      "confirm": "疑いのまま斬るか",
+      "cancel": "ask",
+      "win": "end_cut",
+      "lose": "end_cut"
+     }
+    },
+    {
+     "label": "何もしない",
+     "next": "end_left"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "suspect",
+   "art": "backroom",
+   "text": [
+    "{suspect}は否まなかった。「三件、申しました。母の薬代でございます」",
+    "「役人は、四件目を聞いたら母を町医者に預けると申しました。四件目は、まだ申しておりません」",
+    "四件目は、こちらが出る仕事である。"
+   ],
+   "effects": [
+    {
+     "flag": "gs_uchiwa_knew"
+    }
+   ],
+   "choices": [
+    {
+     "label": "薬代を一味から出し、残らせる",
+     "if": {
+      "money": 700
+     },
+     "effects": [
+      {
+       "money": -700
+      },
+      {
+       "flag": "gs_uchiwa_kept"
+      }
+     ],
+     "next": "end_kept"
+    },
+    {
+     "label": "四件目に偽の話を持たせ、役人を嵌める",
+     "check": {
+      "skill": "stealth",
+      "dc": 44,
+      "win": "end_trap",
+      "lose": "end_marked"
+     }
+    },
+    {
+     "label": "母ごと遠くへ逃がし、一味から抜けさせる",
+     "effects": [
+      {
+       "money": -300
+      }
+     ],
+     "next": "end_let"
+    },
+    {
+     "label": "決まりどおりにする",
+     "fight": {
+      "foes": "bandit",
+      "n": 1,
+      "level": 1,
+      "win": "end_cut",
+      "lose": "end_cut"
+     }
+    }
+   ]
+  },
+  "caught": {
+   "art": "backroom",
+   "text": [
+    "漏れは{suspect}からだった。理由も、そこまでで分かった。母の薬代である。"
+   ],
+   "effects": [
+    {
+     "flag": "gs_uchiwa_knew"
+    },
+    {
+     "xp": "stealth",
+     "n": 6
+    }
+   ],
+   "next": "ask"
+  },
+  "end_kept": {
+   "speaker": "suspect",
+   "text": [
+    "薬代を一味から出した。{suspect}は四件目を申さず、母は春まで保った。",
+    "「割り前では足りぬ者が、ほかにもおります」と{client}が言った。それは、別の話である。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{here}の一味で、お上に漏らしていた手下の薬代を出して引き留めた。"
+    }
+   ],
+   "end": "それは別の話"
+  },
+  "end_trap": {
+   "text": [
+    "四件目に偽の蔵を持たせた。役人は人を出し、空の蔵を三刻囲んだ。",
+    "それきり、{officer}はこの一味の話を誰にも聞かなくなった。{suspect}は残り、母は冬を越せなかった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "xp": "stealth",
+     "n": 10
+    },
+    {
+     "note": "{here}で、漏れた話を使って役人を空の蔵へ誘い出した。"
+    }
+   ],
+   "end": "空の蔵を三刻"
+  },
+  "end_let": {
+   "text": [
+    "母ごと遠くへ逃がした。{suspect}は一味の決まりを破った者として名が残り、どこの一味にも入れなくなった。",
+    "「生かしたのは情でございますか」と{client}が聞いた。答えなかった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "note": "{here}の一味から、お上に漏らした手下を母ごと逃がした。"
+    }
+   ],
+   "end": "答えなかった"
+  },
+  "end_cut": {
+   "text": [
+    "決まりどおりにした。一味は締まり、漏れは止まった。",
+    "{suspect}の母は、半月して自分で町医者の門に座った。誰も、銭のことを教えなかった。"
+   ],
+   "effects": [
+    {
+     "fame": -2
+    },
+    {
+     "flag": "gs_uchiwa_cut"
+    },
+    {
+     "note": "{here}の一味で、お上に漏らした手下を決まりどおりにした。"
+    }
+   ],
+   "end": "門に座った母"
+  },
+  "end_muddy": {
+   "text": [
+    "四人に別々の話を流したが、どれも漏れなかった。四人とも、こちらが試したことには気づいた。"
+   ],
+   "effects": [
+    {
+     "fame": -1
+    },
+    {
+     "note": "{here}の一味で漏れを探ったが、分からなかった。"
+    }
+   ],
+   "end": "試したことには気づいた"
+  },
+  "end_marked": {
+   "text": [
+    "探り方が粗かった。{officer}はこちらの顔を覚え、以後この町の仕事は割に合わなくなった。"
+   ],
+   "effects": [
+    {
+     "wanted": "here",
+     "n": 10
+    },
+    {
+     "note": "{here}の役人にこちらの顔を覚えられた。"
+    }
+   ],
+   "end": "覚えられた顔"
+  },
+  "end_left": {
+   "text": [
+    "何もしなかった。四件目は漏れ、仕事は流れ、誰も捕まらなかった。"
+   ],
+   "effects": [
+    {
+     "money": -200
+    },
+    {
+     "note": "{here}の一味の漏れを放っておき、仕事が一つ流れた。"
+    }
+   ],
+   "end": "流れた仕事"
+  }
+ }
+}

@@ -1,0 +1,389 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "ss_ronso",
+ "kind": "random",
+ "where": "shrine",
+ "trigger": {
+  "school": true,
+  "schoolRank": 3
+ },
+ "again": 540,
+ "most": 2,
+ "hook": "他派から、人前での論を申し込まれております",
+ "title": "他派との論",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "論の立会人"
+  },
+  "rival": {
+   "npc": "他派の師",
+   "sex": "m"
+  },
+  "pupil": {
+   "npc": "自分の弟子",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "speaker": "client",
+   "art": "faith",
+   "text": [
+    "{client}が申込みの文を差し出した。{rival}からの、人前での論である。",
+    "「場は{shrine}の庭、十日後。町の者が二百は集まりましょう」",
+    "「お受けにならずとも、咎はございませぬ。ただ、断ったことも二百人に伝わります」"
+   ],
+   "choices": [
+    {
+     "label": "受ける",
+     "next": "prepare"
+    },
+    {
+     "label": "受けるが、題を変えさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "prepare",
+      "lose": "end_bad_topic"
+     }
+    },
+    {
+     "label": "{pupil}を代わりに立てる",
+     "next": "pupil"
+    },
+    {
+     "label": "断る",
+     "next": "end_refused"
+    }
+   ]
+  },
+  "prepare": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "十日のあいだに備える",
+   "art": "lecture",
+   "text": [
+    "十日ある。{rival}の説は読んである。読んであるのと、人前で崩せるのとは別である。"
+   ],
+   "effects": [
+    {
+     "pass": 1440
+    }
+   ],
+   "choices": [
+    {
+     "label": "{rival}の書を読み返し、弱い所を三つ探す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "ready",
+      "lose": "day"
+     }
+    },
+    {
+     "label": "弟子相手に、同じ論を十度やる",
+     "effects": [
+      {
+       "pass": 4320
+      },
+      {
+       "xp": "speech",
+       "n": 8
+      }
+     ],
+     "next": "ready"
+    },
+    {
+     "label": "{rival}に先に会い、人柄を見ておく",
+     "check": {
+      "skill": "stealth",
+      "dc": 34,
+      "win": "ready",
+      "lose": "day"
+     }
+    },
+    {
+     "label": "備えずに出る",
+     "next": "day"
+    }
+   ]
+  },
+  "ready": {
+   "text": [
+    ""
+   ],
+   "effects": [
+    {
+     "flag": "ss_ronso_ready"
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    }
+   ],
+   "next": "day"
+  },
+  "day": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{shrine}の庭で論に臨む",
+   "speaker": "rival",
+   "art": "faith",
+   "text": [
+    "庭は埋まっていた。二百では利かない。",
+    "{rival}は先に立ち、一刻で説を述べ終えた。筋は通っている。通っているうえに、短い。",
+    "順が回ってきた。"
+   ],
+   "choices": [
+    {
+     "label": "三つの弱い所を順に突く",
+     "if": {
+      "flag": "ss_ronso_ready"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "end_won",
+      "lose": "end_draw"
+     }
+    },
+    {
+     "label": "自派の説を、短く述べる",
+     "check": {
+      "skill": "speech",
+      "dc": 46,
+      "win": "end_won",
+      "lose": "end_lost"
+     }
+    },
+    {
+     "label": "問いだけを返し、答えさせる",
+     "check": {
+      "skill": "letters",
+      "dc": 44,
+      "win": "end_socratic",
+      "lose": "end_draw"
+     }
+    },
+    {
+     "label": "{rival}の説の正しい所を先に認める",
+     "check": {
+      "skill": "speech",
+      "dc": 40,
+      "win": "end_respect",
+      "lose": "end_draw"
+     }
+    }
+   ]
+  },
+  "pupil": {
+   "at": {
+    "place": "here",
+    "building": "shrine"
+   },
+   "goal": "{pupil}を代わりに立てる",
+   "speaker": "pupil",
+   "art": "lecture",
+   "text": [
+    "{pupil}は青くなり、それから「やります」と言った。",
+    "十日後、庭で{pupil}は半刻もたなかった。もたなかったが、最後まで座っていた。",
+    "{rival}は論が終わってから、{pupil}に一礼した。"
+   ],
+   "effects": [
+    {
+     "pass": 14400
+    }
+   ],
+   "choices": [
+    {
+     "label": "負けを自分の負けとして引き受ける",
+     "next": "end_pupil_owned"
+    },
+    {
+     "label": "{pupil}に、どこで崩れたかを示す",
+     "effects": [
+      {
+       "xp": "letters",
+       "n": 8
+      }
+     ],
+     "next": "end_pupil_taught"
+    }
+   ]
+  },
+  "end_won": {
+   "text": [
+    "論は半日続き、日が傾くころ{rival}が席を立った。「今日は、こちらの負けでござる」",
+    "翌月、学舎に来る若い者が倍になった。半分は一年で辞めた。それでも、半分は残った。"
+   ],
+   "effects": [
+    {
+     "fame": 14
+    },
+    {
+     "money": 300
+    },
+    {
+     "xp": "speech",
+     "n": 14
+    },
+    {
+     "note": "{here}の{shrine}の庭で、他派の師との論に勝った。"
+    }
+   ],
+   "end": "半分は残った"
+  },
+  "end_socratic": {
+   "text": [
+    "一度も自説を述べず、問いだけを返した。{rival}は自分の説で自分を縛り、最後に黙った。",
+    "庭の者は、どちらが勝ったのか分からぬまま帰った。分からぬまま、三日その話をした。"
+   ],
+   "effects": [
+    {
+     "fame": 12
+    },
+    {
+     "xp": "letters",
+     "n": 14
+    },
+    {
+     "note": "{here}の論で、問いだけを返して他派の師を黙らせた。"
+    }
+   ],
+   "end": "三日その話をした"
+  },
+  "end_respect": {
+   "speaker": "rival",
+   "text": [
+    "{rival}の説の正しい所を、先にすべて認めた。認めたうえで、残る一点だけを論じた。",
+    "{rival}は長いこと黙り、それから言った。「この一点は、持ち帰らせていただく」",
+    "二つの学舎は、その年から書を貸し合うようになった。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "xp": "speech",
+     "n": 12
+    },
+    {
+     "note": "{here}の論で他派の説を認め、一点だけを論じて持ち帰らせた。"
+    }
+   ],
+   "end": "書を貸し合う"
+  },
+  "end_draw": {
+   "text": [
+    "論は引き分けに終わった。庭の者は、面白くなかったという顔で帰っていった。"
+   ],
+   "effects": [
+    {
+     "fame": 2
+    },
+    {
+     "xp": "speech",
+     "n": 6
+    },
+    {
+     "note": "{here}の他派との論は引き分けに終わった。"
+    }
+   ],
+   "end": "面白くなかった顔"
+  },
+  "end_lost": {
+   "text": [
+    "崩された。三つめの問いで言葉が続かなくなり、庭が静かになった。",
+    "翌月、学舎の若い者が四人、{rival}の学舎へ移った。"
+   ],
+   "effects": [
+    {
+     "fame": -6
+    },
+    {
+     "xp": "speech",
+     "n": 10
+    },
+    {
+     "note": "{here}の他派との論に負け、弟子が四人移った。"
+    }
+   ],
+   "end": "四人が移った"
+  },
+  "end_pupil_owned": {
+   "speaker": "pupil",
+   "text": [
+    "「今日の負けは、わたしの負けだ」と庭で言った。{pupil}は顔を上げなかった。",
+    "上げないまま、三年通い続けた。"
+   ],
+   "effects": [
+    {
+     "fame": 4
+    },
+    {
+     "note": "{here}の論で弟子を立て、その負けを自分の負けとした。"
+    }
+   ],
+   "end": "三年通い続けた"
+  },
+  "end_pupil_taught": {
+   "text": [
+    "どこで崩れたかを、その晩のうちに紙に書いて示した。{pupil}は七箇所を書き写した。",
+    "二年後、{pupil}は同じ{rival}と論じて、引き分けた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "letters",
+     "n": 10
+    },
+    {
+     "note": "{here}の論の負けを、弟子に七箇所の形で教えた。"
+    }
+   ],
+   "end": "二年後の引き分け"
+  },
+  "end_bad_topic": {
+   "text": [
+    "題を変えさせようとして、変えられなかった。先に渋ったことだけが、二百人に伝わった。"
+   ],
+   "effects": [
+    {
+     "fame": -3
+    },
+    {
+     "note": "{here}の論の題を変えさせようとして、しくじった。"
+    }
+   ],
+   "end": "渋ったことだけ"
+  },
+  "end_refused": {
+   "text": [
+    "断った。{client}は「承知いたしました」とだけ言って帰った。",
+    "十日後、{rival}は庭に一人で立ち、自説を一刻述べて帰ったという。"
+   ],
+   "effects": [
+    {
+     "note": "{here}の他派からの論を断った。"
+    }
+   ],
+   "end": "一人で一刻"
+  }
+ }
+}

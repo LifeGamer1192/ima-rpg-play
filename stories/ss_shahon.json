@@ -1,0 +1,304 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "ss_shahon",
+ "kind": "random",
+ "where": "market",
+ "trigger": {
+  "school": true,
+  "schoolRank": 2
+ },
+ "again": 420,
+ "most": 2,
+ "hook": "写しの手が足りませぬ。高弟の方に頼めればと",
+ "title": "写しの手",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "書肆の主"
+  },
+  "master": {
+   "folk": "師",
+   "tags": [
+    "学"
+   ],
+   "sex": "m"
+  },
+  "brother": {
+   "npc": "同門の者",
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "speaker": "client",
+   "art": "trade",
+   "text": [
+    "{client}は、束ねた紙を卓に置いた。「十部、写していただきたいのでございます」",
+    "写す元は、わが学派の書である。読める者が少ないので、写せる者はもっと少ない。",
+    "「一つだけ。通らぬ所が三箇所ございます。写すとき、通るように直していただけますか」"
+   ],
+   "choices": [
+    {
+     "label": "直さずに写す",
+     "next": "plain"
+    },
+    {
+     "label": "直して写す",
+     "effects": [
+      {
+       "flag": "ss_shahon_fixed"
+      }
+     ],
+     "next": "fixed"
+    },
+    {
+     "label": "三箇所が何かを先に見る",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "look",
+      "lose": "plain"
+     }
+    },
+    {
+     "label": "断る",
+     "next": "end_refused"
+    }
+   ]
+  },
+  "look": {
+   "art": "lecture",
+   "text": [
+    "三箇所を見た。二つは写し間違いで、直すのが正しい。",
+    "三つめは、間違いではなかった。師の説と食い違っているだけである。元の方が古く、師の方が新しい。"
+   ],
+   "effects": [
+    {
+     "flag": "ss_shahon_saw"
+    },
+    {
+     "xp": "letters",
+     "n": 8
+    }
+   ],
+   "choices": [
+    {
+     "label": "二つだけ直し、三つめは元のまま写す",
+     "next": "end_honest"
+    },
+    {
+     "label": "三つとも直し、師の説に合わせる",
+     "effects": [
+      {
+       "flag": "ss_shahon_fixed"
+      }
+     ],
+     "next": "fixed"
+    },
+    {
+     "label": "三つめに註を付けて、両方を残す",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_note",
+      "lose": "end_honest"
+     }
+    },
+    {
+     "label": "{master}に見せて決めてもらう",
+     "next": "master"
+    }
+   ]
+  },
+  "master": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{master}に三箇所を見せる",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は三つめを長く見た。",
+    "「……これは、わしが若いころに直した所だ。直したことを、言うておらぬ」",
+    "「十部とも、元のまま写せ。註は要らぬ。十部が世に出れば、そのうち誰かが気づく」"
+   ],
+   "effects": [
+    {
+     "xp": "letters",
+     "n": 6
+    }
+   ],
+   "next": "end_master"
+  },
+  "plain": {
+   "art": "lecture",
+   "text": [
+    "十部、元のまま写した。手が痛くなり、目が霞んだ。半月かかった。"
+   ],
+   "effects": [
+    {
+     "pass": 2880
+    }
+   ],
+   "next": "end_honest"
+  },
+  "fixed": {
+   "art": "lecture",
+   "text": [
+    "十部、通るように直して写した。読みやすい。読みやすい書は、よく売れる。"
+   ],
+   "effects": [
+    {
+     "pass": 2880
+    }
+   ],
+   "next": "route"
+  },
+  "route": {
+   "text": [
+    ""
+   ],
+   "goto": [
+    {
+     "if": {
+      "flag": "ss_shahon_saw"
+     },
+     "next": "end_smooth_knew"
+    },
+    {
+     "next": "end_smooth"
+    }
+   ]
+  },
+  "end_honest": {
+   "speaker": "client",
+   "text": [
+    "元のまま写した十部は、三月で売れた。買った者のうち二人が、通らぬ所について学舎に尋ねてきた。",
+    "{client}は言った。「売れるのは、通る書でございます。読まれるのは、どうやら違うようで」"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 4
+    },
+    {
+     "xp": "letters",
+     "n": 8
+    },
+    {
+     "note": "{here}でわが学派の書を十部、元のまま写した。"
+    }
+   ],
+   "end": "読まれるのは違う"
+  },
+  "end_note": {
+   "text": [
+    "三つめに註を付けた。古い方と新しい方を並べ、どちらとも決めずに書いた。",
+    "十部が世に出た年、学派の若い者のあいだで、この一箇所だけが議論になった。"
+   ],
+   "effects": [
+    {
+     "money": 350
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "letters",
+     "n": 12
+    },
+    {
+     "note": "{here}で写した学派の書に註を付け、二つの説を並べた。"
+    }
+   ],
+   "end": "一箇所だけの議論"
+  },
+  "end_master": {
+   "text": [
+    "師の言うとおり、十部とも元のまま写した。",
+    "二年後、{brother}がその一箇所を見つけて騒いだ。{master}は何も言わずに、頷いただけだった。"
+   ],
+   "effects": [
+    {
+     "money": 300
+    },
+    {
+     "fame": 6
+    },
+    {
+     "xp": "letters",
+     "n": 10
+    },
+    {
+     "note": "{here}で、師が若いころ直した一箇所を、元のまま世に出した。"
+    }
+   ],
+   "end": "頷いただけ"
+  },
+  "end_smooth": {
+   "text": [
+    "通るように直した十部は、半月で売れ、増し刷りになった。",
+    "三年後、ほかの町で見た同じ書は、こちらが直した形になっていた。元がどうだったかを知る者は、もういない。"
+   ],
+   "effects": [
+    {
+     "money": 500
+    },
+    {
+     "fame": 5
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{here}で学派の書を通るように直して写した。それが元になった。"
+    }
+   ],
+   "end": "元を知る者はいない"
+  },
+  "end_smooth_knew": {
+   "text": [
+    "知ったうえで三つとも直した。十部は半月で売れた。",
+    "古い方の説は、こちらの手で消えた。消したのが自分だと知っているのは、自分だけである。"
+   ],
+   "effects": [
+    {
+     "money": 500
+    },
+    {
+     "fame": 3
+    },
+    {
+     "flag": "ss_shahon_erased"
+    },
+    {
+     "xp": "trade",
+     "n": 6
+    },
+    {
+     "note": "{here}で、古い説を知ったうえで消して写した。"
+    }
+   ],
+   "end": "知っているのは自分だけ"
+  },
+  "end_refused": {
+   "text": [
+    "断った。{client}は別の手を探し、半年かけて七部だけ写させた。七部とも、通るように直してあった。"
+   ],
+   "end": "七部とも直してあった"
+  }
+ }
+}

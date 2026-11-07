@@ -1,0 +1,291 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "ss_deshi",
+ "kind": "random",
+ "where": "folk",
+ "trigger": {
+  "school": true,
+  "schoolRank": 3
+ },
+ "again": 540,
+ "most": 2,
+ "hook": "お弟子のことで、町の者が騒いでおります",
+ "title": "弟子の筋",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "町の者"
+  },
+  "pupil": {
+   "npc": "自分の弟子",
+   "sex": "m"
+  },
+  "hurt": {
+   "folk": "困らされた者",
+   "tags": [
+    "商"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "court",
+   "text": [
+    "{client}は言いにくそうに切り出した。「お弟子の{pupil}さまが、{hurt}さんを言い負かしまして」",
+    "言い負かしただけなら、何も起きない。言い負かした先で、{hurt}は店の名を貸す約束をさせられていた。",
+    "「教わったとおりにやっただけだ、と{pupil}さまは仰せで。……たしかに、教わったとおりでございます」"
+   ],
+   "choices": [
+    {
+     "label": "{pupil}に問う",
+     "next": "ask"
+    },
+    {
+     "label": "{hurt}の側から聞く",
+     "next": "hurt"
+    },
+    {
+     "label": "約束を解かせる",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "end_undo",
+      "lose": "end_stuck"
+     }
+    },
+    {
+     "label": "弟子の始末は弟子に任せる",
+     "next": "end_left"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "pupil",
+   "art": "lecture",
+   "text": [
+    "{pupil}は悪びれなかった。「相手の言い分を先に認め、残る一点で縛る。師に教わった筋でございます」",
+    "「筋は間違っておりませぬ。……間違っておりませぬよね」",
+    "問うているのは、こちらに対してである。"
+   ],
+   "effects": [
+    {
+     "flag": "ss_deshi_heard"
+    }
+   ],
+   "choices": [
+    {
+     "label": "「筋は正しい。使い所が違う」と教える",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "end_taught",
+      "lose": "end_argue"
+     }
+    },
+    {
+     "label": "一度、同じ筋で言い負かしてみせる",
+     "check": {
+      "skill": "speech",
+      "dc": 42,
+      "win": "end_shown",
+      "lose": "end_argue"
+     }
+    },
+    {
+     "label": "破門する",
+     "next": "end_expelled"
+    },
+    {
+     "label": "{hurt}の側から聞く",
+     "next": "hurt"
+    }
+   ]
+  },
+  "hurt": {
+   "at": {
+    "place": "here",
+    "building": "market"
+   },
+   "goal": "{hurt}の側から聞く",
+   "speaker": "hurt",
+   "art": "trade",
+   "text": [
+    "{hurt}は帳場で首を振った。「言い負かされたのは、こちらが悪うございます」",
+    "「ただ、あの若い方は、わたくしが黙ったあとも三つ言われました。三つめは、要らぬ一言で」",
+    "「学のある方は、黙ったところで止まれぬものでございますか」"
+   ],
+   "effects": [
+    {
+     "flag": "ss_deshi_three"
+    },
+    {
+     "xp": "speech",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "約束を解かせ、こちらが詫びる",
+     "effects": [
+      {
+       "fame": 2
+      }
+     ],
+     "next": "end_undo"
+    },
+    {
+     "label": "{hurt}に、三つめを返す言葉を教える",
+     "check": {
+      "skill": "speech",
+      "dc": 36,
+      "win": "end_armed",
+      "lose": "end_stuck"
+     }
+    },
+    {
+     "label": "弟子の始末は弟子に任せる",
+     "next": "end_left"
+    }
+   ]
+  },
+  "end_taught": {
+   "speaker": "pupil",
+   "text": [
+    "「筋は正しい。使い所が違う」と言った。{pupil}はしばらく考えてから聞いた。",
+    "「どこで止まればよろしいのでしょう」",
+    "「相手が黙ったところだ」と答えた。{pupil}は、その日から言葉数が減った。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "letters",
+     "n": 10
+    },
+    {
+     "note": "{here}で、弟子に「相手が黙ったところで止まれ」と教えた。"
+    }
+   ],
+   "end": "相手が黙ったところ"
+  },
+  "end_shown": {
+   "text": [
+    "同じ筋で、{pupil}自身を言い負かしてみせた。三つめは言わずに止めた。",
+    "{pupil}は長いこと黙り、それから「三つめを言われていたら、立ち直れませんでした」と言った。"
+   ],
+   "effects": [
+    {
+     "fame": 8
+    },
+    {
+     "xp": "speech",
+     "n": 12
+    },
+    {
+     "note": "{here}で、弟子を同じ筋で言い負かし、三つめを言わずに止めてみせた。"
+    }
+   ],
+   "end": "三つめを言わずに"
+  },
+  "end_armed": {
+   "speaker": "hurt",
+   "text": [
+    "{hurt}に、三つめを返す言葉を一つだけ教えた。「では、お前の師はどこで止まるのか」",
+    "次に{pupil}が来たとき、{hurt}はそれを使った。{pupil}は店の前で、はじめて答えに詰まった。"
+   ],
+   "effects": [
+    {
+     "fame": 7
+    },
+    {
+     "xp": "speech",
+     "n": 10
+    },
+    {
+     "note": "{here}で、弟子に言い負かされた者に返す言葉を教えた。"
+    }
+   ],
+   "end": "はじめて詰まった"
+  },
+  "end_undo": {
+   "text": [
+    "約束を解かせた。{hurt}は店の名を取り戻し、{pupil}は納得しないまま頭を下げた。",
+    "納得しない頭の下げ方を、町の者はよく見ている。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "note": "{here}で、弟子が取り付けた約束を解かせた。"
+    }
+   ],
+   "end": "よく見ている町の者"
+  },
+  "end_expelled": {
+   "text": [
+    "破門した。{pupil}は何も言わずに荷をまとめ、半年後、別の町で同じ筋を教えはじめた。",
+    "止まり所を教えぬまま、筋だけが広がった。"
+   ],
+   "effects": [
+    {
+     "fame": -4
+    },
+    {
+     "note": "{here}で弟子を破門した。筋だけが別の町へ広がった。"
+    }
+   ],
+   "end": "筋だけが広がった"
+  },
+  "end_argue": {
+   "text": [
+    "こちらの言葉が、{pupil}の筋に負けた。{pupil}は「やはり間違っておりませぬ」と言って出ていった。"
+   ],
+   "effects": [
+    {
+     "fame": -3
+    },
+    {
+     "note": "{here}で弟子を説けず、言い負かされた。"
+    }
+   ],
+   "end": "やはり間違っておらぬ"
+  },
+  "end_stuck": {
+   "text": [
+    "約束は解けなかった。{hurt}の店は、一年のあいだ名を貸したままになった。"
+   ],
+   "effects": [
+    {
+     "note": "{here}で、弟子の取り付けた約束を解けなかった。"
+    }
+   ],
+   "end": "名を貸したまま"
+  },
+  "end_left": {
+   "text": [
+    "弟子の始末は弟子に任せた。{pupil}は謝らず、{hurt}は店を畳み、町の者は学舎を遠巻きにするようになった。"
+   ],
+   "effects": [
+    {
+     "fame": -5
+    },
+    {
+     "note": "{here}で、弟子の始末を弟子に任せたままにした。"
+    }
+   ],
+   "end": "遠巻きの学舎"
+  }
+ }
+}

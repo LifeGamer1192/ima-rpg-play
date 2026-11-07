@@ -1,0 +1,378 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "gs_okura",
+ "kind": "random",
+ "where": "inn",
+ "trigger": {
+  "guildRank": 3
+ },
+ "again": 600,
+ "most": 2,
+ "hook": "一世一代の蔵の話がございます。断っていただいても構いませぬ",
+ "title": "大きな蔵",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "話を持ってきた者"
+  },
+  "keeper": {
+   "npc": "蔵の番人",
+   "sex": "m"
+  },
+  "smith": {
+   "folk": "錠前師",
+   "tags": [
+    "工"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "speaker": "client",
+   "art": "hideout",
+   "text": [
+    "{client}は図面を広げた。{here}の官の蔵である。三重の錠、夜番六人、月に一度の検め。",
+    "「十年、誰も開けておりませぬ。開ければ、一味は三年遊んで暮らせます」",
+    "「開けられなんだときは、一味が消えます。それだけの話でございます」"
+   ],
+   "choices": [
+    {
+     "label": "錠を調べる",
+     "next": "lock"
+    },
+    {
+     "label": "番人を調べる",
+     "next": "keeper"
+    },
+    {
+     "label": "検めの日取りを調べる",
+     "check": {
+      "skill": "letters",
+      "dc": 38,
+      "win": "date",
+      "lose": "end_thin"
+     }
+    },
+    {
+     "label": "断る",
+     "next": "end_refused"
+    }
+   ]
+  },
+  "lock": {
+   "at": {
+    "place": "here",
+    "building": "smithy"
+   },
+   "goal": "{smith}に錠のことを聞く",
+   "speaker": "smith",
+   "art": "trade",
+   "text": [
+    "{smith}は図面を見て、首を振ってから、もう一度見た。",
+    "「三重のうち、二つはわたくしが打ちました。三つめは、わたくしの師が打ちました」",
+    "「師の錠は開きませぬ。……鍵を持っている者が、三人おります」"
+   ],
+   "effects": [
+    {
+     "flag": "gs_okura_lock"
+    },
+    {
+     "xp": "theft",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "番人を調べる",
+     "next": "keeper"
+    },
+    {
+     "label": "検めの日取りを調べる",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "date",
+      "lose": "end_thin"
+     }
+    },
+    {
+     "label": "ここまでで十分だ、入る",
+     "next": "go"
+    },
+    {
+     "label": "断る",
+     "next": "end_refused"
+    }
+   ]
+  },
+  "keeper": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "{keeper}を調べる",
+   "speaker": "keeper",
+   "art": "backroom",
+   "text": [
+    "{keeper}は、六人の夜番の頭である。酒を飲まず、博打を打たず、女の話もしない。",
+    "調べるほど、付け入る隙が無い。隙が無い代わりに、一つだけある——",
+    "{keeper}の倅が、三年前にこの蔵の荷を盗んで流されている。"
+   ],
+   "effects": [
+    {
+     "flag": "gs_okura_keeper"
+    },
+    {
+     "xp": "stealth",
+     "n": 5
+    }
+   ],
+   "choices": [
+    {
+     "label": "倅のことで話を持ちかける",
+     "check": {
+      "skill": "speech",
+      "dc": 44,
+      "win": "inside",
+      "lose": "end_caught"
+     },
+     "guide": "断られれば、こちらの顔を見られたことになる"
+    },
+    {
+     "label": "検めの日取りを調べる",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "date",
+      "lose": "end_thin"
+     }
+    },
+    {
+     "label": "ここまでで十分だ、入る",
+     "next": "go"
+    },
+    {
+     "label": "断る",
+     "next": "end_refused"
+    }
+   ]
+  },
+  "date": {
+   "art": "court",
+   "text": [
+    "検めは月の初めの三日。検めの前夜だけ、荷が表に出され、錠は二重になる。",
+    "一年で十二晩。次は、八日後である。"
+   ],
+   "effects": [
+    {
+     "flag": "gs_okura_date"
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    }
+   ],
+   "choices": [
+    {
+     "label": "番人を調べる",
+     "next": "keeper"
+    },
+    {
+     "label": "八日後に入る",
+     "next": "go"
+    },
+    {
+     "label": "断る",
+     "next": "end_refused"
+    }
+   ]
+  },
+  "inside": {
+   "speaker": "keeper",
+   "art": "backroom",
+   "text": [
+    "{keeper}は、倅の名を言われたとき、はじめて目を上げた。",
+    "「生きておりますか」",
+    "「その晩、わたくしは見張りを西に置きます。東からお入りなさい。……倅に、会わせてください」"
+   ],
+   "effects": [
+    {
+     "flag": "gs_okura_inside"
+    }
+   ],
+   "next": "go"
+  },
+  "go": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "蔵に入る",
+   "art": "ruins",
+   "text": [
+    "夜。三重の錠と、六人の夜番と、月に一度の検めの前。"
+   ],
+   "choices": [
+    {
+     "label": "東から入る",
+     "if": {
+      "flag": "gs_okura_inside"
+     },
+     "next": "end_clean"
+    },
+    {
+     "label": "錠を抜く",
+     "check": {
+      "skill": "theft",
+      "dc": 55,
+      "scale": "here",
+      "win": "end_opened",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "検めの前夜、表の荷だけ奪う",
+     "if": {
+      "flag": "gs_okura_date"
+     },
+     "check": {
+      "skill": "stealth",
+      "dc": 42,
+      "win": "end_outer",
+      "lose": "end_caught"
+     }
+    },
+    {
+     "label": "やはり引き返す",
+     "next": "end_turned"
+    }
+   ]
+  },
+  "end_clean": {
+   "speaker": "keeper",
+   "text": [
+    "東から入り、東から出た。音は何も立たなかった。",
+    "{keeper}は、流された先の港の名を書いた紙を受け取って、それを三度読んでから懐にしまった。",
+    "一味は三年ぶん得た。{keeper}は、倅に会えたかどうか、こちらには分からない。"
+   ],
+   "effects": [
+    {
+     "money": 4000
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "stealth",
+     "n": 12
+    },
+    {
+     "note": "{here}の官の蔵を、番人の手引きで開けた。"
+    }
+   ],
+   "end": "三度読んだ紙"
+  },
+  "end_opened": {
+   "text": [
+    "三重の錠を抜いた。師の打った三つめに、夜明けまでかかった。",
+    "持ち出せたのは、運べるだけ。残りは、置いてきた。"
+   ],
+   "effects": [
+    {
+     "money": 2500
+    },
+    {
+     "fame": 7
+    },
+    {
+     "xp": "theft",
+     "n": 14
+    },
+    {
+     "note": "{here}の官の蔵の三重の錠を抜いた。"
+    }
+   ],
+   "end": "置いてきた残り"
+  },
+  "end_outer": {
+   "text": [
+    "検めの前夜、表に出された荷だけを運んだ。中の錠には触れなかった。",
+    "三年ではなく、一年ぶんだった。一味は誰も減らなかった。"
+   ],
+   "effects": [
+    {
+     "money": 1200
+    },
+    {
+     "xp": "stealth",
+     "n": 8
+    },
+    {
+     "note": "{here}の官の蔵の、検めの前夜の荷を奪った。"
+    }
+   ],
+   "end": "誰も減らなかった"
+  },
+  "end_caught": {
+   "text": [
+    "読みが足りなかった。灯りが四方から回り込み、逃げる道は一つしか残らなかった。",
+    "一味は二人減った。顔は、割れた。"
+   ],
+   "effects": [
+    {
+     "hp": -35
+    },
+    {
+     "money": -300
+    },
+    {
+     "wanted": "here",
+     "n": 25
+    },
+    {
+     "note": "{here}の官の蔵に入ろうとして、しくじった。"
+    }
+   ],
+   "end": "割れた顔"
+  },
+  "end_turned": {
+   "text": [
+    "蔵の前まで行って、引き返した。{client}は何も言わなかった。言わないことで、少し見直したらしい。"
+   ],
+   "effects": [
+    {
+     "fame": 1
+    },
+    {
+     "note": "{here}の官の蔵の前まで行き、引き返した。"
+    }
+   ],
+   "end": "少し見直した"
+  },
+  "end_thin": {
+   "text": [
+    "調べは実らなかった。十年誰も開けていない蔵は、十年ぶんの用心でできている。"
+   ],
+   "end": "十年ぶんの用心"
+  },
+  "end_refused": {
+   "text": [
+    "断った。{client}は図面を畳み、「断る頭は、長生きいたします」と言って出ていった。"
+   ],
+   "effects": [
+    {
+     "note": "{here}の官の蔵の話を断った。"
+    }
+   ],
+   "end": "断る頭は長生き"
+  }
+ }
+}

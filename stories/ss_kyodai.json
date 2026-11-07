@@ -1,0 +1,302 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "ss_kyodai",
+ "kind": "random",
+ "where": "folk",
+ "trigger": {
+  "school": true,
+  "schoolRank": 2
+ },
+ "again": 420,
+ "most": 2,
+ "hook": "同門の方のことで、お耳に入れておきたきことが",
+ "title": "兄弟弟子",
+ "era": "*",
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "client": {
+   "client": "学舎の下働き"
+  },
+  "brother": {
+   "npc": "同門の者",
+   "sex": "m"
+  },
+  "master": {
+   "folk": "師",
+   "tags": [
+    "学"
+   ],
+   "sex": "m"
+  }
+ },
+ "start": "s1",
+ "scenes": {
+  "s1": {
+   "at": {
+    "place": "here"
+   },
+   "speaker": "client",
+   "art": "lecture",
+   "text": [
+    "{client}が声をひそめた。「来月、{brother}さまが一段お上がりになります」",
+    "上がる理由は、{brother}が出した一篇である。その一篇の半分は、三年前に死んだ兄弟子の草稿だった。",
+    "「草稿は、わたくしが文箱から出してお渡しいたしました。それだけでございます」"
+   ],
+   "choices": [
+    {
+     "label": "文箱の草稿を確かめる",
+     "check": {
+      "skill": "letters",
+      "dc": 34,
+      "win": "proof",
+      "lose": "end_doubt"
+     }
+    },
+    {
+     "label": "{brother}に直に問う",
+     "next": "ask"
+    },
+    {
+     "label": "{master}に告げる",
+     "next": "tell"
+    },
+    {
+     "label": "関わらない",
+     "next": "end_left"
+    }
+   ]
+  },
+  "proof": {
+   "art": "lecture",
+   "text": [
+    "草稿はあった。筆は死んだ兄弟子のもので、日付は三年前。{brother}の一篇と、半分まで同じ文である。",
+    "ただし、残りの半分は{brother}自身が書いている。そこがいちばん良い。"
+   ],
+   "effects": [
+    {
+     "flag": "ss_kyodai_proof"
+    },
+    {
+     "xp": "letters",
+     "n": 7
+    }
+   ],
+   "choices": [
+    {
+     "label": "{brother}に直に問う",
+     "next": "ask"
+    },
+    {
+     "label": "{master}に告げる",
+     "next": "tell"
+    },
+    {
+     "label": "草稿を文箱に戻し、黙っている",
+     "next": "end_quiet"
+    }
+   ]
+  },
+  "ask": {
+   "speaker": "brother",
+   "art": "backroom",
+   "text": [
+    "{brother}は否まなかった。「半分は兄弟子のものです。名を並べようとして、やめました」",
+    "「死んだ者の名を並べると、憐れみで上がったと言われます。……言われたくありませんでした」"
+   ],
+   "effects": [
+    {
+     "flag": "ss_kyodai_heard"
+    }
+   ],
+   "choices": [
+    {
+     "label": "名を並べさせる",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "end_both_names",
+      "lose": "end_broke"
+     }
+    },
+    {
+     "label": "後半だけで出し直させる",
+     "check": {
+      "skill": "letters",
+      "dc": 40,
+      "win": "end_half",
+      "lose": "end_broke"
+     }
+    },
+    {
+     "label": "{master}に告げる",
+     "next": "tell"
+    },
+    {
+     "label": "黙っている",
+     "next": "end_quiet"
+    }
+   ]
+  },
+  "tell": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "{master}に告げる",
+   "speaker": "master",
+   "art": "lecture",
+   "text": [
+    "{master}は最後まで聞いてから、茶を一口飲んだ。",
+    "「知っておった。文箱を開けたのは、わしだ」",
+    "「あの一篇は、死んだ者の問いに、生きている者が答えたものだ。……名をどう書くかだけが、残っておる」"
+   ],
+   "choices": [
+    {
+     "label": "二人の名を並べることを願う",
+     "check": {
+      "skill": "speech",
+      "dc": 34,
+      "win": "end_both_names",
+      "lose": "end_master_decides"
+     }
+    },
+    {
+     "label": "師の決めることだと引き下がる",
+     "next": "end_master_decides"
+    },
+    {
+     "label": "自分も一篇を出すと申し出る",
+     "effects": [
+      {
+       "pass": 4320
+      },
+      {
+       "xp": "letters",
+       "n": 14
+      }
+     ],
+     "next": "end_own"
+    }
+   ]
+  },
+  "end_both_names": {
+   "text": [
+    "一篇は、二人の名で出た。死んだ兄弟子の名が先、{brother}の名が後。",
+    "{brother}は一段上がり、上がった日に文箱の前で長いこと立っていた。"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "xp": "speech",
+     "n": 8
+    },
+    {
+     "note": "{here}の学舎で、死んだ兄弟子と同門の名を並べて一篇を出させた。"
+    }
+   ],
+   "end": "文箱の前に長く"
+  },
+  "end_half": {
+   "text": [
+    "後半だけで出し直させた。薄くなったが、全部が{brother}のものになった。",
+    "{brother}の昇段は一年延びた。延びた一年で、前半に当たるものを自分で書いた。"
+   ],
+   "effects": [
+    {
+     "fame": 5
+    },
+    {
+     "xp": "letters",
+     "n": 10
+    },
+    {
+     "note": "{here}の学舎で、同門に自分の書いた分だけで出し直させた。"
+    }
+   ],
+   "end": "延びた一年"
+  },
+  "end_master_decides": {
+   "speaker": "master",
+   "text": [
+    "{master}は、二人の名で出すことに決めた。決めてから言った。",
+    "「告げに来た者の名は、どこにも残らぬ。それでよいか」",
+    "「よい」と答えた。{master}は頷いて、茶を注ぎ足した。"
+   ],
+   "effects": [
+    {
+     "fame": 3
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    },
+    {
+     "note": "{here}の学舎で、同門の一篇のことを師に告げた。"
+    }
+   ],
+   "end": "どこにも残らぬ名"
+  },
+  "end_own": {
+   "text": [
+    "自分も一篇を出した。半年かかった。{brother}の一篇より短く、{brother}の一篇より新しかった。",
+    "昇段は、二人同時だった。"
+   ],
+   "effects": [
+    {
+     "fame": 10
+    },
+    {
+     "xp": "letters",
+     "n": 16
+    },
+    {
+     "note": "{here}の学舎で、同門と競って自分の一篇を出し、同時に上がった。"
+    }
+   ],
+   "end": "二人同時"
+  },
+  "end_quiet": {
+   "text": [
+    "黙っていた。{brother}は上がり、草稿は文箱に戻った。",
+    "文箱を開ける者は、年に一人か二人である。"
+   ],
+   "effects": [
+    {
+     "note": "{here}の学舎で、同門の一篇のことを黙っていた。"
+    }
+   ],
+   "end": "年に一人か二人"
+  },
+  "end_broke": {
+   "text": [
+    "言葉が過ぎた。{brother}は席を立ち、その月のうちに学舎を移った。一篇は、どこにも出なかった。"
+   ],
+   "effects": [
+    {
+     "fame": -3
+    },
+    {
+     "note": "{here}の学舎で同門と決裂し、一篇は世に出なかった。"
+    }
+   ],
+   "end": "どこにも出ぬ一篇"
+  },
+  "end_doubt": {
+   "text": [
+    "文箱は鍵が掛かっていた。噂は噂のまま、{brother}は一段上がった。"
+   ],
+   "end": "噂のまま"
+  },
+  "end_left": {
+   "text": [
+    "関わらなかった。{brother}は上がり、三年前に死んだ兄弟子の名は、誰も言わなかった。"
+   ],
+   "end": "誰も言わぬ名"
+  }
+ }
+}
