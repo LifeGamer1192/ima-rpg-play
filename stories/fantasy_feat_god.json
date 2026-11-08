@@ -1,0 +1,643 @@
+{
+ "format": "ima-rpg-story",
+ "version": 1,
+ "id": "fantasy_feat_god",
+ "kind": "feat",
+ "feat": "god",
+ "title": "神になる",
+ "era": "fantasy",
+ "trigger": {
+  "flag": "fm_dragon_won"
+ },
+ "cast": {
+  "here": {
+   "place": "here"
+  },
+  "far": {
+   "place": "near:here"
+  },
+  "bard": {
+   "npc": "語り部",
+   "sex": "f"
+  },
+  "clerk": {
+   "npc": "組合の書記",
+   "sex": "f"
+  },
+  "dean": {
+   "npc": "学院の学頭",
+   "sex": "m"
+  },
+  "priest": {
+   "npc": "社の司",
+   "sex": "m"
+  },
+  "mother": {
+   "npc": "子を抱いた女",
+   "sex": "f"
+  }
+ },
+ "start": "g1",
+ "scenes": {
+  "g1": {
+   "at": {
+    "place": "here",
+    "building": "inn"
+   },
+   "goal": "{here}の{inn}で、語り部の持ちかけを聞く",
+   "speaker": "bard",
+   "art": "tale",
+   "text": [
+    "{bard}は歌わずに座った。歌わない語り部は、商売の話をしに来ている。",
+    "「竜の話を、三十二の町で歌いました。歌うたびに、聞いた人が同じことを聞きます。『その人は、まだ人なのか』」",
+    "「この世でいちばん長く残るのは、石ではありません。字です。墓碑より、組合の板のほうが長い」",
+    "「字のほうに回り込めば、人は神になれます。——三つ、字の要る所があります」"
+   ],
+   "choices": [
+    {
+     "label": "三つを聞く",
+     "next": "g2"
+    },
+    {
+     "label": "「わたしは人だ」と断る",
+     "next": "gno"
+    },
+    {
+     "label": "歌のほうを聞かせてもらう（30 銭）",
+     "effects": [
+      {
+       "money": -30
+      },
+      {
+       "flag": "fg_song"
+      },
+      {
+       "xp": "speech",
+       "n": 4
+      }
+     ],
+     "next": "g2"
+    }
+   ]
+  },
+  "g2": {
+   "speaker": "bard",
+   "art": "tale",
+   "text": [
+    "「一つ、組合の板。仕事の名が残る所です。あそこに名が貼られれば、名は町のものになります」",
+    "「二つ、学院の帳。値を決める所です。あそこに載れば、名に値が付きます」",
+    "「三つ、社の名簿。祈る相手の名が並ぶ所です。あそこに入れば、名が祈られます」",
+    "「三つ揃うと、祈る人が出ます。……出たとき、どうするかは、あなたの話です。わたしはそこまでは歌えません」"
+   ],
+   "choices": [
+    {
+     "label": "組合の板から始める",
+     "next": "gboard"
+    },
+    {
+     "label": "学院の帳から始める",
+     "next": "gledger"
+    },
+    {
+     "label": "社の名簿から始める",
+     "next": "gshrine"
+    }
+   ]
+  },
+  "gboard": {
+   "at": {
+    "place": "here",
+    "building": "office"
+   },
+   "goal": "組合の板に名を貼る",
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "{clerk}は釘を手の中で転がした。「板に貼るのは、仕事の名です。人の名は、仕事を取った人の欄にだけ入ります」",
+    "「あなたの名を仕事として貼るなら……『頼む相手』として貼ることになります。そういう貼り方は、前例がありません」",
+    "「前例が無いのは、駄目という意味ではありません。書きようの問題です」"
+   ],
+   "choices": [
+    {
+     "label": "「頼む相手」の欄を作る文を書く",
+     "check": {
+      "skill": "letters",
+      "dc": 36,
+      "win": "gboardok",
+      "lose": "gboardno"
+     }
+    },
+    {
+     "label": "組合に寄進して、欄を作らせる（4000 銭）",
+     "if": {
+      "money": 4000
+     },
+     "effects": [
+      {
+       "money": -4000
+      }
+     ],
+     "next": "gboardok"
+    },
+    {
+     "label": "夜に自分で貼る",
+     "check": {
+      "skill": "stealth",
+      "dc": 30,
+      "win": "gboardsly",
+      "lose": "gboardno"
+     }
+    }
+   ]
+  },
+  "gboardok": {
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "欄ができた。板のいちばん上、紙を重ねない所である。{clerk}は釘を四本打った。",
+    "「これで、剥がされません。……剥がす役が、うちに無いのです」"
+   ],
+   "effects": [
+    {
+     "flag": "fg_board"
+    },
+    {
+     "fame": 10
+    },
+    {
+     "xp": "letters",
+     "n": 6
+    }
+   ],
+   "next": "gnext"
+  },
+  "gboardsly": {
+   "art": "court",
+   "text": [
+    "夜のうちに、いちばん上に貼った。朝、{clerk}は見て、何も言わずに釘を二本足した。足したのは、落ちないようにである。",
+    "貼り方としては正しくない。正しくないが、板の上にある。"
+   ],
+   "effects": [
+    {
+     "flag": "fg_board"
+    },
+    {
+     "flag": "fg_sly"
+    },
+    {
+     "xp": "stealth",
+     "n": 6
+    }
+   ],
+   "next": "gnext"
+  },
+  "gboardno": {
+   "speaker": "clerk",
+   "art": "court",
+   "text": [
+    "文は三度書き直したが、通らなかった。{clerk}は紙を返した。「書きようです。……急がぬなら、ひと月考えてみてください」"
+   ],
+   "next": "gnext"
+  },
+  "gledger": {
+   "at": {
+    "place": "here",
+    "building": "school"
+   },
+   "goal": "学院の帳に名を載せる",
+   "speaker": "dean",
+   "art": "lecture",
+   "text": [
+    "{dean}は帳を開かずに言った。「学院の帳は、値の帳です。載るのは、売り買いできるものだけです」",
+    "「あなたを載せるなら、値を書かねばなりません。神に値を付けると、値切る者が出ます」",
+    "「それでも載せたいなら、こちらの条件が一つあります。帳の竜の一行のことを、あなたが説明することです」"
+   ],
+   "choices": [
+    {
+     "label": "竜とは帳の一行だったと説く",
+     "check": {
+      "skill": "speech",
+      "dc": 38,
+      "win": "gledgerok",
+      "lose": "gledgerno"
+     }
+    },
+    {
+     "label": "値を自分で決めて書かせる（高く）",
+     "check": {
+      "skill": "trade",
+      "dc": 34,
+      "win": "gledgerhigh",
+      "lose": "gledgerno"
+     }
+    },
+    {
+     "label": "環の石を納めて、載せてもらう",
+     "if": {
+      "item": "manastone"
+     },
+     "effects": [
+      {
+       "item": "manastone",
+       "n": -2
+      }
+     ],
+     "next": "gledgerok"
+    }
+   ]
+  },
+  "gledgerok": {
+   "speaker": "dean",
+   "art": "lecture",
+   "text": [
+    "{dean}は筆を取り、値の欄を空のままにして名を書いた。「空は、値が無いという意味ではありません。まだ付いていないという意味です」",
+    "「学院は、まだ付いていないものを、いちばん高く買うことがあります」"
+   ],
+   "effects": [
+    {
+     "flag": "fg_ledger"
+    },
+    {
+     "fame": 12
+    },
+    {
+     "xp": "speech",
+     "n": 8
+    }
+   ],
+   "next": "gnext"
+  },
+  "gledgerhigh": {
+   "speaker": "dean",
+   "art": "lecture",
+   "text": [
+    "値を書かせた。高い値である。高い値のものは、買い手がつかないかわりに、誰にも値切られない。",
+    "「売れませんよ」と{dean}は言った。「売れないほうが、長く載ります」"
+   ],
+   "effects": [
+    {
+     "flag": "fg_ledger"
+    },
+    {
+     "flag": "fg_pricey"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "money": 1500
+    },
+    {
+     "xp": "trade",
+     "n": 8
+    }
+   ],
+   "next": "gnext"
+  },
+  "gledgerno": {
+   "speaker": "dean",
+   "art": "lecture",
+   "text": [
+    "{dean}は帳を開かなかった。「学院は、急いで載せたものを、いちばん早く消します。……ひと月、お考えください」"
+   ],
+   "next": "gnext"
+  },
+  "gshrine": {
+   "at": {
+    "place": "far",
+    "building": "shrine"
+   },
+   "goal": "{far}の社の名簿に名を入れる",
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "{far}の社は、名簿を柱に掛けている。掛けてある紙は、三十枚ほど。いちばん古いのは読めない。",
+    "{priest}は名簿を外さずに言った。「名簿に入るには、験が要ります。何かを止めたか、何かを開けたか」",
+    "「竜のことは聞いております。……それが験かどうかは、村の者が決めます。わたしではありません」"
+   ],
+   "choices": [
+    {
+     "label": "山が空いたことを村に見せる",
+     "if": {
+      "flag": "fm_slain"
+     },
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "gshrineok",
+      "lose": "gshrineno"
+     }
+    },
+    {
+     "label": "牛が止まったことを帳で見せる",
+     "if": {
+      "flag": "fm_void"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 30,
+      "win": "gshrineok",
+      "lose": "gshrineno"
+     }
+    },
+    {
+     "label": "書き直した約束の写しを納める",
+     "if": {
+      "flag": "fm_written"
+     },
+     "check": {
+      "skill": "letters",
+      "dc": 28,
+      "win": "gshrineok",
+      "lose": "gshrineno"
+     }
+    },
+    {
+     "label": "験を自分で作る（石を温める仕掛けを据える）",
+     "check": {
+      "skill": "stealth",
+      "dc": 36,
+      "win": "gshrinefake",
+      "lose": "gshrineno"
+     }
+    }
+   ]
+  },
+  "gshrineok": {
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "村の寄合は半日で決めた。{priest}は新しい紙に名を書き、いちばん手前に掛けた。",
+    "「手前は、よく読まれます。読まれる場所は、よく祈られます」"
+   ],
+   "effects": [
+    {
+     "flag": "fg_shrine"
+    },
+    {
+     "fame": 14
+    },
+    {
+     "rep": "realm",
+     "n": 1
+    }
+   ],
+   "next": "gnext"
+  },
+  "gshrinefake": {
+   "art": "faith",
+   "text": [
+    "社の裏の石に、湯を通す細い溝を切った。朝に温かく、夜に冷える石である。験としては、たいへん分かりやすい。",
+    "名簿に名が入った。入ったが、溝のことは三人が知っている。三人のうち一人は、湯を運ぶ子である。"
+   ],
+   "effects": [
+    {
+     "flag": "fg_shrine"
+    },
+    {
+     "flag": "fg_trick"
+    },
+    {
+     "fame": 8
+    },
+    {
+     "xp": "stealth",
+     "n": 8
+    }
+   ],
+   "next": "gnext"
+  },
+  "gshrineno": {
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "{priest}は名簿を柱に戻した。「験は、起きた所で決まります。……ここで何か起きたら、また来てください」"
+   ],
+   "next": "gnext"
+  },
+  "gnext": {
+   "at": {
+    "place": "here"
+   },
+   "goal": "まだ字の入っていない所へ行く",
+   "speaker": "bard",
+   "art": "tale",
+   "text": [
+    "{bard}は三つの所を指で数えた。「揃いましたか。揃っていないなら、残りを」",
+    "「揃うと、祈る人が出ます。出てからが本番です」"
+   ],
+   "choices": [
+    {
+     "label": "組合の板へ",
+     "if": {
+      "notFlag": "fg_board"
+     },
+     "next": "gboard"
+    },
+    {
+     "label": "学院の帳へ",
+     "if": {
+      "notFlag": "fg_ledger"
+     },
+     "next": "gledger"
+    },
+    {
+     "label": "社の名簿へ",
+     "if": {
+      "notFlag": "fg_shrine"
+     },
+     "next": "gshrine"
+    },
+    {
+     "label": "祈る人を待つ",
+     "next": "gpray"
+    },
+    {
+     "label": "ここでやめる",
+     "next": "gstop"
+    }
+   ]
+  },
+  "gpray": {
+   "at": {
+    "place": "far",
+    "building": "shrine"
+   },
+   "goal": "最初の祈りに答える",
+   "speaker": "mother",
+   "art": "faith",
+   "text": [
+    "祈る人は、思ったより早く来た。{mother}は子を抱いて、社の手前の紙の前に立っていた。",
+    "「熱が下がりません。三日です。塔は遠くて、薬は値が上がっております」",
+    "「名簿に、あなたの名がありました。……それで、立っております」",
+    "祈りというのは、答えられる形で来るものではない。来たものに答えるしかない。"
+   ],
+   "choices": [
+    {
+     "label": "自分で手当てする",
+     "check": {
+      "skill": "medicine",
+      "dc": 34,
+      "win": "gwin",
+      "lose": "gfail"
+     }
+    },
+    {
+     "label": "塔の癒やし手を呼び、費えを全部出す（2500 銭）",
+     "if": {
+      "money": 2500
+     },
+     "effects": [
+      {
+       "money": -2500
+      }
+     ],
+     "next": "gwin"
+    },
+    {
+     "label": "薬草を渡して、祈ってやる",
+     "if": {
+      "item": "herbs"
+     },
+     "effects": [
+      {
+       "item": "herbs",
+       "n": -3
+      }
+     ],
+     "check": {
+      "skill": "speech",
+      "dc": 30,
+      "win": "gwinthin",
+      "lose": "gfail"
+     }
+    },
+    {
+     "label": "祈りは祈りだと言って、何もしない",
+     "next": "gcold"
+    }
+   ]
+  },
+  "gwin": {
+   "speaker": "priest",
+   "art": "faith",
+   "text": [
+    "熱は三日めの夜に下がった。下がったことを、{priest}が名簿の裏に書いた。書くのが作法である。",
+    "裏に書かれた一行が、次の祈る人を呼んだ。その人のことも、また裏に書かれた。",
+    "{bard}は三十三の町で歌い直した。「祈られて、書かれて、また祈られた」",
+    "{player}自身は何も変わっていない。変わったのは、名の扱いである。名はもう{player}のものではなく、名を使う人々のものになった。"
+   ],
+   "effects": [
+    {
+     "feat": "god"
+    },
+    {
+     "fame": 40
+    },
+    {
+     "flag": "fg_became"
+    },
+    {
+     "rep": "realm",
+     "n": 2
+    },
+    {
+     "note": "三つの字が揃い、最初の祈りに答えて、神となった。"
+    }
+   ],
+   "end": "名を使う人々のもの"
+  },
+  "gwinthin": {
+   "speaker": "mother",
+   "art": "faith",
+   "text": [
+    "薬草と、言葉だけである。熱は四日めに下がった。下がった理由は、薬草かもしれないし、四日めだからかもしれない。",
+    "{mother}はそれを験と呼んだ。呼ばれたほうは、否定しなかった。否定しないのが、この道に入るということである。",
+    "以後、{player}の名のもとに置かれる供物が増えた。増えたぶん、答えねばならない祈りも増えた。"
+   ],
+   "effects": [
+    {
+     "feat": "god"
+    },
+    {
+     "fame": 32
+    },
+    {
+     "flag": "fg_became"
+    },
+    {
+     "flag": "fg_thin"
+    },
+    {
+     "note": "薬草と言葉で最初の祈りに答え、神となった。"
+    }
+   ],
+   "end": "否定しなかった"
+  },
+  "gfail": {
+   "speaker": "mother",
+   "art": "faith",
+   "text": [
+    "熱は下がらなかった。五日めに、子は塔へ運ばれた。塔で助かった。助けたのは塔である。",
+    "村はそれを覚えた。覚えたうえで、名簿の紙を手前から三枚めに動かした。動かしたのは{priest}ではない。",
+    "祈りに答えられない名は、少しずつ奥へ行く。奥の紙は、やがて読めなくなる。"
+   ],
+   "effects": [
+    {
+     "fame": -6
+    },
+    {
+     "xp": "medicine",
+     "n": 5
+    }
+   ],
+   "end": "少しずつ奥へ"
+  },
+  "gcold": {
+   "speaker": "bard",
+   "art": "tale",
+   "text": [
+    "「祈りは祈りです」と言った。{mother}は頭を下げて帰り、翌日、子を背負って塔まで三日歩いた。",
+    "子は助かった。{mother}は社に供物を置いた。置いた先は、{player}の紙ではない。",
+    "{bard}は歌をやめた。「答えない神の歌は、二番がありません」"
+   ],
+   "effects": [
+    {
+     "fame": -10
+    },
+    {
+     "note": "最初の祈りに答えなかった。"
+    }
+   ],
+   "end": "二番がない"
+  },
+  "gstop": {
+   "speaker": "bard",
+   "art": "tale",
+   "text": [
+    "「ここでやめます」と言った。{bard}はうなずいて、筆を出した。",
+    "「では、ここまでを歌にします。『神になりかけた人の話』。……こちらのほうが、客は入ります」"
+   ],
+   "effects": [
+    {
+     "fame": 6
+    },
+    {
+     "money": 300
+    },
+    {
+     "note": "三つの字のうち、揃った分で止めた。"
+    }
+   ],
+   "end": "こちらのほうが客は入る"
+  },
+  "gno": {
+   "speaker": "bard",
+   "art": "tale",
+   "text": [
+    "{bard}は立ち上がって、歌いながら出ていった。「……ひと月したら、また寄ります」"
+   ],
+   "end": "また寄ります"
+  }
+ }
+}
