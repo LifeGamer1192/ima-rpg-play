@@ -10,8 +10,8 @@
  "title": "{place}の{bandit}討伐",
  "desc": "{place}の街道に{bandit}が出て、旅人が襲われている。退治してほしい。",
  "reward": {
-  "base": 120,
-  "perDay": 15
+  "base": 260,
+  "perDay": 33
  },
  "favor": 12,
  "fame": 3,

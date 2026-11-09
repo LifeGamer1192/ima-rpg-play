@@ -11,7 +11,7 @@
  "title": "{realm}への遊説",
  "desc": "{realm}の宮廷に乗り込み、和を説いてこい。命がけの役目だ。",
  "reward": {
-  "base": 200
+  "base": 440
  },
  "favor": 45,
  "fame": 8,

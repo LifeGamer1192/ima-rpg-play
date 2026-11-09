@@ -10,8 +10,8 @@
  "title": "{place}の狼を狩る",
  "desc": "{place}の牧で狼が羊と牧童を襲った。戦で男手が出払い、追う者がいない。塒を探して仕留めてほしい。",
  "reward": {
-  "base": 220,
-  "perDay": 14
+  "base": 480,
+  "perDay": 31
  },
  "favor": 14,
  "fame": 5,

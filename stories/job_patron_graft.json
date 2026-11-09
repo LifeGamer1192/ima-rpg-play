@@ -10,8 +10,8 @@
  "title": "{place}の不正役人を暴け",
  "desc": "{place}の役人が市税を掠めているとの訴えがあった。町で証拠を二つ揃え、報告せよ。",
  "reward": {
-  "base": 160,
-  "perDay": 8
+  "base": 350,
+  "perDay": 18
  },
  "favor": 22,
  "fame": 3,

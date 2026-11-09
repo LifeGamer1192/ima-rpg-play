@@ -10,8 +10,8 @@
  "title": "{place}の魔物を退治する",
  "desc": "{place}の畑に、夜ごと何かが下りてくる。足跡は獣のものではない。寝床を探して仕留めてくれ。",
  "reward": {
-  "base": 240,
-  "perDay": 14
+  "base": 530,
+  "perDay": 31
  },
  "favor": 14,
  "fame": 5,

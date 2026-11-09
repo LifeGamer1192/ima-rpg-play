@@ -10,8 +10,8 @@
  "title": "{place}の陂池と城壁の修築",
  "desc": "{place}の陂池が涸れ、城壁も崩れている。民を募って人手を集め、水利と壁を直せ。",
  "reward": {
-  "base": 180,
-  "perDay": 9
+  "base": 400,
+  "perDay": 20
  },
  "favor": 24,
  "fame": 4,

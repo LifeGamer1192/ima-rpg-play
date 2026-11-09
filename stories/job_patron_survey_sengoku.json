@@ -10,8 +10,8 @@
  "title": "{place}の検地",
  "desc": "{place}の田の反別と戸数を改める。村から差出を取り、隠し田があれば明らかにせよ。",
  "reward": {
-  "base": 170,
-  "perDay": 9
+  "base": 370,
+  "perDay": 20
  },
  "favor": 26,
  "fame": 3,

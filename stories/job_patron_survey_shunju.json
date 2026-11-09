@@ -10,8 +10,8 @@
  "title": "{place}の料民",
  "desc": "{place}の戸と田を数えよ。先代からの帳面が当てにならぬ。隠し田も洗い出し、ありのままを報せよ。",
  "reward": {
-  "base": 170,
-  "perDay": 9
+  "base": 370,
+  "perDay": 20
  },
  "favor": 26,
  "fame": 3,

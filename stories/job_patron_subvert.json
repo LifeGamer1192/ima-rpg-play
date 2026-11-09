@@ -10,8 +10,8 @@
  "title": "{place}の役人を内応させよ",
  "desc": "{realm}の{place}に、出世の道を塞がれて腐っている役人がいると聞く。弱みや不満を探り、我が方に引き込め。",
  "reward": {
-  "base": 380,
-  "perDay": 10
+  "base": 840,
+  "perDay": 22
  },
  "favor": 50,
  "fame": 9,

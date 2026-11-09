@@ -11,7 +11,7 @@
  "title": "{realm}への遊説",
  "desc": "{realm}の宮廷へ行き、我が国との誼を説いてこい。",
  "reward": {
-  "base": 200
+  "base": 440
  },
  "favor": 25,
  "fame": 5,

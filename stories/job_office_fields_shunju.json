@@ -10,8 +10,8 @@
  "title": "{place}の田と戸を数える",
  "desc": "{place}から上がってくる帳が当てにならぬ。田の数と戸の数を自分の目で数えて報せてほしい。",
  "reward": {
-  "base": 130,
-  "perDay": 10
+  "base": 290,
+  "perDay": 22
  },
  "favor": 10,
  "fame": 1,

@@ -10,7 +10,7 @@
  "title": "{realm}との戦",
  "desc": "{realm}との戦が続いている。{place}の戦場へ赴き、敵を討て。",
  "reward": {
-  "base": 300
+  "base": 660
  },
  "favor": 40,
  "fame": 8,

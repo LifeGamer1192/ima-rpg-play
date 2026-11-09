@@ -10,7 +10,7 @@
  "title": "{place}の{placeKind}を攻め取れ",
  "desc": "{realm}の{place}の{placeKind}を攻め落とし、我が手に収めよ。期限までに落とせなければ、責めは重いぞ。",
  "reward": {
-  "base": 600
+  "base": 1320
  },
  "favor": 70,
  "fame": 14,

@@ -10,8 +10,8 @@
  "title": "{place}の田を改める",
  "desc": "{place}の差出が年ごとに減っている。村を回って田の反別と戸数を改め、ありのままを報せてほしい。",
  "reward": {
-  "base": 130,
-  "perDay": 10
+  "base": 290,
+  "perDay": 22
  },
  "favor": 10,
  "fame": 1,

@@ -10,8 +10,8 @@
  "title": "{place}に囚われた使者を救え",
  "desc": "{realm}の{place}で、我が国の使者が捕らえられた。町に入って居場所を突き止め、救い出してこい。",
  "reward": {
-  "base": 320,
-  "perDay": 10
+  "base": 700,
+  "perDay": 22
  },
  "favor": 45,
  "fame": 8,

@@ -10,8 +10,8 @@
  "title": "{place}の疫病を鎮めよ",
  "desc": "{place}で病が広がっている。民を見捨てては国の恥だ。町を回り、手を尽くして鎮めてこい。",
  "reward": {
-  "base": 150,
-  "perDay": 8
+  "base": 330,
+  "perDay": 18
  },
  "favor": 20,
  "fame": 6,

@@ -10,8 +10,8 @@
  "title": "{place}の大普請",
  "desc": "{place}の曲輪と堤を直す。村々に普請役を触れ、人足と材木を揃えて普請を進めよ。",
  "reward": {
-  "base": 180,
-  "perDay": 9
+  "base": 400,
+  "perDay": 20
  },
  "favor": 24,
  "fame": 4,
