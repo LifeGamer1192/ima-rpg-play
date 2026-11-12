@@ -130,9 +130,9 @@
    "at": {
     "place": "fields"
    },
-   "goal": "10日ほど稽古したのち、{gunner}と{fields}の村へ行く",
+   "goal": "5日ほど稽古したのち、{gunner}と{fields}の村へ行く",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "gunner",
    "art": "war",
@@ -229,7 +229,7 @@
     "skill": {
      "bow": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "南蛮の商人",
    "art": "voyage",
@@ -429,9 +429,9 @@
     "place": "here",
     "building": "school"
    },
-   "goal": "20日ほどのちに、{here}の工房に戻る",
+   "goal": "6日ほどのちに、{here}の工房に戻る",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "agent",
    "art": "trade",
@@ -524,9 +524,9 @@
    "at": {
     "place": "here"
    },
-   "goal": "15日ほどのちに{here}へ戻る",
+   "goal": "6日ほどのちに{here}へ戻る",
    "wait": {
-    "days": 15
+    "days": 6
    },
    "speaker": "kaji",
    "art": "disaster",
@@ -623,7 +623,7 @@
     "skill": {
      "bow": 38
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "kaji",
    "art": "tale",

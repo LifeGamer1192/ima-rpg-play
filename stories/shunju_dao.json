@@ -283,9 +283,9 @@
     "place": "hills",
     "building": "inn"
    },
-   "goal": "30日ほど病人を診て回り、{hills}の客舎で旅の疲れを休める",
+   "goal": "7日ほど病人を診て回り、{hills}の客舎で旅の疲れを休める",
    "wait": {
-    "days": 30
+    "days": 7
    },
    "speaker": "hermit",
    "art": "tale",
@@ -540,7 +540,7 @@
     "skill": {
      "medicine": 42
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "master",
    "art": "faith",

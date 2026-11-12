@@ -466,7 +466,7 @@
      "n": 1
     },
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "rep": "realm",
@@ -514,7 +514,7 @@
      "n": 2
     },
     {
-     "fame": 5
+     "fame": 2
     },
     {
      "rep": "realm",
@@ -605,7 +605,7 @@
      "money": 100
     },
     {
-     "fame": 7
+     "fame": 2
     },
     {
      "favor": 5
@@ -691,7 +691,7 @@
      "unflag": "dyke_granary"
     },
     {
-     "fame": -5
+     "fame": -4
     },
     {
      "rep": "realm",

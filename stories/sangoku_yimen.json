@@ -127,9 +127,9 @@
     "place": "village",
     "building": "house"
    },
-   "goal": "10日ほど学んだのち、{master}の使いで{village}の村へ行く",
+   "goal": "5日ほど学んだのち、{master}の使いで{village}の村へ行く",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "peer",
    "art": "disaster",
@@ -242,7 +242,7 @@
     "skill": {
      "medicine": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "officer",
    "art": "war",
@@ -440,9 +440,9 @@
     "place": "front",
     "building": "barracks"
    },
-   "goal": "20日ほどのちに、疫病の出た{front}の兵営へ向かう",
+   "goal": "6日ほどのちに、疫病の出た{front}の兵営へ向かう",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "peer",
    "art": "camp",
@@ -513,7 +513,7 @@
     "skill": {
      "medicine": 32
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "master",
    "art": "tale",
@@ -599,7 +599,7 @@
      "medicine": 38
     },
     "fame": 20,
-    "days": 30
+    "days": 7
    },
    "speaker": "ruler",
    "art": "court",

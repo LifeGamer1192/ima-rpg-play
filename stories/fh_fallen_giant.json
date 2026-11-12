@@ -174,7 +174,7 @@
      "label": "寄合に諮らず、商人と話を付ける",
      "effects": [
       {
-       "money": 3200
+       "money": 250
       },
       {
        "rep": "realm",
@@ -197,7 +197,7 @@
    ],
    "effects": [
     {
-     "fame": 28
+     "fame": 4
     },
     {
      "rep": "realm",
@@ -208,7 +208,7 @@
      "n": 10
     },
     {
-     "money": 1600
+     "money": 200
     },
     {
      "note": "倒れた巨きなものの下の五人を掘り出し、そのうえで切らせた。"
@@ -224,10 +224,10 @@
    ],
    "effects": [
     {
-     "fame": 20
+     "fame": 4
     },
     {
-     "money": 1200
+     "money": 200
     },
     {
      "xp": "trade",
@@ -247,14 +247,14 @@
    ],
    "effects": [
     {
-     "fame": 22
+     "fame": 4
     },
     {
      "rep": "realm",
      "n": 2
     },
     {
-     "money": 700
+     "money": 150
     },
     {
      "xp": "trade",
@@ -274,7 +274,7 @@
    ],
    "effects": [
     {
-     "fame": -14
+     "fame": -4
     },
     {
      "rep": "realm",

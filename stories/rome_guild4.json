@@ -245,7 +245,7 @@
    },
    "goal": "ローマの艦隊を迎える",
    "wait": {
-    "days": 8
+    "days": 5
    },
    "speaker": "legate",
    "art": "war",

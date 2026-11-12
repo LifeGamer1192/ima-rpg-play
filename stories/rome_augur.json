@@ -120,7 +120,7 @@
    "speaker": "peer",
    "art": "faith",
    "wait": {
-    "days": 8
+    "days": 5
    },
    "text": [
     "羊が一頭、台に載せられた。{peer}が手早く捌き、肝を取り出して{player}に見せた。",
@@ -204,7 +204,7 @@
    "goal": "{here}の{office}で、市の日取りを決める",
    "art": "court",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "text": [
     "役所が、祭の日取りを決めるのに兆しを求めてきた。本来は簡単な役目である。",
@@ -258,7 +258,7 @@
    "speaker": "general",
    "art": "camp",
    "wait": {
-    "days": 16
+    "days": 6
    },
    "text": [
     "陣に呼ばれた。{general}は明日、出撃したがっている。平地で、敵の騎兵は倍である。",
@@ -364,7 +364,7 @@
    "speaker": "master",
    "art": "faith",
    "wait": {
-    "days": 12
+    "days": 5
    },
    "text": [
     "{master}は{player}の話を、口を挟まずに聞いた。"

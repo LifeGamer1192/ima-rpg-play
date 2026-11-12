@@ -203,7 +203,7 @@
      "n": 6
     },
     {
-     "fame": 5
+     "fame": 2
     }
    ],
    "next": "ruin"
@@ -271,7 +271,7 @@
    ],
    "effects": [
     {
-     "fame": 18
+     "fame": 3
     },
     {
      "favor": 14
@@ -293,14 +293,14 @@
    ],
    "effects": [
     {
-     "fame": 20
+     "fame": 4
     },
     {
      "xp": "letters",
      "n": 9
     },
     {
-     "money": 400
+     "money": 200
     },
     {
      "note": "{old}の行方知れずの君主の三つの説を書き残した。"
@@ -331,7 +331,7 @@
    ],
    "effects": [
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "rep": "realm",

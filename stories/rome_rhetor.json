@@ -221,7 +221,7 @@
    "speaker": "peer",
    "art": "lecture",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "text": [
     "{master}が二人を立たせた。題は「将軍が独断で和を結んだ。これを裁くべきか」。{peer}が裁くべしの側、{player}が裁くべからずの側である。",
@@ -299,7 +299,7 @@
    "speaker": "accused",
    "art": "jail",
    "wait": {
-    "days": 12
+    "days": 5
    },
    "text": [
     "牢の格子の向こうに、痩せた男がいた。{accused}。穀物蔵から麦を盗んだ廉で訴えられている。盗んだのは本当だという。",
@@ -417,7 +417,7 @@
    "speaker": "ruler",
    "art": "court",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "text": [
     "{master}の推挙で、{player}は{capital}へ呼ばれた。議題は、囲まれている同盟市に援軍を出すかどうか。出せば本国が薄くなる。",

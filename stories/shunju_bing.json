@@ -108,7 +108,7 @@
     "skill": {
      "bow": 15
     },
-    "days": 15
+    "days": 6
    },
    "speaker": "master",
    "art": "war",
@@ -177,9 +177,9 @@
     "place": "here",
     "building": "school"
    },
-   "goal": "20日ほど兵書を学んだのち、{here}の講堂に戻る",
+   "goal": "6日ほど兵書を学んだのち、{here}の講堂に戻る",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "master",
    "art": "disaster",
@@ -252,7 +252,7 @@
    "goal": "名声を12まで上げ、{power}の都{powercap}の宮城へ乗り込む",
    "wait": {
     "fame": 12,
-    "days": 20
+    "days": 6
    },
    "speaker": "senior",
    "art": "court",
@@ -369,7 +369,7 @@
     "skill": {
      "bow": 35
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "{foe}の将",
    "art": "war",

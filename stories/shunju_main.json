@@ -162,10 +162,10 @@
     "place": "capital",
     "building": "palace"
    },
-   "goal": "どこにも仕えていない身で、ひと月ののちに{capital}の宮城の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
+   "goal": "どこにも仕えていない身で、七日ののちに{capital}の宮城の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
    "wait": {
     "free": true,
-    "days": 30
+    "days": 7
    },
    "speaker": "lord",
    "text": [
@@ -542,7 +542,7 @@
    },
    "goal": "{capital}の宮城へ戻る",
    "wait": {
-    "days": 15
+    "days": 6
    },
    "speaker": "schemer",
    "art": "court",
@@ -623,9 +623,9 @@
     "place": "capital",
     "building": "palace"
    },
-   "goal": "30日ほど故郷で過ごしたのち、{capital}へ戻る",
+   "goal": "7日ほど故郷で過ごしたのち、{capital}へ戻る",
    "wait": {
-    "days": 30
+    "days": 7
    },
    "speaker": "lord",
    "text": [
@@ -740,7 +740,7 @@
    },
    "goal": "{capital}の宮城で{ruler}に会う",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "ruler",
    "art": "court",

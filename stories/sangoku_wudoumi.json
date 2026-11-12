@@ -132,9 +132,9 @@
     "place": "here",
     "building": "inn"
    },
-   "goal": "10日ほど道を学んだのち、{here}の義舎の番に就く",
+   "goal": "5日ほど道を学んだのち、{here}の義舎の番に就く",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "sister",
    "art": "inn",
@@ -269,7 +269,7 @@
     "skill": {
      "medicine": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "sister",
    "art": "disaster",
@@ -463,9 +463,9 @@
     "place": "lordcap",
     "building": "palace"
    },
-   "goal": "20日のうちに使者として{lordcap}の州府へ上る",
+   "goal": "6日のうちに使者として{lordcap}の州府へ上る",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "ruler",
    "art": "court",
@@ -568,7 +568,7 @@
     "skill": {
      "medicine": 32
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "master",
    "art": "faith",
@@ -664,7 +664,7 @@
      "medicine": 38
     },
     "fame": 20,
-    "days": 30
+    "days": 7
    },
    "speaker": "sister",
    "art": "road",

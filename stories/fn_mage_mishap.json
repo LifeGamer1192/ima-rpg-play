@@ -218,7 +218,7 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "rep": "realm",
@@ -241,7 +241,7 @@
    ],
    "effects": [
     {
-     "fame": 14
+     "fame": 3
     },
     {
      "favor": 8
@@ -267,7 +267,7 @@
    ],
    "effects": [
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "money": -200

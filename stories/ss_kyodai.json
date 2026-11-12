@@ -189,7 +189,7 @@
    ],
    "effects": [
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "xp": "speech",
@@ -208,7 +208,7 @@
    ],
    "effects": [
     {
-     "fame": 5
+     "fame": 2
     },
     {
      "xp": "letters",
@@ -248,7 +248,7 @@
    ],
    "effects": [
     {
-     "fame": 10
+     "fame": 3
     },
     {
      "xp": "letters",

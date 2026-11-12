@@ -131,7 +131,7 @@
      "n": 6
     },
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "flag": "fn_batt_many"
@@ -236,7 +236,7 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "rep": "realm",
@@ -263,7 +263,7 @@
    ],
    "effects": [
     {
-     "fame": 10
+     "fame": 3
     },
     {
      "xp": "medicine",

@@ -122,9 +122,9 @@
    "at": {
     "place": "seki"
    },
-   "goal": "10日ほど見習いをしたのち、座の荷を護って{seki}の関所へ",
+   "goal": "5日ほど見習いをしたのち、座の荷を護って{seki}の関所へ",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "関守",
    "art": "trade",
@@ -231,7 +231,7 @@
     "skill": {
      "trade": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "head",
    "art": "trade",
@@ -473,9 +473,9 @@
    "at": {
     "place": "port"
    },
-   "goal": "20日ほどのちに、座の名代として{port}の湊へ向かう",
+   "goal": "6日ほどのちに、座の名代として{port}の湊へ向かう",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "elder",
    "art": "trade",
@@ -588,7 +588,7 @@
     "skill": {
      "trade": 38
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "head",
    "art": "trade",

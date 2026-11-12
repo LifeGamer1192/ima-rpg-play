@@ -137,15 +137,15 @@
    ]
   },
   "c2later": {
-   "goal": "どこにも仕えていない身で、ひと月ののちに{capital}の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
+   "goal": "どこにも仕えていない身で、七日ののちに{capital}の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
    "wait": {
-    "days": 30,
+    "days": 7,
     "free": true
    },
    "speaker": "lord",
    "art": "court",
    "text": [
-    "ひと月後、行列の後ろにまた{player}の姿があった。{lord}は覚えていた。「考えがまとまったか」"
+    "七日後、行列の後ろにまた{player}の姿があった。{lord}は覚えていた。「考えがまとまったか」"
    ],
    "choices": [
     {
@@ -581,9 +581,9 @@
    "at": {
     "place": "capital"
    },
-   "goal": "30日ほど故郷で過ごしたのち、{capital}へ戻る",
+   "goal": "7日ほど故郷で過ごしたのち、{capital}へ戻る",
    "wait": {
-    "days": 30
+    "days": 7
    },
    "speaker": "lord",
    "art": "court",
@@ -693,7 +693,7 @@
    },
    "goal": "{capital}で{ruler}に会う",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "ruler",
    "art": "court",

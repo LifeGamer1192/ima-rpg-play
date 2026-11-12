@@ -357,7 +357,7 @@
    },
    "goal": "{capital}で{lord}に報告する",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "lord",
    "art": "court",

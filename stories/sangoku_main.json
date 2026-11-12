@@ -180,10 +180,10 @@
     "place": "seat",
     "building": "palace"
    },
-   "goal": "どこにも仕えていない身で、ひと月ののちに{seat}の{palace}の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
+   "goal": "どこにも仕えていない身で、七日ののちに{seat}の{palace}の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
    "wait": {
     "free": true,
-    "days": 30
+    "days": 7
    },
    "speaker": "lord",
    "text": [
@@ -580,7 +580,7 @@
    },
    "goal": "{seat}の{palace}へ戻る",
    "wait": {
-    "days": 15
+    "days": 6
    },
    "speaker": "plotter",
    "art": "court",
@@ -716,9 +716,9 @@
     "place": "seat",
     "building": "palace"
    },
-   "goal": "30日ほど身を慎んだのち、{seat}の{palace}へ詫びに行く",
+   "goal": "7日ほど身を慎んだのち、{seat}の{palace}へ詫びに行く",
    "wait": {
-    "days": 30
+    "days": 7
    },
    "speaker": "lord",
    "text": [
@@ -741,7 +741,7 @@
    },
    "goal": "{lord}の使者として{thirdcap}の{palace}へ行き、{third}の名士{sage}に会う",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "sage",
    "art": "court",
@@ -827,7 +827,7 @@
    },
    "goal": "大江のほとりの{river}で、{power}の船団に加わる",
    "wait": {
-    "days": 15
+    "days": 6
    },
    "goto": [
     {
@@ -1023,7 +1023,7 @@
    },
    "goal": "{seat}の{palace}で{ruler}に目通りする",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "ruler",
    "art": "court",

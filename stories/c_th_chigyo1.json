@@ -184,7 +184,7 @@
    ],
    "effects": [
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "note": "{here}の知行所で、留守を預かる者の立て替えを返し、給金を上げた。"
@@ -202,7 +202,7 @@
      "flag": "ch_chigyo_own"
     },
     {
-     "fame": 10
+     "fame": 3
     },
     {
      "note": "{here}の知行所で、村への詫びを自分の名で出すことにした。"
@@ -253,7 +253,7 @@
      "flag": "ch_chigyo_judged"
     },
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "xp": "speech",

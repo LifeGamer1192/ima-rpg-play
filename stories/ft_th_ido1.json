@@ -154,7 +154,7 @@
    ],
    "effects": [
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "favor": 4
@@ -177,7 +177,7 @@
    ],
    "effects": [
     {
-     "fame": 9
+     "fame": 2
     },
     {
      "favor": 4
@@ -202,7 +202,7 @@
      "money": -900
     },
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "xp": "trade",
@@ -221,7 +221,7 @@
    ],
    "effects": [
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "xp": "stealth",
@@ -240,7 +240,7 @@
    ],
    "effects": [
     {
-     "fame": 10
+     "fame": 3
     },
     {
      "note": "{here}の村の者とともに、上流の堰を昼のうちに崩した。"

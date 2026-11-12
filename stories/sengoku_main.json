@@ -173,10 +173,10 @@
     "place": "castle",
     "building": "palace"
    },
-   "goal": "どこにも仕えていない身で、ひと月ののちに{castle}の城の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
+   "goal": "どこにも仕えていない身で、七日ののちに{castle}の城の{lord}を訪ねる（{power}へ移るかどうかは、そのとき決める）",
    "wait": {
     "free": true,
-    "days": 30
+    "days": 7
    },
    "speaker": "lord",
    "text": [
@@ -564,7 +564,7 @@
    },
    "goal": "{lord}の名代として{thirdcap}へ行き、{chajin}の茶会に出る",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "chajin",
    "art": "court",
@@ -651,7 +651,7 @@
    },
    "goal": "{castle}の城へ戻る",
    "wait": {
-    "days": 15
+    "days": 6
    },
    "speaker": "traitor",
    "art": "court",
@@ -787,9 +787,9 @@
     "place": "castle",
     "building": "palace"
    },
-   "goal": "30日ほど身を慎んだのち、{castle}の城へ詫びに行く",
+   "goal": "7日ほど身を慎んだのち、{castle}の城へ詫びに行く",
    "wait": {
-    "days": 30
+    "days": 7
    },
    "speaker": "lord",
    "text": [
@@ -811,7 +811,7 @@
    },
    "goal": "{rival}の本城{rivalcap}へ攻め寄せる陣に加わる",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "lord",
    "art": "war",
@@ -928,7 +928,7 @@
    },
    "goal": "{castle}の城で{ruler}に目通りする",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "ruler",
    "art": "court",

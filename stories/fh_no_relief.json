@@ -193,7 +193,7 @@
    ],
    "effects": [
     {
-     "fame": 26
+     "fame": 4
     },
     {
      "favor": 16
@@ -207,7 +207,7 @@
      "n": 9
     },
     {
-     "money": 700
+     "money": 150
     },
     {
      "note": "山上の砦は、囲みが引くまで守り切った。"
@@ -223,7 +223,7 @@
    ],
    "effects": [
     {
-     "fame": 22
+     "fame": 4
     },
     {
      "favor": 8
@@ -250,7 +250,7 @@
    ],
    "effects": [
     {
-     "fame": 24
+     "fame": 4
     },
     {
      "rep": "realm",
@@ -273,7 +273,7 @@
    ],
    "effects": [
     {
-     "fame": 18
+     "fame": 3
     },
     {
      "favor": 10
@@ -299,7 +299,7 @@
    ],
    "effects": [
     {
-     "fame": 16
+     "fame": 3
     },
     {
      "favor": 6

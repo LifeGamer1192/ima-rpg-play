@@ -338,7 +338,7 @@
    },
    "goal": "{capital}の城へ戻り、{lord}に御下命の次第を言上する",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "goto": [
     {

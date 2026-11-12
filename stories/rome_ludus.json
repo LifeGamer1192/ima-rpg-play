@@ -127,7 +127,7 @@
    "speaker": "peer",
    "art": "duel",
    "wait": {
-    "days": 8
+    "days": 5
    },
    "text": [
     "稽古は型と、重い木剣の素振りと、走り込みだった。{peer}は買われてきた者で、ガリアの生まれだという。",
@@ -223,7 +223,7 @@
    "speaker": "patron",
    "art": "duel",
    "wait": {
-    "days": 12
+    "days": 5
    },
    "text": [
     "{patron}の家が、父の葬礼に供えの立ち合いを出すという。もとは死者に捧げる血だった。いまは見世物でもある。",
@@ -325,7 +325,7 @@
    "speaker": "master",
    "art": "duel",
    "wait": {
-    "days": 16
+    "days": 6
    },
    "text": [
     "{master}が木剣を一本、卓に置いた。授けられれば自由の身、二度と砂に立たなくてよいという印である。",
@@ -458,7 +458,7 @@
    "speaker": "master",
    "art": "duel",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "text": [
     "{master}は左手の、指のないところを撫でながら言った。"

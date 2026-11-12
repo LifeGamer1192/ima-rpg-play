@@ -119,9 +119,9 @@
     "place": "here",
     "building": "school"
    },
-   "goal": "10日ほど稽古を積み、{here}の道場に戻る",
+   "goal": "5日ほど稽古を積み、{here}の道場に戻る",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "rival",
    "art": "war",
@@ -213,7 +213,7 @@
     "skill": {
      "blade": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "村の長",
    "art": "war",
@@ -484,9 +484,9 @@
     "place": "here",
     "building": "school"
    },
-   "goal": "20日ほどのちに{here}の道場へ戻る",
+   "goal": "6日ほどのちに{here}の道場へ戻る",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "master",
    "art": "tale",
@@ -582,7 +582,7 @@
      "blade": 38
     },
     "fame": 20,
-    "days": 30
+    "days": 7
    },
    "speaker": "rival",
    "art": "war",

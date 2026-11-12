@@ -189,7 +189,7 @@
      "money": 250
     },
     {
-     "fame": 9
+     "fame": 2
     },
     {
      "favor": 8
@@ -218,7 +218,7 @@
      "money": 200
     },
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "favor": 6
@@ -244,7 +244,7 @@
      "money": 220
     },
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "favor": 8
@@ -271,10 +271,10 @@
    ],
    "effects": [
     {
-     "money": 300
+     "money": 150
     },
     {
-     "fame": 14
+     "fame": 3
     },
     {
      "favor": 10

@@ -187,7 +187,7 @@
    ],
    "effects": [
     {
-     "fame": 24
+     "fame": 4
     },
     {
      "favor": 14
@@ -201,7 +201,7 @@
      "n": 8
     },
     {
-     "money": 400
+     "money": 200
     },
     {
      "note": "{here}の四十日の留め置きを、十四日に縮めさせた。"
@@ -217,7 +217,7 @@
    ],
    "effects": [
     {
-     "fame": 14
+     "fame": 3
     },
     {
      "rep": "realm",
@@ -240,10 +240,10 @@
    ],
    "effects": [
     {
-     "fame": 16
+     "fame": 3
     },
     {
-     "money": 900
+     "money": 150
     },
     {
      "xp": "trade",
@@ -262,7 +262,7 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "favor": 8
@@ -285,7 +285,7 @@
    ],
    "effects": [
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "xp": "stealth",
@@ -304,7 +304,7 @@
    ],
    "effects": [
     {
-     "fame": -8
+     "fame": -4
     },
     {
      "favor": -10

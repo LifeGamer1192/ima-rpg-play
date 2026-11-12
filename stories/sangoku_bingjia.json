@@ -130,9 +130,9 @@
     "place": "village",
     "building": "house"
    },
-   "goal": "10日ほど学んだのち、{master}の使いで{village}の村へ行く",
+   "goal": "5日ほど学んだのち、{master}の使いで{village}の村へ行く",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "村の三老",
    "art": "war",
@@ -229,7 +229,7 @@
     "skill": {
      "bow": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "rival",
    "art": "lecture",
@@ -440,9 +440,9 @@
     "place": "front",
     "building": "barracks"
    },
-   "goal": "20日ほどのちに{front}の兵営に戻る",
+   "goal": "6日ほどのちに{front}の兵営に戻る",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "rival",
    "art": "war",
@@ -538,7 +538,7 @@
     "skill": {
      "bow": 32
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "master",
    "art": "lecture",
@@ -639,7 +639,7 @@
      "bow": 38
     },
     "fame": 20,
-    "days": 30
+    "days": 7
    },
    "speaker": "rival",
    "art": "war",

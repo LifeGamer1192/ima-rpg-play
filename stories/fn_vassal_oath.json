@@ -190,10 +190,10 @@
    ],
    "effects": [
     {
-     "fame": 14
+     "fame": 3
     },
     {
-     "money": 400
+     "money": 200
     },
     {
      "favor": 10
@@ -219,10 +219,10 @@
    ],
    "effects": [
     {
-     "fame": 8
+     "fame": 2
     },
     {
-     "money": 300
+     "money": 150
     },
     {
      "favor": 6
@@ -244,10 +244,10 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
-     "money": 350
+     "money": 150
     },
     {
      "favor": 8
@@ -273,7 +273,7 @@
    ],
    "effects": [
     {
-     "fame": 5
+     "fame": 2
     },
     {
      "favor": 10
@@ -291,7 +291,7 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "rep": "realm",

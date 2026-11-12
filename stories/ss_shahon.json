@@ -188,7 +188,7 @@
    ],
    "effects": [
     {
-     "money": 300
+     "money": 150
     },
     {
      "fame": 4
@@ -210,10 +210,10 @@
    ],
    "effects": [
     {
-     "money": 350
+     "money": 150
     },
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "xp": "letters",
@@ -232,10 +232,10 @@
    ],
    "effects": [
     {
-     "money": 300
+     "money": 150
     },
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "xp": "letters",
@@ -254,10 +254,10 @@
    ],
    "effects": [
     {
-     "money": 500
+     "money": 250
     },
     {
-     "fame": 5
+     "fame": 2
     },
     {
      "xp": "trade",
@@ -276,7 +276,7 @@
    ],
    "effects": [
     {
-     "money": 500
+     "money": 250
     },
     {
      "fame": 3

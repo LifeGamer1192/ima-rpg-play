@@ -172,7 +172,7 @@
    ],
    "effects": [
     {
-     "fame": 24
+     "fame": 4
     },
     {
      "rep": "realm",
@@ -195,7 +195,7 @@
    ],
    "effects": [
     {
-     "fame": 20
+     "fame": 4
     },
     {
      "favor": 8
@@ -222,7 +222,7 @@
    ],
    "effects": [
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "xp": "stealth",
@@ -241,7 +241,7 @@
    ],
    "effects": [
     {
-     "fame": -8
+     "fame": -4
     },
     {
      "favor": -6
@@ -259,7 +259,7 @@
    ],
    "effects": [
     {
-     "fame": 18
+     "fame": 3
     },
     {
      "favor": 12

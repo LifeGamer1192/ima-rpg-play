@@ -187,10 +187,10 @@
    ],
    "effects": [
     {
-     "fame": 8
+     "fame": 2
     },
     {
-     "money": 400
+     "money": 200
     },
     {
      "favor": 10
@@ -212,10 +212,10 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
-     "money": 300
+     "money": 150
     },
     {
      "favor": 8
@@ -248,7 +248,7 @@
      "fame": 4
     },
     {
-     "money": 300
+     "money": 150
     },
     {
      "favor": 12

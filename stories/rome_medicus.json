@@ -122,7 +122,7 @@
    "speaker": "officer",
    "art": "tale",
    "wait": {
-    "days": 8
+    "days": 5
    },
    "text": [
     "{officer}が運び込まれた。腿に矢。鏃は返しが付いていて、抜けば肉を裂く。",
@@ -198,7 +198,7 @@
    "speaker": "peer",
    "art": "disaster",
    "wait": {
-    "days": 12
+    "days": 5
    },
    "text": [
     "三階建ての集合住宅で、熱が広がっていた。水は一階の共同の桶から汲む。厠は路地の端。",
@@ -321,7 +321,7 @@
    "speaker": "elder",
    "art": "court",
    "wait": {
-    "days": 14
+    "days": 5
    },
    "text": [
     "{elder}が町の議で、{master}の追放を求めた。報酬を取って治すのは市民の務めに反する、外国人を信じすぎる、というのである。",
@@ -393,7 +393,7 @@
    "speaker": "elder",
    "art": "tale",
    "wait": {
-    "days": 16
+    "days": 6
    },
    "text": [
     "使いが来た。{elder}が倒れたという。胸を押さえ、息が浅い。",

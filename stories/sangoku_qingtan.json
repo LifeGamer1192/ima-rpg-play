@@ -129,9 +129,9 @@
     "place": "here",
     "building": "school"
    },
-   "goal": "10日ほどのち、月の初めの評の日に{here}の名士の館に戻る",
+   "goal": "5日ほどのち、月の初めの評の日に{here}の名士の館に戻る",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "heir",
    "art": "feast",
@@ -261,7 +261,7 @@
     "skill": {
      "speech": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "poor",
    "art": "lecture",
@@ -470,9 +470,9 @@
     "place": "here",
     "building": "inn"
    },
-   "goal": "20日ほどのち、{here}の{inn}で人と会う",
+   "goal": "6日ほどのち、{here}の{inn}で人と会う",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "覆面の男",
    "art": "inn",
@@ -590,7 +590,7 @@
     "skill": {
      "speech": 32
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "host",
    "art": "feast",
@@ -686,7 +686,7 @@
      "speech": 38
     },
     "fame": 20,
-    "days": 30
+    "days": 7
    },
    "speaker": "minister",
    "art": "court",

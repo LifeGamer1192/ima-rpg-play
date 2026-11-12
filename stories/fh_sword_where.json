@@ -250,7 +250,7 @@
      "label": "高く売れるほうを本物にする",
      "effects": [
       {
-       "money": 2200
+       "money": 250
       },
       {
        "rep": "realm",
@@ -272,13 +272,13 @@
    ],
    "effects": [
     {
-     "fame": 20
+     "fame": 4
     },
     {
      "favor": 15
     },
     {
-     "money": 800
+     "money": 150
     },
     {
      "note": "{old}の剣は、宮のものが本物とされた。"
@@ -293,7 +293,7 @@
    ],
    "effects": [
     {
-     "fame": 16
+     "fame": 3
     },
     {
      "rep": "realm",
@@ -316,7 +316,7 @@
    ],
    "effects": [
     {
-     "fame": 24
+     "fame": 4
     },
     {
      "favor": -10
@@ -361,7 +361,7 @@
    ],
    "effects": [
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "note": "{old}の剣は、宮に高く買われて本物になった。"

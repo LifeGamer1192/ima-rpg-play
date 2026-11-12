@@ -135,9 +135,9 @@
     "place": "village",
     "building": "house"
    },
-   "goal": "10日ほど学んだのち、{master}の使いで{village}の戸籍を改める",
+   "goal": "5日ほど学んだのち、{master}の使いで{village}の戸籍を改める",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "clan",
    "art": "trade",
@@ -252,7 +252,7 @@
     "skill": {
      "trade": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "典農の役人",
    "art": "trade",
@@ -467,9 +467,9 @@
     "place": "lordcap",
     "building": "palace"
    },
-   "goal": "20日のうちに{lordcap}の州府へ上り、{clan}の訴えに答える",
+   "goal": "6日のうちに{lordcap}の州府へ上り、{clan}の訴えに答える",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "minister",
    "art": "court",
@@ -605,7 +605,7 @@
     "skill": {
      "letters": 32
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "master",
    "art": "lecture",
@@ -702,7 +702,7 @@
      "letters": 38
     },
     "fame": 20,
-    "days": 30
+    "days": 7
    },
    "speaker": "ruler",
    "art": "court",

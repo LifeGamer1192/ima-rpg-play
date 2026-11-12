@@ -170,10 +170,10 @@
    ],
    "effects": [
     {
-     "fame": 26
+     "fame": 4
     },
     {
-     "money": 1800
+     "money": 200
     },
     {
      "xp": "speech",
@@ -193,7 +193,7 @@
    ],
    "effects": [
     {
-     "fame": 14
+     "fame": 3
     },
     {
      "xp": "blade",
@@ -233,14 +233,14 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "xp": "trade",
      "n": 8
     },
     {
-     "money": 400
+     "money": 200
     },
     {
      "note": "{old}の腕相撲の胴元の儲けを、両家に示した。"
@@ -256,7 +256,7 @@
    ],
    "effects": [
     {
-     "fame": 20
+     "fame": 4
     },
     {
      "rep": "realm",
@@ -267,7 +267,7 @@
      "n": 7
     },
     {
-     "money": 600
+     "money": 250
     },
     {
      "note": "{old}の腕相撲は、新しい審判が引き分けとした。"

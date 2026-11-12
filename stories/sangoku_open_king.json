@@ -165,7 +165,7 @@
    },
    "goal": "粗衣に着替え、身をやつして{capital}の市を歩く",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "goto": [
     {
@@ -252,7 +252,7 @@
    },
    "goal": "{capital}の宮城で、{schemer}の訴えを聞く",
    "wait": {
-    "days": 15
+    "days": 6
    },
    "goto": [
     {

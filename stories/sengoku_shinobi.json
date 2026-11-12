@@ -118,9 +118,9 @@
    "at": {
     "place": "ridge"
    },
-   "goal": "10日ほど修業したのち、{kunoichi}と{ridge}の峠へ向かう",
+   "goal": "5日ほど修業したのち、{kunoichi}と{ridge}の峠へ向かう",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "kunoichi",
    "art": "war",
@@ -240,7 +240,7 @@
     "skill": {
      "stealth": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "kunoichi",
    "art": "war",
@@ -542,9 +542,9 @@
    "at": {
     "place": "here"
    },
-   "goal": "15日ほどのちに、{here}の里へ戻る",
+   "goal": "6日ほどのちに、{here}の里へ戻る",
    "wait": {
-    "days": 15
+    "days": 6
    },
    "speaker": "kashira",
    "art": "disaster",
@@ -690,7 +690,7 @@
     "skill": {
      "stealth": 38
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "kashira",
    "art": "tale",

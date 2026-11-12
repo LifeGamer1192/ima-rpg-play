@@ -176,7 +176,7 @@
      },
      "effects": [
       {
-       "money": 2600
+       "money": 250
       }
      ],
      "next": "end_rival"
@@ -207,7 +207,7 @@
    ],
    "effects": [
     {
-     "fame": 24
+     "fame": 4
     },
     {
      "favor": -8
@@ -217,7 +217,7 @@
      "n": 8
     },
     {
-     "money": 600
+     "money": 250
     },
     {
      "note": "{old}の学者の初めの稿を学院に出し、学派が割れた。"
@@ -232,7 +232,7 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "favor": -12
@@ -254,7 +254,7 @@
    ],
    "effects": [
     {
-     "fame": 30
+     "fame": 4
     },
     {
      "favor": -20
@@ -276,7 +276,7 @@
    ],
    "effects": [
     {
-     "fame": -14
+     "fame": -4
     },
     {
      "favor": -10

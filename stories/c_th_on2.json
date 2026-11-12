@@ -210,10 +210,10 @@
    ],
    "effects": [
     {
-     "money": 300
+     "money": 150
     },
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "xp": "trade",
@@ -233,7 +233,7 @@
    ],
    "effects": [
     {
-     "fame": 10
+     "fame": 3
     },
     {
      "note": "{here}で、恩に着ていた者の弟の年季を買い戻した。"
@@ -249,7 +249,7 @@
    ],
    "effects": [
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "xp": "speech",
@@ -269,7 +269,7 @@
    ],
    "effects": [
     {
-     "fame": 5
+     "fame": 2
     },
     {
      "xp": "speech",
@@ -309,7 +309,7 @@
      "money": 200
     },
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "xp": "trade",
@@ -328,7 +328,7 @@
    ],
    "effects": [
     {
-     "fame": 7
+     "fame": 2
     },
     {
      "note": "{here}で、恩に着ていた者と品を交わし、貸し借りを振り出しに戻した。"
@@ -344,7 +344,7 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "xp": "letters",

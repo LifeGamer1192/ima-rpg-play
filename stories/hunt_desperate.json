@@ -366,7 +366,7 @@
    },
    "goal": "（季節が巡ったら、{lair}の村に寄ってみる）",
    "wait": {
-    "days": 90
+    "days": 7
    },
    "speaker": "elder",
    "art": "feast",

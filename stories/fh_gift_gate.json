@@ -126,7 +126,7 @@
      "n": 7
     },
     {
-     "fame": 6
+     "fame": 2
     }
    ],
    "next": "s2"
@@ -251,7 +251,7 @@
    ],
    "effects": [
     {
-     "fame": 26
+     "fame": 4
     },
     {
      "favor": 16
@@ -278,7 +278,7 @@
    ],
    "effects": [
     {
-     "fame": 24
+     "fame": 4
     },
     {
      "favor": 14
@@ -304,7 +304,7 @@
    ],
    "effects": [
     {
-     "fame": 20
+     "fame": 4
     },
     {
      "favor": 10
@@ -330,7 +330,7 @@
    ],
    "effects": [
     {
-     "fame": 18
+     "fame": 3
     },
     {
      "hp": -30
@@ -352,7 +352,7 @@
    ],
    "effects": [
     {
-     "fame": -8
+     "fame": -4
     },
     {
      "favor": -14
@@ -377,7 +377,7 @@
    ],
    "effects": [
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "favor": -4

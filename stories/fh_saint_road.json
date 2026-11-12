@@ -225,7 +225,7 @@
      "label": "宿場に黙り料を払わせる",
      "effects": [
       {
-       "money": 1400
+       "money": 200
       },
       {
        "rep": "realm",
@@ -243,7 +243,7 @@
    ],
    "effects": [
     {
-     "fame": 20
+     "fame": 4
     },
     {
      "rep": "realm",
@@ -266,10 +266,10 @@
    ],
    "effects": [
     {
-     "fame": 14
+     "fame": 3
     },
     {
-     "money": 300
+     "money": 150
     },
     {
      "xp": "letters",

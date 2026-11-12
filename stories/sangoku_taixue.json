@@ -132,9 +132,9 @@
     "place": "here",
     "building": "school"
    },
-   "goal": "10日ほど学んだのち、{here}の学舎に戻る",
+   "goal": "5日ほど学んだのち、{here}の学舎に戻る",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "friend",
    "art": "lecture",
@@ -262,7 +262,7 @@
     "skill": {
      "letters": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "client",
    "art": "jail",
@@ -530,9 +530,9 @@
     "place": "village",
     "building": "house"
    },
-   "goal": "20日ほどのちに、{village}の県で起きた仇討ちの裁きに立ち会う",
+   "goal": "6日ほどのちに、{village}の県で起きた仇討ちの裁きに立ち会う",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "avenger",
    "art": "jail",
@@ -621,7 +621,7 @@
     "skill": {
      "letters": 32
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "master",
    "art": "lecture",
@@ -718,7 +718,7 @@
      "letters": 38
     },
     "fame": 20,
-    "days": 30
+    "days": 7
    },
    "speaker": "ruler",
    "art": "court",

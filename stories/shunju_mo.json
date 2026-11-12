@@ -102,9 +102,9 @@
    "at": {
     "place": "village"
    },
-   "goal": "10日ほど修業したのち、{comrade}と{village}の村を守りに行く",
+   "goal": "5日ほど修業したのち、{comrade}と{village}の村を守りに行く",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "comrade",
    "art": "war",
@@ -221,7 +221,7 @@
     "skill": {
      "blade": 20
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "juzi",
    "art": "war",
@@ -375,7 +375,7 @@
    },
    "goal": "{weak}の都、{weakcap}の城壁へ向かう",
    "wait": {
-    "days": 15
+    "days": 6
    },
    "speaker": "comrade",
    "art": "war",
@@ -517,7 +517,7 @@
    "goal": "名声を20まで上げ、{here}の工房に戻る",
    "wait": {
     "fame": 20,
-    "days": 20
+    "days": 6
    },
    "speaker": "juzi",
    "art": "tale",

@@ -147,6 +147,7 @@
       "foes": "bandit",
       "n": 3,
       "level": 0,
+      "with": "mate",
       "win": "c2after",
       "lose": "c2saved"
      }
@@ -210,12 +211,12 @@
    },
    "goal": "{home}の{inn}で、学院の使いに会う",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "magus",
    "art": "inn",
    "text": [
-    "ひと月のうちに、紙を七枚剥がして七枚とも取り消した。名が、町の外にも出はじめた。",
+    "六日のうちに、紙を七枚剥がして七枚とも取り消した。名が、町の外にも出はじめた。",
     "{inn}に、杖を持った女が訪ねてきた。魔術学院の{magus}だ。「{gate}の石の環のことで来ました」",
     "「あそこの門（ポータル）が、開いています。去年までは、年に一度、半日だけでした。今年は、ずっと」"
    ],
@@ -274,6 +275,7 @@
       "foes": "beast",
       "n": 3,
       "level": 18,
+      "with": "mate",
       "win": "c4won",
       "lose": "c4lost"
      }
@@ -356,7 +358,7 @@
    },
    "goal": "{capital}で{lord}に会う",
    "wait": {
-    "days": 25
+    "days": 6
    },
    "speaker": "lord",
    "art": "court",
@@ -437,7 +439,7 @@
    },
    "goal": "{front}へ行き、{rival}との戦を見る",
    "wait": {
-    "days": 30
+    "days": 7
    },
    "speaker": "mate",
    "art": "war",
@@ -652,7 +654,7 @@
    },
    "goal": "{gate}のあたりで、牛が減るわけを調べる",
    "wait": {
-    "days": 40
+    "days": 7
    },
    "speaker": "mate",
    "art": "road",

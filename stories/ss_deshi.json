@@ -167,7 +167,7 @@
    ],
    "effects": [
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "xp": "letters",
@@ -186,7 +186,7 @@
    ],
    "effects": [
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "xp": "speech",
@@ -206,7 +206,7 @@
    ],
    "effects": [
     {
-     "fame": 7
+     "fame": 2
     },
     {
      "xp": "speech",
@@ -279,7 +279,7 @@
    ],
    "effects": [
     {
-     "fame": -5
+     "fame": -4
     },
     {
      "note": "{here}で、弟子の始末を弟子に任せたままにした。"

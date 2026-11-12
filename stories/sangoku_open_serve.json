@@ -338,7 +338,7 @@
    },
    "goal": "{capital}の宮城へ戻り、{lord}に任の次第を報告する",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "goto": [
     {

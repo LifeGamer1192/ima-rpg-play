@@ -211,7 +211,7 @@
      "flag": "ch_on_stood"
     },
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "note": "{here}で、恩に着ている者の弟の借りの保証に立った。"
@@ -232,7 +232,7 @@
      "money": 100
     },
     {
-     "fame": 5
+     "fame": 2
     },
     {
      "xp": "stealth",
@@ -252,7 +252,7 @@
    ],
    "effects": [
     {
-     "fame": 5
+     "fame": 2
     },
     {
      "xp": "trade",

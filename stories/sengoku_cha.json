@@ -127,9 +127,9 @@
     "place": "town",
     "building": "house"
    },
-   "goal": "10日ほど稽古を積んだのち、{town}の豪商の茶会に{sosho}の名代で出る",
+   "goal": "5日ほど稽古を積んだのち、{town}の豪商の茶会に{sosho}の名代で出る",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "gosho",
    "art": "trade",
@@ -255,7 +255,7 @@
     "skill": {
      "speech": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "widow",
    "art": "tale",
@@ -526,9 +526,9 @@
     "place": "lordcap",
     "building": "palace"
    },
-   "goal": "20日ほどのちに、{lordcap}の城へ{sosho}の赦免を願いに上る",
+   "goal": "6日ほどのちに、{lordcap}の城へ{sosho}の赦免を願いに上る",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "envoy",
    "art": "court",
@@ -642,7 +642,7 @@
     "skill": {
      "speech": 38
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "gosho",
    "art": "tale",

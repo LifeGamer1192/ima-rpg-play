@@ -68,7 +68,7 @@
      "label": "役人に知らせる",
      "effects": [
       {
-       "money": 600
+       "money": 250
       },
       {
        "favor": 8
@@ -205,7 +205,7 @@
    ],
    "effects": [
     {
-     "fame": 22
+     "fame": 4
     },
     {
      "xp": "stealth",
@@ -229,7 +229,7 @@
    ],
    "effects": [
     {
-     "fame": 24
+     "fame": 4
     },
     {
      "xp": "letters",
@@ -249,7 +249,7 @@
    ],
    "effects": [
     {
-     "fame": 20
+     "fame": 4
     },
     {
      "favor": 6
@@ -272,7 +272,7 @@
    ],
    "effects": [
     {
-     "fame": 26
+     "fame": 4
     },
     {
      "xp": "speech",
@@ -292,7 +292,7 @@
    ],
    "effects": [
     {
-     "fame": 14
+     "fame": 3
     },
     {
      "xp": "stealth",
@@ -312,7 +312,7 @@
    ],
    "effects": [
     {
-     "fame": -6
+     "fame": -4
     },
     {
      "favor": -10
@@ -330,7 +330,7 @@
    ],
    "effects": [
     {
-     "fame": -12
+     "fame": -4
     },
     {
      "note": "{here}の学院の壁の写しを、役人に知らせた。"

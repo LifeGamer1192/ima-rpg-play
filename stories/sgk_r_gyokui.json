@@ -262,7 +262,7 @@
      "money": 100
     },
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "xp": "letters",
@@ -285,10 +285,10 @@
      "unflag": "sgk_gy_known"
     },
     {
-     "money": 400
+     "money": 200
     },
     {
-     "fame": -5
+     "fame": -4
     },
     {
      "xp": "trade",
@@ -337,7 +337,7 @@
      "money": 120
     },
     {
-     "fame": 5
+     "fame": 2
     },
     {
      "xp": "letters",

@@ -150,10 +150,10 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
-     "money": 500
+     "money": 250
     },
     {
      "favor": 8
@@ -175,10 +175,10 @@
    ],
    "effects": [
     {
-     "fame": 14
+     "fame": 3
     },
     {
-     "money": 400
+     "money": 200
     },
     {
      "favor": 10
@@ -200,10 +200,10 @@
    ],
    "effects": [
     {
-     "fame": 6
+     "fame": 2
     },
     {
-     "money": 600
+     "money": 250
     },
     {
      "xp": "letters",

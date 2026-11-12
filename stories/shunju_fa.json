@@ -406,7 +406,7 @@
    },
    "goal": "{here}の書院の{master}に変法の次第を報せる",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "master",
    "art": "tale",

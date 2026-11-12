@@ -137,9 +137,9 @@
     "place": "village",
     "building": "house"
    },
-   "goal": "10日ほど学んだのち、{osho}の使いで{village}の村へ行く",
+   "goal": "5日ほど学んだのち、{osho}の使いで{village}の村へ行く",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "kozo",
    "art": "disaster",
@@ -252,7 +252,7 @@
     "skill": {
      "medicine": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "fugitive",
    "art": "war",
@@ -459,9 +459,9 @@
     "place": "lordcap",
     "building": "palace"
    },
-   "goal": "20日のうちに{lordcap}の城へ上り、寺の焼き討ちを止める",
+   "goal": "6日のうちに{lordcap}の城へ上り、寺の焼き討ちを止める",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "vassal",
    "art": "court",
@@ -618,7 +618,7 @@
     "skill": {
      "letters": 38
     },
-    "days": 30
+    "days": 7
    },
    "speaker": "osho",
    "art": "faith",

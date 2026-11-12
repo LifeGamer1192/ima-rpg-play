@@ -235,17 +235,17 @@
    ],
    "effects": [
     {
-     "money": 1500
+     "money": 250
     },
     {
-     "fame": 18
+     "fame": 3
     },
     {
      "xp": "letters",
      "n": 6
     },
     {
-     "item": "manastone",
+     "item": "iron",
      "n": 2
     },
     {
@@ -261,10 +261,10 @@
    ],
    "effects": [
     {
-     "money": 500
+     "money": 250
     },
     {
-     "fame": 10
+     "fame": 3
     },
     {
      "xp": "letters",
@@ -286,7 +286,7 @@
      "money": 50
     },
     {
-     "fame": 5
+     "fame": 2
     },
     {
      "xp": "speech",

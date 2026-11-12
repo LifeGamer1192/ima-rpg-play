@@ -217,9 +217,9 @@
     "place": "here",
     "building": "school"
    },
-   "goal": "{here}の館に籠もり、30日ほど書を読んで弁舌を28まで磨く",
+   "goal": "{here}の館に籠もり、7日ほど書を読んで弁舌を28まで磨く",
    "wait": {
-    "days": 30,
+    "days": 7,
     "skill": {
      "speech": 28
     }
@@ -371,9 +371,9 @@
    "at": {
     "place": "front"
    },
-   "goal": "30日のうちに支度を整え、国境の{front}で開かれる会盟へ向かう",
+   "goal": "7日のうちに支度を整え、国境の{front}で開かれる会盟へ向かう",
    "wait": {
-    "days": 30
+    "days": 7
    },
    "speaker": "peer",
    "art": "court",
@@ -509,7 +509,7 @@
    },
    "goal": "傷を癒やし、{here}の館の{master}を訪ねる",
    "wait": {
-    "days": 20
+    "days": 6
    },
    "speaker": "master",
    "art": "tale",

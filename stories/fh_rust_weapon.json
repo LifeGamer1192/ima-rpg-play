@@ -122,7 +122,7 @@
      "n": 6
     },
     {
-     "fame": 6
+     "fame": 2
     }
    ],
    "next": "who"
@@ -201,14 +201,14 @@
    ],
    "effects": [
     {
-     "fame": 12
+     "fame": 3
     },
     {
      "rep": "realm",
      "n": 1
     },
     {
-     "money": 300
+     "money": 150
     },
     {
      "item": "iron",
@@ -227,10 +227,10 @@
    ],
    "effects": [
     {
-     "fame": 16
+     "fame": 3
     },
     {
-     "money": 1200
+     "money": 200
     },
     {
      "xp": "letters",
@@ -249,7 +249,7 @@
    ],
    "effects": [
     {
-     "fame": 20
+     "fame": 4
     },
     {
      "favor": 12

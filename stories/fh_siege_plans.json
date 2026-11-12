@@ -164,7 +164,7 @@
      "label": "攻め手に図面を返す（高く売る）",
      "effects": [
       {
-       "money": 2400
+       "money": 250
       },
       {
        "rep": "realm",
@@ -192,7 +192,7 @@
    ],
    "effects": [
     {
-     "fame": 28
+     "fame": 4
     },
     {
      "favor": 18
@@ -206,7 +206,7 @@
      "n": 9
     },
     {
-     "money": 1000
+     "money": 150
     },
     {
      "note": "{here}の壁は、攻城具の作り手の図面で備えられた。"
@@ -222,7 +222,7 @@
    ],
    "effects": [
     {
-     "fame": 24
+     "fame": 4
     },
     {
      "favor": 14
@@ -249,10 +249,10 @@
    ],
    "effects": [
     {
-     "fame": 16
+     "fame": 3
     },
     {
-     "money": 1400
+     "money": 200
     },
     {
      "xp": "trade",
@@ -294,7 +294,7 @@
    ],
    "effects": [
     {
-     "fame": -12
+     "fame": -4
     },
     {
      "favor": -10
@@ -313,7 +313,7 @@
    ],
    "effects": [
     {
-     "fame": 20
+     "fame": 4
     },
     {
      "xp": "stealth",

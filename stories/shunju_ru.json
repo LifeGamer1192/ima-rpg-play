@@ -105,9 +105,9 @@
     "place": "village",
     "building": "house"
    },
-   "goal": "10日ほど学んだのち、{master}の使いで{village}の喪家へ行く",
+   "goal": "5日ほど学んだのち、{master}の使いで{village}の喪家へ行く",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "喪家の主",
    "art": "faith",
@@ -203,7 +203,7 @@
     "skill": {
      "letters": 22
     },
-    "days": 20
+    "days": 6
    },
    "speaker": "prince",
    "art": "court",
@@ -302,7 +302,7 @@
    "goal": "名声を10まで上げ、{courtcap}の宮城へ戻る",
    "wait": {
     "fame": 10,
-    "days": 15
+    "days": 6
    },
    "speaker": "schemer",
    "art": "court",
@@ -349,7 +349,7 @@
    },
    "goal": "{master}の一行とともに、{wild}へ流れていく",
    "wait": {
-    "days": 10
+    "days": 5
    },
    "speaker": "peer",
    "art": "disaster",
@@ -487,7 +487,7 @@
     "skill": {
      "letters": 38
     },
-    "days": 30
+    "days": 7
    },
    "art": "tale",
    "text": [

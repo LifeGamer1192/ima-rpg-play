@@ -142,7 +142,7 @@
      "label": "片方の国にだけ渡す",
      "effects": [
       {
-       "money": 900
+       "money": 150
       },
       {
        "favor": 10
@@ -171,7 +171,7 @@
    ],
    "effects": [
     {
-     "fame": 28
+     "fame": 4
     },
     {
      "favor": 18
@@ -197,7 +197,7 @@
    ],
    "effects": [
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "xp": "speech",
@@ -216,7 +216,7 @@
    ],
    "effects": [
     {
-     "fame": 10
+     "fame": 3
     },
     {
      "rep": "realm",

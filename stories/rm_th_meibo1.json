@@ -92,7 +92,7 @@
      "label": "礼を受け取る",
      "effects": [
       {
-       "money": 900
+       "money": 250
       },
       {
        "flag": "ch_meibo_took"
@@ -137,7 +137,7 @@
    ],
    "effects": [
     {
-     "fame": 6
+     "fame": 2
     },
     {
      "favor": 6
@@ -156,7 +156,7 @@
    ],
    "effects": [
     {
-     "fame": 8
+     "fame": 2
     },
     {
      "note": "{here}で捕虜の名簿を払える家から出しつつ、礼を貧しい家に回した。"
@@ -171,7 +171,7 @@
    ],
    "effects": [
     {
-     "fame": 14
+     "fame": 3
     },
     {
      "note": "{here}で捕虜の身代金の不足を自分で埋め、五十一人を帰した。"
